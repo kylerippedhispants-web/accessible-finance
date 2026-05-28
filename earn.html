@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="Logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earn — Accessible Finance</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --ink: #1a1816;
+  --ink2: #4a4640;
+  --ink3: #8a8480;
+  --green: #1d6b45;
+  --green-light: #e8f4ed;
+  --green-mid: #2d8a59;
+  --amber: #c8822a;
+  --amber-light: #fdf3e4;
+  --border: #e4e0d8;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'Syne', sans-serif;
+  --body: 'Literata', Georgia, serif;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(247,245,240,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-mark {
+  width: 32px; height: 32px;
+  background: var(--green); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans); font-size: 14px; font-weight: 800;
+  color: white; letter-spacing: -1px; flex-shrink: 0;
+}
+.logo-text { font-family: var(--sans); font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px; }
+.nav-links { display: flex; gap: 4px; list-style: none; }
+.nav-links a {
+  font-family: var(--sans); font-size: 14px; font-weight: 500;
+  color: var(--ink2); text-decoration: none;
+  padding: 6px 14px; border-radius: 100px; transition: all 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { background: var(--green-light); color: var(--green); }
+.nav-cta {
+  font-family: var(--sans); font-size: 14px; font-weight: 600;
+  background: var(--green); color: white;
+  padding: 9px 20px; border-radius: 100px; text-decoration: none;
+  transition: background 0.2s; letter-spacing: 0.2px;
+}
+.nav-cta:hover { background: var(--green-mid); }
+
+/* ── PAGE HERO ── */
+.page-hero {
+  max-width: 1160px; margin: 0 auto;
+  padding: 72px 40px 56px;
+  border-bottom: 1px solid var(--border);
+}
+.section-label {
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--ink3); margin-bottom: 16px;
+}
+.page-hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 5vw, 62px);
+  font-weight: 400; line-height: 1.1;
+  letter-spacing: -1.5px; margin-bottom: 20px;
+}
+.page-hero h1 em { font-style: italic; color: var(--green); }
+.page-hero .lead {
+  font-size: 18px; font-weight: 300; color: var(--ink2);
+  max-width: 560px; line-height: 1.65;
+}
+
+/* ── DISCLOSURE BANNER ── */
+.disclosure {
+  background: var(--amber-light);
+  border: 1px solid #f0d8b0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex; gap: 12px; align-items: flex-start;
+  font-size: 13px; color: var(--ink2); line-height: 1.6;
+  max-width: 1160px; margin: 32px auto 0;
+  padding-left: calc(20px + 40px);
+  padding-right: 40px;
+}
+.disclosure-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* ── MAIN LAYOUT ── */
+.earn-main {
+  max-width: 1160px; margin: 0 auto;
+  padding: 64px 40px 80px;
+}
+
+/* ── HERO REFERRAL CARD ── */
+.referral-hero {
+  background: var(--ink);
+  border-radius: 28px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  margin-bottom: 64px;
+  position: relative;
+}
+.referral-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(29,107,69,0.35) 0%, transparent 65%);
+  pointer-events: none;
+}
+.referral-hero-content {
+  padding: 56px 56px 56px 56px;
+  position: relative; z-index: 1;
+}
+.referral-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  background: rgba(29,107,69,0.4); color: #6dd49a;
+  border: 1px solid rgba(29,107,69,0.5);
+  padding: 6px 14px; border-radius: 100px;
+  margin-bottom: 24px;
+}
+.referral-badge-dot {
+  width: 6px; height: 6px; background: #6dd49a;
+  border-radius: 50%; animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+.referral-hero-content h2 {
+  font-family: var(--serif);
+  font-size: clamp(34px, 3.5vw, 46px);
+  color: white; font-weight: 400;
+  line-height: 1.12; letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+.referral-hero-content h2 em { font-style: italic; color: #6dd49a; }
+.referral-hero-content p {
+  font-size: 16px; color: rgba(255,255,255,0.65);
+  font-weight: 300; line-height: 1.65;
+  max-width: 420px; margin-bottom: 36px;
+}
+.referral-steps {
+  display: flex; flex-direction: column; gap: 12px;
+  margin-bottom: 36px;
+}
+.referral-step {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 14px; color: rgba(255,255,255,0.75);
+}
+.step-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(29,107,69,0.5); border: 1px solid rgba(109,212,154,0.3);
+  color: #6dd49a; font-family: var(--sans); font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.referral-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--sans); font-size: 15px; font-weight: 700;
+  background: var(--green); color: white;
+  padding: 16px 32px; border-radius: 100px;
+  text-decoration: none; letter-spacing: 0.2px;
+  transition: all 0.2s; box-shadow: 0 4px 20px rgba(29,107,69,0.4);
+}
+.referral-cta:hover { background: var(--green-mid); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(29,107,69,0.45); }
+.referral-cta svg { transition: transform 0.2s; }
+.referral-cta:hover svg { transform: translateX(4px); }
+
+/* ── COIN PANEL ── */
+.referral-hero-visual {
+  display: flex; align-items: center; justify-content: center;
+  position: relative; padding: 40px;
+  background: linear-gradient(135deg, rgba(29,107,69,0.15) 0%, transparent 100%);
+}
+.coin-wrap {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  animation: coinFloat 4s ease-in-out infinite;
+}
+@keyframes coinFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+.coin {
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffe066, #f5c842 30%, #c8982a 60%, #a67c20 85%, #7a5c14);
+  box-shadow:
+    0 0 0 8px rgba(200,152,42,0.2),
+    0 0 0 16px rgba(200,152,42,0.08),
+    0 20px 60px rgba(0,0,0,0.5),
+    inset 0 4px 12px rgba(255,240,100,0.4),
+    inset 0 -6px 16px rgba(100,60,10,0.3);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; position: relative; overflow: hidden;
+}
+.coin::before {
+  content: '';
+  position: absolute; inset: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,220,60,0.35);
+}
+.coin::after {
+  content: '';
+  position: absolute;
+  top: 15%; left: 20%; width: 35%; height: 20%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 100%);
+  border-radius: 50%; transform: rotate(-30deg);
+  animation: coinShine 3s ease-in-out infinite;
+}
+@keyframes coinShine {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.coin-amount {
+  font-family: var(--sans); font-size: 52px; font-weight: 800;
+  color: #3d2800; letter-spacing: -2px; line-height: 1;
+  text-shadow: 0 2px 4px rgba(255,200,50,0.4), 0 -1px 0 rgba(255,220,100,0.6);
+  position: relative; z-index: 1;
+}
+.coin-label {
+  font-family: var(--sans); font-size: 13px; font-weight: 700;
+  color: rgba(61,40,0,0.7); letter-spacing: 2px; text-transform: uppercase;
+  position: relative; z-index: 1; margin-top: 4px;
+}
+.coin-glow {
+  position: absolute; inset: -30px;
+  background: radial-gradient(circle, rgba(200,152,42,0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* ── HOW IT WORKS ── */
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 400; line-height: 1.15;
+  letter-spacing: -1px; margin-bottom: 10px;
+}
+.section-title em { font-style: italic; color: var(--green); }
+.section-sub {
+  font-size: 16px; color: var(--ink2); font-weight: 300;
+  max-width: 480px; line-height: 1.65; margin-bottom: 40px;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin-bottom: 64px;
+}
+.how-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px 28px;
+  position: relative; overflow: hidden;
+  transition: all 0.25s;
+}
+.how-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.09); border-color: transparent; }
+.how-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: var(--green);
+  border-radius: 0 0 20px 20px;
+  opacity: 0; transition: opacity 0.25s;
+}
+.how-card:hover::after { opacity: 1; }
+.how-num {
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 16px;
+}
+.how-icon { font-size: 32px; margin-bottom: 16px; line-height: 1; }
+.how-title {
+  font-family: var(--sans); font-size: 17px; font-weight: 700;
+  color: var(--ink); letter-spacing: -0.3px; margin-bottom: 10px;
+}
+.how-desc {
+  font-size: 14px; color: var(--ink2); line-height: 1.65; font-weight: 300;
+}
+
+/* ── ABOUT WEALTHSIMPLE ── */
+.about-ws {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 52px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 64px;
+}
+.ws-content h3 {
+  font-family: var(--serif);
+  font-size: 32px; font-weight: 400;
+  letter-spacing: -0.8px; margin-bottom: 16px; line-height: 1.2;
+}
+.ws-content h3 em { font-style: italic; color: var(--green); }
+.ws-content p {
+  font-size: 15px; color: var(--ink2); font-weight: 300;
+  line-height: 1.7; margin-bottom: 14px;
+}
+.ws-features {
+  display: flex; flex-direction: column; gap: 10px; margin-top: 8px;
+}
+.ws-feature {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 14px; color: var(--ink2);
+}
+.ws-feature-check {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--green-light); color: var(--green);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; flex-shrink: 0; margin-top: 2px; font-weight: 700;
+}
+.ws-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.ws-stat {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px;
+}
+.ws-stat-num {
+  font-family: var(--sans); font-size: 32px; font-weight: 800;
+  color: var(--ink); letter-spacing: -1px; line-height: 1; margin-bottom: 6px;
+}
+.ws-stat-label {
+  font-size: 13px; color: var(--ink3); font-weight: 300; line-height: 1.4;
+}
+
+/* ── CTA STRIP ── */
+.cta-strip {
+  background: var(--green);
+  border-radius: 24px;
+  padding: 52px 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 40px;
+  position: relative; overflow: hidden;
+}
+.cta-strip::before {
+  content: '$';
+  position: absolute; font-family: var(--serif);
+  font-size: 240px; line-height: 1; color: rgba(255,255,255,0.06);
+  right: 200px; bottom: -40px; pointer-events: none;
+}
+.cta-strip-text .section-label { color: rgba(255,255,255,0.55); margin-bottom: 10px; }
+.cta-strip-title {
+  font-family: var(--serif); font-size: 32px; color: white;
+  font-weight: 400; letter-spacing: -0.8px; line-height: 1.2; margin-bottom: 8px;
+}
+.cta-strip-sub {
+  font-size: 15px; color: rgba(255,255,255,0.65); font-weight: 300;
+}
+.cta-strip-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--sans); font-size: 15px; font-weight: 700;
+  background: white; color: var(--green);
+  padding: 16px 32px; border-radius: 100px;
+  text-decoration: none; white-space: nowrap;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.cta-strip-btn:hover { background: var(--ink); color: white; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  padding: 60px 40px 32px;
+  color: rgba(255,255,255,0.6);
+}
+.footer-inner { max-width: 1160px; margin: 0 auto; }
+.footer-top {
+  display: grid;
+  grid-template-columns: 260px 1fr 1fr 1fr;
+  gap: 60px; margin-bottom: 60px;
+}
+.footer-brand .logo-mark { background: rgba(255,255,255,0.1); }
+.footer-brand .logo-text { color: white; }
+.footer-tagline {
+  font-size: 14px; margin-top: 12px; line-height: 1.6;
+  font-weight: 300; max-width: 200px;
+}
+.footer-col h4 {
+  font-family: var(--sans); font-size: 13px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: white; margin-bottom: 16px;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-col a {
+  font-size: 14px; color: rgba(255,255,255,0.55);
+  text-decoration: none; font-weight: 300; transition: color 0.2s;
+}
+.footer-col a:hover { color: white; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 28px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px; font-family: var(--sans);
+}
+@media (max-width: 600px) { .footer-bottom { flex-direction: column; gap: 12px; text-align: center; } }
+.footer-disclaimer {
+  max-width: 600px; line-height: 1.6;
+  color: rgba(255,255,255,0.3); font-size: 12px; font-weight: 300;
+}
+
+/* ── ANIMATIONS ── */
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+
+/* ── NEWSLETTER POPUP ── */
+.nl-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+  z-index: 999; align-items: center; justify-content: center; padding: 20px;
+}
+.nl-overlay.open { display: flex; }
+.nl-modal {
+  background: var(--surface); border-radius: 24px;
+  width: 100%; max-width: 520px; overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.25); position: relative;
+  animation: nlSlideIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes nlSlideIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.nl-header { background: var(--green); padding: 32px 36px 28px; position: relative; }
+.nl-header::before {
+  content: "📬"; position: absolute; font-size: 80px;
+  right: 24px; top: 50%; transform: translateY(-50%);
+  opacity: 0.18; line-height: 1;
+}
+.nl-label-popup {
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.6); margin-bottom: 10px;
+}
+.nl-title { font-family: var(--serif); font-size: 26px; color: white; font-weight: 400; line-height: 1.2; letter-spacing: -0.4px; }
+.nl-title em { font-style: italic; }
+.nl-sub { font-size: 14px; color: rgba(255,255,255,0.7); font-weight: 300; margin-top: 8px; line-height: 1.6; }
+.nl-body { padding: 8px 8px 20px; background: #f9f8f5; }
+.nl-body iframe { display: block; border-radius: 10px; background: white; }
+.nl-fine { font-family: var(--sans); font-size: 11px; color: var(--ink3); text-align: center; margin-top: 10px; padding: 0 16px; }
+.nl-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 32px; height: 32px; border-radius: 50%; border: none;
+  background: rgba(255,255,255,0.15); color: white; font-size: 16px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  line-height: 1; transition: background 0.2s;
+}
+.nl-close:hover { background: rgba(255,255,255,0.3); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) { .referral-hero-visual { display: none !important; } }
+@media (max-width: 900px) {
+  .referral-hero { grid-template-columns: 1fr; }
+  .referral-hero-visual { padding: 40px; min-height: 200px; }
+  .how-grid { grid-template-columns: 1fr; }
+  .about-ws { grid-template-columns: 1fr; }
+  .cta-strip { flex-direction: column; text-align: center; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .nav-links { display: none; }
+}
+@media (max-width: 600px) {
+  nav { padding: 0 20px; }
+  .earn-main, .page-hero { padding-left: 20px; padding-right: 20px; }
+  .disclosure { padding-left: 20px; padding-right: 20px; }
+  .referral-hero-content { padding: 36px 28px; }
+  .about-ws { padding: 32px 28px; }
+  .cta-strip { padding: 36px 28px; }
+  .footer-top { grid-template-columns: 1fr; }
+  footer { padding: 40px 20px 24px; }
+  .ws-stats { grid-template-columns: 1fr 1fr; }
+}
+
+/* ═══════════════ HAMBURGER / MOBILE NAV ═══════════════ */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  background: none;
+  border: none;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.hamburger:hover { background: var(--green-light); }
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  transform-origin: center;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 64px 0 0 0;
+  background: rgba(247,245,240,0.98);
+  backdrop-filter: blur(20px);
+  z-index: 99;
+  flex-direction: column;
+  padding: 20px 16px;
+  gap: 2px;
+  border-top: 1px solid var(--border);
+  overflow-y: auto;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--sans);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink2);
+  text-decoration: none;
+  padding: 14px 16px;
+  border-radius: 12px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+}
+.mobile-menu a:hover, .mobile-menu a.mobile-active { background: var(--green-light); color: var(--green); }
+.mobile-menu-divider { height: 1px; background: var(--border); margin: 12px 0; }
+.mobile-menu-cta a {
+  background: var(--green) !important;
+  color: white !important;
+  justify-content: center;
+  border-radius: 100px !important;
+  margin-top: 4px;
+}
+.mobile-menu-cta a:hover { background: var(--green-mid) !important; }
+@media (max-width: 900px) {
+  .hamburger { display: flex; }
+  .nav-cta { display: none; }
+  body.menu-open { overflow: hidden; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="Logo.png" alt="Accessible Finance" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:center top;">
+    <span class="logo-text">Accessible Finance</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="topic.html">Learn</a></li>
+    <li><a href="articles.html">Articles</a></li>
+    <li><a href="index.html#glossary">Glossary</a></li>
+    <li><a href="earn.html" class="active" style="font-weight:700;">💵 Rewards</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="#" class="nav-cta" id="navNewsletter">Get the Newsletter</a>
+  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html">🏠 Home</a>
+    <a href="topic.html">📚 Learn</a>
+    <a href="articles.html">📰 Articles</a>
+    <a href="index.html#glossary">🔤 Glossary</a>
+    <a href="earn.html" class="mobile-active">💵 Rewards</a>
+    <a href="about.html">👤 About</a>
+    <div class="mobile-menu-divider"></div>
+    <div class="mobile-menu-cta">
+      <a href="index.html#newsletter">✉️ Get the Newsletter</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="section-label">Referral Offers</div>
+  <h1>Start investing and <em>get paid to do it</em></h1>
+  <p class="lead">We've partnered with Wealthsimple to bring you a real cash bonus when you open an account and start investing. No tricks, no fine print surprises.</p>
+</div>
+
+<!-- DISCLOSURE -->
+<div class="disclosure" style="margin-left:auto;margin-right:auto;max-width:1160px;padding:16px 40px 16px 40px;">
+  <span class="disclosure-icon">ℹ️</span>
+  <span><strong>Disclosure:</strong> The offer below is a referral partnership. If you sign up using our link, Accessible Finance may receive a referral fee — and you receive your $25 bonus. We only feature platforms we'd genuinely recommend. This is not financial advice.</span>
+</div>
+
+<!-- MAIN -->
+<main class="earn-main">
+
+  <!-- HERO REFERRAL CARD -->
+  <div class="referral-hero fade-in">
+    <div class="referral-hero-content">
+      <div class="referral-badge">
+        <span class="referral-badge-dot"></span>
+        Active Offer
+      </div>
+      <h2>Get <em>$25 free</em> when you open a Wealthsimple account</h2>
+      <p>Sign up using our referral link, fund your account, and Wealthsimple will deposit $25 directly into your portfolio. It takes about 5 minutes to get started.</p>
+      <div class="referral-steps">
+        <div class="referral-step">
+          <span class="step-num">1</span>
+          Click the link below and create your free account
+        </div>
+        <div class="referral-step">
+          <span class="step-num">2</span>
+          Fund your account with any amount
+        </div>
+        <div class="referral-step">
+          <span class="step-num">3</span>
+          Wealthsimple deposits $25 into your account automatically
+        </div>
+      </div>
+      <a href="https://www.wealthsimple.com/invite/BZJM-A" target="_blank" rel="noopener" class="referral-cta">
+        Claim Your $25
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="referral-hero-visual">
+      <div class="coin-wrap">
+        <div class="coin-glow"></div>
+        <div class="coin">
+          <div class="coin-amount">$25</div>
+          <div class="coin-label">Free</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div style="margin-bottom:32px;">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Three steps to <em>your bonus</em></h2>
+    <p class="section-sub">The whole process takes about 5 minutes. Here's exactly what happens.</p>
+  </div>
+
+  <div class="how-grid">
+    <div class="how-card fade-in stagger-1">
+      <div class="how-num">Step 01</div>
+      <div class="how-icon">🔗</div>
+      <div class="how-title">Click the referral link</div>
+      <div class="how-desc">Use the link on this page to go directly to Wealthsimple's sign-up. The referral code is embedded automatically — you don't need to type anything in.</div>
+    </div>
+    <div class="how-card fade-in stagger-2">
+      <div class="how-num">Step 02</div>
+      <div class="how-icon">🪪</div>
+      <div class="how-title">Create your account</div>
+      <div class="how-desc">Sign up with your email, verify your identity (takes a few minutes), and set up your account. It's free to open and there's no minimum balance required.</div>
+    </div>
+    <div class="how-card fade-in stagger-3">
+      <div class="how-num">Step 03</div>
+      <div class="how-icon">💸</div>
+      <div class="how-title">Fund and receive $25</div>
+      <div class="how-desc">Deposit any amount into your account. Once funded, Wealthsimple will deposit your $25 bonus directly into your portfolio. Terms apply.</div>
+    </div>
+  </div>
+
+
+  <!-- COMING SOON TIER -->
+  <div style="margin-bottom: 64px; padding: 40px; background: var(--surface); border: 2px dashed var(--border); border-radius: 24px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap;" class="fade-in">
+    <div style="flex: 1; min-width: 240px;">
+      <div style="font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="width: 8px; height: 8px; background: var(--amber); border-radius: 50%; display: inline-block;"></span>
+        Coming Soon
+      </div>
+      <h3 style="font-family: var(--serif); font-size: clamp(22px, 3vw, 30px); color: var(--ink); font-weight: 400; letter-spacing: -0.5px; margin-bottom: 12px;">Earn $10 by completing a <em style="color:var(--green);font-style:italic;">learning path</em></h3>
+      <p style="font-size: 15px; color: var(--ink2); font-weight: 300; line-height: 1.65; max-width: 480px;">We're building a structured learning reward — complete the Investing Fundamentals path and unlock a $10 gift card. More details coming soon.</p>
+    </div>
+    <div style="flex-shrink: 0; text-align: center; padding: 24px 32px; background: var(--amber-light); border: 1px solid #f0d8b0; border-radius: 16px;">
+      <div style="font-family: var(--sans); font-size: 48px; font-weight: 800; color: var(--amber); letter-spacing: -2px; line-height: 1;">$10</div>
+      <div style="font-family: var(--sans); font-size: 12px; color: var(--amber); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-top: 4px;">Gift Card</div>
+    </div>
+  </div>
+
+  <!-- ABOUT WEALTHSIMPLE -->
+  <div class="about-ws fade-in">
+    <div class="ws-content">
+      <div class="section-label">About Wealthsimple</div>
+      <h3>Canada's leading <em>online investing platform</em></h3>
+      <p>Wealthsimple is one of the most trusted investing platforms in Canada — used by over 3 million Canadians to invest, save, and grow their money. It's where many people start their investing journey, and for good reason.</p>
+      <p>They offer commission-free stock and ETF trading, managed portfolios, TFSAs, RRSPs, and more — all in a clean, easy-to-use app designed for people who aren't finance professionals.</p>
+      <div class="ws-features">
+        <div class="ws-feature">
+          <div class="ws-feature-check">✓</div>
+          <span>Commission-free stock and ETF trading</span>
+        </div>
+        <div class="ws-feature">
+          <div class="ws-feature-check">✓</div>
+          <span>TFSA, RRSP, FHSA, and personal accounts</span>
+        </div>
+        <div class="ws-feature">
+          <div class="ws-feature-check">✓</div>
+          <span>Managed portfolios (hands-off investing)</span>
+        </div>
+        <div class="ws-feature">
+          <div class="ws-feature-check">✓</div>
+          <span>No minimum balance to open an account</span>
+        </div>
+        <div class="ws-feature">
+          <div class="ws-feature-check">✓</div>
+          <span>Regulated by IIROC and CIPF insured</span>
+        </div>
+      </div>
+    </div>
+    <div class="ws-stats">
+      <div class="ws-stat">
+        <div class="ws-stat-num">3M+</div>
+        <div class="ws-stat-label">Canadians using Wealthsimple</div>
+      </div>
+      <div class="ws-stat">
+        <div class="ws-stat-num">$0</div>
+        <div class="ws-stat-label">Commission on stock & ETF trades</div>
+      </div>
+      <div class="ws-stat">
+        <div class="ws-stat-num">$0</div>
+        <div class="ws-stat-label">Minimum balance required</div>
+      </div>
+      <div class="ws-stat">
+        <div class="ws-stat-num">$25</div>
+        <div class="ws-stat-label">Free cash bonus with our link</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- RAKUTEN SECTION -->
+  <div style="max-width: 1160px; margin: 0 auto 80px; padding: 0 40px;" class="fade-in">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; overflow: hidden;">
+      <!-- Left: content -->
+      <div style="padding: 52px 48px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+          <div style="width: 44px; height: 44px; background: #BF0000; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;">🛍️</div>
+          <div>
+            <div style="font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink3);">Cash Back Partner</div>
+            <div style="font-family: var(--sans); font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px;">Rakuten Canada</div>
+          </div>
+        </div>
+        <h2 style="font-family: var(--serif); font-size: clamp(24px, 3vw, 36px); color: var(--ink); font-weight: 400; letter-spacing: -0.8px; line-height: 1.2; margin-bottom: 14px;">Get <em style="color:#BF0000; font-style:italic;">cash back</em> on everyday purchases</h2>
+        <p style="font-size: 15px; color: var(--ink2); font-weight: 300; line-height: 1.7; margin-bottom: 28px; max-width: 400px;">Rakuten gives you a percentage of your money back every time you shop at hundreds of Canadian and international retailers — including groceries, travel, fashion, and more. It's free to join and the cash back adds up fast.</p>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px;">
+          <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--ink2); font-weight: 300; line-height: 1.5;">
+            <span style="color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px;">✓</span> Cash back at 750+ stores including Amazon, Indigo, and Expedia
+          </li>
+          <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--ink2); font-weight: 300; line-height: 1.5;">
+            <span style="color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px;">✓</span> Paid out quarterly by cheque or PayPal — no minimums
+          </li>
+          <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--ink2); font-weight: 300; line-height: 1.5;">
+            <span style="color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px;">✓</span> Completely free — Rakuten earns a commission from retailers, not from you
+          </li>
+        </ul>
+        <a href="https://www.rakuten.ca/referrer?referrerid=JdBJgx4OV54%3D&src=Link" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans); font-size: 15px; font-weight: 600; background: #BF0000; color: white; padding: 14px 28px; border-radius: 100px; text-decoration: none; transition: background 0.2s;" onmouseover="this.style.background='#9a0000'" onmouseout="this.style.background='#BF0000'">
+          Join Rakuten Canada
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <p style="font-size: 12px; color: var(--ink3); margin-top: 14px; font-weight: 300; line-height: 1.5;">Referral link — we may earn a small commission at no cost to you. We only recommend services we believe in.</p>
+      </div>
+      <!-- Right: visual -->
+      <div style="background: linear-gradient(135deg, #fff5f5, #ffe8e8); height: 100%; min-height: 360px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; padding: 40px;">
+        <div style="font-size: 72px;">🛍️</div>
+        <div style="text-align: center;">
+          <div style="font-family: var(--sans); font-size: 48px; font-weight: 800; color: #BF0000; letter-spacing: -2px; line-height: 1;">Cash Back</div>
+          <div style="font-family: var(--sans); font-size: 14px; color: #9a0000; font-weight: 500; margin-top: 4px;">on every qualifying purchase</div>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+          <span style="font-family: var(--sans); font-size: 12px; font-weight: 600; background: white; color: #BF0000; padding: 6px 14px; border-radius: 100px; border: 1px solid #f5c0c0;">Amazon</span>
+          <span style="font-family: var(--sans); font-size: 12px; font-weight: 600; background: white; color: #BF0000; padding: 6px 14px; border-radius: 100px; border: 1px solid #f5c0c0;">Indigo</span>
+          <span style="font-family: var(--sans); font-size: 12px; font-weight: 600; background: white; color: #BF0000; padding: 6px 14px; border-radius: 100px; border: 1px solid #f5c0c0;">Expedia</span>
+          <span style="font-family: var(--sans); font-size: 12px; font-weight: 600; background: white; color: #BF0000; padding: 6px 14px; border-radius: 100px; border: 1px solid #f5c0c0;">+ 750 more</span>
+        </div>
+      </div>
+    </div>
+    <style>
+    @media (max-width: 800px) { 
+      .rakuten-inner { grid-template-columns: 1fr !important; }
+    }
+    </style>
+  </div>
+
+  <!-- CTA STRIP -->
+  <div class="cta-strip fade-in">
+    <div class="cta-strip-text">
+      <div class="section-label">Ready to start?</div>
+      <div class="cta-strip-title">Open your account in 5 minutes</div>
+      <p class="cta-strip-sub">Use our link and get $25 deposited to your account automatically.</p>
+    </div>
+    <a href="https://www.wealthsimple.com/invite/BZJM-A" target="_blank" rel="noopener" class="cta-strip-btn">
+      Claim Your $25
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="Logo.png" alt="Accessible Finance" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:center top;opacity:0.9;">
+          <span class="logo-text" style="color:white;">Accessible Finance</span>
+        </div>
+        <p class="footer-tagline">Investing education without the jargon. Free, forever.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="topic.html">Investing Fundamentals</a></li>
+          <li><a href="#">Asset Classes</a></li>
+          <li><a href="#">Portfolio Thinking</a></li>
+          <li><a href="#">Market Behavior</a></li>
+          <li><a href="index.html#glossary">Glossary</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Articles</h4>
+        <ul>
+          <li><a href="articles.html">Beginner Guides</a></li>
+          <li><a href="articles.html">Intermediate Topics</a></li>
+          <li><a href="articles.html">Case Studies</a></li>
+          <li><a href="articles.html">Latest Posts</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="earn.html" style="color:var(--green);font-weight:700;">💵 Rewards</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-disclaimer">Not financial advice. All content is for educational purposes only. Investing involves risk, including the possible loss of principal. Past performance is not indicative of future results. Referral bonuses are provided by Wealthsimple and subject to their terms and conditions.</p>
+      <span style="color:rgba(255,255,255,0.3);font-size:12px;white-space:nowrap;margin-left:20px;">© 2026 Accessible Finance</span>
+    </div>
+  </div>
+</footer>
+
+<!-- NEWSLETTER POPUP -->
+<div class="nl-overlay" id="nlOverlay">
+  <div class="nl-modal">
+    <button class="nl-close" id="nlClose" aria-label="Close">&#x2715;</button>
+    <div class="nl-header">
+      <div class="nl-label-popup">Weekly Newsletter</div>
+      <div class="nl-title">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
+      <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
+    </div>
+    <div class="nl-body">
+      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no"></iframe>
+      <p class="nl-fine">No spam. Unsubscribe anytime. We never share your email.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Fade-in observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Newsletter popup
+(function(){
+  var overlay = document.getElementById("nlOverlay");
+  var closeBtn = document.getElementById("nlClose");
+  function openNL(e){ if(e) e.preventDefault(); overlay.classList.add("open"); }
+  function closeNL(){ overlay.classList.remove("open"); }
+  document.getElementById("navNewsletter").addEventListener("click", openNL);
+  document.querySelectorAll("a[href*='newsletter']").forEach(function(a){
+    a.addEventListener("click", openNL);
+  });
+  if(closeBtn) closeBtn.addEventListener("click", closeNL);
+  overlay.addEventListener("click", function(e){ if(e.target===overlay) closeNL(); });
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeNL(); });
+})();
+</script>
+
+<script>
+(function(){
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobile-menu');
+  if(!btn || !menu) return;
+  function closeMenu(){
+    menu.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+    document.body.classList.remove('menu-open');
+  }
+  btn.addEventListener('click', function(){
+    var isOpen = menu.classList.contains('open');
+    if(isOpen){ closeMenu(); } else {
+      menu.classList.add('open');
+      btn.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      document.body.classList.add('menu-open');
+    }
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
+})();
+</script>
+</body>
+</html>
