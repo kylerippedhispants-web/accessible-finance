@@ -5,6 +5,11 @@
 <link rel="icon" type="image/png" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About — Accessible Finance</title>
+<meta name="description" content="Accessible Finance is an independent, ad-free publication built to make investing knowledge available to everyone. Meet the team and read our story.">
+<link rel="canonical" href="https://accessiblefinance.example/about.html">
+<meta property="og:title" content="About — Accessible Finance">
+<meta property="og:description" content="Independent, ad-free investing education — our mission, values, and story.">
+<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,6 +46,8 @@ nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.92)
 .nav-links a:hover, .nav-links a.active { background: var(--green-light); color: var(--green); }
 .nav-cta { font-family: var(--sans); font-size: 14px; font-weight: 600; background: var(--green); color: white; padding: 9px 20px; border-radius: 100px; text-decoration: none; transition: background 0.2s; letter-spacing: 0.2px; }
 .nav-cta:hover { background: var(--green-mid); }
+.about-cta { font-family: var(--sans); font-size: 14px; font-weight: 600; background: var(--green); color: white; padding: 11px 24px; border-radius: 100px; text-decoration: none; display: inline-block; transition: background 0.2s; }
+.about-cta:hover { background: var(--green-mid); }
 
 /* PAGE HERO */
 .page-hero { padding: 80px 40px 60px; max-width: 1160px; margin: 0 auto; }
@@ -74,7 +81,7 @@ nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.92)
 .value-card:hover { background: rgba(255,255,255,0.07); }
 .value-icon { font-size: 32px; margin-bottom: 20px; }
 .value-title { font-family: var(--sans); font-size: 18px; font-weight: 700; color: white; margin-bottom: 12px; letter-spacing: -0.3px; }
-.value-desc { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7; font-weight: 300; }
+.value-desc { font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.7; font-weight: 300; }
 
 /* STORY TIMELINE */
 .story-section { padding: 100px 40px; max-width: 1160px; margin: 0 auto; }
@@ -333,7 +340,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-logo">
+  <a href="index.html" class="nav-logo" aria-label="Accessible Finance — Home">
     <img src="Logo.png" alt="Accessible Finance" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
     <span class="logo-text">Accessible Finance</span>
   </a>
@@ -344,8 +351,8 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
     <li><a href="earn.html" style="color:var(--green);font-weight:700;">💵 Rewards</a></li>
     <li><a href="about.html" class="active">About</a></li>
   </ul>
-  <a href="index.html#newsletter" class="nav-cta">Get the Newsletter</a>
-  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+  <a href="index.html#newsletter" class="nav-cta" data-open-newsletter>Get the Newsletter</a>
+  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span>
     <span></span>
     <span></span>
@@ -517,14 +524,14 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       <h2 style="font-family: var(--serif); font-size: clamp(28px, 3.5vw, 42px); font-weight: 400; line-height: 1.2; letter-spacing: -0.8px; margin-bottom: 20px;">Arthur Li</h2>
       <p style="font-size: 16px; color: var(--ink2); line-height: 1.8; font-weight: 300; margin-bottom: 20px;">Arthur started Accessible Finance after noticing that most personal finance content was either too simplified to be useful or too dense for anyone without a finance background to follow.</p>
       <p style="font-size: 16px; color: var(--ink2); line-height: 1.8; font-weight: 300; margin-bottom: 28px;">As someone who has navigated mental health challenges and seen how financial stress amplifies them, he built this platform specifically for the people underserved by mainstream financial media — neurodivergent folks, people with disabilities, newcomers to Canada, and anyone who's ever felt excluded from the conversation.</p>
-      <a href="index.html#newsletter" style="font-family: var(--sans); font-size: 14px; font-weight: 600; background: var(--green); color: white; padding: 11px 24px; border-radius: 100px; text-decoration: none; display: inline-block; transition: background 0.2s;" onmouseover="this.style.background='var(--green-mid)'" onmouseout="this.style.background='var(--green)'">Get the newsletter</a>
+      <a href="index.html#newsletter" class="about-cta" data-open-newsletter>Get the newsletter</a>
     </div>
     <div style="display: flex; align-items: center; justify-content: center;">
       <div style="width: 180px; height: 180px; border-radius: 50%; background: linear-gradient(135deg, var(--green-light), #a8d5b8); display: flex; align-items: center; justify-content: center; font-size: 72px; flex-shrink: 0; box-shadow: 0 12px 40px rgba(29,107,69,0.15);">👤</div>
     </div>
   </div>
   <style>
-  @media (max-width: 900px) { .founder-grid { grid-template-columns: 1fr !important; } .founder-grid > div:last-child { display: none !important; } }
+  @media (max-width: 900px) { .founder-grid { grid-template-columns: 1fr !important; padding: 40px !important; } }
   @media (max-width: 600px) { .founder-grid { padding: 36px 28px !important; } }
   </style>
 </section>
@@ -553,9 +560,9 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <h4>Learn</h4>
         <ul>
           <li><a href="topic.html">Investing Fundamentals</a></li>
-          <li><a href="#">Asset Classes</a></li>
-          <li><a href="#">Portfolio Thinking</a></li>
-          <li><a href="#">Market Behavior</a></li>
+          <li><a href="articles.html?cat=assets">Asset Classes</a></li>
+          <li><a href="articles.html?cat=portfolio">Portfolio Thinking</a></li>
+          <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
           <li><a href="index.html#glossary">Glossary</a></li>
         </ul>
       </div>
@@ -573,8 +580,8 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <ul>
           <li><a href="about.html">About Us</a></li>
           <li><a href="index.html#newsletter">Newsletter</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Disclaimer</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
     </div>
@@ -594,15 +601,15 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
 <!-- Newsletter Popup -->
 <div class="nl-overlay" id="nlOverlay">
-  <div class="nl-modal">
-    <button class="nl-close" id="nlClose" aria-label="Close">&#x2715;</button>
+  <div class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+    <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
     <div class="nl-header">
       <div class="nl-label">Weekly Newsletter</div>
-      <div class="nl-title">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
+      <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
       <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
     </div>
     <div class="nl-body">
-      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no"></iframe>
+      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
       <p class="nl-fine">No spam. Unsubscribe anytime. We never share your email.</p>
     </div>
   </div>
@@ -614,10 +621,8 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   var closeBtn = document.getElementById("nlClose");
   function openNL(e){ if(e) e.preventDefault(); overlay.classList.add("open"); }
   function closeNL(){ overlay.classList.remove("open"); }
-  document.querySelectorAll("a.nav-cta, a[href*='newsletter']").forEach(function(a){
-    if(a.textContent.trim().toLowerCase().includes("newsletter")){
-      a.addEventListener("click", openNL);
-    }
+  document.querySelectorAll("[data-open-newsletter]").forEach(function(a){
+    a.addEventListener("click", openNL);
   });
   if(closeBtn) closeBtn.addEventListener("click", closeNL);
   overlay.addEventListener("click", function(e){ if(e.target===overlay) closeNL(); });

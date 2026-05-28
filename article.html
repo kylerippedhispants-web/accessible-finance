@@ -5,6 +5,11 @@
 <link rel="icon" type="image/png" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Actual Difference Between Investing and Speculating — Accessible Finance</title>
+<meta name="description" content="Most people confuse investing with speculating. Here's the clear line between the two — with examples from the modern market.">
+<link rel="canonical" href="https://accessiblefinance.example/article.html">
+<meta property="og:title" content="Investing vs. Speculating — Accessible Finance">
+<meta property="og:description" content="A plain-English explanation of the real difference between investing and speculating.">
+<meta property="og:type" content="article">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -104,6 +109,20 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
 .footer-col a:hover { color: white; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-family: var(--sans); }
 .footer-disclaimer { max-width: 600px; line-height: 1.6; color: rgba(255,255,255,0.3); font-size: 12px; font-weight: 300; }
+/* HAMBURGER / MOBILE NAV */
+.hamburger { display: none; background: transparent; border: none; width: 40px; height: 40px; padding: 8px; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 5px; border-radius: 8px; transition: background 0.2s; }
+.hamburger:hover { background: var(--green-light); }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.3s, opacity 0.2s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0; background: var(--bg); padding: 24px 24px 40px; flex-direction: column; gap: 4px; z-index: 99; overflow-y: auto; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: var(--sans); font-size: 18px; font-weight: 500; color: var(--ink); text-decoration: none; padding: 14px 16px; border-radius: 12px; transition: background 0.2s; }
+.mobile-menu a:hover, .mobile-menu a.mobile-active { background: var(--green-light); color: var(--green); }
+.mobile-menu-divider { height: 1px; background: var(--border); margin: 12px 0; }
+.mobile-menu-cta a { background: var(--green); color: #fff !important; text-align: center; font-weight: 600; }
+body.menu-open { overflow: hidden; }
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
@@ -112,6 +131,8 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
   .related-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
   .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .nav-cta { display: none; }
 }
 @media (max-width: 600px) {
   nav { padding: 0 20px; }
@@ -236,8 +257,8 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-logo">
-    <img src="Logo.png" alt="Accessible Finance" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
+  <a href="index.html" class="nav-logo" aria-label="Accessible Finance — Home">
+    <img src="Logo.png" alt="" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
     <span class="logo-text">Accessible Finance</span>
   </a>
   <ul class="nav-links">
@@ -247,7 +268,22 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
     <li><a href="earn.html" style="color:var(--green);font-weight:700;">💵 Rewards</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
-  <a href="index.html#newsletter" class="nav-cta">Get the Newsletter</a>
+  <a href="index.html#newsletter" class="nav-cta" data-open-newsletter>Get the Newsletter</a>
+  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html">🏠 Home</a>
+    <a href="topic.html">📚 Learn</a>
+    <a href="articles.html" class="mobile-active">📰 Articles</a>
+    <a href="index.html#glossary">🔤 Glossary</a>
+    <a href="earn.html">💵 Rewards</a>
+    <a href="about.html">👤 About</a>
+    <div class="mobile-menu-divider"></div>
+    <div class="mobile-menu-cta">
+      <a href="index.html#newsletter">✉️ Get the Newsletter</a>
+    </div>
+  </div>
 </nav>
 
 <!-- ARTICLE HERO -->
@@ -276,7 +312,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
   <aside class="toc">
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
-      <li><a href="#why-it-matters" class="active">Why it matters</a></li>
+      <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#investing-defined">What investing actually is</a></li>
       <li><a href="#speculating-defined">What speculation looks like</a></li>
       <li><a href="#grey-area">The grey area</a></li>
@@ -361,17 +397,17 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
 <section class="related-section">
   <div class="section-label">Continue Reading</div>
   <div class="related-grid">
-    <a href="#" class="related-card">
+    <a href="articles.html" class="related-card">
       <div class="related-cat">Fundamentals</div>
       <div class="related-title">Compound Interest: The Most Powerful Force in Investing</div>
       <div class="related-meta">7 min read · Beginner</div>
     </a>
-    <a href="#" class="related-card">
+    <a href="articles.html" class="related-card">
       <div class="related-cat">Fundamentals</div>
       <div class="related-title">Time in the Market vs. Timing the Market</div>
       <div class="related-meta">6 min read · Beginner</div>
     </a>
-    <a href="#" class="related-card">
+    <a href="articles.html?cat=behavior" class="related-card">
       <div class="related-cat">Market Behavior</div>
       <div class="related-title">Why Smart People Make Bad Investment Decisions</div>
       <div class="related-meta">9 min read · Beginner</div>
@@ -394,9 +430,9 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <h4>Learn</h4>
         <ul>
           <li><a href="topic.html">Investing Fundamentals</a></li>
-          <li><a href="#">Asset Classes</a></li>
-          <li><a href="#">Portfolio Thinking</a></li>
-          <li><a href="#">Market Behavior</a></li>
+          <li><a href="articles.html?cat=assets">Asset Classes</a></li>
+          <li><a href="articles.html?cat=portfolio">Portfolio Thinking</a></li>
+          <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
           <li><a href="index.html#glossary">Glossary</a></li>
         </ul>
       </div>
@@ -414,8 +450,8 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <ul>
           <li><a href="about.html">About Us</a></li>
           <li><a href="index.html#newsletter">Newsletter</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Disclaimer</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
     </div>
@@ -452,15 +488,15 @@ headings.forEach(h => observerTOC.observe(h));
 
 <!-- Newsletter Popup -->
 <div class="nl-overlay" id="nlOverlay">
-  <div class="nl-modal">
-    <button class="nl-close" id="nlClose" aria-label="Close">&#x2715;</button>
+  <div class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+    <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
     <div class="nl-header">
       <div class="nl-label">Weekly Newsletter</div>
-      <div class="nl-title">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
+      <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
       <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
     </div>
     <div class="nl-body">
-      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no"></iframe>
+      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
       <p class="nl-fine">No spam. Unsubscribe anytime. We never share your email.</p>
     </div>
   </div>
@@ -472,14 +508,37 @@ headings.forEach(h => observerTOC.observe(h));
   var closeBtn = document.getElementById("nlClose");
   function openNL(e){ if(e) e.preventDefault(); overlay.classList.add("open"); }
   function closeNL(){ overlay.classList.remove("open"); }
-  document.querySelectorAll("a.nav-cta, a[href*='newsletter']").forEach(function(a){
-    if(a.textContent.trim().toLowerCase().includes("newsletter")){
-      a.addEventListener("click", openNL);
-    }
+  document.querySelectorAll("[data-open-newsletter]").forEach(function(a){
+    a.addEventListener("click", openNL);
   });
   if(closeBtn) closeBtn.addEventListener("click", closeNL);
   overlay.addEventListener("click", function(e){ if(e.target===overlay) closeNL(); });
   document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeNL(); });
+})();
+</script>
+
+<script>
+(function(){
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobile-menu');
+  if(!btn || !menu) return;
+  function closeMenu(){
+    menu.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+    document.body.classList.remove('menu-open');
+  }
+  btn.addEventListener('click', function(){
+    var isOpen = menu.classList.contains('open');
+    if(isOpen){ closeMenu(); } else {
+      menu.classList.add('open');
+      btn.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      document.body.classList.add('menu-open');
+    }
+  });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
 })();
 </script>
 </body>

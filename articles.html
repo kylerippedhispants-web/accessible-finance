@@ -5,6 +5,11 @@
 <link rel="icon" type="image/png" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Articles — Accessible Finance</title>
+<meta name="description" content="Clear, unbiased investing guides organized by topic and reader level. Browse all Accessible Finance articles.">
+<link rel="canonical" href="https://accessiblefinance.example/articles.html">
+<meta property="og:title" content="Articles — Accessible Finance">
+<meta property="og:description" content="Clear, unbiased investing guides for curious people.">
+<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -312,8 +317,8 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-logo">
-    <img src="Logo.png" alt="Accessible Finance" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
+  <a href="index.html" class="nav-logo" aria-label="Accessible Finance — Home">
+    <img src="Logo.png" alt="" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
     <span class="logo-text">Accessible Finance</span>
   </a>
   <ul class="nav-links">
@@ -323,8 +328,8 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
     <li><a href="earn.html" style="color:var(--green);font-weight:700;">💵 Rewards</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
-  <a href="index.html#newsletter" class="nav-cta">Get the Newsletter</a>
-  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+  <a href="index.html#newsletter" class="nav-cta" data-open-newsletter>Get the Newsletter</a>
+  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span>
     <span></span>
     <span></span>
@@ -351,14 +356,14 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
 </section>
 
 <!-- FILTERS -->
-<div class="filters">
-  <button class="filter-btn active" onclick="filterArticles('all', this)">All Topics</button>
-  <button class="filter-btn" onclick="filterArticles('fundamentals', this)">Fundamentals</button>
-  <button class="filter-btn" onclick="filterArticles('assets', this)">Asset Classes</button>
-  <button class="filter-btn" onclick="filterArticles('portfolio', this)">Portfolio Thinking</button>
-  <button class="filter-btn" onclick="filterArticles('behavior', this)">Market Behavior</button>
-  <button class="filter-btn" onclick="filterArticles('beginner', this)">Beginner</button>
-  <button class="filter-btn" onclick="filterArticles('intermediate', this)">Intermediate</button>
+<div class="filters" role="group" aria-label="Filter articles">
+  <button type="button" class="filter-btn active" data-filter="all">All Topics</button>
+  <button type="button" class="filter-btn" data-filter="fundamentals">Fundamentals</button>
+  <button type="button" class="filter-btn" data-filter="assets">Asset Classes</button>
+  <button type="button" class="filter-btn" data-filter="portfolio">Portfolio Thinking</button>
+  <button type="button" class="filter-btn" data-filter="behavior">Market Behavior</button>
+  <button type="button" class="filter-btn" data-filter="beginner">Beginner</button>
+  <button type="button" class="filter-btn" data-filter="intermediate">Intermediate</button>
 </div>
 
 <!-- FEATURED ARTICLE -->
@@ -395,7 +400,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       </div>
     </a>
 
-    <a href="#" class="article-card fade-in stagger-1" data-cat="behavior" data-level="beginner">
+    <a href="article.html" class="article-card fade-in stagger-1" data-cat="behavior" data-level="beginner">
       <div class="article-img bg-blue"><span>🧠</span></div>
       <div class="article-tag">Market Behavior</div>
       <div class="article-body">
@@ -405,7 +410,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       </div>
     </a>
 
-    <a href="#" class="article-card fade-in stagger-2" data-cat="fundamentals" data-level="beginner">
+    <a href="article.html" class="article-card fade-in stagger-2" data-cat="fundamentals" data-level="beginner">
       <div class="article-img bg-green"><span>📈</span></div>
       <div class="article-tag">Fundamentals</div>
       <div class="article-body">
@@ -415,7 +420,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       </div>
     </a>
 
-    <a href="#" class="article-card fade-in" data-cat="portfolio" data-level="intermediate">
+    <a href="article.html" class="article-card fade-in" data-cat="portfolio" data-level="intermediate">
       <div class="article-img bg-teal"><span>🎯</span></div>
       <div class="article-tag">Portfolio</div>
       <div class="article-body">
@@ -425,7 +430,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       </div>
     </a>
 
-    <a href="#" class="article-card fade-in stagger-1" data-cat="fundamentals" data-level="beginner">
+    <a href="article.html" class="article-card fade-in stagger-1" data-cat="fundamentals" data-level="beginner">
       <div class="article-img bg-amber"><span>⏳</span></div>
       <div class="article-tag">Fundamentals</div>
       <div class="article-body">
@@ -435,7 +440,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       </div>
     </a>
 
-    <a href="#" class="article-card fade-in stagger-2" data-cat="assets" data-level="beginner">
+    <a href="article.html" class="article-card fade-in stagger-2" data-cat="assets" data-level="beginner">
       <div class="article-img bg-blue"><span>🌍</span></div>
       <div class="article-tag">Asset Classes</div>
       <div class="article-body">
@@ -445,7 +450,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       </div>
     </a>
 
-    <a href="#" class="article-card fade-in" data-cat="behavior" data-level="intermediate">
+    <a href="article.html" class="article-card fade-in" data-cat="behavior" data-level="intermediate">
       <div class="article-img bg-green"><span>📉</span></div>
       <div class="article-tag">Market Behavior</div>
       <div class="article-body">
@@ -455,7 +460,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       </div>
     </a>
 
-    <a href="#" class="article-card fade-in stagger-1" data-cat="portfolio" data-level="beginner">
+    <a href="article.html" class="article-card fade-in stagger-1" data-cat="portfolio" data-level="beginner">
       <div class="article-img bg-amber"><span>🔄</span></div>
       <div class="article-tag">Portfolio</div>
       <div class="article-body">
@@ -465,7 +470,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       </div>
     </a>
 
-    <a href="#" class="article-card fade-in stagger-2" data-cat="fundamentals" data-level="intermediate">
+    <a href="article.html" class="article-card fade-in stagger-2" data-cat="fundamentals" data-level="intermediate">
       <div class="article-img bg-teal"><span>💰</span></div>
       <div class="article-tag">Fundamentals</div>
       <div class="article-body">
@@ -546,7 +551,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
 
 <!-- LOAD MORE -->
 <div class="load-more-row">
-  <button class="load-more">Load More Articles</button>
+  <button class="load-more" id="loadMore">Load More Articles</button>
 </div>
 
 <!-- FOOTER -->
@@ -564,9 +569,9 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <h4>Learn</h4>
         <ul>
           <li><a href="topic.html">Investing Fundamentals</a></li>
-          <li><a href="#">Asset Classes</a></li>
-          <li><a href="#">Portfolio Thinking</a></li>
-          <li><a href="#">Market Behavior</a></li>
+          <li><a href="articles.html?cat=assets">Asset Classes</a></li>
+          <li><a href="articles.html?cat=portfolio">Portfolio Thinking</a></li>
+          <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
           <li><a href="index.html#glossary">Glossary</a></li>
         </ul>
       </div>
@@ -584,8 +589,8 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <ul>
           <li><a href="about.html">About Us</a></li>
           <li><a href="index.html#newsletter">Newsletter</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Disclaimer</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
     </div>
@@ -602,46 +607,75 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-function filterArticles(filter, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+const PAGE_SIZE = 9;
+let visibleCount = PAGE_SIZE;
+let currentFilter = 'all';
 
+function applyView() {
   const featured = document.querySelector('.featured-card');
-  const cards = document.querySelectorAll('.listing-grid .article-card');
+  const cards = Array.from(document.querySelectorAll('.listing-grid .article-card'));
 
-  // Featured card
-  if (filter === 'all') {
+  if (currentFilter === 'all') {
     featured.parentElement.style.display = '';
   } else {
     const cat = featured.dataset.cat;
     const level = featured.dataset.level;
-    featured.parentElement.style.display = (cat === filter || level === filter) ? '' : 'none';
+    featured.parentElement.style.display = (cat === currentFilter || level === currentFilter) ? '' : 'none';
   }
 
-  // Listing cards
+  let shown = 0;
   cards.forEach(card => {
-    if (filter === 'all') {
+    const matches = currentFilter === 'all' || card.dataset.cat === currentFilter || card.dataset.level === currentFilter;
+    if (matches && shown < visibleCount) {
       card.style.display = '';
+      shown++;
     } else {
-      const cat = card.dataset.cat;
-      const level = card.dataset.level;
-      card.style.display = (cat === filter || level === filter) ? '' : 'none';
+      card.style.display = 'none';
     }
   });
+
+  const totalMatching = cards.filter(c => currentFilter === 'all' || c.dataset.cat === currentFilter || c.dataset.level === currentFilter).length;
+  const loadBtn = document.getElementById('loadMore');
+  if (loadBtn) loadBtn.style.display = (shown < totalMatching) ? '' : 'none';
 }
+
+document.querySelectorAll('.filter-btn').forEach(function(b){
+  b.addEventListener('click', function(){
+    document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    currentFilter = b.dataset.filter;
+    visibleCount = PAGE_SIZE;
+    applyView();
+  });
+});
+
+const loadBtn = document.getElementById('loadMore');
+if (loadBtn) loadBtn.addEventListener('click', function(){
+  visibleCount += PAGE_SIZE;
+  applyView();
+});
+
+const params = new URLSearchParams(window.location.search);
+const preset = params.get('cat');
+if (preset) {
+  const btn = document.querySelector('.filter-btn[data-filter="' + preset + '"]');
+  if (btn) btn.click();
+}
+
+applyView();
 </script>
 
 <!-- Newsletter Popup -->
 <div class="nl-overlay" id="nlOverlay">
-  <div class="nl-modal">
-    <button class="nl-close" id="nlClose" aria-label="Close">&#x2715;</button>
+  <div class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+    <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
     <div class="nl-header">
       <div class="nl-label">Weekly Newsletter</div>
-      <div class="nl-title">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
+      <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
       <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
     </div>
     <div class="nl-body">
-      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no"></iframe>
+      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
       <p class="nl-fine">No spam. Unsubscribe anytime. We never share your email.</p>
     </div>
   </div>
@@ -653,10 +687,8 @@ function filterArticles(filter, btn) {
   var closeBtn = document.getElementById("nlClose");
   function openNL(e){ if(e) e.preventDefault(); overlay.classList.add("open"); }
   function closeNL(){ overlay.classList.remove("open"); }
-  document.querySelectorAll("a.nav-cta, a[href*='newsletter']").forEach(function(a){
-    if(a.textContent.trim().toLowerCase().includes("newsletter")){
-      a.addEventListener("click", openNL);
-    }
+  document.querySelectorAll("[data-open-newsletter]").forEach(function(a){
+    a.addEventListener("click", openNL);
   });
   if(closeBtn) closeBtn.addEventListener("click", closeNL);
   overlay.addEventListener("click", function(e){ if(e.target===overlay) closeNL(); });

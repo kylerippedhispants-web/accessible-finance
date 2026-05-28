@@ -1,8 +1,12 @@
 ﻿node_modules/
 .env
+.env.*
 dist/
 build/
 .vscode/
+.idea/
 .DS_Store
-npm-debug.log
-yarn-error.log
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-error.log*
