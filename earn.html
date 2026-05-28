@@ -4,7 +4,12 @@
 <meta charset="UTF-8">
 <link rel="icon" type="image/png" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Earn — Accessible Finance</title>
+<title>Rewards — Accessible Finance</title>
+<meta name="description" content="Two rewards we genuinely use ourselves: $25 to start investing with Wealthsimple, plus cash back from over 750 stores via Rakuten Canada.">
+<link rel="canonical" href="https://accessiblefinance.example/earn.html">
+<meta property="og:title" content="Rewards — Accessible Finance">
+<meta property="og:description" content="$25 to start investing with Wealthsimple + cash back via Rakuten Canada.">
+<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -581,7 +586,7 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-logo">
+  <a href="index.html" class="nav-logo" aria-label="Accessible Finance — Home">
     <img src="Logo.png" alt="Accessible Finance" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:center top;">
     <span class="logo-text">Accessible Finance</span>
   </a>
@@ -589,11 +594,11 @@ footer {
     <li><a href="topic.html">Learn</a></li>
     <li><a href="articles.html">Articles</a></li>
     <li><a href="index.html#glossary">Glossary</a></li>
-    <li><a href="earn.html" class="active" style="font-weight:700;">💵 Rewards</a></li>
+    <li><a href="earn.html" class="active">💵 Rewards</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
-  <a href="#" class="nav-cta" id="navNewsletter">Get the Newsletter</a>
-  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+  <a href="index.html#newsletter" class="nav-cta" id="navNewsletter" data-open-newsletter>Get the Newsletter</a>
+  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span>
     <span></span>
     <span></span>
@@ -846,9 +851,9 @@ footer {
         <h4>Learn</h4>
         <ul>
           <li><a href="topic.html">Investing Fundamentals</a></li>
-          <li><a href="#">Asset Classes</a></li>
-          <li><a href="#">Portfolio Thinking</a></li>
-          <li><a href="#">Market Behavior</a></li>
+          <li><a href="articles.html?cat=assets">Asset Classes</a></li>
+          <li><a href="articles.html?cat=portfolio">Portfolio Thinking</a></li>
+          <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
           <li><a href="index.html#glossary">Glossary</a></li>
         </ul>
       </div>
@@ -865,10 +870,9 @@ footer {
         <h4>Company</h4>
         <ul>
           <li><a href="about.html">About Us</a></li>
-          <li><a href="earn.html" style="color:var(--green);font-weight:700;">💵 Rewards</a></li>
-          <li><a href="#">Newsletter</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Disclaimer</a></li>
+          <li><a href="index.html#newsletter">Newsletter</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
     </div>
@@ -881,15 +885,15 @@ footer {
 
 <!-- NEWSLETTER POPUP -->
 <div class="nl-overlay" id="nlOverlay">
-  <div class="nl-modal">
-    <button class="nl-close" id="nlClose" aria-label="Close">&#x2715;</button>
+  <div class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+    <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
     <div class="nl-header">
       <div class="nl-label-popup">Weekly Newsletter</div>
-      <div class="nl-title">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
+      <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
       <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
     </div>
     <div class="nl-body">
-      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no"></iframe>
+      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
       <p class="nl-fine">No spam. Unsubscribe anytime. We never share your email.</p>
     </div>
   </div>
@@ -908,8 +912,7 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   var closeBtn = document.getElementById("nlClose");
   function openNL(e){ if(e) e.preventDefault(); overlay.classList.add("open"); }
   function closeNL(){ overlay.classList.remove("open"); }
-  document.getElementById("navNewsletter").addEventListener("click", openNL);
-  document.querySelectorAll("a[href*='newsletter']").forEach(function(a){
+  document.querySelectorAll("[data-open-newsletter]").forEach(function(a){
     a.addEventListener("click", openNL);
   });
   if(closeBtn) closeBtn.addEventListener("click", closeNL);

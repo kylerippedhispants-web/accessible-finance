@@ -5,6 +5,11 @@
 <link rel="icon" type="image/png" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Investing Fundamentals — Accessible Finance</title>
+<meta name="description" content="A complete topic hub for investing fundamentals: risk and return, time in the market, inflation, compound interest, and how markets actually work.">
+<link rel="canonical" href="https://accessiblefinance.example/topic.html">
+<meta property="og:title" content="Investing Fundamentals — Accessible Finance">
+<meta property="og:description" content="Start here. Clear, ad-free guides covering the core ideas every investor should understand.">
+<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -334,8 +339,8 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
     <li><a href="earn.html" style="color:var(--green);font-weight:700;">💵 Rewards</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
-  <a href="index.html#newsletter" class="nav-cta">Get the Newsletter</a>
-  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+  <a href="index.html#newsletter" class="nav-cta" data-open-newsletter>Get the Newsletter</a>
+  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span>
     <span></span>
     <span></span>
@@ -372,11 +377,11 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
     <div class="stats-title">Topic Overview</div>
     <div class="stat-row">
       <span class="stat-row-label">Total guides</span>
-      <span class="stat-row-value">28</span>
+      <span class="stat-row-value">34</span>
     </div>
     <div class="stat-row">
       <span class="stat-row-label">Reading time</span>
-      <span class="stat-row-value">~3.5 hours</span>
+      <span class="stat-row-value">~4.5 hours</span>
     </div>
     <div class="stat-row">
       <span class="stat-row-label">Difficulty</span>
@@ -384,7 +389,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
     </div>
     <div class="stat-row">
       <span class="stat-row-label">Chapters</span>
-      <span class="stat-row-value">4</span>
+      <span class="stat-row-value">5</span>
     </div>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
     <a href="article.html" class="start-btn">Start Chapter 1 →</a>
@@ -414,7 +419,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">8 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">1.2</div>
         <div class="guide-info">
           <div class="guide-title">Why Investing Exists — And What It Actually Does</div>
@@ -423,7 +428,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">6 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">1.3</div>
         <div class="guide-info">
           <div class="guide-title">How Markets Actually Work (A Plain English Guide)</div>
@@ -432,7 +437,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">9 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">1.4</div>
         <div class="guide-info">
           <div class="guide-title">What "Risk" Really Means in Investing</div>
@@ -441,7 +446,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">7 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">1.5</div>
         <div class="guide-info">
           <div class="guide-title">Risk and Return: The Relationship Nobody Explains Properly</div>
@@ -450,7 +455,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-intermediate">Intermediate</span>
         <span class="guide-time">9 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">1.6</div>
         <div class="guide-info">
           <div class="guide-title">Time in the Market vs. Timing the Market</div>
@@ -459,7 +464,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">6 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">1.7</div>
         <div class="guide-info">
           <div class="guide-title">The Cost of Doing Nothing: Inflation and Your Cash</div>
@@ -479,7 +484,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       <div class="chapter-subtitle">7 guides · ~55 min</div>
     </div>
     <div class="guide-list">
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">2.1</div>
         <div class="guide-info">
           <div class="guide-title">Compound Interest: The Most Powerful Force in Investing</div>
@@ -488,7 +493,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">7 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">2.2</div>
         <div class="guide-info">
           <div class="guide-title">Why Starting Early Matters More Than Starting Big</div>
@@ -497,7 +502,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">6 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">2.3</div>
         <div class="guide-info">
           <div class="guide-title">Dollar-Cost Averaging: The Strategy That Works by Default</div>
@@ -506,7 +511,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">7 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">2.4</div>
         <div class="guide-info">
           <div class="guide-title">Dividends and Reinvestment: The Quiet Growth Engine</div>
@@ -515,7 +520,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-intermediate">Intermediate</span>
         <span class="guide-time">8 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">2.5</div>
         <div class="guide-info">
           <div class="guide-title">The Rule of 72 (And Other Back-of-Napkin Tricks)</div>
@@ -524,7 +529,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">5 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">2.6</div>
         <div class="guide-info">
           <div class="guide-title">Fees: The Silent Compound Interest in Reverse</div>
@@ -533,7 +538,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-intermediate">Intermediate</span>
         <span class="guide-time">8 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">2.7</div>
         <div class="guide-info">
           <div class="guide-title">Taxes and Compounding: What Tax-Advantaged Really Means</div>
@@ -553,7 +558,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       <div class="chapter-subtitle">7 guides · ~50 min</div>
     </div>
     <div class="guide-list">
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">3.1</div>
         <div class="guide-info">
           <div class="guide-title">What Is a Stock, Really?</div>
@@ -562,7 +567,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">7 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">3.2</div>
         <div class="guide-info">
           <div class="guide-title">What Is a Bond? (And Why Should I Care?)</div>
@@ -571,7 +576,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">7 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">3.3</div>
         <div class="guide-info">
           <div class="guide-title">Mutual Funds vs. ETFs: What's the Actual Difference?</div>
@@ -580,7 +585,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">8 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">3.4</div>
         <div class="guide-info">
           <div class="guide-title">Index Funds: The Single Best Invention for Regular Investors</div>
@@ -589,7 +594,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">8 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">3.5</div>
         <div class="guide-info">
           <div class="guide-title">Active vs. Passive Investing: The Evidence</div>
@@ -598,7 +603,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-intermediate">Intermediate</span>
         <span class="guide-time">9 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">3.6</div>
         <div class="guide-info">
           <div class="guide-title">Understanding Diversification (Not Just "Don't Put All Eggs in One Basket")</div>
@@ -607,7 +612,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">7 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">3.7</div>
         <div class="guide-info">
           <div class="guide-title">What Expense Ratios, MERs, and Fees Actually Cost You</div>
@@ -627,7 +632,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       <div class="chapter-subtitle">7 guides · ~55 min</div>
     </div>
     <div class="guide-list">
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">4.1</div>
         <div class="guide-info">
           <div class="guide-title">How to Open a Brokerage Account (Step by Step)</div>
@@ -636,7 +641,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">8 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">4.2</div>
         <div class="guide-info">
           <div class="guide-title">Your First Investment: A Framework for Deciding</div>
@@ -645,7 +650,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">9 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">4.3</div>
         <div class="guide-info">
           <div class="guide-title">How Much Should You Invest? (And What to Keep in Cash)</div>
@@ -654,7 +659,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">7 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">4.4</div>
         <div class="guide-info">
           <div class="guide-title">Registered Accounts Explained: TFSA, RRSP, FHSA, RESP</div>
@@ -663,7 +668,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-intermediate">Intermediate</span>
         <span class="guide-time">10 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">4.5</div>
         <div class="guide-info">
           <div class="guide-title">Setting Up Automatic Contributions (And Why You Should)</div>
@@ -672,7 +677,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">5 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">4.6</div>
         <div class="guide-info">
           <div class="guide-title">Common Beginner Mistakes (And How to Avoid Them)</div>
@@ -681,7 +686,7 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <span class="guide-level level-beginner">Beginner</span>
         <span class="guide-time">8 min</span>
       </a>
-      <a href="#" class="guide-item">
+      <a href="articles.html" class="guide-item">
         <div class="guide-num">4.7</div>
         <div class="guide-info">
           <div class="guide-title">What to Do When the Market Drops</div>
@@ -766,19 +771,19 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
   <div class="section-label">Explore More</div>
   <h2>Other topics</h2>
   <div class="other-grid">
-    <a href="#" class="other-card amber">
+    <a href="articles.html?cat=assets" class="other-card amber">
       <div class="other-emoji">📦</div>
       <div class="other-name">Asset Classes</div>
       <div class="other-desc">Stocks, bonds, real estate, commodities, cash, and alternatives — what they are and how each behaves.</div>
       <div class="other-count">34 guides</div>
     </a>
-    <a href="#" class="other-card blue">
+    <a href="articles.html?cat=portfolio" class="other-card blue">
       <div class="other-emoji">🎯</div>
       <div class="other-name">Portfolio Thinking</div>
       <div class="other-desc">Asset allocation, rebalancing, building for different goals, and common portfolio frameworks explained clearly.</div>
       <div class="other-count">22 guides</div>
     </a>
-    <a href="#" class="other-card teal">
+    <a href="articles.html?cat=behavior" class="other-card teal">
       <div class="other-emoji">📊</div>
       <div class="other-name">Market Behavior</div>
       <div class="other-desc">Bull and bear markets, bubbles, volatility, economic cycles, and the psychology behind price movements.</div>
@@ -808,9 +813,9 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <h4>Learn</h4>
         <ul>
           <li><a href="topic.html">Investing Fundamentals</a></li>
-          <li><a href="#">Asset Classes</a></li>
-          <li><a href="#">Portfolio Thinking</a></li>
-          <li><a href="#">Market Behavior</a></li>
+          <li><a href="articles.html?cat=assets">Asset Classes</a></li>
+          <li><a href="articles.html?cat=portfolio">Portfolio Thinking</a></li>
+          <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
           <li><a href="index.html#glossary">Glossary</a></li>
         </ul>
       </div>
@@ -828,8 +833,8 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
         <ul>
           <li><a href="about.html">About Us</a></li>
           <li><a href="index.html#newsletter">Newsletter</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Disclaimer</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
     </div>
@@ -845,24 +850,19 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-// Animate progress bar on load
-setTimeout(() => {
-  document.getElementById('progressFill').style.width = '12%';
-}, 500);
 </script>
 
 <!-- Newsletter Popup -->
 <div class="nl-overlay" id="nlOverlay">
-  <div class="nl-modal">
-    <button class="nl-close" id="nlClose" aria-label="Close">&#x2715;</button>
+  <div class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+    <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
     <div class="nl-header">
       <div class="nl-label">Weekly Newsletter</div>
-      <div class="nl-title">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
+      <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
       <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
     </div>
     <div class="nl-body">
-      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no"></iframe>
+      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
       <p class="nl-fine">No spam. Unsubscribe anytime. We never share your email.</p>
     </div>
   </div>
@@ -874,10 +874,8 @@ setTimeout(() => {
   var closeBtn = document.getElementById("nlClose");
   function openNL(e){ if(e) e.preventDefault(); overlay.classList.add("open"); }
   function closeNL(){ overlay.classList.remove("open"); }
-  document.querySelectorAll("a.nav-cta, a[href*='newsletter']").forEach(function(a){
-    if(a.textContent.trim().toLowerCase().includes("newsletter")){
-      a.addEventListener("click", openNL);
-    }
+  document.querySelectorAll("[data-open-newsletter]").forEach(function(a){
+    a.addEventListener("click", openNL);
   });
   if(closeBtn) closeBtn.addEventListener("click", closeNL);
   overlay.addEventListener("click", function(e){ if(e.target===overlay) closeNL(); });
