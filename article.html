@@ -7,309 +7,213 @@
 <title>The Actual Difference Between Investing and Speculating — Accessible Finance</title>
 <meta name="description" content="Most people confuse investing with speculating. Here's the clear line between the two — with examples from the modern market.">
 <link rel="canonical" href="https://accessiblefinance.example/article.html">
-<meta property="og:title" content="Investing vs. Speculating — Accessible Finance">
-<meta property="og:description" content="A plain-English explanation of the real difference between investing and speculating.">
+<meta property="og:title" content="The Actual Difference Between Investing and Speculating">
+<meta property="og:description" content="A clear line between the two — with examples from the modern market.">
 <meta property="og:type" content="article">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<meta property="og:image" content="Logo.png">
+<meta name="twitter:card" content="summary">
+
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --bg: #f7f5f0;
-  --surface: #ffffff;
-  --ink: #1a1816;
-  --ink2: #4a4640;
-  --ink3: #8a8480;
-  --green: #1d6b45;
-  --green-light: #e8f4ed;
-  --green-mid: #2d8a59;
-  --amber: #c8822a;
-  --amber-light: #fdf3e4;
-  --border: #e4e0d8;
+  --bg: #f7f5f0; --bg-warm: #efece3; --surface: #ffffff;
+  --ink: #1a1816; --ink2: #4a4640; --ink3: #8a8480; --ink4: #b8b0a5;
+  --green: #1d6b45; --green-light: #e8f4ed; --green-mid: #2d8a59;
+  --sage: #7d8c7b; --sage-light: #e8eae5;
+  --gold: #c8822a; --gold-soft: #d4a560; --gold-light: #f6ecd9;
+  --border: #e4e0d8; --border-strong: #c9c3b6;
   --serif: 'Instrument Serif', Georgia, serif;
   --sans: 'Syne', sans-serif;
   --body: 'Literata', Georgia, serif;
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
 }
-
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
 
 /* PROGRESS BAR */
-.progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--green); z-index: 200; width: 0%; transition: width 0.1s linear; }
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: transparent; z-index: 150; }
+.progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--gold) 0%, var(--green) 100%); transition: width 0.1s linear; }
 
-/* NAV */
-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
-.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo-mark { width: 32px; height: 32px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 14px; font-weight: 800; color: white; letter-spacing: -1px; flex-shrink: 0; }
-.logo-text { font-family: var(--sans); font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px; }
-.nav-links { display: flex; gap: 4px; list-style: none; }
-.nav-links a { font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--ink2); text-decoration: none; padding: 6px 14px; border-radius: 100px; transition: all 0.2s; }
-.nav-links a:hover, .nav-links a.active { background: var(--green-light); color: var(--green); }
-.nav-cta { font-family: var(--sans); font-size: 14px; font-weight: 600; background: var(--green); color: white; padding: 9px 20px; border-radius: 100px; text-decoration: none; transition: background 0.2s; letter-spacing: 0.2px; }
-.nav-cta:hover { background: var(--green-mid); }
+nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+.nav-logo { display: flex; align-items: center; gap: 12px; }
+.nav-logo img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; object-position: 50% 20%; }
+.nav-logo .wordmark { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); }
+.nav-links { display: flex; gap: 36px; }
+.nav-links a { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink2); padding: 6px 0; position: relative; transition: color 0.2s; }
+.nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: center; transition: transform 0.3s cubic-bezier(.2,.7,.2,1); }
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+.nav-cta { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; background: var(--ink); color: var(--bg); padding: 12px 22px; border-radius: 100px; transition: background 0.25s; }
+.nav-cta:hover { background: var(--green); }
+.hamburger { display: none; background: transparent; border: 0; cursor: pointer; padding: 8px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); margin: 5px 0; transition: 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 72px 0 0; background: var(--bg); z-index: 90; padding: 40px; flex-direction: column; gap: 28px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: var(--serif); font-size: 32px; font-style: italic; color: var(--ink); }
+.mobile-menu a.cta { color: var(--green); }
 
-/* ARTICLE HERO */
-.article-hero { padding: 72px 40px 48px; max-width: 760px; margin: 0 auto; }
-.article-breadcrumb { font-family: var(--sans); font-size: 13px; color: var(--ink3); margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
-.article-breadcrumb a { color: var(--green); text-decoration: none; font-weight: 500; }
-.article-breadcrumb a:hover { text-decoration: underline; }
-.article-cat { display: inline-block; font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); background: var(--green-light); padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
-.article-hero h1 { font-family: var(--serif); font-size: clamp(36px, 5vw, 52px); font-weight: 400; line-height: 1.12; letter-spacing: -1.2px; margin-bottom: 20px; }
-.article-hero h1 em { font-style: italic; color: var(--green); }
-.article-deck { font-size: 19px; color: var(--ink2); font-weight: 300; line-height: 1.7; margin-bottom: 28px; }
-.article-info { display: flex; align-items: center; gap: 16px; font-family: var(--sans); font-size: 13px; color: var(--ink3); padding-top: 20px; border-top: 1px solid var(--border); }
-.info-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border); }
+.eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(.16,1,.3,1), transform 0.9s cubic-bezier(.16,1,.3,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* ARTICLE LAYOUT */
-.article-layout { display: grid; grid-template-columns: 200px 1fr; gap: 60px; max-width: 1060px; margin: 0 auto; padding: 0 40px 80px; align-items: start; }
+/* ARTICLE HEAD */
+.crumb { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); }
+.crumb a { color: var(--ink3); transition: color 0.2s; }
+.crumb a:hover { color: var(--gold); }
+.crumb .sep { margin: 0 10px; opacity: 0.5; }
 
-/* SIDEBAR TOC */
-.toc { position: sticky; top: 88px; }
-.toc-label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink3); margin-bottom: 16px; }
-.toc-list { list-style: none; display: flex; flex-direction: column; gap: 0; border-left: 2px solid var(--border); }
-.toc-list a { display: block; font-family: var(--sans); font-size: 13px; font-weight: 500; color: var(--ink3); text-decoration: none; padding: 8px 0 8px 16px; border-left: 2px solid transparent; margin-left: -2px; transition: all 0.2s; line-height: 1.4; }
-.toc-list a:hover { color: var(--ink2); }
-.toc-list a.active { color: var(--green); border-left-color: var(--green); font-weight: 600; }
+.article-head { max-width: 880px; margin: 0 auto; padding: 64px 40px 32px; }
+.cat-tag { display: inline-block; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green); background: var(--green-light); padding: 8px 16px; border-radius: 100px; margin-top: 28px; }
+.article-head h1 { font-family: var(--serif); font-size: clamp(48px, 6.4vw, 84px); font-weight: 400; line-height: 1.02; letter-spacing: -0.03em; color: var(--ink); margin-top: 28px; }
+.article-head h1 em { font-style: italic; color: var(--green); }
+.article-head .deck { font-family: var(--body); font-style: italic; font-size: 22px; line-height: 1.55; color: var(--ink2); margin-top: 24px; max-width: 740px; }
+.article-meta { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--border); font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); }
+.article-meta .dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; display: inline-block; }
 
-/* ARTICLE CONTENT */
-.article-content { max-width: 680px; }
-.article-content h2 { font-family: var(--serif); font-size: 30px; font-weight: 400; letter-spacing: -0.5px; margin: 48px 0 16px; line-height: 1.2; scroll-margin-top: 80px; }
-.article-content h3 { font-family: var(--sans); font-size: 18px; font-weight: 700; margin: 36px 0 12px; letter-spacing: -0.3px; }
-.article-content p { margin-bottom: 20px; font-weight: 300; line-height: 1.85; color: var(--ink2); }
-.article-content strong { color: var(--ink); font-weight: 400; }
-.article-content blockquote { border-left: 3px solid var(--green); padding: 20px 28px; margin: 32px 0; background: var(--green-light); border-radius: 0 12px 12px 0; }
-.article-content blockquote p { margin: 0; font-style: italic; color: var(--ink); font-weight: 300; }
-.article-content ul, .article-content ol { margin: 0 0 20px 20px; color: var(--ink2); font-weight: 300; }
-.article-content li { margin-bottom: 8px; line-height: 1.7; }
+/* BODY LAYOUT */
+.article-wrap { max-width: 1180px; margin: 0 auto; padding: 56px 40px 120px; display: grid; grid-template-columns: 240px 1fr; gap: 80px; align-items: start; }
+.toc { position: sticky; top: 96px; }
+.toc-label { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink3); margin-bottom: 18px; }
+.toc-list { list-style: none; display: flex; flex-direction: column; gap: 0; border-left: 1px solid var(--border); }
+.toc-list a { display: block; font-family: var(--sans); font-size: 12px; font-weight: 500; line-height: 1.5; color: var(--ink3); padding: 10px 0 10px 18px; margin-left: -1px; border-left: 1px solid transparent; transition: color 0.25s, border-color 0.25s; }
+.toc-list a:hover { color: var(--ink); }
+.toc-list a.active { color: var(--ink); border-left-color: var(--gold); }
 
-/* CALLOUT BOX */
-.callout { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; margin: 32px 0; }
-.callout-label { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
-.callout p { margin-bottom: 0; font-size: 15px; }
+.article-body { max-width: 720px; }
+.article-body h2 { font-family: var(--serif); font-size: clamp(32px, 3.4vw, 44px); font-weight: 400; line-height: 1.1; color: var(--ink); letter-spacing: -0.02em; margin-top: 64px; margin-bottom: 20px; scroll-margin-top: 96px; }
+.article-body h2:first-child { margin-top: 0; }
+.article-body h3 { font-family: var(--serif); font-style: italic; font-size: 26px; font-weight: 400; line-height: 1.2; color: var(--ink); margin-top: 36px; margin-bottom: 14px; }
+.article-body p { font-family: var(--body); font-size: 18px; line-height: 1.78; color: var(--ink2); margin-top: 18px; }
+.article-body p strong { color: var(--ink); font-weight: 500; }
+.article-body ul { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
+.article-body li { font-family: var(--body); font-size: 17px; line-height: 1.7; color: var(--ink2); padding-left: 28px; position: relative; }
+.article-body li::before { content: ''; position: absolute; left: 0; top: 14px; width: 14px; height: 1px; background: var(--gold); }
+.article-body li strong { color: var(--ink); font-weight: 500; }
 
-/* RELATED ARTICLES */
-.related-section { padding: 0 40px 100px; max-width: 1060px; margin: 0 auto; }
-.related-section .section-label { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink3); margin-bottom: 24px; }
-.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; text-decoration: none; color: inherit; transition: all 0.2s; }
-.related-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: transparent; }
-.related-cat { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
-.related-title { font-family: var(--serif); font-size: 18px; color: var(--ink); line-height: 1.3; margin-bottom: 12px; letter-spacing: -0.2px; }
-.related-meta { font-family: var(--sans); font-size: 12px; color: var(--ink3); }
+.article-body blockquote { font-family: var(--serif); font-style: italic; font-size: 26px; line-height: 1.35; color: var(--ink); letter-spacing: -0.005em; margin: 40px 0 8px; padding: 24px 0 24px 32px; border-left: 3px solid var(--gold); }
+
+.callout { background: var(--bg-warm); border-radius: 16px; padding: 28px 32px; margin: 36px 0 8px; }
+.callout-label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.callout p { font-family: var(--body); font-size: 17px; line-height: 1.7; color: var(--ink); margin: 0; }
+.callout p strong { font-weight: 500; }
+.callout.bottom { background: var(--green-light); }
+.callout.bottom .callout-label { color: var(--green); }
+
+/* RELATED */
+.related { background: var(--bg-warm); padding: 100px 40px; }
+.related-inner { max-width: 1200px; margin: 0 auto; }
+.related-head { text-align: center; max-width: 600px; margin: 0 auto 56px; }
+.related-head .eyebrow { justify-content: center; }
+.related-head h2 { font-family: var(--serif); font-size: clamp(32px, 4vw, 48px); font-weight: 400; line-height: 1.1; color: var(--ink); letter-spacing: -0.015em; margin-top: 18px; }
+.related-head h2 em { font-style: italic; color: var(--green); }
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 32px 28px; transition: transform 0.35s, box-shadow 0.35s; }
+.related-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px -22px rgba(26,24,22,0.14); }
+.related-card .cat { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+.related-card h3 { font-family: var(--serif); font-size: 22px; font-weight: 400; line-height: 1.25; color: var(--ink); margin-top: 18px; letter-spacing: -0.01em; }
+.related-card .meta { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
 
 /* FOOTER */
-footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,255,0.6); }
-.footer-inner { max-width: 1160px; margin: 0 auto; }
-.footer-top { display: grid; grid-template-columns: 260px 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
-.footer-tagline { font-size: 14px; margin-top: 12px; line-height: 1.6; font-weight: 300; max-width: 200px; }
-.footer-col h4 { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: white; margin-bottom: 16px; }
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.footer-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; font-weight: 300; transition: color 0.2s; }
-.footer-col a:hover { color: white; }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-family: var(--sans); }
-.footer-disclaimer { max-width: 600px; line-height: 1.6; color: rgba(255,255,255,0.3); font-size: 12px; font-weight: 300; }
-/* HAMBURGER / MOBILE NAV */
-.hamburger { display: none; background: transparent; border: none; width: 40px; height: 40px; padding: 8px; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 5px; border-radius: 8px; transition: background 0.2s; }
-.hamburger:hover { background: var(--green-light); }
-.hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.3s, opacity 0.2s; }
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-.mobile-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0; background: var(--bg); padding: 24px 24px 40px; flex-direction: column; gap: 4px; z-index: 99; overflow-y: auto; }
-.mobile-menu.open { display: flex; }
-.mobile-menu a { font-family: var(--sans); font-size: 18px; font-weight: 500; color: var(--ink); text-decoration: none; padding: 14px 16px; border-radius: 12px; transition: background 0.2s; }
-.mobile-menu a:hover, .mobile-menu a.mobile-active { background: var(--green-light); color: var(--green); }
-.mobile-menu-divider { height: 1px; background: var(--border); margin: 12px 0; }
-.mobile-menu-cta a { background: var(--green); color: #fff !important; text-align: center; font-weight: 600; }
-body.menu-open { overflow: hidden; }
+footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40px 48px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 72px; border-bottom: 1px solid rgba(247,245,240,0.1); }
+.footer-brand .wordmark-row { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.footer-brand img { width: 36px; height: 36px; border-radius: 8px; }
+.footer-brand .name { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--bg); }
+.footer-brand p { font-family: var(--body); font-style: italic; font-size: 16px; line-height: 1.65; max-width: 360px; color: rgba(247,245,240,0.55); }
+.footer-col h4 { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 24px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-col a { font-family: var(--body); font-size: 15px; color: rgba(247,245,240,0.78); transition: color 0.2s; }
+.footer-col a:hover { color: var(--gold-soft); }
+.footer-bottom { padding-top: 36px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.footer-disclaimer { font-family: var(--body); font-size: 13px; line-height: 1.6; color: rgba(247,245,240,0.4); max-width: 720px; }
+.footer-copy { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(247,245,240,0.3); white-space: nowrap; }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .article-layout { grid-template-columns: 1fr; gap: 0; }
-  .toc { display: none; }
-  .related-grid { grid-template-columns: 1fr; }
-  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
-  .nav-cta { display: none; }
-}
-@media (max-width: 600px) {
-  nav { padding: 0 20px; }
-  .article-hero, .article-layout, .related-section { padding-left: 20px; padding-right: 20px; }
-  footer { padding: 40px 20px 24px; }
-  .footer-top { grid-template-columns: 1fr; }
-}
-
-/* ── Newsletter Popup ── */
-.nl-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(4px);
-  z-index: 999;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
+/* MODAL */
+.nl-overlay { position: fixed; inset: 0; background: rgba(26,24,22,0.55); backdrop-filter: blur(6px); z-index: 200; padding: 24px; display: none; align-items: center; justify-content: center; }
 .nl-overlay.open { display: flex; }
-.nl-modal {
-  background: var(--surface);
-  border-radius: 24px;
-  width: 100%;
-  max-width: 520px;
-  overflow: hidden;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.25);
-  position: relative;
-  animation: nlSlideIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
-}
-@keyframes nlSlideIn {
-  from { opacity: 0; transform: translateY(24px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-.nl-header {
-  background: var(--green);
-  padding: 32px 36px 28px;
-  position: relative;
-}
-.nl-header::before {
-  content: "\1F4EC";
-  position: absolute;
-  font-size: 80px;
-  right: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.18;
-  line-height: 1;
-}
-.nl-label {
-  font-family: var(--sans);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 10px;
-}
-.nl-title {
-  font-family: var(--serif);
-  font-size: 26px;
-  color: white;
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.4px;
-}
-.nl-title em { font-style: italic; }
-.nl-sub {
-  font-size: 14px;
-  color: rgba(255,255,255,0.7);
-  font-weight: 300;
-  margin-top: 8px;
-  line-height: 1.6;
-}
-.nl-body {
-  padding: 8px 8px 20px;
-  background: #f9f8f5;
-}
-.nl-body iframe {
-  display: block;
-  border-radius: 10px;
-  background: white;
-}
-.nl-fine {
-  font-family: var(--sans);
-  font-size: 11px;
-  color: var(--ink3);
-  text-align: center;
-  margin-top: 10px;
-  padding: 0 16px;
-}
-.nl-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.15);
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  transition: background 0.2s;
-}
-.nl-close:hover { background: rgba(255,255,255,0.3); }
-@media (max-width: 600px) {
-  .nl-header { padding: 24px 24px 20px; }
-  .nl-title { font-size: 22px; }
-}
+.nl-modal { background: var(--bg); border-radius: 24px; max-width: 520px; width: 100%; padding: 56px 48px 40px; position: relative; border: 1px solid var(--border); box-shadow: 0 30px 80px rgba(0,0,0,0.25); }
+.nl-close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 100px; background: transparent; border: 0; cursor: pointer; font-size: 18px; color: var(--ink); transition: background 0.2s; }
+.nl-close:hover { background: var(--bg-warm); }
+.nl-label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.nl-title { font-family: var(--serif); font-size: 32px; line-height: 1.15; color: var(--ink); margin-bottom: 12px; }
+.nl-title em { font-style: italic; color: var(--green); }
+.nl-sub { font-family: var(--body); font-size: 15px; color: var(--ink2); margin-bottom: 24px; }
+.nl-modal iframe { width: 100%; height: 180px; border: 0; background: transparent; }
+.nl-modal .fine { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3); text-align: center; margin-top: 16px; }
 
+@media (max-width: 1024px) {
+  .article-wrap { grid-template-columns: 1fr; gap: 48px; }
+  .toc { position: static; }
+  .related-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  nav.site-nav { padding: 0 24px; height: 64px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: block; }
+  .article-head, .article-wrap, .related { padding-left: 24px; padding-right: 24px; }
+  .article-head { padding-top: 40px; }
+  .article-body { max-width: 100%; }
+  .article-body p, .article-body li { font-size: 16.5px; }
+  .article-body blockquote { font-size: 22px; padding-left: 20px; }
+  .related { padding-top: 72px; padding-bottom: 72px; }
+  .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px; }
+  footer.site-footer { padding: 64px 24px 36px; }
+}
 </style>
 </head>
 <body>
 
-<div class="progress-bar" id="progressBar"></div>
+<div class="progress"><div class="progress-fill" id="progressFill"></div></div>
 
-<!-- NAV -->
-<nav>
+<nav class="site-nav">
   <a href="index.html" class="nav-logo" aria-label="Accessible Finance — Home">
-    <img src="Logo.png" alt="" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
-    <span class="logo-text">Accessible Finance</span>
+    <img src="Logo.png" alt="">
+    <span class="wordmark">Accessible Finance</span>
   </a>
-  <ul class="nav-links">
-    <li><a href="topic.html">Learn</a></li>
-    <li><a href="articles.html" class="active">Articles</a></li>
-    <li><a href="index.html#glossary">Glossary</a></li>
-    <li><a href="earn.html" style="color:var(--green);font-weight:700;">💵 Rewards</a></li>
-    <li><a href="about.html">About</a></li>
-  </ul>
-  <a href="index.html#newsletter" class="nav-cta" data-open-newsletter>Get the Newsletter</a>
-  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="articles.html" class="active">Guides</a>
+    <a href="index.html#glossary">Glossary</a>
+    <a href="earn.html">Rewards</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span><span></span>
   </button>
-  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-    <a href="index.html">🏠 Home</a>
-    <a href="topic.html">📚 Learn</a>
-    <a href="articles.html" class="mobile-active">📰 Articles</a>
-    <a href="index.html#glossary">🔤 Glossary</a>
-    <a href="earn.html">💵 Rewards</a>
-    <a href="about.html">👤 About</a>
-    <div class="mobile-menu-divider"></div>
-    <div class="mobile-menu-cta">
-      <a href="index.html#newsletter">✉️ Get the Newsletter</a>
-    </div>
-  </div>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="articles.html">Guides</a>
+  <a href="index.html#glossary">Glossary</a>
+  <a href="earn.html">Rewards</a>
+  <a href="about.html">About</a>
+  <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
+</div>
 
-<!-- ARTICLE HERO -->
-<header class="article-hero">
-  <div class="article-breadcrumb">
-    <a href="articles.html">Articles</a>
-    <span>›</span>
-    <span>Fundamentals</span>
-  </div>
-  <div class="article-cat">Fundamentals</div>
-  <h1>The Actual Difference Between Investing and <em>Speculating</em></h1>
-  <p class="article-deck">Most people mix these up, and that confusion leads to real mistakes. Here's a clear line between the two — with examples from the modern market.</p>
-  <div class="article-info">
-    <span>8 min read</span>
-    <div class="info-dot"></div>
-    <span>Beginner</span>
-    <div class="info-dot"></div>
+<header class="article-head reveal">
+  <div class="crumb"><a href="articles.html">Articles</a><span class="sep">›</span>Fundamentals</div>
+  <span class="cat-tag">Fundamentals</span>
+  <h1>The actual difference between investing and <em>speculating</em></h1>
+  <p class="deck">Most people mix these up, and that confusion leads to real mistakes. Here's a clear line between the two — with examples from the modern market.</p>
+  <div class="article-meta">
+    <span>8 min read</span><span class="dot"></span>
+    <span>Beginner</span><span class="dot"></span>
     <span>Updated March 2026</span>
   </div>
 </header>
 
-<!-- ARTICLE BODY -->
-<div class="article-layout">
-
-  <!-- SIDEBAR TOC -->
-  <aside class="toc">
+<div class="article-wrap">
+  <aside class="toc reveal">
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
@@ -321,8 +225,7 @@ body.menu-open { overflow: hidden; }
     </ul>
   </aside>
 
-  <!-- CONTENT -->
-  <article class="article-content">
+  <article class="article-body reveal d2">
 
     <h2 id="why-it-matters">Why it matters</h2>
     <p>There's a question that sits quietly beneath nearly every financial decision you'll ever make: <strong>Am I investing, or am I speculating?</strong> The answer changes how you think about risk, what you expect from your money, and how you'll feel when things go sideways.</p>
@@ -333,11 +236,9 @@ body.menu-open { overflow: hidden; }
     <p>At its core, investing is the act of putting money into something with a reasonable expectation of earning a return over time — based on the underlying value of the asset. The key phrase here is <strong>underlying value</strong>.</p>
     <p>When you buy a share of a diversified index fund, you're buying a small piece of thousands of companies. Those companies have employees, products, revenue, and profits. Over time, as those businesses grow, the value of your ownership stake tends to grow too. You're not betting on a price movement — you're participating in economic activity.</p>
 
-    <blockquote>
-      <p>Investing is the process of laying out money now to receive more money in the future — where the "more money" comes from the productive output of the asset you own.</p>
-    </blockquote>
+    <blockquote>Investing is the process of laying out money now to receive more money in the future — where the 'more money' comes from the productive output of the asset you own.</blockquote>
 
-    <p>Here are the hallmarks of investing:</p>
+    <h3>Hallmarks of investing</h3>
     <ul>
       <li><strong>Long time horizon</strong> — typically measured in years or decades, not days.</li>
       <li><strong>Based on fundamentals</strong> — you're buying something for what it produces, not just what someone else might pay for it later.</li>
@@ -366,7 +267,7 @@ body.menu-open { overflow: hidden; }
     <h2 id="grey-area">The grey area</h2>
     <p>In practice, the line between investing and speculating isn't always crisp. Most decisions exist on a spectrum. Buying a single stock in a company you've thoroughly researched sits somewhere in the middle — it's concentrated (speculative feature) but based on fundamental analysis (investing feature).</p>
     <p>What matters isn't labeling every decision as one or the other. What matters is <strong>being honest with yourself about which one you're doing</strong> — because the approach to risk management, position sizing, and expectations should be completely different for each.</p>
-    <p>A common trap is what we might call <strong>speculation disguised as investing</strong>. This happens when someone buys a speculative asset — one with no cash flows, no fundamentals, and no track record — but tells themselves it's a "long-term investment." The language of investing can be used to rationalize speculative bets, and that's where real financial damage tends to happen.</p>
+    <p>A common trap is what we might call <strong>speculation disguised as investing</strong>. This happens when someone buys a speculative asset — one with no cash flows, no fundamentals, and no track record — but tells themselves it's a 'long-term investment.' The language of investing can be used to rationalize speculative bets, and that's where real financial damage tends to happen.</p>
 
     <h2 id="modern-examples">Modern examples</h2>
     <p>To make this concrete, let's look at a few scenarios from the modern market:</p>
@@ -385,7 +286,7 @@ body.menu-open { overflow: hidden; }
     <p>Most of your money — the money you need for retirement, for your children's education, for your future security — should be invested, not speculated. That means diversified, low-cost, long-term ownership of productive assets.</p>
     <p>Save the speculation for money you can genuinely afford to lose. And never confuse excitement for strategy.</p>
 
-    <div class="callout">
+    <div class="callout bottom">
       <div class="callout-label">Bottom Line</div>
       <p>Investing is owning productive assets for the long term. Speculating is betting on price movements. Both have a place — but only if you're clear about which one you're doing and why.</p>
     </div>
@@ -393,43 +294,46 @@ body.menu-open { overflow: hidden; }
   </article>
 </div>
 
-<!-- RELATED -->
-<section class="related-section">
-  <div class="section-label">Continue Reading</div>
-  <div class="related-grid">
-    <a href="articles.html" class="related-card">
-      <div class="related-cat">Fundamentals</div>
-      <div class="related-title">Compound Interest: The Most Powerful Force in Investing</div>
-      <div class="related-meta">7 min read · Beginner</div>
-    </a>
-    <a href="articles.html" class="related-card">
-      <div class="related-cat">Fundamentals</div>
-      <div class="related-title">Time in the Market vs. Timing the Market</div>
-      <div class="related-meta">6 min read · Beginner</div>
-    </a>
-    <a href="articles.html?cat=behavior" class="related-card">
-      <div class="related-cat">Market Behavior</div>
-      <div class="related-title">Why Smart People Make Bad Investment Decisions</div>
-      <div class="related-meta">9 min read · Beginner</div>
-    </a>
+<section class="related">
+  <div class="related-inner">
+    <div class="related-head reveal">
+      <span class="eyebrow">Keep reading</span>
+      <h2>Related <em>guides</em>.</h2>
+    </div>
+    <div class="related-grid">
+      <a href="article.html" class="related-card reveal">
+        <div class="cat">Fundamentals</div>
+        <h3>Compound Interest: The Most Powerful Force in Investing</h3>
+        <div class="meta">7 min read · Beginner</div>
+      </a>
+      <a href="article.html" class="related-card reveal">
+        <div class="cat">Fundamentals</div>
+        <h3>Time in the Market vs. Timing the Market</h3>
+        <div class="meta">6 min read · Beginner</div>
+      </a>
+      <a href="article.html" class="related-card reveal">
+        <div class="cat">Market Behavior</div>
+        <h3>Why Smart People Make Bad Investment Decisions</h3>
+        <div class="meta">9 min read · Beginner</div>
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
+<footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="nav-logo" style="display:flex; align-items:center; gap:10px; margin-bottom:0; text-decoration:none;">
-          <img src="Logo.png" alt="Accessible Finance" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
-          <span class="logo-text" style="color:white;">Accessible Finance</span>
+        <div class="wordmark-row">
+          <img src="Logo.png" alt="">
+          <span class="name">Accessible Finance</span>
         </div>
-        <p class="footer-tagline">Investing education without the jargon. Free, forever.</p>
+        <p>"True understanding is not a destination, but a way of traveling." Free, ad-free investing education for the curious.</p>
       </div>
       <div class="footer-col">
         <h4>Learn</h4>
         <ul>
-          <li><a href="topic.html">Investing Fundamentals</a></li>
+          <li><a href="topic.html">Fundamentals</a></li>
           <li><a href="articles.html?cat=assets">Asset Classes</a></li>
           <li><a href="articles.html?cat=portfolio">Portfolio Thinking</a></li>
           <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
@@ -439,107 +343,107 @@ body.menu-open { overflow: hidden; }
       <div class="footer-col">
         <h4>Articles</h4>
         <ul>
-          <li><a href="articles.html">Beginner Guides</a></li>
-          <li><a href="articles.html">Intermediate Topics</a></li>
-          <li><a href="articles.html">Case Studies</a></li>
+          <li><a href="articles.html">All Guides</a></li>
+          <li><a href="articles.html?cat=beginner">Beginner</a></li>
+          <li><a href="articles.html?cat=intermediate">Intermediate</a></li>
           <li><a href="articles.html">Latest Posts</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="index.html#newsletter">Newsletter</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="earn.html">Rewards</a></li>
+          <li><a href="#newsletter" data-open-newsletter>Newsletter</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
           <li><a href="disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p class="footer-disclaimer">Not financial advice. All content is for educational purposes only. Investing involves risk, including the possible loss of principal. Past performance is not indicative of future results.</p>
-      <span style="color:rgba(255,255,255,0.3); font-size:12px; white-space:nowrap; margin-left:20px;">© 2026 Accessible Finance</span>
+      <span class="footer-copy">© 2026 Accessible Finance</span>
     </div>
   </div>
 </footer>
 
-<script>
-// Progress bar
-window.addEventListener('scroll', () => {
-  const h = document.documentElement;
-  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-  document.getElementById('progressBar').style.width = pct + '%';
-});
-
-// TOC active state
-const headings = document.querySelectorAll('.article-content h2');
-const tocLinks = document.querySelectorAll('.toc-list a');
-const observerTOC = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      tocLinks.forEach(l => l.classList.remove('active'));
-      const id = entry.target.getAttribute('id');
-      const link = document.querySelector(`.toc-list a[href="#${id}"]`);
-      if (link) link.classList.add('active');
-    }
-  });
-}, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
-headings.forEach(h => observerTOC.observe(h));
-</script>
-
-<!-- Newsletter Popup -->
-<div class="nl-overlay" id="nlOverlay">
-  <div class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+<div class="nl-overlay" id="nlOverlay" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+  <div class="nl-modal">
     <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
-    <div class="nl-header">
-      <div class="nl-label">Weekly Newsletter</div>
-      <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
-      <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
-    </div>
-    <div class="nl-body">
-      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-      <p class="nl-fine">No spam. Unsubscribe anytime. We never share your email.</p>
-    </div>
+    <div class="nl-label">Weekly Newsletter</div>
+    <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
+    <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
+    <iframe src="https://accessiblefinance.substack.com/embed" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
   </div>
 </div>
 
 <script>
-(function(){
-  var overlay = document.getElementById("nlOverlay");
-  var closeBtn = document.getElementById("nlClose");
-  function openNL(e){ if(e) e.preventDefault(); overlay.classList.add("open"); }
-  function closeNL(){ overlay.classList.remove("open"); }
-  document.querySelectorAll("[data-open-newsletter]").forEach(function(a){
-    a.addEventListener("click", openNL);
-  });
-  if(closeBtn) closeBtn.addEventListener("click", closeNL);
-  overlay.addEventListener("click", function(e){ if(e.target===overlay) closeNL(); });
-  document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeNL(); });
-})();
-</script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-<script>
-(function(){
-  var btn = document.getElementById('hamburger');
-  var menu = document.getElementById('mobile-menu');
-  if(!btn || !menu) return;
-  function closeMenu(){
-    menu.classList.remove('open');
-    btn.classList.remove('open');
-    btn.setAttribute('aria-expanded','false');
-    document.body.classList.remove('menu-open');
-  }
-  btn.addEventListener('click', function(){
-    var isOpen = menu.classList.contains('open');
-    if(isOpen){ closeMenu(); } else {
-      menu.classList.add('open');
-      btn.classList.add('open');
-      btn.setAttribute('aria-expanded','true');
-      document.body.classList.add('menu-open');
-    }
+  (function(){
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open'); btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }));
+  })();
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href.length < 2) return;
+      const target = document.querySelector(href);
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
   });
-  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
-})();
+
+  /* PROGRESS BAR */
+  const progressFill = document.getElementById('progressFill');
+  function updateProgress() {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    progressFill.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  /* TOC active state */
+  const headings = document.querySelectorAll('.article-body h2');
+  const tocLinks = document.querySelectorAll('.toc-list a');
+  const tocObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tocLinks.forEach(l => l.classList.remove('active'));
+        const id = entry.target.getAttribute('id');
+        const link = document.querySelector('.toc-list a[href="#' + id + '"]');
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-90px 0px -60% 0px', threshold: 0 });
+  headings.forEach(h => tocObs.observe(h));
+
+  (function () {
+    const overlay = document.getElementById('nlOverlay');
+    const closeBtn = document.getElementById('nlClose');
+    function open(e) { if (e) e.preventDefault(); overlay.classList.add('open'); }
+    function close() { overlay.classList.remove('open'); }
+    document.querySelectorAll('[data-open-newsletter]').forEach(a => a.addEventListener('click', open));
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  })();
 </script>
 </body>
 </html>

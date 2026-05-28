@@ -8,558 +8,413 @@
 <meta name="description" content="Accessible Finance is an independent, ad-free publication built to make investing knowledge available to everyone. Meet the team and read our story.">
 <link rel="canonical" href="https://accessiblefinance.example/about.html">
 <meta property="og:title" content="About — Accessible Finance">
-<meta property="og:description" content="Independent, ad-free investing education — our mission, values, and story.">
-<meta property="og:type" content="website">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<meta property="og:description" content="An independent, ad-free publication built to make investing knowledge available to everyone.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="Logo.png">
+<meta name="twitter:card" content="summary">
+
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --bg: #f7f5f0;
-  --surface: #ffffff;
-  --ink: #1a1816;
-  --ink2: #4a4640;
-  --ink3: #8a8480;
-  --green: #1d6b45;
-  --green-light: #e8f4ed;
-  --green-mid: #2d8a59;
-  --amber: #c8822a;
-  --amber-light: #fdf3e4;
-  --border: #e4e0d8;
+  --bg: #f7f5f0; --bg-warm: #efece3; --surface: #ffffff;
+  --ink: #1a1816; --ink2: #4a4640; --ink3: #8a8480; --ink4: #b8b0a5;
+  --green: #1d6b45; --green-light: #e8f4ed; --green-mid: #2d8a59;
+  --sage: #7d8c7b; --sage-light: #e8eae5;
+  --gold: #c8822a; --gold-soft: #d4a560; --gold-light: #f6ecd9;
+  --border: #e4e0d8; --border-strong: #c9c3b6;
   --serif: 'Instrument Serif', Georgia, serif;
   --sans: 'Syne', sans-serif;
   --body: 'Literata', Georgia, serif;
-  --radius: 6px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
 }
-
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
 
 /* NAV */
-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
-.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo-mark { width: 32px; height: 32px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 14px; font-weight: 800; color: white; letter-spacing: -1px; flex-shrink: 0; }
-.logo-text { font-family: var(--sans); font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px; }
-.nav-links { display: flex; gap: 4px; list-style: none; }
-.nav-links a { font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--ink2); text-decoration: none; padding: 6px 14px; border-radius: 100px; transition: all 0.2s; }
-.nav-links a:hover, .nav-links a.active { background: var(--green-light); color: var(--green); }
-.nav-cta { font-family: var(--sans); font-size: 14px; font-weight: 600; background: var(--green); color: white; padding: 9px 20px; border-radius: 100px; text-decoration: none; transition: background 0.2s; letter-spacing: 0.2px; }
-.nav-cta:hover { background: var(--green-mid); }
-.about-cta { font-family: var(--sans); font-size: 14px; font-weight: 600; background: var(--green); color: white; padding: 11px 24px; border-radius: 100px; text-decoration: none; display: inline-block; transition: background 0.2s; }
-.about-cta:hover { background: var(--green-mid); }
+nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+.nav-logo { display: flex; align-items: center; gap: 12px; }
+.nav-logo img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; object-position: 50% 20%; }
+.nav-logo .wordmark { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); }
+.nav-links { display: flex; gap: 36px; }
+.nav-links a { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink2); padding: 6px 0; position: relative; transition: color 0.2s; }
+.nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: center; transition: transform 0.3s cubic-bezier(.2,.7,.2,1); }
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+.nav-cta { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; background: var(--ink); color: var(--bg); padding: 12px 22px; border-radius: 100px; transition: background 0.25s; }
+.nav-cta:hover { background: var(--green); }
+.hamburger { display: none; background: transparent; border: 0; cursor: pointer; padding: 8px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); margin: 5px 0; transition: 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 72px 0 0; background: var(--bg); z-index: 90; padding: 40px; flex-direction: column; gap: 28px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: var(--serif); font-size: 32px; font-style: italic; color: var(--ink); }
+.mobile-menu a.cta { color: var(--green); }
 
-/* PAGE HERO */
-.page-hero { padding: 80px 40px 60px; max-width: 1160px; margin: 0 auto; }
-.page-hero .section-label { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink3); margin-bottom: 16px; }
-.page-hero h1 { font-family: var(--serif); font-size: clamp(40px, 5vw, 64px); font-weight: 400; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px; }
-.page-hero h1 em { font-style: italic; color: var(--green); }
-.page-hero .lead { font-size: 19px; line-height: 1.7; color: var(--ink2); font-weight: 300; max-width: 600px; }
+/* SHARED */
+.eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.section-title { font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px); font-weight: 400; line-height: 1.05; letter-spacing: -0.015em; color: var(--ink); margin-top: 18px; }
+.section-title em { font-style: italic; color: var(--green); font-weight: 400; }
+.section-sub { font-family: var(--body); font-style: italic; font-size: 17px; color: var(--ink2); margin-top: 16px; max-width: 540px; line-height: 1.6; }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(.16,1,.3,1), transform 0.9s cubic-bezier(.16,1,.3,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.d2 { transition-delay: 0.08s; }
+.reveal.d3 { transition-delay: 0.16s; }
+.reveal.d4 { transition-delay: 0.24s; }
+
+/* HERO */
+.about-hero { padding: 96px 40px 96px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: end; }
+.about-hero h1 { font-family: var(--serif); font-size: clamp(56px, 7vw, 96px); font-weight: 400; line-height: 1.02; letter-spacing: -0.03em; margin-top: 28px; color: var(--ink); }
+.about-hero h1 em { font-style: italic; color: var(--green); font-weight: 400; }
+.about-hero .lead { font-family: var(--body); font-size: 19px; line-height: 1.7; color: var(--ink2); max-width: 480px; }
+.about-hero .lead strong { color: var(--ink); font-weight: 500; }
 
 /* MISSION */
-.mission { padding: 0 40px 80px; max-width: 1160px; margin: 0 auto; }
-.mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-.mission-text { font-size: 17px; line-height: 1.8; color: var(--ink2); font-weight: 300; }
-.mission-text p { margin-bottom: 24px; }
-.mission-text strong { color: var(--ink); font-weight: 400; }
-
-.mission-aside { position: sticky; top: 88px; }
-.quote-block { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px 36px; position: relative; }
-.quote-block::before { content: '"'; font-family: var(--serif); font-size: 120px; color: var(--green-light); position: absolute; top: 10px; left: 24px; line-height: 1; pointer-events: none; }
-.quote-text { font-family: var(--serif); font-size: 24px; font-style: italic; line-height: 1.45; color: var(--ink); letter-spacing: -0.3px; position: relative; z-index: 1; }
-.quote-attr { font-family: var(--sans); font-size: 13px; color: var(--ink3); margin-top: 20px; font-weight: 500; }
+.mission { padding: 100px 40px; max-width: 1200px; margin: 0 auto; border-top: 1px solid var(--border); display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: start; }
+.mission-text p { font-family: var(--body); font-size: 18px; line-height: 1.75; color: var(--ink2); margin-bottom: 22px; }
+.mission-text p:last-child { margin-bottom: 0; }
+.mission-text strong { color: var(--ink); font-weight: 500; }
+.mission-quote { background: var(--bg-warm); border-radius: 24px; padding: 56px 44px; position: relative; }
+.mission-quote::before { content: '"'; position: absolute; top: -10px; left: 36px; font-family: var(--serif); font-style: italic; font-size: 120px; line-height: 1; color: var(--gold); opacity: 0.6; }
+.mission-quote blockquote { font-family: var(--serif); font-style: italic; font-size: 28px; line-height: 1.3; color: var(--ink); letter-spacing: -0.01em; margin-top: 16px; }
+.mission-quote cite { display: block; font-family: var(--sans); font-style: normal; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink3); margin-top: 28px; }
 
 /* VALUES */
-.values-section { background: var(--ink); padding: 100px 40px; }
-.values-inner { max-width: 1160px; margin: 0 auto; }
-.values-section .section-label { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
-.values-section h2 { font-family: var(--serif); font-size: clamp(32px, 4vw, 50px); font-weight: 400; line-height: 1.15; letter-spacing: -1px; color: white; margin-bottom: 52px; }
-.values-section h2 em { font-style: italic; color: var(--green-mid); }
-
-.values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; }
-.value-card { background: rgba(255,255,255,0.03); padding: 44px 36px; transition: background 0.2s; }
-.value-card:hover { background: rgba(255,255,255,0.07); }
-.value-icon { font-size: 32px; margin-bottom: 20px; }
-.value-title { font-family: var(--sans); font-size: 18px; font-weight: 700; color: white; margin-bottom: 12px; letter-spacing: -0.3px; }
-.value-desc { font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.7; font-weight: 300; }
+.values { padding: 120px 40px; background: var(--bg-warm); }
+.values-inner { max-width: 1200px; margin: 0 auto; }
+.values-head { text-align: center; max-width: 700px; margin: 0 auto 72px; }
+.values-head .eyebrow { justify-content: center; }
+.values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.value { background: var(--surface); border-radius: 20px; padding: 40px 32px; border: 1px solid var(--border); transition: transform 0.35s, box-shadow 0.35s; }
+.value:hover { transform: translateY(-4px); box-shadow: 0 24px 60px -20px rgba(26,24,22,0.12); }
+.value-num { font-family: var(--serif); font-size: 56px; font-style: italic; line-height: 1; color: var(--gold); letter-spacing: -0.03em; }
+.value-title { font-family: var(--serif); font-size: 24px; font-weight: 400; line-height: 1.2; color: var(--ink); margin-top: 20px; letter-spacing: -0.01em; }
+.value-body { font-family: var(--body); font-size: 15px; line-height: 1.7; color: var(--ink2); margin-top: 14px; }
 
 /* STORY TIMELINE */
-.story-section { padding: 100px 40px; max-width: 1160px; margin: 0 auto; }
-.story-section .section-label { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink3); margin-bottom: 16px; }
-.story-section h2 { font-family: var(--serif); font-size: clamp(32px, 4vw, 50px); font-weight: 400; line-height: 1.15; letter-spacing: -1px; margin-bottom: 52px; }
-.story-section h2 em { font-style: italic; color: var(--green); }
+.story { padding: 120px 40px; max-width: 1100px; margin: 0 auto; }
+.story-head { text-align: center; max-width: 700px; margin: 0 auto 72px; }
+.story-head .eyebrow { justify-content: center; }
+.timeline { position: relative; }
+.timeline::before { content: ''; position: absolute; left: 100px; top: 12px; bottom: 12px; width: 1px; background: var(--border); }
+.tl-item { display: grid; grid-template-columns: 120px 1fr; gap: 56px; align-items: start; padding: 24px 0 56px; position: relative; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-year { font-family: var(--serif); font-size: 36px; font-weight: 400; color: var(--green); letter-spacing: -0.02em; text-align: right; }
+.tl-item::before { content: ''; position: absolute; left: 95px; top: 36px; width: 11px; height: 11px; border-radius: 50%; background: var(--gold); border: 3px solid var(--bg); z-index: 1; }
+.tl-content h3 { font-family: var(--serif); font-size: 26px; font-weight: 400; line-height: 1.2; color: var(--ink); letter-spacing: -0.01em; }
+.tl-content p { font-family: var(--body); font-size: 16px; line-height: 1.7; color: var(--ink2); margin-top: 12px; max-width: 580px; }
 
-.timeline { display: flex; flex-direction: column; gap: 0; position: relative; padding-left: 40px; }
-.timeline::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--border); }
-.timeline-item { position: relative; padding: 0 0 48px 0; }
-.timeline-item:last-child { padding-bottom: 0; }
-.timeline-dot { position: absolute; left: -40px; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--green-light); border: 3px solid var(--green); z-index: 1; }
-.timeline-year { font-family: var(--sans); font-size: 13px; font-weight: 700; color: var(--green); letter-spacing: 1px; margin-bottom: 8px; }
-.timeline-title { font-family: var(--serif); font-size: 24px; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.3px; }
-.timeline-desc { font-size: 15px; color: var(--ink2); line-height: 1.7; font-weight: 300; max-width: 560px; }
+/* STATS */
+.stats-strip { background: var(--ink); color: var(--bg); padding: 80px 40px; }
+.stats-strip-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+.stat-cell { text-align: center; }
+.stat-num { font-family: var(--serif); font-size: clamp(48px, 5vw, 64px); line-height: 1; letter-spacing: -0.025em; color: var(--bg); }
+.stat-num em { font-style: italic; color: var(--gold-soft); }
+.stat-label { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(247,245,240,0.55); margin-top: 14px; }
 
-/* STATS BAR */
-.stats-bar { padding: 0 40px 100px; max-width: 1160px; margin: 0 auto; }
-.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px 28px; text-align: center; }
-.stat-number { font-family: var(--sans); font-size: 40px; font-weight: 800; color: var(--ink); letter-spacing: -1px; line-height: 1; }
-.stat-label { font-size: 14px; color: var(--ink3); margin-top: 8px; font-weight: 300; }
+/* WHO */
+.who { padding: 120px 40px; max-width: 1200px; margin: 0 auto; }
+.who-head { max-width: 700px; margin: 0 0 64px; }
+.who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.who-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 40px 32px; position: relative; }
+.who-card.sage { background: var(--sage-light); border-color: transparent; }
+.who-card.green { background: var(--green-light); border-color: transparent; }
+.who-card .icon { width: 44px; height: 44px; border-radius: 12px; background: var(--bg); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-size: 24px; color: var(--green); margin-bottom: 24px; }
+.who-card h3 { font-family: var(--serif); font-size: 22px; font-weight: 400; line-height: 1.25; color: var(--ink); letter-spacing: -0.01em; }
+.who-card p { font-family: var(--body); font-size: 15px; line-height: 1.7; color: var(--ink2); margin-top: 14px; }
+
+/* FOUNDER */
+.founder { padding: 120px 40px; background: var(--bg-warm); }
+.founder-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: center; }
+.founder-portrait { position: relative; padding: 24px; }
+.founder-portrait::before { content: ''; position: absolute; top: 0; left: 0; right: 48px; bottom: 48px; background: var(--green-light); border-radius: 24px; z-index: 0; }
+.founder-avatar { position: relative; z-index: 1; aspect-ratio: 4 / 5; border-radius: 20px; background: linear-gradient(160deg, var(--green) 0%, var(--green-mid) 100%); display: flex; align-items: center; justify-content: center; color: rgba(247,245,240,0.85); font-family: var(--serif); font-style: italic; font-size: 180px; line-height: 1; box-shadow: 0 30px 80px -20px rgba(26,24,22,0.25); }
+.founder-content h2 { font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px); font-weight: 400; line-height: 1.05; color: var(--ink); letter-spacing: -0.015em; margin-top: 18px; }
+.founder-content h2 em { font-style: italic; color: var(--green); }
+.founder-content .name { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); margin-top: 24px; }
+.founder-content p { font-family: var(--body); font-size: 17px; line-height: 1.75; color: var(--ink2); margin-top: 16px; max-width: 560px; }
+.founder-content p strong { color: var(--ink); font-weight: 500; }
 
 /* CTA */
-.about-cta { padding: 0 40px 100px; max-width: 1160px; margin: 0 auto; }
-.cta-box { background: var(--green); border-radius: 24px; padding: 72px 80px; text-align: center; position: relative; overflow: hidden; }
-.cta-box::before { content: '→'; position: absolute; font-family: var(--serif); font-size: 400px; color: rgba(255,255,255,0.05); right: -40px; bottom: -80px; pointer-events: none; }
-.cta-box h2 { font-family: var(--serif); font-size: clamp(32px, 4vw, 46px); color: white; font-weight: 400; letter-spacing: -0.8px; line-height: 1.2; margin-bottom: 16px; }
-.cta-box p { font-size: 17px; color: rgba(255,255,255,0.75); font-weight: 300; line-height: 1.65; max-width: 500px; margin: 0 auto 32px; }
-.cta-btn { display: inline-block; font-family: var(--sans); font-size: 15px; font-weight: 600; background: white; color: var(--green); padding: 14px 32px; border-radius: 100px; text-decoration: none; transition: all 0.2s; }
-.cta-btn:hover { background: var(--ink); color: white; }
+.cta { padding: 120px 40px; text-align: center; max-width: 800px; margin: 0 auto; }
+.cta h2 { font-family: var(--serif); font-size: clamp(40px, 5vw, 64px); font-weight: 400; line-height: 1.05; color: var(--ink); letter-spacing: -0.02em; }
+.cta h2 em { font-style: italic; color: var(--green); }
+.cta p { font-family: var(--body); font-style: italic; font-size: 18px; color: var(--ink2); margin-top: 20px; max-width: 540px; margin-left: auto; margin-right: auto; }
+.cta-actions { display: flex; gap: 24px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
+.btn-primary { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; background: var(--ink); color: var(--bg); padding: 18px 36px; border-radius: 100px; display: inline-flex; align-items: center; gap: 10px; transition: background 0.3s, transform 0.3s; }
+.btn-primary:hover { background: var(--green); transform: translateY(-1px); }
+.btn-ghost { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); display: inline-flex; align-items: center; gap: 10px; padding: 18px 0; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+.btn-ghost:hover { border-bottom-color: var(--gold); }
 
 /* FOOTER */
-footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,255,0.6); }
-.footer-inner { max-width: 1160px; margin: 0 auto; }
-.footer-top { display: grid; grid-template-columns: 260px 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
-.footer-tagline { font-size: 14px; margin-top: 12px; line-height: 1.6; font-weight: 300; max-width: 200px; }
-.footer-col h4 { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: white; margin-bottom: 16px; }
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.footer-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; font-weight: 300; transition: color 0.2s; }
-.footer-col a:hover { color: white; }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-family: var(--sans); }
-@media (max-width: 600px) { .footer-bottom { flex-direction: column; gap: 12px; text-align: center; } }
-.footer-disclaimer { max-width: 600px; line-height: 1.6; color: rgba(255,255,255,0.3); font-size: 12px; font-weight: 300; }
+footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40px 48px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 72px; border-bottom: 1px solid rgba(247,245,240,0.1); }
+.footer-brand .wordmark-row { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.footer-brand img { width: 36px; height: 36px; border-radius: 8px; }
+.footer-brand .name { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--bg); }
+.footer-brand p { font-family: var(--body); font-style: italic; font-size: 16px; line-height: 1.65; max-width: 360px; color: rgba(247,245,240,0.55); }
+.footer-col h4 { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 24px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-col a { font-family: var(--body); font-size: 15px; color: rgba(247,245,240,0.78); transition: color 0.2s; }
+.footer-col a:hover { color: var(--gold-soft); }
+.footer-bottom { padding-top: 36px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.footer-disclaimer { font-family: var(--body); font-size: 13px; line-height: 1.6; color: rgba(247,245,240,0.4); max-width: 720px; }
+.footer-copy { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(247,245,240,0.3); white-space: nowrap; }
+
+/* MODAL */
+.nl-overlay { position: fixed; inset: 0; background: rgba(26,24,22,0.55); backdrop-filter: blur(6px); z-index: 200; padding: 24px; display: none; align-items: center; justify-content: center; }
+.nl-overlay.open { display: flex; }
+.nl-modal { background: var(--bg); border-radius: 24px; max-width: 520px; width: 100%; padding: 56px 48px 40px; position: relative; border: 1px solid var(--border); box-shadow: 0 30px 80px rgba(0,0,0,0.25); }
+.nl-close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 100px; background: transparent; border: 0; cursor: pointer; font-size: 18px; color: var(--ink); transition: background 0.2s; }
+.nl-close:hover { background: var(--bg-warm); }
+.nl-label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.nl-title { font-family: var(--serif); font-size: 32px; line-height: 1.15; color: var(--ink); margin-bottom: 12px; }
+.nl-title em { font-style: italic; color: var(--green); }
+.nl-sub { font-family: var(--body); font-size: 15px; color: var(--ink2); margin-bottom: 24px; }
+.nl-modal iframe { width: 100%; height: 180px; border: 0; background: transparent; }
+.nl-modal .fine { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3); text-align: center; margin-top: 16px; }
 
 /* RESPONSIVE */
-@media (max-width: 900px) {
-  .mission-grid { grid-template-columns: 1fr; gap: 40px; }
-  .mission-aside { position: relative; top: 0; }
+@media (max-width: 1024px) {
+  .about-hero, .mission, .founder-inner { grid-template-columns: 1fr; gap: 56px; }
+  .values-grid { grid-template-columns: 1fr 1fr; }
+  .who-grid { grid-template-columns: 1fr; }
+  .stats-strip-inner { grid-template-columns: 1fr 1fr; gap: 48px; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  nav.site-nav { padding: 0 24px; height: 64px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: block; }
+  .about-hero { padding: 48px 24px 56px; }
+  .mission, .values, .story, .who, .founder, .cta { padding-left: 24px; padding-right: 24px; }
+  .values, .story, .who, .founder, .cta { padding-top: 80px; padding-bottom: 80px; }
   .values-grid { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .nav-links { display: none; }
-  .cta-box { padding: 48px 40px; }
+  .stats-strip { padding: 56px 24px; }
+  .timeline::before { left: 6px; }
+  .tl-item { grid-template-columns: 1fr; gap: 4px; padding: 24px 0 48px 32px; }
+  .tl-item::before { left: 0; top: 36px; }
+  .tl-year { text-align: left; font-size: 28px; }
+  .mission-quote { padding: 40px 28px; }
+  .mission-quote blockquote { font-size: 22px; }
+  .founder-avatar { font-size: 120px; }
+  .founder-portrait::before { right: 24px; bottom: 24px; }
+  .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px; }
+  footer.site-footer { padding: 64px 24px 36px; }
 }
-@media (max-width: 600px) {
-  nav { padding: 0 20px; }
-  .page-hero, .mission, .story-section, .stats-bar, .about-cta { padding-left: 20px; padding-right: 20px; }
-  .values-section { padding: 60px 20px; }
-  footer { padding: 40px 20px 24px; }
-  .stats-grid { grid-template-columns: 1fr; }
-  .footer-top { grid-template-columns: 1fr; }
-  .cta-box { padding: 36px 24px; }
-}
-
-/* ANIMATIONS */
-.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
-.stagger-1 { transition-delay: 0.1s; }
-.stagger-2 { transition-delay: 0.2s; }
-.stagger-3 { transition-delay: 0.3s; }
-.stagger-4 { transition-delay: 0.4s; }
-
-/* ── Newsletter Popup ── */
-.nl-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(4px);
-  z-index: 999;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.nl-overlay.open { display: flex; }
-.nl-modal {
-  background: var(--surface);
-  border-radius: 24px;
-  width: 100%;
-  max-width: 520px;
-  overflow: hidden;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.25);
-  position: relative;
-  animation: nlSlideIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
-}
-@keyframes nlSlideIn {
-  from { opacity: 0; transform: translateY(24px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-.nl-header {
-  background: var(--green);
-  padding: 32px 36px 28px;
-  position: relative;
-}
-.nl-header::before {
-  content: "\1F4EC";
-  position: absolute;
-  font-size: 80px;
-  right: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.18;
-  line-height: 1;
-}
-.nl-label {
-  font-family: var(--sans);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 10px;
-}
-.nl-title {
-  font-family: var(--serif);
-  font-size: 26px;
-  color: white;
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.4px;
-}
-.nl-title em { font-style: italic; }
-.nl-sub {
-  font-size: 14px;
-  color: rgba(255,255,255,0.7);
-  font-weight: 300;
-  margin-top: 8px;
-  line-height: 1.6;
-}
-.nl-body {
-  padding: 8px 8px 20px;
-  background: #f9f8f5;
-}
-.nl-body iframe {
-  display: block;
-  border-radius: 10px;
-  background: white;
-}
-.nl-fine {
-  font-family: var(--sans);
-  font-size: 11px;
-  color: var(--ink3);
-  text-align: center;
-  margin-top: 10px;
-  padding: 0 16px;
-}
-.nl-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.15);
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  transition: background 0.2s;
-}
-.nl-close:hover { background: rgba(255,255,255,0.3); }
-@media (max-width: 600px) {
-  .nl-header { padding: 24px 24px 20px; }
-  .nl-title { font-size: 22px; }
-}
-
-
-/* ═══════════════ HAMBURGER / MOBILE NAV ═══════════════ */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  background: none;
-  border: none;
-  transition: background 0.2s;
-  flex-shrink: 0;
-}
-.hamburger:hover { background: var(--green-light); }
-.hamburger span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--ink);
-  border-radius: 2px;
-  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
-  transform-origin: center;
-}
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-.mobile-menu {
-  display: none;
-  position: fixed;
-  inset: 64px 0 0 0;
-  background: rgba(247,245,240,0.98);
-  backdrop-filter: blur(20px);
-  z-index: 99;
-  flex-direction: column;
-  padding: 20px 16px;
-  gap: 2px;
-  border-top: 1px solid var(--border);
-  overflow-y: auto;
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a {
-  font-family: var(--sans);
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--ink2);
-  text-decoration: none;
-  padding: 14px 16px;
-  border-radius: 12px;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 52px;
-}
-.mobile-menu a:hover, .mobile-menu a.mobile-active { background: var(--green-light); color: var(--green); }
-.mobile-menu-divider { height: 1px; background: var(--border); margin: 12px 0; }
-.mobile-menu-cta a {
-  background: var(--green) !important;
-  color: white !important;
-  justify-content: center;
-  border-radius: 100px !important;
-  margin-top: 4px;
-}
-.mobile-menu-cta a:hover { background: var(--green-mid) !important; }
-@media (max-width: 900px) {
-  .hamburger { display: flex; }
-  .nav-cta { display: none; }
-  body.menu-open { overflow: hidden; }
-}
-
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
+<nav class="site-nav">
   <a href="index.html" class="nav-logo" aria-label="Accessible Finance — Home">
-    <img src="Logo.png" alt="Accessible Finance" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
-    <span class="logo-text">Accessible Finance</span>
+    <img src="Logo.png" alt="">
+    <span class="wordmark">Accessible Finance</span>
   </a>
-  <ul class="nav-links">
-    <li><a href="topic.html">Learn</a></li>
-    <li><a href="articles.html">Articles</a></li>
-    <li><a href="index.html#glossary">Glossary</a></li>
-    <li><a href="earn.html" style="color:var(--green);font-weight:700;">💵 Rewards</a></li>
-    <li><a href="about.html" class="active">About</a></li>
-  </ul>
-  <a href="index.html#newsletter" class="nav-cta" data-open-newsletter>Get the Newsletter</a>
-  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
-    <span></span>
-    <span></span>
-    <span></span>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="articles.html">Guides</a>
+    <a href="index.html#glossary">Glossary</a>
+    <a href="earn.html">Rewards</a>
+    <a href="about.html" class="active">About</a>
+  </div>
+  <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span><span></span>
   </button>
-  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-    <a href="index.html">🏠 Home</a>
-    <a href="topic.html">📚 Learn</a>
-    <a href="articles.html">📰 Articles</a>
-    <a href="index.html#glossary">🔤 Glossary</a>
-    <a href="earn.html">💵 Rewards</a>
-    <a href="about.html" class="mobile-active">👤 About</a>
-    <div class="mobile-menu-divider"></div>
-    <div class="mobile-menu-cta">
-      <a href="index.html#newsletter">✉️ Get the Newsletter</a>
-    </div>
-  </div>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="articles.html">Guides</a>
+  <a href="index.html#glossary">Glossary</a>
+  <a href="earn.html">Rewards</a>
+  <a href="about.html">About</a>
+  <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
+</div>
 
-<!-- PAGE HERO -->
-<section class="page-hero">
-  <div class="section-label">About Us</div>
-  <h1>Financial literacy is a <em>right, not a privilege</em></h1>
-  <p class="lead">We started Accessible Finance because too many people are locked out of understanding their own money — not because it's complicated, but because no one explains it well.</p>
+<section class="about-hero">
+  <div class="reveal">
+    <span class="eyebrow">About Us</span>
+    <h1>Financial literacy is a <em>right,</em><br>not a privilege.</h1>
+  </div>
+  <p class="lead reveal d2">We started Accessible Finance because too many people are locked out of understanding their own money — not because it's complicated, but because <strong>no one explains it well</strong>.</p>
 </section>
 
-<!-- MISSION -->
 <section class="mission">
-  <div class="mission-grid">
-    <div class="mission-text fade-in">
-      <p>The investing world has a communication problem. On one end, you get content so simplified it's misleading. On the other, textbook explanations written for finance professionals. The result? Millions of people who know they <strong>should</strong> be investing, but can't get past the jargon to start.</p>
-      <p>Accessible Finance exists in the middle. We write detailed, accurate explanations of how markets, assets, and portfolios work — in language that any curious person can follow. No dumbing down. No gatekeeping.</p>
-      <p>We don't sell financial products. We don't run ads. We don't promote individual stocks, funds, or brokers. Our only goal is helping you understand how money works — so you can make your own informed decisions.</p>
-      <p>Every guide we publish goes through a rigorous editorial process: research, writing, fact-checking, and clarity review. We hold ourselves to the same standards as the best financial journalism — but with accessibility as the primary lens.</p>
-    </div>
-    <div class="mission-aside fade-in stagger-2">
-      <div class="quote-block">
-        <div class="quote-text">The biggest risk in investing isn't the market — it's not understanding what you own or why you own it.</div>
-        <div class="quote-attr">— The philosophy behind everything we write</div>
-      </div>
-    </div>
+  <div class="mission-text reveal">
+    <span class="eyebrow">Our Mission</span>
+    <p style="margin-top:24px;">The investing world has a communication problem. On one end, you get content so simplified it's misleading. On the other, textbook explanations written for finance professionals. The result? Millions of people who know they <strong>should</strong> be investing, but can't get past the jargon to start.</p>
+    <p>Accessible Finance exists in the middle. We write detailed, accurate explanations of how markets, assets, and portfolios work — in language that any curious person can follow. <strong>No dumbing down. No gatekeeping.</strong></p>
+    <p>We don't sell financial products. We don't run ads. We don't promote individual stocks, funds, or brokers. Our only goal is helping you understand how money works — so you can make your own informed decisions.</p>
+    <p>Every guide we publish goes through a rigorous editorial process: research, writing, fact-checking, and clarity review. We hold ourselves to the same standards as the best financial journalism — but with accessibility as the primary lens.</p>
   </div>
+  <aside class="mission-quote reveal d2">
+    <blockquote>The biggest risk in investing isn't the market — it's not understanding what you own or why you own it.</blockquote>
+    <cite>— The philosophy behind everything we write</cite>
+  </aside>
 </section>
 
-<!-- VALUES -->
-<section class="values-section">
+<section class="values">
   <div class="values-inner">
-    <div class="section-label">What We Stand For</div>
-    <h2>Six principles that guide <em>every word</em></h2>
+    <div class="values-head reveal">
+      <span class="eyebrow">What we believe</span>
+      <h2 class="section-title">Six principles that <em>shape every word</em>.</h2>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto;">The editorial standards that decide what gets published — and what gets cut.</p>
+    </div>
     <div class="values-grid">
-      <div class="value-card">
-        <div class="value-icon">🎯</div>
-        <div class="value-title">Clarity Above All</div>
-        <div class="value-desc">If a reader doesn't understand it, we haven't done our job. Every sentence is written and rewritten until the concept clicks.</div>
-      </div>
-      <div class="value-card">
-        <div class="value-icon">🚫</div>
-        <div class="value-title">Zero Product Promotion</div>
-        <div class="value-desc">No affiliate links. No sponsored funds. No "top picks." We never recommend specific financial products — only frameworks for thinking.</div>
-      </div>
-      <div class="value-card">
-        <div class="value-icon">⚖️</div>
-        <div class="value-title">Honest About Uncertainty</div>
-        <div class="value-desc">Markets are uncertain. We never pretend to predict them. When evidence is mixed, we say so. When nobody knows, we say that too.</div>
-      </div>
-      <div class="value-card">
-        <div class="value-icon">🔬</div>
-        <div class="value-title">Research-Backed</div>
-        <div class="value-desc">Our content draws from peer-reviewed finance research, historical data, and reputable sources. We cite our claims and show our reasoning.</div>
-      </div>
-      <div class="value-card">
-        <div class="value-icon">🌍</div>
-        <div class="value-title">Accessible to Everyone</div>
-        <div class="value-desc">Written for someone with no prior finance knowledge. You shouldn't need a degree to understand how your retirement account works.</div>
-      </div>
-      <div class="value-card">
-        <div class="value-icon">📐</div>
-        <div class="value-title">Nuance Over Soundbites</div>
-        <div class="value-desc">Real investing is nuanced. We don't reduce complex topics to clickbait rules. We explain the trade-offs so you can decide for yourself.</div>
-      </div>
+      <article class="value reveal">
+        <div class="value-num">01</div>
+        <h3 class="value-title">Clarity above all</h3>
+        <p class="value-body">If a reader doesn't understand it, we haven't done our job. Every sentence is written and rewritten until the concept clicks.</p>
+      </article>
+      <article class="value reveal d2">
+        <div class="value-num">02</div>
+        <h3 class="value-title">Zero product promotion</h3>
+        <p class="value-body">No affiliate links. No sponsored funds. No "top picks." We never recommend specific financial products — only frameworks for thinking.</p>
+      </article>
+      <article class="value reveal d3">
+        <div class="value-num">03</div>
+        <h3 class="value-title">Honest about uncertainty</h3>
+        <p class="value-body">Markets are uncertain. We never pretend to predict them. When evidence is mixed, we say so. When nobody knows, we say that too.</p>
+      </article>
+      <article class="value reveal">
+        <div class="value-num">04</div>
+        <h3 class="value-title">Research-backed</h3>
+        <p class="value-body">Our content draws from peer-reviewed finance research, historical data, and reputable sources. We cite our claims and show our reasoning.</p>
+      </article>
+      <article class="value reveal d2">
+        <div class="value-num">05</div>
+        <h3 class="value-title">Accessible to everyone</h3>
+        <p class="value-body">Written for someone with no prior finance knowledge. You shouldn't need a degree to understand how your retirement account works.</p>
+      </article>
+      <article class="value reveal d3">
+        <div class="value-num">06</div>
+        <h3 class="value-title">Nuance over soundbites</h3>
+        <p class="value-body">Real investing is nuanced. We don't reduce complex topics to clickbait rules. We explain the trade-offs so you can decide for yourself.</p>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- STORY -->
-<section class="story-section">
-  <div class="section-label">Our Story</div>
-  <h2>How we got <em>here</em></h2>
+<section class="story">
+  <div class="story-head reveal">
+    <span class="eyebrow">Our Story</span>
+    <h2 class="section-title">From a <em>frustration</em><br>to a library.</h2>
+  </div>
   <div class="timeline">
-    <div class="timeline-item fade-in">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2023</div>
-      <div class="timeline-title">The frustration that started it all</div>
-      <div class="timeline-desc">After spending months trying to learn investing from existing resources — and finding them either patronizing or impenetrable — we decided to write the guides we wished existed.</div>
+    <div class="tl-item reveal">
+      <div class="tl-year">2023</div>
+      <div class="tl-content">
+        <h3>The frustration that started it all</h3>
+        <p>After spending months trying to learn investing from existing resources — and finding them either patronizing or impenetrable — we decided to write the guides we wished existed.</p>
+      </div>
     </div>
-    <div class="timeline-item fade-in stagger-1">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2024</div>
-      <div class="timeline-title">First 50 guides published</div>
-      <div class="timeline-desc">We launched with a core library covering fundamentals, asset classes, and portfolio construction. Word spread through communities of people who felt the same frustration we did.</div>
+    <div class="tl-item reveal">
+      <div class="tl-year">2024</div>
+      <div class="tl-content">
+        <h3>First 50 guides published</h3>
+        <p>We launched with a core library covering fundamentals, asset classes, and portfolio construction. Word spread through communities of people who felt the same frustration we did.</p>
+      </div>
     </div>
-    <div class="timeline-item fade-in stagger-2">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2025</div>
-      <div class="timeline-title">40,000 weekly readers</div>
-      <div class="timeline-desc">Our newsletter grew entirely through word of mouth. Readers told friends, professors assigned our guides, and financial advisors started sharing them with clients.</div>
+    <div class="tl-item reveal">
+      <div class="tl-year">2025</div>
+      <div class="tl-content">
+        <h3>40,000 weekly readers</h3>
+        <p>Our newsletter grew entirely through word of mouth. Readers told friends, professors assigned our guides, and financial advisors started sharing them with clients.</p>
+      </div>
     </div>
-    <div class="timeline-item fade-in stagger-3">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2026</div>
-      <div class="timeline-title">120+ guides and growing</div>
-      <div class="timeline-desc">Today we cover four core topics with over 120 free guides — and we're expanding into interactive tools, calculators, and deeper case studies. Still free. Still independent.</div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<section class="stats-bar">
-  <div class="stats-grid">
-    <div class="stat-card fade-in stagger-1">
-      <div class="stat-number">120+</div>
-      <div class="stat-label">Free guides published</div>
-    </div>
-    <div class="stat-card fade-in stagger-2">
-      <div class="stat-number">40K</div>
-      <div class="stat-label">Weekly newsletter readers</div>
-    </div>
-    <div class="stat-card fade-in stagger-3">
-      <div class="stat-number">$0</div>
-      <div class="stat-label">Cost to readers, forever</div>
-    </div>
-    <div class="stat-card fade-in stagger-4">
-      <div class="stat-number">0</div>
-      <div class="stat-label">Products promoted, ever</div>
+    <div class="tl-item reveal">
+      <div class="tl-year">2026</div>
+      <div class="tl-content">
+        <h3>120+ guides and growing</h3>
+        <p>Today we cover four core topics with over 120 free guides — and we're expanding into interactive tools, calculators, and deeper case studies. Still free. Still independent.</p>
+      </div>
     </div>
   </div>
 </section>
 
-
-<!-- WHO WE WRITE FOR -->
-<section style="padding: 80px 40px; max-width: 1160px; margin: 0 auto;">
-  <div style="font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink3); margin-bottom: 16px;">Our Audience</div>
-  <h2 style="font-family: var(--serif); font-size: clamp(30px, 4vw, 46px); font-weight: 400; line-height: 1.15; letter-spacing: -1px; margin-bottom: 12px;">Who we <em style="color:var(--green);font-style:italic;">write for</em></h2>
-  <p style="color: var(--ink2); font-size: 17px; font-weight: 300; max-width: 540px; margin-bottom: 52px; line-height: 1.65;">Accessible Finance was built specifically for people who've been left behind by traditional financial content.</p>
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;" class="wwf-grid">
-    <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 40px 32px; display: flex; flex-direction: column; gap: 16px;" class="fade-in stagger-1">
-      <div style="font-size: 36px;">🧠</div>
-      <div style="font-family: var(--sans); font-size: 18px; font-weight: 700; color: var(--ink);">Neurodivergent folks</div>
-      <div style="font-size: 15px; color: var(--ink2); line-height: 1.75; font-weight: 300;">ADHD, autism, dyslexia, and other cognitive differences can make dense financial writing especially frustrating. We write in short, clear steps with minimal jargon and no wall-of-text layouts.</div>
-    </div>
-    <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 40px 32px; display: flex; flex-direction: column; gap: 16px;" class="fade-in stagger-2">
-      <div style="font-size: 36px;">♿</div>
-      <div style="font-family: var(--sans); font-size: 18px; font-weight: 700; color: var(--ink);">People with disabilities</div>
-      <div style="font-size: 15px; color: var(--ink2); line-height: 1.75; font-weight: 300;">Disability often means irregular income, unexpected expenses, and complex benefit interactions. We take these realities seriously — rather than assuming a standard financial situation.</div>
-    </div>
-    <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 40px 32px; display: flex; flex-direction: column; gap: 16px;" class="fade-in stagger-3">
-      <div style="font-size: 36px;">🌱</div>
-      <div style="font-family: var(--sans); font-size: 18px; font-weight: 700; color: var(--ink);">Beginners & low-income earners</div>
-      <div style="font-size: 15px; color: var(--ink2); line-height: 1.75; font-weight: 300;">Financial literacy shouldn't require money to access. All of our content is free, forever. And we never assume you're starting from a position of wealth or financial privilege.</div>
-    </div>
-  </div>
-  <style>@media (max-width: 900px) { .wwf-grid { grid-template-columns: 1fr !important; } }</style>
-</section>
-
-<!-- FOUNDER -->
-<section style="padding: 0 40px 100px; max-width: 1160px; margin: 0 auto;">
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 60px;" class="founder-grid">
-    <div>
-      <div style="font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink3); margin-bottom: 16px;">The Founder</div>
-      <h2 style="font-family: var(--serif); font-size: clamp(28px, 3.5vw, 42px); font-weight: 400; line-height: 1.2; letter-spacing: -0.8px; margin-bottom: 20px;">Arthur Li</h2>
-      <p style="font-size: 16px; color: var(--ink2); line-height: 1.8; font-weight: 300; margin-bottom: 20px;">Arthur started Accessible Finance after noticing that most personal finance content was either too simplified to be useful or too dense for anyone without a finance background to follow.</p>
-      <p style="font-size: 16px; color: var(--ink2); line-height: 1.8; font-weight: 300; margin-bottom: 28px;">As someone who has navigated mental health challenges and seen how financial stress amplifies them, he built this platform specifically for the people underserved by mainstream financial media — neurodivergent folks, people with disabilities, newcomers to Canada, and anyone who's ever felt excluded from the conversation.</p>
-      <a href="index.html#newsletter" class="about-cta" data-open-newsletter>Get the newsletter</a>
-    </div>
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <div style="width: 180px; height: 180px; border-radius: 50%; background: linear-gradient(135deg, var(--green-light), #a8d5b8); display: flex; align-items: center; justify-content: center; font-size: 72px; flex-shrink: 0; box-shadow: 0 12px 40px rgba(29,107,69,0.15);">👤</div>
-    </div>
-  </div>
-  <style>
-  @media (max-width: 900px) { .founder-grid { grid-template-columns: 1fr !important; padding: 40px !important; } }
-  @media (max-width: 600px) { .founder-grid { padding: 36px 28px !important; } }
-  </style>
-</section>
-
-<!-- CTA -->
-<section class="about-cta">
-  <div class="cta-box">
-    <h2>Ready to start learning?</h2>
-    <p>Explore our library of free guides — from the basics of how markets work to advanced portfolio thinking.</p>
-    <a href="topic.html" class="cta-btn">Browse Topics →</a>
+<section class="stats-strip">
+  <div class="stats-strip-inner">
+    <div class="stat-cell reveal"><div class="stat-num"><em>120+</em></div><div class="stat-label">Free guides</div></div>
+    <div class="stat-cell reveal d2"><div class="stat-num"><em>40K</em></div><div class="stat-label">Weekly readers</div></div>
+    <div class="stat-cell reveal d3"><div class="stat-num"><em>$0</em></div><div class="stat-label">Cost, forever</div></div>
+    <div class="stat-cell reveal d4"><div class="stat-num"><em>0</em></div><div class="stat-label">Products promoted</div></div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
+<section class="who">
+  <div class="who-head reveal">
+    <span class="eyebrow">Who we write for</span>
+    <h2 class="section-title">The readers <em>mainstream<br>finance media misses</em>.</h2>
+  </div>
+  <div class="who-grid">
+    <article class="who-card reveal">
+      <div class="icon">N</div>
+      <h3>Neurodivergent folks</h3>
+      <p>ADHD, autism, dyslexia, and other cognitive differences can make dense financial writing especially frustrating. We write in short, clear steps with minimal jargon and no wall-of-text layouts.</p>
+    </article>
+    <article class="who-card sage reveal d2">
+      <div class="icon">A</div>
+      <h3>People with disabilities</h3>
+      <p>Disability often means irregular income, unexpected expenses, and complex benefit interactions. We take these realities seriously — rather than assuming a standard financial situation.</p>
+    </article>
+    <article class="who-card green reveal d3">
+      <div class="icon">B</div>
+      <h3>Beginners &amp; low-income earners</h3>
+      <p>Financial literacy shouldn't require money to access. All of our content is free, forever. And we never assume you're starting from a position of wealth or financial privilege.</p>
+    </article>
+  </div>
+</section>
+
+<section class="founder">
+  <div class="founder-inner">
+    <div class="founder-portrait reveal">
+      <div class="founder-avatar">A</div>
+    </div>
+    <div class="founder-content reveal d2">
+      <span class="eyebrow">The Founder</span>
+      <h2>Building the publication he <em>wished existed</em>.</h2>
+      <div class="name">Arthur Li</div>
+      <p>Arthur started Accessible Finance after noticing that most personal finance content was either too simplified to be useful or too dense for anyone without a finance background to follow.</p>
+      <p>As someone who has navigated mental health challenges and seen how financial stress amplifies them, he built this platform specifically for the people underserved by mainstream financial media — <strong>neurodivergent folks, people with disabilities, newcomers to Canada, and anyone who's ever felt excluded from the conversation</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta reveal">
+  <span class="eyebrow" style="justify-content:center;">Start where you are</span>
+  <h2>Ready to <em>start learning</em>?</h2>
+  <p>Explore our library of free guides — from the basics of how markets work to advanced portfolio thinking.</p>
+  <div class="cta-actions">
+    <a href="topic.html" class="btn-primary">Browse Topics
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="#newsletter" class="btn-ghost" data-open-newsletter>Get the Dispatch
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="nav-logo" style="display:flex; align-items:center; gap:10px; margin-bottom:0; text-decoration:none;">
-          <img src="Logo.png" alt="Accessible Finance" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
-          <span class="logo-text" style="color:white;">Accessible Finance</span>
+        <div class="wordmark-row">
+          <img src="Logo.png" alt="">
+          <span class="name">Accessible Finance</span>
         </div>
-        <p class="footer-tagline">Investing education without the jargon. Free, forever.</p>
+        <p>"True understanding is not a destination, but a way of traveling." Free, ad-free investing education for the curious.</p>
       </div>
       <div class="footer-col">
         <h4>Learn</h4>
         <ul>
-          <li><a href="topic.html">Investing Fundamentals</a></li>
+          <li><a href="topic.html">Fundamentals</a></li>
           <li><a href="articles.html?cat=assets">Asset Classes</a></li>
           <li><a href="articles.html?cat=portfolio">Portfolio Thinking</a></li>
           <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
@@ -569,92 +424,81 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       <div class="footer-col">
         <h4>Articles</h4>
         <ul>
-          <li><a href="articles.html">Beginner Guides</a></li>
-          <li><a href="articles.html">Intermediate Topics</a></li>
-          <li><a href="articles.html">Case Studies</a></li>
+          <li><a href="articles.html">All Guides</a></li>
+          <li><a href="articles.html">Beginner</a></li>
+          <li><a href="articles.html">Intermediate</a></li>
           <li><a href="articles.html">Latest Posts</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="index.html#newsletter">Newsletter</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="earn.html">Rewards</a></li>
+          <li><a href="#newsletter" data-open-newsletter>Newsletter</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
           <li><a href="disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p class="footer-disclaimer">Not financial advice. All content is for educational purposes only. Investing involves risk, including the possible loss of principal. Past performance is not indicative of future results.</p>
-      <span style="color:rgba(255,255,255,0.3); font-size:12px; white-space:nowrap; margin-left:20px;">© 2026 Accessible Finance</span>
+      <span class="footer-copy">© 2026 Accessible Finance</span>
     </div>
   </div>
 </footer>
 
-<script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
-
-<!-- Newsletter Popup -->
-<div class="nl-overlay" id="nlOverlay">
-  <div class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+<div class="nl-overlay" id="nlOverlay" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+  <div class="nl-modal">
     <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
-    <div class="nl-header">
-      <div class="nl-label">Weekly Newsletter</div>
-      <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
-      <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
-    </div>
-    <div class="nl-body">
-      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-      <p class="nl-fine">No spam. Unsubscribe anytime. We never share your email.</p>
-    </div>
+    <div class="nl-label">Weekly Newsletter</div>
+    <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
+    <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
+    <iframe src="https://accessiblefinance.substack.com/embed" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
   </div>
 </div>
 
 <script>
-(function(){
-  var overlay = document.getElementById("nlOverlay");
-  var closeBtn = document.getElementById("nlClose");
-  function openNL(e){ if(e) e.preventDefault(); overlay.classList.add("open"); }
-  function closeNL(){ overlay.classList.remove("open"); }
-  document.querySelectorAll("[data-open-newsletter]").forEach(function(a){
-    a.addEventListener("click", openNL);
-  });
-  if(closeBtn) closeBtn.addEventListener("click", closeNL);
-  overlay.addEventListener("click", function(e){ if(e.target===overlay) closeNL(); });
-  document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeNL(); });
-})();
-</script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-<script>
-(function(){
-  var btn = document.getElementById('hamburger');
-  var menu = document.getElementById('mobile-menu');
-  if(!btn || !menu) return;
-  function closeMenu(){
-    menu.classList.remove('open');
-    btn.classList.remove('open');
-    btn.setAttribute('aria-expanded','false');
-    document.body.classList.remove('menu-open');
-  }
-  btn.addEventListener('click', function(){
-    var isOpen = menu.classList.contains('open');
-    if(isOpen){ closeMenu(); } else {
-      menu.classList.add('open');
-      btn.classList.add('open');
-      btn.setAttribute('aria-expanded','true');
-      document.body.classList.add('menu-open');
-    }
+  (function(){
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open'); btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }));
+  })();
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href.length < 2) return;
+      const target = document.querySelector(href);
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
   });
-  menu.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', closeMenu);
-  });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
-})();
+
+  (function () {
+    const overlay = document.getElementById('nlOverlay');
+    const closeBtn = document.getElementById('nlClose');
+    function open(e) { if (e) e.preventDefault(); overlay.classList.add('open'); }
+    function close() { overlay.classList.remove('open'); }
+    document.querySelectorAll('[data-open-newsletter]').forEach(a => a.addEventListener('click', open));
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  })();
 </script>
 </body>
 </html>

@@ -7,568 +7,362 @@
 <title>Articles — Accessible Finance</title>
 <meta name="description" content="Clear, unbiased investing guides organized by topic and reader level. Browse all Accessible Finance articles.">
 <link rel="canonical" href="https://accessiblefinance.example/articles.html">
-<meta property="og:title" content="Articles — Accessible Finance">
-<meta property="og:description" content="Clear, unbiased investing guides for curious people.">
+<meta property="og:title" content="All Guides — Accessible Finance">
+<meta property="og:description" content="Clear, unbiased investing guides — beginner to intermediate.">
 <meta property="og:type" content="website">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<meta property="og:image" content="Logo.png">
+<meta name="twitter:card" content="summary">
+
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --bg: #f7f5f0;
-  --surface: #ffffff;
-  --ink: #1a1816;
-  --ink2: #4a4640;
-  --ink3: #8a8480;
-  --green: #1d6b45;
-  --green-light: #e8f4ed;
-  --green-mid: #2d8a59;
-  --amber: #c8822a;
-  --amber-light: #fdf3e4;
-  --border: #e4e0d8;
+  --bg: #f7f5f0; --bg-warm: #efece3; --surface: #ffffff;
+  --ink: #1a1816; --ink2: #4a4640; --ink3: #8a8480; --ink4: #b8b0a5;
+  --green: #1d6b45; --green-light: #e8f4ed; --green-mid: #2d8a59;
+  --sage: #7d8c7b; --sage-light: #e8eae5;
+  --gold: #c8822a; --gold-soft: #d4a560; --gold-light: #f6ecd9;
+  --border: #e4e0d8; --border-strong: #c9c3b6;
   --serif: 'Instrument Serif', Georgia, serif;
   --sans: 'Syne', sans-serif;
   --body: 'Literata', Georgia, serif;
-  --radius: 6px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
 }
-
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
 
-/* NAV */
-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
-.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo-mark { width: 32px; height: 32px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 14px; font-weight: 800; color: white; letter-spacing: -1px; flex-shrink: 0; }
-.logo-text { font-family: var(--sans); font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px; }
-.nav-links { display: flex; gap: 4px; list-style: none; }
-.nav-links a { font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--ink2); text-decoration: none; padding: 6px 14px; border-radius: 100px; transition: all 0.2s; }
-.nav-links a:hover, .nav-links a.active { background: var(--green-light); color: var(--green); }
-.nav-cta { font-family: var(--sans); font-size: 14px; font-weight: 600; background: var(--green); color: white; padding: 9px 20px; border-radius: 100px; text-decoration: none; transition: background 0.2s; letter-spacing: 0.2px; }
-.nav-cta:hover { background: var(--green-mid); }
+nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+.nav-logo { display: flex; align-items: center; gap: 12px; }
+.nav-logo img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; object-position: 50% 20%; }
+.nav-logo .wordmark { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); }
+.nav-links { display: flex; gap: 36px; }
+.nav-links a { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink2); padding: 6px 0; position: relative; transition: color 0.2s; }
+.nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: center; transition: transform 0.3s cubic-bezier(.2,.7,.2,1); }
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+.nav-cta { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; background: var(--ink); color: var(--bg); padding: 12px 22px; border-radius: 100px; transition: background 0.25s; }
+.nav-cta:hover { background: var(--green); }
+.hamburger { display: none; background: transparent; border: 0; cursor: pointer; padding: 8px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); margin: 5px 0; transition: 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 72px 0 0; background: var(--bg); z-index: 90; padding: 40px; flex-direction: column; gap: 28px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: var(--serif); font-size: 32px; font-style: italic; color: var(--ink); }
+.mobile-menu a.cta { color: var(--green); }
 
-/* PAGE HEADER */
-.page-header { padding: 80px 40px 40px; max-width: 1160px; margin: 0 auto; }
-.page-header .section-label { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink3); margin-bottom: 16px; }
-.page-header h1 { font-family: var(--serif); font-size: clamp(40px, 5vw, 60px); font-weight: 400; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 16px; }
-.page-header h1 em { font-style: italic; color: var(--green); }
-.page-header .lead { font-size: 18px; color: var(--ink2); font-weight: 300; max-width: 520px; line-height: 1.65; }
+.eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(.16,1,.3,1), transform 0.9s cubic-bezier(.16,1,.3,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.d2 { transition-delay: 0.08s; } .reveal.d3 { transition-delay: 0.16s; }
+
+/* HEADER */
+.page-head { padding: 80px 40px 40px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: end; border-bottom: 1px solid var(--border); padding-bottom: 56px; }
+.page-head h1 { font-family: var(--serif); font-size: clamp(56px, 7vw, 96px); font-weight: 400; line-height: 1.02; letter-spacing: -0.03em; margin-top: 28px; color: var(--ink); }
+.page-head h1 em { font-style: italic; color: var(--green); }
+.page-head .lead { font-family: var(--body); font-size: 18px; line-height: 1.65; color: var(--ink2); max-width: 460px; }
 
 /* FILTERS */
-.filters { padding: 0 40px 48px; max-width: 1160px; margin: 0 auto; display: flex; gap: 8px; flex-wrap: wrap; }
-.filter-btn { font-family: var(--sans); font-size: 13px; font-weight: 600; padding: 8px 18px; border-radius: 100px; border: 1px solid var(--border); background: var(--surface); color: var(--ink2); cursor: pointer; transition: all 0.2s; }
-.filter-btn:hover { border-color: var(--green); color: var(--green); }
-.filter-btn.active { background: var(--green); color: white; border-color: var(--green); }
+.filters-wrap { max-width: 1200px; margin: 40px auto 0; padding: 0 40px; }
+.filters { display: flex; flex-wrap: wrap; gap: 10px; }
+.filter-btn { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink2); background: var(--bg-warm); border: 1px solid transparent; padding: 12px 20px; border-radius: 100px; cursor: pointer; transition: all 0.25s; }
+.filter-btn:hover { background: var(--surface); border-color: var(--border-strong); color: var(--ink); }
+.filter-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
 /* FEATURED */
-.featured { padding: 0 40px 60px; max-width: 1160px; margin: 0 auto; }
-.featured-card { display: grid; grid-template-columns: 1.1fr 1fr; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; text-decoration: none; color: inherit; transition: all 0.3s; }
-.featured-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); border-color: transparent; }
-.featured-img { background: linear-gradient(135deg, #1d6b45, #2d8a59); display: flex; align-items: center; justify-content: center; font-size: 80px; min-height: 320px; position: relative; }
-.featured-tag { position: absolute; top: 20px; left: 20px; font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; background: rgba(255,255,255,0.92); color: var(--ink); padding: 5px 12px; border-radius: 100px; }
-.featured-body { padding: 48px 44px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
-.featured-label { font-family: var(--sans); font-size: 12px; font-weight: 600; color: var(--green); letter-spacing: 1.5px; text-transform: uppercase; }
-.featured-title { font-family: var(--serif); font-size: 30px; font-weight: 400; line-height: 1.2; letter-spacing: -0.5px; }
-.featured-excerpt { font-size: 16px; color: var(--ink2); font-weight: 300; line-height: 1.7; }
-.featured-meta { display: flex; align-items: center; gap: 12px; font-family: var(--sans); font-size: 13px; color: var(--ink3); margin-top: 8px; }
+.featured-wrap { max-width: 1200px; margin: 56px auto 0; padding: 0 40px; }
+.featured { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 48px; align-items: center; position: relative; overflow: hidden; transition: transform 0.4s, box-shadow 0.4s; }
+.featured:hover { transform: translateY(-3px); box-shadow: 0 30px 70px -25px rgba(26,24,22,0.18); }
+.featured-badge { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+.featured h2 { font-family: var(--serif); font-size: clamp(34px, 4vw, 48px); font-weight: 400; line-height: 1.1; color: var(--ink); letter-spacing: -0.015em; margin-top: 20px; }
+.featured h2 em { font-style: italic; color: var(--green); }
+.featured .ex { font-family: var(--body); font-size: 17px; line-height: 1.7; color: var(--ink2); margin-top: 18px; max-width: 480px; }
+.featured .meta { font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-top: 24px; }
+.featured-visual { aspect-ratio: 4/3; background: linear-gradient(150deg, var(--green) 0%, var(--green-mid) 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: rgba(247,245,240,0.9); font-family: var(--serif); font-style: italic; font-size: 180px; line-height: 1; position: relative; overflow: hidden; box-shadow: 0 24px 60px -20px rgba(29,107,69,0.4); }
+.featured-visual::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(247,245,240,0.18) 0%, transparent 60%); }
 
-/* ARTICLES GRID */
-.articles-listing { padding: 0 40px 100px; max-width: 1160px; margin: 0 auto; }
-.listing-title { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink3); margin-bottom: 24px; }
-.listing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+/* GRID */
+.grid-wrap { max-width: 1200px; margin: 72px auto 0; padding: 0 40px 120px; }
+.articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px -22px rgba(26,24,22,0.14); border-color: var(--border-strong); }
+.card .cat { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); display: flex; justify-content: space-between; align-items: center; }
+.card .cat .lev { color: var(--ink3); }
+.card .glyph { font-family: var(--serif); font-style: italic; font-size: 64px; line-height: 1; color: var(--green); letter-spacing: -0.03em; margin-top: 22px; }
+.card h3 { font-family: var(--serif); font-size: 22px; font-weight: 400; line-height: 1.25; color: var(--ink); letter-spacing: -0.01em; margin-top: 18px; }
+.card .ex { font-family: var(--body); font-size: 14px; line-height: 1.65; color: var(--ink2); margin-top: 12px; flex: 1; }
+.card .read { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink3); margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.card .read .arrow { color: var(--ink); transition: transform 0.3s; }
+.card:hover .read .arrow { transform: translateX(4px); color: var(--green); }
 
-.article-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; text-decoration: none; color: inherit; transition: all 0.25s; display: flex; flex-direction: column; }
-.article-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: transparent; }
-.article-img { height: 180px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 40px; }
-.article-tag { position: absolute; top: 12px; left: 12px; font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; background: rgba(255,255,255,0.92); color: var(--ink); padding: 4px 10px; border-radius: 100px; z-index: 1; }
-.bg-green { background: linear-gradient(135deg, #1d6b45, #2d8a59); }
-.bg-amber { background: linear-gradient(135deg, #c8822a, #e8a040); }
-.bg-blue { background: linear-gradient(135deg, #2a4480, #3b6fd4); }
-.bg-teal { background: linear-gradient(135deg, #1a6c6c, #1a8c8c); }
+.empty-state { text-align: center; padding: 80px 24px; font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ink3); display: none; }
+.empty-state.show { display: block; }
 
-.article-body { padding: 22px 22px 24px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-.article-title { font-family: var(--serif); font-size: 18px; font-weight: 400; line-height: 1.3; letter-spacing: -0.2px; color: var(--ink); }
-.article-excerpt { font-size: 14px; color: var(--ink2); font-weight: 300; line-height: 1.6; flex: 1; }
-.article-meta { display: flex; align-items: center; gap: 10px; font-family: var(--sans); font-size: 12px; color: var(--ink3); margin-top: 4px; }
-
-/* LOAD MORE */
-.load-more-row { text-align: center; padding: 0 40px 100px; max-width: 1160px; margin: 0 auto; }
-.load-more { font-family: var(--sans); font-size: 14px; font-weight: 600; padding: 14px 32px; border-radius: 100px; border: 2px solid var(--border); background: transparent; color: var(--ink2); cursor: pointer; transition: all 0.2s; }
-.load-more:hover { border-color: var(--green); color: var(--green); }
+.load-wrap { text-align: center; margin-top: 56px; }
+.load-btn { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; background: var(--ink); color: var(--bg); border: 0; padding: 18px 40px; border-radius: 100px; cursor: pointer; transition: background 0.3s, transform 0.3s; }
+.load-btn:hover { background: var(--green); transform: translateY(-1px); }
+.load-btn:disabled { opacity: 0.3; cursor: default; transform: none; }
 
 /* FOOTER */
-footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,255,0.6); }
-.footer-inner { max-width: 1160px; margin: 0 auto; }
-.footer-top { display: grid; grid-template-columns: 260px 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
-.footer-tagline { font-size: 14px; margin-top: 12px; line-height: 1.6; font-weight: 300; max-width: 200px; }
-.footer-col h4 { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: white; margin-bottom: 16px; }
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.footer-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; font-weight: 300; transition: color 0.2s; }
-.footer-col a:hover { color: white; }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-family: var(--sans); }
-@media (max-width: 600px) { .footer-bottom { flex-direction: column; gap: 12px; text-align: center; } }
-.footer-disclaimer { max-width: 600px; line-height: 1.6; color: rgba(255,255,255,0.3); font-size: 12px; font-weight: 300; }
+footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40px 48px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 72px; border-bottom: 1px solid rgba(247,245,240,0.1); }
+.footer-brand .wordmark-row { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.footer-brand img { width: 36px; height: 36px; border-radius: 8px; }
+.footer-brand .name { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--bg); }
+.footer-brand p { font-family: var(--body); font-style: italic; font-size: 16px; line-height: 1.65; max-width: 360px; color: rgba(247,245,240,0.55); }
+.footer-col h4 { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 24px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-col a { font-family: var(--body); font-size: 15px; color: rgba(247,245,240,0.78); transition: color 0.2s; }
+.footer-col a:hover { color: var(--gold-soft); }
+.footer-bottom { padding-top: 36px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.footer-disclaimer { font-family: var(--body); font-size: 13px; line-height: 1.6; color: rgba(247,245,240,0.4); max-width: 720px; }
+.footer-copy { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(247,245,240,0.3); white-space: nowrap; }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .featured-card { grid-template-columns: 1fr; }
-  .featured-img { min-height: 220px; }
-  .listing-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .nav-links { display: none; }
-}
-@media (max-width: 600px) {
-  nav { padding: 0 20px; }
-  .page-header, .filters, .featured, .articles-listing, .load-more-row { padding-left: 20px; padding-right: 20px; }
-  footer { padding: 40px 20px 24px; }
-  .listing-grid { grid-template-columns: 1fr; }
-  .featured-body { padding: 28px 24px; }
-  .footer-top { grid-template-columns: 1fr; }
-}
-
-.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
-.stagger-1 { transition-delay: 0.1s; }
-.stagger-2 { transition-delay: 0.2s; }
-.stagger-3 { transition-delay: 0.3s; }
-
-/* ── Newsletter Popup ── */
-.nl-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(4px);
-  z-index: 999;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
+/* MODAL */
+.nl-overlay { position: fixed; inset: 0; background: rgba(26,24,22,0.55); backdrop-filter: blur(6px); z-index: 200; padding: 24px; display: none; align-items: center; justify-content: center; }
 .nl-overlay.open { display: flex; }
-.nl-modal {
-  background: var(--surface);
-  border-radius: 24px;
-  width: 100%;
-  max-width: 520px;
-  overflow: hidden;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.25);
-  position: relative;
-  animation: nlSlideIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
-}
-@keyframes nlSlideIn {
-  from { opacity: 0; transform: translateY(24px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-.nl-header {
-  background: var(--green);
-  padding: 32px 36px 28px;
-  position: relative;
-}
-.nl-header::before {
-  content: "\1F4EC";
-  position: absolute;
-  font-size: 80px;
-  right: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.18;
-  line-height: 1;
-}
-.nl-label {
-  font-family: var(--sans);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 10px;
-}
-.nl-title {
-  font-family: var(--serif);
-  font-size: 26px;
-  color: white;
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.4px;
-}
-.nl-title em { font-style: italic; }
-.nl-sub {
-  font-size: 14px;
-  color: rgba(255,255,255,0.7);
-  font-weight: 300;
-  margin-top: 8px;
-  line-height: 1.6;
-}
-.nl-body {
-  padding: 8px 8px 20px;
-  background: #f9f8f5;
-}
-.nl-body iframe {
-  display: block;
-  border-radius: 10px;
-  background: white;
-}
-.nl-fine {
-  font-family: var(--sans);
-  font-size: 11px;
-  color: var(--ink3);
-  text-align: center;
-  margin-top: 10px;
-  padding: 0 16px;
-}
-.nl-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.15);
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  transition: background 0.2s;
-}
-.nl-close:hover { background: rgba(255,255,255,0.3); }
-@media (max-width: 600px) {
-  .nl-header { padding: 24px 24px 20px; }
-  .nl-title { font-size: 22px; }
-}
+.nl-modal { background: var(--bg); border-radius: 24px; max-width: 520px; width: 100%; padding: 56px 48px 40px; position: relative; border: 1px solid var(--border); box-shadow: 0 30px 80px rgba(0,0,0,0.25); }
+.nl-close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 100px; background: transparent; border: 0; cursor: pointer; font-size: 18px; color: var(--ink); transition: background 0.2s; }
+.nl-close:hover { background: var(--bg-warm); }
+.nl-label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.nl-title { font-family: var(--serif); font-size: 32px; line-height: 1.15; color: var(--ink); margin-bottom: 12px; }
+.nl-title em { font-style: italic; color: var(--green); }
+.nl-sub { font-family: var(--body); font-size: 15px; color: var(--ink2); margin-bottom: 24px; }
+.nl-modal iframe { width: 100%; height: 180px; border: 0; background: transparent; }
+.nl-modal .fine { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3); text-align: center; margin-top: 16px; }
 
-
-/* ═══════════════ HAMBURGER / MOBILE NAV ═══════════════ */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  background: none;
-  border: none;
-  transition: background 0.2s;
-  flex-shrink: 0;
+@media (max-width: 1024px) {
+  .page-head { grid-template-columns: 1fr; gap: 32px; }
+  .featured { grid-template-columns: 1fr; gap: 40px; padding: 36px; }
+  .featured-visual { font-size: 140px; }
+  .articles-grid { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
 }
-.hamburger:hover { background: var(--green-light); }
-.hamburger span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--ink);
-  border-radius: 2px;
-  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
-  transform-origin: center;
+@media (max-width: 768px) {
+  nav.site-nav { padding: 0 24px; height: 64px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: block; }
+  .page-head { padding: 48px 24px 40px; }
+  .filters-wrap, .featured-wrap, .grid-wrap { padding-left: 24px; padding-right: 24px; }
+  .articles-grid { grid-template-columns: 1fr; }
+  .featured-visual { font-size: 100px; }
+  .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px; }
+  footer.site-footer { padding: 64px 24px 36px; }
 }
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-.mobile-menu {
-  display: none;
-  position: fixed;
-  inset: 64px 0 0 0;
-  background: rgba(247,245,240,0.98);
-  backdrop-filter: blur(20px);
-  z-index: 99;
-  flex-direction: column;
-  padding: 20px 16px;
-  gap: 2px;
-  border-top: 1px solid var(--border);
-  overflow-y: auto;
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a {
-  font-family: var(--sans);
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--ink2);
-  text-decoration: none;
-  padding: 14px 16px;
-  border-radius: 12px;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 52px;
-}
-.mobile-menu a:hover, .mobile-menu a.mobile-active { background: var(--green-light); color: var(--green); }
-.mobile-menu-divider { height: 1px; background: var(--border); margin: 12px 0; }
-.mobile-menu-cta a {
-  background: var(--green) !important;
-  color: white !important;
-  justify-content: center;
-  border-radius: 100px !important;
-  margin-top: 4px;
-}
-.mobile-menu-cta a:hover { background: var(--green-mid) !important; }
-@media (max-width: 900px) {
-  .hamburger { display: flex; }
-  .nav-cta { display: none; }
-  body.menu-open { overflow: hidden; }
-}
-
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
+<nav class="site-nav">
   <a href="index.html" class="nav-logo" aria-label="Accessible Finance — Home">
-    <img src="Logo.png" alt="" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
-    <span class="logo-text">Accessible Finance</span>
+    <img src="Logo.png" alt="">
+    <span class="wordmark">Accessible Finance</span>
   </a>
-  <ul class="nav-links">
-    <li><a href="topic.html">Learn</a></li>
-    <li><a href="articles.html" class="active">Articles</a></li>
-    <li><a href="index.html#glossary">Glossary</a></li>
-    <li><a href="earn.html" style="color:var(--green);font-weight:700;">💵 Rewards</a></li>
-    <li><a href="about.html">About</a></li>
-  </ul>
-  <a href="index.html#newsletter" class="nav-cta" data-open-newsletter>Get the Newsletter</a>
-  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
-    <span></span>
-    <span></span>
-    <span></span>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="articles.html" class="active">Guides</a>
+    <a href="index.html#glossary">Glossary</a>
+    <a href="earn.html">Rewards</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span><span></span>
   </button>
-  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-    <a href="index.html">🏠 Home</a>
-    <a href="topic.html">📚 Learn</a>
-    <a href="articles.html" class="mobile-active">📰 Articles</a>
-    <a href="index.html#glossary">🔤 Glossary</a>
-    <a href="earn.html">💵 Rewards</a>
-    <a href="about.html">👤 About</a>
-    <div class="mobile-menu-divider"></div>
-    <div class="mobile-menu-cta">
-      <a href="index.html#newsletter">✉️ Get the Newsletter</a>
-    </div>
-  </div>
 </nav>
-
-<!-- PAGE HEADER -->
-<section class="page-header">
-  <div class="section-label">All Articles</div>
-  <h1>Guides that <em>make sense</em></h1>
-  <p class="lead">Clear, unbiased explanations of investing concepts — from absolute basics to intermediate strategy. No hype, no sales.</p>
-</section>
-
-<!-- FILTERS -->
-<div class="filters" role="group" aria-label="Filter articles">
-  <button type="button" class="filter-btn active" data-filter="all">All Topics</button>
-  <button type="button" class="filter-btn" data-filter="fundamentals">Fundamentals</button>
-  <button type="button" class="filter-btn" data-filter="assets">Asset Classes</button>
-  <button type="button" class="filter-btn" data-filter="portfolio">Portfolio Thinking</button>
-  <button type="button" class="filter-btn" data-filter="behavior">Market Behavior</button>
-  <button type="button" class="filter-btn" data-filter="beginner">Beginner</button>
-  <button type="button" class="filter-btn" data-filter="intermediate">Intermediate</button>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="articles.html">Guides</a>
+  <a href="index.html#glossary">Glossary</a>
+  <a href="earn.html">Rewards</a>
+  <a href="about.html">About</a>
+  <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
 </div>
 
-<!-- FEATURED ARTICLE -->
-<section class="featured fade-in">
-  <a href="article.html" class="featured-card" data-cat="fundamentals" data-level="beginner">
-    <div class="featured-img bg-green">📊</div>
-    <div class="featured-body">
-      <div class="featured-label">Featured Guide</div>
-      <div class="featured-title">The Actual Difference Between Investing and Speculating — and Why It Matters</div>
-      <div class="featured-excerpt">Most people mix these up, and that confusion leads to real mistakes. Here's a clear line between the two — with examples from the modern market.</div>
-      <div class="featured-meta">
-        <span>8 min read</span>
-        <span>·</span>
-        <span>Beginner</span>
-        <span>·</span>
-        <span>Fundamentals</span>
-      </div>
+<header class="page-head reveal">
+  <div>
+    <span class="eyebrow">All Articles</span>
+    <h1>Guides that<br><em>make sense.</em></h1>
+  </div>
+  <p class="lead">Clear, unbiased explanations of investing concepts — from absolute basics to intermediate strategy. No hype, no sales.</p>
+</header>
+
+<div class="filters-wrap reveal">
+  <div class="filters" role="tablist" aria-label="Filter articles">
+    <button class="filter-btn active" data-filter="all">All Topics</button>
+    <button class="filter-btn" data-filter="fundamentals">Fundamentals</button>
+    <button class="filter-btn" data-filter="assets">Asset Classes</button>
+    <button class="filter-btn" data-filter="portfolio">Portfolio Thinking</button>
+    <button class="filter-btn" data-filter="behavior">Market Behavior</button>
+    <button class="filter-btn" data-filter="canadian">Canadian</button>
+    <button class="filter-btn" data-filter="beginner">Beginner</button>
+    <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+  </div>
+</div>
+
+<section class="featured-wrap reveal d2">
+  <a href="article.html" class="featured" data-cat="fundamentals" data-level="beginner">
+    <div>
+      <div class="featured-badge">Featured Guide</div>
+      <h2>The actual difference between<br>investing and <em>speculating</em></h2>
+      <p class="ex">Most people mix these up, and that confusion leads to real mistakes. Here's a clear line between the two — with examples from the modern market.</p>
+      <div class="meta">8 min read · Beginner · Fundamentals</div>
     </div>
+    <div class="featured-visual">$</div>
   </a>
 </section>
 
-<!-- ARTICLES LISTING -->
-<section class="articles-listing">
-  <div class="listing-title">All Guides</div>
-  <div class="listing-grid">
+<section class="grid-wrap">
+  <div class="articles-grid" id="articlesGrid">
 
-    <a href="article.html" class="article-card fade-in" data-cat="assets" data-level="intermediate">
-      <div class="article-img bg-amber"><span>🏦</span></div>
-      <div class="article-tag">Asset Classes</div>
-      <div class="article-body">
-        <div class="article-title">What Bonds Actually Do in a Portfolio</div>
-        <div class="article-excerpt">They're not just for retirees. Here's why bonds exist, how they behave, and when they genuinely help.</div>
-        <div class="article-meta"><span>6 min read</span><span>·</span><span>Intermediate</span></div>
-      </div>
+    <a href="article.html" class="card" data-cat="assets" data-level="intermediate">
+      <div class="cat">Asset Classes <span class="lev">Intermediate</span></div>
+      <div class="glyph">B</div>
+      <h3>What Bonds Actually Do in a Portfolio</h3>
+      <p class="ex">They're not just for retirees. Here's why bonds exist, how they behave, and when they genuinely help.</p>
+      <div class="read"><span>6 min read</span><span class="arrow">→</span></div>
     </a>
 
-    <a href="article.html" class="article-card fade-in stagger-1" data-cat="behavior" data-level="beginner">
-      <div class="article-img bg-blue"><span>🧠</span></div>
-      <div class="article-tag">Market Behavior</div>
-      <div class="article-body">
-        <div class="article-title">Why Smart People Make Bad Investment Decisions</div>
-        <div class="article-excerpt">Behavioral finance in plain English — the cognitive traps that quietly cost everyday investors.</div>
-        <div class="article-meta"><span>9 min read</span><span>·</span><span>Beginner</span></div>
-      </div>
+    <a href="article.html" class="card" data-cat="behavior" data-level="beginner">
+      <div class="cat">Market Behavior <span class="lev">Beginner</span></div>
+      <div class="glyph">ψ</div>
+      <h3>Why Smart People Make Bad Investment Decisions</h3>
+      <p class="ex">Behavioral finance in plain English — the cognitive traps that quietly cost everyday investors.</p>
+      <div class="read"><span>9 min read</span><span class="arrow">→</span></div>
     </a>
 
-    <a href="article.html" class="article-card fade-in stagger-2" data-cat="fundamentals" data-level="beginner">
-      <div class="article-img bg-green"><span>📈</span></div>
-      <div class="article-tag">Fundamentals</div>
-      <div class="article-body">
-        <div class="article-title">Compound Interest: The Most Powerful Force in Investing</div>
-        <div class="article-excerpt">Einstein probably didn't say it was the eighth wonder of the world. But the math really is astonishing.</div>
-        <div class="article-meta"><span>7 min read</span><span>·</span><span>Beginner</span></div>
-      </div>
+    <a href="article.html" class="card" data-cat="fundamentals" data-level="beginner">
+      <div class="cat">Fundamentals <span class="lev">Beginner</span></div>
+      <div class="glyph">∞</div>
+      <h3>Compound Interest: The Most Powerful Force in Investing</h3>
+      <p class="ex">Einstein probably didn't say it was the eighth wonder of the world. But the math really is astonishing.</p>
+      <div class="read"><span>7 min read</span><span class="arrow">→</span></div>
     </a>
 
-    <a href="article.html" class="article-card fade-in" data-cat="portfolio" data-level="intermediate">
-      <div class="article-img bg-teal"><span>🎯</span></div>
-      <div class="article-tag">Portfolio</div>
-      <div class="article-body">
-        <div class="article-title">Asset Allocation Explained: The Decision That Matters Most</div>
-        <div class="article-excerpt">Research shows your stock-vs-bond split explains most of your portfolio's behavior. Here's how to think about yours.</div>
-        <div class="article-meta"><span>10 min read</span><span>·</span><span>Intermediate</span></div>
-      </div>
+    <a href="article.html" class="card" data-cat="portfolio" data-level="intermediate">
+      <div class="cat">Portfolio <span class="lev">Intermediate</span></div>
+      <div class="glyph">⊕</div>
+      <h3>Asset Allocation Explained: The Decision That Matters Most</h3>
+      <p class="ex">Research shows your stock-vs-bond split explains most of your portfolio's behavior. Here's how to think about yours.</p>
+      <div class="read"><span>10 min read</span><span class="arrow">→</span></div>
     </a>
 
-    <a href="article.html" class="article-card fade-in stagger-1" data-cat="fundamentals" data-level="beginner">
-      <div class="article-img bg-amber"><span>⏳</span></div>
-      <div class="article-tag">Fundamentals</div>
-      <div class="article-body">
-        <div class="article-title">Time in the Market vs. Timing the Market</div>
-        <div class="article-excerpt">The data is overwhelming: staying invested beats trying to predict the perfect entry point. Here's the evidence.</div>
-        <div class="article-meta"><span>6 min read</span><span>·</span><span>Beginner</span></div>
-      </div>
+    <a href="article.html" class="card" data-cat="fundamentals" data-level="beginner">
+      <div class="cat">Fundamentals <span class="lev">Beginner</span></div>
+      <div class="glyph">⧖</div>
+      <h3>Time in the Market vs. Timing the Market</h3>
+      <p class="ex">The data is overwhelming: staying invested beats trying to predict the perfect entry point. Here's the evidence.</p>
+      <div class="read"><span>6 min read</span><span class="arrow">→</span></div>
     </a>
 
-    <a href="article.html" class="article-card fade-in stagger-2" data-cat="assets" data-level="beginner">
-      <div class="article-img bg-blue"><span>🌍</span></div>
-      <div class="article-tag">Asset Classes</div>
-      <div class="article-body">
-        <div class="article-title">Index Funds: The Single Best Invention for Regular Investors</div>
-        <div class="article-excerpt">Why owning a tiny piece of everything often beats trying to pick the winners.</div>
-        <div class="article-meta"><span>8 min read</span><span>·</span><span>Beginner</span></div>
-      </div>
+    <a href="article.html" class="card" data-cat="assets" data-level="beginner">
+      <div class="cat">Asset Classes <span class="lev">Beginner</span></div>
+      <div class="glyph">◯</div>
+      <h3>Index Funds: The Single Best Invention for Regular Investors</h3>
+      <p class="ex">Why owning a tiny piece of everything often beats trying to pick the winners.</p>
+      <div class="read"><span>8 min read</span><span class="arrow">→</span></div>
     </a>
 
-    <a href="article.html" class="article-card fade-in" data-cat="behavior" data-level="intermediate">
-      <div class="article-img bg-green"><span>📉</span></div>
-      <div class="article-tag">Market Behavior</div>
-      <div class="article-body">
-        <div class="article-title">What Actually Happens in a Bear Market</div>
-        <div class="article-excerpt">Bear markets feel catastrophic in the moment. Here's what history shows about how they unfold — and end.</div>
-        <div class="article-meta"><span>11 min read</span><span>·</span><span>Intermediate</span></div>
-      </div>
+    <a href="article.html" class="card" data-cat="behavior" data-level="intermediate">
+      <div class="cat">Market Behavior <span class="lev">Intermediate</span></div>
+      <div class="glyph">↓</div>
+      <h3>What Actually Happens in a Bear Market</h3>
+      <p class="ex">Bear markets feel catastrophic in the moment. Here's what history shows about how they unfold — and end.</p>
+      <div class="read"><span>11 min read</span><span class="arrow">→</span></div>
     </a>
 
-    <a href="article.html" class="article-card fade-in stagger-1" data-cat="portfolio" data-level="beginner">
-      <div class="article-img bg-amber"><span>🔄</span></div>
-      <div class="article-tag">Portfolio</div>
-      <div class="article-body">
-        <div class="article-title">Rebalancing: Why Your Portfolio Needs a Tune-Up</div>
-        <div class="article-excerpt">Over time, your portfolio drifts from the plan. Rebalancing brings it back — and it's simpler than you think.</div>
-        <div class="article-meta"><span>5 min read</span><span>·</span><span>Beginner</span></div>
-      </div>
+    <a href="article.html" class="card" data-cat="portfolio" data-level="beginner">
+      <div class="cat">Portfolio <span class="lev">Beginner</span></div>
+      <div class="glyph">↻</div>
+      <h3>Rebalancing: Why Your Portfolio Needs a Tune-Up</h3>
+      <p class="ex">Over time, your portfolio drifts from the plan. Rebalancing brings it back — and it's simpler than you think.</p>
+      <div class="read"><span>5 min read</span><span class="arrow">→</span></div>
     </a>
 
-    <a href="article.html" class="article-card fade-in stagger-2" data-cat="fundamentals" data-level="intermediate">
-      <div class="article-img bg-teal"><span>💰</span></div>
-      <div class="article-tag">Fundamentals</div>
-      <div class="article-body">
-        <div class="article-title">Risk and Return: The Relationship Nobody Explains Properly</div>
-        <div class="article-excerpt">Higher risk means higher potential returns — but not always. Here's the full picture, with nuance.</div>
-        <div class="article-meta"><span>9 min read</span><span>·</span><span>Intermediate</span></div>
-      </div>
+    <a href="article.html" class="card" data-cat="fundamentals" data-level="intermediate">
+      <div class="cat">Fundamentals <span class="lev">Intermediate</span></div>
+      <div class="glyph">σ</div>
+      <h3>Risk and Return: The Relationship Nobody Explains Properly</h3>
+      <p class="ex">Higher risk means higher potential returns — but not always. Here's the full picture, with nuance.</p>
+      <div class="read"><span>9 min read</span><span class="arrow">→</span></div>
+    </a>
+
+    <a href="article.html" class="card" data-cat="canadian" data-level="beginner">
+      <div class="cat">Canadian <span class="lev">Beginner</span></div>
+      <div class="glyph">⚐</div>
+      <h3>TFSA vs. RRSP: Which Account Should You Use First?</h3>
+      <p class="ex">Both accounts are tax-advantaged — but they work differently. Here's a clear breakdown of when each one makes sense.</p>
+      <div class="read"><span>7 min read</span><span class="arrow">→</span></div>
+    </a>
+
+    <a href="article.html" class="card" data-cat="canadian" data-level="beginner">
+      <div class="cat">Canadian <span class="lev">Beginner</span></div>
+      <div class="glyph">⌂</div>
+      <h3>The FHSA: Canada's First Home Savings Account Explained</h3>
+      <p class="ex">A new account that combines TFSA and RRSP benefits for first-time home buyers. Here's exactly how it works and who qualifies.</p>
+      <div class="read"><span>8 min read</span><span class="arrow">→</span></div>
+    </a>
+
+    <a href="article.html" class="card" data-cat="behavior" data-level="beginner">
+      <div class="cat">Market Behavior <span class="lev">Beginner</span></div>
+      <div class="glyph">▽</div>
+      <h3>How Inflation Erodes Your Savings (And What To Do About It)</h3>
+      <p class="ex">Cash sitting in a low-interest account is quietly losing purchasing power every year. Here's what inflation means for your money.</p>
+      <div class="read"><span>6 min read</span><span class="arrow">→</span></div>
+    </a>
+
+    <a href="article.html" class="card" data-cat="fundamentals" data-level="intermediate">
+      <div class="cat">Fundamentals <span class="lev">Intermediate</span></div>
+      <div class="glyph">▤</div>
+      <h3>Index Funds vs. Actively Managed Funds: The Real Difference</h3>
+      <p class="ex">Most actively managed funds underperform their benchmark over 10 years. Here's the data — and what it means for you.</p>
+      <div class="read"><span>9 min read</span><span class="arrow">→</span></div>
+    </a>
+
+    <a href="article.html" class="card" data-cat="portfolio" data-level="intermediate">
+      <div class="cat">Portfolio Thinking <span class="lev">Intermediate</span></div>
+      <div class="glyph">⚖</div>
+      <h3>What Asset Allocation Actually Means — and Why It's the Most Important Decision</h3>
+      <p class="ex">Which stocks to pick matters far less than how you divide your money between stocks, bonds, and other assets.</p>
+      <div class="read"><span>10 min read</span><span class="arrow">→</span></div>
+    </a>
+
+    <a href="article.html" class="card" data-cat="fundamentals" data-level="beginner">
+      <div class="cat">Fundamentals <span class="lev">Beginner</span></div>
+      <div class="glyph">¢</div>
+      <h3>Budgeting for People Who Hate Budgeting</h3>
+      <p class="ex">Traditional budgets fail because they're too rigid. Here's a flexible system that works — especially if you have variable income.</p>
+      <div class="read"><span>7 min read</span><span class="arrow">→</span></div>
     </a>
 
   </div>
-</section>
 
+  <div class="empty-state" id="emptyState">No guides match this filter yet — try another.</div>
 
-    <!-- Row 2 -->
-    <a href="article.html" class="article-card fade-in">
-      <div class="article-img" style="background: linear-gradient(135deg,#1a6b5a,#2d9a79); display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;">
-        <span class="article-tag">Canadian</span>🇨🇦
-      </div>
-      <div class="article-body">
-        <div class="article-title">TFSA vs. RRSP: Which Account Should You Use First?</div>
-        <div class="article-excerpt">Both accounts are tax-advantaged — but they work differently. Here's a clear breakdown of when each one makes sense for your situation.</div>
-        <div class="article-meta"><span class="article-read-time"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 7 min read</span><span>·</span><span>Beginner</span></div>
-      </div>
-    </a>
-    <a href="article.html" class="article-card fade-in stagger-1">
-      <div class="article-img" style="background: linear-gradient(135deg,#1a4a6b,#2d6b9a); display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;">
-        <span class="article-tag">Canadian</span>🏠
-      </div>
-      <div class="article-body">
-        <div class="article-title">The FHSA: Canada's First Home Savings Account Explained</div>
-        <div class="article-excerpt">A new account that combines TFSA and RRSP benefits specifically for first-time home buyers. Here's exactly how it works and who qualifies.</div>
-        <div class="article-meta"><span class="article-read-time"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 8 min read</span><span>·</span><span>Beginner</span></div>
-      </div>
-    </a>
-    <a href="article.html" class="article-card fade-in stagger-2">
-      <div class="article-img" style="background: linear-gradient(135deg,#6b4a1a,#9a6b2d); display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;">
-        <span class="article-tag">Market Behavior</span>📉
-      </div>
-      <div class="article-body">
-        <div class="article-title">How Inflation Erodes Your Savings (And What To Do About It)</div>
-        <div class="article-excerpt">Cash sitting in a low-interest account is quietly losing purchasing power every year. Here's what inflation actually means for your money.</div>
-        <div class="article-meta"><span class="article-read-time"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 6 min read</span><span>·</span><span>Beginner</span></div>
-      </div>
-    </a>
-    <!-- Row 3 -->
-    <a href="article.html" class="article-card fade-in">
-      <div class="article-img" style="background: linear-gradient(135deg,#1a3d6b,#2d5a9a); display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;">
-        <span class="article-tag">Fundamentals</span>📊
-      </div>
-      <div class="article-body">
-        <div class="article-title">Index Funds vs. Actively Managed Funds: The Real Difference</div>
-        <div class="article-excerpt">Most actively managed funds underperform their benchmark over 10 years. Here's the data — and what it means for how you should invest.</div>
-        <div class="article-meta"><span class="article-read-time"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 9 min read</span><span>·</span><span>Intermediate</span></div>
-      </div>
-    </a>
-    <a href="article.html" class="article-card fade-in stagger-1">
-      <div class="article-img" style="background: linear-gradient(135deg,#1d6b45,#2d9a6b); display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;">
-        <span class="article-tag">Portfolio Thinking</span>⚖️
-      </div>
-      <div class="article-body">
-        <div class="article-title">What Asset Allocation Actually Means — and Why It's the Most Important Decision</div>
-        <div class="article-excerpt">Which stocks to pick matters far less than how you divide your money between stocks, bonds, and other assets. Here's how to think about it.</div>
-        <div class="article-meta"><span class="article-read-time"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 10 min read</span><span>·</span><span>Intermediate</span></div>
-      </div>
-    </a>
-    <a href="article.html" class="article-card fade-in stagger-2">
-      <div class="article-img" style="background: linear-gradient(135deg,#6b5a1a,#9a852d); display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;">
-        <span class="article-tag">Fundamentals</span>💸
-      </div>
-      <div class="article-body">
-        <div class="article-title">Budgeting for People Who Hate Budgeting</div>
-        <div class="article-excerpt">Traditional budgets fail because they're too rigid. Here's a flexible system that works — especially if you're neurodivergent or have variable income.</div>
-        <div class="article-meta"><span class="article-read-time"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 7 min read</span><span>·</span><span>Beginner</span></div>
-      </div>
-    </a>
+  <div class="load-wrap">
+    <button class="load-btn" id="loadMore">Load More Guides</button>
   </div>
 </section>
 
-<!-- LOAD MORE -->
-<div class="load-more-row">
-  <button class="load-more" id="loadMore">Load More Articles</button>
-</div>
-
-<!-- FOOTER -->
-<footer>
+<footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="nav-logo" style="display:flex; align-items:center; gap:10px; margin-bottom:0; text-decoration:none;">
-          <img src="Logo.png" alt="Accessible Finance" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
-          <span class="logo-text" style="color:white;">Accessible Finance</span>
+        <div class="wordmark-row">
+          <img src="Logo.png" alt="">
+          <span class="name">Accessible Finance</span>
         </div>
-        <p class="footer-tagline">Investing education without the jargon. Free, forever.</p>
+        <p>"True understanding is not a destination, but a way of traveling." Free, ad-free investing education for the curious.</p>
       </div>
       <div class="footer-col">
         <h4>Learn</h4>
         <ul>
-          <li><a href="topic.html">Investing Fundamentals</a></li>
+          <li><a href="topic.html">Fundamentals</a></li>
           <li><a href="articles.html?cat=assets">Asset Classes</a></li>
           <li><a href="articles.html?cat=portfolio">Portfolio Thinking</a></li>
           <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
@@ -578,149 +372,133 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       <div class="footer-col">
         <h4>Articles</h4>
         <ul>
-          <li><a href="articles.html">Beginner Guides</a></li>
-          <li><a href="articles.html">Intermediate Topics</a></li>
-          <li><a href="articles.html">Case Studies</a></li>
+          <li><a href="articles.html">All Guides</a></li>
+          <li><a href="articles.html?cat=beginner">Beginner</a></li>
+          <li><a href="articles.html?cat=intermediate">Intermediate</a></li>
           <li><a href="articles.html">Latest Posts</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="index.html#newsletter">Newsletter</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="earn.html">Rewards</a></li>
+          <li><a href="#newsletter" data-open-newsletter>Newsletter</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
           <li><a href="disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p class="footer-disclaimer">Not financial advice. All content is for educational purposes only. Investing involves risk, including the possible loss of principal. Past performance is not indicative of future results.</p>
-      <span style="color:rgba(255,255,255,0.3); font-size:12px; white-space:nowrap; margin-left:20px;">© 2026 Accessible Finance</span>
+      <span class="footer-copy">© 2026 Accessible Finance</span>
     </div>
   </div>
 </footer>
 
-<script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-const PAGE_SIZE = 9;
-let visibleCount = PAGE_SIZE;
-let currentFilter = 'all';
-
-function applyView() {
-  const featured = document.querySelector('.featured-card');
-  const cards = Array.from(document.querySelectorAll('.listing-grid .article-card'));
-
-  if (currentFilter === 'all') {
-    featured.parentElement.style.display = '';
-  } else {
-    const cat = featured.dataset.cat;
-    const level = featured.dataset.level;
-    featured.parentElement.style.display = (cat === currentFilter || level === currentFilter) ? '' : 'none';
-  }
-
-  let shown = 0;
-  cards.forEach(card => {
-    const matches = currentFilter === 'all' || card.dataset.cat === currentFilter || card.dataset.level === currentFilter;
-    if (matches && shown < visibleCount) {
-      card.style.display = '';
-      shown++;
-    } else {
-      card.style.display = 'none';
-    }
-  });
-
-  const totalMatching = cards.filter(c => currentFilter === 'all' || c.dataset.cat === currentFilter || c.dataset.level === currentFilter).length;
-  const loadBtn = document.getElementById('loadMore');
-  if (loadBtn) loadBtn.style.display = (shown < totalMatching) ? '' : 'none';
-}
-
-document.querySelectorAll('.filter-btn').forEach(function(b){
-  b.addEventListener('click', function(){
-    document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
-    b.classList.add('active');
-    currentFilter = b.dataset.filter;
-    visibleCount = PAGE_SIZE;
-    applyView();
-  });
-});
-
-const loadBtn = document.getElementById('loadMore');
-if (loadBtn) loadBtn.addEventListener('click', function(){
-  visibleCount += PAGE_SIZE;
-  applyView();
-});
-
-const params = new URLSearchParams(window.location.search);
-const preset = params.get('cat');
-if (preset) {
-  const btn = document.querySelector('.filter-btn[data-filter="' + preset + '"]');
-  if (btn) btn.click();
-}
-
-applyView();
-</script>
-
-<!-- Newsletter Popup -->
-<div class="nl-overlay" id="nlOverlay">
-  <div class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+<div class="nl-overlay" id="nlOverlay" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+  <div class="nl-modal">
     <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
-    <div class="nl-header">
-      <div class="nl-label">Weekly Newsletter</div>
-      <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
-      <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
-    </div>
-    <div class="nl-body">
-      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-      <p class="nl-fine">No spam. Unsubscribe anytime. We never share your email.</p>
-    </div>
+    <div class="nl-label">Weekly Newsletter</div>
+    <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
+    <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
+    <iframe src="https://accessiblefinance.substack.com/embed" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
   </div>
 </div>
 
 <script>
-(function(){
-  var overlay = document.getElementById("nlOverlay");
-  var closeBtn = document.getElementById("nlClose");
-  function openNL(e){ if(e) e.preventDefault(); overlay.classList.add("open"); }
-  function closeNL(){ overlay.classList.remove("open"); }
-  document.querySelectorAll("[data-open-newsletter]").forEach(function(a){
-    a.addEventListener("click", openNL);
-  });
-  if(closeBtn) closeBtn.addEventListener("click", closeNL);
-  overlay.addEventListener("click", function(e){ if(e.target===overlay) closeNL(); });
-  document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeNL(); });
-})();
-</script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-<script>
-(function(){
-  var btn = document.getElementById('hamburger');
-  var menu = document.getElementById('mobile-menu');
-  if(!btn || !menu) return;
-  function closeMenu(){
-    menu.classList.remove('open');
-    btn.classList.remove('open');
-    btn.setAttribute('aria-expanded','false');
-    document.body.classList.remove('menu-open');
-  }
-  btn.addEventListener('click', function(){
-    var isOpen = menu.classList.contains('open');
-    if(isOpen){ closeMenu(); } else {
-      menu.classList.add('open');
-      btn.classList.add('open');
-      btn.setAttribute('aria-expanded','true');
-      document.body.classList.add('menu-open');
+  (function(){
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open'); btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }));
+  })();
+
+  /* FILTER + PAGINATION */
+  (function(){
+    const PAGE_SIZE = 9;
+    const grid = document.getElementById('articlesGrid');
+    const cards = Array.from(grid.querySelectorAll('.card'));
+    const featured = document.querySelector('.featured');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const loadBtn = document.getElementById('loadMore');
+    const emptyState = document.getElementById('emptyState');
+    let visibleCount = PAGE_SIZE;
+    let currentFilter = 'all';
+
+    function matches(card, f) {
+      if (f === 'all') return true;
+      if (f === 'beginner' || f === 'intermediate') return card.dataset.level === f;
+      return card.dataset.cat === f;
     }
-  });
-  menu.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', closeMenu);
-  });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
-})();
+
+    function applyView() {
+      let shown = 0;
+      let totalMatching = 0;
+      cards.forEach(c => {
+        if (matches(c, currentFilter)) {
+          totalMatching++;
+          if (shown < visibleCount) { c.style.display = ''; shown++; }
+          else { c.style.display = 'none'; }
+        } else {
+          c.style.display = 'none';
+        }
+      });
+      if (featured) featured.style.display = matches(featured, currentFilter) ? '' : 'none';
+      emptyState.classList.toggle('show', totalMatching === 0);
+      loadBtn.style.display = totalMatching > visibleCount ? '' : 'none';
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        visibleCount = PAGE_SIZE;
+        applyView();
+      });
+    });
+
+    loadBtn.addEventListener('click', () => {
+      visibleCount += PAGE_SIZE;
+      applyView();
+    });
+
+    // URL ?cat=... pre-filter
+    const params = new URLSearchParams(location.search);
+    const cat = params.get('cat');
+    if (cat) {
+      const target = Array.from(filterBtns).find(b => b.dataset.filter === cat);
+      if (target) { target.click(); }
+    } else {
+      applyView();
+    }
+  })();
+
+  (function () {
+    const overlay = document.getElementById('nlOverlay');
+    const closeBtn = document.getElementById('nlClose');
+    function open(e) { if (e) e.preventDefault(); overlay.classList.add('open'); }
+    function close() { overlay.classList.remove('open'); }
+    document.querySelectorAll('[data-open-newsletter]').forEach(a => a.addEventListener('click', open));
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  })();
 </script>
 </body>
 </html>

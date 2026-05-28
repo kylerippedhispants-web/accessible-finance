@@ -8,811 +8,521 @@
 <meta name="description" content="A complete topic hub for investing fundamentals: risk and return, time in the market, inflation, compound interest, and how markets actually work.">
 <link rel="canonical" href="https://accessiblefinance.example/topic.html">
 <meta property="og:title" content="Investing Fundamentals — Accessible Finance">
-<meta property="og:description" content="Start here. Clear, ad-free guides covering the core ideas every investor should understand.">
+<meta property="og:description" content="A complete topic hub for investing fundamentals.">
 <meta property="og:type" content="website">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<meta property="og:image" content="Logo.png">
+<meta name="twitter:card" content="summary">
+
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --bg: #f7f5f0;
-  --surface: #ffffff;
-  --ink: #1a1816;
-  --ink2: #4a4640;
-  --ink3: #8a8480;
-  --green: #1d6b45;
-  --green-light: #e8f4ed;
-  --green-mid: #2d8a59;
-  --amber: #c8822a;
-  --amber-light: #fdf3e4;
-  --border: #e4e0d8;
+  --bg: #f7f5f0; --bg-warm: #efece3; --surface: #ffffff;
+  --ink: #1a1816; --ink2: #4a4640; --ink3: #8a8480; --ink4: #b8b0a5;
+  --green: #1d6b45; --green-light: #e8f4ed; --green-mid: #2d8a59;
+  --sage: #7d8c7b; --sage-light: #e8eae5;
+  --gold: #c8822a; --gold-soft: #d4a560; --gold-light: #f6ecd9;
+  --border: #e4e0d8; --border-strong: #c9c3b6;
   --serif: 'Instrument Serif', Georgia, serif;
   --sans: 'Syne', sans-serif;
   --body: 'Literata', Georgia, serif;
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
 }
-
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
 
-/* NAV */
-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
-.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo-mark { width: 32px; height: 32px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 14px; font-weight: 800; color: white; letter-spacing: -1px; flex-shrink: 0; }
-.logo-text { font-family: var(--sans); font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px; }
-.nav-links { display: flex; gap: 4px; list-style: none; }
-.nav-links a { font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--ink2); text-decoration: none; padding: 6px 14px; border-radius: 100px; transition: all 0.2s; }
-.nav-links a:hover, .nav-links a.active { background: var(--green-light); color: var(--green); }
-.nav-cta { font-family: var(--sans); font-size: 14px; font-weight: 600; background: var(--green); color: white; padding: 9px 20px; border-radius: 100px; text-decoration: none; transition: background 0.2s; letter-spacing: 0.2px; }
-.nav-cta:hover { background: var(--green-mid); }
+nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+.nav-logo { display: flex; align-items: center; gap: 12px; }
+.nav-logo img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; object-position: 50% 20%; }
+.nav-logo .wordmark { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); }
+.nav-links { display: flex; gap: 36px; }
+.nav-links a { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink2); padding: 6px 0; position: relative; transition: color 0.2s; }
+.nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: center; transition: transform 0.3s cubic-bezier(.2,.7,.2,1); }
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+.nav-cta { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; background: var(--ink); color: var(--bg); padding: 12px 22px; border-radius: 100px; transition: background 0.25s; }
+.nav-cta:hover { background: var(--green); }
+.hamburger { display: none; background: transparent; border: 0; cursor: pointer; padding: 8px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); margin: 5px 0; transition: 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 72px 0 0; background: var(--bg); z-index: 90; padding: 40px; flex-direction: column; gap: 28px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: var(--serif); font-size: 32px; font-style: italic; color: var(--ink); }
+.mobile-menu a.cta { color: var(--green); }
 
-/* TOPIC HERO */
-.topic-hero { padding: 72px 40px 60px; max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 340px; gap: 60px; align-items: start; }
-.topic-breadcrumb { font-family: var(--sans); font-size: 13px; color: var(--ink3); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
-.topic-breadcrumb a { color: var(--green); text-decoration: none; font-weight: 500; }
-.topic-breadcrumb a:hover { text-decoration: underline; }
-.topic-emoji-lg { font-size: 48px; margin-bottom: 20px; line-height: 1; }
-.topic-hero h1 { font-family: var(--serif); font-size: clamp(38px, 4.5vw, 56px); font-weight: 400; line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 16px; }
+.eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(.16,1,.3,1), transform 0.9s cubic-bezier(.16,1,.3,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* HERO */
+.topic-hero { padding: 64px 40px 32px; max-width: 1200px; margin: 0 auto; }
+.crumb { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); }
+.crumb a { color: var(--ink3); transition: color 0.2s; }
+.crumb a:hover { color: var(--gold); }
+.crumb .sep { margin: 0 10px; opacity: 0.5; }
+.topic-symbol { width: 84px; height: 84px; border-radius: 22px; background: var(--green); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-size: 56px; color: var(--bg); margin-top: 32px; box-shadow: 0 20px 50px -15px rgba(29,107,69,0.4); }
+.topic-hero h1 { font-family: var(--serif); font-size: clamp(56px, 7vw, 96px); font-weight: 400; line-height: 1.02; letter-spacing: -0.03em; margin-top: 28px; color: var(--ink); }
 .topic-hero h1 em { font-style: italic; color: var(--green); }
-.topic-desc { font-size: 18px; color: var(--ink2); font-weight: 300; line-height: 1.7; max-width: 540px; }
+.topic-hero .lead { font-family: var(--body); font-size: 19px; line-height: 1.7; color: var(--ink2); max-width: 720px; margin-top: 24px; }
 
-/* TOPIC STATS SIDEBAR */
-.topic-stats { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px; position: sticky; top: 88px; }
-.stats-title { font-family: var(--sans); font-size: 14px; font-weight: 700; margin-bottom: 24px; letter-spacing: -0.2px; }
-.stat-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--bg); }
-.stat-row:last-child { border-bottom: none; }
-.stat-row-label { font-size: 14px; color: var(--ink2); font-weight: 300; }
-.stat-row-value { font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
-.stat-row-value.green { color: var(--green); }
-.progress-track { width: 100%; height: 6px; background: var(--bg); border-radius: 100px; margin-top: 20px; overflow: hidden; }
-.progress-fill { height: 100%; background: var(--green); border-radius: 100px; width: 0%; transition: width 1s ease; }
-.start-btn { display: block; width: 100%; text-align: center; margin-top: 20px; font-family: var(--sans); font-size: 14px; font-weight: 600; background: var(--ink); color: white; padding: 14px; border-radius: 100px; text-decoration: none; transition: background 0.2s; }
-.start-btn:hover { background: var(--green); }
+/* TOPIC LAYOUT */
+.topic-layout { max-width: 1200px; margin: 56px auto 0; padding: 0 40px 120px; display: grid; grid-template-columns: 1fr 320px; gap: 64px; align-items: start; }
 
-/* GUIDE SECTIONS */
-.guides-section { padding: 0 40px 100px; max-width: 1160px; margin: 0 auto; }
-.section-label { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink3); margin-bottom: 16px; }
+/* CHAPTERS (left col) */
+.chapter { margin-bottom: 72px; }
+.chapter-head { display: flex; align-items: flex-end; gap: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+.chapter-num { font-family: var(--serif); font-style: italic; font-size: 72px; line-height: 1; color: var(--gold); letter-spacing: -0.03em; }
+.chapter-title { flex: 1; }
+.chapter-title .label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink3); }
+.chapter-title h2 { font-family: var(--serif); font-size: clamp(28px, 3vw, 40px); font-weight: 400; line-height: 1.1; color: var(--ink); letter-spacing: -0.015em; margin-top: 8px; }
+.chapter-title h2 em { font-style: italic; color: var(--green); }
+.chapter-meta { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); padding-bottom: 8px; white-space: nowrap; }
 
-.chapter { margin-bottom: 56px; }
-.chapter-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-.chapter-num { font-family: var(--sans); font-size: 13px; font-weight: 800; color: white; background: var(--green); width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.chapter-title { font-family: var(--serif); font-size: 28px; font-weight: 400; letter-spacing: -0.5px; }
-.chapter-subtitle { font-size: 15px; color: var(--ink3); font-weight: 300; margin-left: auto; }
+.guide-list { display: flex; flex-direction: column; gap: 0; }
+.guide { display: grid; grid-template-columns: 64px 1fr auto; gap: 24px; align-items: center; padding: 22px 8px 22px 0; border-bottom: 1px solid var(--border); transition: padding 0.25s; }
+.guide:last-child { border-bottom: 0; }
+.guide:hover { padding-left: 12px; }
+.guide-num { font-family: var(--serif); font-size: 24px; color: var(--ink3); letter-spacing: -0.01em; transition: color 0.25s; }
+.guide:hover .guide-num { color: var(--green); }
+.guide-body h3 { font-family: var(--serif); font-size: 21px; font-weight: 400; line-height: 1.3; color: var(--ink); letter-spacing: -0.005em; }
+.guide-body p { font-family: var(--body); font-size: 14.5px; line-height: 1.6; color: var(--ink2); margin-top: 6px; max-width: 560px; }
+.guide-meta { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); text-align: right; white-space: nowrap; }
+.guide-meta .lvl { color: var(--green); display: block; margin-bottom: 4px; }
 
-.guide-list { display: flex; flex-direction: column; gap: 4px; }
-.guide-item { display: grid; grid-template-columns: 28px 1fr auto auto; gap: 16px; align-items: center; padding: 16px 20px; border-radius: 12px; text-decoration: none; color: inherit; transition: all 0.2s; border: 1px solid transparent; }
-.guide-item:hover { background: var(--surface); border-color: var(--border); }
-.guide-num { font-family: var(--sans); font-size: 13px; font-weight: 700; color: var(--ink3); text-align: center; }
-.guide-info { display: flex; flex-direction: column; gap: 2px; }
-.guide-title { font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--ink); letter-spacing: -0.2px; }
-.guide-teaser { font-size: 14px; color: var(--ink3); font-weight: 300; line-height: 1.5; }
-.guide-level { font-family: var(--sans); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 100px; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; }
-.level-beginner { background: var(--green-light); color: var(--green); }
-.level-intermediate { background: var(--amber-light); color: var(--amber); }
-.guide-time { font-family: var(--sans); font-size: 13px; color: var(--ink3); white-space: nowrap; }
+/* STICKY SIDEBAR */
+.topic-side { position: sticky; top: 96px; }
+.side-card { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 36px 32px; }
+.side-card .label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+.side-card h3 { font-family: var(--serif); font-size: 26px; font-weight: 400; line-height: 1.15; color: var(--ink); margin-top: 14px; letter-spacing: -0.01em; }
+.side-stats { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
+.side-stats li { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 14px; border-bottom: 1px dashed var(--border); }
+.side-stats li:last-child { border-bottom: 0; padding-bottom: 0; }
+.side-stats .k { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); }
+.side-stats .v { font-family: var(--serif); font-size: 22px; color: var(--ink); letter-spacing: -0.01em; }
+.side-stats .v em { font-style: italic; color: var(--green); }
+.side-progress { margin-top: 28px; }
+.side-progress .bar { height: 6px; background: var(--bg-warm); border-radius: 100px; overflow: hidden; }
+.side-progress .fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--green) 0%, var(--gold) 100%); border-radius: 100px; transition: width 1.8s cubic-bezier(.2,.7,.2,1); }
+.side-progress .lbl { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-top: 10px; }
+.side-cta { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; width: 100%; justify-content: center; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; background: var(--ink); color: var(--bg); padding: 18px 24px; border-radius: 100px; transition: background 0.3s, transform 0.3s; }
+.side-cta:hover { background: var(--green); transform: translateY(-1px); }
 
 /* OTHER TOPICS */
-.other-topics { padding: 0 40px 100px; max-width: 1160px; margin: 0 auto; }
-.other-topics h2 { font-family: var(--serif); font-size: 32px; font-weight: 400; letter-spacing: -0.5px; margin-bottom: 28px; }
-.other-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.other-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px; text-decoration: none; color: inherit; transition: all 0.25s; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden; }
-.other-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); border-color: transparent; }
-.other-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; border-radius: 0 0 16px 16px; opacity: 0; transition: opacity 0.25s; }
-.other-card:hover::after { opacity: 1; }
-.other-card.amber::after { background: var(--amber); }
-.other-card.blue::after { background: #3b6fd4; }
-.other-card.teal::after { background: #1a8c8c; }
-.other-emoji { font-size: 28px; line-height: 1; }
-.other-name { font-family: var(--sans); font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
-.other-desc { font-size: 14px; color: var(--ink2); line-height: 1.6; font-weight: 300; flex: 1; }
-.other-count { font-family: var(--sans); font-size: 12px; color: var(--ink3); font-weight: 500; }
+.other-topics { background: var(--bg-warm); padding: 120px 40px; }
+.other-inner { max-width: 1200px; margin: 0 auto; }
+.other-head { text-align: center; max-width: 700px; margin: 0 auto 64px; }
+.other-head .eyebrow { justify-content: center; }
+.other-head h2 { font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px); font-weight: 400; line-height: 1.05; color: var(--ink); letter-spacing: -0.015em; margin-top: 18px; }
+.other-head h2 em { font-style: italic; color: var(--green); }
+.other-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.other-card { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 36px 28px; transition: transform 0.35s, box-shadow 0.35s; display: flex; flex-direction: column; }
+.other-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px -22px rgba(26,24,22,0.14); }
+.other-glyph { width: 52px; height: 52px; border-radius: 14px; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-size: 28px; color: var(--green); }
+.other-card h3 { font-family: var(--serif); font-size: 24px; font-weight: 400; line-height: 1.2; color: var(--ink); margin-top: 22px; letter-spacing: -0.01em; }
+.other-card p { font-family: var(--body); font-size: 14.5px; line-height: 1.65; color: var(--ink2); margin-top: 12px; flex: 1; }
+.other-card .n { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--border); }
 
 /* FOOTER */
-footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,255,0.6); }
-.footer-inner { max-width: 1160px; margin: 0 auto; }
-.footer-top { display: grid; grid-template-columns: 260px 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
-.footer-tagline { font-size: 14px; margin-top: 12px; line-height: 1.6; font-weight: 300; max-width: 200px; }
-.footer-col h4 { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: white; margin-bottom: 16px; }
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.footer-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; font-weight: 300; transition: color 0.2s; }
-.footer-col a:hover { color: white; }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-family: var(--sans); }
-@media (max-width: 600px) { .footer-bottom { flex-direction: column; gap: 12px; text-align: center; } }
-.footer-disclaimer { max-width: 600px; line-height: 1.6; color: rgba(255,255,255,0.3); font-size: 12px; font-weight: 300; }
+footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40px 48px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 72px; border-bottom: 1px solid rgba(247,245,240,0.1); }
+.footer-brand .wordmark-row { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.footer-brand img { width: 36px; height: 36px; border-radius: 8px; }
+.footer-brand .name { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--bg); }
+.footer-brand p { font-family: var(--body); font-style: italic; font-size: 16px; line-height: 1.65; max-width: 360px; color: rgba(247,245,240,0.55); }
+.footer-col h4 { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 24px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-col a { font-family: var(--body); font-size: 15px; color: rgba(247,245,240,0.78); transition: color 0.2s; }
+.footer-col a:hover { color: var(--gold-soft); }
+.footer-bottom { padding-top: 36px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.footer-disclaimer { font-family: var(--body); font-size: 13px; line-height: 1.6; color: rgba(247,245,240,0.4); max-width: 720px; }
+.footer-copy { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(247,245,240,0.3); white-space: nowrap; }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .topic-hero { grid-template-columns: 1fr; gap: 32px; }
-  .topic-stats { position: relative; top: 0; }
-  .other-grid { grid-template-columns: 1fr; }
-  .guide-item { grid-template-columns: 28px 1fr auto; }
-  .guide-time { display: none; }
-  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .nav-links { display: none; }
-}
-@media (max-width: 600px) {
-  nav { padding: 0 20px; }
-  .topic-hero, .guides-section, .other-topics { padding-left: 20px; padding-right: 20px; }
-  footer { padding: 40px 20px 24px; }
-  .guide-item { grid-template-columns: 1fr; gap: 6px; padding: 14px 16px; }
-  .guide-num { display: none; }
-  .guide-level { width: fit-content; }
-  .footer-top { grid-template-columns: 1fr; }
-}
-
-.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
-
-/* ── Newsletter Popup ── */
-.nl-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(4px);
-  z-index: 999;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
+/* MODAL */
+.nl-overlay { position: fixed; inset: 0; background: rgba(26,24,22,0.55); backdrop-filter: blur(6px); z-index: 200; padding: 24px; display: none; align-items: center; justify-content: center; }
 .nl-overlay.open { display: flex; }
-.nl-modal {
-  background: var(--surface);
-  border-radius: 24px;
-  width: 100%;
-  max-width: 520px;
-  overflow: hidden;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.25);
-  position: relative;
-  animation: nlSlideIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
-}
-@keyframes nlSlideIn {
-  from { opacity: 0; transform: translateY(24px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-.nl-header {
-  background: var(--green);
-  padding: 32px 36px 28px;
-  position: relative;
-}
-.nl-header::before {
-  content: "\1F4EC";
-  position: absolute;
-  font-size: 80px;
-  right: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.18;
-  line-height: 1;
-}
-.nl-label {
-  font-family: var(--sans);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 10px;
-}
-.nl-title {
-  font-family: var(--serif);
-  font-size: 26px;
-  color: white;
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.4px;
-}
-.nl-title em { font-style: italic; }
-.nl-sub {
-  font-size: 14px;
-  color: rgba(255,255,255,0.7);
-  font-weight: 300;
-  margin-top: 8px;
-  line-height: 1.6;
-}
-.nl-body {
-  padding: 8px 8px 20px;
-  background: #f9f8f5;
-}
-.nl-body iframe {
-  display: block;
-  border-radius: 10px;
-  background: white;
-}
-.nl-fine {
-  font-family: var(--sans);
-  font-size: 11px;
-  color: var(--ink3);
-  text-align: center;
-  margin-top: 10px;
-  padding: 0 16px;
-}
-.nl-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.15);
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  transition: background 0.2s;
-}
-.nl-close:hover { background: rgba(255,255,255,0.3); }
-@media (max-width: 600px) {
-  .nl-header { padding: 24px 24px 20px; }
-  .nl-title { font-size: 22px; }
-}
+.nl-modal { background: var(--bg); border-radius: 24px; max-width: 520px; width: 100%; padding: 56px 48px 40px; position: relative; border: 1px solid var(--border); box-shadow: 0 30px 80px rgba(0,0,0,0.25); }
+.nl-close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 100px; background: transparent; border: 0; cursor: pointer; font-size: 18px; color: var(--ink); transition: background 0.2s; }
+.nl-close:hover { background: var(--bg-warm); }
+.nl-label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.nl-title { font-family: var(--serif); font-size: 32px; line-height: 1.15; color: var(--ink); margin-bottom: 12px; }
+.nl-title em { font-style: italic; color: var(--green); }
+.nl-sub { font-family: var(--body); font-size: 15px; color: var(--ink2); margin-bottom: 24px; }
+.nl-modal iframe { width: 100%; height: 180px; border: 0; background: transparent; }
+.nl-modal .fine { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3); text-align: center; margin-top: 16px; }
 
-
-/* ═══════════════ HAMBURGER / MOBILE NAV ═══════════════ */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  background: none;
-  border: none;
-  transition: background 0.2s;
-  flex-shrink: 0;
+@media (max-width: 1024px) {
+  .topic-layout { grid-template-columns: 1fr; gap: 48px; }
+  .topic-side { position: static; }
+  .other-grid { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
 }
-.hamburger:hover { background: var(--green-light); }
-.hamburger span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--ink);
-  border-radius: 2px;
-  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
-  transform-origin: center;
+@media (max-width: 768px) {
+  nav.site-nav { padding: 0 24px; height: 64px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: block; }
+  .topic-hero, .topic-layout, .other-topics { padding-left: 24px; padding-right: 24px; }
+  .topic-hero { padding-top: 40px; }
+  .chapter-head { flex-wrap: wrap; gap: 16px; }
+  .chapter-num { font-size: 56px; }
+  .guide { grid-template-columns: 1fr auto; padding: 18px 0; }
+  .guide-num { display: none; }
+  .guide-body h3 { font-size: 18px; }
+  .other-topics { padding-top: 72px; padding-bottom: 72px; }
+  .other-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px; }
+  footer.site-footer { padding: 64px 24px 36px; }
 }
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-.mobile-menu {
-  display: none;
-  position: fixed;
-  inset: 64px 0 0 0;
-  background: rgba(247,245,240,0.98);
-  backdrop-filter: blur(20px);
-  z-index: 99;
-  flex-direction: column;
-  padding: 20px 16px;
-  gap: 2px;
-  border-top: 1px solid var(--border);
-  overflow-y: auto;
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a {
-  font-family: var(--sans);
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--ink2);
-  text-decoration: none;
-  padding: 14px 16px;
-  border-radius: 12px;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 52px;
-}
-.mobile-menu a:hover, .mobile-menu a.mobile-active { background: var(--green-light); color: var(--green); }
-.mobile-menu-divider { height: 1px; background: var(--border); margin: 12px 0; }
-.mobile-menu-cta a {
-  background: var(--green) !important;
-  color: white !important;
-  justify-content: center;
-  border-radius: 100px !important;
-  margin-top: 4px;
-}
-.mobile-menu-cta a:hover { background: var(--green-mid) !important; }
-@media (max-width: 900px) {
-  .hamburger { display: flex; }
-  .nav-cta { display: none; }
-  body.menu-open { overflow: hidden; }
-}
-
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">
-    <img src="Logo.png" alt="Accessible Finance" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
-    <span class="logo-text">Accessible Finance</span>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo" aria-label="Accessible Finance — Home">
+    <img src="Logo.png" alt="">
+    <span class="wordmark">Accessible Finance</span>
   </a>
-  <ul class="nav-links">
-    <li><a href="topic.html" class="active">Learn</a></li>
-    <li><a href="articles.html">Articles</a></li>
-    <li><a href="index.html#glossary">Glossary</a></li>
-    <li><a href="earn.html" style="color:var(--green);font-weight:700;">💵 Rewards</a></li>
-    <li><a href="about.html">About</a></li>
-  </ul>
-  <a href="index.html#newsletter" class="nav-cta" data-open-newsletter>Get the Newsletter</a>
-  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
-    <span></span>
-    <span></span>
-    <span></span>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="articles.html">Guides</a>
+    <a href="index.html#glossary">Glossary</a>
+    <a href="earn.html">Rewards</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span><span></span>
   </button>
-  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-    <a href="index.html">🏠 Home</a>
-    <a href="topic.html" class="mobile-active">📚 Learn</a>
-    <a href="articles.html">📰 Articles</a>
-    <a href="index.html#glossary">🔤 Glossary</a>
-    <a href="earn.html">💵 Rewards</a>
-    <a href="about.html">👤 About</a>
-    <div class="mobile-menu-divider"></div>
-    <div class="mobile-menu-cta">
-      <a href="index.html#newsletter">✉️ Get the Newsletter</a>
-    </div>
-  </div>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="articles.html">Guides</a>
+  <a href="index.html#glossary">Glossary</a>
+  <a href="earn.html">Rewards</a>
+  <a href="about.html">About</a>
+  <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
+</div>
 
-<!-- TOPIC HERO -->
-<section class="topic-hero">
-  <div>
-    <div class="topic-breadcrumb">
-      <a href="index.html">Home</a>
-      <span>›</span>
-      <a href="index.html#topics">Topics</a>
-      <span>›</span>
-      <span>Investing Fundamentals</span>
-    </div>
-    <div class="topic-emoji-lg">🏗️</div>
-    <h1>Investing <em>Fundamentals</em></h1>
-    <p class="topic-desc">Risk and return, time in the market, inflation, compound interest, and how markets actually work. Start here if you're new — or revisit to strengthen your foundation.</p>
-  </div>
-  <div class="topic-stats fade-in">
-    <div class="stats-title">Topic Overview</div>
-    <div class="stat-row">
-      <span class="stat-row-label">Total guides</span>
-      <span class="stat-row-value">34</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-row-label">Reading time</span>
-      <span class="stat-row-value">~4.5 hours</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-row-label">Difficulty</span>
-      <span class="stat-row-value green">Beginner → Intermediate</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-row-label">Chapters</span>
-      <span class="stat-row-value">5</span>
-    </div>
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    <a href="article.html" class="start-btn">Start Chapter 1 →</a>
-  </div>
-</section>
+<header class="topic-hero reveal">
+  <div class="crumb"><a href="index.html">Home</a><span class="sep">›</span><a href="index.html#topics">Topics</a><span class="sep">›</span>Investing Fundamentals</div>
+  <div class="topic-symbol">F</div>
+  <h1>Investing <em>Fundamentals</em></h1>
+  <p class="lead">Risk and return, time in the market, inflation, compound interest, and how markets actually work. Start here if you're new — or revisit to strengthen your foundation.</p>
+</header>
 
-<!-- DIVIDER -->
-<div style="max-width:1160px; margin:0 auto; padding:0 40px;"><div style="height:1px; background:var(--border);"></div></div>
+<div class="topic-layout">
+  <main>
+    <section class="chapter reveal">
+      <div class="chapter-head">
+        <div class="chapter-num">01</div>
+        <div class="chapter-title">
+          <div class="label">Chapter One</div>
+          <h2>The <em>big picture</em></h2>
+        </div>
+        <div class="chapter-meta">7 guides · ~50 min</div>
+      </div>
+      <div class="guide-list">
+        <a href="article.html" class="guide">
+          <div class="guide-num">1.1</div>
+          <div class="guide-body"><h3>The Actual Difference Between Investing and Speculating</h3><p>Most people mix these up. Here's a clear line between the two.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>8 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">1.2</div>
+          <div class="guide-body"><h3>Why Investing Exists — And What It Actually Does</h3><p>Investing isn't just "making money." It's a mechanism for economic growth.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>6 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">1.3</div>
+          <div class="guide-body"><h3>How Markets Actually Work (A Plain English Guide)</h3><p>Buyers, sellers, prices, and why stocks go up and down.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>9 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">1.4</div>
+          <div class="guide-body"><h3>What "Risk" Really Means in Investing</h3><p>It's not just "you might lose money." Risk is more nuanced than that.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>7 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">1.5</div>
+          <div class="guide-body"><h3>Risk and Return: The Relationship Nobody Explains Properly</h3><p>Higher risk means higher potential returns — but not always.</p></div>
+          <div class="guide-meta"><span class="lvl">Intermediate</span>9 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">1.6</div>
+          <div class="guide-body"><h3>Time in the Market vs. Timing the Market</h3><p>The data is overwhelming: staying invested beats predicting the perfect entry.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>6 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">1.7</div>
+          <div class="guide-body"><h3>The Cost of Doing Nothing: Inflation and Your Cash</h3><p>Your savings account isn't "safe." Here's what inflation does over time.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>5 min</div>
+        </a>
+      </div>
+    </section>
 
-<!-- GUIDES -->
-<section class="guides-section" style="padding-top: 64px;">
+    <section class="chapter reveal">
+      <div class="chapter-head">
+        <div class="chapter-num">02</div>
+        <div class="chapter-title">
+          <div class="label">Chapter Two</div>
+          <h2>The power of <em>compounding</em></h2>
+        </div>
+        <div class="chapter-meta">7 guides · ~55 min</div>
+      </div>
+      <div class="guide-list">
+        <a href="article.html" class="guide">
+          <div class="guide-num">2.1</div>
+          <div class="guide-body"><h3>Compound Interest: The Most Powerful Force in Investing</h3><p>The math really is astonishing when you see it play out over decades.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>7 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">2.2</div>
+          <div class="guide-body"><h3>Why Starting Early Matters More Than Starting Big</h3><p>$100/month at 25 beats $500/month at 40. Here's the math.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>6 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">2.3</div>
+          <div class="guide-body"><h3>Dollar-Cost Averaging: The Strategy That Works by Default</h3><p>Regular contributions smooth out volatility. Here's why it's so effective.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>7 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">2.4</div>
+          <div class="guide-body"><h3>Dividends and Reinvestment: The Quiet Growth Engine</h3><p>How reinvesting dividends accelerates compound growth over time.</p></div>
+          <div class="guide-meta"><span class="lvl">Intermediate</span>8 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">2.5</div>
+          <div class="guide-body"><h3>The Rule of 72 (And Other Back-of-Napkin Tricks)</h3><p>Quick mental math to estimate how fast your money doubles.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>5 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">2.6</div>
+          <div class="guide-body"><h3>Fees: The Silent Compound Interest in Reverse</h3><p>Small percentages add up to enormous costs over a lifetime.</p></div>
+          <div class="guide-meta"><span class="lvl">Intermediate</span>8 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">2.7</div>
+          <div class="guide-body"><h3>Taxes and Compounding: What Tax-Advantaged Really Means</h3><p>How registered accounts (TFSA, RRSP) supercharge your growth.</p></div>
+          <div class="guide-meta"><span class="lvl">Intermediate</span>10 min</div>
+        </a>
+      </div>
+    </section>
 
-  <!-- CHAPTER 1 -->
-  <div class="chapter fade-in">
-    <div class="chapter-header">
-      <div class="chapter-num">1</div>
-      <div class="chapter-title">The Big Picture</div>
-      <div class="chapter-subtitle">7 guides · ~50 min</div>
-    </div>
-    <div class="guide-list">
-      <a href="article.html" class="guide-item">
-        <div class="guide-num">1.1</div>
-        <div class="guide-info">
-          <div class="guide-title">The Actual Difference Between Investing and Speculating</div>
-          <div class="guide-teaser">Most people mix these up. Here's a clear line between the two.</div>
+    <section class="chapter reveal">
+      <div class="chapter-head">
+        <div class="chapter-num">03</div>
+        <div class="chapter-title">
+          <div class="label">Chapter Three</div>
+          <h2>Building <em>blocks</em></h2>
         </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">8 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">1.2</div>
-        <div class="guide-info">
-          <div class="guide-title">Why Investing Exists — And What It Actually Does</div>
-          <div class="guide-teaser">Investing isn't just "making money." It's a mechanism for economic growth.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">6 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">1.3</div>
-        <div class="guide-info">
-          <div class="guide-title">How Markets Actually Work (A Plain English Guide)</div>
-          <div class="guide-teaser">Buyers, sellers, prices, and why stocks go up and down.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">9 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">1.4</div>
-        <div class="guide-info">
-          <div class="guide-title">What "Risk" Really Means in Investing</div>
-          <div class="guide-teaser">It's not just "you might lose money." Risk is more nuanced than that.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">7 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">1.5</div>
-        <div class="guide-info">
-          <div class="guide-title">Risk and Return: The Relationship Nobody Explains Properly</div>
-          <div class="guide-teaser">Higher risk means higher potential returns — but not always.</div>
-        </div>
-        <span class="guide-level level-intermediate">Intermediate</span>
-        <span class="guide-time">9 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">1.6</div>
-        <div class="guide-info">
-          <div class="guide-title">Time in the Market vs. Timing the Market</div>
-          <div class="guide-teaser">The data is overwhelming: staying invested beats predicting the perfect entry.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">6 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">1.7</div>
-        <div class="guide-info">
-          <div class="guide-title">The Cost of Doing Nothing: Inflation and Your Cash</div>
-          <div class="guide-teaser">Your savings account isn't "safe." Here's what inflation does over time.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">5 min</span>
-      </a>
-    </div>
-  </div>
+        <div class="chapter-meta">7 guides · ~50 min</div>
+      </div>
+      <div class="guide-list">
+        <a href="article.html" class="guide">
+          <div class="guide-num">3.1</div>
+          <div class="guide-body"><h3>What Is a Stock, Really?</h3><p>Ownership in a company — and everything that comes with it.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>7 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">3.2</div>
+          <div class="guide-body"><h3>What Is a Bond? (And Why Should I Care?)</h3><p>Lending your money to governments and companies — and getting paid interest.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>7 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">3.3</div>
+          <div class="guide-body"><h3>Mutual Funds vs. ETFs: What's the Actual Difference?</h3><p>They're similar but not identical. Here's what matters for you.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>8 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">3.4</div>
+          <div class="guide-body"><h3>Index Funds: The Single Best Invention for Regular Investors</h3><p>Why owning a tiny piece of everything often beats trying to pick winners.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>8 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">3.5</div>
+          <div class="guide-body"><h3>Active vs. Passive Investing: The Evidence</h3><p>Most active managers underperform. Here's the data.</p></div>
+          <div class="guide-meta"><span class="lvl">Intermediate</span>9 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">3.6</div>
+          <div class="guide-body"><h3>Understanding Diversification (Not Just "Don't Put All Eggs in One Basket")</h3><p>The math behind why spreading risk actually works.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>7 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">3.7</div>
+          <div class="guide-body"><h3>What Expense Ratios, MERs, and Fees Actually Cost You</h3><p>A complete guide to the costs hidden inside your funds.</p></div>
+          <div class="guide-meta"><span class="lvl">Intermediate</span>6 min</div>
+        </a>
+      </div>
+    </section>
 
-  <!-- CHAPTER 2 -->
-  <div class="chapter fade-in">
-    <div class="chapter-header">
-      <div class="chapter-num">2</div>
-      <div class="chapter-title">The Power of Compounding</div>
-      <div class="chapter-subtitle">7 guides · ~55 min</div>
-    </div>
-    <div class="guide-list">
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">2.1</div>
-        <div class="guide-info">
-          <div class="guide-title">Compound Interest: The Most Powerful Force in Investing</div>
-          <div class="guide-teaser">The math really is astonishing when you see it play out over decades.</div>
+    <section class="chapter reveal">
+      <div class="chapter-head">
+        <div class="chapter-num">04</div>
+        <div class="chapter-title">
+          <div class="label">Chapter Four</div>
+          <h2>Getting <em>started</em></h2>
         </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">7 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">2.2</div>
-        <div class="guide-info">
-          <div class="guide-title">Why Starting Early Matters More Than Starting Big</div>
-          <div class="guide-teaser">$100/month at 25 beats $500/month at 40. Here's the math.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">6 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">2.3</div>
-        <div class="guide-info">
-          <div class="guide-title">Dollar-Cost Averaging: The Strategy That Works by Default</div>
-          <div class="guide-teaser">Regular contributions smooth out volatility. Here's why it's so effective.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">7 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">2.4</div>
-        <div class="guide-info">
-          <div class="guide-title">Dividends and Reinvestment: The Quiet Growth Engine</div>
-          <div class="guide-teaser">How reinvesting dividends accelerates compound growth over time.</div>
-        </div>
-        <span class="guide-level level-intermediate">Intermediate</span>
-        <span class="guide-time">8 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">2.5</div>
-        <div class="guide-info">
-          <div class="guide-title">The Rule of 72 (And Other Back-of-Napkin Tricks)</div>
-          <div class="guide-teaser">Quick mental math to estimate how fast your money doubles.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">5 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">2.6</div>
-        <div class="guide-info">
-          <div class="guide-title">Fees: The Silent Compound Interest in Reverse</div>
-          <div class="guide-teaser">Small percentages add up to enormous costs over a lifetime.</div>
-        </div>
-        <span class="guide-level level-intermediate">Intermediate</span>
-        <span class="guide-time">8 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">2.7</div>
-        <div class="guide-info">
-          <div class="guide-title">Taxes and Compounding: What Tax-Advantaged Really Means</div>
-          <div class="guide-teaser">How registered accounts (TFSA, RRSP) supercharge your growth.</div>
-        </div>
-        <span class="guide-level level-intermediate">Intermediate</span>
-        <span class="guide-time">10 min</span>
-      </a>
-    </div>
-  </div>
+        <div class="chapter-meta">7 guides · ~55 min</div>
+      </div>
+      <div class="guide-list">
+        <a href="article.html" class="guide">
+          <div class="guide-num">4.1</div>
+          <div class="guide-body"><h3>How to Open a Brokerage Account (Step by Step)</h3><p>The practical guide to going from zero to invested.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>8 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">4.2</div>
+          <div class="guide-body"><h3>Your First Investment: A Framework for Deciding</h3><p>Not "what to buy," but how to think about what to buy.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>9 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">4.3</div>
+          <div class="guide-body"><h3>How Much Should You Invest? (And What to Keep in Cash)</h3><p>Emergency funds, liquidity needs, and finding the right balance.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>7 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">4.4</div>
+          <div class="guide-body"><h3>Registered Accounts Explained: TFSA, RRSP, FHSA, RESP</h3><p>Which account to use, when, and why it matters for your tax bill.</p></div>
+          <div class="guide-meta"><span class="lvl">Intermediate</span>10 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">4.5</div>
+          <div class="guide-body"><h3>Setting Up Automatic Contributions (And Why You Should)</h3><p>The easiest way to build wealth: make it happen without thinking.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>5 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">4.6</div>
+          <div class="guide-body"><h3>Common Beginner Mistakes (And How to Avoid Them)</h3><p>The traps that catch most new investors — and simple ways around them.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>8 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">4.7</div>
+          <div class="guide-body"><h3>What to Do When the Market Drops</h3><p>The hardest part of investing is doing nothing. Here's why that's usually right.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>7 min</div>
+        </a>
+      </div>
+    </section>
 
-  <!-- CHAPTER 3 -->
-  <div class="chapter fade-in">
-    <div class="chapter-header">
-      <div class="chapter-num">3</div>
-      <div class="chapter-title">Building Blocks</div>
-      <div class="chapter-subtitle">7 guides · ~50 min</div>
-    </div>
-    <div class="guide-list">
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">3.1</div>
-        <div class="guide-info">
-          <div class="guide-title">What Is a Stock, Really?</div>
-          <div class="guide-teaser">Ownership in a company — and everything that comes with it.</div>
+    <section class="chapter reveal">
+      <div class="chapter-head">
+        <div class="chapter-num" style="color: #c0392b; font-family: var(--serif); font-style: italic;">CA</div>
+        <div class="chapter-title">
+          <div class="label">Chapter Five</div>
+          <h2>Canadian accounts &amp; <em>programs</em></h2>
         </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">7 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">3.2</div>
-        <div class="guide-info">
-          <div class="guide-title">What Is a Bond? (And Why Should I Care?)</div>
-          <div class="guide-teaser">Lending your money to governments and companies — and getting paid interest.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">7 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">3.3</div>
-        <div class="guide-info">
-          <div class="guide-title">Mutual Funds vs. ETFs: What's the Actual Difference?</div>
-          <div class="guide-teaser">They're similar but not identical. Here's what matters for you.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">8 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">3.4</div>
-        <div class="guide-info">
-          <div class="guide-title">Index Funds: The Single Best Invention for Regular Investors</div>
-          <div class="guide-teaser">Why owning a tiny piece of everything often beats trying to pick winners.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">8 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">3.5</div>
-        <div class="guide-info">
-          <div class="guide-title">Active vs. Passive Investing: The Evidence</div>
-          <div class="guide-teaser">Most active managers underperform. Here's the data.</div>
-        </div>
-        <span class="guide-level level-intermediate">Intermediate</span>
-        <span class="guide-time">9 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">3.6</div>
-        <div class="guide-info">
-          <div class="guide-title">Understanding Diversification (Not Just "Don't Put All Eggs in One Basket")</div>
-          <div class="guide-teaser">The math behind why spreading risk actually works.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">7 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">3.7</div>
-        <div class="guide-info">
-          <div class="guide-title">What Expense Ratios, MERs, and Fees Actually Cost You</div>
-          <div class="guide-teaser">A complete guide to the costs hidden inside your funds.</div>
-        </div>
-        <span class="guide-level level-intermediate">Intermediate</span>
-        <span class="guide-time">6 min</span>
-      </a>
-    </div>
-  </div>
+        <div class="chapter-meta">6 guides · ~45 min</div>
+      </div>
+      <div class="guide-list">
+        <a href="article.html" class="guide">
+          <div class="guide-num">5.1</div>
+          <div class="guide-body"><h3>TFSA Explained: How It Works and When to Use It</h3><p>The Tax-Free Savings Account is the most powerful savings tool most Canadians underuse.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>7 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">5.2</div>
+          <div class="guide-body"><h3>RRSP Explained: Deferrals, Deductions, and Deadlines</h3><p>How the Registered Retirement Savings Plan works — and why your contribution room matters.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>8 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">5.3</div>
+          <div class="guide-body"><h3>TFSA vs. RRSP: Which Should You Contribute to First?</h3><p>The answer depends on your income bracket, timeline, and goals — here's the framework.</p></div>
+          <div class="guide-meta"><span class="lvl">Intermediate</span>9 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">5.4</div>
+          <div class="guide-body"><h3>The FHSA: Canada's First Home Savings Account, Fully Explained</h3><p>A hybrid account that combines TFSA and RRSP benefits for first-time home buyers — up to $40,000 lifetime.</p></div>
+          <div class="guide-meta"><span class="lvl">Beginner</span>8 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">5.5</div>
+          <div class="guide-body"><h3>What Is CPP and How Much Will You Actually Get?</h3><p>Most Canadians overestimate their CPP payout. Here's how to calculate yours realistically.</p></div>
+          <div class="guide-meta"><span class="lvl">Intermediate</span>7 min</div>
+        </a>
+        <a href="article.html" class="guide">
+          <div class="guide-num">5.6</div>
+          <div class="guide-body"><h3>Investing with a Disability in Canada: Accounts, Benefits &amp; Traps to Avoid</h3><p>RDSP, ODSP clawback rules, and how to invest without jeopardizing disability support.</p></div>
+          <div class="guide-meta"><span class="lvl">Intermediate</span>11 min</div>
+        </a>
+      </div>
+    </section>
+  </main>
 
-  <!-- CHAPTER 4 -->
-  <div class="chapter fade-in">
-    <div class="chapter-header">
-      <div class="chapter-num">4</div>
-      <div class="chapter-title">Getting Started</div>
-      <div class="chapter-subtitle">7 guides · ~55 min</div>
-    </div>
-    <div class="guide-list">
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">4.1</div>
-        <div class="guide-info">
-          <div class="guide-title">How to Open a Brokerage Account (Step by Step)</div>
-          <div class="guide-teaser">The practical guide to going from zero to invested.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">8 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">4.2</div>
-        <div class="guide-info">
-          <div class="guide-title">Your First Investment: A Framework for Deciding</div>
-          <div class="guide-teaser">Not "what to buy," but how to think about what to buy.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">9 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">4.3</div>
-        <div class="guide-info">
-          <div class="guide-title">How Much Should You Invest? (And What to Keep in Cash)</div>
-          <div class="guide-teaser">Emergency funds, liquidity needs, and finding the right balance.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">7 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">4.4</div>
-        <div class="guide-info">
-          <div class="guide-title">Registered Accounts Explained: TFSA, RRSP, FHSA, RESP</div>
-          <div class="guide-teaser">Which account to use, when, and why it matters for your tax bill.</div>
-        </div>
-        <span class="guide-level level-intermediate">Intermediate</span>
-        <span class="guide-time">10 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">4.5</div>
-        <div class="guide-info">
-          <div class="guide-title">Setting Up Automatic Contributions (And Why You Should)</div>
-          <div class="guide-teaser">The easiest way to build wealth: make it happen without thinking.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">5 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">4.6</div>
-        <div class="guide-info">
-          <div class="guide-title">Common Beginner Mistakes (And How to Avoid Them)</div>
-          <div class="guide-teaser">The traps that catch most new investors — and simple ways around them.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">8 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">4.7</div>
-        <div class="guide-info">
-          <div class="guide-title">What to Do When the Market Drops</div>
-          <div class="guide-teaser">The hardest part of investing is doing nothing. Here's why that's usually right.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">7 min</span>
+  <aside class="topic-side">
+    <div class="side-card">
+      <div class="label">Topic Overview</div>
+      <h3>Investing Fundamentals</h3>
+      <ul class="side-stats">
+        <li><span class="k">Total guides</span><span class="v"><em>34</em></span></li>
+        <li><span class="k">Reading time</span><span class="v">~4.5 hrs</span></li>
+        <li><span class="k">Difficulty</span><span class="v">Beginner → Inter.</span></li>
+        <li><span class="k">Chapters</span><span class="v"><em>5</em></span></li>
+      </ul>
+      <div class="side-progress">
+        <div class="bar"><div class="fill" id="progressFill"></div></div>
+        <div class="lbl">Your progress · 0%</div>
+      </div>
+      <a href="article.html" class="side-cta">Start Chapter 1
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
-  </div>
+  </aside>
+</div>
 
-
-  <!-- CHAPTER 5 — CANADIAN FINANCE -->
-  <div class="chapter fade-in">
-    <div class="chapter-header">
-      <div class="chapter-num" style="background: linear-gradient(135deg,#1a6b5a,#2d9a79);">🍁</div>
-      <div class="chapter-title">Canadian Accounts &amp; Programs</div>
-      <div class="chapter-subtitle">6 guides · ~45 min</div>
-    </div>
-    <div class="guide-list">
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">5.1</div>
-        <div class="guide-info">
-          <div class="guide-title">TFSA Explained: How It Works and When to Use It</div>
-          <div class="guide-teaser">The Tax-Free Savings Account is the most powerful savings tool most Canadians underuse.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">7 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">5.2</div>
-        <div class="guide-info">
-          <div class="guide-title">RRSP Explained: Deferrals, Deductions, and Deadlines</div>
-          <div class="guide-teaser">How the Registered Retirement Savings Plan works — and why your contribution room matters.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">8 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">5.3</div>
-        <div class="guide-info">
-          <div class="guide-title">TFSA vs. RRSP: Which Should You Contribute to First?</div>
-          <div class="guide-teaser">The answer depends on your income bracket, timeline, and goals — here's the framework.</div>
-        </div>
-        <span class="guide-level level-intermediate">Intermediate</span>
-        <span class="guide-time">9 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">5.4</div>
-        <div class="guide-info">
-          <div class="guide-title">The FHSA: Canada's First Home Savings Account, Fully Explained</div>
-          <div class="guide-teaser">A hybrid account that combines TFSA and RRSP benefits for first-time home buyers — up to $40,000 lifetime.</div>
-        </div>
-        <span class="guide-level level-beginner">Beginner</span>
-        <span class="guide-time">8 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">5.5</div>
-        <div class="guide-info">
-          <div class="guide-title">What Is CPP and How Much Will You Actually Get?</div>
-          <div class="guide-teaser">Most Canadians overestimate their CPP payout. Here's how to calculate yours realistically.</div>
-        </div>
-        <span class="guide-level level-intermediate">Intermediate</span>
-        <span class="guide-time">7 min</span>
-      </a>
-      <a href="articles.html" class="guide-item">
-        <div class="guide-num">5.6</div>
-        <div class="guide-info">
-          <div class="guide-title">Investing with a Disability in Canada: Accounts, Benefits &amp; Traps to Avoid</div>
-          <div class="guide-teaser">RDSP, ODSP clawback rules, and how to invest without jeopardizing disability support.</div>
-        </div>
-        <span class="guide-level level-intermediate">Intermediate</span>
-        <span class="guide-time">11 min</span>
-      </a>
-    </div>
-  </div>
-
-</section>
-
-<!-- OTHER TOPICS -->
 <section class="other-topics">
-  <div class="section-label">Explore More</div>
-  <h2>Other topics</h2>
-  <div class="other-grid">
-    <a href="articles.html?cat=assets" class="other-card amber">
-      <div class="other-emoji">📦</div>
-      <div class="other-name">Asset Classes</div>
-      <div class="other-desc">Stocks, bonds, real estate, commodities, cash, and alternatives — what they are and how each behaves.</div>
-      <div class="other-count">34 guides</div>
-    </a>
-    <a href="articles.html?cat=portfolio" class="other-card blue">
-      <div class="other-emoji">🎯</div>
-      <div class="other-name">Portfolio Thinking</div>
-      <div class="other-desc">Asset allocation, rebalancing, building for different goals, and common portfolio frameworks explained clearly.</div>
-      <div class="other-count">22 guides</div>
-    </a>
-    <a href="articles.html?cat=behavior" class="other-card teal">
-      <div class="other-emoji">📊</div>
-      <div class="other-name">Market Behavior</div>
-      <div class="other-desc">Bull and bear markets, bubbles, volatility, economic cycles, and the psychology behind price movements.</div>
-      <div class="other-count">36 guides</div>
-    </a>
-    <a href="articles.html" class="other-card" style="background: linear-gradient(135deg, rgba(26,107,90,0.08), rgba(45,154,121,0.06)); border-color: rgba(26,107,90,0.2);">
-      <div class="other-emoji">🍁</div>
-      <div class="other-name">Canadian Finance</div>
-      <div class="other-desc">TFSA, RRSP, FHSA, CPP, OAS, RDSP — all the Canada-specific accounts and programs explained clearly.</div>
-      <div class="other-count">18 guides</div>
-    </a>
+  <div class="other-inner">
+    <div class="other-head reveal">
+      <span class="eyebrow">Explore further</span>
+      <h2>Other <em>topics</em>.</h2>
+    </div>
+    <div class="other-grid">
+      <a href="articles.html?cat=assets" class="other-card reveal">
+        <div class="other-glyph">A</div>
+        <h3>Asset Classes</h3>
+        <p>Stocks, bonds, real estate, commodities, cash, and alternatives — what they are and how each behaves.</p>
+        <div class="n">34 guides</div>
+      </a>
+      <a href="articles.html?cat=portfolio" class="other-card reveal">
+        <div class="other-glyph">P</div>
+        <h3>Portfolio Thinking</h3>
+        <p>Asset allocation, rebalancing, building for different goals, and common portfolio frameworks explained clearly.</p>
+        <div class="n">22 guides</div>
+      </a>
+      <a href="articles.html?cat=behavior" class="other-card reveal">
+        <div class="other-glyph">M</div>
+        <h3>Market Behavior</h3>
+        <p>Bull and bear markets, bubbles, volatility, economic cycles, and the psychology behind price movements.</p>
+        <div class="n">36 guides</div>
+      </a>
+      <a href="articles.html?cat=canadian" class="other-card reveal">
+        <div class="other-glyph">C</div>
+        <h3>Canadian Finance</h3>
+        <p>TFSA, RRSP, FHSA, CPP, OAS, RDSP — all the Canada-specific accounts and programs explained clearly.</p>
+        <div class="n">18 guides</div>
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
+<footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="nav-logo" style="display:flex; align-items:center; gap:10px; margin-bottom:0; text-decoration:none;">
-          <img src="Logo.png" alt="Accessible Finance" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
-          <span class="logo-text" style="color:white;">Accessible Finance</span>
+        <div class="wordmark-row">
+          <img src="Logo.png" alt="">
+          <span class="name">Accessible Finance</span>
         </div>
-        <p class="footer-tagline">Investing education without the jargon. Free, forever.</p>
+        <p>"True understanding is not a destination, but a way of traveling." Free, ad-free investing education for the curious.</p>
       </div>
       <div class="footer-col">
         <h4>Learn</h4>
         <ul>
-          <li><a href="topic.html">Investing Fundamentals</a></li>
+          <li><a href="topic.html">Fundamentals</a></li>
           <li><a href="articles.html?cat=assets">Asset Classes</a></li>
           <li><a href="articles.html?cat=portfolio">Portfolio Thinking</a></li>
           <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
@@ -822,92 +532,87 @@ footer { background: var(--ink); padding: 60px 40px 32px; color: rgba(255,255,25
       <div class="footer-col">
         <h4>Articles</h4>
         <ul>
-          <li><a href="articles.html">Beginner Guides</a></li>
-          <li><a href="articles.html">Intermediate Topics</a></li>
-          <li><a href="articles.html">Case Studies</a></li>
+          <li><a href="articles.html">All Guides</a></li>
+          <li><a href="articles.html?cat=beginner">Beginner</a></li>
+          <li><a href="articles.html?cat=intermediate">Intermediate</a></li>
           <li><a href="articles.html">Latest Posts</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="index.html#newsletter">Newsletter</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="earn.html">Rewards</a></li>
+          <li><a href="#newsletter" data-open-newsletter>Newsletter</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
           <li><a href="disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p class="footer-disclaimer">Not financial advice. All content is for educational purposes only. Investing involves risk, including the possible loss of principal. Past performance is not indicative of future results.</p>
-      <span style="color:rgba(255,255,255,0.3); font-size:12px; white-space:nowrap; margin-left:20px;">© 2026 Accessible Finance</span>
+      <span class="footer-copy">© 2026 Accessible Finance</span>
     </div>
   </div>
 </footer>
 
-<script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
-
-<!-- Newsletter Popup -->
-<div class="nl-overlay" id="nlOverlay">
-  <div class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+<div class="nl-overlay" id="nlOverlay" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+  <div class="nl-modal">
     <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
-    <div class="nl-header">
-      <div class="nl-label">Weekly Newsletter</div>
-      <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em> Weekly.</div>
-      <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
-    </div>
-    <div class="nl-body">
-      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="180" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-      <p class="nl-fine">No spam. Unsubscribe anytime. We never share your email.</p>
-    </div>
+    <div class="nl-label">Weekly Newsletter</div>
+    <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
+    <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
+    <iframe src="https://accessiblefinance.substack.com/embed" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
   </div>
 </div>
 
 <script>
-(function(){
-  var overlay = document.getElementById("nlOverlay");
-  var closeBtn = document.getElementById("nlClose");
-  function openNL(e){ if(e) e.preventDefault(); overlay.classList.add("open"); }
-  function closeNL(){ overlay.classList.remove("open"); }
-  document.querySelectorAll("[data-open-newsletter]").forEach(function(a){
-    a.addEventListener("click", openNL);
-  });
-  if(closeBtn) closeBtn.addEventListener("click", closeNL);
-  overlay.addEventListener("click", function(e){ if(e.target===overlay) closeNL(); });
-  document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeNL(); });
-})();
-</script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-<script>
-(function(){
-  var btn = document.getElementById('hamburger');
-  var menu = document.getElementById('mobile-menu');
-  if(!btn || !menu) return;
-  function closeMenu(){
-    menu.classList.remove('open');
-    btn.classList.remove('open');
-    btn.setAttribute('aria-expanded','false');
-    document.body.classList.remove('menu-open');
-  }
-  btn.addEventListener('click', function(){
-    var isOpen = menu.classList.contains('open');
-    if(isOpen){ closeMenu(); } else {
-      menu.classList.add('open');
-      btn.classList.add('open');
-      btn.setAttribute('aria-expanded','true');
-      document.body.classList.add('menu-open');
-    }
+  (function(){
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open'); btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }));
+  })();
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href.length < 2) return;
+      const target = document.querySelector(href);
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
   });
-  menu.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', closeMenu);
-  });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
-})();
+
+  /* PROGRESS BAR (illustrative animate on load) */
+  setTimeout(() => {
+    const fill = document.getElementById('progressFill');
+    if (fill) fill.style.width = '12%';
+  }, 600);
+
+  (function () {
+    const overlay = document.getElementById('nlOverlay');
+    const closeBtn = document.getElementById('nlClose');
+    function open(e) { if (e) e.preventDefault(); overlay.classList.add('open'); }
+    function close() { overlay.classList.remove('open'); }
+    document.querySelectorAll('[data-open-newsletter]').forEach(a => a.addEventListener('click', open));
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  })();
 </script>
 </body>
 </html>
