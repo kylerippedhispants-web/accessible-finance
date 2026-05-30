@@ -12,31 +12,36 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="Logo.png">
 <meta name="twitter:card" content="summary">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --bg: #f7f5f0;
+  --bg-warm: #efece3;
   --surface: #ffffff;
   --ink: #1a1816;
   --ink2: #4a4640;
   --ink3: #8a8480;
+  --ink4: #b8b0a5;
   --green: #1d6b45;
   --green-light: #e8f4ed;
   --green-mid: #2d8a59;
-  --amber: #c8822a;
-  --amber-light: #fdf3e4;
+  --sage: #7d8c7b;
+  --sage-light: #e8eae5;
+  --gold: #c8822a;
+  --gold-soft: #d4a560;
+  --gold-light: #f6ecd9;
   --border: #e4e0d8;
+  --border-strong: #c9c3b6;
   --serif: 'Instrument Serif', Georgia, serif;
   --sans: 'Syne', sans-serif;
   --body: 'Literata', Georgia, serif;
-  --radius: 6px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
 }
 
 html { scroll-behavior: smooth; }
-
 body {
   background: var(--bg);
   color: var(--ink);
@@ -44,1255 +49,942 @@ body {
   font-size: 16px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* ═══════════════════════════════ NAV ═══════════════════════════════ */
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(247,245,240,0.92);
-  backdrop-filter: blur(12px);
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ═══════════ NAV ═══════════ */
+nav.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(247,245,240,0.88);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
+  height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
   padding: 0 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
 }
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-}
-.logo-mark {
-  width: 32px;
-  height: 32px;
-  background: var(--green);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.nav-logo { display: flex; align-items: center; gap: 12px; }
+.nav-logo img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; object-position: 50% 20%; }
+.nav-logo .wordmark {
   font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 800;
-  color: white;
-  letter-spacing: -1px;
-  flex-shrink: 0;
-}
-.logo-text {
-  font-family: var(--sans);
-  font-size: 17px;
-  font-weight: 700;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
   color: var(--ink);
-  letter-spacing: -0.3px;
 }
-
-.nav-links {
-  display: flex;
-  gap: 4px;
-  list-style: none;
-}
+.nav-links { display: flex; gap: 36px; }
 .nav-links a {
   font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--ink2);
-  text-decoration: none;
-  padding: 6px 14px;
-  border-radius: 100px;
-  transition: all 0.2s;
-}
-.nav-links a:hover { background: var(--green-light); color: var(--green); }
-
-.nav-cta {
-  font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 600;
-  background: var(--green);
-  color: white;
-  padding: 9px 20px;
-  border-radius: 100px;
-  text-decoration: none;
-  transition: background 0.2s;
-  letter-spacing: 0.2px;
-}
-.nav-cta:hover { background: var(--green-mid); }
-
-/* ═══════════════════════════════ HERO ═══════════════════════════════ */
-.hero {
-  padding: 100px 40px 80px;
-  max-width: 1160px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 80px;
-  align-items: center;
-}
-
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--sans);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--green);
-  background: var(--green-light);
-  padding: 6px 14px;
-  border-radius: 100px;
-  margin-bottom: 24px;
-}
-.eyebrow-dot {
-  width: 6px; height: 6px;
-  background: var(--green);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.7); }
-}
-
-.hero-h1 {
-  font-family: var(--serif);
-  font-size: clamp(44px, 5.5vw, 70px);
-  font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -1.5px;
-  color: var(--ink);
-  margin-bottom: 24px;
-}
-.hero-h1 em {
-  font-style: italic;
-  color: var(--green);
-}
-
-.hero-sub {
-  font-size: 18px;
-  line-height: 1.65;
-  color: var(--ink2);
-  margin-bottom: 40px;
-  max-width: 480px;
-  font-weight: 300;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.btn-primary {
-  font-family: var(--sans);
-  font-size: 15px;
-  font-weight: 600;
-  background: var(--ink);
-  color: white;
-  padding: 14px 28px;
-  border-radius: 100px;
-  text-decoration: none;
-  transition: all 0.2s;
-  letter-spacing: 0.2px;
-}
-.btn-primary:hover { background: var(--green); }
-.btn-ghost {
-  font-family: var(--sans);
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--ink2);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  padding: 6px 0; position: relative;
   transition: color 0.2s;
 }
-.btn-ghost:hover { color: var(--green); }
-.btn-ghost svg { transition: transform 0.2s; }
-.btn-ghost:hover svg { transform: translateX(4px); }
-
-.hero-trust {
-  margin-top: 48px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
+.nav-links a::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: center;
+  transition: transform 0.3s cubic-bezier(.2,.7,.2,1);
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+.nav-cta {
   font-family: var(--sans);
-  font-size: 13px;
-  color: var(--ink3);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  background: var(--ink); color: var(--bg);
+  padding: 12px 22px; border-radius: 100px;
+  transition: background 0.25s;
 }
-.trust-divider { width: 1px; height: 20px; background: var(--border); }
-@media (max-width: 500px) { .hero-trust { flex-wrap: wrap; gap: 10px; } .trust-divider { display: none; } }
+.nav-cta:hover { background: var(--green); }
+.hamburger { display: none; background: transparent; border: 0; cursor: pointer; padding: 8px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); margin: 5px 0; transition: 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mobile-menu {
+  display: none; position: fixed; inset: 72px 0 0; background: var(--bg);
+  z-index: 90; padding: 40px; flex-direction: column; gap: 28px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: var(--serif); font-size: 32px; font-style: italic; color: var(--ink); }
+.mobile-menu a.cta { color: var(--green); }
 
-/* ── Hero card ── */
-.hero-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 32px;
-  box-shadow: var(--shadow);
-  position: relative;
-  overflow: hidden;
-}
-.hero-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(29,107,69,0.03) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-.card-chart {
-  height: 120px;
-  margin-bottom: 24px;
-  position: relative;
-}
-
-.chart-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  height: 100%;
-}
-.bar {
-  flex: 1;
-  background: var(--green-light);
-  border-radius: 4px 4px 0 0;
-  position: relative;
-  transition: background 0.2s;
-  cursor: default;
-}
-.bar::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-radius: 4px 4px 0 0;
-  background: var(--green);
-  height: 40%;
-  animation: growBar 1.2s ease both;
-}
-.bar:nth-child(1)::after { height: 35%; animation-delay: 0.1s; }
-.bar:nth-child(2)::after { height: 55%; animation-delay: 0.2s; }
-.bar:nth-child(3)::after { height: 45%; animation-delay: 0.3s; }
-.bar:nth-child(4)::after { height: 70%; animation-delay: 0.4s; }
-.bar:nth-child(5)::after { height: 60%; animation-delay: 0.5s; }
-.bar:nth-child(6)::after { height: 85%; animation-delay: 0.6s; }
-.bar:nth-child(7)::after { height: 75%; animation-delay: 0.7s; }
-.bar:nth-child(8)::after { height: 92%; animation-delay: 0.8s; }
-
-@keyframes growBar {
-  from { height: 0; }
-}
-
-.chart-axis {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 8px;
+/* ═══════════ SHARED ═══════════ */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.eyebrow {
   font-family: var(--sans);
-  font-size: 11px;
-  color: var(--ink3);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold);
+  display: inline-flex; align-items: center; gap: 12px;
 }
-
-.card-stat {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 20px;
-}
-.stat-main .stat-num {
-  font-family: var(--sans);
-  font-size: 36px;
-  font-weight: 800;
-  color: var(--ink);
-  letter-spacing: -1px;
-  line-height: 1;
-}
-.stat-main .stat-label {
-  font-size: 13px;
-  color: var(--ink3);
-  margin-top: 4px;
-}
-.stat-badge {
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 600;
-  background: var(--green-light);
-  color: var(--green);
-  padding: 6px 12px;
-  border-radius: 100px;
-}
-
-.card-lessons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.lesson-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--ink2);
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  transition: all 0.2s;
-  cursor: pointer;
-}
-.lesson-row:hover { border-color: var(--border); background: var(--bg); }
-.lesson-icon {
-  width: 28px; height: 28px;
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  flex-shrink: 0;
-}
-.lesson-row:nth-child(1) .lesson-icon { background: var(--green-light); }
-.lesson-row:nth-child(2) .lesson-icon { background: var(--amber-light); }
-.lesson-row:nth-child(3) .lesson-icon { background: #e8ecff; }
-.lesson-title { flex: 1; font-weight: 400; }
-.lesson-time {
-  font-family: var(--sans);
-  font-size: 11px;
-  color: var(--ink3);
-}
-
-/* ═══════════════════════════════ TOPICS ═══════════════════════════════ */
-.topics-section {
-  padding: 80px 40px;
-  max-width: 1160px;
-  margin: 0 auto;
-}
-
-.section-label {
-  font-family: var(--sans);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--ink3);
-  margin-bottom: 16px;
+.eyebrow::before {
+  content: ''; width: 24px; height: 1px; background: var(--gold);
 }
 .section-title {
   font-family: var(--serif);
-  font-size: clamp(32px, 4vw, 50px);
-  font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: -1px;
-  margin-bottom: 12px;
+  font-size: clamp(36px, 4.5vw, 56px);
+  font-weight: 400; line-height: 1.05; letter-spacing: -0.015em;
+  color: var(--ink); margin-top: 18px;
 }
-.section-title em { font-style: italic; color: var(--green); }
+.section-title em { font-style: italic; color: var(--green); font-weight: 400; }
 .section-sub {
-  color: var(--ink2);
-  font-size: 17px;
-  font-weight: 300;
-  max-width: 500px;
-  margin-bottom: 52px;
+  font-family: var(--body); font-style: italic;
+  font-size: 17px; color: var(--ink2);
+  margin-top: 16px; max-width: 540px; line-height: 1.6;
+}
+.section-divider { height: 1px; background: var(--border); flex: 1; }
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(.16,1,.3,1), transform 0.9s cubic-bezier(.16,1,.3,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.d2 { transition-delay: 0.08s; }
+.reveal.d3 { transition-delay: 0.16s; }
+.reveal.d4 { transition-delay: 0.24s; }
+
+/* ═══════════ HERO ═══════════ */
+.hero {
+  padding: 80px 40px 120px;
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.15fr 1fr;
+  gap: 80px; align-items: center;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(56px, 7vw, 96px);
+  font-weight: 400; line-height: 1.02; letter-spacing: -0.03em;
+  margin-top: 28px; color: var(--ink);
+}
+.hero h1 em { font-style: italic; color: var(--green); font-weight: 400; }
+.hero h1 .quiet { color: var(--sage); font-style: italic; font-weight: 400; }
+.hero-sub {
+  font-family: var(--body); font-size: 19px; line-height: 1.65;
+  color: var(--ink2); max-width: 480px; margin-top: 32px;
+}
+.hero-actions { display: flex; align-items: center; gap: 32px; margin-top: 44px; flex-wrap: wrap; }
+.btn-primary {
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  background: var(--ink); color: var(--bg);
+  padding: 18px 36px; border-radius: 100px;
+  display: inline-flex; align-items: center; gap: 10px;
+  transition: background 0.3s, transform 0.3s;
+}
+.btn-primary:hover { background: var(--green); transform: translateY(-1px); }
+.btn-ghost {
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink);
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 4px 0; border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+.btn-ghost svg { transition: transform 0.3s; }
+.btn-ghost:hover { border-bottom-color: var(--gold); }
+.btn-ghost:hover svg { transform: translateX(4px); }
+.hero-trust {
+  margin-top: 56px; display: flex; flex-wrap: wrap; gap: 24px;
+  font-family: var(--sans); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink3);
+}
+.hero-trust span { display: inline-flex; align-items: center; gap: 8px; }
+.hero-trust .dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+
+/* Hero illustrative card with organic overlap */
+.hero-card-wrap {
+  position: relative;
+  padding: 24px 24px 24px 0;
+}
+.hero-card-wrap::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 80px; bottom: 60px;
+  background: var(--sage-light);
+  border-radius: 28px;
+  z-index: 0;
+}
+.hero-card {
+  position: relative; z-index: 1;
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 30px 80px -20px rgba(26,24,22,0.18), 0 8px 24px -8px rgba(26,24,22,0.08);
+  overflow: hidden;
+}
+.hero-card-eyebrow {
+  font-family: var(--sans); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--green);
+  margin-bottom: 24px;
+}
+.hero-chart {
+  height: 180px; display: flex; align-items: flex-end; gap: 10px;
+  padding-bottom: 4px; border-bottom: 1px solid var(--border);
+}
+.hero-chart .bar {
+  flex: 1; border-radius: 3px 3px 0 0;
+  background: linear-gradient(180deg, var(--ink) 0%, #2c2925 100%);
+  opacity: 0.55;
+  transform-origin: bottom;
+  animation: barGrow 1.2s cubic-bezier(.2,.7,.2,1) forwards;
+  transform: scaleY(0);
+}
+.hero-chart .bar:nth-child(1) { height: 28%; animation-delay: .05s; }
+.hero-chart .bar:nth-child(2) { height: 42%; animation-delay: .1s; }
+.hero-chart .bar:nth-child(3) { height: 36%; animation-delay: .15s; }
+.hero-chart .bar:nth-child(4) { height: 55%; animation-delay: .2s; }
+.hero-chart .bar:nth-child(5) { height: 50%; animation-delay: .25s; }
+.hero-chart .bar:nth-child(6) { height: 72%; animation-delay: .3s; }
+.hero-chart .bar:nth-child(7) {
+  height: 88%; animation-delay: .35s;
+  background: linear-gradient(180deg, var(--green) 0%, var(--green-mid) 100%); opacity: 0.9;
+}
+.hero-chart .bar:nth-child(8) {
+  height: 100%; animation-delay: .4s;
+  background: linear-gradient(180deg, var(--green) 0%, var(--green-mid) 100%); opacity: 1;
+}
+@keyframes barGrow { to { transform: scaleY(1); } }
+.hero-chart-axis {
+  display: flex; justify-content: space-between;
+  font-family: var(--sans); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3);
+  margin-top: 12px;
+}
+.hero-stat-row {
+  margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.hero-stat-num {
+  font-family: var(--serif); font-size: 48px; line-height: 1; color: var(--ink); letter-spacing: -0.02em;
+}
+.hero-stat-label {
+  font-family: var(--sans); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3);
+  margin-top: 8px;
+}
+.hero-stat-badge {
+  font-family: var(--sans); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.1em; color: var(--green);
+  background: var(--green-light); padding: 8px 14px; border-radius: 100px;
 }
 
+/* ═══════════ TOPICS (Curated Paths) ═══════════ */
+.topics {
+  padding: 120px 40px;
+  max-width: 1200px; margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+.topics-head { text-align: center; max-width: 700px; margin: 0 auto 64px; }
+.topics-head .eyebrow { justify-content: center; }
 .topics-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 2fr; gap: 24px;
 }
-.topic-card {
-  background: var(--surface);
+.topic {
+  position: relative; overflow: hidden; border-radius: 24px;
+  aspect-ratio: 4/5;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 32px; transition: transform 0.5s cubic-bezier(.2,.7,.2,1);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px 24px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.25s;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  position: relative;
-  overflow: hidden;
 }
-.topic-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-  border-color: transparent;
+.topic:hover { transform: translateY(-6px); }
+.topic.wide { aspect-ratio: 1/1; }
+.topic .topic-photo {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; z-index: 0;
+  transition: transform 0.9s cubic-bezier(.2,.7,.2,1);
 }
-.topic-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 3px;
-  border-radius: 0 0 16px 16px;
-  opacity: 0;
-  transition: opacity 0.25s;
-}
-.topic-card:hover::after { opacity: 1; }
-
-.topic-card.green::after { background: var(--green); }
-.topic-card.amber::after { background: var(--amber); }
-.topic-card.blue::after { background: #3b6fd4; }
-.topic-card.teal::after { background: #1a8c8c; }
-
-.topic-emoji {
-  font-size: 28px;
-  line-height: 1;
-}
-.topic-name {
-  font-family: var(--sans);
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--ink);
-  letter-spacing: -0.3px;
-}
-.topic-desc {
-  font-size: 14px;
-  color: var(--ink2);
-  line-height: 1.6;
-  font-weight: 300;
-  flex: 1;
-}
-.topic-count {
-  font-family: var(--sans);
-  font-size: 12px;
-  color: var(--ink3);
-  font-weight: 500;
-}
-
-/* ═══════════════════════════════ ARTICLES ═══════════════════════════════ */
-.articles-section {
-  padding: 80px 40px;
-  max-width: 1160px;
-  margin: 0 auto;
-}
-
-.articles-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 40px;
-}
-.view-all {
-  font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--green);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: gap 0.2s;
-}
-.view-all:hover { gap: 10px; }
-
-.articles-grid {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr;
-  gap: 20px;
-}
-
-.article-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.25s;
-  display: flex;
-  flex-direction: column;
-}
-.article-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: transparent; }
-
-.article-img {
-  height: 200px;
-  position: relative;
-  overflow: hidden;
-}
-.article-card:first-child .article-img { height: 240px; }
-
-.img-placeholder {
-  width: 100%; height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 48px;
-  position: relative;
-}
-.img-placeholder::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: inherit;
-  opacity: 0.2;
-}
-
-.bg-green { background: linear-gradient(135deg, #1d6b45, #2d8a59); }
-.bg-amber { background: linear-gradient(135deg, #c8822a, #e8a040); }
-.bg-blue { background: linear-gradient(135deg, #2a4480, #3b6fd4); }
-
-.article-tag {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  font-family: var(--sans);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  background: rgba(255,255,255,0.92);
-  color: var(--ink);
-  padding: 4px 10px;
-  border-radius: 100px;
+.topic:hover .topic-photo { transform: scale(1.06); }
+.topic .topic-scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(26,24,22,0.05) 0%, rgba(26,24,22,0.15) 45%, rgba(26,24,22,0.78) 100%);
   z-index: 1;
 }
-
-.article-body {
-  padding: 24px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.topic > * { position: relative; z-index: 2; }
+.topic .level {
+  font-family: var(--sans); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-soft);
+  margin-bottom: 14px;
 }
-.article-title {
-  font-family: var(--serif);
-  font-size: 21px;
-  font-weight: 400;
-  line-height: 1.25;
-  letter-spacing: -0.3px;
-  color: var(--ink);
-}
-.article-card:not(:first-child) .article-title { font-size: 17px; }
-.article-excerpt {
-  font-size: 14px;
-  color: var(--ink2);
-  font-weight: 300;
-  line-height: 1.65;
-  flex: 1;
-}
-.article-meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--sans);
-  font-size: 12px;
-  color: var(--ink3);
-  margin-top: 4px;
-}
-.article-read-time {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* ═══════════════════════════════ PRINCIPLES ═══════════════════════════════ */
-.principles-section {
-  background: var(--ink);
-  padding: 100px 40px;
-  position: relative;
-  overflow: hidden;
-}
-.principles-section::before {
-  content: '"';
-  position: absolute;
-  font-family: var(--serif);
-  font-size: 500px;
-  line-height: 1;
-  color: rgba(255,255,255,0.03);
-  right: -60px;
-  top: -100px;
-  pointer-events: none;
-}
-
-.principles-inner {
-  max-width: 1160px;
-  margin: 0 auto;
-}
-
-.principles-section .section-label { color: rgba(255,255,255,0.4); }
-.principles-section .section-title { color: white; }
-.principles-section .section-sub { color: rgba(255,255,255,0.6); }
-
-.principles-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  margin-top: 52px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 16px;
-  overflow: hidden;
-}
-.principle {
-  background: rgba(255,255,255,0.03);
-  padding: 40px 36px;
-  transition: background 0.2s;
-}
-.principle:hover { background: rgba(255,255,255,0.07); }
-.principle-num {
-  font-family: var(--sans);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--green-mid);
-  margin-bottom: 20px;
-}
-.principle-title {
-  font-family: var(--serif);
-  font-size: 26px;
-  color: white;
+.topic h3 {
+  font-family: var(--serif); font-size: 28px; line-height: 1.1;
+  font-style: italic; font-weight: 400; color: #fff; letter-spacing: -0.01em;
   margin-bottom: 12px;
-  letter-spacing: -0.5px;
 }
-.principle-desc {
-  font-size: 15px;
+.topic p {
+  font-family: var(--body); font-size: 14px; line-height: 1.55;
   color: rgba(255,255,255,0.78);
-  line-height: 1.7;
-  font-weight: 300;
+  max-width: 280px;
 }
-
-/* ═══════════════════════════════ GLOSSARY ═══════════════════════════════ */
-.glossary-section {
-  padding: 80px 40px;
-  max-width: 1160px;
-  margin: 0 auto;
+.topic.solid-sage { background: var(--sage); border: 0; }
+.topic.solid-sage .topic-scrim,
+.topic.solid-sage .topic-photo { display: none; }
+.topic.solid-sage h3, .topic.solid-sage p { color: #fff; }
+.topic.solid-cream { background: var(--bg-warm); border: 1px solid var(--border); }
+.topic.solid-cream .topic-scrim,
+.topic.solid-cream .topic-photo { display: none; }
+.topic.solid-cream .level { color: var(--gold); }
+.topic.solid-cream h3 { color: var(--ink); font-style: italic; }
+.topic.solid-cream p { color: var(--ink2); }
+.topic .icon {
+  position: absolute; top: 32px; left: 32px; z-index: 2;
+  font-family: var(--serif); font-size: 32px; color: var(--gold);
 }
+.topic.solid-cream .icon { color: var(--gold); }
 
-.glossary-layout {
-  display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 80px;
-  align-items: start;
+/* ═══════════ EDITORIAL FEATURED ARTICLES ═══════════ */
+.articles {
+  padding: 120px 40px;
+  max-width: 1200px; margin: 0 auto;
+  border-top: 1px solid var(--border);
 }
+.articles-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 32px; margin-bottom: 64px;
+}
+.articles-head .right {
+  font-family: var(--sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink2);
+  display: inline-flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid var(--ink2); padding-bottom: 4px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.articles-head .right:hover { color: var(--green); border-bottom-color: var(--green); }
 
-.glossary-sticky { position: sticky; top: 88px; }
-
-.glossary-search {
-  width: 100%;
-  font-family: var(--body);
-  font-size: 15px;
-  padding: 12px 16px 12px 42px;
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  background: var(--surface);
-  color: var(--ink);
-  outline: none;
-  transition: border-color 0.2s;
+.articles-grid {
+  display: grid; grid-template-columns: 7fr 5fr; gap: 64px;
+}
+.featured {
+  cursor: pointer; display: block;
+}
+.featured-photo-wrap {
+  position: relative; overflow: hidden;
+  border-radius: 18px;
+  aspect-ratio: 16/10;
+  margin-bottom: 32px;
+}
+.featured-photo {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1s cubic-bezier(.2,.7,.2,1);
+}
+.featured:hover .featured-photo { transform: scale(1.04); }
+.featured .tag {
+  position: absolute; top: 20px; left: 20px;
+  font-family: var(--sans); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  background: rgba(247,245,240,0.95); color: var(--ink);
+  padding: 8px 14px; border-radius: 100px; z-index: 2;
+}
+.featured-tagline {
+  font-family: var(--sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-bottom: 18px;
+}
+.featured-tagline::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.featured h3 {
+  font-family: var(--serif); font-size: clamp(32px, 3.2vw, 44px);
+  font-weight: 400; line-height: 1.1; letter-spacing: -0.015em;
+  color: var(--ink); transition: color 0.3s;
+}
+.featured h3 em { font-style: italic; color: var(--green); }
+.featured:hover h3 em { color: var(--gold); }
+.featured-excerpt {
+  font-family: var(--body); font-size: 17px; line-height: 1.65; color: var(--ink2);
+  margin-top: 20px; max-width: 540px;
+}
+.featured-meta {
   margin-top: 28px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238a8480' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 14px center;
+  font-family: var(--sans); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3);
+  display: flex; gap: 16px; align-items: center;
 }
-.glossary-search:focus { border-color: var(--green); }
+.featured-meta .dot { color: var(--gold); }
 
-.alpha-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 20px;
+.side-stack { display: flex; flex-direction: column; gap: 40px; }
+.side-article {
+  display: block;
+  border-left: 1px solid var(--border);
+  padding: 4px 0 4px 32px;
+  transition: border-left-color 0.4s, padding-left 0.4s;
 }
-.alpha-btn {
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 600;
-  width: 32px; height: 32px;
-  border-radius: 8px;
+.side-article:hover { border-left-color: var(--gold); padding-left: 36px; }
+.side-article .tag {
+  font-family: var(--sans); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+}
+.side-article h4 {
+  font-family: var(--serif); font-size: 26px; font-weight: 400;
+  line-height: 1.15; letter-spacing: -0.01em; color: var(--ink);
+  margin-top: 12px; transition: font-style 0.3s;
+}
+.side-article:hover h4 { font-style: italic; }
+.side-article p {
+  font-family: var(--body); font-size: 15px; color: var(--ink2);
+  margin-top: 14px; line-height: 1.6;
+}
+.side-article .read {
+  margin-top: 18px;
+  font-family: var(--sans); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink2);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.side-article:hover .read { color: var(--green); }
+
+.dispatch {
+  background: var(--bg-warm);
+  border-radius: 24px; padding: 36px;
   border: 1px solid var(--border);
+}
+.dispatch .label {
+  font-family: var(--sans); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+}
+.dispatch h4 {
+  font-family: var(--serif); font-size: 22px; line-height: 1.2;
+  color: var(--ink); font-weight: 400; margin-bottom: 20px;
+}
+.dispatch .dispatch-cta {
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink);
+  display: inline-flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid var(--ink); padding-bottom: 4px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.dispatch .dispatch-cta:hover { color: var(--green); border-bottom-color: var(--green); }
+
+/* ═══════════ FOR CANADIANS ═══════════ */
+.canada {
+  padding: 120px 40px;
+  max-width: 1200px; margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+.canada-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 64px; margin-bottom: 64px; flex-wrap: wrap;
+}
+.canada-head .right { max-width: 360px; }
+.canada-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.canada-card {
   background: var(--surface);
-  cursor: pointer;
-  color: var(--ink2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 36px;
+  display: flex; flex-direction: column;
+  transition: transform 0.4s, border-color 0.3s, box-shadow 0.4s;
 }
-.alpha-btn:hover, .alpha-btn.active { background: var(--green); color: white; border-color: var(--green); }
-
-.glossary-terms {
-  display: flex;
-  flex-direction: column;
+.canada-card:hover {
+  transform: translateY(-4px); border-color: var(--gold);
+  box-shadow: 0 16px 40px -16px rgba(26,24,22,0.12);
+}
+.canada-card .symbol {
+  font-family: var(--serif); font-size: 32px; color: var(--gold);
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--gold-light);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 24px;
+}
+.canada-card h3 {
+  font-family: var(--serif); font-size: 28px; line-height: 1.15;
+  letter-spacing: -0.01em; color: var(--ink); font-weight: 400;
+  margin-bottom: 14px;
+}
+.canada-card p {
+  font-family: var(--body); font-size: 15px; line-height: 1.65;
+  color: var(--ink2); margin-bottom: 24px; flex: 1;
+}
+.canada-card a {
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--green);
+  display: inline-flex; align-items: center; gap: 8px;
 }
 
-.glossary-group { margin-bottom: 36px; }
-.group-letter {
-  font-family: var(--sans);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--green);
-  margin-bottom: 16px;
-  padding-bottom: 10px;
+/* ═══════════ PRINCIPLES ═══════════ */
+.principles {
+  padding: 140px 40px;
+  background: var(--bg-warm);
+  border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
-
-.term-item {
-  padding: 16px 0;
-  border-bottom: 1px solid var(--bg);
-  cursor: pointer;
-  transition: padding-left 0.2s;
+.principles-inner { max-width: 1200px; margin: 0 auto; }
+.principles-head { max-width: 540px; margin-bottom: 80px; }
+.principles-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px;
 }
-.term-item:hover { padding-left: 8px; }
-.term-word {
-  font-family: var(--sans);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 4px;
+.principle .num {
+  font-family: var(--serif); font-size: 72px; line-height: 0.9;
+  color: var(--gold); letter-spacing: -0.03em; margin-bottom: 24px;
 }
-.term-def {
-  font-size: 14px;
-  color: var(--ink2);
-  line-height: 1.6;
-  font-weight: 300;
-}
-
-/* ═══════════════════════════════ NEWSLETTER ═══════════════════════════════ */
-.newsletter-section {
-  padding: 80px 40px;
-  max-width: 1160px;
-  margin: 0 auto;
-}
-
-.newsletter-box {
-  background: var(--green);
-  border-radius: 24px;
-  padding: 72px 80px;
-  display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 60px;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
-.newsletter-box::before {
-  content: '$';
-  position: absolute;
-  font-family: var(--serif);
-  font-size: 300px;
-  font-weight: 400;
-  line-height: 1;
-  color: rgba(255,255,255,0.07);
-  right: 80px;
-  bottom: -40px;
-  pointer-events: none;
-}
-
-.newsletter-box .section-label { color: rgba(255,255,255,0.6); }
-.newsletter-h { font-family: var(--serif); font-size: 38px; color: white; font-weight: 400; letter-spacing: -0.8px; line-height: 1.2; margin-bottom: 12px; }
-.newsletter-sub { font-size: 16px; color: rgba(255,255,255,0.75); font-weight: 300; line-height: 1.65; }
-
-.email-form { display: flex; flex-direction: column; gap: 12px; }
-.email-input-row { display: flex; gap: 10px; }
-.email-input {
-  flex: 1;
-  font-family: var(--body);
-  font-size: 15px;
-  padding: 14px 18px;
-  border-radius: 100px;
-  border: none;
-  background: rgba(255,255,255,0.15);
-  color: white;
-  outline: none;
-  backdrop-filter: blur(8px);
-  transition: background 0.2s;
-}
-.email-input::placeholder { color: rgba(255,255,255,0.5); }
-.email-input:focus { background: rgba(255,255,255,0.25); }
-.email-btn {
-  font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 600;
-  background: white;
-  color: var(--green);
-  border: none;
-  padding: 14px 24px;
-  border-radius: 100px;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-.email-btn:hover { background: var(--ink); color: white; }
-.email-fine {
-  font-size: 12px;
-  color: rgba(255,255,255,0.5);
-  font-family: var(--sans);
-}
-.substack-embed-wrap {
-  background: rgba(255,255,255,0.12);
-  border-radius: 16px;
-  padding: 8px 8px 16px;
-  backdrop-filter: blur(8px);
-}
-.substack-embed-wrap iframe {
-  border-radius: 10px;
-  display: block;
-}
-.substack-embed-wrap .email-fine {
-  margin-top: 10px;
-  padding: 0 8px;
-}
-
-/* ═══════════════════════════════ FOOTER ═══════════════════════════════ */
-footer {
-  background: var(--ink);
-  padding: 60px 40px 32px;
-  color: rgba(255,255,255,0.6);
-}
-.footer-inner {
-  max-width: 1160px;
-  margin: 0 auto;
-}
-.footer-top {
-  display: grid;
-  grid-template-columns: 260px 1fr 1fr 1fr;
-  gap: 60px;
-  margin-bottom: 60px;
-}
-.footer-brand .logo-mark { background: rgba(255,255,255,0.1); }
-.footer-brand .logo-text { color: white; }
-.footer-tagline {
-  font-size: 14px;
-  margin-top: 12px;
-  line-height: 1.6;
-  font-weight: 300;
-  max-width: 200px;
-}
-
-.footer-col h4 {
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: white;
+.principle h3 {
+  font-family: var(--serif); font-size: 26px; line-height: 1.2;
+  font-style: italic; font-weight: 400; color: var(--ink);
   margin-bottom: 16px;
 }
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.principle p {
+  font-family: var(--body); font-size: 16px; line-height: 1.7; color: var(--ink2);
+}
+
+/* ═══════════ GLOSSARY ═══════════ */
+.glossary {
+  padding: 120px 40px;
+  max-width: 1200px; margin: 0 auto;
+}
+.glossary-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 32px; margin-bottom: 64px; flex-wrap: wrap;
+}
+.glossary-head .right {
+  font-family: var(--body); font-style: italic;
+  color: var(--ink2); max-width: 360px; font-size: 17px;
+}
+.glossary-layout {
+  display: grid; grid-template-columns: 320px 1fr; gap: 80px;
+}
+.glossary-sticky { position: sticky; top: 96px; align-self: start; }
+.glossary-search {
+  width: 100%; background: transparent;
+  border: 0; border-bottom: 1px solid var(--border-strong);
+  padding: 14px 0; font-family: var(--body); font-size: 16px; font-style: italic;
+  color: var(--ink);
+  transition: border-color 0.3s;
+}
+.glossary-search:focus { outline: 0; border-bottom-color: var(--green); }
+.glossary-search::placeholder { color: var(--ink3); }
+.alpha-nav {
+  margin-top: 32px;
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.alpha-btn {
+  font-family: var(--sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  background: transparent; border: 1px solid var(--border-strong); color: var(--ink2);
+  padding: 8px 12px; border-radius: 100px; cursor: pointer;
+  transition: all 0.25s;
+  min-width: 36px;
+}
+.alpha-btn:hover { border-color: var(--ink); color: var(--ink); }
+.alpha-btn.active { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+
+.glossary-terms { display: flex; flex-direction: column; gap: 56px; }
+.glossary-group .group-letter {
+  font-family: var(--serif); font-size: 72px; line-height: 0.9;
+  color: var(--gold); opacity: 0.4; letter-spacing: -0.04em;
+  margin-bottom: 20px;
+}
+.term-item {
+  border-left: 1px solid var(--border);
+  padding: 18px 0 18px 28px;
+  transition: border-left-color 0.3s, padding-left 0.3s;
+}
+.term-item:hover { border-left-color: var(--gold); padding-left: 32px; }
+.term-word {
+  font-family: var(--serif); font-size: 24px; font-style: italic;
+  color: var(--ink); margin-bottom: 8px; font-weight: 400; letter-spacing: -0.01em;
+}
+.term-def {
+  font-family: var(--body); font-size: 15px; line-height: 1.7; color: var(--ink2);
+}
+
+/* ═══════════ NEWSLETTER ═══════════ */
+.newsletter {
+  padding: 0 40px 120px;
+  max-width: 1200px; margin: 0 auto;
+}
+.newsletter-box {
+  background: var(--ink); color: var(--bg);
+  border-radius: 28px; padding: 80px 64px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+  position: relative; overflow: hidden;
+}
+.newsletter-box::after {
+  content: ''; position: absolute; top: -80px; right: -80px;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,130,42,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+.newsletter-box .label {
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-soft);
+  margin-bottom: 20px;
+}
+.newsletter-box h2 {
+  font-family: var(--serif); font-size: clamp(36px, 4vw, 48px);
+  font-weight: 400; line-height: 1.1; color: var(--bg); letter-spacing: -0.015em;
+}
+.newsletter-box h2 em { font-style: italic; color: var(--gold-soft); }
+.newsletter-box .sub {
+  font-family: var(--body); font-size: 16px; line-height: 1.6;
+  color: rgba(247,245,240,0.65); margin-top: 20px; max-width: 380px;
+}
+.newsletter-form-wrap {
+  background: rgba(247,245,240,0.05);
+  border: 1px solid rgba(247,245,240,0.1);
+  border-radius: 16px; padding: 24px;
+  position: relative; z-index: 1;
+}
+.newsletter-form-wrap iframe {
+  width: 100%; height: 200px; border: 0; background: transparent;
+}
+.newsletter-form-wrap .fine {
+  font-family: var(--sans); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(247,245,240,0.4); text-align: center; margin-top: 16px;
+}
+
+/* ═══════════ FOOTER ═══════════ */
+footer.site-footer {
+  background: var(--ink); color: var(--bg); padding: 100px 40px 48px;
+}
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+  padding-bottom: 72px; border-bottom: 1px solid rgba(247,245,240,0.1);
+}
+.footer-brand .wordmark-row {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+}
+.footer-brand img { width: 36px; height: 36px; border-radius: 8px; }
+.footer-brand .name {
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--bg);
+}
+.footer-brand p {
+  font-family: var(--body); font-style: italic;
+  font-size: 16px; line-height: 1.65; max-width: 360px;
+  color: rgba(247,245,240,0.55);
+}
+.footer-col h4 {
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-soft);
+  margin-bottom: 24px;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
 .footer-col a {
-  font-size: 14px;
-  color: rgba(255,255,255,0.55);
-  text-decoration: none;
-  font-weight: 300;
-  transition: color 0.2s;
+  font-family: var(--body); font-size: 15px;
+  color: rgba(247,245,240,0.78); transition: color 0.2s;
 }
-.footer-col a:hover { color: white; }
-
+.footer-col a:hover { color: var(--gold-soft); }
 .footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding-top: 28px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  font-family: var(--sans);
+  padding-top: 36px; display: flex; justify-content: space-between;
+  align-items: center; gap: 24px; flex-wrap: wrap;
 }
-@media (max-width: 600px) { .footer-bottom { flex-direction: column; gap: 12px; text-align: center; } }
 .footer-disclaimer {
-  max-width: 600px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.3);
-  font-size: 12px;
-  font-weight: 300;
+  font-family: var(--body); font-size: 13px; line-height: 1.6;
+  color: rgba(247,245,240,0.4); max-width: 720px;
+}
+.footer-copy {
+  font-family: var(--sans); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(247,245,240,0.3); white-space: nowrap;
 }
 
-/* ═══════════════════════════════ RESPONSIVE ═══════════════════════════════ */
-@media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; }
-  .hero-card { display: none; }
-  .topics-grid { grid-template-columns: repeat(2, 1fr); }
-  .articles-grid { grid-template-columns: 1fr; }
-  .article-img { height: 200px !important; }
-  .principles-grid { grid-template-columns: 1fr; }
-  .glossary-layout { grid-template-columns: 1fr; }
-  .glossary-sticky { position: relative; top: 0; }
-  .newsletter-box { grid-template-columns: 1fr; padding: 48px 40px; }
-  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .nav-links { display: none; }
+/* ═══════════ NEWSLETTER MODAL ═══════════ */
+.nl-overlay {
+  position: fixed; inset: 0; background: rgba(26,24,22,0.55);
+  backdrop-filter: blur(6px); z-index: 200; padding: 24px;
+  display: none; align-items: center; justify-content: center;
+}
+.nl-overlay.open { display: flex; }
+.nl-modal {
+  background: var(--bg); border-radius: 24px; max-width: 520px; width: 100%;
+  padding: 56px 48px 40px; position: relative;
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+}
+.nl-close {
+  position: absolute; top: 20px; right: 20px;
+  width: 36px; height: 36px; border-radius: 100px;
+  background: transparent; border: 0; cursor: pointer;
+  font-size: 18px; color: var(--ink); transition: background 0.2s;
+}
+.nl-close:hover { background: var(--bg-warm); }
+.nl-label {
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 16px;
+}
+.nl-title {
+  font-family: var(--serif); font-size: 32px; line-height: 1.15;
+  color: var(--ink); margin-bottom: 12px;
+}
+.nl-title em { font-style: italic; color: var(--green); }
+.nl-sub {
+  font-family: var(--body); font-size: 15px; color: var(--ink2);
+  margin-bottom: 24px;
+}
+.nl-modal iframe { width: 100%; height: 180px; border: 0; background: transparent; }
+.nl-modal .fine {
+  font-family: var(--sans); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--ink3); text-align: center; margin-top: 16px;
 }
 
-@media (max-width: 600px) {
-  nav { padding: 0 20px; }
-  .hero, .topics-section, .articles-section, .glossary-section, .newsletter-section { padding: 48px 20px; }
-  .newsletter-box { padding: 36px 24px; }
-  footer { padding: 40px 20px 24px; }
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; gap: 60px; padding: 60px 40px 80px; }
+  .topics-grid { grid-template-columns: 1fr 1fr; }
+  .articles-grid { grid-template-columns: 1fr; gap: 48px; }
+  .canada-grid { grid-template-columns: 1fr; }
+  .principles-grid { grid-template-columns: 1fr; gap: 48px; }
+  .glossary-layout { grid-template-columns: 1fr; gap: 40px; }
+  .glossary-sticky { position: static; }
+  .newsletter-box { grid-template-columns: 1fr; padding: 56px 36px; gap: 36px; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  nav.site-nav { padding: 0 24px; height: 64px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: block; }
+  .wrap, .hero, .topics, .articles, .canada, .glossary, .newsletter { padding-left: 24px; padding-right: 24px; }
+  .hero { padding-top: 40px; padding-bottom: 60px; }
+  .topics, .articles, .canada, .glossary { padding-top: 80px; padding-bottom: 80px; }
+  .principles { padding: 80px 24px; }
   .topics-grid { grid-template-columns: 1fr; }
-  .footer-top { grid-template-columns: 1fr; }
-  .email-input-row { flex-direction: column; }
+  .topic { aspect-ratio: 4/3; }
+  .topic.wide { aspect-ratio: 4/3; }
+  .articles-head { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px; }
+  footer.site-footer { padding: 64px 24px 36px; }
+  .newsletter-box { padding: 40px 28px; }
+  .hero-card-wrap::before { right: 40px; bottom: 40px; }
 }
-
-/* ═══════════════════════════════ ANIMATIONS ═══════════════════════════════ */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.fade-in.visible { opacity: 1; transform: translateY(0); }
-
-.stagger-1 { transition-delay: 0.1s; }
-.stagger-2 { transition-delay: 0.2s; }
-.stagger-3 { transition-delay: 0.3s; }
-.stagger-4 { transition-delay: 0.4s; }
-
-/* ═══════════════ HAMBURGER / MOBILE NAV ═══════════════ */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  background: none;
-  border: none;
-  transition: background 0.2s;
-  flex-shrink: 0;
-}
-.hamburger:hover { background: var(--green-light); }
-.hamburger span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--ink);
-  border-radius: 2px;
-  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
-  transform-origin: center;
-}
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-.mobile-menu {
-  display: none;
-  position: fixed;
-  inset: 64px 0 0 0;
-  background: rgba(247,245,240,0.98);
-  backdrop-filter: blur(20px);
-  z-index: 99;
-  flex-direction: column;
-  padding: 20px 16px;
-  gap: 2px;
-  border-top: 1px solid var(--border);
-  overflow-y: auto;
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a {
-  font-family: var(--sans);
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--ink2);
-  text-decoration: none;
-  padding: 14px 16px;
-  border-radius: 12px;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 52px;
-}
-.mobile-menu a:hover, .mobile-menu a.mobile-active { background: var(--green-light); color: var(--green); }
-.mobile-menu-divider { height: 1px; background: var(--border); margin: 12px 0; }
-.mobile-menu-cta a {
-  background: var(--green) !important;
-  color: white !important;
-  justify-content: center;
-  border-radius: 100px !important;
-  margin-top: 4px;
-}
-.mobile-menu-cta a:hover { background: var(--green-mid) !important; }
-@media (max-width: 900px) {
-  .hamburger { display: flex; }
-  .nav-cta { display: none; }
-  body.menu-open { overflow: hidden; }
-}
-
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="site-nav">
   <a href="index.html" class="nav-logo" aria-label="Accessible Finance — Home">
-    <img src="Logo.png" alt="" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
-    <span class="logo-text">Accessible Finance</span>
+    <img src="Logo.png" alt="">
+    <span class="wordmark">Accessible Finance</span>
   </a>
-  <ul class="nav-links">
-    <li><a href="topic.html">Learn</a></li>
-    <li><a href="articles.html">Articles</a></li>
-    <li><a href="#glossary">Glossary</a></li>
-    <li><a href="earn.html" style="color:var(--green);font-weight:700;">💵 Rewards</a></li>
-    <li><a href="about.html">About</a></li>
-  </ul>
-  <a href="#newsletter" class="nav-cta">Get the Newsletter</a>
-  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-    <a href="index.html" class="mobile-active">🏠 Home</a>
-    <a href="topic.html">📚 Learn</a>
-    <a href="articles.html">📰 Articles</a>
-    <a href="index.html#glossary">🔤 Glossary</a>
-    <a href="earn.html">💵 Rewards</a>
-    <a href="about.html">👤 About</a>
-    <div class="mobile-menu-divider"></div>
-    <div class="mobile-menu-cta">
-      <a href="index.html#newsletter">✉️ Get the Newsletter</a>
-    </div>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="articles.html">Guides</a>
+    <a href="#glossary">Glossary</a>
+    <a href="earn.html">Rewards</a>
+    <a href="about.html">About</a>
   </div>
+  <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="articles.html">Guides</a>
+  <a href="#glossary">Glossary</a>
+  <a href="earn.html">Rewards</a>
+  <a href="about.html">About</a>
+  <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
+</div>
 
-<!-- HERO -->
+<!-- ═══════════════ HERO ═══════════════ -->
 <section class="hero">
-  <div>
-    <div class="hero-eyebrow">
-      <span class="eyebrow-dot"></span>
-      Free · No sales pitches · No jargon
-    </div>
-    <h1 class="hero-h1">Investing education that <em>actually makes sense</em></h1>
-    <p class="hero-sub">Clear, unbiased explanations of how markets, assets, and portfolios work. Written for curious people — not finance professionals.</p>
+  <div class="reveal">
+    <span class="eyebrow">Free · No sales pitches · No jargon</span>
+    <h1>Investing,<br><span class="quiet">clearly explained</span><br>for the <em>curious</em>.</h1>
+    <p class="hero-sub">A quiet, ad-free library of guides on markets, assets, portfolios, and Canadian accounts — written for curious people, not finance professionals.</p>
     <div class="hero-actions">
-      <a href="#topics" class="btn-primary">Start Learning</a>
-      <a href="#articles" class="btn-ghost">
-        Browse Articles
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <a href="#topics" class="btn-primary">Begin the Path
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="articles.html" class="btn-ghost">The Collection
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
     <div class="hero-trust">
-      <span>📚 A growing library of free guides</span>
-      <div class="trust-divider"></div>
-      <span>🚫 No ads or sponsored content</span>
-      <div class="trust-divider"></div>
-      <span>✓ Plain English, always</span>
+      <span><span class="dot"></span>A growing library</span>
+      <span><span class="dot"></span>No ads or sponsored content</span>
+      <span><span class="dot"></span>Plain English, always</span>
     </div>
   </div>
 
-  <div class="hero-card fade-in stagger-2" role="img" aria-label="Illustrative growth chart showing a $10,000 S&P 500 investment increasing roughly 94% from 2017 to 2025.">
-    <div class="card-chart" aria-hidden="true">
-      <div class="chart-bars">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+  <div class="hero-card-wrap reveal d2">
+    <div class="hero-card" role="img" aria-label="Illustrative chart: $10,000 in an S&P 500 index grew roughly 94% over eight years.">
+      <div class="hero-card-eyebrow">Compound Growth · Illustrative</div>
+      <div class="hero-chart" aria-hidden="true">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
       </div>
-      <div class="chart-axis">
-        <span>2017</span><span>2019</span><span>2021</span><span>2023</span><span>2025</span>
-      </div>
-    </div>
-
-    <div class="card-stat">
-      <div class="stat-main">
-        <div class="stat-num">$10,000</div>
-        <div class="stat-label">Initial investment · S&P 500 index</div>
-      </div>
-      <div class="stat-badge">↑ 94% total</div>
-    </div>
-
-    <div class="card-lessons">
-      <div class="lesson-row">
-        <div class="lesson-icon">📈</div>
-        <span class="lesson-title">What is compound growth?</span>
-        <span class="lesson-time">5 min</span>
-      </div>
-      <div class="lesson-row">
-        <div class="lesson-icon">🏦</div>
-        <span class="lesson-title">Index funds vs. active funds</span>
-        <span class="lesson-time">7 min</span>
-      </div>
-      <div class="lesson-row">
-        <div class="lesson-icon">🌍</div>
-        <span class="lesson-title">Why diversification works</span>
-        <span class="lesson-time">6 min</span>
+      <div class="hero-chart-axis"><span>2017</span><span>2019</span><span>2021</span><span>2023</span><span>2025</span></div>
+      <div class="hero-stat-row">
+        <div>
+          <div class="hero-stat-num">$10,000</div>
+          <div class="hero-stat-label">Initial · S&amp;P 500 index</div>
+        </div>
+        <div class="hero-stat-badge">↑ 94% total</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DIVIDER -->
-<div style="max-width:1160px; margin:0 auto 0; padding:0 40px;"><div style="height:1px; background:var(--border);"></div></div>
-
-<!-- TOPICS -->
-<section class="topics-section" id="topics">
-  <div class="section-label">Core Topics</div>
-  <h2 class="section-title">Everything you need to know<br>about <em>how investing works</em></h2>
-  <p class="section-sub">Four essential areas to build genuine financial understanding — no fads, no shortcuts.</p>
-
+<!-- ═══════════════ TOPICS / CURATED PATHS ═══════════════ -->
+<section class="topics" id="topics">
+  <div class="topics-head reveal">
+    <span class="eyebrow">Core Topics</span>
+    <h2 class="section-title">Everything you need to know<br>about <em>how investing works</em></h2>
+    <p class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center;">Four essential areas to build genuine financial understanding — no fads, no shortcuts.</p>
+  </div>
   <div class="topics-grid">
-    <a href="topic.html" class="topic-card green fade-in stagger-1">
-      <div class="topic-emoji">🏗️</div>
-      <div class="topic-name">Investing Fundamentals</div>
-      <div class="topic-desc">Risk and return, time in the market, inflation, compound interest, and how markets actually work.</div>
-      <div class="topic-count">Available now</div>
+    <a href="topic.html" class="topic wide reveal">
+      <img class="topic-photo" src="https://images.unsplash.com/photo-1542621334-a254cf47733d?auto=format&fit=crop&w=1200&q=80" alt="" loading="lazy">
+      <div class="topic-scrim"></div>
+      <div class="level">Level I</div>
+      <h3>Investing fundamentals</h3>
+      <p>Risk and return, time in the market, inflation, compound interest, and how markets actually work.</p>
     </a>
-    <a href="articles.html?cat=assets" class="topic-card amber fade-in stagger-2">
-      <div class="topic-emoji">📦</div>
-      <div class="topic-name">Asset Classes</div>
-      <div class="topic-desc">Stocks, bonds, real estate, commodities, cash, and alternatives — what they are and how each behaves.</div>
-      <div class="topic-count">Browse articles →</div>
+    <a href="articles.html?cat=assets" class="topic solid-cream reveal d2">
+      <span class="icon">A</span>
+      <div class="level">Level II</div>
+      <h3>Asset classes</h3>
+      <p>Stocks, bonds, real estate, commodities, cash — what each is and how it behaves.</p>
     </a>
-    <a href="articles.html?cat=portfolio" class="topic-card blue fade-in stagger-3">
-      <div class="topic-emoji">🎯</div>
-      <div class="topic-name">Portfolio Thinking</div>
-      <div class="topic-desc">Asset allocation, rebalancing, building for different goals, and common portfolio frameworks explained clearly.</div>
-      <div class="topic-count">Browse articles →</div>
+    <a href="articles.html?cat=portfolio" class="topic solid-sage reveal d3">
+      <span class="icon" style="color:#fff;">P</span>
+      <div class="level" style="color:rgba(255,255,255,0.8);">Level III</div>
+      <h3>Portfolio thinking</h3>
+      <p>Asset allocation, rebalancing, and building for different goals.</p>
     </a>
-    <a href="articles.html?cat=behavior" class="topic-card teal fade-in stagger-4">
-      <div class="topic-emoji">📊</div>
-      <div class="topic-name">Market Behavior</div>
-      <div class="topic-desc">Bull and bear markets, bubbles, volatility, economic cycles, and the psychology behind price movements.</div>
-      <div class="topic-count">Browse articles →</div>
+    <a href="articles.html?cat=behavior" class="topic wide reveal d4">
+      <img class="topic-photo" src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80" alt="" loading="lazy">
+      <div class="topic-scrim"></div>
+      <div class="level">Specialization</div>
+      <h3>Market behavior</h3>
+      <p>Bulls, bears, bubbles, cycles, and the psychology behind price movements.</p>
     </a>
   </div>
 </section>
 
-<!-- ARTICLES -->
-<section class="articles-section" id="articles">
-  <div class="articles-header">
+<!-- ═══════════════ ARTICLES (Editorial) ═══════════════ -->
+<section class="articles" id="articles">
+  <div class="articles-head reveal">
     <div>
-      <div class="section-label">Latest Guides</div>
-      <h2 class="section-title" style="margin-bottom:0;">Fresh off the press</h2>
+      <span class="eyebrow">Latest Guides</span>
+      <h2 class="section-title">Fresh off <em>the press</em></h2>
     </div>
-    <a href="articles.html" class="view-all">
-      View all articles
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <a href="articles.html" class="right">View all articles
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
   </div>
-
   <div class="articles-grid">
-    <!-- Feature article -->
-    <a href="article.html" class="article-card fade-in">
-      <div class="article-img">
-        <div class="img-placeholder bg-green">📊</div>
-        <span class="article-tag">Fundamentals</span>
+    <a href="article.html" class="featured reveal">
+      <div class="featured-photo-wrap">
+        <img class="featured-photo" src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy">
+        <span class="tag">Fundamentals</span>
       </div>
-      <div class="article-body">
-        <div class="article-title">The Actual Difference Between Investing and Speculating — and Why It Matters</div>
-        <div class="article-excerpt">Most people mix these up, and that confusion leads to real mistakes. Here's a clear line between the two — with examples from the modern market.</div>
-        <div class="article-meta">
-          <span class="article-read-time">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            8 min read
-          </span>
-          <span>·</span>
-          <span>Beginner</span>
-        </div>
+      <span class="featured-tagline">Editor's Note</span>
+      <h3>The actual difference between investing and <em>speculating</em> — and why it matters</h3>
+      <p class="featured-excerpt">Most people mix these up, and that confusion leads to real mistakes. A clear line between the two, with examples from the modern market.</p>
+      <div class="featured-meta">
+        <span>Arthur Bekhazi</span>
+        <span class="dot">·</span>
+        <span>8 min read</span>
+        <span class="dot">·</span>
+        <span>Beginner</span>
       </div>
     </a>
 
-    <!-- Side articles -->
-    <a href="articles.html?cat=assets" class="article-card fade-in stagger-2">
-      <div class="article-img">
-        <div class="img-placeholder bg-amber">🏦</div>
-        <span class="article-tag">Asset Classes</span>
+    <div class="side-stack reveal d2">
+      <a href="articles.html?cat=assets" class="side-article">
+        <span class="tag">Asset Classes</span>
+        <h4>What bonds actually do in a portfolio</h4>
+        <p>They're not just for retirees. Here's why bonds exist and when they help.</p>
+        <span class="read">Read the guide
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </span>
+      </a>
+      <a href="articles.html?cat=behavior" class="side-article">
+        <span class="tag">Market Behavior</span>
+        <h4>Why smart people make bad investment decisions</h4>
+        <p>Behavioral finance in plain English — the cognitive traps costing everyday investors.</p>
+        <span class="read">Read the guide
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </span>
+      </a>
+      <div class="dispatch">
+        <div class="label">The Dispatch</div>
+        <h4>One investing idea, explained clearly. Weekly.</h4>
+        <a href="#newsletter" class="dispatch-cta" data-open-newsletter>Subscribe
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
-      <div class="article-body">
-        <div class="article-title">What Bonds Actually Do in a Portfolio</div>
-        <div class="article-excerpt">They're not just for retirees. Here's why bonds exist and when they help.</div>
-        <div class="article-meta">
-          <span class="article-read-time">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            6 min read
-          </span>
-          <span>·</span>
-          <span>Intermediate</span>
-        </div>
-      </div>
-    </a>
+    </div>
+  </div>
+</section>
 
-    <a href="articles.html?cat=behavior" class="article-card fade-in stagger-3">
-      <div class="article-img">
-        <div class="img-placeholder bg-blue">🧠</div>
-        <span class="article-tag">Market Behavior</span>
-      </div>
-      <div class="article-body">
-        <div class="article-title">Why Smart People Make Bad Investment Decisions</div>
-        <div class="article-excerpt">Behavioral finance in plain English — the cognitive traps costing everyday investors.</div>
-        <div class="article-meta">
-          <span class="article-read-time">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            9 min read
-          </span>
-          <span>·</span>
-          <span>Beginner</span>
-        </div>
-      </div>
+<!-- ═══════════════ FOR CANADIANS ═══════════════ -->
+<section class="canada" id="canada">
+  <div class="canada-head reveal">
+    <div>
+      <span class="eyebrow">For Canadians</span>
+      <h2 class="section-title">Canadian <em>accounts &amp; programs</em></h2>
+    </div>
+    <p class="section-sub right">Canada has some of the best savings tools in the world. Here's what each one actually does.</p>
+  </div>
+  <div class="canada-grid">
+    <a href="articles.html" class="canada-card reveal">
+      <div class="symbol">$</div>
+      <h3>TFSA vs. RRSP</h3>
+      <p>Your TFSA grows tax-free and lets you withdraw anytime. Your RRSP defers tax until retirement, when you're (hopefully) in a lower bracket. Both are powerful — but they work differently.</p>
+      <a>Read the guide →</a>
+    </a>
+    <a href="articles.html" class="canada-card reveal d2">
+      <div class="symbol">H</div>
+      <h3>The FHSA</h3>
+      <p>Canada's First Home Savings Account combines TFSA and RRSP benefits for first-time buyers. Deduction on the way in, tax-free growth on the way out — up to $40,000 lifetime.</p>
+      <a>Read the guide →</a>
+    </a>
+    <a href="articles.html" class="canada-card reveal d3">
+      <div class="symbol">C</div>
+      <h3>CPP &amp; OAS basics</h3>
+      <p>CPP and OAS are Canada's government retirement programs — but most people overestimate how much they'll receive. Here's what to realistically expect.</p>
+      <a>Read the guide →</a>
     </a>
   </div>
 </section>
 
-
-<!-- CANADIAN FINANCE SPOTLIGHT -->
-<section style="padding: 80px 40px; max-width: 1160px; margin: 0 auto;" id="canada">
-  <div class="section-label">For Canadians</div>
-  <h2 class="section-title">Canadian <em>accounts & programs</em> explained</h2>
-  <p class="section-sub">Canada has some of the best savings tools in the world. Here's what each one actually does.</p>
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;" class="canada-grid">
-    <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 36px 32px; display: flex; flex-direction: column; gap: 16px;" class="fade-in stagger-1">
-      <div style="font-size: 28px;">🏦</div>
-      <div style="font-family: var(--sans); font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px;">TFSA vs. RRSP</div>
-      <div style="font-size: 15px; color: var(--ink2); line-height: 1.7; font-weight: 300; flex: 1;">Your TFSA grows tax-free and lets you withdraw anytime. Your RRSP defers tax until retirement, when you're (hopefully) in a lower bracket. Both are powerful — but they work differently.</div>
-      <a href="articles.html" style="font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--green); text-decoration: none;">Read the guide →</a>
-    </div>
-    <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 36px 32px; display: flex; flex-direction: column; gap: 16px;" class="fade-in stagger-2">
-      <div style="font-size: 28px;">🏠</div>
-      <div style="font-family: var(--sans); font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px;">The FHSA</div>
-      <div style="font-size: 15px; color: var(--ink2); line-height: 1.7; font-weight: 300; flex: 1;">Canada's First Home Savings Account combines TFSA and RRSP benefits for first-time buyers. You get the deduction on the way in and tax-free growth on the way out — up to $40,000 lifetime.</div>
-      <a href="articles.html" style="font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--green); text-decoration: none;">Read the guide →</a>
-    </div>
-    <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 36px 32px; display: flex; flex-direction: column; gap: 16px;" class="fade-in stagger-3">
-      <div style="font-size: 28px;">🍁</div>
-      <div style="font-family: var(--sans); font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px;">CPP & OAS Basics</div>
-      <div style="font-size: 15px; color: var(--ink2); line-height: 1.7; font-weight: 300; flex: 1;">CPP and OAS are Canada's government retirement programs — but most people overestimate how much they'll receive. Here's what to realistically expect and how to plan around the gap.</div>
-      <a href="articles.html" style="font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--green); text-decoration: none;">Read the guide →</a>
-    </div>
-  </div>
-  <style>@media (max-width: 900px) { .canada-grid { grid-template-columns: 1fr !important; } }
-  @media (max-width: 600px) { #canada { padding: 48px 20px !important; } }</style>
-</section>
-
-<!-- PRINCIPLES -->
-<section class="principles-section">
+<!-- ═══════════════ PRINCIPLES ═══════════════ -->
+<section class="principles">
   <div class="principles-inner">
-    <div class="section-label">Our Approach</div>
-    <h2 class="section-title" style="max-width:500px;">How we think about financial education</h2>
-    <p class="section-sub">Tired of financial content that's either dumbed down or drowning in jargon. We aim for something better.</p>
-
+    <div class="principles-head reveal">
+      <span class="eyebrow">Our Approach</span>
+      <h2 class="section-title">How we think about <em>financial education</em></h2>
+      <p class="section-sub">Tired of financial content that's either dumbed down or drowning in jargon. We aim for something better.</p>
+    </div>
     <div class="principles-grid">
-      <div class="principle">
-        <div class="principle-num">01</div>
-        <div class="principle-title">No jargon without explanation</div>
-        <div class="principle-desc">When technical terms are unavoidable, we define them clearly the first time — and build up from there. You never need a finance degree to follow along.</div>
+      <div class="principle reveal">
+        <div class="num">01</div>
+        <h3>No jargon without explanation</h3>
+        <p>When technical terms are unavoidable, we define them clearly the first time — and build up from there. You never need a finance degree to follow along.</p>
       </div>
-      <div class="principle">
-        <div class="principle-num">02</div>
-        <div class="principle-title">No products, ever</div>
-        <div class="principle-desc">We never promote specific stocks, funds, brokers, or financial products. No affiliate links. No sponsored content. Our only interest is your understanding.</div>
+      <div class="principle reveal d2">
+        <div class="num">02</div>
+        <h3>No products, ever</h3>
+        <p>We never promote specific stocks, funds, brokers, or financial products. No affiliate links. No sponsored content. Our only interest is your understanding.</p>
       </div>
-      <div class="principle">
-        <div class="principle-num">03</div>
-        <div class="principle-title">Nuance over simplicity</div>
-        <div class="principle-desc">Investing is genuinely complex. We won't pretend otherwise. But complexity can be explained clearly — and that's what we strive for in everything we write.</div>
+      <div class="principle reveal d3">
+        <div class="num">03</div>
+        <h3>Nuance over simplicity</h3>
+        <p>Investing is genuinely complex. We won't pretend otherwise. But complexity can be explained clearly — and that's what we strive for in everything we write.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- GLOSSARY -->
-<section class="glossary-section" id="glossary">
-  <div class="section-label">Quick Reference</div>
-  <h2 class="section-title">Financial terms, <em>demystified</em></h2>
-  <div style="height:48px;"></div>
-
+<!-- ═══════════════ GLOSSARY ═══════════════ -->
+<section class="glossary" id="glossary">
+  <div class="glossary-head reveal">
+    <div>
+      <span class="eyebrow">Quick Reference</span>
+      <h2 class="section-title">Financial terms, <em>demystified</em></h2>
+    </div>
+    <p class="right">Common investing vocabulary explained without the stuffy finance-speak.</p>
+  </div>
   <div class="glossary-layout">
-    <div class="glossary-sticky">
-      <p class="section-sub" style="margin-bottom:0;">Common investing vocabulary explained without the stuffy finance-speak.</p>
-      <input class="glossary-search" type="text" placeholder="Search a term..." id="glossSearch">
+    <aside class="glossary-sticky reveal">
+      <input class="glossary-search" type="text" placeholder="Search a term…" id="glossSearch">
       <div class="alpha-nav" id="alphNav">
         <button type="button" class="alpha-btn active" data-alpha="all">All</button>
         <button type="button" class="alpha-btn" data-alpha="A">A</button>
@@ -1308,168 +1000,100 @@ footer {
         <button type="button" class="alpha-btn" data-alpha="V">V</button>
         <button type="button" class="alpha-btn" data-alpha="Y">Y</button>
       </div>
-    </div>
-
+    </aside>
     <div class="glossary-terms" id="glossTerms">
       <div class="glossary-group" data-letter="A">
         <div class="group-letter">A</div>
-        <div class="term-item">
-          <div class="term-word">Asset Allocation</div>
-          <div class="term-def">How you divide your investments across different asset types — like stocks, bonds, and cash. The single most important factor in long-term portfolio performance.</div>
-        </div>
-        <div class="term-item">
-          <div class="term-word">Alpha</div>
-          <div class="term-def">Returns earned beyond what the broader market delivers. An investment manager with positive alpha has outperformed their benchmark after fees — though consistently doing so is extremely rare.</div>
-        </div>
+        <div class="term-item"><div class="term-word">Asset Allocation</div><div class="term-def">How you divide your investments across different asset types — like stocks, bonds, and cash. The single most important factor in long-term portfolio performance.</div></div>
+        <div class="term-item"><div class="term-word">Alpha</div><div class="term-def">Returns earned beyond what the broader market delivers. An investment manager with positive alpha has outperformed their benchmark after fees — though consistently doing so is extremely rare.</div></div>
       </div>
       <div class="glossary-group" data-letter="B">
         <div class="group-letter">B</div>
-        <div class="term-item">
-          <div class="term-word">Bear Market</div>
-          <div class="term-def">A period where the stock market falls 20% or more from its recent peak. Typically accompanied by pessimism and slowing economic activity.</div>
-        </div>
-        <div class="term-item">
-          <div class="term-word">Bond</div>
-          <div class="term-def">A loan you make to a government or company. In return, they pay you regular interest and return your principal at maturity. Generally lower risk — and lower return — than stocks.</div>
-        </div>
-        <div class="term-item">
-          <div class="term-word">Bull Market</div>
-          <div class="term-def">A prolonged period of rising stock prices, typically by 20% or more. Often coincides with strong economic growth and investor optimism.</div>
-        </div>
+        <div class="term-item"><div class="term-word">Bear Market</div><div class="term-def">A period where the stock market falls 20% or more from its recent peak. Typically accompanied by pessimism and slowing economic activity.</div></div>
+        <div class="term-item"><div class="term-word">Bond</div><div class="term-def">A loan you make to a government or company. In return, they pay you regular interest and return your principal at maturity. Generally lower risk — and lower return — than stocks.</div></div>
+        <div class="term-item"><div class="term-word">Bull Market</div><div class="term-def">A prolonged period of rising stock prices, typically by 20% or more. Often coincides with strong economic growth and investor optimism.</div></div>
       </div>
       <div class="glossary-group" data-letter="C">
         <div class="group-letter">C</div>
-        <div class="term-item">
-          <div class="term-word">Capital Gains</div>
-          <div class="term-def">The profit you make when you sell an investment for more than you paid. In Canada, a portion of capital gains are included in your taxable income.</div>
-        </div>
-        <div class="term-item">
-          <div class="term-word">Compound Interest</div>
-          <div class="term-def">Earning returns on your returns. When your investment gains generate their own gains over time, growth accelerates — which is why starting early matters enormously.</div>
-        </div>
+        <div class="term-item"><div class="term-word">Capital Gains</div><div class="term-def">The profit you make when you sell an investment for more than you paid. In Canada, a portion of capital gains are included in your taxable income.</div></div>
+        <div class="term-item"><div class="term-word">Compound Interest</div><div class="term-def">Earning returns on your returns. When your investment gains generate their own gains over time, growth accelerates — which is why starting early matters enormously.</div></div>
       </div>
       <div class="glossary-group" data-letter="D">
         <div class="group-letter">D</div>
-        <div class="term-item">
-          <div class="term-word">Diversification</div>
-          <div class="term-def">Spreading investments across many different assets so that a single loss doesn't devastate your portfolio. Often described as "not putting all your eggs in one basket."</div>
-        </div>
-        <div class="term-item">
-          <div class="term-word">Dividend</div>
-          <div class="term-def">A portion of a company's profits paid out to shareholders, usually quarterly. Not all stocks pay dividends — growth companies often reinvest profits instead.</div>
-        </div>
+        <div class="term-item"><div class="term-word">Diversification</div><div class="term-def">Spreading investments across many different assets so that a single loss doesn't devastate your portfolio. Often described as "not putting all your eggs in one basket."</div></div>
+        <div class="term-item"><div class="term-word">Dividend</div><div class="term-def">A portion of a company's profits paid out to shareholders, usually quarterly. Not all stocks pay dividends — growth companies often reinvest profits instead.</div></div>
       </div>
       <div class="glossary-group" data-letter="E">
         <div class="group-letter">E</div>
-        <div class="term-item">
-          <div class="term-word">ETF (Exchange-Traded Fund)</div>
-          <div class="term-def">A basket of securities that trades on a stock exchange like a single share. ETFs typically track an index, making them a low-cost way to own a diversified slice of the market.</div>
-        </div>
-        <div class="term-item">
-          <div class="term-word">Expense Ratio</div>
-          <div class="term-def">The annual fee a fund charges to manage your money, expressed as a percentage. A 0.05% expense ratio means you pay 50 cents per $1,000 invested per year.</div>
-        </div>
+        <div class="term-item"><div class="term-word">ETF (Exchange-Traded Fund)</div><div class="term-def">A basket of securities that trades on a stock exchange like a single share. ETFs typically track an index, making them a low-cost way to own a diversified slice of the market.</div></div>
+        <div class="term-item"><div class="term-word">Expense Ratio</div><div class="term-def">The annual fee a fund charges to manage your money, expressed as a percentage. A 0.05% expense ratio means you pay 50 cents per $1,000 invested per year.</div></div>
       </div>
       <div class="glossary-group" data-letter="I">
         <div class="group-letter">I</div>
-        <div class="term-item">
-          <div class="term-word">Index Fund</div>
-          <div class="term-def">A fund designed to replicate the performance of a market index like the S&P 500. No active stock-picking — just owning the whole market. Usually the lowest-cost option available.</div>
-        </div>
-        <div class="term-item">
-          <div class="term-word">Inflation</div>
-          <div class="term-def">The rate at which prices rise over time, reducing your purchasing power. Investing is partly about ensuring your money grows faster than inflation erodes it.</div>
-        </div>
+        <div class="term-item"><div class="term-word">Index Fund</div><div class="term-def">A fund designed to replicate the performance of a market index like the S&amp;P 500. No active stock-picking — just owning the whole market. Usually the lowest-cost option available.</div></div>
+        <div class="term-item"><div class="term-word">Inflation</div><div class="term-def">The rate at which prices rise over time, reducing your purchasing power. Investing is partly about ensuring your money grows faster than inflation erodes it.</div></div>
       </div>
-
       <div class="glossary-group" data-letter="L">
         <div class="group-letter">L</div>
-        <div class="term-item">
-          <div class="term-word">Liquidity</div>
-          <div class="term-def">How quickly and easily you can convert an investment to cash without losing value. Stocks are highly liquid; real estate is not.</div>
-        </div>
+        <div class="term-item"><div class="term-word">Liquidity</div><div class="term-def">How quickly and easily you can convert an investment to cash without losing value. Stocks are highly liquid; real estate is not.</div></div>
       </div>
       <div class="glossary-group" data-letter="M">
         <div class="group-letter">M</div>
-        <div class="term-item">
-          <div class="term-word">MER (Management Expense Ratio)</div>
-          <div class="term-def">The annual fee charged by a Canadian mutual fund or ETF, expressed as a percentage of assets. Low-cost index ETFs in Canada often have MERs below 0.25%.</div>
-        </div>
-        <div class="term-item">
-          <div class="term-word">Market Capitalization</div>
-          <div class="term-def">The total market value of a company's outstanding shares. Large-cap companies (like major banks) tend to be more stable than small-caps, which carry more growth potential but also more risk.</div>
-        </div>
+        <div class="term-item"><div class="term-word">MER (Management Expense Ratio)</div><div class="term-def">The annual fee charged by a Canadian mutual fund or ETF, expressed as a percentage of assets. Low-cost index ETFs in Canada often have MERs below 0.25%.</div></div>
+        <div class="term-item"><div class="term-word">Market Capitalization</div><div class="term-def">The total market value of a company's outstanding shares. Large-cap companies (like major banks) tend to be more stable than small-caps, which carry more growth potential but also more risk.</div></div>
       </div>
       <div class="glossary-group" data-letter="P">
         <div class="group-letter">P</div>
-        <div class="term-item">
-          <div class="term-word">Portfolio</div>
-          <div class="term-def">All the investments you hold as a whole. Thinking in terms of your portfolio rather than individual picks is a key mindset shift for long-term investors.</div>
-        </div>
-        <div class="term-item">
-          <div class="term-word">Principal</div>
-          <div class="term-def">The original amount of money you invest, before any interest or returns. When someone says "preserve your principal," they mean protect the money you started with.</div>
-        </div>
+        <div class="term-item"><div class="term-word">Portfolio</div><div class="term-def">All the investments you hold as a whole. Thinking in terms of your portfolio rather than individual picks is a key mindset shift for long-term investors.</div></div>
+        <div class="term-item"><div class="term-word">Principal</div><div class="term-def">The original amount of money you invest, before any interest or returns. When someone says "preserve your principal," they mean protect the money you started with.</div></div>
       </div>
       <div class="glossary-group" data-letter="R">
         <div class="group-letter">R</div>
-        <div class="term-item">
-          <div class="term-word">Rebalancing</div>
-          <div class="term-def">The process of realigning your portfolio back to your target asset allocation. Over time, some investments grow faster than others, shifting your mix — rebalancing restores it.</div>
-        </div>
-        <div class="term-item">
-          <div class="term-word">Risk Tolerance</div>
-          <div class="term-def">How much volatility and potential loss you can accept — emotionally and financially. A realistic understanding of your risk tolerance is foundational to choosing the right portfolio.</div>
-        </div>
+        <div class="term-item"><div class="term-word">Rebalancing</div><div class="term-def">The process of realigning your portfolio back to your target asset allocation. Over time, some investments grow faster than others, shifting your mix — rebalancing restores it.</div></div>
+        <div class="term-item"><div class="term-word">Risk Tolerance</div><div class="term-def">How much volatility and potential loss you can accept — emotionally and financially. A realistic understanding of your risk tolerance is foundational to choosing the right portfolio.</div></div>
       </div>
       <div class="glossary-group" data-letter="V">
         <div class="group-letter">V</div>
-        <div class="term-item">
-          <div class="term-word">Volatility</div>
-          <div class="term-def">How much an investment's price swings up and down over time. High volatility doesn't automatically mean bad — it's just a measure of uncertainty and risk.</div>
-        </div>
+        <div class="term-item"><div class="term-word">Volatility</div><div class="term-def">How much an investment's price swings up and down over time. High volatility doesn't automatically mean bad — it's just a measure of uncertainty and risk.</div></div>
       </div>
       <div class="glossary-group" data-letter="Y">
         <div class="group-letter">Y</div>
-        <div class="term-item">
-          <div class="term-word">Yield</div>
-          <div class="term-def">The income generated by an investment — like interest from a bond or dividends from a stock — expressed as a percentage of its price. Different from total return, which includes price changes.</div>
-        </div>
+        <div class="term-item"><div class="term-word">Yield</div><div class="term-def">The income generated by an investment — like interest from a bond or dividends from a stock — expressed as a percentage of its price. Different from total return, which includes price changes.</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- NEWSLETTER -->
-<section class="newsletter-section" id="newsletter">
-  <div class="newsletter-box">
+<!-- ═══════════════ NEWSLETTER ═══════════════ -->
+<section class="newsletter" id="newsletter">
+  <div class="newsletter-box reveal">
     <div>
-      <div class="section-label">Weekly Newsletter</div>
-      <div class="newsletter-h">One investing idea,<br>explained clearly. Weekly.</div>
-      <p class="newsletter-sub">A short, clear breakdown of one investing concept every week. No hype. No sales. Just education.</p>
+      <div class="label">The Dispatch · Weekly</div>
+      <h2>One investing idea,<br><em>explained clearly.</em> Weekly.</h2>
+      <p class="sub">A short, clear breakdown of one investing concept every week. No hype. No sales. Just education.</p>
     </div>
-    <div class="substack-embed-wrap">
-      <iframe src="https://accessiblefinance.substack.com/embed" width="100%" height="200" style="border:none; background:transparent;" frameborder="0" scrolling="no"></iframe>
-      <p class="email-fine">No spam. Unsubscribe anytime. We never share your email.</p>
+    <div class="newsletter-form-wrap">
+      <iframe src="https://accessiblefinance.substack.com/embed" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+      <p class="fine">No spam · Unsubscribe anytime</p>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="nav-logo" style="display:flex; align-items:center; gap:10px; margin-bottom:0; text-decoration:none;">
-          <img src="Logo.png" alt="Accessible Finance" style="width:32px;height:32px;border-radius:8px;object-fit:cover;object-position:50% 20%;">
-          <span class="logo-text" style="color:white;">Accessible Finance</span>
+        <div class="wordmark-row">
+          <img src="Logo.png" alt="">
+          <span class="name">Accessible Finance</span>
         </div>
-        <p class="footer-tagline">Investing education without the jargon. Free, forever.</p>
+        <p>"True understanding is not a destination, but a way of traveling." Free, ad-free investing education for the curious.</p>
       </div>
       <div class="footer-col">
         <h4>Learn</h4>
         <ul>
-          <li><a href="topic.html">Investing Fundamentals</a></li>
+          <li><a href="topic.html">Fundamentals</a></li>
           <li><a href="articles.html?cat=assets">Asset Classes</a></li>
           <li><a href="articles.html?cat=portfolio">Portfolio Thinking</a></li>
           <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
@@ -1479,99 +1103,117 @@ footer {
       <div class="footer-col">
         <h4>Articles</h4>
         <ul>
-          <li><a href="articles.html">Beginner Guides</a></li>
-          <li><a href="articles.html">Intermediate Topics</a></li>
-          <li><a href="articles.html">Case Studies</a></li>
+          <li><a href="articles.html">All Guides</a></li>
+          <li><a href="articles.html">Beginner</a></li>
+          <li><a href="articles.html">Intermediate</a></li>
           <li><a href="articles.html">Latest Posts</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="#newsletter">Newsletter</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="earn.html">Rewards</a></li>
+          <li><a href="#newsletter" data-open-newsletter>Newsletter</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
           <li><a href="disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p class="footer-disclaimer">Not financial advice. All content is for educational purposes only. Investing involves risk, including the possible loss of principal. Past performance is not indicative of future results.</p>
-      <span style="color:rgba(255,255,255,0.3); font-size:12px; white-space:nowrap; margin-left:20px;">© 2026 Accessible Finance</span>
+      <span class="footer-copy">© 2026 Accessible Finance</span>
     </div>
   </div>
 </footer>
 
+<!-- ═══════════════ NEWSLETTER MODAL ═══════════════ -->
+<div class="nl-overlay" id="nlOverlay" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+  <div class="nl-modal">
+    <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
+    <div class="nl-label">Weekly Newsletter</div>
+    <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
+    <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
+    <iframe src="https://accessiblefinance.substack.com/embed" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  </div>
+</div>
+
 <script>
-// Scroll fade-ins
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// Glossary search
-const searchInput = document.getElementById('glossSearch');
-searchInput.addEventListener('input', function() {
-  const q = this.value.toLowerCase();
-  document.querySelectorAll('.term-item').forEach(item => {
-    const word = item.querySelector('.term-word').textContent.toLowerCase();
-    const def = item.querySelector('.term-def').textContent.toLowerCase();
-    item.style.display = (word.includes(q) || def.includes(q)) ? '' : 'none';
-  });
-  document.querySelectorAll('.glossary-group').forEach(g => {
-    const visible = [...g.querySelectorAll('.term-item')].some(i => i.style.display !== 'none');
-    g.style.display = visible ? '' : 'none';
-  });
-});
-
-// Alpha filter (delegated, data-driven — no inline handlers)
-document.querySelectorAll('.alpha-btn').forEach(function(b){
-  b.addEventListener('click', function(){
-    var letter = b.dataset.alpha;
-    document.querySelectorAll('.alpha-btn').forEach(function(x){ x.classList.remove('active'); });
-    b.classList.add('active');
-    searchInput.value = '';
-    document.querySelectorAll('.glossary-group').forEach(function(g){
-      g.style.display = (letter === 'all' || g.dataset.letter === letter) ? '' : 'none';
+  // Mobile hamburger
+  (function(){
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-    document.querySelectorAll('.term-item').forEach(function(i){ i.style.display = ''; });
-  });
-});
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open'); btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }));
+  })();
 
-// Smooth nav link scroll
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  // Smooth scroll for in-page anchors
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href.length < 2) return;
+      const target = document.querySelector(href);
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
   });
-});
-</script>
 
-<script>
-(function(){
-  var btn = document.getElementById('hamburger');
-  var menu = document.getElementById('mobile-menu');
-  if(!btn || !menu) return;
-  function closeMenu(){
-    menu.classList.remove('open');
-    btn.classList.remove('open');
-    btn.setAttribute('aria-expanded','false');
-    document.body.classList.remove('menu-open');
+  // Glossary search
+  const searchInput = document.getElementById('glossSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', function () {
+      const q = this.value.toLowerCase();
+      document.querySelectorAll('.term-item').forEach(item => {
+        const word = item.querySelector('.term-word').textContent.toLowerCase();
+        const def = item.querySelector('.term-def').textContent.toLowerCase();
+        item.style.display = (word.includes(q) || def.includes(q)) ? '' : 'none';
+      });
+      document.querySelectorAll('.glossary-group').forEach(g => {
+        const visible = [...g.querySelectorAll('.term-item')].some(i => i.style.display !== 'none');
+        g.style.display = visible ? '' : 'none';
+      });
+    });
   }
-  btn.addEventListener('click', function(){
-    var isOpen = menu.classList.contains('open');
-    if(isOpen){ closeMenu(); } else {
-      menu.classList.add('open');
-      btn.classList.add('open');
-      btn.setAttribute('aria-expanded','true');
-      document.body.classList.add('menu-open');
-    }
+
+  // Alpha filter
+  document.querySelectorAll('.alpha-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      const letter = b.dataset.alpha;
+      document.querySelectorAll('.alpha-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      if (searchInput) searchInput.value = '';
+      document.querySelectorAll('.glossary-group').forEach(g => {
+        g.style.display = (letter === 'all' || g.dataset.letter === letter) ? '' : 'none';
+      });
+      document.querySelectorAll('.term-item').forEach(i => { i.style.display = ''; });
+    });
   });
-  menu.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', closeMenu);
-  });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
-})();
+
+  // Newsletter modal
+  (function () {
+    const overlay = document.getElementById('nlOverlay');
+    const closeBtn = document.getElementById('nlClose');
+    function open(e) { if (e) e.preventDefault(); overlay.classList.add('open'); }
+    function close() { overlay.classList.remove('open'); }
+    document.querySelectorAll('[data-open-newsletter]').forEach(a => a.addEventListener('click', open));
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  })();
 </script>
 </body>
 </html>
