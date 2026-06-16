@@ -147,8 +147,11 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .rakuten-cta { display: inline-flex; align-items: center; gap: 12px; margin-top: 28px; background: var(--rakuten); color: var(--bg); font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; padding: 18px 32px; border-radius: 100px; transition: background 0.3s, transform 0.3s; }
 .rakuten-cta:hover { background: var(--ink); transform: translateY(-1px); }
 .rakuten-fine { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3); margin-top: 18px; max-width: 400px; line-height: 1.6; }
-.bag { aspect-ratio: 1; background: linear-gradient(150deg, #ff6b6b 0%, var(--rakuten) 100%); border-radius: 36px; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-size: 140px; color: var(--bg); box-shadow: 0 30px 70px -20px rgba(191,0,0,0.45); }
-.bag .pct { font-size: 0.55em; opacity: 0.9; }
+.bag { aspect-ratio: 1; background: linear-gradient(150deg, #ff6b6b 0%, var(--rakuten) 100%); border-radius: 36px; display: flex; align-items: center; justify-content: center; padding: 42px; box-shadow: 0 30px 70px -20px rgba(191,0,0,0.45); }
+.rakuten-logo { width: min(100%, 360px); min-height: 150px; border-radius: 28px; background: rgba(255,255,255,0.96); color: var(--rakuten); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 24px 50px -28px rgba(26,24,22,0.45); }
+.rakuten-logo .word { font-family: var(--sans); font-size: clamp(34px, 4.8vw, 54px); font-weight: 800; line-height: 0.95; letter-spacing: -0.03em; }
+.rakuten-logo .word::after { content: ''; display: block; width: 66%; height: 4px; border-radius: 999px; background: currentColor; margin: 10px auto 0; transform: skewX(-20deg); }
+.rakuten-logo .label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink2); margin-top: 18px; }
 
 /* FOOTER */
 footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40px 48px; }
@@ -194,7 +197,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   .offer-card, .coming-card, .rakuten-card { padding: 44px 28px; }
   .coin { width: 200px; height: 200px; }
   .coin .big { font-size: 70px; }
-  .bag { font-size: 110px; }
+  .bag { padding: 28px; }
+  .rakuten-logo { min-height: 130px; }
   .ws-stats { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px; }
   footer.site-footer { padding: 64px 24px 36px; }
@@ -247,10 +251,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div>
       <span class="offer-badge"><span class="dot"></span>Active Offer</span>
       <h2>Get <em>$25 free</em> when you<br>open a Wealthsimple account</h2>
-      <p class="body">Sign up using our referral link, fund your account, and Wealthsimple will deposit $25 directly into your portfolio. It takes about five minutes to get started.</p>
+      <p class="body">Sign up using our referral link, deposit at least $100, and Wealthsimple will deposit $25 directly into your portfolio. It takes about five minutes to get started.</p>
       <ol class="offer-steps">
         <li>Click the link below and create your free account</li>
-        <li>Fund your account with any amount</li>
+        <li>Deposit at least $100 into your account</li>
         <li>Wealthsimple deposits $25 into your account automatically</li>
       </ol>
       <a href="https://www.wealthsimple.com/invite/BZJM-A" class="offer-cta" target="_blank" rel="noopener noreferrer">Claim Your $25
@@ -285,7 +289,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <article class="how-card reveal d3">
       <div class="how-step">Step 03</div>
       <h3>Fund and receive $25</h3>
-      <p>Deposit any amount into your account. Once funded, Wealthsimple will deposit your $25 bonus directly into your portfolio. Terms apply.</p>
+      <p>Deposit at least $100 into your account. Once funded, Wealthsimple will deposit your $25 bonus directly into your portfolio. Terms apply.</p>
     </article>
   </div>
 </section>
@@ -326,7 +330,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   </div>
 </section>
 
-<section class="rakuten">
+<section class="rakuten" id="rakuten">
   <div class="rakuten-inner">
     <div class="rakuten-card reveal">
       <div>
@@ -343,7 +347,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         </a>
         <p class="rakuten-fine">Referral link — we may earn a small commission at no cost to you. We only recommend services we believe in.</p>
       </div>
-      <div class="bag"><span><span class="pct">%</span></span></div>
+      <div class="bag" aria-label="Rakuten Canada">
+        <div class="rakuten-logo" aria-hidden="true">
+          <span class="word">Rakuten</span>
+          <span class="label">Canada</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
