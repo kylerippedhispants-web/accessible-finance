@@ -121,6 +121,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   footer.site-footer { padding: 64px 24px 36px; }
 }
 </style>
+<link rel="stylesheet" href="site-language.css">
+<script src="site-language.js" defer></script>
 </head>
 <body>
 
@@ -136,7 +138,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="earn.html">Rewards</a>
     <a href="about.html">About</a>
   </div>
-  <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  <div class="nav-actions">
+    <label class="language-switcher notranslate" translate="no">
+      <span class="sr-only">Language</span>
+      <select class="language-select" data-language-select aria-label="Language">
+        <option value="en">&#x1F1EC;&#x1F1E7; EN</option>
+        <option value="fa">&#x1F1EE;&#x1F1F7; FA</option>
+        <option value="fr">&#x1F1EB;&#x1F1F7; FR</option>
+      </select>
+    </label>
+    <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  </div>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span><span></span>
   </button>
@@ -147,6 +159,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <a href="index.html#glossary">Glossary</a>
   <a href="earn.html">Rewards</a>
   <a href="about.html">About</a>
+  <label class="mobile-language notranslate" translate="no">
+    <span>Language</span>
+    <select class="language-select" data-language-select aria-label="Language">
+      <option value="en">&#x1F1EC;&#x1F1E7; English</option>
+      <option value="fa">&#x1F1EE;&#x1F1F7; Farsi</option>
+      <option value="fr">&#x1F1EB;&#x1F1F7; French</option>
+    </select>
+  </label>
   <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
 </div>
 
@@ -185,7 +205,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 
   <section>
     <h2>Referral <em>partnerships</em></h2>
-    <p>Our Rewards page contains referral links to Wealthsimple and Rakuten. If you sign up through one of those links, we may receive a small referral fee — at no extra cost to you. These partnerships do not influence what we write elsewhere on the site, and we never accept compensation for editorial coverage.</p>
+    <p>Our Rewards page contains referral links to Wealthsimple, Rakuten, and Polymarket. If you sign up through one of those links, we may receive a small referral fee — at no extra cost to you. These partnerships do not influence what we write elsewhere on the site, and we never accept compensation for editorial coverage. Polymarket and other prediction-market services are speculative and may not be suitable or available for everyone.</p>
   </section>
 
   <section>

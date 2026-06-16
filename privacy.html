@@ -128,6 +128,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   footer.site-footer { padding: 64px 24px 36px; }
 }
 </style>
+<link rel="stylesheet" href="site-language.css">
+<script src="site-language.js" defer></script>
 </head>
 <body>
 
@@ -143,7 +145,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="earn.html">Rewards</a>
     <a href="about.html">About</a>
   </div>
-  <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  <div class="nav-actions">
+    <label class="language-switcher notranslate" translate="no">
+      <span class="sr-only">Language</span>
+      <select class="language-select" data-language-select aria-label="Language">
+        <option value="en">&#x1F1EC;&#x1F1E7; EN</option>
+        <option value="fa">&#x1F1EE;&#x1F1F7; FA</option>
+        <option value="fr">&#x1F1EB;&#x1F1F7; FR</option>
+      </select>
+    </label>
+    <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  </div>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span><span></span>
   </button>
@@ -154,6 +166,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <a href="index.html#glossary">Glossary</a>
   <a href="earn.html">Rewards</a>
   <a href="about.html">About</a>
+  <label class="mobile-language notranslate" translate="no">
+    <span>Language</span>
+    <select class="language-select" data-language-select aria-label="Language">
+      <option value="en">&#x1F1EC;&#x1F1E7; English</option>
+      <option value="fa">&#x1F1EE;&#x1F1F7; Farsi</option>
+      <option value="fr">&#x1F1EB;&#x1F1F7; French</option>
+    </select>
+  </label>
   <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
 </div>
 
@@ -183,7 +203,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 
   <section>
     <h2>Third-party <em>services</em></h2>
-    <p>We use Substack to host our newsletter and Google Fonts to serve typography. These services have their own privacy policies. Our referral links to Wealthsimple and Rakuten may set tracking cookies if you click them — those are governed by the destination site's policy.</p>
+    <p>We use Substack to host our newsletter, Google Fonts to serve typography, and Google Translate when you choose Farsi or French from the language menu. These services have their own privacy policies. Our referral links to Wealthsimple, Rakuten, and Polymarket may set tracking cookies if you click them — those are governed by the destination site's policy.</p>
   </section>
 
   <section>

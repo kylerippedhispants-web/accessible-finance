@@ -5,10 +5,10 @@
 <link rel="icon" type="image/png" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rewards — Accessible Finance</title>
-<meta name="description" content="Two rewards we genuinely use ourselves: $25 to start investing with Wealthsimple, plus cash back from over 750 stores via Rakuten Canada.">
+<meta name="description" content="Referral offers for Wealthsimple, Rakuten Canada, and Polymarket — plus clear notes on risk, eligibility, and terms.">
 <link rel="canonical" href="https://accessiblefinance.example/earn.html">
 <meta property="og:title" content="Rewards — Accessible Finance">
-<meta property="og:description" content="$25 to start investing, plus cash back on everyday shopping.">
+<meta property="og:description" content="Referral offers for investing, cash back, and prediction markets — with risk and eligibility notes.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="Logo.png">
 <meta name="twitter:card" content="summary">
@@ -25,6 +25,7 @@
   --gold: #c8822a; --gold-soft: #d4a560; --gold-light: #f6ecd9;
   --border: #e4e0d8; --border-strong: #c9c3b6;
   --rakuten: #BF0000;
+  --polymarket: #2454ff;
   --serif: 'Instrument Serif', Georgia, serif;
   --sans: 'Syne', sans-serif;
   --body: 'Literata', Georgia, serif;
@@ -153,6 +154,31 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .rakuten-logo .word::after { content: ''; display: block; width: 66%; height: 4px; border-radius: 999px; background: currentColor; margin: 10px auto 0; transform: skewX(-20deg); }
 .rakuten-logo .label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink2); margin-top: 18px; }
 
+/* POLYMARKET */
+.polymarket { padding: 120px 40px; background: var(--bg); scroll-margin-top: 96px; }
+.polymarket-inner { max-width: 1100px; margin: 0 auto; }
+.polymarket-card { background: var(--ink); color: var(--bg); border-radius: 28px; padding: 60px 56px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center; position: relative; overflow: hidden; }
+.polymarket-card::before { content: ''; position: absolute; right: -120px; top: -140px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(36,84,255,0.28) 0%, transparent 70%); pointer-events: none; }
+.polymarket .partner-badge { background: rgba(36,84,255,0.16); color: #b9c8ff; border: 1px solid rgba(185,200,255,0.24); position: relative; z-index: 1; }
+.polymarket-card h2 { font-family: var(--serif); font-size: clamp(36px, 4.5vw, 52px); font-weight: 400; line-height: 1.05; color: var(--bg); letter-spacing: -0.02em; margin-top: 22px; position: relative; z-index: 1; }
+.polymarket-card h2 em { font-style: italic; color: #9fb4ff; }
+.polymarket-card .body { font-family: var(--body); font-size: 16px; line-height: 1.7; color: rgba(247,245,240,0.7); margin-top: 22px; max-width: 500px; position: relative; z-index: 1; }
+.polymarket-card .features { position: relative; z-index: 1; }
+.polymarket-card .features li { color: rgba(247,245,240,0.76); }
+.polymarket-card .features li::before { color: #9fb4ff; }
+.polymarket-cta { display: inline-flex; align-items: center; gap: 12px; margin-top: 28px; background: var(--polymarket); color: #fff; font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; padding: 18px 32px; border-radius: 100px; transition: background 0.3s, transform 0.3s; position: relative; z-index: 1; }
+.polymarket-cta:hover { background: #fff; color: var(--ink); transform: translateY(-1px); }
+.polymarket-fine { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(247,245,240,0.45); margin-top: 18px; max-width: 460px; line-height: 1.6; position: relative; z-index: 1; }
+.market-preview { position: relative; z-index: 1; border-radius: 28px; background: #f7f8ff; color: var(--ink); padding: 32px; box-shadow: 0 30px 70px -28px rgba(0,0,0,0.5); }
+.market-label { font-family: var(--sans); font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--polymarket); }
+.market-question { font-family: var(--serif); font-size: 30px; line-height: 1.08; letter-spacing: -0.02em; margin-top: 18px; max-width: 280px; }
+.market-bars { display: grid; grid-template-columns: 62fr 38fr; gap: 8px; margin-top: 28px; }
+.market-bars span { height: 12px; border-radius: 999px; }
+.market-bars .yes { background: var(--polymarket); }
+.market-bars .no { background: var(--border-strong); }
+.market-row { display: flex; justify-content: space-between; gap: 16px; margin-top: 18px; font-family: var(--sans); font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink2); }
+.market-risk { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); font-family: var(--body); font-size: 14px; line-height: 1.55; color: var(--ink2); }
+
 /* FOOTER */
 footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40px 48px; }
 .footer-inner { max-width: 1200px; margin: 0 auto; }
@@ -183,7 +209,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 .nl-modal .fine { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3); text-align: center; margin-top: 16px; }
 
 @media (max-width: 1024px) {
-  .offer-card, .about-ws, .coming-card, .rakuten-card { grid-template-columns: 1fr; gap: 48px; }
+  .offer-card, .about-ws, .coming-card, .rakuten-card, .polymarket-card { grid-template-columns: 1fr; gap: 48px; }
   .how-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr 1fr; }
 }
@@ -191,10 +217,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   nav.site-nav { padding: 0 24px; height: 64px; }
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: block; }
-  .earn-hero, .disclosure, .offer, .how, .coming, .about-ws, .rakuten { padding-left: 24px; padding-right: 24px; }
+  .earn-hero, .disclosure, .offer, .how, .coming, .about-ws, .rakuten, .polymarket { padding-left: 24px; padding-right: 24px; }
   .earn-hero { padding-top: 48px; padding-bottom: 32px; }
-  .how, .coming, .about-ws, .rakuten { padding-top: 72px; padding-bottom: 72px; }
-  .offer-card, .coming-card, .rakuten-card { padding: 44px 28px; }
+  .how, .coming, .about-ws, .rakuten, .polymarket { padding-top: 72px; padding-bottom: 72px; }
+  .offer-card, .coming-card, .rakuten-card, .polymarket-card { padding: 44px 28px; }
   .coin { width: 200px; height: 200px; }
   .coin .big { font-size: 70px; }
   .bag { padding: 28px; }
@@ -204,6 +230,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   footer.site-footer { padding: 64px 24px 36px; }
 }
 </style>
+<link rel="stylesheet" href="site-language.css">
+<script src="site-language.js" defer></script>
 </head>
 <body>
 
@@ -219,7 +247,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="earn.html" class="active">Rewards</a>
     <a href="about.html">About</a>
   </div>
-  <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  <div class="nav-actions">
+    <label class="language-switcher notranslate" translate="no">
+      <span class="sr-only">Language</span>
+      <select class="language-select" data-language-select aria-label="Language">
+        <option value="en">&#x1F1EC;&#x1F1E7; EN</option>
+        <option value="fa">&#x1F1EE;&#x1F1F7; FA</option>
+        <option value="fr">&#x1F1EB;&#x1F1F7; FR</option>
+      </select>
+    </label>
+    <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  </div>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span><span></span>
   </button>
@@ -230,19 +268,27 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <a href="index.html#glossary">Glossary</a>
   <a href="earn.html">Rewards</a>
   <a href="about.html">About</a>
+  <label class="mobile-language notranslate" translate="no">
+    <span>Language</span>
+    <select class="language-select" data-language-select aria-label="Language">
+      <option value="en">&#x1F1EC;&#x1F1E7; English</option>
+      <option value="fa">&#x1F1EE;&#x1F1F7; Farsi</option>
+      <option value="fr">&#x1F1EB;&#x1F1F7; French</option>
+    </select>
+  </label>
   <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
 </div>
 
 <section class="earn-hero reveal">
   <span class="eyebrow">Referral Offers</span>
   <h1>Start investing and<br><em>get paid to do it.</em></h1>
-  <p class="lead">We've partnered with Wealthsimple to bring you a real cash bonus when you open an account and start investing. No tricks, no fine print surprises.</p>
+  <p class="lead">A small collection of referral offers we use or think are worth knowing about — with the trade-offs explained plainly.</p>
 </section>
 
 <div class="disclosure reveal">
   <div class="disclosure-box">
     <span class="ic">i</span>
-    <div><strong>Disclosure.</strong> The offer below is a referral partnership. If you sign up using our link, Accessible Finance may receive a referral fee — and you receive your $25 bonus. We only feature platforms we'd genuinely recommend. This is not financial advice.</div>
+    <div><strong>Disclosure.</strong> The offers below are referral partnerships. If you sign up using our links, Accessible Finance may receive a referral fee — at no extra cost to you. Terms, eligibility, and availability vary. This is not financial advice.</div>
   </div>
 </div>
 
@@ -352,6 +398,40 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <span class="word">Rakuten</span>
           <span class="label">Canada</span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="polymarket" id="polymarket">
+  <div class="polymarket-inner">
+    <div class="polymarket-card reveal">
+      <div>
+        <span class="partner-badge">Polymarket</span>
+        <h2>Explore <em>prediction markets</em><br>with caution.</h2>
+        <p class="body">Polymarket lets people follow and trade on event-based markets. It is speculative, different from long-term investing, and you should only use money you can afford to lose.</p>
+        <ul class="features">
+          <li>Referral link to create or open your Polymarket account</li>
+          <li>Prediction markets can lose money quickly</li>
+          <li>Eligibility, availability, and terms vary by location</li>
+        </ul>
+        <a href="https://polymarket.com/?r=Pewwww" class="polymarket-cta" target="_blank" rel="noopener noreferrer">Join Polymarket
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <p class="polymarket-fine">Referral link — we may earn a commission. Prediction markets are speculative and are not suitable for everyone.</p>
+      </div>
+      <div class="market-preview" aria-label="Prediction market illustration">
+        <div class="market-label">Prediction Market</div>
+        <div class="market-question">Will the market price in the event?</div>
+        <div class="market-bars" aria-hidden="true">
+          <span class="yes"></span>
+          <span class="no"></span>
+        </div>
+        <div class="market-row">
+          <span>Yes 62%</span>
+          <span>No 38%</span>
+        </div>
+        <p class="market-risk">Outcomes can be binary. Prices can move fast. Treat this as speculation, not a savings or investing plan.</p>
       </div>
     </div>
   </div>
