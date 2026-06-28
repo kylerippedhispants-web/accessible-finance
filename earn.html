@@ -38,8 +38,8 @@ img { display: block; max-width: 100%; }
 nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
 .nav-logo { display: flex; align-items: center; gap: 12px; }
 .nav-logo img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; object-position: 50% 20%; }
-.nav-logo .wordmark { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); }
-.nav-links { display: flex; gap: 36px; }
+.nav-logo .wordmark { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+.nav-links { display: flex; gap: 30px; }
 .nav-links a { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink2); padding: 6px 0; position: relative; transition: color 0.2s; }
 .nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: center; transition: transform 0.3s cubic-bezier(.2,.7,.2,1); }
 .nav-links a:hover { color: var(--ink); }
@@ -77,6 +77,25 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .disclosure-box { background: var(--gold-light); border-radius: 14px; padding: 20px 28px; font-family: var(--body); font-size: 14px; line-height: 1.65; color: var(--ink2); display: flex; gap: 16px; align-items: flex-start; }
 .disclosure-box .ic { font-family: var(--serif); font-style: italic; color: var(--gold); font-size: 22px; line-height: 1; }
 .disclosure-box strong { color: var(--ink); font-weight: 500; }
+
+/* PROMOTION RAIL */
+.promotions { padding: 88px 0 40px; overflow: hidden; }
+.promotions-head { max-width: 1200px; margin: 0 auto 28px; padding: 0 40px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+.promotions-head h2 { font-family: var(--serif); font-size: clamp(36px, 4vw, 52px); font-weight: 400; line-height: 1.05; color: var(--ink); letter-spacing: -0.02em; }
+.promotions-head h2 em { font-style: italic; color: var(--green); }
+.promotion-count { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink3); white-space: nowrap; }
+.promo-track { display: flex; gap: 28px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-color: var(--gold) var(--border); padding: 0 max(24px, calc((100vw - 1200px) / 2 + 40px)) 36px; }
+.promo-track::-webkit-scrollbar { height: 10px; }
+.promo-track::-webkit-scrollbar-track { background: var(--border); border-radius: 999px; margin-inline: max(24px, calc((100vw - 1200px) / 2 + 40px)); }
+.promo-track::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 999px; }
+.promo-track > section { flex: 0 0 min(1040px, calc(100vw - 80px)); max-width: none; margin: 0; padding: 0; background: transparent; scroll-snap-align: start; scroll-margin-left: max(24px, calc((100vw - 1200px) / 2 + 40px)); }
+.promo-track .offer-card,
+.promo-track .coming-card,
+.promo-track .rakuten-card,
+.promo-track .polymarket-card { height: 100%; min-height: 540px; }
+.promo-track .rakuten-inner,
+.promo-track .polymarket-inner { max-width: none; }
+.promotions .reveal { opacity: 1; transform: none; }
 
 /* HERO OFFER CARD */
 .offer { max-width: 1200px; margin: 80px auto 0; padding: 0 40px; }
@@ -210,15 +229,31 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 
 @media (max-width: 1024px) {
   .offer-card, .about-ws, .coming-card, .rakuten-card, .polymarket-card { grid-template-columns: 1fr; gap: 48px; }
+  .promo-track > section { flex-basis: min(760px, calc(100vw - 64px)); }
   .how-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr 1fr; }
 }
+@media (max-width: 1100px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: block; }
+}
+
 @media (max-width: 768px) {
   nav.site-nav { padding: 0 24px; height: 64px; }
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: block; }
   .earn-hero, .disclosure, .offer, .how, .coming, .about-ws, .rakuten, .polymarket { padding-left: 24px; padding-right: 24px; }
   .earn-hero { padding-top: 48px; padding-bottom: 32px; }
+  .promotions { padding-top: 56px; padding-bottom: 16px; }
+  .promotions-head { padding: 0 24px; align-items: flex-start; flex-direction: column; gap: 12px; }
+  .promotion-count { white-space: normal; }
+  .promo-track { gap: 18px; padding: 0 24px 30px; }
+  .promo-track::-webkit-scrollbar-track { margin-inline: 24px; }
+  .promo-track > section { flex-basis: calc(100vw - 48px); scroll-margin-left: 24px; }
+  .promo-track .offer-card,
+  .promo-track .coming-card,
+  .promo-track .rakuten-card,
+  .promo-track .polymarket-card { min-height: auto; }
   .how, .coming, .about-ws, .rakuten, .polymarket { padding-top: 72px; padding-bottom: 72px; }
   .offer-card, .coming-card, .rakuten-card, .polymarket-card { padding: 44px 28px; }
   .coin { width: 200px; height: 200px; }
@@ -244,6 +279,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="index.html">Home</a>
     <a href="articles.html">Guides</a>
     <a href="index.html#glossary">Glossary</a>
+    <a href="tax-calculator.html">Tax</a>
     <a href="earn.html" class="active">Rewards</a>
     <a href="about.html">About</a>
   </div>
@@ -254,6 +290,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <option value="en">&#x1F1EC;&#x1F1E7; EN</option>
         <option value="fa">&#x1F1EE;&#x1F1F7; FA</option>
         <option value="fr">&#x1F1EB;&#x1F1F7; FR</option>
+        <option value="de">&#x1F1E9;&#x1F1EA; DE</option>
       </select>
     </label>
     <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
@@ -266,6 +303,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <a href="index.html">Home</a>
   <a href="articles.html">Guides</a>
   <a href="index.html#glossary">Glossary</a>
+  <a href="tax-calculator.html">Tax</a>
   <a href="earn.html">Rewards</a>
   <a href="about.html">About</a>
   <label class="mobile-language notranslate" translate="no">
@@ -274,6 +312,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <option value="en">&#x1F1EC;&#x1F1E7; English</option>
       <option value="fa">&#x1F1EE;&#x1F1F7; Farsi</option>
       <option value="fr">&#x1F1EB;&#x1F1F7; French</option>
+      <option value="de">&#x1F1E9;&#x1F1EA; German</option>
     </select>
   </label>
   <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
@@ -291,6 +330,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div><strong>Disclosure.</strong> The offers below are referral partnerships. If you sign up using our links, Accessible Finance may receive a referral fee — at no extra cost to you. Terms, eligibility, and availability vary. This is not financial advice.</div>
   </div>
 </div>
+
+<section class="promotions" id="promotions">
+  <div class="promotions-head reveal">
+    <h2>Featured <em>promotions</em></h2>
+    <div class="promotion-count">4 referral offers</div>
+  </div>
+  <div class="promo-track" aria-label="Referral promotions">
 
 <section class="offer">
   <div class="offer-card reveal">
@@ -316,30 +362,6 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   </div>
 </section>
 
-<section class="how">
-  <div class="how-head reveal">
-    <span class="eyebrow">How it works</span>
-    <h2 class="section-title">Three steps. <em>About five minutes.</em></h2>
-  </div>
-  <div class="how-grid">
-    <article class="how-card reveal">
-      <div class="how-step">Step 01</div>
-      <h3>Click the referral link</h3>
-      <p>Use the link on this page to go directly to Wealthsimple's sign-up. The referral code is embedded automatically — you don't need to type anything in.</p>
-    </article>
-    <article class="how-card reveal d2">
-      <div class="how-step">Step 02</div>
-      <h3>Create your account</h3>
-      <p>Sign up with your email, verify your identity (takes a few minutes), and set up your account. It's free to open and there's no minimum balance required.</p>
-    </article>
-    <article class="how-card reveal d3">
-      <div class="how-step">Step 03</div>
-      <h3>Fund and receive $25</h3>
-      <p>Deposit at least $100 into your account. Once funded, Wealthsimple will deposit your $25 bonus directly into your portfolio. Terms apply.</p>
-    </article>
-  </div>
-</section>
-
 <section class="coming">
   <div class="coming-card reveal">
     <div>
@@ -351,28 +373,6 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <div class="big">$10</div>
       <div class="small">Gift Card</div>
     </div>
-  </div>
-</section>
-
-<section class="about-ws">
-  <div class="about-ws-text reveal">
-    <span class="eyebrow green">About the partner</span>
-    <h2 class="section-title">Canada's leading<br><em>online investing platform.</em></h2>
-    <p>Wealthsimple is one of the most trusted investing platforms in Canada — used by over <strong>3 million Canadians</strong> to invest, save, and grow their money. It's where many people start their investing journey, and for good reason.</p>
-    <p>They offer commission-free stock and ETF trading, managed portfolios, TFSAs, RRSPs, and more — all in a clean, easy-to-use app designed for people who aren't finance professionals.</p>
-    <ul class="features">
-      <li>Commission-free stock and ETF trading</li>
-      <li>TFSA, RRSP, FHSA, and personal accounts</li>
-      <li>Managed portfolios (hands-off investing)</li>
-      <li>No minimum balance to open an account</li>
-      <li>Regulated by IIROC and CIPF insured</li>
-    </ul>
-  </div>
-  <div class="ws-stats reveal d2">
-    <div class="ws-stat"><div class="n"><em>3M+</em></div><div class="l">Canadians</div></div>
-    <div class="ws-stat"><div class="n"><em>$0</em></div><div class="l">Commissions</div></div>
-    <div class="ws-stat"><div class="n"><em>$0</em></div><div class="l">Minimum</div></div>
-    <div class="ws-stat"><div class="n"><em>$25</em></div><div class="l">Free with our link</div></div>
   </div>
 </section>
 
@@ -437,6 +437,55 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   </div>
 </section>
 
+</div>
+</section>
+
+<section class="how">
+  <div class="how-head reveal">
+    <span class="eyebrow">How it works</span>
+    <h2 class="section-title">Three steps. <em>About five minutes.</em></h2>
+  </div>
+  <div class="how-grid">
+    <article class="how-card reveal">
+      <div class="how-step">Step 01</div>
+      <h3>Click the referral link</h3>
+      <p>Use the link on this page to go directly to Wealthsimple's sign-up. The referral code is embedded automatically — you don't need to type anything in.</p>
+    </article>
+    <article class="how-card reveal d2">
+      <div class="how-step">Step 02</div>
+      <h3>Create your account</h3>
+      <p>Sign up with your email, verify your identity (takes a few minutes), and set up your account. It's free to open and there's no minimum balance required.</p>
+    </article>
+    <article class="how-card reveal d3">
+      <div class="how-step">Step 03</div>
+      <h3>Fund and receive $25</h3>
+      <p>Deposit at least $100 into your account. Once funded, Wealthsimple will deposit your $25 bonus directly into your portfolio. Terms apply.</p>
+    </article>
+  </div>
+</section>
+
+<section class="about-ws">
+  <div class="about-ws-text reveal">
+    <span class="eyebrow green">About the partner</span>
+    <h2 class="section-title">Canada's leading<br><em>online investing platform.</em></h2>
+    <p>Wealthsimple is one of the most trusted investing platforms in Canada — used by over <strong>3 million Canadians</strong> to invest, save, and grow their money. It's where many people start their investing journey, and for good reason.</p>
+    <p>They offer commission-free stock and ETF trading, managed portfolios, TFSAs, RRSPs, and more — all in a clean, easy-to-use app designed for people who aren't finance professionals.</p>
+    <ul class="features">
+      <li>Commission-free stock and ETF trading</li>
+      <li>TFSA, RRSP, FHSA, and personal accounts</li>
+      <li>Managed portfolios (hands-off investing)</li>
+      <li>No minimum balance to open an account</li>
+      <li>Regulated by IIROC and CIPF insured</li>
+    </ul>
+  </div>
+  <div class="ws-stats reveal d2">
+    <div class="ws-stat"><div class="n"><em>3M+</em></div><div class="l">Canadians</div></div>
+    <div class="ws-stat"><div class="n"><em>$0</em></div><div class="l">Commissions</div></div>
+    <div class="ws-stat"><div class="n"><em>$0</em></div><div class="l">Minimum</div></div>
+    <div class="ws-stat"><div class="n"><em>$25</em></div><div class="l">Free with our link</div></div>
+  </div>
+</section>
+
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
@@ -464,6 +513,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <li><a href="articles.html">Beginner</a></li>
           <li><a href="articles.html">Intermediate</a></li>
           <li><a href="articles.html">Latest Posts</a></li>
+          <li><a href="tax-calculator.html">Tax Calculator</a></li>
         </ul>
       </div>
       <div class="footer-col">

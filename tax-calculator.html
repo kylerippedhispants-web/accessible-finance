@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Income Tax Calculator | Accessible Finance</title>
+<meta name="description" content="Estimate 2026 Canadian federal and provincial income tax from your taxable or net income, with a province and territory dropdown.">
+<link rel="canonical" href="https://accessiblefinance.example/tax-calculator.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #f7f5f0;
+  --bg-warm: #ebe7dd;
+  --surface: #fffefb;
+  --ink: #1a1816;
+  --ink2: #4d4740;
+  --ink3: #83786d;
+  --green: #1f7a4f;
+  --green-mid: #5d8f72;
+  --green-light: #dcefe6;
+  --gold: #c8822a;
+  --gold-soft: #d4a560;
+  --border: #ded8cc;
+  --sans: 'Inter', sans-serif;
+  --serif: 'Cormorant Garamond', serif;
+  --body: 'Newsreader', serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.5; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(.16,1,.3,1), transform 0.9s cubic-bezier(.16,1,.3,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.d2 { transition-delay: 0.08s; }
+.reveal.d3 { transition-delay: 0.16s; }
+
+nav.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(247,245,240,0.92); backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+}
+.nav-logo { display: flex; align-items: center; gap: 14px; }
+.nav-logo img { width: 28px; height: 28px; object-fit: contain; }
+.wordmark { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+.nav-links { display: flex; gap: 30px; }
+.nav-links a { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink2); padding: 6px 0; position: relative; transition: color 0.2s; }
+.nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: center; transition: transform 0.3s cubic-bezier(.2,.7,.2,1); }
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+.nav-cta { background: var(--ink); color: var(--bg); padding: 14px 24px; border-radius: 100px; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; transition: background 0.3s, transform 0.3s; }
+.nav-cta:hover { background: var(--green); transform: translateY(-1px); }
+.hamburger { display: none; width: 28px; height: 22px; background: none; border: 0; cursor: pointer; position: relative; }
+.hamburger span { display: block; height: 2px; width: 100%; background: var(--ink); margin: 6px 0; transition: transform 0.3s, opacity 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 72px 0 0; background: var(--bg); z-index: 90; padding: 40px; flex-direction: column; gap: 28px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: var(--serif); font-size: 32px; font-style: italic; color: var(--ink); }
+.mobile-menu a.cta { color: var(--green); }
+
+.tax-hero { padding: 92px 40px 56px; max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 72px; align-items: end; }
+.eyebrow { display: inline-flex; align-items: center; gap: 12px; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
+.eyebrow::before { content: ''; width: 22px; height: 1px; background: currentColor; }
+.tax-hero h1 { font-family: var(--serif); font-size: clamp(56px, 8vw, 104px); font-weight: 400; line-height: 0.94; letter-spacing: -0.04em; color: var(--ink); }
+.tax-hero h1 em { font-style: italic; color: var(--green); }
+.tax-hero .lead { font-family: var(--body); font-size: clamp(19px, 2vw, 24px); line-height: 1.55; color: var(--ink2); max-width: 540px; margin-top: 28px; }
+.hero-note { border-left: 1px solid var(--gold); padding-left: 26px; font-family: var(--body); font-size: 17px; line-height: 1.65; color: var(--ink2); }
+.hero-note strong { color: var(--ink); font-weight: 500; }
+
+.calculator-wrap { padding: 24px 40px 110px; max-width: 1180px; margin: 0 auto; }
+.calculator-shell { background: var(--surface); border: 1px solid var(--border); border-radius: 32px; box-shadow: 0 40px 100px -36px rgba(26,24,22,0.2); display: grid; grid-template-columns: minmax(320px, 0.9fr) minmax(420px, 1.1fr); overflow: hidden; }
+.calc-inputs { padding: 44px; border-right: 1px solid var(--border); background: linear-gradient(150deg, rgba(255,255,255,0.72), rgba(235,231,221,0.42)); }
+.calc-title { font-family: var(--serif); font-size: 40px; font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; color: var(--ink); }
+.calc-copy { font-family: var(--body); font-size: 16px; line-height: 1.65; color: var(--ink2); margin-top: 16px; }
+.field-stack { display: grid; gap: 22px; margin-top: 34px; }
+.field label { display: block; font-family: var(--sans); font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-bottom: 10px; }
+.money-field { position: relative; }
+.money-field span { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font-family: var(--serif); font-size: 26px; color: var(--green); pointer-events: none; }
+.field input,
+.field select {
+  width: 100%; border: 1px solid var(--border); border-radius: 18px; background: var(--surface);
+  color: var(--ink); font-family: var(--sans); font-size: 17px; font-weight: 600;
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.field input { padding: 18px 18px 18px 42px; }
+.field select { padding: 18px; appearance: auto; }
+.field input:focus,
+.field select:focus { border-color: var(--green); box-shadow: 0 0 0 4px rgba(31,122,79,0.12); }
+.input-help { font-family: var(--body); font-size: 14px; line-height: 1.5; color: var(--ink3); margin-top: 10px; }
+.button-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.calc-button { border: 0; cursor: pointer; border-radius: 999px; padding: 16px 24px; font-family: var(--sans); font-size: 11px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; transition: transform 0.2s, background 0.2s; }
+.calc-button.primary { background: var(--green); color: var(--bg); }
+.calc-button.secondary { background: var(--green-light); color: var(--green); }
+.calc-button:hover { transform: translateY(-1px); }
+
+.calc-results { padding: 44px; display: flex; flex-direction: column; gap: 28px; }
+.result-kicker { font-family: var(--sans); font-size: 11px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+.total-tax { font-family: var(--serif); font-size: clamp(46px, 6vw, 76px); line-height: 0.95; letter-spacing: -0.04em; color: var(--ink); }
+.result-sub { font-family: var(--body); font-size: 17px; line-height: 1.65; color: var(--ink2); max-width: 640px; }
+.metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.metric { border-top: 1px solid var(--border); padding-top: 16px; min-width: 0; }
+.metric .label { font-family: var(--sans); font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); }
+.metric .value { font-family: var(--serif); font-size: 32px; line-height: 1.05; color: var(--ink); margin-top: 8px; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.tax-stack { display: flex; height: 20px; border-radius: 999px; overflow: hidden; background: var(--border); }
+.tax-stack span { min-width: 4px; transition: width 0.35s ease; }
+.tax-stack .federal { background: var(--green); }
+.tax-stack .provincial { background: var(--gold); }
+.legend { display: flex; flex-wrap: wrap; gap: 18px; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink3); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.legend .fed-dot { background: var(--green); }
+.legend .prov-dot { background: var(--gold); }
+.breakdown { border-top: 1px solid var(--border); padding-top: 24px; }
+.breakdown h2 { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--ink); letter-spacing: -0.01em; }
+.breakdown table { width: 100%; border-collapse: collapse; margin-top: 14px; }
+.breakdown th,
+.breakdown td { padding: 13px 0; border-bottom: 1px solid var(--border); text-align: left; font-family: var(--sans); font-size: 13px; color: var(--ink2); vertical-align: top; }
+.breakdown th { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); }
+.breakdown td:last-child,
+.breakdown th:last-child { text-align: right; }
+.source-note { font-family: var(--body); font-size: 14px; line-height: 1.6; color: var(--ink3); }
+.source-note a { color: var(--green); border-bottom: 1px solid rgba(31,122,79,0.3); }
+
+.tax-context { padding: 0 40px 120px; max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 70px; align-items: start; }
+.section-title { font-family: var(--serif); font-size: clamp(40px, 5vw, 62px); font-weight: 400; line-height: 1.02; letter-spacing: -0.03em; color: var(--ink); }
+.section-title em { color: var(--green); font-style: italic; }
+.context-list { list-style: none; display: grid; gap: 18px; }
+.context-list li { background: rgba(255,254,251,0.64); border: 1px solid var(--border); border-radius: 18px; padding: 22px 24px; }
+.context-list h3 { font-family: var(--sans); font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); }
+.context-list p { font-family: var(--body); font-size: 16px; line-height: 1.65; color: var(--ink2); margin-top: 8px; }
+
+footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40px 48px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 1.3fr repeat(3, 1fr); gap: 64px; padding-bottom: 64px; border-bottom: 1px solid rgba(247,245,240,0.12); }
+.footer-brand .wordmark-row { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.footer-brand img { width: 34px; height: 34px; object-fit: contain; filter: brightness(1.2); }
+.footer-brand .name { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--bg); }
+.footer-brand p { font-family: var(--body); font-size: 16px; line-height: 1.6; color: rgba(247,245,240,0.58); max-width: 320px; }
+.footer-col h4 { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 20px; }
+.footer-col ul { list-style: none; display: grid; gap: 12px; }
+.footer-col a { font-family: var(--sans); font-size: 13px; color: rgba(247,245,240,0.62); transition: color 0.2s; }
+.footer-col a:hover { color: var(--bg); }
+.footer-bottom { padding-top: 32px; display: flex; justify-content: space-between; gap: 32px; align-items: center; }
+.footer-disclaimer { font-family: var(--sans); font-size: 11px; line-height: 1.6; color: rgba(247,245,240,0.42); max-width: 760px; }
+.footer-copy { font-family: var(--sans); font-size: 11px; color: rgba(247,245,240,0.42); white-space: nowrap; }
+
+.nl-overlay { position: fixed; inset: 0; background: rgba(26,24,22,0.55); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; }
+.nl-overlay.open { display: flex; }
+.nl-modal { width: min(620px, 100%); background: var(--surface); border-radius: 28px; padding: 40px; position: relative; box-shadow: 0 40px 100px rgba(0,0,0,0.28); }
+.nl-close { position: absolute; top: 18px; right: 18px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg); cursor: pointer; color: var(--ink); }
+.nl-label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.nl-title { font-family: var(--serif); font-size: 42px; line-height: 1.05; color: var(--ink); letter-spacing: -0.02em; }
+.nl-title em { color: var(--green); font-style: italic; }
+.nl-sub { font-family: var(--body); font-size: 17px; color: var(--ink2); margin: 14px 0 24px; }
+.nl-modal iframe { width: 100%; height: 320px; border: 1px solid var(--border); border-radius: 16px; background: white; }
+.nl-modal .fine { font-family: var(--sans); font-size: 11px; color: var(--ink3); margin-top: 14px; }
+
+@media (max-width: 1100px) {
+  .nav-links { gap: 22px; }
+  .nav-cta { padding-left: 20px; padding-right: 20px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: block; }
+}
+@media (max-width: 980px) {
+  .tax-hero,
+  .tax-context,
+  .calculator-shell { grid-template-columns: 1fr; }
+  .calc-inputs { border-right: 0; border-bottom: 1px solid var(--border); }
+  .tax-hero { gap: 38px; }
+}
+@media (max-width: 768px) {
+  nav.site-nav { padding: 0 24px; }
+  .wordmark { font-size: 12px; letter-spacing: 0.22em; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: block; }
+  .tax-hero { padding: 56px 24px 36px; }
+  .calculator-wrap { padding: 12px 24px 80px; }
+  .calculator-shell { border-radius: 26px; }
+  .calc-inputs, .calc-results { padding: 30px 24px; }
+  .metrics { grid-template-columns: 1fr; }
+  .tax-context { padding: 0 24px 82px; gap: 36px; }
+  .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  footer.site-footer { padding: 64px 24px 36px; }
+  .nl-modal { padding: 32px 24px; }
+}
+@media (max-width: 430px) {
+  .wordmark { max-width: 210px; line-height: 1.3; }
+  .mobile-menu { padding: 32px 24px; }
+  .total-tax { font-size: 46px; }
+  .breakdown th:nth-child(2),
+  .breakdown td:nth-child(2) { display: none; }
+}
+</style>
+<link rel="stylesheet" href="site-language.css">
+<script src="site-language.js" defer></script>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo" aria-label="Accessible Finance - Home">
+    <img src="Logo.png" alt="">
+    <span class="wordmark">Accessible Finance</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="articles.html">Guides</a>
+    <a href="index.html#glossary">Glossary</a>
+    <a href="tax-calculator.html" class="active">Tax</a>
+    <a href="earn.html">Rewards</a>
+    <a href="about.html">About</a>
+  </div>
+  <div class="nav-actions">
+    <label class="language-switcher notranslate" translate="no">
+      <span class="sr-only">Language</span>
+      <select class="language-select" data-language-select aria-label="Language">
+        <option value="en">&#x1F1EC;&#x1F1E7; EN</option>
+        <option value="fa">&#x1F1EE;&#x1F1F7; FA</option>
+        <option value="fr">&#x1F1EB;&#x1F1F7; FR</option>
+        <option value="de">&#x1F1E9;&#x1F1EA; DE</option>
+      </select>
+    </label>
+    <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="articles.html">Guides</a>
+  <a href="index.html#glossary">Glossary</a>
+  <a href="tax-calculator.html">Tax</a>
+  <a href="earn.html">Rewards</a>
+  <a href="about.html">About</a>
+  <label class="mobile-language notranslate" translate="no">
+    <span>Language</span>
+    <select class="language-select" data-language-select aria-label="Language">
+      <option value="en">&#x1F1EC;&#x1F1E7; English</option>
+      <option value="fa">&#x1F1EE;&#x1F1F7; Farsi</option>
+      <option value="fr">&#x1F1EB;&#x1F1F7; French</option>
+      <option value="de">&#x1F1E9;&#x1F1EA; German</option>
+    </select>
+  </label>
+  <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
+</div>
+
+<header class="tax-hero">
+  <div class="reveal">
+    <span class="eyebrow">2026 Canada estimator</span>
+    <h1>Income tax <em>calculator.</em></h1>
+    <p class="lead">Estimate federal and provincial income tax from annual taxable or net income, then compare the result by province or territory.</p>
+  </div>
+  <p class="hero-note reveal d2"><strong>Plain-English note.</strong> This is a bracket-based estimate. Real tax returns can change after credits, deductions, CPP/EI, surtaxes, premiums, capital gains treatment, and other personal details.</p>
+</header>
+
+<main>
+  <section class="calculator-wrap" aria-labelledby="calculatorTitle">
+    <div class="calculator-shell reveal">
+      <div class="calc-inputs">
+        <h2 class="calc-title" id="calculatorTitle">Estimate your tax</h2>
+        <p class="calc-copy">Enter annual taxable income or net income, then choose the province or territory where you expect to be resident on December 31, 2026.</p>
+        <form class="field-stack" id="taxForm">
+          <div class="field">
+            <label for="incomeInput">Annual taxable / net income</label>
+            <div class="money-field">
+              <span aria-hidden="true">$</span>
+              <input id="incomeInput" name="income" type="number" inputmode="decimal" min="0" step="500" value="75000" autocomplete="off">
+            </div>
+            <p class="input-help">Use a yearly Canadian dollar amount. Negative values are treated as $0.</p>
+          </div>
+          <div class="field">
+            <label for="provinceSelect">Province or territory</label>
+            <select id="provinceSelect" name="province">
+              <option value="AB">Alberta</option>
+              <option value="BC">British Columbia</option>
+              <option value="MB">Manitoba</option>
+              <option value="NB">New Brunswick</option>
+              <option value="NL">Newfoundland and Labrador</option>
+              <option value="NT">Northwest Territories</option>
+              <option value="NS">Nova Scotia</option>
+              <option value="NU">Nunavut</option>
+              <option value="ON" selected>Ontario</option>
+              <option value="PE">Prince Edward Island</option>
+              <option value="QC">Quebec</option>
+              <option value="SK">Saskatchewan</option>
+              <option value="YT">Yukon</option>
+            </select>
+          </div>
+          <div class="button-row">
+            <button type="submit" class="calc-button primary">Estimate</button>
+            <button type="button" class="calc-button secondary" id="resetButton">Reset</button>
+          </div>
+        </form>
+      </div>
+      <div class="calc-results" aria-live="polite">
+        <div>
+          <div class="result-kicker" id="resultLocation">Ontario estimate</div>
+          <div class="total-tax" id="totalTax">$0</div>
+          <p class="result-sub" id="summaryText">Estimated bracket tax on $0 of income.</p>
+        </div>
+        <div class="tax-stack" aria-hidden="true">
+          <span class="federal" id="federalBar"></span>
+          <span class="provincial" id="provincialBar"></span>
+        </div>
+        <div class="legend">
+          <span><i class="fed-dot"></i>Federal</span>
+          <span><i class="prov-dot"></i>Province / territory</span>
+        </div>
+        <div class="metrics">
+          <div class="metric">
+            <div class="label">After-tax estimate</div>
+            <div class="value" id="afterTax">$0</div>
+          </div>
+          <div class="metric">
+            <div class="label">Average rate</div>
+            <div class="value" id="averageRate">0%</div>
+          </div>
+          <div class="metric">
+            <div class="label">Marginal rate</div>
+            <div class="value" id="marginalRate">0%</div>
+          </div>
+          <div class="metric">
+            <div class="label">Quebec abatement</div>
+            <div class="value" id="abatementValue">$0</div>
+          </div>
+        </div>
+        <div class="breakdown">
+          <h2>Breakdown</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Layer</th>
+                <th>Rate note</th>
+                <th>Estimate</th>
+              </tr>
+            </thead>
+            <tbody id="breakdownRows"></tbody>
+          </table>
+        </div>
+        <p class="source-note">Sources: <a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">CRA 2026 federal and provincial/territorial brackets</a>, <a href="https://www.revenuquebec.ca/en/citizens/income-tax-return/completing-your-income-tax-return/income-tax-rates/" target="_blank" rel="noopener noreferrer">Revenu Quebec 2026 rates</a>, and <a href="https://www.canada.ca/en/department-finance/programs/federal-transfers/quebec-abatement.html" target="_blank" rel="noopener noreferrer">Quebec abatement</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tax-context">
+    <div class="reveal">
+      <span class="eyebrow">Know the limits</span>
+      <h2 class="section-title">A clean estimate, <em>not a tax return.</em></h2>
+    </div>
+    <ul class="context-list">
+      <li class="reveal">
+        <h3>Bracket tax only</h3>
+        <p>The calculator applies 2026 marginal brackets to the income entered. It does not claim credits such as the basic personal amount or disability, tuition, medical, donation, or age credits.</p>
+      </li>
+      <li class="reveal d2">
+        <h3>Province matters</h3>
+        <p>Provincial and territorial brackets apply based on your province or territory of residence at year-end. Quebec also receives a federal abatement, included here as a simple reduction to federal bracket tax.</p>
+      </li>
+      <li class="reveal d3">
+        <h3>Get advice for edge cases</h3>
+        <p>Self-employment, business income, capital gains, RRSP deductions, split residency, multiple jurisdictions, and benefits can all change the final result.</p>
+      </li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="wordmark-row">
+          <img src="Logo.png" alt="">
+          <span class="name">Accessible Finance</span>
+        </div>
+        <p>"True understanding is not a destination, but a way of traveling." Free, ad-free investing education for the curious.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="index.html#topics">Start Here</a></li>
+          <li><a href="articles.html?cat=fundamentals">Fundamentals</a></li>
+          <li><a href="articles.html?cat=portfolio">Portfolio Theory</a></li>
+          <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
+          <li><a href="index.html#glossary">Glossary</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Articles</h4>
+        <ul>
+          <li><a href="articles.html">All Guides</a></li>
+          <li><a href="articles.html">Beginner</a></li>
+          <li><a href="articles.html">Intermediate</a></li>
+          <li><a href="tax-calculator.html">Tax Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="earn.html">Rewards</a></li>
+          <li><a href="#newsletter" data-open-newsletter>Newsletter</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-disclaimer">Not financial advice or tax advice. This calculator is for educational purposes only and may not match your actual tax return. Consult CRA, Revenu Quebec, or a qualified tax professional for personalized guidance.</p>
+      <span class="footer-copy">&copy; 2026 Accessible Finance</span>
+    </div>
+  </div>
+</footer>
+
+<div class="nl-overlay" id="nlOverlay" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+  <div class="nl-modal">
+    <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
+    <div class="nl-label">Weekly Newsletter</div>
+    <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
+    <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
+    <iframe src="https://accessiblefinance.substack.com/embed" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  </div>
+</div>
+
+<script>
+const FEDERAL_BRACKETS = [
+  { upTo: 58523, rate: 0.14 },
+  { upTo: 117045, rate: 0.205 },
+  { upTo: 181440, rate: 0.26 },
+  { upTo: 258482, rate: 0.29 },
+  { upTo: Infinity, rate: 0.33 }
+];
+
+const PROVINCES = {
+  AB: { name: 'Alberta', brackets: [
+    { upTo: 61200, rate: 0.08 },
+    { upTo: 154259, rate: 0.10 },
+    { upTo: 185111, rate: 0.12 },
+    { upTo: 246813, rate: 0.13 },
+    { upTo: 370220, rate: 0.14 },
+    { upTo: Infinity, rate: 0.15 }
+  ] },
+  BC: { name: 'British Columbia', brackets: [
+    { upTo: 50363, rate: 0.056 },
+    { upTo: 100728, rate: 0.077 },
+    { upTo: 115648, rate: 0.105 },
+    { upTo: 140430, rate: 0.1229 },
+    { upTo: 190405, rate: 0.147 },
+    { upTo: 265545, rate: 0.168 },
+    { upTo: Infinity, rate: 0.205 }
+  ] },
+  MB: { name: 'Manitoba', brackets: [
+    { upTo: 47564, rate: 0.108 },
+    { upTo: 101200, rate: 0.1275 },
+    { upTo: Infinity, rate: 0.174 }
+  ] },
+  NB: { name: 'New Brunswick', brackets: [
+    { upTo: 52333, rate: 0.094 },
+    { upTo: 104666, rate: 0.14 },
+    { upTo: 193861, rate: 0.16 },
+    { upTo: Infinity, rate: 0.195 }
+  ] },
+  NL: { name: 'Newfoundland and Labrador', brackets: [
+    { upTo: 44678, rate: 0.087 },
+    { upTo: 89354, rate: 0.145 },
+    { upTo: 159528, rate: 0.158 },
+    { upTo: 223340, rate: 0.178 },
+    { upTo: 285319, rate: 0.198 },
+    { upTo: 570638, rate: 0.208 },
+    { upTo: 1141275, rate: 0.213 },
+    { upTo: Infinity, rate: 0.218 }
+  ] },
+  NT: { name: 'Northwest Territories', brackets: [
+    { upTo: 53003, rate: 0.059 },
+    { upTo: 106009, rate: 0.086 },
+    { upTo: 172346, rate: 0.122 },
+    { upTo: Infinity, rate: 0.1405 }
+  ] },
+  NS: { name: 'Nova Scotia', brackets: [
+    { upTo: 30995, rate: 0.0879 },
+    { upTo: 61991, rate: 0.1495 },
+    { upTo: 97417, rate: 0.1667 },
+    { upTo: 157124, rate: 0.175 },
+    { upTo: Infinity, rate: 0.21 }
+  ] },
+  NU: { name: 'Nunavut', brackets: [
+    { upTo: 55801, rate: 0.04 },
+    { upTo: 111602, rate: 0.07 },
+    { upTo: 181439, rate: 0.09 },
+    { upTo: Infinity, rate: 0.115 }
+  ] },
+  ON: { name: 'Ontario', brackets: [
+    { upTo: 53891, rate: 0.0505 },
+    { upTo: 107785, rate: 0.0915 },
+    { upTo: 150000, rate: 0.1116 },
+    { upTo: 220000, rate: 0.1216 },
+    { upTo: Infinity, rate: 0.1316 }
+  ] },
+  PE: { name: 'Prince Edward Island', brackets: [
+    { upTo: 33928, rate: 0.095 },
+    { upTo: 65820, rate: 0.1347 },
+    { upTo: 106890, rate: 0.166 },
+    { upTo: 142520, rate: 0.1762 },
+    { upTo: 200000, rate: 0.19 },
+    { upTo: Infinity, rate: 0.20 }
+  ] },
+  QC: { name: 'Quebec', abatement: 0.165, brackets: [
+    { upTo: 54345, rate: 0.14 },
+    { upTo: 108680, rate: 0.19 },
+    { upTo: 132245, rate: 0.24 },
+    { upTo: Infinity, rate: 0.2575 }
+  ] },
+  SK: { name: 'Saskatchewan', brackets: [
+    { upTo: 54532, rate: 0.105 },
+    { upTo: 155805, rate: 0.125 },
+    { upTo: Infinity, rate: 0.145 }
+  ] },
+  YT: { name: 'Yukon', brackets: [
+    { upTo: 58523, rate: 0.064 },
+    { upTo: 117045, rate: 0.09 },
+    { upTo: 181440, rate: 0.109 },
+    { upTo: 500000, rate: 0.128 },
+    { upTo: Infinity, rate: 0.15 }
+  ] }
+};
+
+const moneyFormatter = new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 });
+const numberFormatter = new Intl.NumberFormat('en-CA', { maximumFractionDigits: 0 });
+const percentFormatter = new Intl.NumberFormat('en-CA', { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+function bracketTax(income, brackets) {
+  let lower = 0;
+  let tax = 0;
+  brackets.forEach((bracket) => {
+    const taxableSlice = Math.max(0, Math.min(income, bracket.upTo) - lower);
+    tax += taxableSlice * bracket.rate;
+    lower = bracket.upTo;
+  });
+  return tax;
+}
+
+function marginalRate(income, brackets) {
+  if (income <= 0) return brackets[0].rate;
+  return brackets.find((bracket) => income <= bracket.upTo).rate;
+}
+
+function rateRange(income, brackets) {
+  let lower = 0;
+  const bracket = brackets.find((item) => income <= item.upTo) || brackets[brackets.length - 1];
+  for (const item of brackets) {
+    if (item === bracket) break;
+    lower = item.upTo;
+  }
+  const upper = Number.isFinite(bracket.upTo) ? moneyFormatter.format(bracket.upTo) : 'unlimited';
+  return `${percentFormatter.format(bracket.rate)} on income over ${moneyFormatter.format(lower)} up to ${upper}`;
+}
+
+function getIncome() {
+  const raw = Number(document.getElementById('incomeInput').value || 0);
+  return Math.max(0, raw);
+}
+
+function updateCalculator() {
+  const income = getIncome();
+  const provinceCode = document.getElementById('provinceSelect').value;
+  const province = PROVINCES[provinceCode];
+  const baseFederal = bracketTax(income, FEDERAL_BRACKETS);
+  const abatement = province.abatement ? baseFederal * province.abatement : 0;
+  const federal = Math.max(0, baseFederal - abatement);
+  const provincial = bracketTax(income, province.brackets);
+  const total = federal + provincial;
+  const afterTax = Math.max(0, income - total);
+  const average = income > 0 ? total / income : 0;
+  const marginal = marginalRate(income, FEDERAL_BRACKETS) + marginalRate(income, province.brackets);
+  const federalShare = total > 0 ? (federal / total) * 100 : 50;
+  const provinceShare = total > 0 ? (provincial / total) * 100 : 50;
+
+  document.getElementById('resultLocation').textContent = `${province.name} estimate`;
+  document.getElementById('totalTax').textContent = moneyFormatter.format(total);
+  document.getElementById('summaryText').textContent = `Estimated bracket tax on ${moneyFormatter.format(income)} of annual income.`;
+  document.getElementById('afterTax').textContent = moneyFormatter.format(afterTax);
+  document.getElementById('averageRate').textContent = percentFormatter.format(average);
+  document.getElementById('marginalRate').textContent = percentFormatter.format(marginal);
+  document.getElementById('abatementValue').textContent = province.abatement ? `-${moneyFormatter.format(abatement)}` : '$0';
+  document.getElementById('federalBar').style.width = `${federalShare}%`;
+  document.getElementById('provincialBar').style.width = `${provinceShare}%`;
+
+  const rows = [
+    ['Federal bracket tax', rateRange(income, FEDERAL_BRACKETS), moneyFormatter.format(baseFederal)],
+    province.abatement ? ['Quebec federal abatement', '16.5% reduction to federal bracket tax', `-${moneyFormatter.format(abatement)}`] : null,
+    [`${province.name} bracket tax`, rateRange(income, province.brackets), moneyFormatter.format(provincial)],
+    ['Total estimate', 'Federal plus provincial or territorial bracket tax', moneyFormatter.format(total)]
+  ].filter(Boolean);
+
+  document.getElementById('breakdownRows').innerHTML = rows.map(([layer, note, value]) => (
+    `<tr><td>${layer}</td><td>${note}</td><td>${value}</td></tr>`
+  )).join('');
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+(function(){
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open'); btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }));
+})();
+
+(function () {
+  const overlay = document.getElementById('nlOverlay');
+  const closeBtn = document.getElementById('nlClose');
+  function open(e) { if (e) e.preventDefault(); overlay.classList.add('open'); }
+  function close() { overlay.classList.remove('open'); }
+  document.querySelectorAll('[data-open-newsletter]').forEach(a => a.addEventListener('click', open));
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+})();
+
+document.getElementById('taxForm').addEventListener('submit', (event) => {
+  event.preventDefault();
+  updateCalculator();
+});
+document.getElementById('incomeInput').addEventListener('input', updateCalculator);
+document.getElementById('provinceSelect').addEventListener('change', updateCalculator);
+document.getElementById('resetButton').addEventListener('click', () => {
+  document.getElementById('incomeInput').value = '75000';
+  document.getElementById('provinceSelect').value = 'ON';
+  updateCalculator();
+});
+updateCalculator();
+</script>
+</body>
+</html>

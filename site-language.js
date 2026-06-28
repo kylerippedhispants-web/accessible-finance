@@ -1,12 +1,13 @@
 (function () {
   const storageKey = 'accessibleFinanceLanguage';
   const selectSelector = '[data-language-select]';
-  const supportedLanguages = new Set(['en', 'fa', 'fr']);
+  const supportedLanguages = new Set(['en', 'fa', 'fr', 'de']);
   const translateCookie = 'googtrans';
   const languageLabels = {
     en: { code: 'EN', name: 'English', flag: 'language-flag-gb' },
     fa: { code: 'FA', name: 'Farsi', flag: 'language-flag-ir' },
     fr: { code: 'FR', name: 'French', flag: 'language-flag-fr' },
+    de: { code: 'DE', name: 'German', flag: 'language-flag-de' },
   };
   let googleScriptRequested = false;
   let menuCount = 0;
@@ -26,6 +27,7 @@
     if (cookie) {
       if (cookie.includes('/fa')) return 'fa';
       if (cookie.includes('/fr')) return 'fr';
+      if (cookie.includes('/de')) return 'de';
     }
     return 'en';
   }
@@ -153,7 +155,7 @@
     new window.google.translate.TranslateElement(
       {
         pageLanguage: 'en',
-        includedLanguages: 'en,fa,fr',
+        includedLanguages: 'en,fa,fr,de',
         autoDisplay: false,
       },
       'google_translate_element'

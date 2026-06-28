@@ -37,8 +37,8 @@ img { display: block; max-width: 100%; }
 nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
 .nav-logo { display: flex; align-items: center; gap: 12px; }
 .nav-logo img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; object-position: 50% 20%; }
-.nav-logo .wordmark { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); }
-.nav-links { display: flex; gap: 36px; }
+.nav-logo .wordmark { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+.nav-links { display: flex; gap: 30px; }
 .nav-links a { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink2); padding: 6px 0; position: relative; transition: color 0.2s; }
 .nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: center; transition: transform 0.3s cubic-bezier(.2,.7,.2,1); }
 .nav-links a:hover { color: var(--ink); }
@@ -188,6 +188,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   .stats-strip-inner { grid-template-columns: 1fr 1fr; gap: 48px; }
   .footer-top { grid-template-columns: 1fr 1fr; }
 }
+@media (max-width: 1100px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: block; }
+}
+
 @media (max-width: 768px) {
   nav.site-nav { padding: 0 24px; height: 64px; }
   .nav-links, .nav-cta { display: none; }
@@ -223,6 +228,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="index.html">Home</a>
     <a href="articles.html">Guides</a>
     <a href="index.html#glossary">Glossary</a>
+    <a href="tax-calculator.html">Tax</a>
     <a href="earn.html">Rewards</a>
     <a href="about.html" class="active">About</a>
   </div>
@@ -233,6 +239,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <option value="en">&#x1F1EC;&#x1F1E7; EN</option>
         <option value="fa">&#x1F1EE;&#x1F1F7; FA</option>
         <option value="fr">&#x1F1EB;&#x1F1F7; FR</option>
+        <option value="de">&#x1F1E9;&#x1F1EA; DE</option>
       </select>
     </label>
     <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
@@ -245,6 +252,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <a href="index.html">Home</a>
   <a href="articles.html">Guides</a>
   <a href="index.html#glossary">Glossary</a>
+  <a href="tax-calculator.html">Tax</a>
   <a href="earn.html">Rewards</a>
   <a href="about.html">About</a>
   <label class="mobile-language notranslate" translate="no">
@@ -253,6 +261,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <option value="en">&#x1F1EC;&#x1F1E7; English</option>
       <option value="fa">&#x1F1EE;&#x1F1F7; Farsi</option>
       <option value="fr">&#x1F1EB;&#x1F1F7; French</option>
+      <option value="de">&#x1F1E9;&#x1F1EA; German</option>
     </select>
   </label>
   <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
@@ -448,6 +457,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <li><a href="articles.html">Beginner</a></li>
           <li><a href="articles.html">Intermediate</a></li>
           <li><a href="articles.html">Latest Posts</a></li>
+          <li><a href="tax-calculator.html">Tax Calculator</a></li>
         </ul>
       </div>
       <div class="footer-col">
