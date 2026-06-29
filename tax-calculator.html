@@ -95,6 +95,9 @@ nav.site-nav {
 .field input:focus,
 .field select:focus { border-color: var(--green); box-shadow: 0 0 0 4px rgba(31,122,79,0.12); }
 .input-help { font-family: var(--body); font-size: 14px; line-height: 1.5; color: var(--ink3); margin-top: 10px; }
+.registered-note { border: 1px solid var(--border); border-radius: 18px; padding: 18px; background: rgba(220,239,230,0.42); }
+.registered-note h3 { font-family: var(--sans); font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); }
+.registered-note p { font-family: var(--body); font-size: 14px; line-height: 1.55; color: var(--ink2); margin-top: 8px; }
 .button-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 .calc-button { border: 0; cursor: pointer; border-radius: 999px; padding: 16px 24px; font-family: var(--sans); font-size: 11px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; transition: transform 0.2s, background 0.2s; }
 .calc-button.primary { background: var(--green); color: var(--bg); }
@@ -267,15 +270,31 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="calculator-shell reveal">
       <div class="calc-inputs">
         <h2 class="calc-title" id="calculatorTitle">Estimate your tax</h2>
-        <p class="calc-copy">Enter annual taxable income or net income, then choose the province or territory where you expect to be resident on December 31, 2026.</p>
+        <p class="calc-copy">Enter annual income, RRSP and TFSA contributions, then choose the province or territory where you expect to be resident on December 31, 2026.</p>
         <form class="field-stack" id="taxForm">
           <div class="field">
-            <label for="incomeInput">Annual taxable / net income</label>
+            <label for="incomeInput">Annual income before RRSP deduction</label>
             <div class="money-field">
               <span aria-hidden="true">$</span>
               <input id="incomeInput" name="income" type="number" inputmode="decimal" min="0" step="500" value="75000" autocomplete="off">
             </div>
-            <p class="input-help">Use a yearly Canadian dollar amount. Negative values are treated as $0.</p>
+            <p class="input-help">Use a yearly Canadian dollar amount before the RRSP deduction. Negative values are treated as $0.</p>
+          </div>
+          <div class="field">
+            <label for="rrspInput">RRSP contribution deducted</label>
+            <div class="money-field">
+              <span aria-hidden="true">$</span>
+              <input id="rrspInput" name="rrsp" type="number" inputmode="decimal" min="0" step="500" value="0" autocomplete="off">
+            </div>
+            <p class="input-help">RRSP deductions lower taxable income. The 2026 RRSP dollar limit is $35,390, but your personal room may differ. Amounts above income are ignored in this estimate.</p>
+          </div>
+          <div class="field">
+            <label for="tfsaInput">TFSA contribution</label>
+            <div class="money-field">
+              <span aria-hidden="true">$</span>
+              <input id="tfsaInput" name="tfsa" type="number" inputmode="decimal" min="0" step="500" value="0" autocomplete="off">
+            </div>
+            <p class="input-help">TFSA contributions do not reduce taxable income. The 2026 annual TFSA dollar limit is $7,000, plus any unused room.</p>
           </div>
           <div class="field">
             <label for="provinceSelect">Province or territory</label>
@@ -294,6 +313,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
               <option value="SK">Saskatchewan</option>
               <option value="YT">Yukon</option>
             </select>
+          </div>
+          <div class="registered-note">
+            <h3>Registered account note</h3>
+            <p>RRSP entries estimate the current-year deduction only. TFSA entries are shown as savings contributions, not tax deductions.</p>
           </div>
           <div class="button-row">
             <button type="submit" class="calc-button primary">Estimate</button>
@@ -317,8 +340,20 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         </div>
         <div class="metrics">
           <div class="metric">
-            <div class="label">After-tax estimate</div>
+            <div class="label">Cash after tax and contributions</div>
             <div class="value" id="afterTax">$0</div>
+          </div>
+          <div class="metric">
+            <div class="label">Taxable income</div>
+            <div class="value" id="taxableIncomeValue">$0</div>
+          </div>
+          <div class="metric">
+            <div class="label">RRSP tax savings</div>
+            <div class="value" id="rrspSavings">$0</div>
+          </div>
+          <div class="metric">
+            <div class="label">TFSA contribution</div>
+            <div class="value" id="tfsaValue">$0</div>
           </div>
           <div class="metric">
             <div class="label">Average rate</div>
@@ -346,7 +381,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
             <tbody id="breakdownRows"></tbody>
           </table>
         </div>
-        <p class="source-note">Sources: <a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">CRA 2026 federal and provincial/territorial brackets</a>, <a href="https://www.revenuquebec.ca/en/citizens/income-tax-return/completing-your-income-tax-return/income-tax-rates/" target="_blank" rel="noopener noreferrer">Revenu Quebec 2026 rates</a>, and <a href="https://www.canada.ca/en/department-finance/programs/federal-transfers/quebec-abatement.html" target="_blank" rel="noopener noreferrer">Quebec abatement</a>.</p>
+        <p class="source-note">Sources: <a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">CRA 2026 federal and provincial/territorial brackets</a>, <a href="https://www.revenuquebec.ca/en/citizens/income-tax-return/completing-your-income-tax-return/income-tax-rates/" target="_blank" rel="noopener noreferrer">Revenu Quebec 2026 rates</a>, <a href="https://www.canada.ca/en/department-finance/programs/federal-transfers/quebec-abatement.html" target="_blank" rel="noopener noreferrer">Quebec abatement</a>, <a href="https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html" target="_blank" rel="noopener noreferrer">CRA RRSP and TFSA dollar limits</a>, and <a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/contributing-a-rrsp-prpp/contributions-affect-your-rrsp-prpp-deduction-limit.html" target="_blank" rel="noopener noreferrer">CRA RRSP deduction limit rules</a>.</p>
       </div>
     </div>
   </section>
@@ -364,6 +399,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <li class="reveal d2">
         <h3>Province matters</h3>
         <p>Provincial and territorial brackets apply based on your province or territory of residence at year-end. Quebec also receives a federal abatement, included here as a simple reduction to federal bracket tax.</p>
+      </li>
+      <li class="reveal d3">
+        <h3>RRSP and TFSA treatment</h3>
+        <p>RRSP contributions are treated as deductible against taxable income. TFSA contributions are tracked as savings, but they do not reduce current-year income tax.</p>
       </li>
       <li class="reveal d3">
         <h3>Get advice for edge cases</h3>
@@ -569,25 +608,44 @@ function getIncome() {
   return Math.max(0, raw);
 }
 
-function updateCalculator() {
-  const income = getIncome();
-  const provinceCode = document.getElementById('provinceSelect').value;
-  const province = PROVINCES[provinceCode];
+function getMoneyInput(id) {
+  const raw = Number(document.getElementById(id).value || 0);
+  return Math.max(0, raw);
+}
+
+function calculateTax(income, province) {
   const baseFederal = bracketTax(income, FEDERAL_BRACKETS);
   const abatement = province.abatement ? baseFederal * province.abatement : 0;
   const federal = Math.max(0, baseFederal - abatement);
   const provincial = bracketTax(income, province.brackets);
   const total = federal + provincial;
-  const afterTax = Math.max(0, income - total);
-  const average = income > 0 ? total / income : 0;
-  const marginal = marginalRate(income, FEDERAL_BRACKETS) + marginalRate(income, province.brackets);
+  return { baseFederal, abatement, federal, provincial, total };
+}
+
+function updateCalculator() {
+  const income = getIncome();
+  const rrsp = Math.min(getMoneyInput('rrspInput'), income);
+  const tfsa = getMoneyInput('tfsaInput');
+  const taxableIncome = Math.max(0, income - rrsp);
+  const provinceCode = document.getElementById('provinceSelect').value;
+  const province = PROVINCES[provinceCode];
+  const taxBeforeRrsp = calculateTax(income, province);
+  const taxAfterRrsp = calculateTax(taxableIncome, province);
+  const { baseFederal, abatement, federal, provincial, total } = taxAfterRrsp;
+  const rrspSavings = Math.max(0, taxBeforeRrsp.total - total);
+  const afterTax = Math.max(0, income - total - rrsp - tfsa);
+  const average = taxableIncome > 0 ? total / taxableIncome : 0;
+  const marginal = marginalRate(taxableIncome, FEDERAL_BRACKETS) + marginalRate(taxableIncome, province.brackets);
   const federalShare = total > 0 ? (federal / total) * 100 : 50;
   const provinceShare = total > 0 ? (provincial / total) * 100 : 50;
 
   document.getElementById('resultLocation').textContent = `${province.name} estimate`;
   document.getElementById('totalTax').textContent = moneyFormatter.format(total);
-  document.getElementById('summaryText').textContent = `Estimated bracket tax on ${moneyFormatter.format(income)} of annual income.`;
+  document.getElementById('summaryText').textContent = `Estimated bracket tax on ${moneyFormatter.format(taxableIncome)} of taxable income after ${moneyFormatter.format(rrsp)} in RRSP deductions.`;
   document.getElementById('afterTax').textContent = moneyFormatter.format(afterTax);
+  document.getElementById('taxableIncomeValue').textContent = moneyFormatter.format(taxableIncome);
+  document.getElementById('rrspSavings').textContent = moneyFormatter.format(rrspSavings);
+  document.getElementById('tfsaValue').textContent = moneyFormatter.format(tfsa);
   document.getElementById('averageRate').textContent = percentFormatter.format(average);
   document.getElementById('marginalRate').textContent = percentFormatter.format(marginal);
   document.getElementById('abatementValue').textContent = province.abatement ? `-${moneyFormatter.format(abatement)}` : '$0';
@@ -595,9 +653,14 @@ function updateCalculator() {
   document.getElementById('provincialBar').style.width = `${provinceShare}%`;
 
   const rows = [
-    ['Federal bracket tax', rateRange(income, FEDERAL_BRACKETS), moneyFormatter.format(baseFederal)],
+    ['Annual income entered', 'Before any RRSP deduction in this calculator', moneyFormatter.format(income)],
+    ['RRSP deduction applied', 'Reduces taxable income for this estimate', `-${moneyFormatter.format(rrsp)}`],
+    ['Taxable income', 'Annual income minus RRSP deduction applied', moneyFormatter.format(taxableIncome)],
+    ['Federal bracket tax', rateRange(taxableIncome, FEDERAL_BRACKETS), moneyFormatter.format(baseFederal)],
     province.abatement ? ['Quebec federal abatement', '16.5% reduction to federal bracket tax', `-${moneyFormatter.format(abatement)}`] : null,
-    [`${province.name} bracket tax`, rateRange(income, province.brackets), moneyFormatter.format(provincial)],
+    [`${province.name} bracket tax`, rateRange(taxableIncome, province.brackets), moneyFormatter.format(provincial)],
+    ['RRSP tax savings', 'Difference between tax before and after the RRSP deduction', moneyFormatter.format(rrspSavings)],
+    ['TFSA contribution', 'Tracked only; no current-year income-tax deduction', moneyFormatter.format(tfsa)],
     ['Total estimate', 'Federal plus provincial or territorial bracket tax', moneyFormatter.format(total)]
   ].filter(Boolean);
 
@@ -642,9 +705,13 @@ document.getElementById('taxForm').addEventListener('submit', (event) => {
   updateCalculator();
 });
 document.getElementById('incomeInput').addEventListener('input', updateCalculator);
+document.getElementById('rrspInput').addEventListener('input', updateCalculator);
+document.getElementById('tfsaInput').addEventListener('input', updateCalculator);
 document.getElementById('provinceSelect').addEventListener('change', updateCalculator);
 document.getElementById('resetButton').addEventListener('click', () => {
   document.getElementById('incomeInput').value = '75000';
+  document.getElementById('rrspInput').value = '0';
+  document.getElementById('tfsaInput').value = '0';
   document.getElementById('provinceSelect').value = 'ON';
   updateCalculator();
 });

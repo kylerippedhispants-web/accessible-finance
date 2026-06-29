@@ -79,20 +79,19 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .disclosure-box strong { color: var(--ink); font-weight: 500; }
 
 /* PROMOTION RAIL */
-.promotions { padding: 88px 0 40px; overflow: hidden; }
+.promotions { padding: 76px 0 48px; overflow: hidden; }
 .promotions-head { max-width: 1200px; margin: 0 auto 28px; padding: 0 40px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
 .promotions-head h2 { font-family: var(--serif); font-size: clamp(36px, 4vw, 52px); font-weight: 400; line-height: 1.05; color: var(--ink); letter-spacing: -0.02em; }
 .promotions-head h2 em { font-style: italic; color: var(--green); }
 .promotion-count { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink3); white-space: nowrap; }
-.promo-track { display: flex; gap: 28px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-color: var(--gold) var(--border); padding: 0 max(24px, calc((100vw - 1200px) / 2 + 40px)) 36px; }
+.promo-track { display: flex; gap: 24px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: max(32px, calc((100vw - 1200px) / 2 + 40px)); scrollbar-color: var(--gold) var(--border); padding: 0 max(32px, calc((100vw - 1200px) / 2 + 40px)) 30px; }
 .promo-track::-webkit-scrollbar { height: 10px; }
 .promo-track::-webkit-scrollbar-track { background: var(--border); border-radius: 999px; margin-inline: max(24px, calc((100vw - 1200px) / 2 + 40px)); }
 .promo-track::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 999px; }
-.promo-track > section { flex: 0 0 min(1040px, calc(100vw - 80px)); max-width: none; margin: 0; padding: 0; background: transparent; scroll-snap-align: start; scroll-margin-left: max(24px, calc((100vw - 1200px) / 2 + 40px)); }
+.promo-track > section { flex: 0 0 min(1120px, calc(100vw - 160px)); max-width: none; margin: 0; padding: 0; background: transparent; scroll-snap-align: start; scroll-margin-left: max(32px, calc((100vw - 1200px) / 2 + 40px)); }
 .promo-track .offer-card,
-.promo-track .coming-card,
 .promo-track .rakuten-card,
-.promo-track .polymarket-card { height: 100%; min-height: 540px; }
+.promo-track .polymarket-card { height: 100%; min-height: 500px; }
 .promo-track .rakuten-inner,
 .promo-track .polymarket-inner { max-width: none; }
 .promotions .reveal { opacity: 1; transform: none; }
@@ -130,31 +129,9 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .how-card h3 { font-family: var(--serif); font-size: 24px; font-weight: 400; line-height: 1.2; color: var(--ink); margin-top: 18px; letter-spacing: -0.01em; }
 .how-card p { font-family: var(--body); font-size: 15px; line-height: 1.7; color: var(--ink2); margin-top: 14px; }
 
-/* COMING SOON */
-.coming { padding: 80px 40px; max-width: 1100px; margin: 0 auto; }
-.coming-card { background: var(--ink); color: var(--bg); border-radius: 28px; padding: 56px 56px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: center; position: relative; overflow: hidden; }
-.coming-card::before { content: ''; position: absolute; top: -120px; left: -80px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, rgba(212,165,96,0.25) 0%, transparent 70%); pointer-events: none; }
-.coming-card .label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-soft); position: relative; z-index: 1; }
-.coming-card h2 { font-family: var(--serif); font-size: clamp(32px, 3.8vw, 44px); font-weight: 400; line-height: 1.1; color: var(--bg); letter-spacing: -0.015em; margin-top: 18px; position: relative; z-index: 1; }
-.coming-card h2 em { font-style: italic; color: var(--gold-soft); }
-.coming-card .body { font-family: var(--body); font-size: 16px; line-height: 1.7; color: rgba(247,245,240,0.65); margin-top: 18px; max-width: 480px; position: relative; z-index: 1; }
-.coming-badge { background: var(--gold-soft); color: var(--ink); border-radius: 24px; padding: 36px 32px; text-align: center; position: relative; z-index: 1; }
-.coming-badge .big { font-family: var(--serif); font-style: italic; font-size: 72px; line-height: 1; letter-spacing: -0.03em; }
-.coming-badge .small { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; margin-top: 10px; }
-
-/* ABOUT WS */
-.about-ws { padding: 120px 40px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; }
-.about-ws-text p { font-family: var(--body); font-size: 17px; line-height: 1.75; color: var(--ink2); margin-top: 18px; }
-.about-ws-text strong { color: var(--ink); font-weight: 500; }
 .features { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
 .features li { display: flex; gap: 14px; align-items: flex-start; font-family: var(--body); font-size: 16px; line-height: 1.65; color: var(--ink2); }
-.features li::before { content: '✓'; color: var(--green); font-family: var(--sans); font-weight: 700; font-size: 16px; margin-top: 2px; }
-.ws-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.ws-stat { background: var(--bg-warm); border-radius: 18px; padding: 32px 28px; }
-.ws-stat .n { font-family: var(--serif); font-size: 52px; font-weight: 400; line-height: 1; color: var(--ink); letter-spacing: -0.02em; }
-.ws-stat .n em { font-style: italic; color: var(--green); }
-.ws-stat .l { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-top: 12px; }
-
+.features li::before { content: '\2713'; color: var(--green); font-family: var(--sans); font-weight: 700; font-size: 16px; margin-top: 2px; }
 /* RAKUTEN */
 .rakuten { padding: 120px 40px; background: var(--bg-warm); }
 .rakuten-inner { max-width: 1100px; margin: 0 auto; }
@@ -228,8 +205,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 .nl-modal .fine { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3); text-align: center; margin-top: 16px; }
 
 @media (max-width: 1024px) {
-  .offer-card, .about-ws, .coming-card, .rakuten-card, .polymarket-card { grid-template-columns: 1fr; gap: 48px; }
-  .promo-track > section { flex-basis: min(760px, calc(100vw - 64px)); }
+  .offer-card, .rakuten-card, .polymarket-card { grid-template-columns: 1fr; gap: 48px; }
+  .promo-track > section { flex-basis: min(860px, calc(100vw - 96px)); }
   .how-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr 1fr; }
 }
@@ -242,25 +219,26 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   nav.site-nav { padding: 0 24px; height: 64px; }
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: block; }
-  .earn-hero, .disclosure, .offer, .how, .coming, .about-ws, .rakuten, .polymarket { padding-left: 24px; padding-right: 24px; }
+  .earn-hero, .disclosure, .offer, .how, .rakuten, .polymarket { padding-left: 24px; padding-right: 24px; }
   .earn-hero { padding-top: 48px; padding-bottom: 32px; }
   .promotions { padding-top: 56px; padding-bottom: 16px; }
   .promotions-head { padding: 0 24px; align-items: flex-start; flex-direction: column; gap: 12px; }
   .promotion-count { white-space: normal; }
-  .promo-track { gap: 18px; padding: 0 24px 30px; }
+  .promo-track { gap: 18px; scroll-padding-inline: 24px; padding: 0 24px 30px; }
   .promo-track::-webkit-scrollbar-track { margin-inline: 24px; }
-  .promo-track > section { flex-basis: calc(100vw - 48px); scroll-margin-left: 24px; }
+  .promo-track > section { flex-basis: calc(100vw - 64px); scroll-margin-left: 24px; }
   .promo-track .offer-card,
-  .promo-track .coming-card,
   .promo-track .rakuten-card,
   .promo-track .polymarket-card { min-height: auto; }
-  .how, .coming, .about-ws, .rakuten, .polymarket { padding-top: 72px; padding-bottom: 72px; }
-  .offer-card, .coming-card, .rakuten-card, .polymarket-card { padding: 44px 28px; }
+  .how, .rakuten, .polymarket { padding-top: 72px; padding-bottom: 72px; }
+  .offer-card, .rakuten-card, .polymarket-card { padding: 44px 28px; }
+  .promo-track .coin-wrap,
+  .promo-track .bag,
+  .promo-track .market-preview { display: none; }
   .coin { width: 200px; height: 200px; }
   .coin .big { font-size: 70px; }
   .bag { padding: 28px; }
   .rakuten-logo { min-height: 130px; }
-  .ws-stats { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px; }
   footer.site-footer { padding: 64px 24px 36px; }
 }
@@ -334,7 +312,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <section class="promotions" id="promotions">
   <div class="promotions-head reveal">
     <h2>Featured <em>promotions</em></h2>
-    <div class="promotion-count">4 referral offers</div>
+    <div class="promotion-count">3 referral offers</div>
   </div>
   <div class="promo-track" aria-label="Referral promotions">
 
@@ -358,20 +336,6 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <div class="big">$25</div>
         <div class="label">Free</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="coming">
-  <div class="coming-card reveal">
-    <div>
-      <div class="label">Coming Soon</div>
-      <h2>Earn $10 by completing a<br><em>learning path.</em></h2>
-      <p class="body">We're building a structured learning reward — complete the Investing Fundamentals path and unlock a $10 gift card. More details coming soon.</p>
-    </div>
-    <div class="coming-badge">
-      <div class="big">$10</div>
-      <div class="small">Gift Card</div>
     </div>
   </div>
 </section>
@@ -442,47 +406,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 
 <section class="how">
   <div class="how-head reveal">
-    <span class="eyebrow">How it works</span>
-    <h2 class="section-title">Three steps. <em>About five minutes.</em></h2>
+    <span class="eyebrow">Before you claim</span>
+    <h2 class="section-title">Use rewards deliberately, <em>not impulsively.</em></h2>
   </div>
   <div class="how-grid">
     <article class="how-card reveal">
-      <div class="how-step">Step 01</div>
-      <h3>Click the referral link</h3>
-      <p>Use the link on this page to go directly to Wealthsimple's sign-up. The referral code is embedded automatically — you don't need to type anything in.</p>
+      <div class="how-step">Check</div>
+      <h3>Read the current terms</h3>
+      <p>Referral offers can change. Confirm eligibility, deposit requirements, payout timing, and regional availability before opening an account.</p>
     </article>
     <article class="how-card reveal d2">
-      <div class="how-step">Step 02</div>
-      <h3>Create your account</h3>
-      <p>Sign up with your email, verify your identity (takes a few minutes), and set up your account. It's free to open and there's no minimum balance required.</p>
+      <div class="how-step">Compare</div>
+      <h3>Know what the product is</h3>
+      <p>Wealthsimple is for investing, Rakuten is for cash back, and Polymarket is speculative. A reward should never be the main reason you use a service.</p>
     </article>
     <article class="how-card reveal d3">
-      <div class="how-step">Step 03</div>
-      <h3>Fund and receive $25</h3>
-      <p>Deposit at least $100 into your account. Once funded, Wealthsimple will deposit your $25 bonus directly into your portfolio. Terms apply.</p>
+      <div class="how-step">Decide</div>
+      <h3>Keep risk in proportion</h3>
+      <p>Only deposit money you already planned to use. Prediction markets can lose money quickly and should not be treated like savings or long-term investing.</p>
     </article>
-  </div>
-</section>
-
-<section class="about-ws">
-  <div class="about-ws-text reveal">
-    <span class="eyebrow green">About the partner</span>
-    <h2 class="section-title">Canada's leading<br><em>online investing platform.</em></h2>
-    <p>Wealthsimple is one of the most trusted investing platforms in Canada — used by over <strong>3 million Canadians</strong> to invest, save, and grow their money. It's where many people start their investing journey, and for good reason.</p>
-    <p>They offer commission-free stock and ETF trading, managed portfolios, TFSAs, RRSPs, and more — all in a clean, easy-to-use app designed for people who aren't finance professionals.</p>
-    <ul class="features">
-      <li>Commission-free stock and ETF trading</li>
-      <li>TFSA, RRSP, FHSA, and personal accounts</li>
-      <li>Managed portfolios (hands-off investing)</li>
-      <li>No minimum balance to open an account</li>
-      <li>Regulated by IIROC and CIPF insured</li>
-    </ul>
-  </div>
-  <div class="ws-stats reveal d2">
-    <div class="ws-stat"><div class="n"><em>3M+</em></div><div class="l">Canadians</div></div>
-    <div class="ws-stat"><div class="n"><em>$0</em></div><div class="l">Commissions</div></div>
-    <div class="ws-stat"><div class="n"><em>$0</em></div><div class="l">Minimum</div></div>
-    <div class="ws-stat"><div class="n"><em>$25</em></div><div class="l">Free with our link</div></div>
   </div>
 </section>
 
