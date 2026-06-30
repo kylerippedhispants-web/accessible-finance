@@ -510,6 +510,85 @@ nav.site-nav {
 }
 
 /* ═══════════ PRINCIPLES ═══════════ */
+/* FIRE */
+.fire {
+  padding: 130px 40px;
+  max-width: 1200px; margin: 0 auto;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 96px;
+}
+.section-anchor { display: block; height: 0; }
+.fire-layout {
+  display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 72px;
+  align-items: start;
+}
+.fire-intro {
+  font-family: var(--body); font-size: 18px; line-height: 1.7;
+  color: var(--ink2); margin-top: 24px; max-width: 520px;
+}
+.fire-cta {
+  margin-top: 36px;
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--green); color: var(--bg);
+  border-radius: 100px; padding: 18px 28px;
+  font-family: var(--sans); font-size: 11px; font-weight: 800;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  transition: background 0.3s, transform 0.3s;
+  white-space: nowrap;
+}
+.fire-cta:hover { background: var(--ink); transform: translateY(-1px); }
+.fire-rule {
+  margin-top: 40px; padding: 26px;
+  background: var(--bg-warm); border: 1px solid var(--border);
+  border-radius: 20px;
+}
+.fire-rule .label {
+  font-family: var(--sans); font-size: 10px; font-weight: 800;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+}
+.fire-rule .number {
+  font-family: var(--serif); font-size: 48px; line-height: 1;
+  letter-spacing: -0.03em; color: var(--ink); margin-top: 14px;
+}
+.fire-rule p {
+  font-family: var(--body); font-size: 15px; line-height: 1.6;
+  color: var(--ink2); margin-top: 12px;
+}
+.fire-cards {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px;
+}
+.fire-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 28px 26px;
+  transition: transform 0.35s, border-color 0.3s, box-shadow 0.35s;
+}
+.fire-card:hover {
+  transform: translateY(-4px); border-color: var(--gold);
+  box-shadow: 0 18px 42px -22px rgba(26,24,22,0.18);
+}
+.fire-card .step {
+  font-family: var(--sans); font-size: 10px; font-weight: 800;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 18px;
+}
+.fire-card h3 {
+  font-family: var(--serif); font-size: 27px; line-height: 1.12;
+  color: var(--ink); font-weight: 400; letter-spacing: -0.01em;
+}
+.fire-card p {
+  font-family: var(--body); font-size: 15px; line-height: 1.65;
+  color: var(--ink2); margin-top: 14px;
+}
+.fire-card.feature {
+  grid-column: 1 / -1;
+  background: var(--ink); color: var(--bg);
+  display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 28px;
+  align-items: center;
+}
+.fire-card.feature .step { color: var(--gold-soft); margin-bottom: 0; }
+.fire-card.feature h3 { color: var(--bg); }
+.fire-card.feature p { color: rgba(247,245,240,0.7); margin-top: 0; }
+
 .principles {
   padding: 140px 40px;
   background: var(--bg-warm);
@@ -735,6 +814,7 @@ footer.site-footer {
   .topics-grid { grid-template-columns: 1fr 1fr; }
   .articles-grid { grid-template-columns: 1fr; gap: 48px; }
   .canada-grid { grid-template-columns: 1fr; }
+  .fire-layout { grid-template-columns: 1fr; gap: 48px; }
   .principles-grid { grid-template-columns: 1fr; gap: 48px; }
   .glossary-layout { grid-template-columns: 1fr; gap: 40px; }
   .glossary-sticky { position: static; }
@@ -750,14 +830,18 @@ footer.site-footer {
   nav.site-nav { padding: 0 24px; height: 64px; }
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: block; }
-  .wrap, .hero, .topics, .articles, .canada, .glossary, .newsletter { padding-left: 24px; padding-right: 24px; }
+  .wrap, .hero, .topics, .articles, .canada, .fire, .glossary, .newsletter { padding-left: 24px; padding-right: 24px; }
   .hero { padding-top: 40px; padding-bottom: 60px; }
-  .topics, .articles, .canada, .glossary { padding-top: 80px; padding-bottom: 80px; }
+  .topics, .articles, .canada, .fire, .glossary { padding-top: 80px; padding-bottom: 80px; }
   .principles { padding: 80px 24px; }
   .topics-grid { grid-template-columns: 1fr; }
   .topic { aspect-ratio: 4/3; }
   .topic.wide { aspect-ratio: 4/3; }
   .articles-head { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .fire-cards { grid-template-columns: 1fr; }
+  .fire-card.feature { grid-template-columns: 1fr; gap: 16px; }
+  .fire-rule .number { font-size: 42px; }
+  .fire-cta { width: 100%; justify-content: center; font-size: 10px; letter-spacing: 0.12em; padding-left: 18px; padding-right: 18px; }
   .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px; }
   footer.site-footer { padding: 64px 24px 36px; }
   .newsletter-box { padding: 40px 28px; }
@@ -984,6 +1068,55 @@ footer.site-footer {
 </section>
 
 <!-- ═══════════════ PRINCIPLES ═══════════════ -->
+<span class="section-anchor" id="fire" aria-hidden="true"></span>
+<section class="fire">
+  <div class="fire-layout">
+    <div class="fire-copy reveal">
+      <span class="eyebrow">Financial Independence</span>
+      <h2 class="section-title">FIRE: Financial Independence, <em>Retire Early</em></h2>
+      <p class="fire-intro">FIRE is a personal finance approach built around one goal: creating enough freedom that work becomes optional. It usually means saving a high percentage of income, investing consistently, keeping expenses intentional, and building assets that can support your life over time.</p>
+      <a href="articles.html" class="fire-cta">Start Your FIRE Journey
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <div class="fire-rule">
+        <div class="label">Simple starting point</div>
+        <div class="number">25x</div>
+        <p>A common FIRE shortcut is estimating the portfolio needed by multiplying annual spending by 25. It is not a guarantee, but it helps beginners understand the scale of the goal.</p>
+      </div>
+    </div>
+
+    <div class="fire-cards">
+      <article class="fire-card feature reveal">
+        <div>
+          <div class="step">Core idea</div>
+          <h3>Financial independence</h3>
+        </div>
+        <p>You reach financial independence when your investments and other resources can cover your needs without depending entirely on a paycheque.</p>
+      </article>
+      <article class="fire-card reveal d2">
+        <div class="step">01</div>
+        <h3>Save and invest consistently</h3>
+        <p>FIRE depends less on one perfect investment and more on repeated contributions, broad diversification, and enough time for compounding to work.</p>
+      </article>
+      <article class="fire-card reveal d2">
+        <div class="step">02</div>
+        <h3>Reduce unnecessary expenses</h3>
+        <p>The goal is not misery. It is knowing which spending genuinely improves your life and cutting the parts that only delay your freedom.</p>
+      </article>
+      <article class="fire-card reveal d3">
+        <div class="step">03</div>
+        <h3>Build passive income</h3>
+        <p>Passive income can come from investment portfolios, interest, dividends, rental income, or business systems that do not rely on your daily labour.</p>
+      </article>
+      <article class="fire-card reveal d3">
+        <div class="step">04</div>
+        <h3>Plan for early retirement</h3>
+        <p>Early retirement means planning for healthcare, taxes, inflation, market downturns, and the emotional side of leaving full-time work earlier than usual.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section class="principles">
   <div class="principles-inner">
     <div class="principles-head reveal">
@@ -1135,6 +1268,7 @@ footer.site-footer {
           <li><a href="articles.html?cat=assets">Asset Classes</a></li>
           <li><a href="articles.html?cat=portfolio">Portfolio Thinking</a></li>
           <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
+          <li><a href="#fire">FIRE</a></li>
           <li><a href="#glossary">Glossary</a></li>
         </ul>
       </div>
@@ -1201,15 +1335,32 @@ footer.site-footer {
     }));
   })();
 
+  function getAnchorTarget(hash) {
+    if (!hash || hash.length < 2) return null;
+    try { return document.querySelector(hash); } catch (_) { return null; }
+  }
+
+  function scrollToAnchor(target, behavior = 'smooth') {
+    const top = target.getBoundingClientRect().top + window.pageYOffset - 88;
+    window.scrollTo({ top: Math.max(0, top), behavior });
+  }
+
   // Smooth scroll for in-page anchors
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const href = a.getAttribute('href');
-      if (href.length < 2) return;
-      const target = document.querySelector(href);
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      const target = getAnchorTarget(href);
+      if (target) { e.preventDefault(); scrollToAnchor(target); }
     });
   });
+
+  (function () {
+    const target = getAnchorTarget(window.location.hash);
+    if (!target) return;
+    const realign = () => scrollToAnchor(target, 'auto');
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(realign);
+    window.addEventListener('load', () => setTimeout(realign, 80));
+  })();
 
   // Glossary search
   const searchInput = document.getElementById('glossSearch');
