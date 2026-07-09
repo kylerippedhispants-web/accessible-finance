@@ -39,7 +39,7 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .nav-logo { display: flex; align-items: center; gap: 12px; }
 .nav-logo img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; object-position: 50% 20%; }
 .nav-logo .wordmark { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
-.nav-links { display: flex; gap: 30px; }
+.nav-links { display: flex; gap: 20px; }
 .nav-links a { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink2); padding: 6px 0; position: relative; transition: color 0.2s; }
 .nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: center; transition: transform 0.3s cubic-bezier(.2,.7,.2,1); }
 .nav-links a:hover { color: var(--ink); }
@@ -258,8 +258,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="articles.html">Guides</a>
     <a href="index.html#glossary">Glossary</a>
     <a href="fire.html">FIRE</a>
+    <a href="wealth-rank.html">Wealth Rank</a>
     <a href="tax-calculator.html">Tax</a>
-    <a href="earn.html" class="active">Rewards</a>
+    <a href="earn.html" class="active">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
     <a href="about.html">About</a>
   </div>
   <div class="nav-actions">
@@ -283,8 +284,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <a href="articles.html">Guides</a>
   <a href="index.html#glossary">Glossary</a>
   <a href="fire.html">FIRE</a>
+  <a href="wealth-rank.html">Wealth Rank</a>
   <a href="tax-calculator.html">Tax</a>
-  <a href="earn.html">Rewards</a>
+  <a href="earn.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
   <a href="about.html">About</a>
   <label class="mobile-language notranslate" translate="no">
     <span>Language</span>
@@ -447,6 +449,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <li><a href="articles.html?cat=assets">Asset Classes</a></li>
           <li><a href="articles.html?cat=portfolio">Portfolio Thinking</a></li>
           <li><a href="fire.html">FIRE</a></li>
+          <li><a href="wealth-rank.html">Wealth Rank</a></li>
           <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
           <li><a href="index.html#glossary">Glossary</a></li>
         </ul>
@@ -465,7 +468,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <h4>Company</h4>
         <ul>
           <li><a href="about.html">About</a></li>
-          <li><a href="earn.html">Rewards</a></li>
+          <li><a href="earn.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a></li>
           <li><a href="#newsletter" data-open-newsletter>Newsletter</a></li>
           <li><a href="privacy.html">Privacy</a></li>
           <li><a href="disclaimer.html">Disclaimer</a></li>

@@ -6,6 +6,7 @@
   <url><loc>https://accessiblefinance.example/article.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://accessiblefinance.example/topic.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://accessiblefinance.example/fire.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://accessiblefinance.example/wealth-rank.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://accessiblefinance.example/tax-calculator.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://accessiblefinance.example/earn.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://accessiblefinance.example/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>

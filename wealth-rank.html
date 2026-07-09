@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="Logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wealth Rank | Accessible Finance</title>
+<meta name="description" content="Estimate your Canadian household net worth percentile with province and age-group comparisons.">
+<link rel="canonical" href="https://accessiblefinance.example/wealth-rank.html">
+<meta property="og:title" content="Wealth Rank | Accessible Finance">
+<meta property="og:description" content="Compare household net worth with Canadian national and provincial wealth benchmarks.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="Logo.png">
+<meta name="twitter:card" content="summary">
+
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f7f5f0; --bg-warm: #efece3; --surface: #ffffff;
+  --ink: #1a1816; --ink2: #4a4640; --ink3: #8a8480; --ink4: #b8b0a5;
+  --green: #1d6b45; --green-light: #e8f4ed; --green-mid: #2d8a59;
+  --sage: #7d8c7b; --sage-light: #e8eae5;
+  --gold: #c8822a; --gold-soft: #d4a560; --gold-light: #f6ecd9;
+  --border: #e4e0d8; --border-strong: #c9c3b6;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'Syne', sans-serif;
+  --body: 'Literata', Georgia, serif;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+.nav-logo { display: flex; align-items: center; gap: 12px; }
+.nav-logo img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; object-position: 50% 20%; }
+.nav-logo .wordmark { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+.nav-links { display: flex; gap: 20px; }
+.nav-links a { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink2); padding: 6px 0; position: relative; transition: color 0.2s; }
+.nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: center; transition: transform 0.3s cubic-bezier(.2,.7,.2,1); }
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+.nav-cta { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; background: var(--ink); color: var(--bg); padding: 12px 22px; border-radius: 100px; transition: background 0.25s; }
+.nav-cta:hover { background: var(--green); }
+.hamburger { display: none; background: transparent; border: 0; cursor: pointer; padding: 8px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); margin: 5px 0; transition: 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 72px 0 0; background: var(--bg); z-index: 90; padding: 40px; flex-direction: column; gap: 28px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: var(--serif); font-size: 32px; font-style: italic; color: var(--ink); }
+.mobile-menu a.cta { color: var(--green); }
+
+.eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.section-title { font-family: var(--serif); font-size: clamp(38px, 5vw, 68px); font-weight: 400; line-height: 1.05; letter-spacing: -0.015em; color: var(--ink); margin-top: 18px; }
+.section-title em { font-style: italic; color: var(--green); font-weight: 400; }
+.section-sub { font-family: var(--body); font-style: italic; font-size: 17px; color: var(--ink2); margin-top: 16px; max-width: 560px; line-height: 1.6; }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(.16,1,.3,1), transform 0.9s cubic-bezier(.16,1,.3,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.d2 { transition-delay: 0.08s; }
+.reveal.d3 { transition-delay: 0.16s; }
+
+.wealth-hero { padding: 96px 40px 90px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 0.85fr; gap: 84px; align-items: center; }
+.wealth-hero h1 { font-family: var(--serif); font-size: clamp(58px, 7.2vw, 104px); font-weight: 400; line-height: 0.98; letter-spacing: -0.035em; margin-top: 26px; color: var(--ink); }
+.wealth-hero h1 em { font-style: italic; color: var(--green); font-weight: 400; }
+.wealth-lead { font-family: var(--body); font-size: 20px; line-height: 1.75; color: var(--ink2); max-width: 580px; margin-top: 28px; }
+.wealth-snapshot { background: var(--surface); border: 1px solid var(--border); border-radius: 28px; padding: 42px; box-shadow: 0 28px 80px -36px rgba(26,24,22,0.24); }
+.snapshot-label { font-family: var(--sans); font-size: 10px; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+.snapshot-number { font-family: var(--serif); font-size: clamp(60px, 8vw, 104px); line-height: 0.92; letter-spacing: -0.05em; color: var(--green); margin-top: 20px; }
+.snapshot-text { font-family: var(--body); font-size: 16px; line-height: 1.7; color: var(--ink2); margin-top: 18px; }
+.snapshot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 34px; padding-top: 28px; border-top: 1px solid var(--border); }
+.snapshot-stat { background: var(--bg-warm); border-radius: 18px; padding: 22px; }
+.snapshot-stat strong { display: block; font-family: var(--serif); font-size: 34px; line-height: 1; font-weight: 400; color: var(--ink); }
+.snapshot-stat span { display: block; font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink3); margin-top: 10px; }
+
+.wealth-rank { padding: 120px 40px; background: var(--bg-warm); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+#calculator, #wealth-results { scroll-margin-top: 96px; }
+.wealth-rank-inner { max-width: 1200px; margin: 0 auto; }
+.wealth-rank-head { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 72px; align-items: end; margin-bottom: 58px; }
+.wealth-rank-note { font-family: var(--body); font-size: 16px; line-height: 1.72; color: var(--ink2); }
+.wealth-shell { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 26px; align-items: start; }
+.planner-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 34px; box-shadow: 0 26px 70px -42px rgba(26,24,22,0.28); }
+.planner-panel h3 { font-family: var(--serif); font-size: 32px; line-height: 1.1; font-weight: 400; color: var(--ink); letter-spacing: -0.01em; }
+.planner-panel h3 em { font-style: italic; color: var(--green); }
+.planner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
+.planner-field { display: flex; flex-direction: column; gap: 8px; }
+.planner-field.full { grid-column: 1 / -1; }
+.planner-field label { font-family: var(--sans); font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink3); }
+.planner-control { width: 100%; border: 1px solid var(--border-strong); border-radius: 16px; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; font-weight: 700; padding: 15px 16px; min-height: 54px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.planner-control:focus { border-color: var(--green); box-shadow: 0 0 0 4px rgba(29,107,69,0.12); }
+.planner-help { font-family: var(--body); font-size: 13px; line-height: 1.45; color: var(--ink3); }
+.wealth-results { background: var(--surface); position: sticky; top: 96px; }
+.wealth-results .result-hero { margin-top: 26px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.result-label { font-family: var(--sans); font-size: 10px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+.result-number { font-family: var(--serif); font-size: clamp(58px, 7vw, 92px); line-height: 0.92; letter-spacing: -0.04em; color: var(--ink); margin-top: 14px; }
+.result-caption { font-family: var(--body); font-size: 15px; line-height: 1.62; color: var(--ink2); margin-top: 16px; max-width: 520px; }
+.rank-meter { margin-top: 24px; }
+.rank-scale { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.rank-scale span { font-family: var(--sans); font-size: 9px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink3); }
+.rank-track { height: 16px; background: var(--bg-warm); border-radius: 100px; overflow: hidden; border: 1px solid var(--border); }
+.rank-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--sage), var(--gold-soft), var(--green)); border-radius: inherit; transition: width 0.35s ease; }
+.wealth-card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
+.wealth-card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 18px; }
+.wealth-card .label { font-family: var(--body); font-size: 14px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink2); line-height: 1.35; }
+.wealth-card .value { font-family: var(--serif); font-size: 32px; line-height: 1; color: var(--ink); margin-top: 10px; letter-spacing: -0.02em; }
+.wealth-card .value.good { color: var(--green); }
+.wealth-card .value.warn { color: var(--gold); }
+.benchmark-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 28px; }
+.benchmark { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; }
+.benchmark strong { display: block; font-family: var(--serif); font-size: 27px; line-height: 1; font-weight: 400; color: var(--ink); }
+.benchmark span { display: block; font-family: var(--body); font-size: 14px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink2); line-height: 1.35; margin-top: 10px; }
+.source-links { font-family: var(--body); font-size: 13px; line-height: 1.55; color: var(--ink3); margin-top: 18px; }
+.source-links a { color: var(--green); border-bottom: 1px solid rgba(29,107,69,0.25); }
+
+footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40px 48px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 72px; border-bottom: 1px solid rgba(247,245,240,0.1); }
+.footer-brand .wordmark-row { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.footer-brand img { width: 36px; height: 36px; border-radius: 8px; }
+.footer-brand .name { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--bg); }
+.footer-brand p { font-family: var(--body); font-style: italic; font-size: 16px; line-height: 1.65; max-width: 360px; color: rgba(247,245,240,0.55); }
+.footer-col h4 { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 24px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-col a { font-family: var(--body); font-size: 15px; color: rgba(247,245,240,0.78); transition: color 0.2s; }
+.footer-col a:hover { color: var(--gold-soft); }
+.footer-bottom { padding-top: 36px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.footer-disclaimer { font-family: var(--body); font-size: 13px; line-height: 1.6; color: rgba(247,245,240,0.4); max-width: 720px; }
+.footer-copy { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(247,245,240,0.3); white-space: nowrap; }
+
+.nl-overlay { position: fixed; inset: 0; background: rgba(26,24,22,0.55); backdrop-filter: blur(6px); z-index: 200; padding: 24px; display: none; align-items: center; justify-content: center; }
+.nl-overlay.open { display: flex; }
+.nl-modal { background: var(--bg); border-radius: 24px; max-width: 520px; width: 100%; padding: 56px 48px 40px; position: relative; border: 1px solid var(--border); box-shadow: 0 30px 80px rgba(0,0,0,0.25); }
+.nl-close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 100px; background: transparent; border: 0; cursor: pointer; font-size: 18px; color: var(--ink); transition: background 0.2s; }
+.nl-close:hover { background: var(--bg-warm); }
+.nl-label { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.nl-title { font-family: var(--serif); font-size: 32px; line-height: 1.15; color: var(--ink); margin-bottom: 12px; }
+.nl-title em { font-style: italic; color: var(--green); }
+.nl-sub { font-family: var(--body); font-size: 15px; color: var(--ink2); margin-bottom: 24px; }
+.nl-modal iframe { width: 100%; height: 180px; border: 0; background: transparent; }
+.nl-modal .fine { font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3); text-align: center; margin-top: 16px; }
+
+@media (max-width: 1200px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: block; }
+  .wealth-hero, .wealth-rank-head, .wealth-shell { grid-template-columns: 1fr; gap: 36px; }
+  .wealth-results { position: static; }
+  .benchmark-grid { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  nav.site-nav { padding: 0 24px; height: 64px; }
+  .mobile-menu { inset: 64px 0 0; }
+  .wealth-hero { padding: 48px 24px 72px; }
+  .wealth-rank { padding: 80px 24px; }
+  .wealth-snapshot, .planner-panel { padding: 28px 22px; border-radius: 20px; }
+  .snapshot-grid, .planner-grid, .wealth-card-grid, .benchmark-grid { grid-template-columns: 1fr; }
+  .result-number { font-size: 54px; }
+  .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px; }
+  footer.site-footer { padding: 64px 24px 36px; }
+  .nl-modal { padding: 48px 28px 32px; }
+}
+</style>
+<link rel="stylesheet" href="site-language.css">
+<script src="site-language.js" defer></script>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo" aria-label="Accessible Finance - Home">
+    <img src="Logo.png" alt="">
+    <span class="wordmark">Accessible Finance</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="articles.html">Guides</a>
+    <a href="index.html#glossary">Glossary</a>
+    <a href="fire.html">FIRE</a>
+    <a href="wealth-rank.html" class="active">Wealth Rank</a>
+    <a href="tax-calculator.html">Tax</a>
+    <a href="earn.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
+    <a href="about.html">About</a>
+  </div>
+  <div class="nav-actions">
+    <label class="language-switcher notranslate" translate="no">
+      <span class="sr-only">Language</span>
+      <select class="language-select" data-language-select aria-label="Language">
+        <option value="en">&#x1F1EC;&#x1F1E7; EN</option>
+        <option value="fa">&#x1F1EE;&#x1F1F7; FA</option>
+        <option value="fr">&#x1F1EB;&#x1F1F7; FR</option>
+        <option value="de">&#x1F1E9;&#x1F1EA; DE</option>
+      </select>
+    </label>
+    <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="articles.html">Guides</a>
+  <a href="index.html#glossary">Glossary</a>
+  <a href="fire.html">FIRE</a>
+  <a href="wealth-rank.html">Wealth Rank</a>
+  <a href="tax-calculator.html">Tax</a>
+  <a href="earn.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
+  <a href="about.html">About</a>
+  <label class="mobile-language notranslate" translate="no">
+    <span>Language</span>
+    <select class="language-select" data-language-select aria-label="Language">
+      <option value="en">&#x1F1EC;&#x1F1E7; English</option>
+      <option value="fa">&#x1F1EE;&#x1F1F7; Farsi</option>
+      <option value="fr">&#x1F1EB;&#x1F1F7; French</option>
+      <option value="de">&#x1F1E9;&#x1F1EA; German</option>
+    </select>
+  </label>
+  <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
+</div>
+
+<main>
+  <section class="wealth-hero">
+    <div class="reveal">
+      <span class="eyebrow">Wealth Rank</span>
+      <h1>Compare your net worth <em>across Canada</em>.</h1>
+      <p class="wealth-lead">Enter your household assets and debts, then filter by province to compare against national and provincial wealth benchmarks.</p>
+    </div>
+    <aside class="wealth-snapshot reveal d2" aria-label="Canadian wealth snapshot">
+      <div class="snapshot-label">2023 national median</div>
+      <div class="snapshot-number">$519.7K</div>
+      <p class="snapshot-text">Statistics Canada defines net worth as what families have left after selling assets and paying off debts.</p>
+      <div class="snapshot-grid">
+        <div class="snapshot-stat">
+          <strong>$773.5K</strong>
+          <span>Highest provincial median</span>
+        </div>
+        <div class="snapshot-stat">
+          <strong>$286.2K</strong>
+          <span>Lowest provincial median</span>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="wealth-rank" id="calculator">
+    <div class="wealth-rank-inner">
+      <div class="wealth-rank-head reveal">
+        <div>
+          <span class="eyebrow">Rank estimate</span>
+          <h2 class="section-title">Estimate your <em>wealth percentile</em>.</h2>
+        </div>
+        <p class="wealth-rank-note">The province filter uses official provincial medians. Full provincial percentile thresholds are not published, so provincial ranks are median-adjusted estimates, not official statistics.</p>
+      </div>
+
+      <div class="wealth-shell reveal d2">
+        <form class="planner-panel" id="wealthRankForm" aria-label="Wealth rank calculator inputs">
+          <h3>Your net worth <em>inputs</em></h3>
+          <div class="planner-grid">
+            <div class="planner-field">
+              <label for="wealthInvestments">Investments and cash</label>
+              <input class="planner-control" id="wealthInvestments" name="wealthInvestments" type="number" inputmode="decimal" min="0" step="500" value="125000">
+            </div>
+            <div class="planner-field">
+              <label for="wealthHomeEquity">Home equity</label>
+              <input class="planner-control" id="wealthHomeEquity" name="wealthHomeEquity" type="number" inputmode="decimal" min="0" step="500" value="250000">
+              <span class="planner-help">Home value minus mortgage.</span>
+            </div>
+            <div class="planner-field">
+              <label for="wealthOtherAssets">Other assets</label>
+              <input class="planner-control" id="wealthOtherAssets" name="wealthOtherAssets" type="number" inputmode="decimal" min="0" step="500" value="35000">
+              <span class="planner-help">Vehicles, business equity, valuables, and other assets.</span>
+            </div>
+            <div class="planner-field">
+              <label for="wealthDebts">Other debts</label>
+              <input class="planner-control" id="wealthDebts" name="wealthDebts" type="number" inputmode="decimal" min="0" step="500" value="15000">
+              <span class="planner-help">Loans, credit cards, lines of credit, and non-mortgage debt.</span>
+            </div>
+            <div class="planner-field">
+              <label for="provinceSelect">Province filter</label>
+              <select class="planner-control" id="provinceSelect" name="provinceSelect">
+                <option value="canada" selected>Canada overall</option>
+                <option value="nl">Newfoundland and Labrador</option>
+                <option value="pe">Prince Edward Island</option>
+                <option value="ns">Nova Scotia</option>
+                <option value="nb">New Brunswick</option>
+                <option value="qc">Quebec</option>
+                <option value="on">Ontario</option>
+                <option value="mb">Manitoba</option>
+                <option value="sk">Saskatchewan</option>
+                <option value="ab">Alberta</option>
+                <option value="bc">British Columbia</option>
+              </select>
+              <span class="planner-help">SFS 2023 covers the 10 provinces.</span>
+            </div>
+            <div class="planner-field">
+              <label for="wealthAgeGroup">Age of main income earner</label>
+              <select class="planner-control" id="wealthAgeGroup" name="wealthAgeGroup">
+                <option value="under35">Under 35</option>
+                <option value="35to44" selected>35 to 44</option>
+                <option value="45to54">45 to 54</option>
+                <option value="55to64">55 to 64</option>
+                <option value="65plus">65 and older</option>
+              </select>
+              <span class="planner-help">Age comparison uses national medians.</span>
+            </div>
+          </div>
+        </form>
+
+        <aside class="planner-panel wealth-results" id="wealth-results" aria-live="polite">
+          <h3>Your wealth <em>rank</em></h3>
+          <div class="result-hero">
+            <div class="result-label">Estimated national percentile</div>
+            <div class="result-number" id="wealthPercentile">0th</div>
+            <p class="result-caption" id="wealthRankCaption">Based on your calculated household net worth.</p>
+          </div>
+          <div class="rank-meter" aria-hidden="true">
+            <div class="rank-scale">
+              <span>Lower</span>
+              <span>Median</span>
+              <span>Top 20%</span>
+            </div>
+            <div class="rank-track">
+              <div class="rank-fill" id="wealthRankFill"></div>
+            </div>
+          </div>
+          <div class="wealth-card-grid">
+            <div class="wealth-card">
+              <div class="label">Estimated net worth</div>
+              <div class="value" id="wealthNetWorth">$0</div>
+            </div>
+            <div class="wealth-card">
+              <div class="label">Province estimate</div>
+              <div class="value" id="provincePercentile">0th</div>
+            </div>
+            <div class="wealth-card">
+              <div class="label">Rank band</div>
+              <div class="value" id="wealthRankBand">-</div>
+            </div>
+            <div class="wealth-card">
+              <div class="label">Province median comparison</div>
+              <div class="value" id="provinceRatio">0x</div>
+            </div>
+            <div class="wealth-card">
+              <div class="label">Age-group median comparison</div>
+              <div class="value" id="wealthAgeRatio">0x</div>
+            </div>
+            <div class="wealth-card">
+              <div class="label">Next provincial milestone</div>
+              <div class="value" id="wealthMilestoneGap">$0</div>
+            </div>
+          </div>
+          <p class="result-caption" id="wealthAgeCaption">Comparisons update as you change the inputs.</p>
+        </aside>
+      </div>
+
+      <div class="benchmark-grid reveal d3" aria-label="Selected wealth benchmarks">
+        <div class="benchmark">
+          <strong id="benchmarkMedian">$0</strong>
+          <span id="benchmarkMedianLabel">Selected median</span>
+        </div>
+        <div class="benchmark">
+          <strong id="benchmarkTop20">$0</strong>
+          <span>Estimated top 20%</span>
+        </div>
+        <div class="benchmark">
+          <strong id="benchmarkTop10">$0</strong>
+          <span>Estimated top 10%</span>
+        </div>
+        <div class="benchmark">
+          <strong id="benchmarkTop1">$0</strong>
+          <span>Estimated top 1%</span>
+        </div>
+      </div>
+      <p class="source-links reveal d3">Sources: <a href="https://www150.statcan.gc.ca/n1/daily-quotidien/241029/t001a-eng.htm" target="_blank" rel="noopener">Statistics Canada Survey of Financial Security, 2023</a>; <a href="https://www.pbo-dpb.ca/en/publications/RP-2526-009-S--estimating-top-tail-family-wealth-distribution-in-canada-2025-update--estimation-extremite-superieure-distribution-patrimoine-familial-canada-mises-jour-2025" target="_blank" rel="noopener">Parliamentary Budget Officer High-net-worth Families Database update</a>. Province estimates scale national thresholds by the selected province median, so they should be treated as rough planning estimates.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="wordmark-row">
+          <img src="Logo.png" alt="">
+          <span class="name">Accessible Finance</span>
+        </div>
+        <p>"True understanding is not a destination, but a way of traveling." Free, ad-free investing education for the curious.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="topic.html">Fundamentals</a></li>
+          <li><a href="articles.html?cat=assets">Asset Classes</a></li>
+          <li><a href="articles.html?cat=portfolio">Portfolio Thinking</a></li>
+          <li><a href="fire.html">FIRE</a></li>
+          <li><a href="wealth-rank.html">Wealth Rank</a></li>
+          <li><a href="articles.html?cat=behavior">Market Behavior</a></li>
+          <li><a href="index.html#glossary">Glossary</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Articles</h4>
+        <ul>
+          <li><a href="articles.html">All Guides</a></li>
+          <li><a href="articles.html">Beginner</a></li>
+          <li><a href="articles.html">Intermediate</a></li>
+          <li><a href="articles.html">Latest Posts</a></li>
+          <li><a href="tax-calculator.html">Tax Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="earn.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a></li>
+          <li><a href="#newsletter" data-open-newsletter>Newsletter</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-disclaimer">Not financial advice. All content is for educational purposes only. Estimates use simplified assumptions and public data sources.</p>
+      <span class="footer-copy">&copy; 2026 Accessible Finance</span>
+    </div>
+  </div>
+</footer>
+
+<div class="nl-overlay" id="nlOverlay" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+  <div class="nl-modal">
+    <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
+    <div class="nl-label">Weekly Newsletter</div>
+    <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
+    <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
+    <iframe src="https://accessiblefinance.substack.com/embed" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  </div>
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  (function () {
+    const form = document.getElementById('wealthRankForm');
+    if (!form) return;
+
+    const moneyFormatter = new Intl.NumberFormat('en-CA', {
+      style: 'currency',
+      currency: 'CAD',
+      maximumFractionDigits: 0,
+    });
+    const compactFormatter = new Intl.NumberFormat('en-CA', {
+      notation: 'compact',
+      compactDisplay: 'short',
+      maximumFractionDigits: 1,
+    });
+    const nationalMedian = 519700;
+    const provinces = {
+      canada: { label: 'Canada overall', short: 'Canada', median: 519700 },
+      nl: { label: 'Newfoundland and Labrador', short: 'NL', median: 333500 },
+      pe: { label: 'Prince Edward Island', short: 'PEI', median: 399800 },
+      ns: { label: 'Nova Scotia', short: 'NS', median: 354600 },
+      nb: { label: 'New Brunswick', short: 'NB', median: 286200 },
+      qc: { label: 'Quebec', short: 'QC', median: 371000 },
+      on: { label: 'Ontario', short: 'ON', median: 665600 },
+      mb: { label: 'Manitoba', short: 'MB', median: 386300 },
+      sk: { label: 'Saskatchewan', short: 'SK', median: 394600 },
+      ab: { label: 'Alberta', short: 'AB', median: 457100 },
+      bc: { label: 'British Columbia', short: 'BC', median: 773500 },
+    };
+    const ageMedians = {
+      under35: { label: 'under 35', median: 159100 },
+      '35to44': { label: '35 to 44', median: 409300 },
+      '45to54': { label: '45 to 54', median: 675800 },
+      '55to64': { label: '55 to 64', median: 873400 },
+      '65plus': { label: '65 and older', median: 738900 },
+    };
+    const rankPoints = [
+      { netWorth: -100000, percentile: 5 },
+      { netWorth: 0, percentile: 15 },
+      { netWorth: 300000, percentile: 40 },
+      { netWorth: 519700, percentile: 50 },
+      { netWorth: 1300000, percentile: 80 },
+      { netWorth: 2100000, percentile: 90 },
+      { netWorth: 2900000, percentile: 95 },
+      { netWorth: 7500000, percentile: 99 },
+      { netWorth: 12100000, percentile: 99.5 },
+      { netWorth: 36500000, percentile: 99.9 },
+      { netWorth: 175000000, percentile: 99.99 },
+    ];
+    const baseMilestones = [
+      { label: 'median', netWorth: 519700 },
+      { label: 'top 20%', netWorth: 1300000 },
+      { label: 'top 10%', netWorth: 2100000 },
+      { label: 'top 5%', netWorth: 2900000 },
+      { label: 'top 1%', netWorth: 7500000 },
+      { label: 'top 0.1%', netWorth: 36500000 },
+    ];
+    const ids = ['wealthInvestments', 'wealthHomeEquity', 'wealthOtherAssets', 'wealthDebts', 'wealthAgeGroup', 'provinceSelect'];
+    const output = {
+      percentile: document.getElementById('wealthPercentile'),
+      provincePercentile: document.getElementById('provincePercentile'),
+      caption: document.getElementById('wealthRankCaption'),
+      fill: document.getElementById('wealthRankFill'),
+      netWorth: document.getElementById('wealthNetWorth'),
+      band: document.getElementById('wealthRankBand'),
+      provinceRatio: document.getElementById('provinceRatio'),
+      ageRatio: document.getElementById('wealthAgeRatio'),
+      milestoneGap: document.getElementById('wealthMilestoneGap'),
+      ageCaption: document.getElementById('wealthAgeCaption'),
+      benchmarkMedian: document.getElementById('benchmarkMedian'),
+      benchmarkMedianLabel: document.getElementById('benchmarkMedianLabel'),
+      benchmarkTop20: document.getElementById('benchmarkTop20'),
+      benchmarkTop10: document.getElementById('benchmarkTop10'),
+      benchmarkTop1: document.getElementById('benchmarkTop1'),
+    };
+
+    function numericValue(id) {
+      const number = Number.parseFloat(document.getElementById(id)?.value);
+      return Number.isFinite(number) ? number : 0;
+    }
+
+    function clamp(number, min, max) {
+      return Math.min(Math.max(number, min), max);
+    }
+
+    function lerp(start, end, amount) {
+      return start + ((end - start) * amount);
+    }
+
+    function interpolatePositive(value, low, high) {
+      const safeValue = Math.max(1, value);
+      const safeLow = Math.max(1, low.netWorth);
+      const safeHigh = Math.max(safeLow + 1, high.netWorth);
+      const amount = (Math.log(safeValue) - Math.log(safeLow)) / (Math.log(safeHigh) - Math.log(safeLow));
+      return lerp(low.percentile, high.percentile, clamp(amount, 0, 1));
+    }
+
+    function estimatePercentile(netWorth) {
+      if (netWorth <= rankPoints[0].netWorth) return rankPoints[0].percentile;
+      for (let index = 1; index < rankPoints.length; index += 1) {
+        const low = rankPoints[index - 1];
+        const high = rankPoints[index];
+        if (netWorth <= high.netWorth) {
+          if (high.netWorth <= 0 || low.netWorth < 0) {
+            const amount = (netWorth - low.netWorth) / (high.netWorth - low.netWorth);
+            return lerp(low.percentile, high.percentile, clamp(amount, 0, 1));
+          }
+          if (low.netWorth === 0) {
+            const amount = netWorth / high.netWorth;
+            return lerp(low.percentile, high.percentile, clamp(amount, 0, 1));
+          }
+          return interpolatePositive(netWorth, low, high);
+        }
+      }
+      return 99.99;
+    }
+
+    function rankBand(percentile) {
+      if (percentile >= 99.9) return 'Top 0.1%';
+      if (percentile >= 99.5) return 'Top 0.5%';
+      if (percentile >= 99) return 'Top 1%';
+      if (percentile >= 95) return 'Top 5%';
+      if (percentile >= 90) return 'Top 10%';
+      if (percentile >= 80) return 'Top 20%';
+      if (percentile >= 50) return 'Above median';
+      if (percentile >= 40) return 'Middle range';
+      return 'Bottom 40%';
+    }
+
+    function ordinal(number) {
+      const rounded = Math.round(number);
+      const mod100 = rounded % 100;
+      if (mod100 >= 11 && mod100 <= 13) return `${rounded}th`;
+      const mod10 = rounded % 10;
+      if (mod10 === 1) return `${rounded}st`;
+      if (mod10 === 2) return `${rounded}nd`;
+      if (mod10 === 3) return `${rounded}rd`;
+      return `${rounded}th`;
+    }
+
+    function formatMoney(number) {
+      return moneyFormatter.format(Math.round(number || 0));
+    }
+
+    function formatCompact(number) {
+      return `$${compactFormatter.format(Math.round(number || 0)).replace('$', '')}`;
+    }
+
+    function formatRatio(ratio) {
+      if (ratio >= 10) return ratio.toFixed(0);
+      if (ratio < 2) return ratio.toFixed(2);
+      return ratio.toFixed(1);
+    }
+
+    function scaledMilestones(scale) {
+      return baseMilestones.map((milestone) => ({
+        label: milestone.label,
+        netWorth: milestone.netWorth * scale,
+      }));
+    }
+
+    function updateWealthRank() {
+      const netWorth = numericValue('wealthInvestments')
+        + numericValue('wealthHomeEquity')
+        + numericValue('wealthOtherAssets')
+        - numericValue('wealthDebts');
+      const selectedProvince = provinces[document.getElementById('provinceSelect').value] || provinces.canada;
+      const provinceScale = selectedProvince.median / nationalMedian;
+      const selectedAge = ageMedians[document.getElementById('wealthAgeGroup').value] || ageMedians['35to44'];
+      const nationalPercentile = estimatePercentile(netWorth);
+      const provinceEquivalentNetWorth = provinceScale > 0 ? netWorth / provinceScale : netWorth;
+      const provincePercentile = estimatePercentile(provinceEquivalentNetWorth);
+      const topShare = Math.max(0.01, 100 - nationalPercentile);
+      const ageDifference = netWorth - selectedAge.median;
+      const ageRatio = selectedAge.median > 0 ? netWorth / selectedAge.median : 0;
+      const provinceRatio = selectedProvince.median > 0 ? netWorth / selectedProvince.median : 0;
+      const milestones = scaledMilestones(provinceScale);
+      const nextMilestone = milestones.find((milestone) => netWorth < milestone.netWorth);
+
+      output.percentile.textContent = ordinal(nationalPercentile);
+      output.provincePercentile.textContent = ordinal(provincePercentile);
+      output.fill.style.width = `${clamp(nationalPercentile, 0, 100)}%`;
+      output.netWorth.textContent = formatMoney(netWorth);
+      output.band.textContent = rankBand(nationalPercentile);
+      output.provinceRatio.textContent = `${formatRatio(Math.max(0, provinceRatio))}x`;
+      output.provinceRatio.classList.toggle('good', netWorth >= selectedProvince.median);
+      output.provinceRatio.classList.toggle('warn', netWorth < selectedProvince.median);
+      output.ageRatio.textContent = `${formatRatio(Math.max(0, ageRatio))}x`;
+      output.ageRatio.classList.toggle('good', ageDifference >= 0);
+      output.ageRatio.classList.toggle('warn', ageDifference < 0);
+      output.milestoneGap.textContent = nextMilestone
+        ? formatMoney(nextMilestone.netWorth - netWorth)
+        : 'Reached';
+      const nationalCaption = nationalPercentile >= 50
+        ? `Roughly top ${topShare < 1 ? topShare.toFixed(1) : Math.round(topShare)}% nationally.`
+        : 'Below the national median family net worth.';
+      output.caption.textContent = `${nationalCaption} ${selectedProvince.short} estimate: ${ordinal(provincePercentile)} percentile.`;
+      output.ageCaption.textContent = `Compared with ${selectedProvince.label}, this is ${formatMoney(Math.abs(netWorth - selectedProvince.median))} ${netWorth >= selectedProvince.median ? 'above' : 'below'} the provincial median of ${formatMoney(selectedProvince.median)}. Age-group median: ${formatMoney(selectedAge.median)}.`;
+      output.benchmarkMedian.textContent = formatCompact(selectedProvince.median);
+      output.benchmarkMedianLabel.textContent = `${selectedProvince.short} median`;
+      output.benchmarkTop20.textContent = formatCompact(1300000 * provinceScale);
+      output.benchmarkTop10.textContent = formatCompact(2100000 * provinceScale);
+      output.benchmarkTop1.textContent = formatCompact(7500000 * provinceScale);
+    }
+
+    ids.forEach((id) => {
+      const field = document.getElementById(id);
+      if (!field) return;
+      field.addEventListener('input', updateWealthRank);
+      field.addEventListener('change', updateWealthRank);
+    });
+    form.addEventListener('submit', (event) => event.preventDefault());
+    updateWealthRank();
+  })();
+
+  (function(){
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open'); btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }));
+  })();
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href.length < 2) return;
+      const target = document.querySelector(href);
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  (function () {
+    const overlay = document.getElementById('nlOverlay');
+    const closeBtn = document.getElementById('nlClose');
+    function open(e) { if (e) e.preventDefault(); overlay.classList.add('open'); }
+    function close() { overlay.classList.remove('open'); }
+    document.querySelectorAll('[data-open-newsletter]').forEach(a => a.addEventListener('click', open));
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  })();
+</script>
+</body>
+</html>
