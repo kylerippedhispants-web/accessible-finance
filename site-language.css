@@ -271,7 +271,26 @@ body.menu-open nav.site-nav {
 
 @media (max-width: 768px) {
   .nav-actions {
+    display: inline-flex;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: 8px;
+  }
+
+  .nav-actions .language-switcher,
+  .nav-actions .nav-cta {
     display: none;
+  }
+
+  .nav-social {
+    width: 38px;
+    height: 38px;
+    background: transparent;
+  }
+
+  .nav-social svg {
+    width: 18px;
+    height: 18px;
   }
 
   .mobile-menu {
