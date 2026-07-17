@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24" role="img" aria-label="Canada">
+  <rect width="36" height="24" fill="#fff"/>
+  <path fill="#d80621" d="M0 0h9v24H0zm27 0h9v24h-9z"/>
+  <path fill="#d80621" d="m18 3.5 1.35 3.55 3.18-1.6-.88 3.72 3.16.28-2.55 2.4 1.55 1.82-4.72-.72.26 5.2h-2.7l.26-5.2-4.72.72 1.55-1.82-2.55-2.4 3.16-.28-.88-3.72 3.18 1.6z"/>
+</svg>

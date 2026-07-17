@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://accessiblefinance.example/sitemap.xml
+Sitemap: https://accessible-finance.com/sitemap.xml
