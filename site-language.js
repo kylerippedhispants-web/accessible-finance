@@ -20,8 +20,12 @@
   }
 
   function getSavedLanguage() {
-    const saved = localStorage.getItem(storageKey);
-    if (supportedLanguages.has(saved)) return saved;
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (supportedLanguages.has(saved)) return saved;
+    } catch (_) {
+      // Keep the language control usable when browser storage is unavailable.
+    }
 
     const cookie = getCookie(translateCookie);
     if (cookie) {
@@ -51,10 +55,12 @@
     });
   }
 
-  function closeLanguageMenus() {
+  function closeLanguageMenus(returnFocus) {
     document.querySelectorAll('[data-language-custom].open').forEach((custom) => {
       custom.classList.remove('open');
-      custom.querySelector('[data-language-button]')?.setAttribute('aria-expanded', 'false');
+      const button = custom.querySelector('[data-language-button]');
+      button?.setAttribute('aria-expanded', 'false');
+      if (returnFocus) button?.focus();
     });
   }
 
@@ -67,6 +73,10 @@
     custom.querySelector('[data-language-current-code]').textContent = language.code;
     custom.querySelector('[data-language-current-name]').textContent = language.name;
     custom.querySelector('[data-language-current-flag]').className = `language-flag ${language.flag}`;
+    custom.querySelector('[data-language-button]').setAttribute(
+      'aria-label',
+      `Language: ${language.name}. Choose language`
+    );
 
     custom.querySelectorAll('[data-language-option]').forEach((option) => {
       const isSelected = option.dataset.languageOption === select.value;
@@ -78,6 +88,8 @@
     if (select.dataset.languageEnhanced) return;
     select.dataset.languageEnhanced = 'true';
     select.classList.add('language-select-native');
+    select.tabIndex = -1;
+    select.setAttribute('aria-hidden', 'true');
 
     const menuId = `language-menu-${++menuCount}`;
     const custom = document.createElement('div');
@@ -89,7 +101,7 @@
         <span class="language-current-code" data-language-current-code>EN</span>
         <span class="language-current-name" data-language-current-name>English</span>
       </button>
-      <div class="language-menu" id="${menuId}" role="listbox">
+      <div class="language-menu" id="${menuId}" role="listbox" aria-label="Choose language">
         ${Object.entries(languageLabels).map(([value, language]) => `
           <button class="language-option" type="button" role="option" data-language-option="${value}">
             <span class="language-flag ${language.flag}" aria-hidden="true"></span>
@@ -101,20 +113,56 @@
     select.insertAdjacentElement('afterend', custom);
 
     const button = custom.querySelector('[data-language-button]');
+    const options = Array.from(custom.querySelectorAll('[data-language-option]'));
+
+    function openMenu(focusOption) {
+      closeLanguageMenus(false);
+      custom.classList.add('open');
+      button.setAttribute('aria-expanded', 'true');
+      if (focusOption) {
+        (options.find((option) => option.getAttribute('aria-selected') === 'true') || options[0])?.focus();
+      }
+    }
+
     button.addEventListener('click', (event) => {
       event.stopPropagation();
       const isOpen = custom.classList.contains('open');
-      closeLanguageMenus();
-      custom.classList.toggle('open', !isOpen);
-      button.setAttribute('aria-expanded', String(!isOpen));
+      if (isOpen) closeLanguageMenus(false);
+      else openMenu(false);
+    });
+    button.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        openMenu(true);
+      }
     });
 
-    custom.querySelectorAll('[data-language-option]').forEach((option) => {
+    options.forEach((option, index) => {
       option.addEventListener('click', () => {
         select.value = option.dataset.languageOption;
         select.dispatchEvent(new Event('change', { bubbles: true }));
-        closeLanguageMenus();
+        closeLanguageMenus(false);
+        button.focus();
       });
+      option.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          const direction = event.key === 'ArrowDown' ? 1 : -1;
+          options[(index + direction + options.length) % options.length].focus();
+        } else if (event.key === 'Home' || event.key === 'End') {
+          event.preventDefault();
+          options[event.key === 'Home' ? 0 : options.length - 1].focus();
+        } else if (event.key === 'Escape') {
+          event.preventDefault();
+          closeLanguageMenus(true);
+        }
+      });
+    });
+
+    custom.addEventListener('focusout', () => {
+      window.setTimeout(() => {
+        if (!custom.contains(document.activeElement)) closeLanguageMenus(false);
+      }, 0);
     });
 
     select.addEventListener('change', () => updateCustomSelect(select));
@@ -180,7 +228,11 @@
 
   function setLanguage(language) {
     const nextLanguage = supportedLanguages.has(language) ? language : 'en';
-    localStorage.setItem(storageKey, nextLanguage);
+    try {
+      localStorage.setItem(storageKey, nextLanguage);
+    } catch (_) {
+      // The selection still applies for this page when storage is unavailable.
+    }
     syncSelects(nextLanguage);
     document.documentElement.lang = nextLanguage;
 
@@ -207,9 +259,9 @@
       select.addEventListener('change', (event) => setLanguage(event.target.value));
     });
 
-    document.addEventListener('click', closeLanguageMenus);
+    document.addEventListener('click', () => closeLanguageMenus(false));
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') closeLanguageMenus();
+      if (event.key === 'Escape') closeLanguageMenus(true);
     });
 
     if (language !== 'en') {

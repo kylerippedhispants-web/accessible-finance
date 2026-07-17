@@ -14,8 +14,12 @@
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://accessible-finance.com/Logo.png">
 <meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f5f0">
+<link rel="icon" type="image/png" href="Logo.png">
 
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,7 +31,7 @@
   --gold: #c8822a; --gold-soft: #d4a560; --gold-light: #f6ecd9;
   --border: #e4e0d8; --border-strong: #c9c3b6;
   --serif: 'Instrument Serif', Georgia, serif;
-  --sans: 'Syne', sans-serif;
+  --sans: 'Inter', sans-serif;
   --body: 'Literata', Georgia, serif;
 }
 html { scroll-behavior: smooth; }
@@ -139,8 +143,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="site-region.css">
 <script src="site-language.js" defer></script>
 <script src="site-region.js" defer></script>
+<script src="site-shell.js" defer></script>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 
 <nav class="site-nav">
   <a href="index.html" class="nav-logo" aria-label="Accessible Finance — Home">
@@ -176,7 +182,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </label>
     <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
   </div>
-  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+  <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -201,7 +207,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
 </div>
 
-<header class="legal-hero">
+<header class="legal-hero" id="main-content" tabindex="-1">
   <a href="index.html" class="legal-back">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Back home
@@ -301,11 +307,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 
 <div class="nl-overlay" id="nlOverlay" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
   <div class="nl-modal">
-    <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
+    <button class="nl-close" id="nlClose" type="button" aria-label="Close newsletter signup">&#x2715;</button>
     <div class="nl-label">Weekly Newsletter</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
-    <iframe src="https://accessiblefinance.substack.com/embed" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
     <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
   </div>
 </div>

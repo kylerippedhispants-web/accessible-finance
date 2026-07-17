@@ -14,8 +14,12 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://accessible-finance.com/Logo.png">
 <meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f5f0">
+<link rel="icon" type="image/png" href="Logo.png">
 
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,7 +33,7 @@
   --rakuten: #BF0000;
   --polymarket: #2454ff;
   --serif: 'Instrument Serif', Georgia, serif;
-  --sans: 'Syne', sans-serif;
+  --sans: 'Inter', sans-serif;
   --body: 'Literata', Georgia, serif;
 }
 html { scroll-behavior: smooth; }
@@ -249,8 +253,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="site-region.css">
 <script src="site-language.js" defer></script>
 <script src="site-region.js" defer></script>
+<script src="site-shell.js" defer></script>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 
 <nav class="site-nav">
   <a href="index.html" class="nav-logo" aria-label="Accessible Finance — Home">
@@ -264,7 +270,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="fire.html">FIRE</a>
     <a href="wealth-rank.html">Wealth Rank</a>
     <a href="tax-calculator.html">Tax</a>
-    <a href="earn.html" class="active">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
+    <a href="earn.html" class="active" aria-current="page">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
     <a href="about.html">About</a>
   </div>
   <div class="nav-actions">
@@ -286,7 +292,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </label>
     <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
   </div>
-  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+  <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -297,7 +303,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <a href="fire.html">FIRE</a>
   <a href="wealth-rank.html">Wealth Rank</a>
   <a href="tax-calculator.html">Tax</a>
-  <a href="earn.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
+  <a href="earn.html" aria-current="page">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
   <a href="about.html">About</a>
   <label class="mobile-language notranslate" translate="no">
     <span>Language</span>
@@ -311,6 +317,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
 </div>
 
+<main id="main-content" tabindex="-1">
 <section class="earn-hero reveal">
   <span class="eyebrow">Referral Offers</span>
   <h1>Start investing and<br><em>get paid to do it.</em></h1>
@@ -342,7 +349,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <li>Deposit at least $100 into your account</li>
         <li>Wealthsimple deposits $25 into your account automatically</li>
       </ol>
-      <a href="https://www.wealthsimple.com/invite/BZJM-A" class="offer-cta" target="_blank" rel="noopener noreferrer">Claim Your $25
+      <a href="https://www.wealthsimple.com/invite/BZJM-A" class="offer-cta" target="_blank" rel="sponsored nofollow noopener noreferrer">Claim Your $25
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
@@ -367,7 +374,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <li>Paid out quarterly by cheque or PayPal — no minimums</li>
           <li>Completely free — Rakuten earns commission from retailers, not from you</li>
         </ul>
-        <a href="https://www.rakuten.ca/referrer?referrerid=JdBJgx4OV54%3D&src=Link" class="rakuten-cta" target="_blank" rel="noopener noreferrer">Join Rakuten Canada
+        <a href="https://www.rakuten.ca/referrer?referrerid=JdBJgx4OV54%3D&src=Link" class="rakuten-cta" target="_blank" rel="sponsored nofollow noopener noreferrer">Join Rakuten Canada
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
         <p class="rakuten-fine">Referral link — we may earn a small commission at no cost to you. We only recommend services we believe in.</p>
@@ -394,7 +401,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <li>Prediction markets can lose money quickly</li>
           <li>Eligibility, availability, and terms vary by location</li>
         </ul>
-        <a href="https://polymarket.com/?r=Pewwww" class="polymarket-cta" target="_blank" rel="noopener noreferrer">Join Polymarket
+        <a href="https://polymarket.com/?r=Pewwww" class="polymarket-cta" target="_blank" rel="sponsored nofollow noopener noreferrer">Join Polymarket
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
         <p class="polymarket-fine">Referral link — we may earn a commission. Prediction markets are speculative and are not suitable for everyone.</p>
@@ -442,6 +449,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </article>
   </div>
 </section>
+
+</main>
 
 <footer class="site-footer">
   <div class="footer-inner">
@@ -496,11 +505,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 
 <div class="nl-overlay" id="nlOverlay" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
   <div class="nl-modal">
-    <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
+    <button class="nl-close" id="nlClose" type="button" aria-label="Close newsletter signup">&#x2715;</button>
     <div class="nl-label">Weekly Newsletter</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
-    <iframe src="https://accessiblefinance.substack.com/embed" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
     <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
   </div>
 </div>

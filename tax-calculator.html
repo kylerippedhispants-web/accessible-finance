@@ -14,6 +14,8 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://accessible-finance.com/Logo.png">
 <meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f5f0">
+<link rel="icon" type="image/png" href="Logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
@@ -215,8 +217,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="site-region.css">
 <script src="site-language.js" defer></script>
 <script src="site-region.js" defer></script>
+<script src="site-shell.js" defer></script>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 
 <nav class="site-nav">
   <a href="index.html" class="nav-logo" aria-label="Accessible Finance - Home">
@@ -229,7 +233,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="index.html#glossary">Glossary</a>
     <a href="fire.html">FIRE</a>
     <a href="wealth-rank.html">Wealth Rank</a>
-    <a href="tax-calculator.html" class="active">Tax</a>
+    <a href="tax-calculator.html" class="active" aria-current="page">Tax</a>
     <a href="earn.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
     <a href="about.html">About</a>
   </div>
@@ -252,7 +256,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </label>
     <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
   </div>
-  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+  <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -262,7 +266,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <a href="index.html#glossary">Glossary</a>
   <a href="fire.html">FIRE</a>
   <a href="wealth-rank.html">Wealth Rank</a>
-  <a href="tax-calculator.html">Tax</a>
+  <a href="tax-calculator.html" aria-current="page">Tax</a>
   <a href="earn.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
   <a href="about.html">About</a>
   <label class="mobile-language notranslate" translate="no">
@@ -277,7 +281,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
 </div>
 
-<header class="tax-hero">
+<header class="tax-hero" id="main-content" tabindex="-1">
   <div class="reveal">
     <span class="eyebrow">2026 Canada estimator</span>
     <h1>Income tax <em>calculator.</em></h1>
@@ -307,7 +311,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
               <span aria-hidden="true">$</span>
               <input id="rrspInput" name="rrsp" type="number" inputmode="decimal" min="0" step="500" value="0" autocomplete="off">
             </div>
-            <p class="input-help">RRSP deductions lower taxable income. The 2026 RRSP dollar limit is $35,390, but your personal room may differ. Amounts above income are ignored in this estimate.</p>
+            <p class="input-help">RRSP deductions lower taxable income. The 2026 RRSP dollar limit used to calculate new room is $33,810, but your available room may differ because of income, pension adjustments, and unused room. Amounts above income are ignored in this estimate.</p>
           </div>
           <div class="field">
             <label for="tfsaInput">TFSA contribution</label>
@@ -485,11 +489,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 
 <div class="nl-overlay" id="nlOverlay" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
   <div class="nl-modal">
-    <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
+    <button class="nl-close" id="nlClose" type="button" aria-label="Close newsletter signup">&#x2715;</button>
     <div class="nl-label">Weekly Newsletter</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
-    <iframe src="https://accessiblefinance.substack.com/embed" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
     <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
   </div>
 </div>
@@ -612,7 +616,7 @@ function bracketTax(income, brackets) {
 }
 
 function marginalRate(income, brackets) {
-  if (income <= 0) return brackets[0].rate;
+  if (income <= 0) return 0;
   return brackets.find((bracket) => income <= bracket.upTo).rate;
 }
 
@@ -659,9 +663,10 @@ function updateCalculator() {
   const rrspSavings = Math.max(0, taxBeforeRrsp.total - total);
   const afterTax = Math.max(0, income - total - rrsp - tfsa);
   const average = taxableIncome > 0 ? total / taxableIncome : 0;
-  const marginal = marginalRate(taxableIncome, FEDERAL_BRACKETS) + marginalRate(taxableIncome, province.brackets);
-  const federalShare = total > 0 ? (federal / total) * 100 : 50;
-  const provinceShare = total > 0 ? (provincial / total) * 100 : 50;
+  const federalMarginal = marginalRate(taxableIncome, FEDERAL_BRACKETS);
+  const marginal = (federalMarginal * (1 - (province.abatement || 0))) + marginalRate(taxableIncome, province.brackets);
+  const federalShare = total > 0 ? (federal / total) * 100 : 0;
+  const provinceShare = total > 0 ? (provincial / total) * 100 : 0;
 
   document.getElementById('resultLocation').textContent = `${province.name} estimate`;
   document.getElementById('totalTax').textContent = moneyFormatter.format(total);

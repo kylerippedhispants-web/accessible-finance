@@ -7,20 +7,25 @@
 <link rel="icon" type="image/png" href="../Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>U.S. Account Guide | Accessible Finance</title>
-<meta name="description" content="A beginner-friendly comparison of 401(k)s, Traditional IRAs, Roth IRAs, and HSAs in the United States.">
+<meta name="description" content="A beginner-friendly comparison of 401(k)s, Traditional IRAs, Roth IRAs, HSAs, and taxable brokerage accounts in the United States.">
 <link rel="canonical" href="https://accessible-finance.com/us/accounts.html">
 <meta property="og:title" content="U.S. Account Guide | Accessible Finance">
-<meta property="og:description" content="Understand what 401(k)s, IRAs, Roth IRAs, and HSAs are designed to do.">
+<meta property="og:description" content="Understand what 401(k)s, IRAs, Roth IRAs, HSAs, and taxable brokerage accounts are designed to do.">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://accessible-finance.com/Logo.png">
 <meta name="twitter:card" content="summary">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#f7f5f0">
+<link rel="icon" type="image/png" href="../Logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="../site-language.css">
 <link rel="stylesheet" href="../site-region.css">
 <script src="../site-language.js" defer></script>
 <script src="../site-region.js" defer></script>
 <script src="site.js" defer></script>
+<script src="../site-shell.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to content</a>
@@ -33,9 +38,9 @@
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="accounts.html" class="active" aria-current="page">Accounts</a>
-    <a href="index.html#taxes">Tax basics</a>
-    <a href="index.html#path">Investing</a>
-    <a href="index.html#independence">FIRE</a>
+    <a href="tax-calculator.html">Tax</a>
+    <a href="fire.html">FIRE</a>
+    <a href="rewards.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
   </div>
   <div class="nav-actions">
     <a class="nav-social" href="https://www.instagram.com/accessible.finance?igsh=MXVobG52emdvMTBudw==" target="_blank" rel="noopener noreferrer" aria-label="Accessible Finance on Instagram">
@@ -63,10 +68,10 @@
 
 <div class="mobile-menu" id="mobile-menu">
   <a href="index.html">Home</a>
-  <a href="accounts.html">Accounts</a>
-  <a href="index.html#taxes">Tax basics</a>
-  <a href="index.html#path">Investing</a>
-  <a href="index.html#independence">FIRE</a>
+  <a href="accounts.html" aria-current="page">Accounts</a>
+  <a href="tax-calculator.html">Tax</a>
+  <a href="fire.html">FIRE</a>
+  <a href="rewards.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
   <label class="mobile-language notranslate" translate="no">
     <span>Language</span>
     <select class="language-select" data-language-select aria-label="Language">
@@ -79,17 +84,17 @@
   <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
 </div>
 
-<main id="main-content">
+<main id="main-content" tabindex="-1">
   <header class="page-hero shell">
     <span class="eyebrow">U.S. account guide</span>
     <h1>Know what each account is <em>for</em></h1>
-    <p class="lead">A 401(k), IRA, Roth IRA, and HSA can all hold investments, but their rules and purposes are different. Start with the job each account is designed to do.</p>
+    <p class="lead">A 401(k), IRA, Roth IRA, HSA, and taxable brokerage account can all hold investments, but their rules and purposes are different. Start with the job each account is designed to do.</p>
   </header>
 
   <section class="compare-section" aria-labelledby="compare-title">
     <div class="shell">
       <span class="eyebrow">At a glance</span>
-      <h2 class="section-title" id="compare-title">Four accounts, <em>four starting points</em></h2>
+      <h2 class="section-title" id="compare-title">Five accounts, <em>five starting points</em></h2>
       <div class="comparison-wrap" tabindex="0" aria-label="Scrollable account comparison">
         <table class="comparison-table">
           <thead><tr><th>Account</th><th>Where it comes from</th><th>Tax idea</th><th>Best first question</th></tr></thead>
@@ -98,9 +103,29 @@
             <tr><td>Traditional IRA</td><td>Opened individually at a financial institution.</td><td>Contributions may be deductible; withdrawals are generally taxable.</td><td>Would a current deduction help me?</td></tr>
             <tr><td>Roth IRA</td><td>Opened individually, subject to eligibility rules.</td><td>Contributions use after-tax dollars; qualified withdrawals are tax-free.</td><td>Would I rather pay tax now than later?</td></tr>
             <tr><td>HSA</td><td>Available with an eligible high-deductible health plan.</td><td>Tax advantages can apply to contributions, growth, and qualified medical withdrawals.</td><td>Am I eligible, and can I cover near-term medical costs?</td></tr>
+            <tr><td>Taxable brokerage</td><td>Opened individually with no retirement-plan eligibility requirement.</td><td>Interest, dividends, distributions, and realized gains can create annual tax consequences.</td><td>Do I need flexible access before traditional retirement?</td></tr>
           </tbody>
         </table>
       </div>
+    </div>
+  </section>
+
+  <section class="limits-section" aria-labelledby="limits-title">
+    <div class="shell">
+      <div class="section-heading-row">
+        <div>
+          <span class="eyebrow">2026 reference</span>
+          <h2 class="section-title" id="limits-title">Know the limits, then check <em>your eligibility</em></h2>
+        </div>
+        <p class="section-intro">Contribution limits are ceilings, not targets. Income rules, health-plan coverage, employer-plan terms, catch-up eligibility, and available cash all matter.</p>
+      </div>
+      <div class="limit-grid">
+        <article class="limit-card"><span>401(k), 403(b), TSP</span><strong>$24,500</strong><p>Basic employee elective-deferral limit. Catch-up limits may apply by age.</p></article>
+        <article class="limit-card"><span>Traditional and Roth IRAs</span><strong>$7,500</strong><p>Combined IRA contribution limit before any eligible age-based catch-up amount.</p></article>
+        <article class="limit-card"><span>HSA, self-only coverage</span><strong>$4,400</strong><p>Available only with eligible coverage and subject to HSA eligibility rules.</p></article>
+        <article class="limit-card"><span>HSA, family coverage</span><strong>$8,750</strong><p>The family-coverage ceiling before any eligible age-based catch-up amount.</p></article>
+      </div>
+      <p class="source-note">Figures are for 2026. Confirm current limits and eligibility with the <a href="https://www.irs.gov/retirement-plans/plan-participant-employee/retirement-topics-contributions" target="_blank" rel="noopener noreferrer">IRS retirement contribution guidance</a> and <a href="https://www.irs.gov/irb/2025-21_IRB" target="_blank" rel="noopener noreferrer">IRS HSA guidance</a>.</p>
     </div>
   </section>
 
@@ -164,14 +189,34 @@
     </div>
   </section>
 
+  <section class="account-detail-section" id="taxable-brokerage">
+    <div class="shell detail-layout">
+      <div class="detail-title"><span class="account-number">05</span><h2>Taxable brokerage</h2></div>
+      <div class="detail-copy">
+        <p>A taxable brokerage account has no retirement contribution ceiling and generally no age-based withdrawal rule. That flexibility comes with ongoing tax consequences and no special protection from market losses.</p>
+        <div class="detail-points">
+          <article class="detail-point"><h3>Flexible access</h3><p>You can generally add or withdraw cash without retirement-account timing rules, though selling investments may create gains or losses.</p></article>
+          <article class="detail-point"><h3>Taxes along the way</h3><p>Interest, dividends, fund distributions, and realized capital gains can affect a federal and state tax return.</p></article>
+          <article class="detail-point"><h3>Useful bridge account</h3><p>Flexible access can help fund goals or early-retirement years before other income and account strategies begin.</p></article>
+          <article class="detail-point"><h3>Still goal-specific</h3><p>Money needed soon should not take investment risk simply because the account allows immediate access.</p></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="decision-section">
     <div class="shell">
       <span class="eyebrow">Choosing an order</span>
       <h2 class="section-title">Ask these questions <em>before comparing funds</em></h2>
-      <div class="decision-list">
+      <div class="decision-list decision-list-four">
         <article class="decision-item"><strong>01</strong><h3>Is there an employer match?</h3><p>A match can change which account deserves attention first.</p></article>
         <article class="decision-item"><strong>02</strong><h3>When will I need the money?</h3><p>Retirement and health accounts have rules that ordinary savings do not.</p></article>
         <article class="decision-item"><strong>03</strong><h3>Do I value tax relief now or later?</h3><p>Traditional and Roth treatment shift when income tax is generally paid.</p></article>
+        <article class="decision-item"><strong>04</strong><h3>What does the account cost?</h3><p>Plan fees, fund expenses, advice charges, and trading costs all reduce what remains invested.</p></article>
+      </div>
+      <div class="decision-next">
+        <p>Tax treatment is only one part of the decision. Model the federal effect, then return to the account rules and your time horizon.</p>
+        <a class="button-secondary" href="tax-calculator.html">Open the 2026 tax calculator</a>
       </div>
     </div>
   </section>
@@ -195,11 +240,11 @@
       </div>
       <div class="footer-col">
         <h2>U.S. edition</h2>
-        <ul><li><a href="index.html">Home</a></li><li><a href="accounts.html">Account guide</a></li><li><a href="index.html#taxes">Tax basics</a></li><li><a href="index.html#independence">FIRE</a></li></ul>
+        <ul><li><a href="index.html">Home</a></li><li><a href="accounts.html">Account guide</a></li><li><a href="tax-calculator.html">Tax calculator</a></li><li><a href="fire.html">FIRE guide</a></li><li><a href="rewards.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a></li></ul>
       </div>
       <div class="footer-col">
         <h2>Company</h2>
-        <ul><li><a href="../about.html">About</a></li><li><a href="#newsletter" data-open-newsletter>Newsletter</a></li><li><a href="../privacy.html">Privacy</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul>
+        <ul><li><a href="../about.html">About</a></li><li><a href="#newsletter" data-open-newsletter>Newsletter</a></li><li><a href="https://www.instagram.com/accessible.finance?igsh=MXVobG52emdvMTBudw==" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="../privacy.html">Privacy</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul>
       </div>
     </div>
     <div class="footer-bottom">
@@ -215,7 +260,7 @@
     <div class="nl-label">Weekly newsletter</div>
     <div class="nl-title" id="nlTitle">One money idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">No hype. No sales pitch. Just one useful concept at a time.</p>
-    <iframe src="https://accessiblefinance.substack.com/embed" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
     <p class="nl-fine">Unsubscribe anytime.</p>
   </div>
 </div>

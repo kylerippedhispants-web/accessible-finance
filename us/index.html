@@ -7,20 +7,25 @@
 <link rel="icon" type="image/png" href="../Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Accessible Finance U.S. | U.S. Money, Clearly Explained</title>
-<meta name="description" content="Beginner-friendly U.S. financial education covering 401(k)s, IRAs, Roth IRAs, HSAs, taxes, investing, and financial independence.">
+<meta name="description" content="Beginner-friendly U.S. financial education covering 401(k)s, IRAs, HSAs, federal taxes, investing, FIRE planning, and financial independence.">
 <link rel="canonical" href="https://accessible-finance.com/us/">
 <meta property="og:title" content="Accessible Finance U.S. | U.S. Money, Clearly Explained">
 <meta property="og:description" content="Clear U.S. financial education for the accounts, taxes, and decisions Americans actually face.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://accessible-finance.com/Logo.png">
 <meta name="twitter:card" content="summary">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#f7f5f0">
+<link rel="icon" type="image/png" href="../Logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="../site-language.css">
 <link rel="stylesheet" href="../site-region.css">
 <script src="../site-language.js" defer></script>
 <script src="../site-region.js" defer></script>
 <script src="site.js" defer></script>
+<script src="../site-shell.js" defer></script>
 </head>
 <body data-region-home>
 <a class="skip-link" href="#main-content">Skip to content</a>
@@ -33,9 +38,9 @@
   <div class="nav-links">
     <a href="index.html" class="active" aria-current="page">Home</a>
     <a href="accounts.html">Accounts</a>
-    <a href="#taxes">Tax basics</a>
-    <a href="#path">Investing</a>
-    <a href="#independence">FIRE</a>
+    <a href="tax-calculator.html">Tax</a>
+    <a href="fire.html">FIRE</a>
+    <a href="rewards.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
   </div>
   <div class="nav-actions">
     <a class="nav-social" href="https://www.instagram.com/accessible.finance?igsh=MXVobG52emdvMTBudw==" target="_blank" rel="noopener noreferrer" aria-label="Accessible Finance on Instagram">
@@ -62,11 +67,11 @@
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
-  <a href="index.html">Home</a>
+  <a href="index.html" aria-current="page">Home</a>
   <a href="accounts.html">Accounts</a>
-  <a href="#taxes">Tax basics</a>
-  <a href="#path">Investing</a>
-  <a href="#independence">FIRE</a>
+  <a href="tax-calculator.html">Tax</a>
+  <a href="fire.html">FIRE</a>
+  <a href="rewards.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
   <label class="mobile-language notranslate" translate="no">
     <span>Language</span>
     <select class="language-select" data-language-select aria-label="Language">
@@ -79,28 +84,29 @@
   <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
 </div>
 
-<main id="main-content">
+<main id="main-content" tabindex="-1">
   <section class="us-hero shell">
     <div class="hero-copy">
       <span class="eyebrow">United States edition</span>
       <h1>U.S. money,<br><em>clearly explained.</em></h1>
-      <p>Understand the accounts, taxes, and investing decisions Americans actually face, without assuming you already speak finance.</p>
+      <p>Understand the accounts, taxes, investing choices, and financial-independence decisions Americans actually face, without assuming you already speak finance.</p>
       <div class="hero-actions">
         <a class="button-primary" href="accounts.html">Explore U.S. accounts <span aria-hidden="true">&rarr;</span></a>
-        <a class="button-secondary" href="#path">Build your starting plan</a>
+        <a class="button-secondary" href="fire.html">Plan for financial freedom</a>
       </div>
     </div>
 
     <aside class="account-map" aria-labelledby="account-map-title">
       <div class="account-map-header">
         <span>U.S. account map</span>
-        <h2 id="account-map-title">Four names worth knowing first</h2>
+        <h2 id="account-map-title">Five names worth knowing first</h2>
       </div>
       <ul class="map-list">
         <li class="map-row"><strong>401(k)</strong><span>A workplace retirement plan, often with an employer match.</span></li>
         <li class="map-row"><strong>IRA</strong><span>An individual retirement account you open and control yourself.</span></li>
         <li class="map-row"><strong>Roth</strong><span>After-tax contributions with tax-free qualified withdrawals.</span></li>
         <li class="map-row"><strong>HSA</strong><span>A health savings account with unusually strong tax advantages.</span></li>
+        <li class="map-row"><strong>Brokerage</strong><span>A flexible taxable account without retirement withdrawal rules.</span></li>
       </ul>
     </aside>
   </section>
@@ -115,7 +121,7 @@
         <p class="section-intro">The investment can be similar inside each account. What changes is who offers it, when taxes apply, and what the money is meant to do.</p>
       </div>
 
-      <div class="account-grid">
+      <div class="account-grid account-grid-five">
         <a class="account-card" href="accounts.html#401k">
           <span class="account-type">Workplace retirement</span>
           <h3>401(k)</h3>
@@ -140,6 +146,12 @@
           <p>Save for qualified health costs and, when eligible, invest for the future.</p>
           <span class="card-link">Understand HSAs &rarr;</span>
         </a>
+        <a class="account-card" href="accounts.html#taxable-brokerage">
+          <span class="account-type">Flexible investing</span>
+          <h3>Taxable brokerage</h3>
+          <p>Invest without retirement contribution limits or age-based access rules, while managing annual taxes.</p>
+          <span class="card-link">Explore taxable accounts &rarr;</span>
+        </a>
       </div>
     </div>
   </section>
@@ -150,6 +162,7 @@
         <span class="eyebrow">Tax basics</span>
         <h2 class="section-title">Your paycheck has <em>more than one layer</em></h2>
         <p class="section-intro">U.S. taxes are not one single rate. Federal income tax, state rules, and payroll taxes can each affect what reaches your bank account.</p>
+        <a class="section-link" href="tax-calculator.html">Estimate 2026 federal tax <span aria-hidden="true">&rarr;</span></a>
         <div class="tax-note">Educational overview only. Tax rules and personal outcomes vary, so confirm decisions with current IRS and state guidance.</div>
       </div>
       <div class="tax-stack">
@@ -174,7 +187,7 @@
       <span class="eyebrow">A sensible order</span>
       <h2 class="section-title">Build the foundation before <em>optimizing everything</em></h2>
       <p class="section-intro">Financial progress is usually a sequence, not a perfect spreadsheet completed all at once.</p>
-      <div class="path-grid">
+      <div class="path-grid path-grid-four">
         <article class="path-step">
           <span class="step-num">01</span>
           <h3>Stabilize the basics</h3>
@@ -187,8 +200,13 @@
         </article>
         <article class="path-step">
           <span class="step-num">03</span>
+          <h3>Use tax space thoughtfully</h3>
+          <p>Choose among a 401(k), IRA, Roth IRA, and HSA based on eligibility, taxes, access, and the goal.</p>
+        </article>
+        <article class="path-step">
+          <span class="step-num">04</span>
           <h3>Invest with a purpose</h3>
-          <p>Match the account, asset mix, and time horizon to the goal the money is meant to support.</p>
+          <p>Match the account, asset mix, costs, and time horizon to the job the money is meant to do.</p>
         </article>
       </div>
     </div>
@@ -200,6 +218,7 @@
         <span class="eyebrow">Financial independence</span>
         <h2 class="section-title">FIRE is about <em>options</em>, not one retirement age</h2>
         <p class="section-intro">Financial Independence, Retire Early focuses on widening the gap between income and spending, investing that gap consistently, and building enough flexibility to choose how you spend your time.</p>
+        <a class="section-link" href="fire.html">Build your FIRE plan <span aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="tax-stack">
         <article class="tax-layer">
@@ -214,6 +233,44 @@
           <span class="tax-layer-num">03</span>
           <div><h3>Plan across account types</h3><p>Retirement accounts and flexible taxable investments can play different roles before and after traditional retirement age.</p></div>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="tool-section" aria-labelledby="tool-title">
+    <div class="shell">
+      <div class="section-heading-row">
+        <div>
+          <span class="eyebrow">Keep going</span>
+          <h2 class="section-title" id="tool-title">Turn the concepts into <em>clear next steps</em></h2>
+        </div>
+        <p class="section-intro">Start with the question in front of you. Each guide keeps the assumptions visible and the language plain.</p>
+      </div>
+      <div class="tool-grid">
+        <a class="tool-card" href="accounts.html">
+          <span class="tool-index">01</span>
+          <h3>Choose an account</h3>
+          <p>Compare workplace, individual, Roth, health, and taxable accounts by the job each one does.</p>
+          <span class="card-link">Open the account guide &rarr;</span>
+        </a>
+        <a class="tool-card" href="tax-calculator.html">
+          <span class="tool-index">02</span>
+          <h3>Estimate federal tax</h3>
+          <p>See how filing status, deductions, and pre-tax contributions shape a 2026 federal estimate.</p>
+          <span class="card-link">Open the tax calculator &rarr;</span>
+        </a>
+        <a class="tool-card" href="fire.html">
+          <span class="tool-index">03</span>
+          <h3>Map financial independence</h3>
+          <p>Estimate a FIRE number, project progress, and plan for the years before traditional retirement.</p>
+          <span class="card-link">Open the FIRE guide &rarr;</span>
+        </a>
+        <a class="tool-card" href="rewards.html">
+          <span class="tool-index">04</span>
+          <h3>Review the referral</h3>
+          <p>Read the risk and eligibility context before deciding whether Polymarket belongs in your plans.</p>
+          <span class="card-link">View U.S. rewards &rarr;</span>
+        </a>
       </div>
     </div>
   </section>
@@ -242,9 +299,9 @@
         <h2>U.S. edition</h2>
         <ul>
           <li><a href="accounts.html">Account guide</a></li>
-          <li><a href="#taxes">Tax basics</a></li>
-          <li><a href="#path">Investing path</a></li>
-          <li><a href="#independence">FIRE</a></li>
+          <li><a href="tax-calculator.html">Tax calculator</a></li>
+          <li><a href="fire.html">FIRE guide</a></li>
+          <li><a href="rewards.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -271,7 +328,7 @@
     <div class="nl-label">Weekly newsletter</div>
     <div class="nl-title" id="nlTitle">One money idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">No hype. No sales pitch. Just one useful concept at a time.</p>
-    <iframe src="https://accessiblefinance.substack.com/embed" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
     <p class="nl-fine">Unsubscribe anytime.</p>
   </div>
 </div>

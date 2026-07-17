@@ -14,8 +14,12 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://accessible-finance.com/Logo.png">
 <meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f5f0">
+<link rel="icon" type="image/png" href="Logo.png">
 
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,7 +31,7 @@
   --gold: #c8822a; --gold-soft: #d4a560; --gold-light: #f6ecd9;
   --border: #e4e0d8; --border-strong: #c9c3b6;
   --serif: 'Instrument Serif', Georgia, serif;
-  --sans: 'Syne', sans-serif;
+  --sans: 'Inter', sans-serif;
   --body: 'Literata', Georgia, serif;
 }
 html { scroll-behavior: smooth; }
@@ -166,8 +170,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="site-region.css">
 <script src="site-language.js" defer></script>
 <script src="site-region.js" defer></script>
+<script src="site-shell.js" defer></script>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 
 <nav class="site-nav">
   <a href="index.html" class="nav-logo" aria-label="Accessible Finance — Home">
@@ -176,7 +182,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   </a>
   <div class="nav-links">
     <a href="index.html">Home</a>
-    <a href="articles.html" class="active">Guides</a>
+    <a href="articles.html" class="active" aria-current="page">Guides</a>
     <a href="index.html#glossary">Glossary</a>
     <a href="fire.html">FIRE</a>
     <a href="wealth-rank.html">Wealth Rank</a>
@@ -203,13 +209,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </label>
     <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
   </div>
-  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+  <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 <div class="mobile-menu" id="mobile-menu">
   <a href="index.html">Home</a>
-  <a href="articles.html">Guides</a>
+  <a href="articles.html" aria-current="page">Guides</a>
   <a href="index.html#glossary">Glossary</a>
   <a href="fire.html">FIRE</a>
   <a href="wealth-rank.html">Wealth Rank</a>
@@ -228,6 +234,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
 </div>
 
+<main id="main-content" tabindex="-1">
 <header class="page-head reveal">
   <div>
     <span class="eyebrow">All Articles</span>
@@ -237,15 +244,15 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 </header>
 
 <div class="filters-wrap reveal">
-  <div class="filters" role="tablist" aria-label="Filter articles">
-    <button class="filter-btn active" data-filter="all">All Topics</button>
-    <button class="filter-btn" data-filter="fundamentals">Fundamentals</button>
-    <button class="filter-btn" data-filter="assets">Asset Classes</button>
-    <button class="filter-btn" data-filter="portfolio">Portfolio Thinking</button>
-    <button class="filter-btn" data-filter="behavior">Market Behavior</button>
-    <button class="filter-btn" data-filter="canadian">Canadian</button>
-    <button class="filter-btn" data-filter="beginner">Beginner</button>
-    <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+  <div class="filters" role="group" aria-label="Filter articles">
+    <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All Topics</button>
+    <button class="filter-btn" type="button" data-filter="fundamentals" aria-pressed="false">Fundamentals</button>
+    <button class="filter-btn" type="button" data-filter="assets" aria-pressed="false">Asset Classes</button>
+    <button class="filter-btn" type="button" data-filter="portfolio" aria-pressed="false">Portfolio Thinking</button>
+    <button class="filter-btn" type="button" data-filter="behavior" aria-pressed="false">Market Behavior</button>
+    <button class="filter-btn" type="button" data-filter="canadian" aria-pressed="false">Canadian</button>
+    <button class="filter-btn" type="button" data-filter="beginner" aria-pressed="false">Beginner</button>
+    <button class="filter-btn" type="button" data-filter="intermediate" aria-pressed="false">Intermediate</button>
   </div>
 </div>
 
@@ -389,9 +396,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <div class="empty-state" id="emptyState">No guides match this filter yet — try another.</div>
 
   <div class="load-wrap">
-    <button class="load-btn" id="loadMore">Load More Guides</button>
+    <button class="load-btn" id="loadMore" type="button">Load More Guides</button>
   </div>
 </section>
+
+</main>
 
 <footer class="site-footer">
   <div class="footer-inner">
@@ -446,11 +455,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 
 <div class="nl-overlay" id="nlOverlay" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
   <div class="nl-modal">
-    <button class="nl-close" id="nlClose" aria-label="Close newsletter signup">&#x2715;</button>
+    <button class="nl-close" id="nlClose" type="button" aria-label="Close newsletter signup">&#x2715;</button>
     <div class="nl-label">Weekly Newsletter</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
-    <iframe src="https://accessiblefinance.substack.com/embed" frameborder="0" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
     <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
   </div>
 </div>
@@ -515,8 +524,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
+        filterBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
         currentFilter = btn.dataset.filter;
         visibleCount = PAGE_SIZE;
         applyView();

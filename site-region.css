@@ -67,7 +67,9 @@
 }
 
 .region-flag-ca {
-  background-image: url('assets/flags/ca.svg');
+  width: 22px;
+  height: 11px;
+  background-image: url('assets/flags/ca.jpg');
 }
 
 .region-flag-us {
@@ -275,6 +277,11 @@
   grid-column: 1;
   width: 32px;
   height: 22px;
+}
+
+.region-choice-flag.region-flag-ca {
+  width: 36px;
+  height: 18px;
 }
 
 .region-choice-name {
