@@ -6,11 +6,11 @@
      crossorigin="anonymous"></script>
 <link rel="icon" type="image/png" href="../Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 Federal Income Tax Calculator | Accessible Finance U.S.</title>
-<meta name="description" content="Estimate 2026 U.S. federal income tax using current IRS brackets, filing status, deductions, and entered pre-tax contributions.">
+<title>2026 Federal &amp; State Income Tax Calculator | Accessible Finance U.S.</title>
+<meta name="description" content="Estimate 2026 U.S. federal and state income tax using filing status, deductions, pre-tax contributions, and a state selector.">
 <link rel="canonical" href="https://accessible-finance.com/us/tax-calculator.html">
-<meta property="og:title" content="2026 Federal Income Tax Calculator | Accessible Finance U.S.">
-<meta property="og:description" content="A clear federal income-tax estimate with visible assumptions and a bracket-by-bracket breakdown.">
+<meta property="og:title" content="2026 Federal &amp; State Income Tax Calculator | Accessible Finance U.S.">
+<meta property="og:description" content="A clear federal and state income-tax estimate with visible assumptions and bracket-by-bracket breakdowns.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://accessible-finance.com/Logo.png">
 <meta name="twitter:card" content="summary">
@@ -88,16 +88,16 @@
 <main id="main-content" tabindex="-1">
   <header class="guide-hero tax-guide-hero shell">
     <div class="guide-hero-copy">
-      <span class="eyebrow">2026 federal estimate</span>
+      <span class="eyebrow">2026 federal + state estimate</span>
       <h1>See how your taxable income moves through <em>the brackets</em></h1>
-      <p>Estimate ordinary federal income tax using your filing status, deductions, and entered pre-tax contributions. Every assumption stays visible.</p>
-      <a class="button-primary" href="#tax-calculator">Estimate federal tax <span aria-hidden="true">&rarr;</span></a>
+      <p>Estimate ordinary federal and state income tax using your filing status, state, deductions, and entered pre-tax contributions. Every assumption stays visible.</p>
+      <a class="button-primary" href="#tax-calculator">Estimate income tax <span aria-hidden="true">&rarr;</span></a>
     </div>
     <aside class="tax-year-panel">
       <span>Tax year</span>
       <strong>2026</strong>
-      <p>Uses IRS tax-year 2026 brackets and standard deductions for returns generally filed in 2027.</p>
-      <div><span>Federal only</span><b>No state or payroll tax</b></div>
+      <p>Uses IRS tax-year 2026 brackets and standard deductions, plus state rate schedules current April 28, 2026.</p>
+      <div><span>Federal + state</span><b>No payroll or local tax</b></div>
     </aside>
   </header>
 
@@ -106,22 +106,83 @@
       <div class="planner-heading">
         <div>
           <span class="eyebrow">Income tax calculator</span>
-          <h2 class="section-title" id="calculator-title">Build a transparent <em>federal estimate</em></h2>
+          <h2 class="section-title" id="calculator-title">Build a transparent <em>tax estimate</em></h2>
         </div>
-        <p class="section-intro">The calculator treats the income entered as ordinary income before the entered workplace and HSA contributions. It does not estimate a refund or withholding.</p>
+        <p class="section-intro">The calculator treats the income entered as ordinary income before the entered workplace and HSA contributions. It estimates federal and selected-state income tax, not a refund or withholding.</p>
       </div>
 
       <div class="tax-calculator-layout">
         <form class="tax-form" id="taxForm">
-          <label class="field full-field">
-            <span>Federal filing status</span>
-            <select id="filingStatus">
-              <option value="single">Single</option>
-              <option value="marriedJoint">Married filing jointly</option>
-              <option value="headOfHousehold">Head of household</option>
-              <option value="marriedSeparate">Married filing separately</option>
-            </select>
-          </label>
+          <div class="form-grid tax-selector-grid">
+            <label class="field">
+              <span>Federal filing status</span>
+              <select id="filingStatus">
+                <option value="single">Single</option>
+                <option value="marriedJoint">Married filing jointly</option>
+                <option value="headOfHousehold">Head of household</option>
+                <option value="marriedSeparate">Married filing separately</option>
+              </select>
+              <small>Used for federal brackets and to approximate state bracket widths.</small>
+            </label>
+            <label class="field">
+              <span>State</span>
+              <select id="state" aria-describedby="stateHelp">
+                <option value="">Select a state</option>
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option>
+                <option value="DE">Delaware</option>
+                <option value="DC">District of Columbia</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="HI">Hawaii</option>
+                <option value="ID">Idaho</option>
+                <option value="IL">Illinois</option>
+                <option value="IN">Indiana</option>
+                <option value="IA">Iowa</option>
+                <option value="KS">Kansas</option>
+                <option value="KY">Kentucky</option>
+                <option value="LA">Louisiana</option>
+                <option value="ME">Maine</option>
+                <option value="MD">Maryland</option>
+                <option value="MA">Massachusetts</option>
+                <option value="MI">Michigan</option>
+                <option value="MN">Minnesota</option>
+                <option value="MS">Mississippi</option>
+                <option value="MO">Missouri</option>
+                <option value="MT">Montana</option>
+                <option value="NE">Nebraska</option>
+                <option value="NV">Nevada</option>
+                <option value="NH">New Hampshire</option>
+                <option value="NJ">New Jersey</option>
+                <option value="NM">New Mexico</option>
+                <option value="NY">New York</option>
+                <option value="NC">North Carolina</option>
+                <option value="ND">North Dakota</option>
+                <option value="OH">Ohio</option>
+                <option value="OK">Oklahoma</option>
+                <option value="OR">Oregon</option>
+                <option value="PA">Pennsylvania</option>
+                <option value="RI">Rhode Island</option>
+                <option value="SC">South Carolina</option>
+                <option value="SD">South Dakota</option>
+                <option value="TN">Tennessee</option>
+                <option value="TX">Texas</option>
+                <option value="UT">Utah</option>
+                <option value="VT">Vermont</option>
+                <option value="VA">Virginia</option>
+                <option value="WA">Washington</option>
+                <option value="WV">West Virginia</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WY">Wyoming</option>
+              </select>
+              <small id="stateHelp">Choose a state to add its simplified 2026 income-tax estimate.</small>
+            </label>
+          </div>
 
           <div class="form-grid">
             <label class="field"><span>Annual ordinary income</span><span class="money-input"><b>$</b><input id="grossIncome" type="number" inputmode="decimal" min="0" step="1000" value="85000"></span><small>Before the contributions entered below.</small></label>
@@ -129,29 +190,34 @@
             <label class="field"><span>HSA contributions</span><span class="money-input"><b>$</b><input id="hsaContributions" type="number" inputmode="decimal" min="0" step="100" value="0"></span><small>Enter only contributions eligible to reduce federal income.</small></label>
             <label class="field"><span>Other income adjustments</span><span class="money-input"><b>$</b><input id="otherAdjustments" type="number" inputmode="decimal" min="0" step="100" value="0"></span><small>Simplified total for eligible above-the-line adjustments.</small></label>
             <label class="field full-field"><span>Potential itemized deductions</span><span class="money-input"><b>$</b><input id="itemizedDeductions" type="number" inputmode="decimal" min="0" step="500" value="0"></span><small>The calculator automatically uses the larger of this amount and the 2026 standard deduction.</small></label>
+            <label class="field full-field"><span>State deductions and exemptions</span><span class="money-input"><b>$</b><input id="stateDeductions" type="number" inputmode="decimal" min="0" step="500" value="0" aria-describedby="stateDeductionHelp"></span><small id="stateDeductionHelp">Optional. Enter state-specific deductions and exemptions to subtract from adjusted gross income.</small></label>
           </div>
           <button class="form-reset" type="reset">Reset estimate</button>
         </form>
 
         <aside class="tax-results" aria-live="polite">
-          <span class="result-kicker" id="resultStatus">Single filer estimate</span>
-          <strong class="result-total" id="federalTax">$0</strong>
-          <p id="taxSummary">Estimated 2026 federal bracket tax.</p>
+          <span class="result-kicker" id="resultStatus">Single filer federal estimate</span>
+          <strong class="result-total" id="totalTax">$0</strong>
+          <p id="taxSummary">Estimated 2026 federal and selected-state income tax.</p>
           <div class="tax-share" aria-hidden="true"><span id="taxShareBar"></span></div>
           <div class="result-stats tax-result-stats">
+            <div><span>Federal income tax</span><strong id="federalTax">$0</strong></div>
+            <div><span>State income tax</span><strong id="stateTax">$0</strong></div>
             <div><span>Adjusted gross income</span><strong id="adjustedIncome">$0</strong></div>
-            <div><span>Deduction used</span><strong id="deductionUsed">$0</strong></div>
-            <div><span>Taxable income</span><strong id="taxableIncome">$0</strong></div>
-            <div><span>Marginal bracket</span><strong id="marginalRate">0%</strong></div>
-            <div><span>Effective federal rate</span><strong id="effectiveRate">0%</strong></div>
-            <div><span>Pre-tax contribution savings</span><strong id="contributionSavings">$0</strong></div>
+            <div><span>Federal deduction used</span><strong id="deductionUsed">$0</strong></div>
+            <div><span>Federal taxable income</span><strong id="taxableIncome">$0</strong></div>
+            <div><span>State taxable income</span><strong id="stateTaxableIncome">N/A</strong></div>
+            <div><span>Federal marginal bracket</span><strong id="marginalRate">0%</strong></div>
+            <div><span>State marginal bracket</span><strong id="stateMarginalRate">N/A</strong></div>
+            <div><span>Combined effective rate</span><strong id="effectiveRate">0%</strong></div>
+            <div><span>Estimated contribution savings</span><strong id="contributionSavings">$0</strong></div>
           </div>
-          <div class="take-home-line"><span>Income after entered contributions and estimated federal tax</span><strong id="afterFederal">$0</strong></div>
+          <div class="take-home-line"><span>Income after entered contributions and estimated federal + state income tax</span><strong id="afterIncomeTax">$0</strong></div>
         </aside>
       </div>
 
       <div class="bracket-panel">
-        <div class="projection-heading"><h3>Your bracket breakdown</h3><span>Only the income inside each layer uses that rate</span></div>
+        <div class="projection-heading"><h3>Your federal bracket breakdown</h3><span>Only the income inside each layer uses that rate</span></div>
         <div class="table-scroll" tabindex="0" aria-label="Scrollable federal tax bracket breakdown">
           <table class="projection-table bracket-table">
             <thead><tr><th>Rate</th><th>Taxable income in layer</th><th>Tax from layer</th></tr></thead>
@@ -159,7 +225,17 @@
           </table>
         </div>
       </div>
-      <p class="planner-disclaimer">This estimate excludes tax credits, capital gains and qualified dividends, self-employment tax, Social Security and Medicare tax, state and local tax, the alternative minimum tax, net investment income tax, special deductions, phase-outs, and other return-specific rules. Confirm filing decisions with current IRS guidance or a qualified tax professional.</p>
+      <div class="bracket-panel" id="stateBracketPanel">
+        <div class="projection-heading"><h3 id="stateBreakdownTitle">State bracket breakdown</h3><span id="stateBreakdownLabel">Select a state to calculate</span></div>
+        <div class="table-scroll" tabindex="0" aria-label="Scrollable state tax bracket breakdown">
+          <table class="projection-table bracket-table">
+            <thead><tr><th>Rate</th><th>Taxable income in layer</th><th>Tax from layer</th></tr></thead>
+            <tbody id="stateBracketRows"><tr><td><strong>N/A</strong></td><td>Select a state</td><td>$0</td></tr></tbody>
+          </table>
+        </div>
+        <p class="state-method-note" id="stateMethodNote" aria-live="polite">State estimates use published rate schedules and the state deductions you enter above.</p>
+      </div>
+      <p class="planner-disclaimer">This simplified estimate excludes tax credits, capital gains and qualified dividends, self-employment tax, Social Security and Medicare tax, local income tax, the alternative minimum tax, net investment income tax, state-specific recapture rules, special deductions, phase-outs, and other return-specific rules. State taxable income starts with the federal adjusted-gross-income estimate and subtracts only the state deductions entered above. Non-single state bracket widths are approximated. Confirm filing decisions with current IRS and state guidance or a qualified tax professional.</p>
     </div>
   </section>
 
@@ -171,8 +247,8 @@
       </div>
       <div class="learning-grid">
         <article><span>Marginal rate</span><h3>Your next taxable dollar</h3><p>The federal bracket applying to the next layer of taxable ordinary income in this simplified estimate.</p></article>
-        <article><span>Effective rate</span><h3>Your estimated tax divided by income</h3><p>A broad average that is usually lower than the marginal rate because lower layers use lower rates.</p></article>
-        <article><span>Taxable income</span><h3>Income after adjustments and deductions</h3><p>The amount that actually enters the ordinary-income brackets, not necessarily the number at the top of a pay stub.</p></article>
+        <article><span>Effective rate</span><h3>Your estimated tax divided by income</h3><p>The combined federal and selected-state estimate divided by gross income. Payroll and local taxes are not included.</p></article>
+        <article><span>Taxable income</span><h3>Federal and state bases can differ</h3><p>States may use different deductions, exemptions, and adjustments. Enter those separately when you know them.</p></article>
       </div>
     </div>
   </section>
@@ -192,6 +268,7 @@
         <a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noopener noreferrer">IRS 2026 inflation adjustments</a>
         <a href="https://www.irs.gov/irb/2025-45_IRB" target="_blank" rel="noopener noreferrer">IRS 2026 tax tables</a>
         <a href="https://www.irs.gov/newsroom/401k-limit-increases-to-24500-for-2026-ira-limit-increases-to-7500" target="_blank" rel="noopener noreferrer">IRS 2026 retirement limits</a>
+        <a href="https://taxfoundation.org/data/all/state/state-income-tax-rates-2026/" target="_blank" rel="noopener noreferrer">2026 state income-tax schedules</a>
       </div>
     </div>
   </section>

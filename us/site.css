@@ -2006,6 +2006,15 @@ body.newsletter-open {
   margin-bottom: 26px;
 }
 
+.tax-selector-grid {
+  margin-bottom: 26px;
+}
+
+.field input:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
 .form-reset {
   min-height: 44px;
   margin-top: 24px;
@@ -2029,6 +2038,15 @@ body.newsletter-open {
 
 .tax-result-stats > div {
   min-height: 104px;
+}
+
+.state-method-note {
+  margin: 0;
+  border-top: 1px solid var(--border);
+  padding: 18px 26px 20px;
+  color: var(--ink3);
+  font-size: 11px;
+  line-height: 1.65;
 }
 
 .take-home-line {
@@ -2479,6 +2497,11 @@ body.newsletter-open {
 
   .projection-table th,
   .projection-table td {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .state-method-note {
     padding-right: 18px;
     padding-left: 18px;
   }
