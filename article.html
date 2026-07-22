@@ -116,6 +116,14 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .callout.bottom { background: var(--green-light); }
 .callout.bottom .callout-label { color: var(--green); }
 
+.case-study { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 12px; padding: 30px 32px; margin-top: 24px; }
+.case-study-label { font-family: var(--body); font-size: 13px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.case-study p:first-of-type { margin-top: 0; }
+.case-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 28px; }
+.case-fact { min-width: 0; background: var(--bg); padding: 18px 16px; }
+.case-fact dt { font-family: var(--sans); font-size: 11px; font-weight: 600; line-height: 1.35; text-transform: uppercase; color: var(--ink3); }
+.case-fact dd { font-family: var(--serif); font-size: 25px; line-height: 1.1; color: var(--ink); margin-top: 8px; overflow-wrap: anywhere; }
+
 /* RELATED */
 .related { background: var(--bg-warm); padding: 100px 40px; }
 .related-inner { max-width: 1200px; margin: 0 auto; }
@@ -179,6 +187,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   .article-body { max-width: 100%; }
   .article-body p, .article-body li { font-size: 16.5px; }
   .article-body blockquote { font-size: 22px; padding-left: 20px; }
+  .case-study { padding: 24px 22px; }
+  .case-facts { grid-template-columns: 1fr; }
   .related { padding-top: 72px; padding-bottom: 72px; }
   .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px; }
   footer.site-footer { padding: 64px 24px 36px; }
@@ -439,6 +449,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 </div>
 </div>
 
+<script src="article-expansions.js"></script>
 <script src="article-library.js"></script>
 <script>
   const observer = new IntersectionObserver((entries) => {

@@ -15,6 +15,15 @@
   const CPP_STATEMENT = 'https://www.canada.ca/en/services/benefits/publicpensions/cpp/statement-contributions.html';
   const RDSP_GUIDE = 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/registered-disability-savings-plan-rdsp.html';
   const DISABILITY_SAVINGS = 'https://www.canada.ca/en/employment-social-development/programs/disability/savings.html';
+  const SEC_GAMESTOP_REPORT = 'https://www.sec.gov/file/staff-report-equity-options-market-struction-conditions-early-2021pdf';
+  const FCAC_EMERGENCY_FUND = 'https://www.canada.ca/en/financial-consumer-agency/services/savings-investments/setting-up-emergency-funds.html';
+  const FCAC_BUDGET_GUIDE = 'https://www.canada.ca/en/financial-consumer-agency/services/make-budget.html';
+  const FCAC_GOAL_GUIDE = 'https://www.canada.ca/en/financial-consumer-agency/services/savings-investments/savings-investment-goals.html';
+  const BANK_OF_CANADA_INFLATION = 'https://www.bankofcanada.ca/rates/related/inflation-calculator/';
+  const STATCAN_CPI_2022 = 'https://www150.statcan.gc.ca/n1/daily-quotidien/230117/dq230117b-eng.htm';
+  const SPIVA_CANADA_2025 = 'https://www.spglobal.com/spdji/en/spiva/article/spiva-canada/';
+  const CRA_REGISTERED_LIMITS = 'https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html';
+  const CPP_WHEN_TO_START = 'https://www.canada.ca/en/services/benefits/publicpensions/cpp/when-start.html';
 
   const source = (label, url) => ({ label, url });
   const guide = (config) => Object.assign({
@@ -957,6 +966,32 @@
     })
   };
 
+  const expansionSources = {
+    secGameStop: source('U.S. SEC: Staff Report on Equity and Options Market Structure Conditions in Early 2021', SEC_GAMESTOP_REPORT),
+    fcacEmergency: source('Financial Consumer Agency of Canada: Setting Up an Emergency Fund', FCAC_EMERGENCY_FUND),
+    fcacBudget: source('Financial Consumer Agency of Canada: Making a Budget', FCAC_BUDGET_GUIDE),
+    fcacGoals: source('Financial Consumer Agency of Canada: Setting Savings and Investment Goals', FCAC_GOAL_GUIDE),
+    bankInflation: source('Bank of Canada: Inflation Calculator', BANK_OF_CANADA_INFLATION),
+    statcanCpi2022: source('Statistics Canada: Consumer Price Index Annual Review, 2022', STATCAN_CPI_2022),
+    spivaCanada2025: source('S&P Dow Jones Indices: SPIVA Canada Year-End 2025', SPIVA_CANADA_2025),
+    craRegisteredLimits: source('Canada Revenue Agency: Registered Plan and TFSA Limits', CRA_REGISTERED_LIMITS),
+    cppWhen: source('Government of Canada: When to Start Your CPP Retirement Pension', CPP_WHEN_TO_START)
+  };
+
+  const expansions = window.AccessibleFinanceGuideExpansions || {};
+  Object.entries(expansions).forEach(([id, expansion]) => {
+    if (!guides[id]) return;
+    const { sourceKeys = [], ...content } = expansion;
+    Object.assign(guides[id], content);
+    const combinedSources = [
+      ...guides[id].sources,
+      ...sourceKeys.map((key) => expansionSources[key]).filter(Boolean)
+    ];
+    guides[id].sources = combinedSources.filter((entry, index, entries) =>
+      entries.findIndex((candidate) => candidate.url === entry.url) === index
+    );
+  });
+
   const escapeHtml = (value) => String(value)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -966,6 +1001,15 @@
 
   const renderParagraphs = (paragraphs) => paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join('');
   const renderList = (items) => `<ul>${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+  const renderCaseFacts = (facts) => facts && facts.length
+    ? `<dl class="case-facts">${facts.map((fact) => `<div class="case-fact"><dt>${escapeHtml(fact.label)}</dt><dd>${escapeHtml(fact.value)}</dd></div>`).join('')}</dl>`
+    : '';
+  const renderCaseStudy = (caseStudy) => `
+    <div class="case-study">
+      <div class="case-study-label">${escapeHtml(caseStudy.label || 'Worked example')}</div>
+      ${renderParagraphs(caseStudy.paragraphs)}
+      ${renderCaseFacts(caseStudy.facts)}
+    </div>`;
 
   function setMeta(selector, attribute, value) {
     const element = document.querySelector(selector);
@@ -1025,8 +1069,26 @@
       {
         id: 'how-it-works', title: item.explanationTitle,
         body: `${renderParagraphs(item.explanation)}<h3>${escapeHtml(item.pointsTitle)}</h3>${renderList(item.points)}`
-      },
-      { id: 'practical-example', title: item.exampleTitle, body: renderParagraphs(item.example) },
+      }
+    ];
+
+    if (item.deepDive && item.deepDive.length) {
+      sections.push({
+        id: 'deeper-look', title: item.deepDiveTitle || 'A deeper look',
+        body: renderParagraphs(item.deepDive)
+      });
+    }
+
+    sections.push({ id: 'practical-example', title: item.exampleTitle, body: renderParagraphs(item.example) });
+
+    if (item.caseStudy) {
+      sections.push({
+        id: 'real-world-case', title: item.caseStudy.title || 'A real-world case',
+        body: renderCaseStudy(item.caseStudy)
+      });
+    }
+
+    sections.push(
       { id: 'put-it-into-practice', title: 'Put it into practice', body: renderList(item.actions) },
       {
         id: 'what-to-watch-for', title: 'What to watch for',
@@ -1036,7 +1098,7 @@
         id: 'key-takeaway', title: 'Key takeaway',
         body: `<div class="callout bottom"><div class="callout-label">Bottom line</div><p>${item.takeaway}</p></div>`
       }
-    ];
+    );
 
     if (item.sources.length) {
       sections.push({
