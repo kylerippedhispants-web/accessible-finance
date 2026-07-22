@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Actual Difference Between Investing and Speculating — Accessible Finance</title>
 <meta name="description" content="Most people confuse investing with speculating. Here's the clear line between the two — with examples from the modern market.">
-<link rel="canonical" href="https://accessible-finance.com/article.html">
+<link rel="canonical" href="https://accessible-finance.com/article.html?id=investing-vs-speculating">
 <meta property="og:title" content="The Actual Difference Between Investing and Speculating">
 <meta property="og:description" content="A clear line between the two — with examples from the modern market.">
 <meta property="og:type" content="article">
@@ -102,6 +102,10 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .article-body li { font-family: var(--body); font-size: 17px; line-height: 1.7; color: var(--ink2); padding-left: 28px; position: relative; }
 .article-body li::before { content: ''; position: absolute; left: 0; top: 14px; width: 14px; height: 1px; background: var(--gold); }
 .article-body li strong { color: var(--ink); font-weight: 500; }
+.article-body .source-list a { color: var(--green); text-decoration: underline; text-decoration-color: rgba(29,107,69,0.3); text-underline-offset: 4px; transition: color 0.2s, text-decoration-color 0.2s; }
+.article-body .source-list a:hover { color: var(--ink); text-decoration-color: var(--gold); }
+.article-body section { display: flow-root; }
+.article-body section:first-child h2 { margin-top: 0; }
 
 .article-body blockquote { font-family: var(--serif); font-style: italic; font-size: 26px; line-height: 1.35; color: var(--ink); letter-spacing: -0.005em; margin: 40px 0 8px; padding: 24px 0 24px 32px; border-left: 3px solid var(--gold); }
 
@@ -352,17 +356,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h2>Related <em>guides</em>.</h2>
     </div>
     <div class="related-grid">
-      <a href="article.html" class="related-card reveal">
+      <a href="article.html?id=compound-interest" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>Compound Interest: The Most Powerful Force in Investing</h3>
         <div class="meta">7 min read · Beginner</div>
       </a>
-      <a href="article.html" class="related-card reveal">
+      <a href="article.html?id=time-in-market" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>Time in the Market vs. Timing the Market</h3>
         <div class="meta">6 min read · Beginner</div>
       </a>
-      <a href="article.html" class="related-card reveal">
+      <a href="article.html?id=investor-behaviour" class="related-card reveal">
         <div class="cat">Market Behavior</div>
         <h3>Why Smart People Make Bad Investment Decisions</h3>
         <div class="meta">9 min read · Beginner</div>
@@ -430,11 +434,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">Weekly Newsletter</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
-    <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-    <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
-  </div>
+  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+</div>
 </div>
 
+<script src="article-library.js"></script>
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
