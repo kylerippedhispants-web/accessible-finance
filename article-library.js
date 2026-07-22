@@ -992,6 +992,12 @@
     );
   });
 
+  const depthRecords = window.AccessibleFinanceGuideDepth || {};
+  Object.entries(depthRecords).forEach(([id, depthRecord]) => {
+    if (!guides[id]) return;
+    Object.assign(guides[id], depthRecord);
+  });
+
   const escapeHtml = (value) => String(value)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -1010,6 +1016,49 @@
       ${renderParagraphs(caseStudy.paragraphs)}
       ${renderCaseFacts(caseStudy.facts)}
     </div>`;
+  const decisionNotes = [
+    'Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.',
+    'Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.',
+    'Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.',
+    'Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.'
+  ];
+  const renderDecisionPlan = (item) => `
+    ${renderParagraphs(item.context)}
+    <h3>Your four-part worksheet</h3>
+    <ol class="decision-steps">
+      ${item.actions.slice(0, 4).map((action, index) => `
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">${index + 1}</span>
+          <div class="decision-step-copy">
+            <strong>${action}</strong>
+            <p>${decisionNotes[index]}</p>
+          </div>
+        </li>`).join('')}
+    </ol>
+    <div class="planning-close">
+      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p>
+      <p>Before acting, read the page as though it belonged to someone else. Check whether assumptions are stated in current dollars, whether fees, taxes, and inflation are included, and whether a lower-return or early-loss scenario still leaves workable choices. Record the source and date for any rate, limit, or rule, then decide what happens automatically and what requires a fresh discussion. The final page should explain the choice clearly to another household member. Complexity should earn its place by solving a named problem; otherwise, remove it.</p>
+      <p>Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. That feedback loop improves the plan without rewarding constant tinkering.</p>
+    </div>`;
+  const renderQuestions = (questions) => `
+    <div class="faq-list">
+      ${questions.map(([question, answer]) => `
+        <div class="faq-item">
+          <h3>${escapeHtml(question)}</h3>
+          <p>${escapeHtml(answer)}</p>
+        </div>`).join('')}
+    </div>`;
+  const countWords = (item) => {
+    const content = [
+      item.intro, item.explanation, item.points, item.deepDive, item.example,
+      item.caseStudy && item.caseStudy.paragraphs,
+      item.caseStudy && item.caseStudy.facts && item.caseStudy.facts.map((fact) => `${fact.label} ${fact.value}`),
+      item.context, item.actions, decisionNotes.slice(0, Math.min(item.actions.length, 4)),
+      item.questions && item.questions.flat(), item.caution, item.takeaway
+    ].flat(Infinity).filter(Boolean).join(' ');
+    const plainText = content.replace(/<[^>]*>/g, ' ').replace(/&[a-z0-9#]+;/gi, ' ');
+    return (plainText.match(/[A-Za-z0-9]+(?:['-][A-Za-z0-9]+)*/g) || []).length + 161;
+  };
 
   function setMeta(selector, attribute, value) {
     const element = document.querySelector(selector);
@@ -1045,6 +1094,8 @@
     const category = escapeHtml(item.category);
     const title = escapeHtml(item.title);
     const canonical = `https://accessible-finance.com/article.html?id=${encodeURIComponent(id)}`;
+    const wordCount = countWords(item);
+    const readingMinutes = Math.max(5, Math.ceil(wordCount / 180));
 
     document.title = `${item.title} - Accessible Finance`;
     setMeta('meta[name="description"]', 'content', item.deck);
@@ -1059,7 +1110,7 @@
       <h1>${item.titleHtml}</h1>
       <p class="deck">${escapeHtml(item.deck)}</p>
       <div class="article-meta">
-        <span>${item.minutes} min read</span><span class="dot"></span>
+        <span>${readingMinutes} min read</span><span class="dot"></span>
         <span>${escapeHtml(item.level)}</span><span class="dot"></span>
         <span>Updated ${escapeHtml(item.updated)}</span>
       </div>`;
@@ -1085,6 +1136,20 @@
       sections.push({
         id: 'real-world-case', title: item.caseStudy.title || 'A real-world case',
         body: renderCaseStudy(item.caseStudy)
+      });
+    }
+
+    if (item.context && item.context.length) {
+      sections.push({
+        id: 'build-your-plan', title: 'Build it into your plan',
+        body: renderDecisionPlan(item)
+      });
+    }
+
+    if (item.questions && item.questions.length) {
+      sections.push({
+        id: 'common-questions', title: 'Questions people ask',
+        body: renderQuestions(item.questions)
       });
     }
 
@@ -1130,7 +1195,7 @@
         <a href="article.html?id=${encodeURIComponent(relatedId)}" class="related-card reveal">
           <div class="cat">${escapeHtml(relatedItem.category)}</div>
           <h3>${escapeHtml(relatedItem.title)}</h3>
-          <div class="meta">${relatedItem.minutes} min read &middot; ${escapeHtml(relatedItem.level)}</div>
+          <div class="meta">${Math.max(5, Math.ceil(countWords(relatedItem) / 180))} min read &middot; ${escapeHtml(relatedItem.level)}</div>
         </a>`;
     }).join('');
   }
