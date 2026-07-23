@@ -398,7 +398,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </ul>
   </details>
 
-  <article class="article-body reveal d2">
+  <article class="article-body">
 
     <h2 id="why-it-matters">Why it matters</h2>
     <p>There's a question that sits quietly beneath nearly every financial decision you'll ever make: <strong>Am I investing, or am I speculating?</strong> The answer changes how you think about risk, what you expect from your money, and how you'll feel when things go sideways.</p>
@@ -562,10 +562,20 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <script src="article-perspectives.js"></script>
 <script src="article-library.js"></script>
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const revealElements = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    revealElements.forEach(el => observer.observe(el));
+  } else {
+    revealElements.forEach(el => el.classList.add('visible'));
+  }
 
   (function(){
     const btn = document.getElementById('hamburger');
