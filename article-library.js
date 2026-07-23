@@ -998,6 +998,12 @@
     Object.assign(guides[id], depthRecord);
   });
 
+  const perspectiveRecords = window.AccessibleFinanceGuidePerspectives || {};
+  Object.entries(perspectiveRecords).forEach(([id, perspectiveRecord]) => {
+    if (!guides[id]) return;
+    Object.assign(guides[id], perspectiveRecord);
+  });
+
   const escapeHtml = (value) => String(value)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -1016,11 +1022,29 @@
       ${renderParagraphs(caseStudy.paragraphs)}
       ${renderCaseFacts(caseStudy.facts)}
     </div>`;
+  const renderDecisionMap = (rows) => `
+    <div class="decision-map" role="table" aria-label="Practical decision map">
+      <div class="decision-map-head" role="row">
+        <span role="columnheader">Situation</span>
+        <span role="columnheader">What matters</span>
+        <span role="columnheader">Practical move</span>
+      </div>
+      ${rows.map(([situation, focus, move]) => `
+        <div class="decision-map-row" role="row">
+          <div class="decision-map-cell situation" role="cell" data-label="Situation">${escapeHtml(situation)}</div>
+          <div class="decision-map-cell" role="cell" data-label="What matters">${escapeHtml(focus)}</div>
+          <div class="decision-map-cell" role="cell" data-label="Practical move">${escapeHtml(move)}</div>
+        </div>`).join('')}
+    </div>`;
   const decisionNotes = [
     'Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.',
     'Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.',
     'Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.',
     'Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.'
+  ];
+  const planningReview = [
+    '<strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.',
+    'Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.'
   ];
   const renderDecisionPlan = (item) => `
     ${renderParagraphs(item.context)}
@@ -1036,9 +1060,7 @@
         </li>`).join('')}
     </ol>
     <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p>
-      <p>Before acting, read the page as though it belonged to someone else. Check whether assumptions are stated in current dollars, whether fees, taxes, and inflation are included, and whether a lower-return or early-loss scenario still leaves workable choices. Record the source and date for any rate, limit, or rule, then decide what happens automatically and what requires a fresh discussion. The final page should explain the choice clearly to another household member. Complexity should earn its place by solving a named problem; otherwise, remove it.</p>
-      <p>Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. That feedback loop improves the plan without rewarding constant tinkering.</p>
+      ${renderParagraphs(planningReview)}
     </div>`;
   const renderQuestions = (questions) => `
     <div class="faq-list">
@@ -1053,12 +1075,33 @@
       item.intro, item.explanation, item.points, item.deepDive, item.example,
       item.caseStudy && item.caseStudy.paragraphs,
       item.caseStudy && item.caseStudy.facts && item.caseStudy.facts.map((fact) => `${fact.label} ${fact.value}`),
+      item.perspective, item.decisionRows && item.decisionRows.flat(),
       item.context, item.actions, decisionNotes.slice(0, Math.min(item.actions.length, 4)),
-      item.questions && item.questions.flat(), item.caution, item.takeaway
+      planningReview, item.questions && item.questions.flat(), item.caution, item.takeaway
     ].flat(Infinity).filter(Boolean).join(' ');
     const plainText = content.replace(/<[^>]*>/g, ' ').replace(/&[a-z0-9#]+;/gi, ' ');
-    return (plainText.match(/[A-Za-z0-9]+(?:['-][A-Za-z0-9]+)*/g) || []).length + 161;
+    return (plainText.match(/[A-Za-z0-9]+(?:['-][A-Za-z0-9]+)*/g) || []).length;
   };
+  const firstSentence = (value) => {
+    const plainText = String(value || '').replace(/<[^>]*>/g, '').trim();
+    const match = plainText.match(/^.*?[.!?](?:\s|$)/);
+    return match ? match[0].trim() : plainText;
+  };
+  const renderArticleBrief = (item) => `
+    <div class="article-brief" aria-label="Guide at a glance">
+      <div class="brief-item">
+        <span class="brief-label">Core idea</span>
+        <p>${escapeHtml(firstSentence(item.takeaway))}</p>
+      </div>
+      <div class="brief-item">
+        <span class="brief-label">First move</span>
+        <p>${escapeHtml(item.actions[0])}</p>
+      </div>
+      <div class="brief-item">
+        <span class="brief-label">Watch for</span>
+        <p>${escapeHtml(firstSentence(item.caution))}</p>
+      </div>
+    </div>`;
 
   function setMeta(selector, attribute, value) {
     const element = document.querySelector(selector);
@@ -1066,7 +1109,7 @@
   }
 
   function renderNotFound(requestedId) {
-    const articleHead = document.querySelector('.article-head');
+    const articleHead = document.querySelector('.article-head-inner');
     const articleWrap = document.querySelector('.article-wrap');
     const related = document.querySelector('.related');
     const robots = document.createElement('meta');
@@ -1103,17 +1146,18 @@
     setMeta('meta[property="og:description"]', 'content', item.deck);
     setMeta('link[rel="canonical"]', 'href', canonical);
 
-    const articleHead = document.querySelector('.article-head');
+    const articleHead = document.querySelector('.article-head-inner');
     articleHead.innerHTML = `
       <div class="crumb"><a href="articles.html">Guides</a><span class="sep">&rsaquo;</span>${category}</div>
       <span class="cat-tag">${category}</span>
       <h1>${item.titleHtml}</h1>
       <p class="deck">${escapeHtml(item.deck)}</p>
       <div class="article-meta">
-        <span>${readingMinutes} min read</span><span class="dot"></span>
-        <span>${escapeHtml(item.level)}</span><span class="dot"></span>
-        <span>Updated ${escapeHtml(item.updated)}</span>
-      </div>`;
+        <span class="meta-item">${readingMinutes} min read</span>
+        <span class="meta-item">${escapeHtml(item.level)}</span>
+        <span class="meta-item">Updated ${escapeHtml(item.updated)}</span>
+      </div>
+      ${renderArticleBrief(item)}`;
 
     const sections = [
       { id: 'why-it-matters', title: 'Why it matters', body: renderParagraphs(item.intro) },
@@ -1139,6 +1183,13 @@
       });
     }
 
+    if (item.perspective && item.perspective.length && item.decisionRows && item.decisionRows.length) {
+      sections.push({
+        id: 'decision-map', title: item.perspectiveTitle || 'What changes the answer',
+        body: `${renderParagraphs(item.perspective)}<h3>Use the idea in context</h3>${renderDecisionMap(item.decisionRows)}`
+      });
+    }
+
     if (item.context && item.context.length) {
       sections.push({
         id: 'build-your-plan', title: 'Build it into your plan',
@@ -1154,7 +1205,6 @@
     }
 
     sections.push(
-      { id: 'put-it-into-practice', title: 'Put it into practice', body: renderList(item.actions) },
       {
         id: 'what-to-watch-for', title: 'What to watch for',
         body: `<div class="callout"><div class="callout-label">Important</div><p>${item.caution}</p></div>`
@@ -1175,8 +1225,10 @@
     document.querySelector('.toc-list').innerHTML = sections
       .map((section) => `<li><a href="#${section.id}">${escapeHtml(section.title)}</a></li>`)
       .join('');
+    const tocCount = document.querySelector('.toc-count');
+    if (tocCount) tocCount.textContent = `${sections.length} sections`;
     document.querySelector('.article-body').innerHTML = sections
-      .map((section) => `<section><h2 id="${section.id}">${escapeHtml(section.title)}</h2>${section.body}</section>`)
+      .map((section, index) => `<section><h2 id="${section.id}"><span class="section-index" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><span>${escapeHtml(section.title)}</span></h2>${section.body}</section>`)
       .join('');
 
     const relatedIds = (item.related || []).filter((relatedId) => guides[relatedId] && relatedId !== id).slice(0, 3);
