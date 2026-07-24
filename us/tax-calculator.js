@@ -6,21 +6,29 @@
       label: 'Single',
       standardDeduction: 16100,
       brackets: [[12400, 0.10], [50400, 0.12], [105700, 0.22], [201775, 0.24], [256225, 0.32], [640600, 0.35], [Infinity, 0.37]],
+      capitalGainsThresholds: [49450, 545500],
+      niitThreshold: 200000,
     },
     marriedJoint: {
       label: 'Married filing jointly',
       standardDeduction: 32200,
       brackets: [[24800, 0.10], [100800, 0.12], [211400, 0.22], [403550, 0.24], [512450, 0.32], [768700, 0.35], [Infinity, 0.37]],
+      capitalGainsThresholds: [98900, 613700],
+      niitThreshold: 250000,
     },
     headOfHousehold: {
       label: 'Head of household',
       standardDeduction: 24150,
       brackets: [[17700, 0.10], [67450, 0.12], [105700, 0.22], [201750, 0.24], [256200, 0.32], [640600, 0.35], [Infinity, 0.37]],
+      capitalGainsThresholds: [66200, 579600],
+      niitThreshold: 200000,
     },
     marriedSeparate: {
       label: 'Married filing separately',
       standardDeduction: 16100,
       brackets: [[12400, 0.10], [50400, 0.12], [105700, 0.22], [201775, 0.24], [256225, 0.32], [384350, 0.35], [Infinity, 0.37]],
+      capitalGainsThresholds: [49450, 306850],
+      niitThreshold: 125000,
     },
   };
 
@@ -124,6 +132,66 @@
     return { total, rows };
   }
 
+  function calculateCapitalGainsTax(ordinaryTaxableIncome, longTermGain, thresholds) {
+    const [zeroRateLimit, fifteenRateLimit] = thresholds;
+    const gainStart = ordinaryTaxableIncome;
+    const gainEnd = ordinaryTaxableIncome + longTermGain;
+    const layers = [
+      { label: 'Long-term gain', lower: 0, upper: zeroRateLimit, rate: 0 },
+      { label: 'Long-term gain', lower: zeroRateLimit, upper: fifteenRateLimit, rate: 0.15 },
+      { label: 'Long-term gain', lower: fifteenRateLimit, upper: Infinity, rate: 0.20 },
+    ];
+    let total = 0;
+    const rows = [];
+
+    layers.forEach((layer) => {
+      const amount = Math.max(
+        0,
+        Math.min(gainEnd, layer.upper) - Math.max(gainStart, layer.lower),
+      );
+      if (amount <= 0) return;
+      const tax = amount * layer.rate;
+      total += tax;
+      rows.push({ label: layer.label, rate: layer.rate, amount, tax });
+    });
+
+    return { total, rows };
+  }
+
+  function calculateFederalScenario({
+    ordinaryIncome,
+    longTermGain,
+    adjustments,
+    deduction,
+    status,
+  }) {
+    const totalIncome = ordinaryIncome + longTermGain;
+    const adjustedGrossIncome = Math.max(0, totalIncome - Math.min(totalIncome, adjustments));
+    const taxableIncome = Math.max(0, adjustedGrossIncome - deduction);
+    const taxableLongTermGain = Math.min(longTermGain, taxableIncome);
+    const taxableOrdinaryIncome = Math.max(0, taxableIncome - taxableLongTermGain);
+    const ordinaryCalculation = calculateBracketTax(taxableOrdinaryIncome, status.brackets);
+    const capitalGainsCalculation = calculateCapitalGainsTax(
+      taxableOrdinaryIncome,
+      taxableLongTermGain,
+      status.capitalGainsThresholds,
+    );
+    const preferentialTax = ordinaryCalculation.total + capitalGainsCalculation.total;
+    const regularTax = calculateBracketTax(taxableIncome, status.brackets).total;
+    const baseTax = Math.min(preferentialTax, regularTax);
+
+    return {
+      adjustedGrossIncome,
+      taxableIncome,
+      taxableOrdinaryIncome,
+      taxableLongTermGain,
+      ordinaryCalculation,
+      capitalGainsCalculation,
+      regularMethodAdjustment: Math.min(0, regularTax - preferentialTax),
+      baseTax,
+    };
+  }
+
   function calculateThresholdTax(taxableIncome, brackets) {
     let total = 0;
     const rows = [];
@@ -162,6 +230,10 @@
     return money.format(Math.round(Math.max(0, amount || 0)));
   }
 
+  function formatSignedMoney(amount) {
+    return money.format(Math.round(amount || 0));
+  }
+
   function update() {
     const statusKey = document.getElementById('filingStatus').value;
     const status = taxData[statusKey];
@@ -169,18 +241,39 @@
     const selectedState = stateTaxData[stateKey] || null;
     const hasStateIncomeTax = Boolean(selectedState && !selectedState.noTax);
     const gross = value('grossIncome');
+    const shortTermGains = value('shortTermGains');
+    const longTermGains = value('longTermGains');
     const workplace = value('workplaceContributions');
     const hsa = value('hsaContributions');
     const other = value('otherAdjustments');
     const itemized = value('itemizedDeductions');
     const enteredStateDeductions = value('stateDeductions');
     const enteredAdjustments = workplace + hsa + other;
-    const adjustments = Math.min(gross, enteredAdjustments);
-    const agi = Math.max(0, gross - adjustments);
     const deduction = Math.max(status.standardDeduction, itemized);
-    const taxable = Math.max(0, agi - deduction);
-    const federalCalculation = calculateBracketTax(taxable, status.brackets);
-    const federalMarginal = marginalRate(taxable, status.brackets);
+    const federalScenario = calculateFederalScenario({
+      ordinaryIncome: gross + shortTermGains,
+      longTermGain: longTermGains,
+      adjustments: enteredAdjustments,
+      deduction,
+      status,
+    });
+    const {
+      adjustedGrossIncome: agi,
+      taxableIncome: taxable,
+      taxableOrdinaryIncome,
+      ordinaryCalculation,
+      capitalGainsCalculation,
+      regularMethodAdjustment,
+      baseTax,
+    } = federalScenario;
+    const netInvestmentIncome = shortTermGains + longTermGains;
+    const niitBase = Math.min(
+      netInvestmentIncome,
+      Math.max(0, agi - status.niitThreshold),
+    );
+    const niit = niitBase * 0.038;
+    const federalTax = baseTax + niit;
+    const federalMarginal = marginalRate(taxableOrdinaryIncome, status.brackets);
 
     const stateDeductions = Math.min(agi, enteredStateDeductions);
     const stateTaxable = hasStateIncomeTax ? Math.max(0, agi - stateDeductions) : 0;
@@ -194,23 +287,60 @@
       ? thresholdMarginalRate(stateTaxable, stateBrackets)
       : 0;
 
-    const totalTax = federalCalculation.total + stateCalculation.total;
-    const effective = gross > 0 ? totalTax / gross : 0;
+    const enteredIncome = gross + shortTermGains + longTermGains;
+    const totalTax = federalTax + stateCalculation.total;
+    const effective = enteredIncome > 0 ? totalTax / enteredIncome : 0;
     const cashContributions = Math.min(gross, workplace + hsa);
-    const afterIncomeTax = Math.max(0, gross - cashContributions - totalTax);
+    const afterIncomeTax = Math.max(0, enteredIncome - cashContributions - totalTax);
 
-    const baselineAgi = Math.max(0, gross - Math.min(gross, other));
-    const baselineTaxable = Math.max(0, baselineAgi - deduction);
-    const baselineFederalTax = calculateBracketTax(baselineTaxable, status.brackets).total;
-    const baselineStateTaxable = hasStateIncomeTax
-      ? Math.max(0, baselineAgi - Math.min(baselineAgi, enteredStateDeductions))
+    const noGainScenario = calculateFederalScenario({
+      ordinaryIncome: gross,
+      longTermGain: 0,
+      adjustments: enteredAdjustments,
+      deduction,
+      status,
+    });
+    const noGainStateTaxable = hasStateIncomeTax
+      ? Math.max(
+        0,
+        noGainScenario.adjustedGrossIncome
+          - Math.min(noGainScenario.adjustedGrossIncome, enteredStateDeductions),
+      )
       : 0;
-    const baselineStateTax = hasStateIncomeTax
-      ? calculateThresholdTax(baselineStateTaxable, stateBrackets).total
+    const noGainStateTax = hasStateIncomeTax
+      ? calculateThresholdTax(noGainStateTaxable, stateBrackets).total
+      : 0;
+    const capitalGainsTax = Math.max(
+      0,
+      federalTax + stateCalculation.total - noGainScenario.baseTax - noGainStateTax,
+    );
+
+    const contributionBaseline = calculateFederalScenario({
+      ordinaryIncome: gross + shortTermGains,
+      longTermGain: longTermGains,
+      adjustments: other,
+      deduction,
+      status,
+    });
+    const contributionBaselineNiitBase = Math.min(
+      netInvestmentIncome,
+      Math.max(0, contributionBaseline.adjustedGrossIncome - status.niitThreshold),
+    );
+    const contributionBaselineFederalTax = contributionBaseline.baseTax
+      + (contributionBaselineNiitBase * 0.038);
+    const contributionBaselineStateTaxable = hasStateIncomeTax
+      ? Math.max(
+        0,
+        contributionBaseline.adjustedGrossIncome
+          - Math.min(contributionBaseline.adjustedGrossIncome, enteredStateDeductions),
+      )
+      : 0;
+    const contributionBaselineStateTax = hasStateIncomeTax
+      ? calculateThresholdTax(contributionBaselineStateTaxable, stateBrackets).total
       : 0;
     const contributionSavings = Math.max(
       0,
-      baselineFederalTax + baselineStateTax - totalTax,
+      contributionBaselineFederalTax + contributionBaselineStateTax - totalTax,
     );
 
     const stateDeductionInput = document.getElementById('stateDeductions');
@@ -227,15 +357,24 @@
     const resultLabel = selectedState ? selectedState.label : 'Federal only';
     document.getElementById('resultStatus').textContent = `${status.label} - ${resultLabel}`;
     document.getElementById('totalTax').textContent = formatMoney(totalTax);
-    document.getElementById('federalTax').textContent = formatMoney(federalCalculation.total);
+    document.getElementById('federalTax').textContent = formatMoney(federalTax);
     document.getElementById('stateTax').textContent = selectedState
       ? formatMoney(stateCalculation.total)
       : 'N/A';
-    document.getElementById('taxSummary').textContent = selectedState
-      ? (selectedState.noTax
-        ? `${formatMoney(federalCalculation.total)} federal tax; ${selectedState.label} has no broad tax on ordinary income.`
-        : `${formatMoney(federalCalculation.total)} federal + ${formatMoney(stateCalculation.total)} ${selectedState.label} income tax.`)
-      : 'Federal estimate only. Select a state to add a state income-tax estimate.';
+    document.getElementById('capitalGainsTax').textContent = formatMoney(capitalGainsTax);
+    document.getElementById('niitTax').textContent = formatMoney(niit);
+    if (selectedState) {
+      const modeledTaxSummary = selectedState.noTax
+        ? `${formatMoney(federalTax)} federal tax. ${selectedState.label} has no broad individual income tax in this model.`
+        : `${formatMoney(federalTax)} federal + ${formatMoney(stateCalculation.total)} estimated ${selectedState.label} income tax.`;
+      document.getElementById('taxSummary').textContent = netInvestmentIncome > 0
+        ? `${modeledTaxSummary} Entered gains add approximately ${formatMoney(capitalGainsTax)} across the modeled taxes.`
+        : modeledTaxSummary;
+    } else {
+      document.getElementById('taxSummary').textContent = netInvestmentIncome > 0
+        ? `Federal estimate includes approximately ${formatMoney(capitalGainsTax)} attributable to the entered gains. Select a state to add a simplified state estimate.`
+        : 'Federal estimate only. Select a state to add a state income-tax estimate.';
+    }
     document.getElementById('adjustedIncome').textContent = formatMoney(agi);
     document.getElementById('deductionUsed').textContent = formatMoney(deduction);
     document.getElementById('taxableIncome').textContent = formatMoney(taxable);
@@ -251,9 +390,29 @@
     document.getElementById('afterIncomeTax').textContent = formatMoney(afterIncomeTax);
     document.getElementById('taxShareBar').style.width = `${Math.min(100, effective * 100)}%`;
 
-    document.getElementById('bracketRows').innerHTML = federalCalculation.rows.length
-      ? federalCalculation.rows.map((row) => `<tr><td><strong>${percent.format(row.rate)}</strong></td><td>${formatMoney(row.amount)}</td><td>${formatMoney(row.tax)}</td></tr>`).join('')
-      : '<tr><td><strong>0%</strong></td><td>$0</td><td>$0</td></tr>';
+    const federalRows = [
+      ...ordinaryCalculation.rows.map((row) => ({ ...row, label: 'Ordinary income' })),
+      ...capitalGainsCalculation.rows,
+    ];
+    if (regularMethodAdjustment < 0) {
+      federalRows.push({
+        label: 'Regular-tax limit',
+        rate: null,
+        amount: 0,
+        tax: regularMethodAdjustment,
+      });
+    }
+    if (niit > 0) {
+      federalRows.push({
+        label: 'Net investment income tax',
+        rate: 0.038,
+        amount: niitBase,
+        tax: niit,
+      });
+    }
+    document.getElementById('bracketRows').innerHTML = federalRows.length
+      ? federalRows.map((row) => `<tr><td>${row.label}</td><td><strong>${row.rate === null ? 'Limit' : percent.format(row.rate)}</strong></td><td>${formatMoney(row.amount)}</td><td>${formatSignedMoney(row.tax)}</td></tr>`).join('')
+      : '<tr><td>Ordinary income</td><td><strong>0%</strong></td><td>$0</td><td>$0</td></tr>';
 
     const stateBreakdownTitle = document.getElementById('stateBreakdownTitle');
     const stateBreakdownLabel = document.getElementById('stateBreakdownLabel');
@@ -269,7 +428,7 @@
       stateBreakdownTitle.textContent = `${selectedState.label} income tax`;
       stateBreakdownLabel.textContent = 'No broad tax on ordinary income';
       stateBracketRows.innerHTML = '<tr><td><strong>0%</strong></td><td>Ordinary wage income</td><td>$0</td></tr>';
-      stateMethodNote.textContent = selectedState.note || `${selectedState.label} does not levy a broad individual income tax on ordinary wage income. Capital gains, payroll, sales, property, and local taxes are not modeled.`;
+      stateMethodNote.textContent = selectedState.note || `${selectedState.label} does not levy a broad individual income tax. Payroll, sales, property, local, and special capital-gains taxes are not modeled.`;
     } else {
       stateBreakdownTitle.textContent = `${selectedState.label} bracket breakdown`;
       stateBreakdownLabel.textContent = statusKey === 'single' || statusKey === 'marriedSeparate'
@@ -283,7 +442,7 @@
         ? ''
         : ` Bracket widths are scaled as an approximation for ${status.label.toLowerCase()}.`;
       const stateNote = selectedState.note ? ` ${selectedState.note}` : '';
-      stateMethodNote.textContent = `This simplified ${selectedState.label} estimate applies its published 2026 ordinary-income rates to federal adjusted gross income less the state deductions entered above.${filingNote} Credits, local taxes, and special state adjustments are excluded.${stateNote}`;
+      stateMethodNote.textContent = `This simplified ${selectedState.label} estimate applies its published 2026 ordinary-income rates to federal adjusted gross income, including entered gains, less the state deductions entered above.${filingNote} Credits, local taxes, preferential gain rates, exclusions, and special state adjustments are excluded.${stateNote}`;
     }
   }
 

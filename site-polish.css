@@ -1,0 +1,261 @@
+/* Shared finishing layer loaded by site-shell.js on every regional page. */
+html.site-ca,
+html.site-us {
+  scroll-padding-top: 84px;
+}
+
+html.site-ca *,
+html.site-us * {
+  letter-spacing: 0 !important;
+}
+
+html.site-ca body,
+html.site-us body {
+  overflow-x: clip;
+}
+
+html.site-ca ::selection,
+html.site-us ::selection {
+  background: rgba(29, 107, 69, 0.18);
+  color: #1a1816;
+}
+
+html.site-ca :where(a, button, input, select, textarea, summary):focus-visible,
+html.site-us :where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid #1d6b45;
+  outline-offset: 3px;
+}
+
+html.site-ca :where(h1, h2, h3),
+html.site-us :where(h1, h2, h3) {
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+html.site-ca :where(p, li, dd, td, th, label),
+html.site-us :where(p, li, dd, td, th, label) {
+  overflow-wrap: anywhere;
+}
+
+html.site-ca h1 {
+  font-size: 64px !important;
+  line-height: 1.02 !important;
+}
+
+html.site-ca :where(.section-title, .related-head h2) {
+  font-size: 46px !important;
+  line-height: 1.08 !important;
+}
+
+html.site-ca :where(input, select, textarea) {
+  min-width: 0;
+  border-radius: 8px !important;
+  font-size: 16px;
+}
+
+html.site-us :where(input, select, textarea) {
+  min-width: 0;
+  font-size: 16px !important;
+}
+
+html.site-ca :where(
+  .mission-quote,
+  .value,
+  .who-card,
+  .founder-avatar,
+  .nl-modal,
+  .disclosure-box,
+  .offer-card,
+  .how-card,
+  .rakuten-card,
+  .bag,
+  .rakuten-logo,
+  .polymarket-card,
+  .market-preview,
+  .fire-snapshot,
+  .snapshot-stat,
+  .idea-card,
+  .math-panel,
+  .planner-panel,
+  .planner-control,
+  .result-card,
+  .projection,
+  .path-step,
+  .fire-cta-section,
+  .hero-card,
+  .featured,
+  .featured-visual,
+  .card,
+  .side-card,
+  .other-card,
+  .other-glyph,
+  .wealth-snapshot,
+  .wealth-card,
+  .benchmark,
+  .calculator-shell,
+  .registered-note,
+  .context-list li,
+  .article-brief,
+  .callout,
+  .case-study,
+  .related-card
+) {
+  border-radius: 8px !important;
+}
+
+html.site-ca :where(
+  .value,
+  .who-card,
+  .offer-card,
+  .how-card,
+  .rakuten-card,
+  .polymarket-card,
+  .fire-snapshot,
+  .idea-card,
+  .math-panel,
+  .planner-panel,
+  .path-step,
+  .featured,
+  .card,
+  .side-card,
+  .other-card,
+  .wealth-snapshot,
+  .calculator-shell,
+  .context-list li,
+  .related-card
+) {
+  box-shadow: 0 22px 52px -42px rgba(26, 24, 22, 0.35) !important;
+}
+
+html.site-ca :where(.card, .value, .how-card, .idea-card, .other-card, .related-card):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 54px -38px rgba(26, 24, 22, 0.38) !important;
+}
+
+html.site-ca :where(.calc-button, .load-btn, .offer-btn, .btn-primary, .btn-ghost) {
+  border-radius: 6px !important;
+}
+
+html.site-ca :where(.calc-button, .load-btn, .offer-btn, .btn-primary, .btn-ghost):active {
+  transform: translateY(1px);
+}
+
+html.site-ca :where(.breakdown, .table-scroll) {
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+html.site-ca table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+html.site-ca :where(.calculator-shell, .offer-card, .rakuten-card, .polymarket-card, .math-panel) > * {
+  min-width: 0;
+}
+
+html.site-ca .total-tax {
+  font-size: 58px !important;
+  line-height: 1 !important;
+}
+
+html.site-ca .source-note {
+  max-width: 76ch;
+}
+
+html.site-ca footer.site-footer a:hover,
+html.site-us footer.site-footer a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 768px) {
+  html.site-ca {
+    scroll-padding-top: 72px;
+  }
+
+  html.site-ca h1 {
+    font-size: 44px !important;
+    line-height: 1.05 !important;
+  }
+
+  html.site-ca :where(.section-title, .related-head h2) {
+    font-size: 36px !important;
+  }
+
+  html.site-ca .total-tax {
+    font-size: 44px !important;
+    white-space: normal !important;
+  }
+
+  html.site-ca nav.site-nav {
+    padding-inline: 20px !important;
+  }
+
+  html.site-ca .nav-logo .wordmark {
+    max-width: 190px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  html.site-ca .mobile-menu {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom)) !important;
+  }
+
+  html.site-ca :where(.calculator-shell, .offer-card, .rakuten-card, .polymarket-card, .math-panel) {
+    width: 100%;
+  }
+
+  html.site-ca :where(.calculator-shell, .offer-card, .rakuten-card, .polymarket-card, .math-panel) > * {
+    min-width: 0;
+  }
+
+  html.site-ca .topic {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  html.site-ca .topic:not(.wide) {
+    min-height: 0;
+  }
+
+  html.site-ca :where(.breakdown, .table-scroll) table {
+    min-width: 620px;
+  }
+}
+
+@media (max-width: 430px) {
+  html.site-ca h1 {
+    font-size: 40px !important;
+  }
+
+  html.site-ca .nav-logo .wordmark {
+    max-width: 165px;
+    font-size: 12px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.site-ca *,
+  html.site-ca *::before,
+  html.site-ca *::after,
+  html.site-us *,
+  html.site-us *::before,
+  html.site-us *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html.site-ca .reveal,
+  html.site-us .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

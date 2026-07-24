@@ -1,6 +1,16 @@
 (function () {
   'use strict';
 
+  const isUsSite = /\/us(?:\/|$)/.test(window.location.pathname.replace(/\\/g, '/'));
+  document.documentElement.classList.add(isUsSite ? 'site-us' : 'site-ca');
+
+  const polishStyles = document.createElement('link');
+  const shellSource = document.currentScript?.src || window.location.href;
+  polishStyles.id = 'site-polish-styles';
+  polishStyles.rel = 'stylesheet';
+  polishStyles.href = new URL('site-polish.css', shellSource).href;
+  if (!document.getElementById(polishStyles.id)) document.head.appendChild(polishStyles);
+
   const focusableSelector = [
     'a[href]',
     'button:not([disabled])',
@@ -139,9 +149,15 @@
     });
   }
 
+  function initializeRevealFallback() {
+    if ('IntersectionObserver' in window) return;
+    document.querySelectorAll('.reveal').forEach((element) => element.classList.add('visible'));
+  }
+
   function initialize() {
     initializeMenu();
     initializeNewsletterDialogs();
+    initializeRevealFallback();
   }
 
   if (document.readyState === 'loading') {

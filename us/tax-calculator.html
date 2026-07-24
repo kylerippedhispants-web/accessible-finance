@@ -7,10 +7,10 @@
 <link rel="icon" type="image/png" href="../Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 Federal &amp; State Income Tax Calculator | Accessible Finance U.S.</title>
-<meta name="description" content="Estimate 2026 U.S. federal and state income tax using filing status, deductions, pre-tax contributions, and a state selector.">
+<meta name="description" content="Estimate 2026 U.S. federal and state income tax, including short- and long-term capital gains, filing status, deductions, and pre-tax contributions.">
 <link rel="canonical" href="https://accessible-finance.com/us/tax-calculator.html">
 <meta property="og:title" content="2026 Federal &amp; State Income Tax Calculator | Accessible Finance U.S.">
-<meta property="og:description" content="A clear federal and state income-tax estimate with visible assumptions and bracket-by-bracket breakdowns.">
+<meta property="og:description" content="A clear federal, state, and capital-gains tax estimate with visible assumptions and bracket-by-bracket breakdowns.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://accessible-finance.com/Logo.png">
 <meta name="twitter:card" content="summary">
@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="../site-language.css">
 <link rel="stylesheet" href="../site-region.css">
+<link id="site-polish-styles" rel="stylesheet" href="../site-polish.css">
 <script src="../site-language.js" defer></script>
 <script src="../site-region.js" defer></script>
 <script src="site.js" defer></script>
@@ -89,15 +90,15 @@
   <header class="guide-hero tax-guide-hero shell">
     <div class="guide-hero-copy">
       <span class="eyebrow">2026 federal + state estimate</span>
-      <h1>See how your taxable income moves through <em>the brackets</em></h1>
-      <p>Estimate ordinary federal and state income tax using your filing status, state, deductions, and entered pre-tax contributions. Every assumption stays visible.</p>
-      <a class="button-primary" href="#tax-calculator">Estimate income tax <span aria-hidden="true">&rarr;</span></a>
+      <h1>See how income and investment gains move through <em>the brackets</em></h1>
+      <p>Estimate ordinary income tax, short- and long-term capital-gains tax, and simplified state tax using your filing status, deductions, and pre-tax contributions.</p>
+      <a class="button-primary" href="#tax-calculator">Estimate total tax <span aria-hidden="true">&rarr;</span></a>
     </div>
     <aside class="tax-year-panel">
       <span>Tax year</span>
       <strong>2026</strong>
-      <p>Uses IRS tax-year 2026 brackets and standard deductions, plus state rate schedules current April 28, 2026.</p>
-      <div><span>Federal + state</span><b>No payroll or local tax</b></div>
+      <p>Uses IRS tax-year 2026 ordinary-income and long-term capital-gains thresholds, plus state rate schedules current April 28, 2026.</p>
+      <div><span>Ordinary + capital gains</span><b>No payroll or local tax</b></div>
     </aside>
   </header>
 
@@ -108,7 +109,7 @@
           <span class="eyebrow">Income tax calculator</span>
           <h2 class="section-title" id="calculator-title">Build a transparent <em>tax estimate</em></h2>
         </div>
-        <p class="section-intro">The calculator treats the income entered as ordinary income before the entered workplace and HSA contributions. It estimates federal and selected-state income tax, not a refund or withholding.</p>
+        <p class="section-intro">Enter ordinary income separately from capital gains. Short-term gains use ordinary rates; eligible net long-term gains use the 2026 federal 0%, 15%, and 20% thresholds. The result is an estimate, not a refund or withholding calculation.</p>
       </div>
 
       <div class="tax-calculator-layout">
@@ -185,7 +186,9 @@
           </div>
 
           <div class="form-grid">
-            <label class="field"><span>Annual ordinary income</span><span class="money-input"><b>$</b><input id="grossIncome" type="number" inputmode="decimal" min="0" step="1000" value="85000"></span><small>Before the contributions entered below.</small></label>
+            <label class="field"><span>Annual ordinary income</span><span class="money-input"><b>$</b><input id="grossIncome" type="number" inputmode="decimal" min="0" step="1000" value="85000"></span><small>Wages and other ordinary income before the contributions entered below. Do not include gains entered separately.</small></label>
+            <label class="field"><span>Net short-term capital gains</span><span class="money-input"><b>$</b><input id="shortTermGains" type="number" inputmode="decimal" min="0" step="500" value="0"></span><small>Net gains on assets generally held one year or less. These are estimated at ordinary federal rates.</small></label>
+            <label class="field"><span>Net long-term capital gains</span><span class="money-input"><b>$</b><input id="longTermGains" type="number" inputmode="decimal" min="0" step="500" value="0"></span><small>Eligible net gains on assets generally held more than one year. Special 25% and 28% gain categories are not modeled.</small></label>
             <label class="field"><span>Pre-tax workplace contributions</span><span class="money-input"><b>$</b><input id="workplaceContributions" type="number" inputmode="decimal" min="0" step="500" value="10000"></span><small>For example, eligible traditional 401(k) contributions.</small></label>
             <label class="field"><span>HSA contributions</span><span class="money-input"><b>$</b><input id="hsaContributions" type="number" inputmode="decimal" min="0" step="100" value="0"></span><small>Enter only contributions eligible to reduce federal income.</small></label>
             <label class="field"><span>Other income adjustments</span><span class="money-input"><b>$</b><input id="otherAdjustments" type="number" inputmode="decimal" min="0" step="100" value="0"></span><small>Simplified total for eligible above-the-line adjustments.</small></label>
@@ -203,11 +206,13 @@
           <div class="result-stats tax-result-stats">
             <div><span>Federal income tax</span><strong id="federalTax">$0</strong></div>
             <div><span>State income tax</span><strong id="stateTax">$0</strong></div>
+            <div><span>Tax attributable to gains</span><strong id="capitalGainsTax">$0</strong></div>
+            <div><span>Net investment income tax</span><strong id="niitTax">$0</strong></div>
             <div><span>Adjusted gross income</span><strong id="adjustedIncome">$0</strong></div>
             <div><span>Federal deduction used</span><strong id="deductionUsed">$0</strong></div>
             <div><span>Federal taxable income</span><strong id="taxableIncome">$0</strong></div>
             <div><span>State taxable income</span><strong id="stateTaxableIncome">N/A</strong></div>
-            <div><span>Federal marginal bracket</span><strong id="marginalRate">0%</strong></div>
+            <div><span>Federal ordinary bracket</span><strong id="marginalRate">0%</strong></div>
             <div><span>State marginal bracket</span><strong id="stateMarginalRate">N/A</strong></div>
             <div><span>Combined effective rate</span><strong id="effectiveRate">0%</strong></div>
             <div><span>Estimated contribution savings</span><strong id="contributionSavings">$0</strong></div>
@@ -217,10 +222,10 @@
       </div>
 
       <div class="bracket-panel">
-        <div class="projection-heading"><h3>Your federal bracket breakdown</h3><span>Only the income inside each layer uses that rate</span></div>
+        <div class="projection-heading"><h3>Your federal tax breakdown</h3><span>Ordinary income and long-term gains use different layers</span></div>
         <div class="table-scroll" tabindex="0" aria-label="Scrollable federal tax bracket breakdown">
           <table class="projection-table bracket-table">
-            <thead><tr><th>Rate</th><th>Taxable income in layer</th><th>Tax from layer</th></tr></thead>
+            <thead><tr><th>Layer</th><th>Rate</th><th>Taxable amount</th><th>Tax from layer</th></tr></thead>
             <tbody id="bracketRows"></tbody>
           </table>
         </div>
@@ -235,7 +240,7 @@
         </div>
         <p class="state-method-note" id="stateMethodNote" aria-live="polite">State estimates use published rate schedules and the state deductions you enter above.</p>
       </div>
-      <p class="planner-disclaimer">This simplified estimate excludes tax credits, capital gains and qualified dividends, self-employment tax, Social Security and Medicare tax, local income tax, the alternative minimum tax, net investment income tax, state-specific recapture rules, special deductions, phase-outs, and other return-specific rules. State taxable income starts with the federal adjusted-gross-income estimate and subtracts only the state deductions entered above. Non-single state bracket widths are approximated. Confirm filing decisions with current IRS and state guidance or a qualified tax professional.</p>
+      <p class="planner-disclaimer">This simplified estimate includes ordinary federal tax, eligible net long-term capital gains at the 2026 federal 0%/15%/20% thresholds, short-term gains at ordinary rates, and an approximate 3.8% net investment income tax. It excludes tax credits, qualified dividends, capital-loss carryovers, collectibles and unrecaptured section 1250 gain, qualified small-business stock rules, self-employment tax, Social Security and Medicare tax, local income tax, alternative minimum tax, and return-specific phase-outs. State taxable income starts with the federal adjusted-gross-income estimate and subtracts only the state deductions entered above; special state capital-gains rules are not modeled. Confirm filing decisions with current IRS and state guidance or a qualified tax professional.</p>
     </div>
   </section>
 
@@ -246,14 +251,14 @@
         <p class="section-intro">A bracket rate is not the percentage applied to every dollar you earn.</p>
       </div>
       <div class="learning-grid">
-        <article><span>Marginal rate</span><h3>Your next taxable dollar</h3><p>The federal bracket applying to the next layer of taxable ordinary income in this simplified estimate.</p></article>
-        <article><span>Effective rate</span><h3>Your estimated tax divided by income</h3><p>The combined federal and selected-state estimate divided by gross income. Payroll and local taxes are not included.</p></article>
+        <article><span>Ordinary bracket</span><h3>Your next ordinary taxable dollar</h3><p>The federal ordinary-income bracket applying after deductions. An eligible long-term gain can use a different federal rate.</p></article>
+        <article><span>Effective rate</span><h3>Your estimated tax divided by entered income</h3><p>The combined federal and selected-state estimate divided by ordinary income plus entered gains. Payroll and local taxes are not included.</p></article>
         <article><span>Taxable income</span><h3>Federal and state bases can differ</h3><p>States may use different deductions, exemptions, and adjustments. Enter those separately when you know them.</p></article>
       </div>
     </div>
   </section>
 
-  <section class="reference-section" aria-labelledby="reference-title">
+  <section class="reference-section tax-reference-section" aria-labelledby="reference-title">
     <div class="shell">
       <span class="eyebrow">2026 reference points</span>
       <h2 class="section-title" id="reference-title">Current numbers, with <em>eligibility still required</em></h2>
@@ -262,11 +267,15 @@
         <article><span>Standard deduction</span><strong>$32,200</strong><p>Married filing jointly and qualifying surviving spouses.</p></article>
         <article><span>Standard deduction</span><strong>$24,150</strong><p>Head of household.</p></article>
         <article><span>401(k) employee limit</span><strong>$24,500</strong><p>Basic 2026 elective-deferral limit before applicable catch-up amounts.</p></article>
+        <article><span>0% long-term gain ceiling</span><strong>$49,450</strong><p>Single filers; $98,900 for married filing jointly.</p></article>
+        <article><span>15% long-term gain ceiling</span><strong>$545,500</strong><p>Single filers; $613,700 for married filing jointly. Amounts above use 20%.</p></article>
       </div>
       <div class="source-note source-links">
         <span>Primary sources</span>
         <a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noopener noreferrer">IRS 2026 inflation adjustments</a>
         <a href="https://www.irs.gov/irb/2025-45_IRB" target="_blank" rel="noopener noreferrer">IRS 2026 tax tables</a>
+        <a href="https://www.irs.gov/irb/2025-45_IRB#REV-PROC-2025-32" target="_blank" rel="noopener noreferrer">IRS 2026 capital-gains thresholds</a>
+        <a href="https://www.irs.gov/individuals/net-investment-income-tax" target="_blank" rel="noopener noreferrer">IRS net investment income tax</a>
         <a href="https://www.irs.gov/newsroom/401k-limit-increases-to-24500-for-2026-ira-limit-increases-to-7500" target="_blank" rel="noopener noreferrer">IRS 2026 retirement limits</a>
         <a href="https://taxfoundation.org/data/all/state/state-income-tax-rates-2026/" target="_blank" rel="noopener noreferrer">2026 state income-tax schedules</a>
       </div>

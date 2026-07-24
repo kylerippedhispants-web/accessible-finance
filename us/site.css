@@ -2105,6 +2105,10 @@ body.newsletter-open {
   padding-top: 24px;
 }
 
+.tax-reference-section .reference-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .source-links {
   display: flex;
   align-items: center;
@@ -2344,6 +2348,10 @@ body.newsletter-open {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .tax-reference-section .reference-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .decision-list-four {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2410,6 +2418,10 @@ body.newsletter-open {
   .decision-list-four,
   .path-grid-four,
   .roadmap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tax-reference-section .reference-grid {
     grid-template-columns: 1fr;
   }
 

@@ -7,10 +7,10 @@
 <link rel="icon" type="image/png" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Income Tax Calculator | Accessible Finance</title>
-<meta name="description" content="Estimate 2026 Canadian federal and provincial income tax from your taxable or net income, with a province and territory dropdown.">
+<meta name="description" content="Estimate 2026 Canadian federal and provincial income tax, including the tax impact of net realized capital gains, RRSP deductions, and TFSA contributions.">
 <link rel="canonical" href="https://accessible-finance.com/tax-calculator.html">
 <meta property="og:title" content="Income Tax Calculator | Accessible Finance">
-<meta property="og:description" content="Estimate Canadian federal and provincial income tax with RRSP and TFSA contribution inputs.">
+<meta property="og:description" content="Estimate Canadian federal and provincial income tax with capital gains, RRSP, and TFSA inputs.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://accessible-finance.com/Logo.png">
 <meta name="twitter:card" content="summary">
@@ -215,6 +215,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 </style>
 <link rel="stylesheet" href="site-language.css">
 <link rel="stylesheet" href="site-region.css">
+<link id="site-polish-styles" rel="stylesheet" href="site-polish.css">
 <script src="site-language.js" defer></script>
 <script src="site-region.js" defer></script>
 <script src="site-shell.js" defer></script>
@@ -285,9 +286,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <div class="reveal">
     <span class="eyebrow">2026 Canada estimator</span>
     <h1>Income tax <em>calculator.</em></h1>
-    <p class="lead">Estimate federal and provincial income tax from annual taxable or net income, then compare the result by province or territory.</p>
+    <p class="lead">Estimate federal and provincial income tax from ordinary income and net realized capital gains, then compare the result by province or territory.</p>
   </div>
-  <p class="hero-note reveal d2"><strong>Plain-English note.</strong> This is a bracket-based estimate. Real tax returns can change after credits, deductions, CPP/EI, surtaxes, premiums, capital gains treatment, and other personal details.</p>
+  <p class="hero-note reveal d2"><strong>Plain-English note.</strong> This is a bracket-based estimate. Real tax returns can change after credits, deductions, CPP/EI, surtaxes, premiums, capital-loss carryovers, exemptions, and other personal details.</p>
 </header>
 
 <main>
@@ -295,15 +296,23 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="calculator-shell reveal">
       <div class="calc-inputs">
         <h2 class="calc-title" id="calculatorTitle">Estimate your tax</h2>
-        <p class="calc-copy">Enter annual income, RRSP and TFSA contributions, then choose the province or territory where you expect to be resident on December 31, 2026.</p>
+        <p class="calc-copy">Enter ordinary income, net realized capital gains, RRSP and TFSA contributions, then choose your province or territory of residence on December 31, 2026.</p>
         <form class="field-stack" id="taxForm">
           <div class="field">
-            <label for="incomeInput">Annual income before RRSP deduction</label>
+            <label for="incomeInput">Annual ordinary income before RRSP deduction</label>
             <div class="money-field">
               <span aria-hidden="true">$</span>
               <input id="incomeInput" name="income" type="number" inputmode="decimal" min="0" step="500" value="75000" autocomplete="off">
             </div>
-            <p class="input-help">Use a yearly Canadian dollar amount before the RRSP deduction. Negative values are treated as $0.</p>
+            <p class="input-help">Use employment, pension, interest, rental, or other ordinary income before the RRSP deduction. Do not include the capital gain entered below.</p>
+          </div>
+          <div class="field">
+            <label for="capitalGainInput">Net realized capital gain</label>
+            <div class="money-field">
+              <span aria-hidden="true">$</span>
+              <input id="capitalGainInput" name="capitalGain" type="number" inputmode="decimal" min="0" step="1000" value="0" autocomplete="off">
+            </div>
+            <p class="input-help">Enter the gain, not the sale proceeds, after current-year capital losses. The estimate includes 50% of this amount in taxable income. Gains inside an RRSP, TFSA, or FHSA and an exempt principal residence should not be entered.</p>
           </div>
           <div class="field">
             <label for="rrspInput">RRSP contribution deducted</label>
@@ -340,8 +349,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
             </select>
           </div>
           <div class="registered-note">
-            <h3>Registered account note</h3>
-            <p>RRSP entries estimate the current-year deduction only. TFSA entries are shown as savings contributions, not tax deductions.</p>
+            <h3>Account and gains note</h3>
+            <p>RRSP entries estimate the current-year deduction only. TFSA entries are tracked as savings, not deductions. The capital-gains field is for non-registered assets and uses Canada&rsquo;s 50% inclusion rate retained for 2026.</p>
           </div>
           <div class="button-row">
             <button type="submit" class="calc-button primary">Estimate</button>
@@ -371,6 +380,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="metric">
             <div class="label">Taxable income</div>
             <div class="value" id="taxableIncomeValue">$0</div>
+          </div>
+          <div class="metric">
+            <div class="label">Taxable capital gain</div>
+            <div class="value" id="taxableCapitalGain">$0</div>
+          </div>
+          <div class="metric">
+            <div class="label">Tax from capital gain</div>
+            <div class="value" id="capitalGainsTax">$0</div>
           </div>
           <div class="metric">
             <div class="label">RRSP tax savings</div>
@@ -406,7 +423,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
             <tbody id="breakdownRows"></tbody>
           </table>
         </div>
-        <p class="source-note">Sources: <a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">CRA 2026 federal and provincial/territorial brackets</a>, <a href="https://www.revenuquebec.ca/en/citizens/income-tax-return/completing-your-income-tax-return/income-tax-rates/" target="_blank" rel="noopener noreferrer">Revenu Quebec 2026 rates</a>, <a href="https://www.canada.ca/en/department-finance/programs/federal-transfers/quebec-abatement.html" target="_blank" rel="noopener noreferrer">Quebec abatement</a>, <a href="https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html" target="_blank" rel="noopener noreferrer">CRA RRSP and TFSA dollar limits</a>, and <a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/contributing-a-rrsp-prpp/contributions-affect-your-rrsp-prpp-deduction-limit.html" target="_blank" rel="noopener noreferrer">CRA RRSP deduction limit rules</a>.</p>
+        <p class="source-note">Sources: <a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">CRA 2026 federal and provincial/territorial brackets</a>, <a href="https://budget.canada.ca/2025/report-rapport/anx1-en.html" target="_blank" rel="noopener noreferrer">Budget 2025 cancellation of the proposed capital-gains inclusion-rate increase</a>, <a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/line-12700-capital-gains/calculating-reporting-your-capital-gains-losses.html" target="_blank" rel="noopener noreferrer">CRA capital-gain calculation guidance</a>, <a href="https://www.revenuquebec.ca/en/citizens/income-tax-return/completing-your-income-tax-return/income-tax-rates/" target="_blank" rel="noopener noreferrer">Revenu Quebec 2026 rates</a>, <a href="https://www.canada.ca/en/department-finance/programs/federal-transfers/quebec-abatement.html" target="_blank" rel="noopener noreferrer">Quebec abatement</a>, and <a href="https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html" target="_blank" rel="noopener noreferrer">CRA RRSP and TFSA dollar limits</a>.</p>
       </div>
     </div>
   </section>
@@ -430,8 +447,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <p>RRSP contributions are treated as deductible against taxable income. TFSA contributions are tracked as savings, but they do not reduce current-year income tax.</p>
       </li>
       <li class="reveal d3">
+        <h3>Capital gains treatment</h3>
+        <p>The calculator adds 50% of the net realized gain to taxable income, then measures the difference from the same estimate without that gain. Capital losses, the principal-residence exemption, the lifetime capital-gains exemption, reserves, and alternative minimum tax are not modeled.</p>
+      </li>
+      <li class="reveal d3">
         <h3>Get advice for edge cases</h3>
-        <p>Self-employment, business income, capital gains, RRSP deductions, split residency, multiple jurisdictions, and benefits can all change the final result.</p>
+        <p>Self-employment, business income, split residency, multiple jurisdictions, trusts, benefits, and special credits can all change the final result.</p>
       </li>
     </ul>
   </section>
@@ -499,6 +520,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 </div>
 
 <script>
+const CAPITAL_GAINS_INCLUSION_RATE = 0.5;
+
 const FEDERAL_BRACKETS = [
   { upTo: 58523, rate: 0.14 },
   { upTo: 117045, rate: 0.205 },
@@ -652,17 +675,24 @@ function calculateTax(income, province) {
 
 function updateCalculator() {
   const income = getIncome();
-  const rrsp = Math.min(getMoneyInput('rrspInput'), income);
+  const capitalGain = getMoneyInput('capitalGainInput');
+  const taxableCapitalGain = capitalGain * CAPITAL_GAINS_INCLUSION_RATE;
+  const incomeBeforeRrsp = income + taxableCapitalGain;
+  const rrsp = Math.min(getMoneyInput('rrspInput'), incomeBeforeRrsp);
   const tfsa = getMoneyInput('tfsaInput');
-  const taxableIncome = Math.max(0, income - rrsp);
+  const taxableIncome = Math.max(0, incomeBeforeRrsp - rrsp);
+  const taxableIncomeWithoutGain = Math.max(0, income - rrsp);
   const provinceCode = document.getElementById('provinceSelect').value;
   const province = PROVINCES[provinceCode];
-  const taxBeforeRrsp = calculateTax(income, province);
+  const taxBeforeRrsp = calculateTax(incomeBeforeRrsp, province);
   const taxAfterRrsp = calculateTax(taxableIncome, province);
+  const taxWithoutGain = calculateTax(taxableIncomeWithoutGain, province);
   const { baseFederal, abatement, federal, provincial, total } = taxAfterRrsp;
   const rrspSavings = Math.max(0, taxBeforeRrsp.total - total);
-  const afterTax = Math.max(0, income - total - rrsp - tfsa);
-  const average = taxableIncome > 0 ? total / taxableIncome : 0;
+  const capitalGainsTax = Math.max(0, total - taxWithoutGain.total);
+  const enteredIncome = income + capitalGain;
+  const afterTax = Math.max(0, enteredIncome - total - rrsp - tfsa);
+  const average = enteredIncome > 0 ? total / enteredIncome : 0;
   const federalMarginal = marginalRate(taxableIncome, FEDERAL_BRACKETS);
   const marginal = (federalMarginal * (1 - (province.abatement || 0))) + marginalRate(taxableIncome, province.brackets);
   const federalShare = total > 0 ? (federal / total) * 100 : 0;
@@ -670,9 +700,13 @@ function updateCalculator() {
 
   document.getElementById('resultLocation').textContent = `${province.name} estimate`;
   document.getElementById('totalTax').textContent = moneyFormatter.format(total);
-  document.getElementById('summaryText').textContent = `Estimated bracket tax on ${moneyFormatter.format(taxableIncome)} of taxable income after ${moneyFormatter.format(rrsp)} in RRSP deductions.`;
+  document.getElementById('summaryText').textContent = capitalGain > 0
+    ? `Estimated bracket tax on ${moneyFormatter.format(taxableIncome)} of taxable income, including ${moneyFormatter.format(taxableCapitalGain)} from the entered capital gain.`
+    : `Estimated bracket tax on ${moneyFormatter.format(taxableIncome)} of taxable income after ${moneyFormatter.format(rrsp)} in RRSP deductions.`;
   document.getElementById('afterTax').textContent = moneyFormatter.format(afterTax);
   document.getElementById('taxableIncomeValue').textContent = moneyFormatter.format(taxableIncome);
+  document.getElementById('taxableCapitalGain').textContent = moneyFormatter.format(taxableCapitalGain);
+  document.getElementById('capitalGainsTax').textContent = moneyFormatter.format(capitalGainsTax);
   document.getElementById('rrspSavings').textContent = moneyFormatter.format(rrspSavings);
   document.getElementById('tfsaValue').textContent = moneyFormatter.format(tfsa);
   document.getElementById('averageRate').textContent = percentFormatter.format(average);
@@ -682,12 +716,15 @@ function updateCalculator() {
   document.getElementById('provincialBar').style.width = `${provinceShare}%`;
 
   const rows = [
-    ['Annual income entered', 'Before any RRSP deduction in this calculator', moneyFormatter.format(income)],
+    ['Ordinary income entered', 'Before any RRSP deduction in this calculator', moneyFormatter.format(income)],
+    ['Net realized capital gain', 'Gain entered after current-year capital losses', moneyFormatter.format(capitalGain)],
+    ['Taxable capital gain', `${percentFormatter.format(CAPITAL_GAINS_INCLUSION_RATE)} inclusion rate`, moneyFormatter.format(taxableCapitalGain)],
     ['RRSP deduction applied', 'Reduces taxable income for this estimate', `-${moneyFormatter.format(rrsp)}`],
-    ['Taxable income', 'Annual income minus RRSP deduction applied', moneyFormatter.format(taxableIncome)],
+    ['Taxable income', 'Ordinary income plus taxable capital gain, minus RRSP deduction', moneyFormatter.format(taxableIncome)],
     ['Federal bracket tax', rateRange(taxableIncome, FEDERAL_BRACKETS), moneyFormatter.format(baseFederal)],
     province.abatement ? ['Quebec federal abatement', '16.5% reduction to federal bracket tax', `-${moneyFormatter.format(abatement)}`] : null,
     [`${province.name} bracket tax`, rateRange(taxableIncome, province.brackets), moneyFormatter.format(provincial)],
+    ['Tax attributable to capital gain', 'Difference from the same estimate without the entered gain', moneyFormatter.format(capitalGainsTax)],
     ['RRSP tax savings', 'Difference between tax before and after the RRSP deduction', moneyFormatter.format(rrspSavings)],
     ['TFSA contribution', 'Tracked only; no current-year income-tax deduction', moneyFormatter.format(tfsa)],
     ['Total estimate', 'Federal plus provincial or territorial bracket tax', moneyFormatter.format(total)]
@@ -736,11 +773,13 @@ document.getElementById('taxForm').addEventListener('submit', (event) => {
   updateCalculator();
 });
 document.getElementById('incomeInput').addEventListener('input', updateCalculator);
+document.getElementById('capitalGainInput').addEventListener('input', updateCalculator);
 document.getElementById('rrspInput').addEventListener('input', updateCalculator);
 document.getElementById('tfsaInput').addEventListener('input', updateCalculator);
 document.getElementById('provinceSelect').addEventListener('change', updateCalculator);
 document.getElementById('resetButton').addEventListener('click', () => {
   document.getElementById('incomeInput').value = '75000';
+  document.getElementById('capitalGainInput').value = '0';
   document.getElementById('rrspInput').value = '0';
   document.getElementById('tfsaInput').value = '0';
   document.getElementById('provinceSelect').value = 'ON';
