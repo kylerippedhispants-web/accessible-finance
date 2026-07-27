@@ -1103,62 +1103,7 @@
       </div>
     </div>`;
 
-  function setMeta(selector, attribute, value) {
-    const element = document.querySelector(selector);
-    if (element) element.setAttribute(attribute, value);
-  }
-
-  function renderNotFound(requestedId) {
-    const articleHead = document.querySelector('.article-head-inner');
-    const articleWrap = document.querySelector('.article-wrap');
-    const related = document.querySelector('.related');
-    const robots = document.createElement('meta');
-    robots.name = 'robots';
-    robots.content = 'noindex';
-    document.head.appendChild(robots);
-    document.title = 'Guide Not Found - Accessible Finance';
-
-    articleHead.innerHTML = `
-      <div class="crumb"><a href="articles.html">Guides</a><span class="sep">&rsaquo;</span>Not found</div>
-      <span class="cat-tag">Guide Library</span>
-      <h1>We could not find that <em>guide</em>.</h1>
-      <p class="deck">The guide link may have changed, or the address may contain a typo.</p>
-      <div class="article-meta"><span>Requested: ${escapeHtml(requestedId)}</span></div>`;
-    articleWrap.innerHTML = `
-      <article class="article-body">
-        <h2>Return to the library</h2>
-        <p>Browse the complete guide collection to choose a topic and continue learning.</p>
-        <div class="callout bottom"><div class="callout-label">Next step</div><p><a href="articles.html"><strong>View all guides &rarr;</strong></a></p></div>
-      </article>`;
-    related.hidden = true;
-  }
-
-  function renderGuide(id, item) {
-    const category = escapeHtml(item.category);
-    const title = escapeHtml(item.title);
-    const canonical = `https://accessible-finance.com/article.html?id=${encodeURIComponent(id)}`;
-    const wordCount = countWords(item);
-    const readingMinutes = Math.max(5, Math.ceil(wordCount / 180));
-
-    document.title = `${item.title} - Accessible Finance`;
-    setMeta('meta[name="description"]', 'content', item.deck);
-    setMeta('meta[property="og:title"]', 'content', item.title);
-    setMeta('meta[property="og:description"]', 'content', item.deck);
-    setMeta('link[rel="canonical"]', 'href', canonical);
-
-    const articleHead = document.querySelector('.article-head-inner');
-    articleHead.innerHTML = `
-      <div class="crumb"><a href="articles.html">Guides</a><span class="sep">&rsaquo;</span>${category}</div>
-      <span class="cat-tag">${category}</span>
-      <h1>${item.titleHtml}</h1>
-      <p class="deck">${escapeHtml(item.deck)}</p>
-      <div class="article-meta">
-        <span class="meta-item">${readingMinutes} min read</span>
-        <span class="meta-item">${escapeHtml(item.level)}</span>
-        <span class="meta-item">Updated ${escapeHtml(item.updated)}</span>
-      </div>
-      ${renderArticleBrief(item)}`;
-
+  const buildSections = (item) => {
     const sections = [
       { id: 'why-it-matters', title: 'Why it matters', body: renderParagraphs(item.intro) },
       {
@@ -1222,6 +1167,78 @@
       });
     }
 
+    return sections;
+  };
+
+  if (window.__AccessibleFinanceBuildMode) {
+    window.AccessibleFinanceGuideBuild = Object.freeze({
+      guides,
+      escapeHtml,
+      countWords,
+      renderArticleBrief,
+      buildSections
+    });
+    return;
+  }
+
+  function setMeta(selector, attribute, value) {
+    const element = document.querySelector(selector);
+    if (element) element.setAttribute(attribute, value);
+  }
+
+  function renderNotFound(requestedId) {
+    const articleHead = document.querySelector('.article-head-inner');
+    const articleWrap = document.querySelector('.article-wrap');
+    const related = document.querySelector('.related');
+    const robots = document.createElement('meta');
+    robots.name = 'robots';
+    robots.content = 'noindex';
+    document.head.appendChild(robots);
+    document.title = 'Guide Not Found - Accessible Finance';
+
+    articleHead.innerHTML = `
+      <div class="crumb"><a href="articles.html">Guides</a><span class="sep">&rsaquo;</span>Not found</div>
+      <span class="cat-tag">Guide Library</span>
+      <h1>We could not find that <em>guide</em>.</h1>
+      <p class="deck">The guide link may have changed, or the address may contain a typo.</p>
+      <div class="article-meta"><span>Requested: ${escapeHtml(requestedId)}</span></div>`;
+    articleWrap.innerHTML = `
+      <article class="article-body">
+        <h2>Return to the library</h2>
+        <p>Browse the complete guide collection to choose a topic and continue learning.</p>
+        <div class="callout bottom"><div class="callout-label">Next step</div><p><a href="articles.html"><strong>View all guides &rarr;</strong></a></p></div>
+      </article>`;
+    related.hidden = true;
+  }
+
+  function renderGuide(id, item) {
+    const category = escapeHtml(item.category);
+    const title = escapeHtml(item.title);
+    const canonical = `https://accessible-finance.com/guides/${encodeURIComponent(id)}.html`;
+    const wordCount = countWords(item);
+    const readingMinutes = Math.max(5, Math.ceil(wordCount / 180));
+
+    document.title = `${item.title} - Accessible Finance`;
+    setMeta('meta[name="description"]', 'content', item.deck);
+    setMeta('meta[property="og:title"]', 'content', item.title);
+    setMeta('meta[property="og:description"]', 'content', item.deck);
+    setMeta('link[rel="canonical"]', 'href', canonical);
+
+    const articleHead = document.querySelector('.article-head-inner');
+    articleHead.innerHTML = `
+      <div class="crumb"><a href="articles.html">Guides</a><span class="sep">&rsaquo;</span>${category}</div>
+      <span class="cat-tag">${category}</span>
+      <h1>${item.titleHtml}</h1>
+      <p class="deck">${escapeHtml(item.deck)}</p>
+      <div class="article-meta">
+        <span class="meta-item">${readingMinutes} min read</span>
+        <span class="meta-item">${escapeHtml(item.level)}</span>
+        <span class="meta-item">Updated ${escapeHtml(item.updated)}</span>
+      </div>
+      ${renderArticleBrief(item)}`;
+
+    const sections = buildSections(item);
+
     document.querySelector('.toc-list').innerHTML = sections
       .map((section) => `<li><a href="#${section.id}">${escapeHtml(section.title)}</a></li>`)
       .join('');
@@ -1244,7 +1261,7 @@
     document.querySelector('.related-grid').innerHTML = relatedIds.map((relatedId) => {
       const relatedItem = guides[relatedId];
       return `
-        <a href="article.html?id=${encodeURIComponent(relatedId)}" class="related-card reveal">
+        <a href="guides/${encodeURIComponent(relatedId)}.html" class="related-card reveal">
           <div class="cat">${escapeHtml(relatedItem.category)}</div>
           <h3>${escapeHtml(relatedItem.title)}</h3>
           <div class="meta">${Math.max(5, Math.ceil(countWords(relatedItem) / 180))} min read &middot; ${escapeHtml(relatedItem.level)}</div>
