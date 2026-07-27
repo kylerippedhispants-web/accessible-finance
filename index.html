@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-CA">
 <head>
 <meta charset="UTF-8">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4537695061199720"
@@ -9,6 +9,9 @@
 <title>Accessible Finance — Investing Education Without the Jargon</title>
 <meta name="description" content="Clear, unbiased investing education for curious people — not finance professionals. Free guides on markets, assets, portfolios, and Canadian accounts.">
 <link rel="canonical" href="https://accessible-finance.com/">
+<link rel="alternate" hreflang="en-CA" href="https://accessible-finance.com/">
+<link rel="alternate" hreflang="en-US" href="https://accessible-finance.com/us/">
+<link rel="alternate" hreflang="x-default" href="https://accessible-finance.com/">
 <meta property="og:title" content="Accessible Finance — Investing Education Without the Jargon">
 <meta property="og:description" content="Clear, unbiased investing education. A small number of ads helps cover upkeep; editorial content stays independent.">
 <meta property="og:type" content="website">
@@ -16,6 +19,34 @@
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#f7f5f0">
 <link rel="icon" type="image/png" href="Logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://accessible-finance.com/#organization",
+      "name": "Accessible Finance",
+      "url": "https://accessible-finance.com/",
+      "logo": "https://accessible-finance.com/Logo.png",
+      "sameAs": [
+        "https://www.instagram.com/accessible.finance"
+      ],
+      "description": "An independent financial-education publication offering free, source-linked guides and educational calculators."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://accessible-finance.com/#website",
+      "url": "https://accessible-finance.com/",
+      "name": "Accessible Finance",
+      "publisher": {
+        "@id": "https://accessible-finance.com/#organization"
+      },
+      "inLanguage": "en-CA"
+    }
+  ]
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -258,11 +289,11 @@ nav.site-nav {
   animation: barGrow 1.2s cubic-bezier(.2,.7,.2,1) forwards;
   transform: scaleY(0);
 }
-.hero-chart .bar:nth-child(1) { height: 28%; animation-delay: .05s; }
-.hero-chart .bar:nth-child(2) { height: 42%; animation-delay: .1s; }
-.hero-chart .bar:nth-child(3) { height: 36%; animation-delay: .15s; }
+.hero-chart .bar:nth-child(1) { height: 34%; animation-delay: .05s; }
+.hero-chart .bar:nth-child(2) { height: 40%; animation-delay: .1s; }
+.hero-chart .bar:nth-child(3) { height: 47%; animation-delay: .15s; }
 .hero-chart .bar:nth-child(4) { height: 55%; animation-delay: .2s; }
-.hero-chart .bar:nth-child(5) { height: 50%; animation-delay: .25s; }
+.hero-chart .bar:nth-child(5) { height: 63%; animation-delay: .25s; }
 .hero-chart .bar:nth-child(6) { height: 72%; animation-delay: .3s; }
 .hero-chart .bar:nth-child(7) {
   height: 88%; animation-delay: .35s;
@@ -971,7 +1002,7 @@ footer.site-footer {
     <a href="fire.html">FIRE</a>
     <a href="wealth-rank.html">Wealth Rank</a>
     <a href="tax-calculator.html">Tax</a>
-    <a href="earn.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
+
     <a href="about.html">About</a>
   </div>
   <div class="nav-actions">
@@ -1004,7 +1035,7 @@ footer.site-footer {
   <a href="fire.html">FIRE</a>
   <a href="wealth-rank.html">Wealth Rank</a>
   <a href="tax-calculator.html">Tax</a>
-  <a href="earn.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
+
   <a href="about.html">About</a>
   <label class="mobile-language notranslate" translate="no">
     <span>Language</span>
@@ -1041,19 +1072,19 @@ footer.site-footer {
   </div>
 
   <div class="hero-card-wrap reveal d2">
-    <div class="hero-card" role="img" aria-label="Illustrative chart: $10,000 in an S&P 500 index grew roughly 94% over eight years.">
-      <div class="hero-card-eyebrow">Compound Growth · Illustrative</div>
+    <div class="hero-card" role="img" aria-label="Hypothetical chart: $10,000 compounding at 5% annually reaches about $14,775 after eight years. Actual investment returns are not guaranteed.">
+      <div class="hero-card-eyebrow">Hypothetical Growth · 5% a Year</div>
       <div class="hero-chart" aria-hidden="true">
         <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
         <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
       </div>
-      <div class="hero-chart-axis"><span>2017</span><span>2019</span><span>2021</span><span>2023</span><span>2025</span></div>
+      <div class="hero-chart-axis"><span>Year 0</span><span>Year 2</span><span>Year 4</span><span>Year 6</span><span>Year 8</span></div>
       <div class="hero-stat-row">
         <div>
           <div class="hero-stat-num">$10,000</div>
-          <div class="hero-stat-label">Initial · S&amp;P 500 index</div>
+          <div class="hero-stat-label">Starting balance · Illustration</div>
         </div>
-        <div class="hero-stat-badge">↑ 94% total</div>
+        <div class="hero-stat-badge">$14,775 in year 8</div>
       </div>
     </div>
   </div>
@@ -1108,11 +1139,11 @@ footer.site-footer {
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </span>
       </a>
-      <a href="earn.html" class="tool-card reveal d4" aria-label="Open the rewards page">
-        <span class="tool-kicker">Rewards</span>
-        <h3>Review referral offers <em>without the hype</em>.</h3>
-        <p>See current referral links, eligibility notes, and risk reminders before using Wealthsimple, Rakuten, or Polymarket.</p>
-        <span class="tool-link">View rewards
+      <a href="editorial-policy.html" class="tool-card reveal d4" aria-label="Read the Accessible Finance editorial standards">
+        <span class="tool-kicker">Our standards</span>
+        <h3>See how each page is <em>researched and reviewed</em>.</h3>
+        <p>Read our sourcing, calculator-testing, advertising, update, and corrections policies in plain language.</p>
+        <span class="tool-link">Read our process
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </span>
       </a>
@@ -1161,24 +1192,24 @@ footer.site-footer {
 <section class="articles" id="articles">
   <div class="articles-head reveal">
     <div>
-      <span class="eyebrow">Latest Guides</span>
-      <h2 class="section-title">Fresh off <em>the press</em></h2>
+      <span class="eyebrow">Featured Guides</span>
+      <h2 class="section-title">A thoughtful place <em>to begin</em></h2>
     </div>
     <a href="articles.html" class="right">View all articles
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
   </div>
   <div class="articles-grid">
-    <a href="article.html?id=investing-vs-speculating" class="featured reveal">
+    <a href="guides/investing-vs-speculating.html" class="featured reveal">
       <div class="featured-photo-wrap">
         <img class="featured-photo" src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy">
         <span class="tag">Fundamentals</span>
       </div>
-      <span class="featured-tagline">Editor's Note</span>
+      <span class="featured-tagline">Featured Guide</span>
       <h3>The actual difference between investing and <em>speculating</em> — and why it matters</h3>
       <p class="featured-excerpt">Most people mix these up, and that confusion leads to real mistakes. A clear line between the two, with examples from the modern market.</p>
       <div class="featured-meta">
-        <span>Editorial Team</span>
+        <span>Accessible Finance</span>
         <span class="dot">·</span>
         <span>8 min read</span>
         <span class="dot">·</span>
@@ -1205,7 +1236,7 @@ footer.site-footer {
       </a>
       <div class="dispatch">
         <div class="label">The Dispatch</div>
-        <h4>One investing idea, explained clearly. Weekly.</h4>
+        <h4>New guides and practical notes, explained clearly.</h4>
         <a href="#newsletter" class="dispatch-cta" data-open-newsletter>Subscribe
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -1369,9 +1400,9 @@ footer.site-footer {
 <section class="newsletter" id="newsletter">
   <div class="newsletter-box reveal">
     <div>
-      <div class="label">The Dispatch · Weekly</div>
-      <h2>One investing idea,<br><em>explained clearly.</em> Weekly.</h2>
-      <p class="sub">A short, clear breakdown of one investing concept every week. No hype. No sales. Just education.</p>
+      <div class="label">The Dispatch</div>
+      <h2>New guides and practical notes,<br><em>explained clearly.</em></h2>
+      <p class="sub">Occasional, plain-language updates when there is something useful to share. No hype or sales pitch.</p>
     </div>
     <div class="newsletter-form-wrap">
       <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
@@ -1410,7 +1441,7 @@ footer.site-footer {
           <li><a href="articles.html">All Guides</a></li>
           <li><a href="articles.html">Beginner</a></li>
           <li><a href="articles.html">Intermediate</a></li>
-          <li><a href="articles.html">Latest Posts</a></li>
+          <li><a href="articles.html">Guide Library</a></li>
           <li><a href="tax-calculator.html">Tax Calculator</a></li>
         </ul>
       </div>
@@ -1418,7 +1449,21 @@ footer.site-footer {
         <h4>Company</h4>
         <ul>
           <li><a href="about.html">About</a></li>
-          <li><a href="earn.html">Rewards <span aria-hidden="true">&#x1F4B8;</span></a></li>
+          <li><a href="editorial-policy.html">Editorial standards</a></li>
+          <li><a href="contact.html">Contact &amp; corrections</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
           <li><a href="#newsletter" data-open-newsletter>Newsletter</a></li>
           <li><a href="https://www.instagram.com/accessible.finance?igsh=MXVobG52emdvMTBudw==" target="_blank" rel="noopener noreferrer">Instagram</a></li>
           <li><a href="privacy.html">Privacy</a></li>
@@ -1437,9 +1482,9 @@ footer.site-footer {
 <div class="nl-overlay" id="nlOverlay" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
   <div class="nl-modal">
     <button class="nl-close" id="nlClose" type="button" aria-label="Close newsletter signup">&#x2715;</button>
-    <div class="nl-label">Weekly Newsletter</div>
+    <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
-    <p class="nl-sub">No hype. No sales. Just one clear concept per week.</p>
+    <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
     <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
     <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
   </div>

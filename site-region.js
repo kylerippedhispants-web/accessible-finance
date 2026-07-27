@@ -3,6 +3,7 @@
 
   const storageKey = 'accessibleFinanceRegion';
   const validRegions = new Set(['ca', 'us']);
+  const regionScriptUrl = document.currentScript?.src || '';
   const regionDetails = {
     ca: {
       code: 'CA',
@@ -45,6 +46,7 @@
   }
 
   function getSiteRoot() {
+    if (regionScriptUrl) return new URL('./', regionScriptUrl);
     return getCurrentRegion() === 'us'
       ? new URL('../', window.location.href)
       : new URL('./', window.location.href);
@@ -132,7 +134,7 @@
       <div class="region-dialog">
         <button class="region-close" type="button" aria-label="Close edition chooser">&#x2715;</button>
         <div class="region-brand">
-          <img src="${getCurrentRegion() === 'us' ? '../' : ''}Logo.png" alt="">
+          <img src="${new URL('Logo.png', getSiteRoot()).href}" alt="">
           <span>Accessible Finance</span>
         </div>
         <div class="region-eyebrow">Choose your edition</div>
