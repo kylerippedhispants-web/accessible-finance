@@ -91,6 +91,7 @@ const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
 assert((sitemap.match(/\/guides\/[^<]+\.html/g) || []).length === 42, 'sitemap does not contain 42 guide URLs');
 assert(!/article\.html\?id=/i.test(sitemap), 'sitemap contains legacy query article URLs');
 assert(!/(?:earn|rewards)\.html/i.test(sitemap), 'sitemap contains referral-only pages');
+assert(!/journal\.html/i.test(sitemap), 'sitemap contains the unfinished Articles placeholder');
 assert(sitemap.includes('/editorial-policy.html'), 'sitemap is missing the editorial policy');
 assert(sitemap.includes('/contact.html'), 'sitemap is missing the contact page');
 
@@ -102,11 +103,16 @@ referralPages.forEach((file) => {
   assert(/rel="[^"]*sponsored[^"]*nofollow/i.test(html), `${file}: referral link is missing sponsored/nofollow`);
 });
 
-['about.html', 'articles.html', 'topic.html', 'privacy.html', 'disclaimer.html', 'editorial-policy.html', 'contact.html', '404.html']
+['about.html', 'articles.html', 'journal.html', 'topic.html', 'privacy.html', 'disclaimer.html', 'editorial-policy.html', 'contact.html', '404.html']
   .forEach((file) => {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
     assert(!/pagead2\.googlesyndication\.com/i.test(html), `${file}: AdSense loader must not appear`);
   });
+
+const journal = fs.readFileSync(path.join(root, 'journal.html'), 'utf8');
+assert(/<meta name="robots" content="noindex,follow">/i.test(journal), 'journal.html: missing noindex,follow');
+assert(/<h1[^>]*>[\s\S]*Articles/i.test(journal), 'journal.html: missing Articles heading');
+assert(/Work in progress/i.test(journal), 'journal.html: missing work-in-progress state');
 
 const combinedHtml = htmlFiles
   .map((file) => fs.readFileSync(path.join(root, file), 'utf8'))

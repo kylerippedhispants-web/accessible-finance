@@ -13,6 +13,7 @@ const noAds = new Set([
   'disclaimer.html',
   'earn.html',
   'editorial-policy.html',
+  'journal.html',
   'privacy.html',
   'topic.html',
   'us/rewards.html',
@@ -21,6 +22,7 @@ const noIndex = new Set([
   '404.html',
   'article.html',
   'earn.html',
+  'journal.html',
   'us/rewards.html',
 ]);
 
@@ -65,8 +67,14 @@ function removeRewardsLinks(html) {
 
 function addTrustLinks(html) {
   html = html
-    .replace(/<li><a href="(?:\.\.\/)?editorial-policy\.html">Editorial standards<\/a><\/li>/gi, '')
-    .replace(/<li><a href="(?:\.\.\/)?contact\.html">Contact &amp; corrections<\/a><\/li>/gi, '');
+    .replace(
+      /^[ \t]*<li><a href="(?:\.\.\/)?editorial-policy\.html">Editorial standards<\/a><\/li>[ \t]*\r?\n/gim,
+      ''
+    )
+    .replace(
+      /^[ \t]*<li><a href="(?:\.\.\/)?contact\.html">Contact &amp; corrections<\/a><\/li>[ \t]*\r?\n/gim,
+      ''
+    );
 
   return html.replace(
     /<li><a href="((?:\.\.\/)?)about\.html">About<\/a><\/li>/gi,
@@ -76,6 +84,44 @@ function addTrustLinks(html) {
   );
 }
 
+function addArticlesNavigation(html, normalizedPath) {
+  const nested = normalizedPath.startsWith('guides/') || normalizedPath.startsWith('us/');
+  const prefix = nested ? '../' : '';
+  const desktopLink = normalizedPath === 'journal.html'
+    ? `<a href="${prefix}journal.html" class="active" aria-current="page">Articles</a>`
+    : `<a href="${prefix}journal.html">Articles</a>`;
+  const mobileLink = normalizedPath === 'journal.html'
+    ? `<a href="${prefix}journal.html" aria-current="page">Articles</a>`
+    : `<a href="${prefix}journal.html">Articles</a>`;
+
+  html = html.replace(
+    /\s*<a href="(?:\.\.\/)?journal\.html"[^>]*>\s*Articles\s*<\/a>/gi,
+    ''
+  );
+
+  if (normalizedPath.startsWith('us/')) {
+    html = html.replace(
+      /(<div class="nav-links">[\s\S]*?<a href="index\.html"[^>]*>\s*Home\s*<\/a>)/i,
+      `$1\n    ${desktopLink}`
+    );
+    html = html.replace(
+      /(<div class="mobile-menu"[^>]*>[\s\S]*?<a href="index\.html"[^>]*>\s*Home\s*<\/a>)/i,
+      `$1\n  ${mobileLink}`
+    );
+  } else {
+    html = html.replace(
+      /(<div class="nav-links">[\s\S]*?<a href="(?:\.\.\/)?articles\.html"[^>]*>\s*Guides\s*<\/a>)/i,
+      `$1\n    ${desktopLink}`
+    );
+    html = html.replace(
+      /(<div class="mobile-menu"[^>]*>[\s\S]*?<a href="(?:\.\.\/)?articles\.html"[^>]*>\s*Guides\s*<\/a>)/i,
+      `$1\n  ${mobileLink}`
+    );
+  }
+
+  return html.replace(/<h4>Articles<\/h4>/g, '<h4>Guides</h4>');
+}
+
 function cleanNewsletterClaims(html) {
   return html
     .replace(/Weekly Newsletter/gi, 'The Dispatch')
@@ -83,6 +129,10 @@ function cleanNewsletterClaims(html) {
     .replace(/The Dispatch\s*[·&]?(?:middot;)?\s*Weekly/gi, 'The Dispatch')
     .replace(/No hype\. No sales\. Just one clear concept per week\./gi, 'New guides and practical notes, sent occasionally. No spam or sales pitch.')
     .replace(/Latest Posts/gi, 'Guide Library');
+}
+
+function normalizeListIndentation(html) {
+  return html.replace(/^<li>/gm, '          <li>');
 }
 
 function processFile(relativePath) {
@@ -98,6 +148,8 @@ function processFile(relativePath) {
   html = cleanNewsletterClaims(html);
   if (!isRewardsPage) html = removeRewardsLinks(html);
   html = addTrustLinks(html);
+  html = addArticlesNavigation(html, normalizedPath);
+  html = normalizeListIndentation(html);
   if (noAds.has(normalizedPath)) html = removeAdsense(html);
   if (noIndex.has(normalizedPath)) html = addRobots(html, 'noindex,follow');
 
