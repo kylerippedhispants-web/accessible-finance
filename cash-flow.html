@@ -6,29 +6,29 @@
      crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cash Flow Planner | Accessible Finance</title>
-<meta name="description" content="Map monthly or annual income and expenses with an interactive Sankey diagram, then review your remaining cash and planned savings rate.">
+<meta name="description" content="Map monthly or annual income and expenses with an interactive Sankey diagram, then review your cash surplus and planned savings rate.">
 <link rel="canonical" href="https://accessible-finance.com/cash-flow.html">
 <meta property="og:title" content="Cash Flow Planner | Accessible Finance">
-<meta property="og:description" content="See how income moves through expenses, savings, and the money left over with a clear interactive cash-flow map.">
+<meta property="og:description" content="See how income moves through expenses, savings, and your cash surplus with a clear interactive cash-flow map.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://accessible-finance.com/Logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#f7f5f0">
-<link rel="icon" type="image/png" href="Logo.png">
+<link rel="icon" type="image/png" href="Logo-256.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600;700;800&amp;family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="us/site.css">
 <link rel="stylesheet" href="cash-flow.css">
-<link rel="stylesheet" href="site-language.css">
-<link rel="stylesheet" href="site-region.css">
-<link id="site-polish-styles" rel="stylesheet" href="site-polish.css">
+<link rel="stylesheet" href="site-language.css?v=20260801">
+<link rel="stylesheet" href="site-region.css?v=20260801">
+<link id="site-polish-styles" rel="stylesheet" href="site-polish.css?v=20260801">
 
-<script src="site-language.js" defer></script>
-<script src="site-region.js" defer></script>
+<script src="site-language.js?v=20260801" defer></script>
+<script src="site-region.js?v=20260801" defer></script>
 <script src="us/site.js" defer></script>
-<script src="site-shell.js" defer></script>
+<script src="site-shell.js?v=20260801" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js" defer></script>
 <script src="cash-flow.js" defer></script>
@@ -55,7 +55,7 @@
 
 <nav class="site-nav">
   <a href="index.html" class="nav-logo" aria-label="Accessible Finance - Home">
-    <img src="Logo.png" alt="">
+    <img src="Logo-256.png" alt="" width="256" height="256" decoding="async">
     <span class="wordmark">Accessible Finance</span>
   </a>
   <div class="nav-links">
@@ -67,6 +67,7 @@
     <a href="wealth-rank.html">Wealth Rank</a>
     <a href="tax-calculator.html">Tax</a>
     <a href="cash-flow.html?edition=ca" class="active" aria-current="page">Cash Flow</a>
+    <a href="earn.html" data-region-rewards>Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
     <a href="about.html">About</a>
   </div>
   <div class="nav-actions">
@@ -102,6 +103,7 @@
   <a href="wealth-rank.html">Wealth Rank</a>
   <a href="tax-calculator.html">Tax</a>
   <a href="cash-flow.html?edition=ca" aria-current="page">Cash Flow</a>
+  <a href="earn.html" data-region-rewards>Rewards <span aria-hidden="true">&#x1F4B8;</span></a>
   <a href="about.html">About</a>
   <label class="mobile-language notranslate" translate="no">
     <span>Language</span>
@@ -132,7 +134,7 @@
         <i></i><i></i><i></i><i></i>
       </div>
       <div class="hero-flow-targets">
-        <span>Housing</span><span>Living</span><span>Saving</span><span>Left over</span>
+        <span>Housing</span><span>Living</span><span>Saving</span><span>Surplus</span>
       </div>
     </div>
   </header>
@@ -155,13 +157,6 @@
               <label><input type="radio" name="period" value="monthly" checked><span>Monthly</span></label>
               <label><input type="radio" name="period" value="annual"><span>Annual</span></label>
             </fieldset>
-            <label class="currency-field">
-              <span>Currency</span>
-              <select id="currencySelect" aria-label="Currency">
-                <option value="CAD">CAD</option>
-                <option value="USD">USD</option>
-              </select>
-            </label>
           </div>
 
           <section class="entry-group" aria-labelledby="income-heading">
@@ -199,13 +194,13 @@
           <div class="summary-grid" aria-live="polite">
             <div><span>Total income</span><strong id="summaryIncome">$0</strong></div>
             <div><span>Total expenses</span><strong id="summaryExpenses">$0</strong></div>
-            <div><span id="balanceLabel">Remaining</span><strong id="summaryBalance">$0</strong></div>
+            <div><span id="balanceLabel">Surplus</span><strong id="summaryBalance">$0</strong></div>
           </div>
 
           <div class="sankey-frame" id="sankeyFrame">
             <svg id="sankeyChart" role="img" aria-labelledby="sankeyTitle sankeyDescription">
               <title id="sankeyTitle">Income and expense Sankey diagram</title>
-              <desc id="sankeyDescription">A visual map of entered income flowing into available money and then into expense categories.</desc>
+              <desc id="sankeyDescription">A visual map of entered income flowing into available money, expense categories, and any surplus.</desc>
             </svg>
             <div class="chart-empty" id="chartEmpty" hidden>Add an income or expense amount to build your map.</div>
             <div class="chart-error" id="chartError" hidden>The visual could not load. Your totals and category breakdown are still available below.</div>
@@ -214,7 +209,7 @@
           <div class="chart-legend" aria-hidden="true">
             <span><i class="legend-income"></i> Income</span>
             <span><i class="legend-expense"></i> Expenses</span>
-            <span><i class="legend-balance"></i> Remaining</span>
+            <span><i class="legend-balance"></i> Surplus</span>
           </div>
 
           <div class="flow-insights" aria-live="polite">
@@ -232,7 +227,7 @@
 
       <aside class="planner-note" aria-label="Privacy and scope">
         <span class="planner-note-mark" aria-hidden="true">&#10003;</span>
-        <p><strong>Private by default.</strong> This planner does not connect to financial accounts; entries are stored in this browser on this device. <span>It is an educational budgeting estimate, so include irregular costs, taxes, and annual bills before treating the remaining amount as spendable.</span></p>
+        <p><strong>Private by default.</strong> This planner does not connect to financial accounts; entries are stored in this browser on this device. <span>It is an educational budgeting estimate, so include irregular costs, taxes, and annual bills before treating the surplus as spendable.</span></p>
       </aside>
     </div>
   </section>
@@ -265,7 +260,7 @@
   <div class="shell">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-wordmark"><img src="Logo.png" alt=""><span>Accessible Finance</span></div>
+        <div class="footer-wordmark"><img src="Logo-256.png" alt="" width="256" height="256" decoding="async"><span>Accessible Finance</span></div>
         <p>Free financial education for curious people, supported by minimal ads that help cover upkeep.</p>
       </div>
       <div class="footer-col">
@@ -276,6 +271,7 @@
           <li><a href="wealth-rank.html">Wealth Rank</a></li>
           <li><a href="tax-calculator.html">Tax Calculator</a></li>
           <li><a href="cash-flow.html?edition=ca">Cash Flow</a></li>
+          <li><a href="earn.html" data-region-rewards>Rewards <span aria-hidden="true">&#x1F4B8;</span></a></li>
         </ul>
       </div>
       <div class="footer-col">

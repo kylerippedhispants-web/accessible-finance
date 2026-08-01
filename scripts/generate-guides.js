@@ -158,11 +158,21 @@ function buildGuidePage(template, id, item, build) {
   const canonical = `https://accessible-finance.com/guides/${id}.html`;
   const relatedIds = getRelatedIds(id, item, build.guides);
 
+  const titleSuffix = ' | Accessible Finance';
+  let seoTitle = item.title;
+  if (seoTitle.length + titleSuffix.length <= 60) {
+    seoTitle += titleSuffix;
+  } else if (seoTitle.length > 60) {
+    const candidate = seoTitle.slice(0, 59);
+    const wordBoundary = candidate.lastIndexOf(' ');
+    seoTitle = `${candidate.slice(0, wordBoundary >= 40 ? wordBoundary : 59).trim()}…`;
+  }
+
   let html = prefixTemplatePaths(template);
   html = removeRegion(html, 'ARTICLE_RUNTIME');
   html = html
     .replace(/<meta name="robots"[^>]*>\s*/i, '')
-    .replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(item.title)} | Accessible Finance</title>`)
+    .replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(seoTitle)}</title>`)
     .replace(
       /<meta name="description"[^>]*>/i,
       `<meta name="description" content="${escapeHtml(item.deck)}">`
@@ -345,6 +355,7 @@ function updateSitemap(build) {
     ['https://accessible-finance.com/fire.html', '0.8', 'monthly'],
     ['https://accessible-finance.com/wealth-rank.html', '0.8', 'monthly'],
     ['https://accessible-finance.com/tax-calculator.html', '0.8', 'monthly'],
+    ['https://accessible-finance.com/cash-flow.html', '0.8', 'monthly'],
     ['https://accessible-finance.com/about.html', '0.7', 'monthly'],
     ['https://accessible-finance.com/editorial-policy.html', '0.6', 'monthly'],
     ['https://accessible-finance.com/contact.html', '0.5', 'yearly'],

@@ -56,11 +56,19 @@ function addRobots(html, value) {
 function removeRewardsLinks(html) {
   return html
     .replace(
-      /<li>\s*<a href="(?:\.\.\/)?(?:earn|rewards)\.html"[^>]*>\s*Rewards(?:\s*<span[\s\S]*?<\/span>)?\s*<\/a>\s*<\/li>/gi,
+      /^[ \t]*<li>\s*<a href="(?:\.\.\/)?(?:earn|rewards)\.html"[^>]*>\s*Rewards(?:\s*<span[\s\S]*?<\/span>)?\s*<\/a>\s*<\/li>[ \t]*\r?\n/gim,
       ''
     )
     .replace(
-      /<a href="(?:\.\.\/)?(?:earn|rewards)\.html"[^>]*>\s*Rewards(?:\s*<span[\s\S]*?<\/span>)?\s*<\/a>/gi,
+      /^[ \t]*<a href="(?:\.\.\/)?(?:earn|rewards)\.html"[^>]*>\s*Rewards(?:\s*<span[\s\S]*?<\/span>)?\s*<\/a>[ \t]*\r?\n/gim,
+      ''
+    )
+    .replace(
+      /<li>[ \t]*<a href="(?:\.\.\/)?(?:earn|rewards)\.html"[^>]*>[ \t]*Rewards(?:[ \t]*<span[\s\S]*?<\/span>)?[ \t]*<\/a>[ \t]*<\/li>/gi,
+      ''
+    )
+    .replace(
+      /[ \t]*<a href="(?:\.\.\/)?(?:earn|rewards)\.html"[^>]*>[ \t]*Rewards(?:[ \t]*<span[\s\S]*?<\/span>)?[ \t]*<\/a>[ \t]*/gi,
       ''
     );
 }
@@ -162,6 +170,39 @@ function addCashFlowNavigation(html, normalizedPath) {
   return html;
 }
 
+function addRewardsNavigation(html, normalizedPath) {
+  const isUsPage = normalizedPath.startsWith('us/');
+  const nested = normalizedPath.startsWith('guides/');
+  const prefix = nested ? '../' : '';
+  const href = isUsPage ? 'rewards.html' : `${prefix}earn.html`;
+  const isActive = normalizedPath === 'earn.html' || normalizedPath === 'us/rewards.html';
+  const desktopLink = isActive
+    ? `<a href="${href}" data-region-rewards class="active" aria-current="page">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>`
+    : `<a href="${href}" data-region-rewards>Rewards <span aria-hidden="true">&#x1F4B8;</span></a>`;
+  const mobileLink = isActive
+    ? `<a href="${href}" data-region-rewards aria-current="page">Rewards <span aria-hidden="true">&#x1F4B8;</span></a>`
+    : `<a href="${href}" data-region-rewards>Rewards <span aria-hidden="true">&#x1F4B8;</span></a>`;
+  const footerLink = `<li><a href="${href}" data-region-rewards>Rewards <span aria-hidden="true">&#x1F4B8;</span></a></li>`;
+
+  html = removeRewardsLinks(html)
+    .replace(/<li>[ \t]*<\/li>/gi, '')
+    .replace(/(Cash Flow\s*<\/a>(?:<\/li>)?)(?:[ \t]*\r?\n){2,}/gi, '$1\n');
+  html = html.replace(
+    /(<div class="nav-links">[\s\S]*?<a href="(?:\.\.\/)?cash-flow\.html(?:\?edition=(?:ca|us))?"[^>]*>\s*Cash Flow\s*<\/a>)/i,
+    `$1\n    ${desktopLink}`
+  );
+  html = html.replace(
+    /(<div class="mobile-menu"[^>]*>[\s\S]*?<a href="(?:\.\.\/)?cash-flow\.html(?:\?edition=(?:ca|us))?"[^>]*>\s*Cash Flow\s*<\/a>)/i,
+    `$1\n  ${mobileLink}`
+  );
+  html = html.replace(
+    /(<li><a href="(?:\.\.\/)?cash-flow\.html(?:\?edition=(?:ca|us))?"[^>]*>\s*Cash Flow\s*<\/a><\/li>)/gi,
+    `$1\n          ${footerLink}`
+  );
+
+  return html;
+}
+
 function cleanNewsletterClaims(html) {
   return html
     .replace(/Weekly Newsletter/gi, 'The Dispatch')
@@ -171,6 +212,31 @@ function cleanNewsletterClaims(html) {
     .replace(/Latest Posts/gi, 'Guide Library');
 }
 
+function optimizeLogoReferences(html) {
+  html = html.replace(
+    /(<img\b[^>]*\bsrc=")((?:\.\.\/)?Logo)\.png(")/gi,
+    '$1$2-256.png$3'
+  );
+  html = html.replace(
+    /(<link\b(?=[^>]*\brel="icon")[^>]*\bhref=")((?:\.\.\/)?Logo)\.png(")/gi,
+    '$1$2-256.png$3'
+  );
+
+  return html.replace(/<img\b([^>]*\bsrc="(?:\.\.\/)?Logo-256\.png"[^>]*)>/gi, (match, attributes) => {
+    const cleanAttributes = attributes
+      .replace(/\s+(?:width|height|decoding)="[^"]*"/gi, '')
+      .trimEnd();
+    return `<img${cleanAttributes} width="256" height="256" decoding="async">`;
+  });
+}
+
+function versionSharedAssets(html) {
+  return html.replace(
+    /((?:href|src)=")((?:\.\.\/)?site-(?:polish|language|region)\.(?:css|js)|(?:\.\.\/)?site-shell\.js)(?:\?v=[^"]*)?"/gi,
+    '$1$2?v=20260801"'
+  );
+}
+
 function normalizeListIndentation(html) {
   return html.replace(/^<li>/gm, '          <li>');
 }
@@ -178,7 +244,6 @@ function normalizeListIndentation(html) {
 function processFile(relativePath) {
   const normalizedPath = relativePath.replace(/\\/g, '/');
   const absolutePath = path.join(root, relativePath);
-  const isRewardsPage = normalizedPath === 'earn.html' || normalizedPath === 'us/rewards.html';
   let html = fs.readFileSync(absolutePath, 'utf8');
 
   html = html.replace(
@@ -186,10 +251,12 @@ function processFile(relativePath) {
     `<html lang="${normalizedPath.startsWith('us/') ? 'en-US' : 'en-CA'}">`
   );
   html = cleanNewsletterClaims(html);
-  if (!isRewardsPage) html = removeRewardsLinks(html);
+  html = optimizeLogoReferences(html);
+  html = versionSharedAssets(html);
   html = addTrustLinks(html);
   html = addArticlesNavigation(html, normalizedPath);
   html = addCashFlowNavigation(html, normalizedPath);
+  html = addRewardsNavigation(html, normalizedPath);
   html = normalizeListIndentation(html);
   if (noAds.has(normalizedPath)) html = removeAdsense(html);
   if (noIndex.has(normalizedPath)) html = addRobots(html, 'noindex,follow');

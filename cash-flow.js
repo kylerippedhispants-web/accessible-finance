@@ -7,7 +7,6 @@
   const defaultPlan = {
     period: 'monthly',
     currency: 'CAD',
-    currencyTouched: false,
     income: [
       { id: 'income-salary', name: 'Take-home pay', amount: 4500 },
       { id: 'income-side', name: 'Side income', amount: 500 },
@@ -31,7 +30,6 @@
     expenseRows: document.getElementById('expenseRows'),
     incomeTotal: document.getElementById('incomeTotal'),
     expenseTotal: document.getElementById('expenseTotal'),
-    currency: document.getElementById('currencySelect'),
     addIncome: document.getElementById('addIncome'),
     addExpense: document.getElementById('addExpense'),
     reset: document.getElementById('resetPlan'),
@@ -88,13 +86,9 @@
     try {
       const saved = JSON.parse(window.localStorage.getItem(storageKey));
       if (!saved || !Array.isArray(saved.income) || !Array.isArray(saved.expenses)) return fallback;
-      const currencyTouched = saved.currencyTouched === true;
       return {
         period: saved.period === 'annual' ? 'annual' : 'monthly',
-        currency: currencyTouched
-          ? (saved.currency === 'USD' ? 'USD' : 'CAD')
-          : (currentEdition() === 'us' ? 'USD' : 'CAD'),
-        currencyTouched,
+        currency: currentEdition() === 'us' ? 'USD' : 'CAD',
         income: saved.income.slice(0, maximumRows).map((row, index) => validRow(row, 'income', index)),
         expenses: saved.expenses.slice(0, maximumRows).map((row, index) => validRow(row, 'expense', index)),
       };
@@ -283,7 +277,7 @@
 
   function shorten(value, maximum) {
     const text = String(value || 'Unnamed');
-    return text.length > maximum ? `${text.slice(0, maximum - 1)}...` : text;
+    return text.length > maximum ? `${text.slice(0, Math.max(1, maximum - 1)).trimEnd()}…` : text;
   }
 
   function drawChart(activeIncome, activeExpenses, incomeTotal, expenseTotal) {
@@ -329,17 +323,19 @@
     });
 
     if (remaining > 0) {
-      nodes.push({ id: 'money-remaining', name: 'Money remaining', amount: remaining, kind: 'remaining', order: activeExpenses.length + 1 });
+      nodes.push({ id: 'money-remaining', name: 'Surplus', amount: remaining, kind: 'remaining', order: activeExpenses.length + 1 });
       links.push({ source: 'available-money', target: 'money-remaining', value: remaining });
     }
 
     const width = Math.max(310, Math.round(elements.chartFrame.clientWidth || 720));
     const compact = width < 520;
+    const phone = width < 430;
     const sourceCount = activeIncome.length + (shortfall > 0 ? 1 : 0);
     const targetCount = activeExpenses.length + (remaining > 0 ? 1 : 0);
-    const height = Math.max(compact ? 500 : 480, Math.max(sourceCount, targetCount) * (compact ? 52 : 48) + 110);
-    const left = compact ? 98 : 116;
-    const right = compact ? 98 : 124;
+    const height = Math.max(phone ? 440 : compact ? 480 : 480, Math.max(sourceCount, targetCount) * (phone ? 40 : compact ? 46 : 48) + (phone ? 86 : 104));
+    const left = phone ? 86 : compact ? 98 : 116;
+    const right = phone ? 96 : compact ? 104 : 124;
+    const chartTop = phone ? 60 : compact ? 70 : 74;
 
     chart
       .attr('viewBox', `0 0 ${width} ${height}`)
@@ -349,10 +345,10 @@
     const sankey = window.d3.sankey()
       .nodeId((node) => node.id)
       .nodeAlign(window.d3.sankeyJustify)
-      .nodeWidth(compact ? 9 : 12)
-      .nodePadding(compact ? 13 : 16)
+      .nodeWidth(phone ? 8 : compact ? 9 : 12)
+      .nodePadding(phone ? 9 : compact ? 12 : 16)
       .nodeSort((a, b) => (a.order || 0) - (b.order || 0))
-      .extent([[left, 54], [Math.max(left + 80, width - right), height - 38]]);
+      .extent([[left, chartTop], [Math.max(left + 80, width - right), height - (phone ? 28 : 38)]]);
 
     const graph = sankey({
       nodes: nodes.map((node) => ({ ...node })),
@@ -392,24 +388,24 @@
         if (item.kind === 'available') return (item.x0 + item.x1) / 2;
         return item.depth === 0 ? item.x0 - 8 : item.x1 + 8;
       })
-      .attr('y', (item) => item.kind === 'available' ? Math.max(18, item.y0 - 15) : ((item.y0 + item.y1) / 2) - 5)
+      .attr('y', (item) => item.kind === 'available' ? Math.max(22, item.y0 - 32) : ((item.y0 + item.y1) / 2) - 5)
       .attr('text-anchor', (item) => item.kind === 'available' ? 'middle' : (item.depth === 0 ? 'end' : 'start'));
 
     labels.append('tspan')
-      .text((item) => shorten(item.name, compact ? 20 : 22));
+      .text((item) => shorten(item.name, phone ? 15 : compact ? 19 : 22));
 
     labels.append('tspan')
-      .attr('class', 'sankey-label-value')
+      .attr('class', (item) => `sankey-label-value${item.kind === 'available' ? ' is-available' : ''}`)
       .attr('x', (item) => {
         if (item.kind === 'available') return (item.x0 + item.x1) / 2;
         return item.depth === 0 ? item.x0 - 8 : item.x1 + 8;
       })
-      .attr('dy', 14)
+      .attr('dy', (item) => item.kind === 'available' ? (phone ? 14 : 17) : 13)
       .text((item) => formatCompact(item.amount));
 
     const incomingNames = activeIncome.map((row) => row.name || 'Income').join(', ') || 'no entered income';
     const outgoingNames = activeExpenses.map((row) => row.name || 'Expense').join(', ') || 'no entered expenses';
-    elements.chartDescription.textContent = `${formatMoney(incomeTotal)} enters from ${incomingNames}. ${formatMoney(expenseTotal)} flows to ${outgoingNames}. ${balance >= 0 ? formatMoney(balance) + ' remains.' : formatMoney(Math.abs(balance)) + ' is shown as a funding shortfall.'}`;
+    elements.chartDescription.textContent = `${formatMoney(incomeTotal)} enters from ${incomingNames}. ${formatMoney(expenseTotal)} flows to ${outgoingNames}. ${balance >= 0 ? formatMoney(balance) + ' is shown as surplus.' : formatMoney(Math.abs(balance)) + ' is shown as a funding shortfall.'}`;
     lastChartWidth = width;
   }
 
@@ -430,7 +426,7 @@
       : 'Add expenses to compare categories.';
 
     if (balance > 0.005) {
-      elements.cashPosition.textContent = 'Money remaining';
+      elements.cashPosition.textContent = 'Surplus';
       elements.cashPositionNote.textContent = `${formatMoney(balance)} is not yet assigned to an expense or savings goal.`;
     } else if (balance < -0.005) {
       elements.cashPosition.textContent = 'Funding shortfall';
@@ -463,15 +459,15 @@
     elements.breakdownBasis.textContent = `Share of ${state.period === 'annual' ? 'annual' : 'monthly'} expenses`;
 
     if (balance > 0.005) {
-      elements.balanceLabel.textContent = 'Remaining';
-      elements.flowStatus.textContent = 'Money remaining';
+      elements.balanceLabel.textContent = 'Surplus';
+      elements.flowStatus.textContent = 'Surplus';
       elements.flowStatus.classList.remove('shortfall');
     } else if (balance < -0.005) {
       elements.balanceLabel.textContent = 'Shortfall';
       elements.flowStatus.textContent = 'Shortfall';
       elements.flowStatus.classList.add('shortfall');
     } else {
-      elements.balanceLabel.textContent = 'Remaining';
+      elements.balanceLabel.textContent = 'Surplus';
       elements.flowStatus.textContent = 'Balanced';
       elements.flowStatus.classList.remove('shortfall');
     }
@@ -488,24 +484,14 @@
   elements.expenseRows.addEventListener('click', handleRemove);
   elements.addIncome.addEventListener('click', () => addRow('income'));
   elements.addExpense.addEventListener('click', () => addRow('expenses'));
-  elements.currency.addEventListener('change', () => {
-    state.currency = elements.currency.value === 'USD' ? 'USD' : 'CAD';
-    state.currencyTouched = true;
-    renderAllRows();
-    updateOutputs();
-  });
   elements.form.addEventListener('change', (event) => {
     if (event.target.name === 'period') changePeriod(event.target.value);
   });
   elements.form.addEventListener('submit', (event) => event.preventDefault());
   elements.reset.addEventListener('click', () => {
-    const currency = state.currency;
-    const currencyTouched = state.currencyTouched;
     state = cloneDefaults();
-    state.currency = currency;
-    state.currencyTouched = currencyTouched;
+    state.currency = currentEdition() === 'us' ? 'USD' : 'CAD';
     document.querySelector('input[name="period"][value="monthly"]').checked = true;
-    elements.currency.value = currency;
     renderAllRows();
     updateOutputs();
   });
@@ -525,7 +511,6 @@
     });
   }
 
-  elements.currency.value = state.currency;
   document.querySelector(`input[name="period"][value="${state.period}"]`).checked = true;
   renderAllRows();
   updateOutputs();

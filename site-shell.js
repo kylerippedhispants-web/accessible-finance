@@ -8,7 +8,7 @@
   const shellSource = document.currentScript?.src || window.location.href;
   polishStyles.id = 'site-polish-styles';
   polishStyles.rel = 'stylesheet';
-  polishStyles.href = new URL('site-polish.css', shellSource).href;
+  polishStyles.href = new URL('site-polish.css?v=20260801', shellSource).href;
   if (!document.getElementById(polishStyles.id)) document.head.appendChild(polishStyles);
 
   const focusableSelector = [
@@ -35,6 +35,12 @@
       return button.getAttribute('aria-expanded') === 'true';
     }
 
+    function getMenuFocusableElements() {
+      return [button, ...menu.querySelectorAll(focusableSelector)].filter((element) => {
+        return element.getAttribute('aria-hidden') !== 'true' && element.getClientRects().length > 0;
+      });
+    }
+
     function syncMenuState() {
       const open = isOpen();
       button.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
@@ -55,9 +61,32 @@
     observer.observe(button, { attributes: true, attributeFilter: ['aria-expanded'] });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key !== 'Escape' || !isOpen()) return;
-      event.preventDefault();
-      closeMenu(true);
+      if (!isOpen()) return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeMenu(true);
+        return;
+      }
+      if (event.key !== 'Tab') return;
+
+      const focusable = getMenuFocusableElements();
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!first || !last) return;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    document.addEventListener('focusin', (event) => {
+      if (!isOpen() || document.body.classList.contains('newsletter-open')) return;
+      if (event.target === button || menu.contains(event.target)) return;
+      getMenuFocusableElements()[1]?.focus();
     });
 
     window.addEventListener('resize', () => {

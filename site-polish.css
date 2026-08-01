@@ -152,6 +152,25 @@ html.site-ca table {
   font-variant-numeric: tabular-nums;
 }
 
+html.site-ca :where(
+  .total-tax,
+  .metric .value,
+  .hero-stat-num,
+  .hero-stat-badge,
+  .snapshot-stat strong,
+  .benchmark-value,
+  .summary-value,
+  .flow-value
+),
+html.site-us :where(
+  .total-tax,
+  .metric .value,
+  .summary-value,
+  .flow-value
+) {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
 html.site-ca :where(.calculator-shell, .offer-card, .rakuten-card, .polymarket-card, .math-panel) > * {
   min-width: 0;
 }
@@ -169,6 +188,50 @@ html.site-ca footer.site-footer a:hover,
 html.site-us footer.site-footer a:hover {
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+
+html.site-ca .mobile-menu,
+html.site-us .mobile-menu {
+  gap: 0 !important;
+}
+
+html.site-ca .mobile-menu > a,
+html.site-us .mobile-menu > a {
+  width: 100%;
+  min-height: 44px;
+  border-bottom: 1px solid rgba(26, 24, 22, 0.1);
+  display: flex;
+  align-items: center;
+  color: var(--ink);
+  font-family: var(--sans) !important;
+  font-size: 13px !important;
+  font-style: normal !important;
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+html.site-ca .mobile-menu > a[aria-current="page"],
+html.site-us .mobile-menu > a[aria-current="page"] {
+  color: var(--green);
+}
+
+html.site-ca .mobile-menu > :where(.mobile-language, .mobile-region),
+html.site-us .mobile-menu > :where(.mobile-language, .mobile-region) {
+  margin-top: 22px;
+}
+
+html.site-ca .mobile-menu > a.cta,
+html.site-us .mobile-menu > a.cta {
+  width: fit-content;
+  min-width: 160px;
+  margin-top: 22px;
+  border: 0;
+  border-radius: 6px;
+  justify-content: center;
+  padding-inline: 22px;
+  background: var(--ink);
+  color: var(--bg) !important;
 }
 
 @media (max-width: 768px) {
@@ -203,7 +266,11 @@ html.site-us footer.site-footer a:hover {
   html.site-ca .mobile-menu {
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding-bottom: calc(40px + env(safe-area-inset-bottom)) !important;
+    padding: 16px 24px calc(32px + env(safe-area-inset-bottom)) !important;
+  }
+
+  html.site-us .mobile-menu {
+    padding: 16px 24px calc(32px + env(safe-area-inset-bottom)) !important;
   }
 
   html.site-ca :where(.calculator-shell, .offer-card, .rakuten-card, .polymarket-card, .math-panel) {
@@ -222,6 +289,32 @@ html.site-us footer.site-footer a:hover {
 
   html.site-ca .topic:not(.wide) {
     min-height: 0;
+  }
+
+  html.site-ca .filters-wrap {
+    overflow: hidden;
+    padding-right: 0 !important;
+  }
+
+  html.site-ca .filters {
+    flex-wrap: nowrap !important;
+    gap: 8px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding: 2px 24px 10px 0;
+    scroll-padding-inline: 24px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  html.site-ca .filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  html.site-ca .filter-btn {
+    flex: 0 0 auto;
+    min-height: 44px;
+    scroll-snap-align: start;
   }
 
   html.site-ca :where(.breakdown, .table-scroll) table {
