@@ -122,6 +122,46 @@ function addArticlesNavigation(html, normalizedPath) {
   return html.replace(/<h4>Articles<\/h4>/g, '<h4>Guides</h4>');
 }
 
+function addCashFlowNavigation(html, normalizedPath) {
+  const isUsPage = normalizedPath.startsWith('us/');
+  const nested = normalizedPath.startsWith('guides/') || isUsPage;
+  const prefix = nested ? '../' : '';
+  const edition = isUsPage ? 'us' : 'ca';
+  const href = `${prefix}cash-flow.html?edition=${edition}`;
+  const isActive = normalizedPath === 'cash-flow.html';
+  const desktopLink = isActive
+    ? `<a href="${href}" class="active" aria-current="page">Cash Flow</a>`
+    : `<a href="${href}">Cash Flow</a>`;
+  const mobileLink = isActive
+    ? `<a href="${href}" aria-current="page">Cash Flow</a>`
+    : `<a href="${href}">Cash Flow</a>`;
+
+  html = html
+    .replace(
+      /^[ \t]*<li><a href="(?:\.\.\/)?cash-flow\.html(?:\?edition=(?:ca|us))?"[^>]*>\s*Cash Flow\s*<\/a><\/li>[ \t]*\r?\n/gim,
+      ''
+    )
+    .replace(
+      /\s*<a href="(?:\.\.\/)?cash-flow\.html(?:\?edition=(?:ca|us))?"[^>]*>\s*Cash Flow\s*<\/a>/gi,
+      ''
+    );
+
+  html = html.replace(
+    /(<div class="nav-links">[\s\S]*?<a href="(?:\.\.\/)?(?:us\/)?tax-calculator\.html"[^>]*>\s*Tax\s*<\/a>)/i,
+    `$1\n    ${desktopLink}`
+  );
+  html = html.replace(
+    /(<div class="mobile-menu"[^>]*>[\s\S]*?<a href="(?:\.\.\/)?(?:us\/)?tax-calculator\.html"[^>]*>\s*Tax\s*<\/a>)/i,
+    `$1\n  ${mobileLink}`
+  );
+  html = html.replace(
+    /(<li><a href="(?:\.\.\/)?(?:us\/)?tax-calculator\.html">Tax Calculator<\/a><\/li>)/gi,
+    `$1\n          <li><a href="${href}">Cash Flow</a></li>`
+  );
+
+  return html;
+}
+
 function cleanNewsletterClaims(html) {
   return html
     .replace(/Weekly Newsletter/gi, 'The Dispatch')
@@ -149,6 +189,7 @@ function processFile(relativePath) {
   if (!isRewardsPage) html = removeRewardsLinks(html);
   html = addTrustLinks(html);
   html = addArticlesNavigation(html, normalizedPath);
+  html = addCashFlowNavigation(html, normalizedPath);
   html = normalizeListIndentation(html);
   if (noAds.has(normalizedPath)) html = removeAdsense(html);
   if (noIndex.has(normalizedPath)) html = addRobots(html, 'noindex,follow');

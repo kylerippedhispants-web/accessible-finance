@@ -92,6 +92,7 @@ assert((sitemap.match(/\/guides\/[^<]+\.html/g) || []).length === 42, 'sitemap d
 assert(!/article\.html\?id=/i.test(sitemap), 'sitemap contains legacy query article URLs');
 assert(!/(?:earn|rewards)\.html/i.test(sitemap), 'sitemap contains referral-only pages');
 assert(!/journal\.html/i.test(sitemap), 'sitemap contains the unfinished Articles placeholder');
+assert(sitemap.includes('/cash-flow.html'), 'sitemap is missing the cash-flow planner');
 assert(sitemap.includes('/editorial-policy.html'), 'sitemap is missing the editorial policy');
 assert(sitemap.includes('/contact.html'), 'sitemap is missing the contact page');
 
@@ -113,6 +114,23 @@ const journal = fs.readFileSync(path.join(root, 'journal.html'), 'utf8');
 assert(/<meta name="robots" content="noindex,follow">/i.test(journal), 'journal.html: missing noindex,follow');
 assert(/<h1[^>]*>[\s\S]*Articles/i.test(journal), 'journal.html: missing Articles heading');
 assert(/Work in progress/i.test(journal), 'journal.html: missing work-in-progress state');
+
+const cashFlow = fs.readFileSync(path.join(root, 'cash-flow.html'), 'utf8');
+assert(/<h1[^>]*>[\s\S]*money/i.test(cashFlow), 'cash-flow.html: missing cash-flow heading');
+assert(/id="sankeyChart"/i.test(cashFlow), 'cash-flow.html: missing Sankey chart');
+assert(/data-region-universal/i.test(cashFlow), 'cash-flow.html: missing universal-edition marker');
+assert(/d3-sankey@0\.12\.3/i.test(cashFlow), 'cash-flow.html: missing pinned Sankey library');
+assert(/cash-flow\.html\?edition=ca/i.test(cashFlow), 'cash-flow.html: missing Cash Flow navigation link');
+
+const cashFlowSchemas = [...cashFlow.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)];
+assert(cashFlowSchemas.length > 0, 'cash-flow.html: missing structured data');
+cashFlowSchemas.forEach((match, index) => {
+  try {
+    JSON.parse(match[1]);
+  } catch (error) {
+    errors.push(`cash-flow.html: structured data block ${index + 1} is invalid JSON (${error.message})`);
+  }
+});
 
 const combinedHtml = htmlFiles
   .map((file) => fs.readFileSync(path.join(root, file), 'utf8'))
