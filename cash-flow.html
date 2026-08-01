@@ -123,7 +123,7 @@
       <p>Turn income and expenses into a living money map. Wider bands represent larger amounts, making trade-offs and gaps easier to spot.</p>
       <div class="hero-actions">
         <a class="button-primary" href="#cash-flow-planner">Map my cash flow <span aria-hidden="true">&rarr;</span></a>
-        <span class="privacy-note">Saved only in this browser</span>
+        <span class="privacy-note"><span class="privacy-mark" aria-hidden="true">&#10003;</span> Stored on this device</span>
       </div>
     </div>
     <div class="hero-flow" aria-hidden="true">
@@ -169,6 +169,7 @@
               <div><span class="entry-dot income-dot"></span><h3 id="income-heading">Money in</h3></div>
               <strong id="incomeTotal">$0</strong>
             </div>
+            <div class="entry-columns" aria-hidden="true"><span>Category</span><span>Amount</span><span></span></div>
             <div class="flow-rows" id="incomeRows"></div>
             <button class="add-row" type="button" id="addIncome"><span aria-hidden="true">+</span> Add income</button>
           </section>
@@ -178,11 +179,12 @@
               <div><span class="entry-dot expense-dot"></span><h3 id="expense-heading">Money out</h3></div>
               <strong id="expenseTotal">$0</strong>
             </div>
+            <div class="entry-columns" aria-hidden="true"><span>Category</span><span>Amount</span><span></span></div>
             <div class="flow-rows" id="expenseRows"></div>
             <button class="add-row" type="button" id="addExpense"><span aria-hidden="true">+</span> Add expense</button>
           </section>
 
-          <button class="reset-plan" type="button" id="resetPlan" title="Restore the sample plan"><span aria-hidden="true">&#8635;</span> Reset sample</button>
+          <button class="reset-plan" type="button" id="resetPlan" title="Restore the example plan"><span aria-hidden="true">&#8635;</span> Restore example</button>
         </form>
 
         <section class="cash-visual" aria-labelledby="chart-title">
@@ -228,7 +230,10 @@
         </section>
       </div>
 
-      <p class="planner-disclaimer">This planner is for education and budgeting only. It does not connect to financial accounts, and your entries stay in this browser. Review irregular costs, taxes, and annual bills separately before treating the remaining amount as spendable.</p>
+      <aside class="planner-note" aria-label="Privacy and scope">
+        <span class="planner-note-mark" aria-hidden="true">&#10003;</span>
+        <p><strong>Private by default.</strong> This planner does not connect to financial accounts; entries are stored in this browser on this device. <span>It is an educational budgeting estimate, so include irregular costs, taxes, and annual bills before treating the remaining amount as spendable.</span></p>
+      </aside>
     </div>
   </section>
 
@@ -239,9 +244,9 @@
         <p>A cash-flow map is not a judgment. It is a snapshot that helps you decide what deserves attention first.</p>
       </div>
       <div class="reading-grid">
-        <article><span>01</span><h3>Band width shows priority</h3><p>The widest expense bands are where small percentage changes can have the largest effect. Start there before trimming many tiny categories.</p></article>
-        <article><span>02</span><h3>Saving is a planned outflow</h3><p>Treating saving and investing as their own category makes the future visible instead of hoping something remains at the end of the period.</p></article>
-        <article><span>03</span><h3>A shortfall needs a funding source</h3><p>When expenses exceed income, the map adds a shortfall band. In real life, that gap is usually covered by cash reserves, credit, or reduced spending.</p></article>
+        <article><span>01</span><h3>Band width shows priority</h3><p>Start with the widest band before trimming many tiny categories. If housing is $1,650 a month, a 5% change frees about $83 without requiring ten smaller cuts.</p></article>
+        <article><span>02</span><h3>Saving is a planned outflow</h3><p>Give saving and investing their own category instead of hoping money remains. A planned $300 monthly transfer becomes $3,600 directed toward your future each year.</p></article>
+        <article><span>03</span><h3>A shortfall needs a funding source</h3><p>A $200 monthly gap becomes $2,400 over a year. The map makes that pressure visible so you can choose between lower costs, more income, reserves, or borrowing.</p></article>
       </div>
     </div>
   </section>

@@ -167,17 +167,19 @@
   }
 
   function rowMarkup(row, type, index) {
-    const groupLabel = type === 'income' ? 'income' : 'expense';
+    const groupName = type === 'income' ? 'Income' : 'Expense';
+    const rowName = row.name.trim() || `${groupName} category ${index + 1}`;
+    const longNameClass = row.name.trim().length > 16 ? ' flow-name-long' : '';
     return `
       <div class="flow-row" data-row-id="${escapeHtml(row.id)}">
-        <label class="sr-only" for="${type}-name-${index}">${groupLabel} category name</label>
-        <input class="flow-name" id="${type}-name-${index}" type="text" maxlength="48" value="${escapeHtml(row.name)}" data-type="${type}" data-field="name" data-id="${escapeHtml(row.id)}" aria-label="${groupLabel} category name">
+        <label class="sr-only" for="${type}-name-${index}">${groupName} category ${index + 1} name</label>
+        <input class="flow-name${longNameClass}" id="${type}-name-${index}" type="text" maxlength="48" value="${escapeHtml(row.name)}" data-type="${type}" data-field="name" data-id="${escapeHtml(row.id)}" aria-label="${groupName} category ${index + 1} name">
         <div class="amount-wrap">
           <span class="amount-symbol" aria-hidden="true">${amountSymbol()}</span>
-          <label class="sr-only" for="${type}-amount-${index}">${escapeHtml(row.name || groupLabel)} amount</label>
-          <input class="flow-amount" id="${type}-amount-${index}" type="number" inputmode="decimal" min="0" step="10" value="${row.amount || ''}" data-type="${type}" data-field="amount" data-id="${escapeHtml(row.id)}" aria-label="${escapeHtml(row.name || groupLabel)} amount">
+          <label class="sr-only" for="${type}-amount-${index}">${escapeHtml(rowName)} amount</label>
+          <input class="flow-amount" id="${type}-amount-${index}" type="number" inputmode="decimal" min="0" step="10" value="${row.amount || ''}" data-type="${type}" data-field="amount" data-id="${escapeHtml(row.id)}" aria-label="${escapeHtml(rowName)} amount">
         </div>
-        <button class="remove-row" type="button" data-remove="${type}" data-id="${escapeHtml(row.id)}" aria-label="Remove ${escapeHtml(row.name || groupLabel)}" title="Remove category">&times;</button>
+        <button class="remove-row" type="button" data-remove="${type}" data-id="${escapeHtml(row.id)}" aria-label="Remove ${escapeHtml(rowName)}" title="Remove category">&times;</button>
       </div>`;
   }
 
@@ -212,6 +214,14 @@
   function handleRowInput(event) {
     const input = event.target.closest('[data-field][data-type][data-id]');
     if (!input) return;
+    if (input.dataset.field === 'name') {
+      const row = input.closest('.flow-row');
+      const groupName = input.dataset.type === 'income' ? 'Income' : 'Expense';
+      const name = input.value.trim() || `${groupName} category`;
+      input.classList.toggle('flow-name-long', input.value.trim().length > 16);
+      row?.querySelector('.flow-amount')?.setAttribute('aria-label', `${name} amount`);
+      row?.querySelector('.remove-row')?.setAttribute('aria-label', `Remove ${name}`);
+    }
     updateRow(input.dataset.type, input.dataset.id, input.dataset.field, input.value);
   }
 
@@ -386,7 +396,7 @@
       .attr('text-anchor', (item) => item.kind === 'available' ? 'middle' : (item.depth === 0 ? 'end' : 'start'));
 
     labels.append('tspan')
-      .text((item) => shorten(item.name, compact ? 11 : 20));
+      .text((item) => shorten(item.name, compact ? 20 : 22));
 
     labels.append('tspan')
       .attr('class', 'sankey-label-value')
