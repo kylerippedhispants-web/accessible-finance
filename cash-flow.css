@@ -78,7 +78,7 @@
 }
 
 .hero-flow-source {
-  min-height: 182px;
+  height: 270px;
   border-radius: 6px;
   background: var(--green);
   color: #fff;
@@ -898,7 +898,7 @@
   }
 
   .hero-flow-source {
-    min-height: 118px;
+    height: 170px;
     padding: 14px 9px;
   }
 
@@ -1056,7 +1056,7 @@
     padding: 20px 10px;
   }
 
-  .hero-flow-source { min-height: 108px; }
+  .hero-flow-source { height: 156px; }
   .hero-flow-lines,
   .hero-flow-targets { height: 156px; }
 
