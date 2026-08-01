@@ -19,6 +19,16 @@ function assert(condition, message) {
   if (!condition) errors.push(message);
 }
 
+function decodeText(value) {
+  return (value || '')
+    .replace(/&amp;/gi, '&')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#(?:39|x27);/gi, "'")
+    .replace(/&(?:mdash|ndash);/gi, '-')
+    .replace(/&#\d+;|&#x[0-9a-f]+;/gi, ' ')
+    .trim();
+}
+
 function resolveLocalTarget(fromFile, rawTarget) {
   if (!rawTarget || /^(?:https?:|mailto:|tel:|data:|javascript:|#)/i.test(rawTarget)) return null;
   const cleanTarget = rawTarget.split('#')[0].split('?')[0];
@@ -44,6 +54,28 @@ htmlFiles.forEach((file) => {
   assert(title, `${file}: missing title`);
   assert(description, `${file}: missing meta description`);
   assert(canonicals.length === 1, `${file}: expected one canonical, found ${canonicals.length}`);
+  if (title) assert(decodeText(title).length <= 65, `${file}: title exceeds 65 characters`);
+  if (description) {
+    const length = decodeText(description).length;
+    assert(length >= 80 && length <= 165, `${file}: meta description is ${length} characters`);
+  }
+
+  const h1Count = (html.match(/<h1\b/gi) || []).length;
+  assert(h1Count === 1, `${file}: expected one h1, found ${h1Count}`);
+
+  [...html.matchAll(/<img\b[^>]*>/gi)].forEach((match) => {
+    assert(/\balt=(?:"[^"]*"|'[^']*')/i.test(match[0]), `${file}: image is missing alt text`);
+  });
+
+  [...html.matchAll(/<a\b[^>]*\btarget="_blank"[^>]*>/gi)].forEach((match) => {
+    const rel = match[0].match(/\brel="([^"]*)"/i)?.[1] || '';
+    assert(/\bnoopener\b/i.test(rel), `${file}: target=_blank link is missing noopener`);
+  });
+
+  const renderedLogoReferences = [...html.matchAll(/<(?:img|link)\b[^>]*(?:src|href)="([^"]*Logo(?:-256)?\.png)"[^>]*>/gi)];
+  renderedLogoReferences.forEach((match) => {
+    assert(/Logo-256\.png$/i.test(match[1]), `${file}: rendered logo does not use the optimized asset`);
+  });
 
   const ids = [...html.matchAll(/\sid="([^"]+)"/gi)].map((match) => match[1]);
   const duplicateIds = ids.filter((id, index) => ids.indexOf(id) !== index);
@@ -88,6 +120,11 @@ guideFiles.forEach((file) => {
 });
 
 const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+const optimizedLogo = path.join(root, 'Logo-256.png');
+assert(fs.existsSync(optimizedLogo), 'missing optimized Logo-256.png asset');
+if (fs.existsSync(optimizedLogo)) {
+  assert(fs.statSync(optimizedLogo).size < 100 * 1024, 'Logo-256.png exceeds 100 KB');
+}
 assert((sitemap.match(/\/guides\/[^<]+\.html/g) || []).length === 42, 'sitemap does not contain 42 guide URLs');
 assert(!/article\.html\?id=/i.test(sitemap), 'sitemap contains legacy query article URLs');
 assert(!/(?:earn|rewards)\.html/i.test(sitemap), 'sitemap contains referral-only pages');
@@ -103,6 +140,22 @@ referralPages.forEach((file) => {
   assert(!/pagead2\.googlesyndication\.com/i.test(html), `${file}: AdSense loader must not appear`);
   assert(/rel="[^"]*sponsored[^"]*nofollow/i.test(html), `${file}: referral link is missing sponsored/nofollow`);
 });
+
+[
+  ['index.html', 'earn.html'],
+  ['cash-flow.html', 'earn.html'],
+  ['guides/asset-allocation.html', '../earn.html'],
+  ['us/index.html', 'rewards.html'],
+].forEach(([file, href]) => {
+  const html = fs.readFileSync(path.join(root, file), 'utf8');
+  const rewardsLinks = html.match(/data-region-rewards/g) || [];
+  assert(rewardsLinks.length === 3, `${file}: expected Rewards links in desktop, mobile, and footer navigation`);
+  assert(html.includes(`href="${href}" data-region-rewards`), `${file}: Rewards navigation points to the wrong edition`);
+});
+
+const regionScript = fs.readFileSync(path.join(root, 'site-region.js'), 'utf8');
+assert(/data-region-rewards/i.test(regionScript), 'site-region.js: missing universal Rewards link handling');
+assert(/us\/rewards\.html/i.test(regionScript), 'site-region.js: missing U.S. Rewards destination');
 
 ['about.html', 'articles.html', 'journal.html', 'topic.html', 'privacy.html', 'disclaimer.html', 'editorial-policy.html', 'contact.html', '404.html']
   .forEach((file) => {
@@ -121,6 +174,7 @@ assert(/id="sankeyChart"/i.test(cashFlow), 'cash-flow.html: missing Sankey chart
 assert(/data-region-universal/i.test(cashFlow), 'cash-flow.html: missing universal-edition marker');
 assert(/d3-sankey@0\.12\.3/i.test(cashFlow), 'cash-flow.html: missing pinned Sankey library');
 assert(/cash-flow\.html\?edition=ca/i.test(cashFlow), 'cash-flow.html: missing Cash Flow navigation link');
+assert(!/id="currencySelect"/i.test(cashFlow), 'cash-flow.html: obsolete currency selector is present');
 
 const cashFlowSchemas = [...cashFlow.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)];
 assert(cashFlowSchemas.length > 0, 'cash-flow.html: missing structured data');

@@ -314,6 +314,9 @@
     document.querySelectorAll('a[href^="cash-flow.html?edition="]').forEach((link) => {
       link.setAttribute('href', `cash-flow.html?edition=${region}`);
     });
+    document.querySelectorAll('[data-region-rewards]').forEach((link) => {
+      link.setAttribute('href', region === 'us' ? 'us/rewards.html' : 'earn.html');
+    });
   }
 
   function initialize() {
