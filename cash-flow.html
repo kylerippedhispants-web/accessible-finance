@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4537695061199720"
+     crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cash Flow Planner | Accessible Finance</title>
+<meta name="description" content="Map monthly or annual income and expenses with an interactive Sankey diagram, then review your remaining cash and planned savings rate.">
+<link rel="canonical" href="https://accessible-finance.com/cash-flow.html">
+<meta property="og:title" content="Cash Flow Planner | Accessible Finance">
+<meta property="og:description" content="See how income moves through expenses, savings, and the money left over with a clear interactive cash-flow map.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://accessible-finance.com/Logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f5f0">
+<link rel="icon" type="image/png" href="Logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600;700;800&amp;family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="us/site.css">
+<link rel="stylesheet" href="cash-flow.css">
+<link rel="stylesheet" href="site-language.css">
+<link rel="stylesheet" href="site-region.css">
+<link id="site-polish-styles" rel="stylesheet" href="site-polish.css">
+
+<script src="site-language.js" defer></script>
+<script src="site-region.js" defer></script>
+<script src="us/site.js" defer></script>
+<script src="site-shell.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js" defer></script>
+<script src="cash-flow.js" defer></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Accessible Finance Cash Flow Planner",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "url": "https://accessible-finance.com/cash-flow.html",
+  "description": "An interactive income and expense planner with a Sankey cash-flow diagram.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "CAD"
+  }
+}
+</script>
+</head>
+<body data-region-universal>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo" aria-label="Accessible Finance - Home">
+    <img src="Logo.png" alt="">
+    <span class="wordmark">Accessible Finance</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="articles.html">Guides</a>
+    <a href="journal.html">Articles</a>
+    <a href="index.html#glossary">Glossary</a>
+    <a href="fire.html">FIRE</a>
+    <a href="wealth-rank.html">Wealth Rank</a>
+    <a href="tax-calculator.html">Tax</a>
+    <a href="cash-flow.html?edition=ca" class="active" aria-current="page">Cash Flow</a>
+    <a href="about.html">About</a>
+  </div>
+  <div class="nav-actions">
+    <a class="nav-social" href="https://www.instagram.com/accessible.finance?igsh=MXVobG52emdvMTBudw==" target="_blank" rel="noopener noreferrer" aria-label="Accessible Finance on Instagram">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+        <circle cx="12" cy="12" r="4"></circle>
+        <circle cx="17" cy="7" r="1"></circle>
+      </svg>
+    </a>
+    <label class="language-switcher notranslate" translate="no">
+      <span class="sr-only">Language</span>
+      <select class="language-select" data-language-select aria-label="Language">
+        <option value="en">&#x1F1EC;&#x1F1E7; EN</option>
+        <option value="fa">&#x1F1EE;&#x1F1F7; FA</option>
+        <option value="fr">&#x1F1EB;&#x1F1F7; FR</option>
+        <option value="de">&#x1F1E9;&#x1F1EA; DE</option>
+      </select>
+    </label>
+    <a href="#newsletter" class="nav-cta" data-open-newsletter>Subscribe</a>
+  </div>
+  <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="articles.html">Guides</a>
+  <a href="journal.html">Articles</a>
+  <a href="index.html#glossary">Glossary</a>
+  <a href="fire.html">FIRE</a>
+  <a href="wealth-rank.html">Wealth Rank</a>
+  <a href="tax-calculator.html">Tax</a>
+  <a href="cash-flow.html?edition=ca" aria-current="page">Cash Flow</a>
+  <a href="about.html">About</a>
+  <label class="mobile-language notranslate" translate="no">
+    <span>Language</span>
+    <select class="language-select" data-language-select aria-label="Language">
+      <option value="en">&#x1F1EC;&#x1F1E7; English</option>
+      <option value="fa">&#x1F1EE;&#x1F1F7; Farsi</option>
+      <option value="fr">&#x1F1EB;&#x1F1F7; French</option>
+      <option value="de">&#x1F1E9;&#x1F1EA; German</option>
+    </select>
+  </label>
+  <a href="#newsletter" class="cta" data-open-newsletter>Subscribe</a>
+</div>
+
+<main id="main-content" tabindex="-1">
+  <header class="cash-hero shell">
+    <div class="cash-hero-copy">
+      <span class="eyebrow">Cash flow planner</span>
+      <h1>See where your money <em>actually goes.</em></h1>
+      <p>Turn income and expenses into a living money map. Wider bands represent larger amounts, making trade-offs and gaps easier to spot.</p>
+      <div class="hero-actions">
+        <a class="button-primary" href="#cash-flow-planner">Map my cash flow <span aria-hidden="true">&rarr;</span></a>
+        <span class="privacy-note">Saved only in this browser</span>
+      </div>
+    </div>
+    <div class="hero-flow" aria-hidden="true">
+      <div class="hero-flow-source"><span>Income</span><strong>$5,000</strong></div>
+      <div class="hero-flow-lines">
+        <i></i><i></i><i></i><i></i>
+      </div>
+      <div class="hero-flow-targets">
+        <span>Housing</span><span>Living</span><span>Saving</span><span>Left over</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="cash-planner-section" id="cash-flow-planner" aria-labelledby="planner-title">
+    <div class="shell">
+      <div class="planner-heading">
+        <div>
+          <span class="eyebrow">Build your money map</span>
+          <h2 class="section-title" id="planner-title">Income in. Expenses out. <em>Clarity in between.</em></h2>
+        </div>
+        <p>Use take-home income so the result reflects cash that actually reaches you. Change any label or amount to match your life.</p>
+      </div>
+
+      <div class="cash-workspace">
+        <form class="cash-controls" id="cashFlowForm" novalidate>
+          <div class="control-toolbar">
+            <fieldset class="period-switch" aria-label="Planning period">
+              <legend class="sr-only">Planning period</legend>
+              <label><input type="radio" name="period" value="monthly" checked><span>Monthly</span></label>
+              <label><input type="radio" name="period" value="annual"><span>Annual</span></label>
+            </fieldset>
+            <label class="currency-field">
+              <span>Currency</span>
+              <select id="currencySelect" aria-label="Currency">
+                <option value="CAD">CAD</option>
+                <option value="USD">USD</option>
+              </select>
+            </label>
+          </div>
+
+          <section class="entry-group" aria-labelledby="income-heading">
+            <div class="entry-heading">
+              <div><span class="entry-dot income-dot"></span><h3 id="income-heading">Money in</h3></div>
+              <strong id="incomeTotal">$0</strong>
+            </div>
+            <div class="flow-rows" id="incomeRows"></div>
+            <button class="add-row" type="button" id="addIncome"><span aria-hidden="true">+</span> Add income</button>
+          </section>
+
+          <section class="entry-group" aria-labelledby="expense-heading">
+            <div class="entry-heading">
+              <div><span class="entry-dot expense-dot"></span><h3 id="expense-heading">Money out</h3></div>
+              <strong id="expenseTotal">$0</strong>
+            </div>
+            <div class="flow-rows" id="expenseRows"></div>
+            <button class="add-row" type="button" id="addExpense"><span aria-hidden="true">+</span> Add expense</button>
+          </section>
+
+          <button class="reset-plan" type="button" id="resetPlan" title="Restore the sample plan"><span aria-hidden="true">&#8635;</span> Reset sample</button>
+        </form>
+
+        <section class="cash-visual" aria-labelledby="chart-title">
+          <div class="visual-heading">
+            <div>
+              <span class="visual-kicker" id="chartPeriod">Monthly cash flow</span>
+              <h2 id="chart-title">How your money moves</h2>
+            </div>
+            <span class="flow-status" id="flowStatus">Balanced</span>
+          </div>
+
+          <div class="summary-grid" aria-live="polite">
+            <div><span>Total income</span><strong id="summaryIncome">$0</strong></div>
+            <div><span>Total expenses</span><strong id="summaryExpenses">$0</strong></div>
+            <div><span id="balanceLabel">Remaining</span><strong id="summaryBalance">$0</strong></div>
+          </div>
+
+          <div class="sankey-frame" id="sankeyFrame">
+            <svg id="sankeyChart" role="img" aria-labelledby="sankeyTitle sankeyDescription">
+              <title id="sankeyTitle">Income and expense Sankey diagram</title>
+              <desc id="sankeyDescription">A visual map of entered income flowing into available money and then into expense categories.</desc>
+            </svg>
+            <div class="chart-empty" id="chartEmpty" hidden>Add an income or expense amount to build your map.</div>
+            <div class="chart-error" id="chartError" hidden>The visual could not load. Your totals and category breakdown are still available below.</div>
+          </div>
+
+          <div class="chart-legend" aria-hidden="true">
+            <span><i class="legend-income"></i> Income</span>
+            <span><i class="legend-expense"></i> Expenses</span>
+            <span><i class="legend-balance"></i> Remaining</span>
+          </div>
+
+          <div class="flow-insights" aria-live="polite">
+            <article><span>Planned savings rate</span><strong id="savingsRate">0%</strong><p id="savingsNote">Based on categories named saving or investing.</p></article>
+            <article><span>Largest expense</span><strong id="largestExpense">None</strong><p id="largestExpenseNote">Add expenses to compare categories.</p></article>
+            <article><span>Cash position</span><strong id="cashPosition">Balanced</strong><p id="cashPositionNote">Income and expenses are equal.</p></article>
+          </div>
+
+          <div class="breakdown" aria-labelledby="breakdown-title">
+            <div class="breakdown-heading"><h3 id="breakdown-title">Expense breakdown</h3><span id="breakdownBasis">Share of expenses</span></div>
+            <div id="expenseBreakdown"></div>
+          </div>
+        </section>
+      </div>
+
+      <p class="planner-disclaimer">This planner is for education and budgeting only. It does not connect to financial accounts, and your entries stay in this browser. Review irregular costs, taxes, and annual bills separately before treating the remaining amount as spendable.</p>
+    </div>
+  </section>
+
+  <section class="cash-reading" aria-labelledby="reading-title">
+    <div class="shell">
+      <div class="section-heading-row">
+        <div><span class="eyebrow">Read the map</span><h2 class="section-title" id="reading-title">Three useful signals in <em>one picture</em></h2></div>
+        <p>A cash-flow map is not a judgment. It is a snapshot that helps you decide what deserves attention first.</p>
+      </div>
+      <div class="reading-grid">
+        <article><span>01</span><h3>Band width shows priority</h3><p>The widest expense bands are where small percentage changes can have the largest effect. Start there before trimming many tiny categories.</p></article>
+        <article><span>02</span><h3>Saving is a planned outflow</h3><p>Treating saving and investing as their own category makes the future visible instead of hoping something remains at the end of the period.</p></article>
+        <article><span>03</span><h3>A shortfall needs a funding source</h3><p>When expenses exceed income, the map adds a shortfall band. In real life, that gap is usually covered by cash reserves, credit, or reduced spending.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter-section" id="newsletter">
+    <div class="shell">
+      <div class="newsletter-band">
+        <div><span class="label">The Dispatch</span><h2>One money idea, explained clearly.</h2></div>
+        <button type="button" data-open-newsletter>Subscribe</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-wordmark"><img src="Logo.png" alt=""><span>Accessible Finance</span></div>
+        <p>Free financial education for curious people, supported by minimal ads that help cover upkeep.</p>
+      </div>
+      <div class="footer-col">
+        <h2>Learn</h2>
+        <ul>
+          <li><a href="articles.html">Guides</a></li>
+          <li><a href="fire.html">FIRE</a></li>
+          <li><a href="wealth-rank.html">Wealth Rank</a></li>
+          <li><a href="tax-calculator.html">Tax Calculator</a></li>
+          <li><a href="cash-flow.html?edition=ca">Cash Flow</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Company</h2>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="editorial-policy.html">Editorial standards</a></li>
+          <li><a href="contact.html">Contact &amp; corrections</a></li>
+          <li><a href="#newsletter" data-open-newsletter>Newsletter</a></li>
+          <li><a href="https://www.instagram.com/accessible.finance?igsh=MXVobG52emdvMTBudw==" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Not financial, investment, tax, or legal advice. This planner is a simplified educational tool.</p>
+      <span>&copy; 2026 Accessible Finance</span>
+    </div>
+  </div>
+</footer>
+
+<div class="nl-overlay" id="nlOverlay" role="dialog" aria-modal="true" aria-labelledby="nlTitle">
+  <div class="nl-modal">
+    <button class="nl-close" id="nlClose" type="button" aria-label="Close newsletter signup">&#x2715;</button>
+    <div class="nl-label">The Dispatch</div>
+    <div class="nl-title" id="nlTitle">One money idea,<br><em>explained clearly.</em></div>
+    <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
+    <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <p class="nl-fine">Unsubscribe anytime.</p>
+  </div>
+</div>
+</body>
+</html>

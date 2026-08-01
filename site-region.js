@@ -42,6 +42,11 @@
 
   function getCurrentRegion() {
     const path = window.location.pathname.replace(/\\/g, '/');
+    if (document.body?.hasAttribute('data-region-universal')) {
+      const requested = new URLSearchParams(window.location.search).get('edition');
+      if (validRegions.has(requested)) return requested;
+      return getSavedRegion() || 'ca';
+    }
     return /(^|\/)us(\/|$)/i.test(path) ? 'us' : 'ca';
   }
 
@@ -74,6 +79,12 @@
     if (!validRegions.has(region)) return;
 
     saveRegion(region);
+    if (document.body?.hasAttribute('data-region-universal')) {
+      const destination = new URL(window.location.href);
+      destination.searchParams.set('edition', region);
+      window.location.assign(destination.href);
+      return;
+    }
     if (region === getCurrentRegion()) {
       closeModal();
       closeMobileMenu();
@@ -297,6 +308,14 @@
     menu.insertBefore(switcher, language || menu.lastElementChild);
   }
 
+  function syncUniversalToolLinks() {
+    if (!document.body?.hasAttribute('data-region-universal')) return;
+    const region = getCurrentRegion();
+    document.querySelectorAll('a[href^="cash-flow.html?edition="]').forEach((link) => {
+      link.setAttribute('href', `cash-flow.html?edition=${region}`);
+    });
+  }
+
   function initialize() {
     const savedRegion = getSavedRegion();
     if (savedRegion && savedRegion !== getCurrentRegion() && document.body.hasAttribute('data-region-home')) {
@@ -304,6 +323,7 @@
       return;
     }
 
+    syncUniversalToolLinks();
     buildDesktopSwitcher();
     buildMobileSwitcher();
     document.addEventListener('click', (event) => {
