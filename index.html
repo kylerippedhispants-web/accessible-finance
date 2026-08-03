@@ -312,7 +312,7 @@ nav.site-nav {
 }
 .hero-stat-row {
   margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border);
-  display: flex; justify-content: space-between; align-items: flex-end;
+  display: flex; justify-content: space-between; align-items: center; gap: 24px;
 }
 .hero-stat-num {
   font-family: var(--serif); font-size: 48px; line-height: 1; color: var(--ink); letter-spacing: -0.02em;
@@ -323,9 +323,26 @@ nav.site-nav {
   margin-top: 8px;
 }
 .hero-stat-badge {
-  font-family: var(--sans); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.1em; color: var(--green);
-  background: var(--green-light); padding: 8px 14px; border-radius: 100px;
+  width: 176px; min-width: 176px; min-height: 132px;
+  padding: 20px 22px;
+  border: 1px solid rgba(29,107,69,0.18); border-radius: 50%;
+  background: var(--green-light); color: var(--green);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+}
+.hero-stat-badge span {
+  font-family: var(--sans); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.hero-stat-badge strong {
+  margin-top: 5px;
+  font-family: var(--sans); font-size: 25px; font-weight: 800;
+  letter-spacing: 0; line-height: 1;
+}
+.hero-stat-badge small {
+  margin-top: 7px;
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0; line-height: 1.25;
 }
 
 /* Tools */
@@ -962,6 +979,10 @@ footer.site-footer {
   .hero-chart { height: 132px; gap: 7px; }
   .hero-chart-axis span:nth-child(even) { display: none; }
   .hero-stat-row { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .hero-stat-badge {
+    width: 100%; min-width: 0; min-height: 108px;
+    border-radius: 999px;
+  }
   .tools { padding-top: 78px; padding-bottom: 78px; }
   .tools-grid { grid-template-columns: 1fr; }
   .tool-card.primary { grid-column: auto; }
@@ -1076,7 +1097,7 @@ footer.site-footer {
   </div>
 
   <div class="hero-card-wrap reveal d2">
-    <div class="hero-card" role="img" aria-label="Hypothetical chart: $10,000 compounding at 5% annually reaches about $14,775 after eight years. Actual investment returns are not guaranteed.">
+    <div class="hero-card" role="img" aria-label="Hypothetical chart: a $10,000 starting balance with no added deposits, compounding at 5% annually, reaches about $14,775 after eight years, an increase of $4,775. Actual investment returns are not guaranteed.">
       <div class="hero-card-eyebrow">Hypothetical Growth · 5% a Year</div>
       <div class="hero-chart" aria-hidden="true">
         <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -1086,9 +1107,13 @@ footer.site-footer {
       <div class="hero-stat-row">
         <div>
           <div class="hero-stat-num">$10,000</div>
-          <div class="hero-stat-label">Starting balance · Illustration</div>
+          <div class="hero-stat-label">Starting balance · No added deposits</div>
         </div>
-        <div class="hero-stat-badge">$14,775 in year 8</div>
+        <div class="hero-stat-badge">
+          <span>After 8 years</span>
+          <strong>$14,775</strong>
+          <small>+$4,775 from growth</small>
+        </div>
       </div>
     </div>
   </div>
