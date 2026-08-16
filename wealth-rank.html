@@ -6,17 +6,15 @@
      crossorigin="anonymous"></script>
 <link rel="icon" type="image/png" href="Logo-256.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wealth Rank | Accessible Finance</title>
-<meta name="description" content="Estimate your Canadian household net worth percentile with province and age-group comparisons.">
+<title>Canadian Wealth Rank Calculator | Accessible Finance</title>
+<meta name="description" content="Compare Canadian income and household net worth by age and province with interactive percentile, composition, distribution, and projection charts.">
 <link rel="canonical" href="https://accessible-finance.com/wealth-rank.html">
-<meta property="og:title" content="Wealth Rank | Accessible Finance">
-<meta property="og:description" content="Compare household net worth with Canadian national and provincial wealth benchmarks.">
-<meta property="og:type" content="article">
+<meta property="og:title" content="Canadian Wealth Rank Calculator | Accessible Finance">
+<meta property="og:description" content="Explore Canadian income and net worth benchmarks with interactive age, province, distribution, composition, and projection charts.">
+<meta property="og:type" content="website">
 <meta property="og:image" content="https://accessible-finance.com/Logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#f7f5f0">
-<link rel="icon" type="image/png" href="Logo-256.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
@@ -25,10 +23,11 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #f7f5f0; --bg-warm: #efece3; --surface: #ffffff;
-  --ink: #1a1816; --ink2: #4a4640; --ink3: #8a8480; --ink4: #b8b0a5;
+  --ink: #1a1816; --ink2: #4a4640; --ink3: #68635d; --ink4: #9b958d;
   --green: #1d6b45; --green-light: #e8f4ed; --green-mid: #2d8a59;
   --sage: #7d8c7b; --sage-light: #e8eae5;
-  --gold: #c8822a; --gold-soft: #d4a560; --gold-light: #f6ecd9;
+  --gold: #96550f; --gold-soft: #d4a560; --gold-light: #f6ecd9;
+  --blue: #476a8c; --plum: #765d73; --red: #b74832;
   --border: #e4e0d8; --border-strong: #c9c3b6;
   --serif: 'Instrument Serif', Georgia, serif;
   --sans: 'Inter', sans-serif;
@@ -62,7 +61,7 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 
 .eyebrow { font-family: var(--body); font-size: 13px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: 12px; }
 .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
-.section-title { font-family: var(--serif); font-size: clamp(38px, 5vw, 68px); font-weight: 400; line-height: 1.05; letter-spacing: -0.015em; color: var(--ink); margin-top: 18px; }
+.section-title { font-family: var(--serif); font-size: 64px; font-weight: 400; line-height: 1.05; letter-spacing: 0; color: var(--ink); margin-top: 18px; }
 .section-title em { font-style: italic; color: var(--green); font-weight: 400; }
 .section-sub { font-family: var(--body); font-style: italic; font-size: 17px; color: var(--ink2); margin-top: 16px; max-width: 560px; line-height: 1.6; }
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(.16,1,.3,1), transform 0.9s cubic-bezier(.16,1,.3,1); }
@@ -70,57 +69,293 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .reveal.d2 { transition-delay: 0.08s; }
 .reveal.d3 { transition-delay: 0.16s; }
 
-.wealth-hero { padding: 96px 40px 90px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 0.85fr; gap: 84px; align-items: center; }
-.wealth-hero h1 { font-family: var(--serif); font-size: clamp(58px, 7.2vw, 104px); font-weight: 400; line-height: 0.98; letter-spacing: -0.035em; margin-top: 26px; color: var(--ink); }
+.wealth-hero { padding: 82px 40px 88px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr); gap: 72px; align-items: center; }
+.wealth-hero h1 { font-family: var(--serif); font-size: 88px; font-weight: 400; line-height: 0.98; letter-spacing: 0; margin-top: 24px; color: var(--ink); }
 .wealth-hero h1 em { font-style: italic; color: var(--green); font-weight: 400; }
-.wealth-lead { font-family: var(--body); font-size: 20px; line-height: 1.75; color: var(--ink2); max-width: 580px; margin-top: 28px; }
-.wealth-snapshot { background: var(--surface); border: 1px solid var(--border); border-radius: 28px; padding: 42px; box-shadow: 0 28px 80px -36px rgba(26,24,22,0.24); }
-.snapshot-label { font-family: var(--body); font-size: 13px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gold); }
-.snapshot-number { font-family: var(--serif); font-size: clamp(60px, 8vw, 104px); line-height: 0.92; letter-spacing: -0.05em; color: var(--green); margin-top: 20px; }
-.snapshot-text { font-family: var(--body); font-size: 16px; line-height: 1.7; color: var(--ink2); margin-top: 18px; }
-.snapshot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 34px; padding-top: 28px; border-top: 1px solid var(--border); }
-.snapshot-stat { background: var(--bg-warm); border-radius: 18px; padding: 22px; }
-.snapshot-stat strong { display: block; font-family: var(--serif); font-size: 34px; line-height: 1; font-weight: 400; color: var(--ink); }
-.snapshot-stat span { display: block; font-family: var(--body); font-size: 13px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink3); margin-top: 10px; }
+.wealth-lead { font-family: var(--body); font-size: 19px; line-height: 1.75; color: var(--ink2); max-width: 620px; margin-top: 26px; }
+.hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 32px; }
+.btn-primary, .btn-secondary { min-height: 48px; border-radius: 6px; padding: 13px 20px; font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 9px; transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s; }
+.btn-primary { border: 1px solid var(--green); background: var(--green); color: #fff; }
+.btn-primary:hover { background: #145437; border-color: #145437; transform: translateY(-1px); }
+.btn-secondary { border: 1px solid var(--border-strong); background: transparent; color: var(--ink); }
+.btn-secondary:hover { border-color: var(--ink); background: var(--surface); }
+.privacy-note { font-family: var(--sans); font-size: 12px; color: var(--ink3); display: inline-flex; align-items: center; gap: 7px; }
+.privacy-note svg { width: 15px; height: 15px; color: var(--green); flex: 0 0 auto; }
+.wealth-snapshot { background: var(--ink); color: var(--bg); border: 1px solid var(--ink); border-radius: 8px; padding: 38px; box-shadow: 0 28px 70px -38px rgba(26,24,22,0.42); }
+.snapshot-label { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-soft); }
+.snapshot-equation { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 18px; margin-top: 30px; }
+.snapshot-term span { display: block; font-family: var(--sans); font-size: 11px; font-weight: 600; color: rgba(247,245,240,0.56); text-transform: uppercase; }
+.snapshot-term strong { display: block; font-family: var(--serif); font-size: 52px; font-weight: 400; line-height: 1; margin-top: 8px; color: var(--bg); }
+.snapshot-term:last-child strong { color: #89c9a6; }
+.snapshot-symbol { font-family: var(--serif); font-size: 38px; color: var(--gold-soft); padding-bottom: 2px; }
+.snapshot-text { font-family: var(--body); font-size: 15px; line-height: 1.7; color: rgba(247,245,240,0.7); margin-top: 26px; }
+.snapshot-proof { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(247,245,240,0.14); }
+.snapshot-proof div { padding: 0 16px; }
+.snapshot-proof div:first-child { padding-left: 0; }
+.snapshot-proof div + div { border-left: 1px solid rgba(247,245,240,0.14); }
+.snapshot-proof strong { display: block; font-family: var(--serif); font-size: 26px; line-height: 1; font-weight: 400; color: var(--bg); }
+.snapshot-proof span { display: block; font-family: var(--sans); font-size: 11px; line-height: 1.4; color: rgba(247,245,240,0.5); margin-top: 8px; }
 
-.wealth-rank { padding: 120px 40px; background: var(--bg-warm); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-#calculator, #wealth-results { scroll-margin-top: 96px; }
+.wealth-rank { padding: 104px 40px; background: var(--bg-warm); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+#calculator, #wealth-results, #projection { scroll-margin-top: 96px; }
 .wealth-rank-inner { max-width: 1200px; margin: 0 auto; }
-.wealth-rank-head { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 72px; align-items: end; margin-bottom: 58px; }
-.wealth-rank-note { font-family: var(--body); font-size: 16px; line-height: 1.72; color: var(--ink2); }
-.wealth-shell { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 26px; align-items: start; }
-.planner-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 34px; box-shadow: 0 26px 70px -42px rgba(26,24,22,0.28); }
-.planner-panel h3 { font-family: var(--serif); font-size: 32px; line-height: 1.1; font-weight: 400; color: var(--ink); letter-spacing: -0.01em; }
-.planner-panel h3 em { font-style: italic; color: var(--green); }
-.planner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
-.planner-field { display: flex; flex-direction: column; gap: 8px; }
+.wealth-rank-head { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 72px; align-items: end; margin-bottom: 48px; }
+.wealth-rank-note { font-family: var(--body); font-size: 15px; line-height: 1.72; color: var(--ink2); }
+.wealth-shell { display: grid; grid-template-columns: minmax(330px, 0.72fr) minmax(0, 1.28fr); gap: 22px; align-items: start; }
+.planner-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 30px; box-shadow: 0 24px 58px -44px rgba(26,24,22,0.35); }
+.panel-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.panel-heading h3, .projection-heading h3 { font-family: var(--serif); font-size: 34px; line-height: 1.08; font-weight: 400; color: var(--ink); letter-spacing: 0; }
+.panel-heading h3 em, .projection-heading h3 em { font-style: italic; color: var(--green); }
+.panel-step { font-family: var(--sans); font-size: 11px; font-weight: 700; color: var(--ink3); text-transform: uppercase; white-space: nowrap; }
+.mode-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; background: var(--bg-warm); border: 1px solid var(--border); border-radius: 6px; margin-top: 24px; }
+.mode-button { min-height: 40px; padding: 8px 10px; border: 0; border-radius: 4px; background: transparent; color: var(--ink2); font-family: var(--sans); font-size: 12px; font-weight: 700; cursor: pointer; }
+.mode-button[aria-pressed="true"] { background: var(--surface); color: var(--green); box-shadow: 0 1px 4px rgba(26,24,22,0.1); }
+.planner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px 14px; margin-top: 24px; }
+.planner-field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
 .planner-field.full { grid-column: 1 / -1; }
-.planner-field label { font-family: var(--body); font-size: 13px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink2); }
-.planner-control { width: 100%; border: 1px solid var(--border-strong); border-radius: 16px; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; font-weight: 700; padding: 15px 16px; min-height: 54px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
-.planner-control:focus { border-color: var(--green); box-shadow: 0 0 0 4px rgba(29,107,69,0.12); }
-.planner-help { font-family: var(--body); font-size: 13px; line-height: 1.45; color: var(--ink3); }
-.wealth-results { background: var(--surface); position: sticky; top: 96px; }
-.wealth-results .result-hero { margin-top: 26px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
-.result-label { font-family: var(--body); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); line-height: 1.45; }
-.result-number { font-family: var(--serif); font-size: clamp(58px, 7vw, 92px); line-height: 0.92; letter-spacing: -0.04em; color: var(--ink); margin-top: 14px; }
-.result-caption { font-family: var(--body); font-size: 15px; line-height: 1.62; color: var(--ink2); margin-top: 16px; max-width: 520px; }
-.rank-meter { margin-top: 24px; }
-.rank-scale { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
-.rank-scale span { font-family: var(--body); font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink3); }
-.rank-track { height: 16px; background: var(--bg-warm); border-radius: 100px; overflow: hidden; border: 1px solid var(--border); }
-.rank-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--sage), var(--gold-soft), var(--green)); border-radius: inherit; transition: width 0.35s ease; }
-.wealth-card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
-.wealth-card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 18px; }
-.wealth-card .label { font-family: var(--body); font-size: 14px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink2); line-height: 1.35; }
-.wealth-card .value { font-family: var(--serif); font-size: 32px; line-height: 1; color: var(--ink); margin-top: 10px; letter-spacing: -0.02em; }
-.wealth-card .value.good { color: var(--green); }
-.wealth-card .value.warn { color: var(--gold); }
-.benchmark-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 28px; }
-.benchmark { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; }
-.benchmark strong { display: block; font-family: var(--serif); font-size: 27px; line-height: 1; font-weight: 400; color: var(--ink); }
-.benchmark span { display: block; font-family: var(--body); font-size: 14px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink2); line-height: 1.35; margin-top: 10px; }
-.source-links { font-family: var(--body); font-size: 13px; line-height: 1.55; color: var(--ink3); margin-top: 18px; }
+.planner-field label, .field-label { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0; color: var(--ink2); }
+.planner-control { width: 100%; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; font-weight: 600; padding: 14px 14px; min-height: 52px; outline: none; transition: border-color 0.2s, box-shadow 0.2s, background 0.2s; }
+.planner-control:focus { border-color: var(--green); background: var(--surface); box-shadow: 0 0 0 3px rgba(29,107,69,0.12); }
+.money-control { position: relative; }
+.money-control::before { content: '$'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--green); pointer-events: none; }
+.money-control .planner-control { padding-left: 31px; }
+.percent-control { position: relative; }
+.percent-control .planner-control { padding-right: 42px; }
+.percent-control::after { content: '%'; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--green); pointer-events: none; }
+.planner-help { font-family: var(--sans); font-size: 11px; line-height: 1.45; color: var(--ink3); }
+.net-worth-help { margin-top: 20px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.net-worth-help summary { list-style: none; cursor: pointer; padding: 14px 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-family: var(--sans); font-size: 12px; font-weight: 700; color: var(--green); }
+.net-worth-help summary::-webkit-details-marker { display: none; }
+.net-worth-help summary::after { content: '+'; font-size: 18px; font-weight: 400; color: var(--ink3); }
+.net-worth-help[open] summary::after { content: '\2212'; }
+.net-worth-help-content { padding: 0 0 16px; font-family: var(--body); font-size: 13px; line-height: 1.6; color: var(--ink2); }
+.net-worth-help-content ul { padding-left: 18px; margin-top: 8px; }
+.form-actions { display: flex; gap: 10px; margin-top: 22px; }
+.form-actions .btn-primary { flex: 1; }
+.form-actions .btn-secondary { padding-inline: 15px; }
+.local-note { margin-top: 14px; font-family: var(--sans); font-size: 11px; line-height: 1.5; color: var(--ink3); }
+
+.wealth-results { min-width: 0; }
+.result-topline { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.result-kicker { font-family: var(--sans); font-size: 12px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; }
+.result-status { display: inline-flex; align-items: center; gap: 7px; font-family: var(--sans); font-size: 11px; font-weight: 700; color: var(--green); background: var(--green-light); border: 1px solid #c9e3d3; border-radius: 100px; padding: 6px 10px; white-space: nowrap; }
+.result-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--green-mid); }
+.result-summary { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(170px, 0.8fr); gap: 28px; align-items: end; padding: 24px 0 28px; border-bottom: 1px solid var(--border); }
+.result-label { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0; color: var(--ink3); }
+.result-number { font-family: var(--serif); font-size: 78px; line-height: 0.92; letter-spacing: 0; color: var(--ink); margin-top: 10px; font-variant-numeric: lining-nums tabular-nums; overflow-wrap: anywhere; }
+.rank-callout { text-align: right; }
+.rank-callout strong { display: block; font-family: var(--serif); font-size: 64px; font-weight: 400; line-height: 0.9; color: var(--green); }
+.rank-callout span { display: block; font-family: var(--sans); font-size: 12px; font-weight: 700; color: var(--ink2); margin-top: 10px; }
+.result-caption { font-family: var(--body); font-size: 15px; line-height: 1.65; color: var(--ink2); margin-top: 14px; }
+.metric-strip { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); }
+.metric-item { padding: 23px 18px; min-width: 0; }
+.metric-item:first-child { padding-left: 0; }
+.metric-item + .metric-item { border-left: 1px solid var(--border); }
+.metric-item span { display: block; font-family: var(--sans); font-size: 11px; font-weight: 700; color: var(--ink3); line-height: 1.4; }
+.metric-item strong { display: block; font-family: var(--serif); font-size: 31px; line-height: 1; font-weight: 400; color: var(--ink); margin-top: 9px; font-variant-numeric: tabular-nums; }
+.comparison-toolbar { display: flex; justify-content: space-between; gap: 18px; align-items: center; padding-top: 24px; }
+.comparison-toolbar h4 { font-family: var(--sans); font-size: 12px; color: var(--ink2); }
+.context-tabs { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; padding: 3px; background: var(--bg); }
+.context-button { border: 0; border-radius: 4px; background: transparent; color: var(--ink3); font-family: var(--sans); font-size: 11px; font-weight: 700; padding: 8px 11px; cursor: pointer; white-space: nowrap; }
+.context-button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.rank-visual { margin-top: 30px; position: relative; padding-top: 34px; }
+.rank-track { height: 11px; background: linear-gradient(90deg, #d8ddd7 0%, #d3b583 50%, #6da989 80%, #1d6b45 100%); border-radius: 100px; position: relative; }
+.rank-marker { position: absolute; left: 50%; top: 0; transform: translateX(-50%); transition: left 0.35s ease; }
+.rank-marker span { display: block; font-family: var(--sans); font-size: 11px; font-weight: 800; color: #fff; background: var(--green); border-radius: 4px; padding: 5px 8px; white-space: nowrap; box-shadow: 0 6px 18px rgba(29,107,69,0.22); }
+.rank-marker::after { content: ''; display: block; width: 1px; height: 18px; background: var(--green); margin: 0 auto; }
+.rank-axis { display: flex; justify-content: space-between; margin-top: 11px; }
+.rank-axis span { font-family: var(--sans); font-size: 10px; font-weight: 600; color: var(--ink3); }
+.context-summary { margin-top: 20px; padding-left: 15px; border-left: 3px solid var(--gold-soft); font-family: var(--body); font-size: 14px; line-height: 1.65; color: var(--ink2); }
+.benchmark-list { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--border); margin-top: 25px; }
+.benchmark { padding: 20px 14px 0; min-width: 0; }
+.benchmark:first-child { padding-left: 0; }
+.benchmark + .benchmark { border-left: 1px solid var(--border); }
+.benchmark strong { display: block; font-family: var(--serif); font-size: 25px; line-height: 1; font-weight: 400; color: var(--ink); overflow-wrap: anywhere; }
+.benchmark span { display: block; font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--ink3); line-height: 1.35; margin-top: 8px; }
+
+.wealth-projection { margin-top: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 34px; }
+.projection-heading { display: flex; justify-content: space-between; gap: 24px; align-items: flex-end; padding-bottom: 26px; border-bottom: 1px solid var(--border); }
+.projection-heading p { font-family: var(--body); font-size: 14px; line-height: 1.6; color: var(--ink2); max-width: 520px; }
+.projection-layout { display: grid; grid-template-columns: minmax(280px, 0.75fr) minmax(0, 1.25fr); gap: 34px; padding-top: 30px; }
+.projection-controls { padding-right: 34px; border-right: 1px solid var(--border); }
+.projection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.projection-note { font-family: var(--sans); font-size: 11px; line-height: 1.55; color: var(--ink3); margin-top: 15px; }
+.projection-submit { width: 100%; margin-top: 20px; }
+.projection-summary { min-width: 0; }
+.projection-total { display: flex; justify-content: space-between; align-items: end; gap: 20px; }
+.projection-total strong { display: block; font-family: var(--serif); font-size: 64px; line-height: 0.95; font-weight: 400; color: var(--green); overflow-wrap: anywhere; }
+.projection-total span { font-family: var(--sans); font-size: 11px; font-weight: 700; color: var(--ink3); }
+.projection-rank { text-align: right; }
+.projection-rank strong { font-size: 38px; color: var(--ink); }
+.projection-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 25px; padding-top: 22px; border-top: 1px solid var(--border); }
+.projection-metric span { display: block; font-family: var(--sans); font-size: 11px; font-weight: 700; color: var(--ink3); }
+.projection-metric strong { display: block; font-family: var(--serif); font-size: 30px; font-weight: 400; line-height: 1; margin-top: 8px; }
+.projection-bars { margin-top: 26px; display: flex; flex-direction: column; gap: 12px; }
+.projection-bar { display: grid; grid-template-columns: 102px minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+.projection-bar span, .projection-bar strong { font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--ink3); }
+.projection-bar strong { color: var(--ink2); min-width: 64px; text-align: right; }
+.projection-bar-track { height: 10px; background: var(--bg-warm); border-radius: 100px; overflow: hidden; }
+.projection-bar-fill { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--green); transition: width 0.35s ease; }
+.projection-bar:nth-child(2) .projection-bar-fill { background: var(--gold-soft); }
+.projection-bar:nth-child(3) .projection-bar-fill { background: var(--sage); }
+
+.wealth-charts { margin-top: 72px; }
+.data-explorer-head { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: end; }
+.data-explorer-head h3 { font-family: var(--serif); font-size: 54px; font-weight: 400; line-height: 1.05; margin-top: 14px; }
+.data-explorer-head h3 em { color: var(--green); font-style: italic; }
+.data-explorer-head p { font-family: var(--body); font-size: 14px; line-height: 1.7; color: var(--ink2); }
+.explorer-toolbar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 22px; align-items: center; margin-top: 28px; padding: 20px 22px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
+.explorer-toolbar label { font-family: var(--sans); font-size: 12px; font-weight: 700; color: var(--ink2); }
+.explorer-toolbar input[type="range"] { grid-column: 1 / -1; width: 100%; accent-color: var(--green); }
+.explorer-toolbar-copy { display: block; font-family: var(--sans); font-size: 10px; font-weight: 500; line-height: 1.5; color: var(--ink3); margin-top: 3px; }
+.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+.chart-panel { min-width: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 28px; box-shadow: 0 24px 58px -44px rgba(26,24,22,0.35); scroll-margin-top: 96px; }
+.chart-panel-wide { grid-column: 1 / -1; }
+.chart-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+.chart-header h4 { font-family: var(--serif); font-size: 30px; font-weight: 400; line-height: 1.1; }
+.chart-header p { font-family: var(--sans); font-size: 11px; line-height: 1.5; color: var(--ink3); margin-top: 7px; max-width: 620px; }
+.chart-badge { flex: 0 0 auto; border: 1px solid #c9e3d3; border-radius: 100px; padding: 6px 9px; background: var(--green-light); color: var(--green); font-family: var(--sans); font-size: 10px; font-weight: 800; }
+.chart-stage { margin-top: 22px; min-width: 0; }
+.age-chart-svg { display: block; width: 100%; height: 350px; overflow: visible; touch-action: pan-y; }
+.age-chart-svg text { font-family: var(--sans); fill: var(--ink3); font-size: 11px; }
+.chart-grid-line { stroke: var(--border); stroke-width: 1; }
+.chart-axis-line { stroke: var(--border-strong); stroke-width: 1; }
+.chart-series { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.chart-series-90 { stroke: #145437; }
+.chart-series-75 { stroke: #2d8a59; stroke-dasharray: 8 5; }
+.chart-series-50 { stroke: var(--gold); }
+.chart-series-25 { stroke: var(--sage); stroke-dasharray: 3 5; }
+.chart-series-10 { stroke: #a8afa8; stroke-dasharray: 1 5; }
+.chart-focus-line { stroke: var(--ink3); stroke-width: 1; stroke-dasharray: 4 5; }
+.chart-focus-dot { stroke: var(--surface); stroke-width: 3; }
+.chart-user-dot { fill: #b74832; stroke: var(--surface); stroke-width: 4; }
+.chart-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px; align-items: center; margin-top: 16px; }
+.chart-controls label { font-family: var(--sans); font-size: 11px; font-weight: 700; color: var(--ink2); }
+.chart-controls input[type="range"] { grid-column: 1 / -1; width: 100%; accent-color: var(--green); }
+.chart-age-output { min-width: 76px; text-align: right; font-family: var(--serif); font-size: 28px; color: var(--green); }
+.chart-readout { display: grid; grid-template-columns: repeat(6, 1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 18px; }
+.chart-readout-item { padding: 15px 12px; min-width: 0; }
+.chart-readout-item:first-child { padding-left: 0; }
+.chart-readout-item + .chart-readout-item { border-left: 1px solid var(--border); }
+.chart-readout-item span { display: block; font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--ink3); }
+.chart-readout-item strong { display: block; font-family: var(--serif); font-size: 23px; font-weight: 400; line-height: 1; margin-top: 7px; overflow-wrap: anywhere; }
+.chart-legend { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 17px; }
+.chart-legend span { display: inline-flex; align-items: center; gap: 7px; font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--ink2); }
+.chart-swatch { width: 18px; height: 3px; border-radius: 100px; background: var(--ink); }
+.chart-swatch.s90 { background: #145437; }
+.chart-swatch.s75 { background: #2d8a59; }
+.chart-swatch.s50 { background: var(--gold); }
+.chart-swatch.s25 { background: var(--sage); }
+.chart-swatch.s10 { background: #a8afa8; }
+.chart-swatch.user { width: 9px; height: 9px; border-radius: 50%; background: #b74832; }
+.chart-swatch.employment { background: var(--green); }
+.chart-swatch.investment { background: var(--gold-soft); }
+.chart-swatch.pension { background: var(--blue); }
+.chart-swatch.transfer { background: var(--sage); }
+.chart-swatch.real-estate { background: var(--gold-soft); }
+.chart-swatch.financial { background: var(--green-mid); }
+.chart-swatch.other { background: var(--sage); }
+.chart-swatch.debt { background: var(--red); }
+.chart-swatch.male { background: var(--blue); }
+.chart-swatch.female { background: var(--plum); }
+.chart-swatch.median-line { background: var(--ink); }
+.chart-method { margin-top: 18px; border-top: 1px solid var(--border); }
+.chart-method summary { list-style: none; cursor: pointer; padding-top: 15px; font-family: var(--sans); font-size: 11px; font-weight: 700; color: var(--green); }
+.chart-method summary::-webkit-details-marker { display: none; }
+.chart-method summary::after { content: ' +'; color: var(--ink3); }
+.chart-method[open] summary::after { content: ' \2212'; }
+.chart-method p { font-family: var(--body); font-size: 12px; line-height: 1.65; color: var(--ink2); margin-top: 10px; }
+.province-bars { display: flex; flex-direction: column; gap: 7px; }
+.province-row { width: 100%; display: grid; grid-template-columns: 48px minmax(0, 1fr) 68px; gap: 10px; align-items: center; border: 0; background: transparent; padding: 5px 6px; border-radius: 4px; cursor: pointer; text-align: left; }
+.province-row:hover, .province-row:focus-visible { background: var(--bg); }
+.province-row[aria-pressed="true"] { background: var(--green-light); }
+.province-code { font-family: var(--sans); font-size: 11px; font-weight: 800; color: var(--ink2); }
+.province-track { height: 10px; border-radius: 100px; background: var(--bg-warm); overflow: hidden; }
+.province-fill { display: block; height: 100%; border-radius: inherit; background: var(--sage); }
+.province-row[aria-pressed="true"] .province-fill { background: var(--green); }
+.province-value { font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--ink3); text-align: right; }
+.province-summary { font-family: var(--body); font-size: 13px; line-height: 1.6; color: var(--ink2); margin-top: 17px; padding-top: 15px; border-top: 1px solid var(--border); }
+.composition-layout { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 26px; align-items: center; }
+.asset-donut { width: 180px; height: 180px; border-radius: 50%; position: relative; background: conic-gradient(var(--green) 0 30%, var(--gold-soft) 30% 85%, var(--sage) 85% 100%); }
+.asset-donut::after { content: ''; position: absolute; inset: 30px; border-radius: 50%; background: var(--surface); }
+.asset-donut-center { position: absolute; inset: 45px; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.asset-donut-center span { font-family: var(--sans); font-size: 9px; font-weight: 700; color: var(--ink3); }
+.asset-donut-center strong { font-family: var(--serif); font-size: 26px; font-weight: 400; line-height: 1; margin-top: 5px; overflow-wrap: anywhere; }
+.composition-legend { display: flex; flex-direction: column; gap: 12px; }
+.composition-row { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 9px; align-items: center; }
+.composition-dot { width: 9px; height: 9px; border-radius: 2px; background: var(--green); }
+.composition-dot.home { background: var(--gold-soft); }
+.composition-dot.other { background: var(--sage); }
+.composition-dot.debt { background: #b74832; }
+.composition-row span { font-family: var(--sans); font-size: 11px; font-weight: 700; color: var(--ink2); }
+.composition-row strong { font-family: var(--sans); font-size: 11px; color: var(--ink); }
+.debt-meter { margin-top: 22px; }
+.debt-meter-head { display: flex; justify-content: space-between; gap: 14px; font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--ink3); }
+.debt-track { height: 9px; border-radius: 100px; background: var(--bg-warm); overflow: hidden; margin-top: 8px; }
+.debt-fill { display: block; height: 100%; width: 0; border-radius: inherit; background: #b74832; transition: width 0.3s ease; }
+.composition-message { font-family: var(--body); font-size: 12px; line-height: 1.6; color: var(--ink2); margin-top: 16px; }
+.dashboard-chart-svg { display: block; width: 100%; height: 300px; overflow: visible; }
+.chart-panel-wide .dashboard-chart-svg { height: 340px; }
+.province-range-svg { height: 360px; }
+.dashboard-chart-svg text { font-family: var(--sans); fill: var(--ink3); font-size: 10px; }
+.dashboard-chart-svg .chart-axis-title { fill: var(--ink2); font-size: 10px; font-weight: 700; }
+.dashboard-chart-svg .series-line { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.series-income-90 { stroke: #145437; }
+.series-income-75 { stroke: var(--green-mid); stroke-dasharray: 8 5; }
+.series-income-50 { stroke: var(--gold); }
+.series-income-25 { stroke: var(--sage); stroke-dasharray: 3 5; }
+.series-income-10 { stroke: #a8afa8; stroke-dasharray: 1 5; }
+.series-male { stroke: var(--blue); }
+.series-female { stroke: var(--plum); stroke-dasharray: 8 4; }
+.series-net-worth { stroke: var(--ink); stroke-width: 3; }
+.chart-area { stroke: none; opacity: 0.72; }
+.area-employment { fill: #5aa77e; }
+.area-investment { fill: #d9ad6e; }
+.area-pension { fill: #6f8dab; }
+.area-transfer { fill: #a7b1a2; }
+.area-real-estate { fill: #d9ad6e; }
+.area-financial { fill: #4f9a72; }
+.area-other { fill: #9ca89a; }
+.area-gender-male { fill: rgba(71,106,140,0.13); }
+.area-gender-female { fill: rgba(118,93,115,0.13); }
+.series-debt { fill: none; stroke: var(--red); stroke-width: 2; stroke-dasharray: 6 4; }
+.histogram-bar { fill: var(--green-mid); opacity: 0.8; }
+.histogram-bar:nth-of-type(even) { opacity: 0.64; }
+.histogram-marker { stroke: var(--red); stroke-width: 2; stroke-dasharray: 5 4; }
+.histogram-marker-dot { fill: var(--red); stroke: var(--surface); stroke-width: 3; }
+.whisker-line { stroke: var(--sage); stroke-width: 2; }
+.whisker-cap { stroke: var(--sage); stroke-width: 1.5; }
+.whisker-median { fill: var(--green); stroke: var(--surface); stroke-width: 2; }
+.whisker-row-selected { fill: var(--green-light); }
+.scatter-path { fill: none; stroke: var(--green); stroke-width: 2.5; }
+.scatter-dot { fill: var(--green-mid); stroke: var(--surface); stroke-width: 2; }
+.chart-inline-readout { margin-top: 17px; padding-top: 15px; border-top: 1px solid var(--border); font-family: var(--body); font-size: 12px; line-height: 1.65; color: var(--ink2); }
+.chart-inline-readout strong { color: var(--ink); font-weight: 600; }
+.chart-data-note { font-family: var(--sans); font-size: 10px; line-height: 1.5; color: var(--ink3); margin-top: 10px; }
+.chart-legend.compact { gap: 8px 14px; }
+.chart-legend.compact span { font-size: 9px; }
+
+.wealth-guidance { margin-top: 72px; }
+.guidance-head { max-width: 720px; }
+.guidance-head h3 { font-family: var(--serif); font-size: 54px; font-weight: 400; line-height: 1.05; margin-top: 14px; }
+.guidance-head h3 em { font-style: italic; color: var(--green); }
+.insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 32px; }
+.insight { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 25px; }
+.insight-number { font-family: var(--serif); font-size: 30px; line-height: 1; color: var(--gold); }
+.insight h4 { font-family: var(--sans); font-size: 14px; margin-top: 18px; color: var(--ink); }
+.insight p { font-family: var(--body); font-size: 13px; line-height: 1.65; color: var(--ink2); margin-top: 9px; }
+.method-panel { margin-top: 24px; border-top: 1px solid var(--border-strong); border-bottom: 1px solid var(--border-strong); }
+.method-panel summary { list-style: none; cursor: pointer; padding: 20px 0; display: flex; justify-content: space-between; gap: 20px; font-family: var(--sans); font-size: 13px; font-weight: 700; color: var(--ink); }
+.method-panel summary::-webkit-details-marker { display: none; }
+.method-panel summary::after { content: '+'; font-size: 20px; font-weight: 400; color: var(--green); }
+.method-panel[open] summary::after { content: '\2212'; }
+.method-content { padding: 0 0 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.method-content p, .method-content li { font-family: var(--body); font-size: 13px; line-height: 1.7; color: var(--ink2); }
+.method-content p + p { margin-top: 12px; }
+.method-content ul { padding-left: 18px; }
+.source-links { font-family: var(--body); font-size: 12px; line-height: 1.65; color: var(--ink3); margin-top: 18px; }
 .source-links a { color: var(--green); border-bottom: 1px solid rgba(29,107,69,0.25); }
+[hidden] { display: none !important; }
 
 footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40px 48px; }
 .footer-inner { max-width: 1200px; margin: 0 auto; }
@@ -134,8 +369,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 .footer-col a { font-family: var(--body); font-size: 15px; color: rgba(247,245,240,0.78); transition: color 0.2s; }
 .footer-col a:hover { color: var(--gold-soft); }
 .footer-bottom { padding-top: 36px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
-.footer-disclaimer { font-family: var(--body); font-size: 13px; line-height: 1.6; color: rgba(247,245,240,0.4); max-width: 720px; }
-.footer-copy { font-family: var(--body); font-size: 13px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(247,245,240,0.3); white-space: nowrap; }
+.footer-disclaimer { font-family: var(--body); font-size: 13px; line-height: 1.6; color: rgba(247,245,240,0.68); max-width: 720px; }
+.footer-copy { font-family: var(--body); font-size: 13px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(247,245,240,0.62); white-space: nowrap; }
 
 .nl-overlay { position: fixed; inset: 0; background: rgba(26,24,22,0.55); backdrop-filter: blur(6px); z-index: 200; padding: 24px; display: none; align-items: center; justify-content: center; }
 .nl-overlay.open { display: flex; }
@@ -152,19 +387,68 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 @media (max-width: 1200px) {
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: block; }
-  .wealth-hero, .wealth-rank-head, .wealth-shell { grid-template-columns: 1fr; gap: 36px; }
-  .wealth-results { position: static; }
-  .benchmark-grid { grid-template-columns: 1fr 1fr; }
   .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 1050px) {
+  .wealth-hero, .wealth-rank-head, .wealth-shell, .projection-layout, .data-explorer-head { grid-template-columns: 1fr; }
+  .wealth-hero, .wealth-rank-head { gap: 36px; }
+  .wealth-hero h1 { font-size: 76px; }
+  .section-title { font-size: 56px; }
+  .projection-controls { padding-right: 0; padding-bottom: 28px; border-right: 0; border-bottom: 1px solid var(--border); }
+  .method-content { grid-template-columns: 1fr; gap: 16px; }
+  .data-explorer-head { gap: 20px; }
 }
 @media (max-width: 768px) {
   nav.site-nav { padding: 0 24px; height: 64px; }
   .mobile-menu { inset: 64px 0 0; }
-  .wealth-hero { padding: 48px 24px 72px; }
-  .wealth-rank { padding: 80px 24px; }
-  .wealth-snapshot, .planner-panel { padding: 28px 22px; border-radius: 20px; }
-  .snapshot-grid, .planner-grid, .wealth-card-grid, .benchmark-grid { grid-template-columns: 1fr; }
-  .result-number { font-size: 54px; }
+  .wealth-hero { padding: 48px 20px 68px; }
+  .wealth-hero h1 { font-size: 54px; }
+  .wealth-lead { font-size: 17px; }
+  .wealth-rank { padding: 72px 20px; }
+  .section-title { font-size: 46px; }
+  .wealth-snapshot, .planner-panel, .wealth-projection { padding: 26px 20px; }
+  .snapshot-equation { gap: 10px; }
+  .snapshot-term strong { font-size: 38px; }
+  .snapshot-proof div { padding: 0 10px; }
+  .snapshot-proof strong { font-size: 22px; }
+  .planner-grid, .projection-grid { grid-template-columns: 1fr; }
+  .result-summary { grid-template-columns: 1fr; gap: 22px; }
+  .result-number { font-size: 56px; }
+  .rank-callout { text-align: left; }
+  .rank-callout strong { font-size: 54px; }
+  .metric-strip { grid-template-columns: 1fr; }
+  .metric-item, .metric-item:first-child { padding: 17px 0; }
+  .metric-item + .metric-item { border-left: 0; border-top: 1px solid var(--border); }
+  .comparison-toolbar { align-items: stretch; flex-direction: column; }
+  .context-tabs { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .benchmark-list { grid-template-columns: 1fr 1fr; gap: 0; }
+  .benchmark, .benchmark:first-child { padding: 18px 10px 16px 0; border-bottom: 1px solid var(--border); }
+  .benchmark + .benchmark { border-left: 0; }
+  .benchmark:nth-child(even) { padding-left: 14px; border-left: 1px solid var(--border); }
+  .projection-heading { align-items: flex-start; flex-direction: column; }
+  .projection-total { align-items: flex-start; flex-direction: column; }
+  .projection-total strong { font-size: 50px; }
+  .projection-rank { text-align: left; }
+  .projection-bar { grid-template-columns: 82px minmax(0, 1fr); }
+  .projection-bar strong { grid-column: 2; text-align: left; }
+  .data-explorer-head h3 { font-size: 44px; }
+  .explorer-toolbar { padding: 18px; }
+  .chart-grid { grid-template-columns: 1fr; }
+  .chart-panel-wide { grid-column: auto; }
+  .chart-panel { padding: 22px 18px; }
+  .chart-header { align-items: flex-start; flex-direction: column; }
+  .chart-header h4 { font-size: 26px; }
+  .age-chart-svg { height: 300px; }
+  .chart-readout { grid-template-columns: 1fr 1fr; }
+  .chart-readout-item, .chart-readout-item:first-child { padding: 13px 10px 13px 0; border-bottom: 1px solid var(--border); }
+  .chart-readout-item + .chart-readout-item { border-left: 0; }
+  .chart-readout-item:nth-child(even) { border-left: 1px solid var(--border); padding-left: 12px; }
+  .dashboard-chart-svg, .chart-panel-wide .dashboard-chart-svg { height: 290px; }
+  .province-range-svg { height: 340px; }
+  .composition-layout { grid-template-columns: 1fr; justify-items: center; }
+  .composition-legend { width: 100%; }
+  .guidance-head h3 { font-size: 44px; }
+  .insight-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px; }
   footer.site-footer { padding: 64px 24px 36px; }
   .nl-modal { padding: 48px 28px 32px; }
@@ -176,6 +460,22 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <script src="site-language.js?v=20260801" defer></script>
 <script src="site-region.js?v=20260801" defer></script>
 <script src="site-shell.js?v=20260801" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Canadian Wealth Rank Calculator",
+  "url": "https://accessible-finance.com/wealth-rank.html",
+  "description": "A free Canadian income and household net worth dashboard with percentile, age, province, composition, distribution, and future scenario comparisons.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "CAD"
+  }
+}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to content</a>
@@ -244,64 +544,66 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 </div>
 
 <main id="main-content" tabindex="-1">
-  <section class="wealth-hero">
+  <section class="wealth-hero" aria-labelledby="wealth-page-title">
     <div class="reveal">
-      <span class="eyebrow">Wealth Rank</span>
-      <h1>Compare your net worth <em>across Canada</em>.</h1>
-      <p class="wealth-lead">Enter your household assets and debts, then filter by province to compare against national and provincial wealth benchmarks.</p>
+      <span class="eyebrow">Canadian wealth benchmark</span>
+      <h1 id="wealth-page-title">See where your income and net worth <em>stand</em>.</h1>
+      <p class="wealth-lead">Build your household net worth, add the main earner's employment income, compare both with public Canadian benchmarks, then explore how age, province, and steady saving change the picture.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#calculator">Calculate your rank <span aria-hidden="true">&#8595;</span></a>
+        <span class="privacy-note">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 10V7a5 5 0 0 1 10 0v3"></path><rect x="4" y="10" width="16" height="11" rx="2"></rect></svg>
+          No signup. Inputs stay in your browser.
+        </span>
+      </div>
     </div>
-    <aside class="wealth-snapshot reveal d2" aria-label="Canadian wealth snapshot">
-      <div class="snapshot-label">2023 national median</div>
-      <div class="snapshot-number">$519.7K</div>
-      <p class="snapshot-text">Statistics Canada defines net worth as what families have left after selling assets and paying off debts.</p>
-      <div class="snapshot-grid">
-        <div class="snapshot-stat">
-          <strong>$773.5K</strong>
-          <span>Highest provincial median</span>
+    <div class="wealth-snapshot reveal d2" role="note" aria-label="How net worth is calculated">
+      <div class="snapshot-label">Net worth, made simple</div>
+      <div class="snapshot-equation" aria-label="Assets minus debts equals net worth">
+        <div class="snapshot-term">
+          <span>Assets</span>
+          <strong>$410K</strong>
         </div>
-        <div class="snapshot-stat">
-          <strong>$286.2K</strong>
-          <span>Lowest provincial median</span>
+        <div class="snapshot-symbol" aria-hidden="true">&#8722;</div>
+        <div class="snapshot-term">
+          <span>Debts</span>
+          <strong>$15K</strong>
         </div>
       </div>
-    </aside>
+      <p class="snapshot-text">Include cash, investments, home equity, pensions, vehicles, and business equity. Subtract every outstanding debt.</p>
+      <div class="snapshot-proof" aria-label="Canadian benchmark snapshot">
+        <div><strong>$519.7K</strong><span>Canada median</span></div>
+        <div><strong>$1.3M</strong><span>Top 20% estimate</span></div>
+        <div><strong>2023</strong><span>Latest SFS release</span></div>
+      </div>
+    </div>
   </section>
 
   <section class="wealth-rank" id="calculator">
     <div class="wealth-rank-inner">
       <div class="wealth-rank-head reveal">
         <div>
-          <span class="eyebrow">Rank estimate</span>
-          <h2 class="section-title">Estimate your <em>wealth percentile</em>.</h2>
+          <span class="eyebrow">Wealth dashboard</span>
+          <h2 class="section-title">One profile. <em>A fuller financial picture.</em></h2>
         </div>
-        <p class="wealth-rank-note">The province filter uses official provincial medians. Full provincial percentile thresholds are not published, so provincial ranks are median-adjusted estimates, not official statistics.</p>
+        <p class="wealth-rank-note">Official Canadian medians anchor the wealth and wage comparisons. Single-age curves and local percentile ranges are estimated because complete tables are not published at that detail. Treat every result as context, not a score.</p>
       </div>
 
-      <div class="wealth-shell reveal d2">
+      <div class="wealth-shell">
         <form class="planner-panel" id="wealthRankForm" aria-label="Wealth rank calculator inputs">
-          <h3>Your net worth <em>inputs</em></h3>
+          <div class="panel-heading">
+            <h3>Build your <em>profile</em></h3>
+            <span class="panel-step">Household view</span>
+          </div>
+
+          <div class="mode-switch" role="group" aria-label="Net worth input method">
+            <button class="mode-button" type="button" data-mode="details" aria-pressed="true">Build from details</button>
+            <button class="mode-button" type="button" data-mode="total" aria-pressed="false">Enter one total</button>
+          </div>
+
           <div class="planner-grid">
-            <div class="planner-field">
-              <label for="wealthInvestments">Investments and cash</label>
-              <input class="planner-control" id="wealthInvestments" name="wealthInvestments" type="number" inputmode="decimal" min="0" step="500" value="125000">
-            </div>
-            <div class="planner-field">
-              <label for="wealthHomeEquity">Home equity</label>
-              <input class="planner-control" id="wealthHomeEquity" name="wealthHomeEquity" type="number" inputmode="decimal" min="0" step="500" value="250000">
-              <span class="planner-help">Home value minus mortgage.</span>
-            </div>
-            <div class="planner-field">
-              <label for="wealthOtherAssets">Other assets</label>
-              <input class="planner-control" id="wealthOtherAssets" name="wealthOtherAssets" type="number" inputmode="decimal" min="0" step="500" value="35000">
-              <span class="planner-help">Vehicles, business equity, valuables, and other assets.</span>
-            </div>
-            <div class="planner-field">
-              <label for="wealthDebts">Other debts</label>
-              <input class="planner-control" id="wealthDebts" name="wealthDebts" type="number" inputmode="decimal" min="0" step="500" value="15000">
-              <span class="planner-help">Loans, credit cards, lines of credit, and non-mortgage debt.</span>
-            </div>
-            <div class="planner-field">
-              <label for="provinceSelect">Province filter</label>
+            <div class="planner-field full">
+              <label for="provinceSelect">Province</label>
               <select class="planner-control" id="provinceSelect" name="provinceSelect">
                 <option value="canada" selected>Canada overall</option>
                 <option value="nl">Newfoundland and Labrador</option>
@@ -315,88 +617,511 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
                 <option value="ab">Alberta</option>
                 <option value="bc">British Columbia</option>
               </select>
-              <span class="planner-help">SFS 2023 covers the 10 provinces.</span>
+              <span class="planner-help">The 2023 Survey of Financial Security covers all 10 provinces.</span>
+            </div>
+            <div class="planner-field full">
+              <label for="wealthAge">Age of the main income earner</label>
+              <input class="planner-control" id="wealthAge" name="wealthAge" type="number" inputmode="numeric" min="18" max="90" step="1" value="38">
+              <span class="planner-help" id="ageGroupHint">Compared with households led by someone age 35 to 44.</span>
+            </div>
+            <div class="planner-field full">
+              <label for="wealthAnnualIncome">Main earner annual employment income</label>
+              <div class="money-control"><input class="planner-control" id="wealthAnnualIncome" name="wealthAnnualIncome" type="number" inputmode="decimal" min="0" step="500" value="85000"></div>
+              <span class="planner-help">Before-tax wages, salaries, and commissions. Self-employment income is not included in the cited wage series.</span>
+            </div>
+          </div>
+
+          <div id="detailedInputs" class="planner-grid" aria-label="Detailed net worth inputs">
+            <div class="planner-field">
+              <label for="wealthInvestments">Cash &amp; investments</label>
+              <div class="money-control"><input class="planner-control" id="wealthInvestments" name="wealthInvestments" type="number" inputmode="decimal" min="0" step="500" value="125000"></div>
+              <span class="planner-help">Bank accounts, TFSA, RRSP, pensions, and other investments.</span>
             </div>
             <div class="planner-field">
-              <label for="wealthAgeGroup">Age of main income earner</label>
-              <select class="planner-control" id="wealthAgeGroup" name="wealthAgeGroup">
-                <option value="under35">Under 35</option>
-                <option value="35to44" selected>35 to 44</option>
-                <option value="45to54">45 to 54</option>
-                <option value="55to64">55 to 64</option>
-                <option value="65plus">65 and older</option>
-              </select>
-              <span class="planner-help">Age comparison uses national medians.</span>
+              <label for="wealthHomeEquity">Home equity</label>
+              <div class="money-control"><input class="planner-control" id="wealthHomeEquity" name="wealthHomeEquity" type="number" inputmode="decimal" min="0" step="500" value="250000"></div>
+              <span class="planner-help">Current home value minus the mortgage balance.</span>
+            </div>
+            <div class="planner-field">
+              <label for="wealthOtherAssets">Other assets</label>
+              <div class="money-control"><input class="planner-control" id="wealthOtherAssets" name="wealthOtherAssets" type="number" inputmode="decimal" min="0" step="500" value="35000"></div>
+              <span class="planner-help">Vehicles, business equity, valuables, and other property.</span>
+            </div>
+            <div class="planner-field">
+              <label for="wealthDebts">Other debts</label>
+              <div class="money-control"><input class="planner-control" id="wealthDebts" name="wealthDebts" type="number" inputmode="decimal" min="0" step="500" value="15000"></div>
+              <span class="planner-help">Student loans, credit cards, and non-mortgage debt.</span>
             </div>
           </div>
+
+          <div id="totalInput" class="planner-grid" hidden>
+            <div class="planner-field full">
+              <label for="wealthDirectTotal">Household net worth</label>
+              <div class="money-control"><input class="planner-control" id="wealthDirectTotal" name="wealthDirectTotal" type="number" inputmode="decimal" step="500" value="395000"></div>
+              <span class="planner-help">Enter assets minus debts. A negative number is okay.</span>
+            </div>
+          </div>
+
+          <details class="net-worth-help">
+            <summary>What should I include?</summary>
+            <div class="net-worth-help-content">
+              <p>Use what your household owns today, less what it owes today.</p>
+              <ul>
+                <li>Include registered and non-registered investments, cash, property equity, pensions, vehicles, and business equity.</li>
+                <li>Subtract mortgages, loans, credit cards, and lines of credit.</li>
+                <li>Do not include annual income in these net worth fields or use the full value of a home without also subtracting its mortgage.</li>
+              </ul>
+            </div>
+          </details>
+
+          <div class="form-actions">
+            <button class="btn-primary" type="submit">Update ranking</button>
+            <button class="btn-secondary" type="reset">Reset</button>
+          </div>
+          <p class="local-note">All values are CAD. Nothing is uploaded, stored, or tied to an account.</p>
         </form>
 
-        <aside class="planner-panel wealth-results" id="wealth-results" aria-live="polite">
-          <h3>Your wealth <em>rank</em></h3>
-          <div class="result-hero">
-            <div class="result-label">Estimated national percentile</div>
-            <div class="result-number" id="wealthPercentile">0th</div>
-            <p class="result-caption" id="wealthRankCaption">Based on your calculated household net worth.</p>
+        <section class="planner-panel wealth-results" id="wealth-results" tabindex="-1" aria-live="polite" aria-label="Estimated wealth rank results">
+          <div class="result-topline">
+            <span class="result-kicker">Your result</span>
+            <span class="result-status">Estimate ready</span>
           </div>
-          <div class="rank-meter" aria-hidden="true">
-            <div class="rank-scale">
-              <span>Lower</span>
-              <span>Median</span>
-              <span>Top 20%</span>
+          <div class="result-summary">
+            <div>
+              <div class="result-label">Estimated household net worth</div>
+              <div class="result-number" id="wealthNetWorth">$395,000</div>
+              <p class="result-caption" id="wealthRankCaption">Your comparison updates when you change an input.</p>
             </div>
-            <div class="rank-track">
-              <div class="rank-fill" id="wealthRankFill"></div>
-            </div>
-          </div>
-          <div class="wealth-card-grid">
-            <div class="wealth-card">
-              <div class="label">Estimated net worth</div>
-              <div class="value" id="wealthNetWorth">$0</div>
-            </div>
-            <div class="wealth-card">
-              <div class="label">Province estimate</div>
-              <div class="value" id="provincePercentile">0th</div>
-            </div>
-            <div class="wealth-card">
-              <div class="label">Rank band</div>
-              <div class="value" id="wealthRankBand">-</div>
-            </div>
-            <div class="wealth-card">
-              <div class="label">Province median comparison</div>
-              <div class="value" id="provinceRatio">0x</div>
-            </div>
-            <div class="wealth-card">
-              <div class="label">Age-group median comparison</div>
-              <div class="value" id="wealthAgeRatio">0x</div>
-            </div>
-            <div class="wealth-card">
-              <div class="label">Next provincial milestone</div>
-              <div class="value" id="wealthMilestoneGap">$0</div>
+            <div class="rank-callout">
+              <strong id="wealthPercentile">44th</strong>
+              <span id="wealthPercentileLabel">national percentile</span>
             </div>
           </div>
-          <p class="result-caption" id="wealthAgeCaption">Comparisons update as you change the inputs.</p>
-        </aside>
+
+          <div class="metric-strip">
+            <div class="metric-item">
+              <span>National rank</span>
+              <strong id="nationalPercentile">44th</strong>
+            </div>
+            <div class="metric-item">
+              <span id="provinceMetricLabel">Canada comparison</span>
+              <strong id="provincePercentile">44th</strong>
+            </div>
+            <div class="metric-item">
+              <span id="ageMetricLabel">Age 35 to 44 peers</span>
+              <strong id="agePercentile">49th</strong>
+            </div>
+            <div class="metric-item">
+              <span id="incomeMetricLabel">Income vs age peers</span>
+              <strong id="incomePercentile">50th</strong>
+            </div>
+          </div>
+
+          <div class="comparison-toolbar">
+            <h4>Explore the comparison</h4>
+            <div class="context-tabs" role="group" aria-label="Comparison group">
+              <button class="context-button" type="button" data-context="national" aria-pressed="true">Canada</button>
+              <button class="context-button" type="button" data-context="province" aria-pressed="false">Province</button>
+              <button class="context-button" type="button" data-context="age" aria-pressed="false">Age peers</button>
+            </div>
+          </div>
+
+          <div class="rank-visual" id="rankMeter" role="meter" aria-label="Estimated percentile" aria-valuemin="0" aria-valuemax="100" aria-valuenow="44">
+            <div class="rank-marker" id="wealthRankMarker"><span id="rankMarkerLabel">44th</span></div>
+            <div class="rank-track"></div>
+            <div class="rank-axis" aria-hidden="true">
+              <span>0th</span><span>25th</span><span>Median</span><span>75th</span><span>Top 10%</span>
+            </div>
+          </div>
+          <p class="context-summary" id="contextSummary">Select a comparison to see the relevant benchmarks.</p>
+
+          <div class="benchmark-list" aria-label="Wealth thresholds for selected comparison">
+            <div class="benchmark"><strong id="benchmark25">$0</strong><span>25th percentile</span></div>
+            <div class="benchmark"><strong id="benchmarkMedian">$0</strong><span>Median</span></div>
+            <div class="benchmark"><strong id="benchmarkTop20">$0</strong><span>Top 20%</span></div>
+            <div class="benchmark"><strong id="benchmarkTop10">$0</strong><span>Top 10%</span></div>
+            <div class="benchmark"><strong id="benchmarkTop1">$0</strong><span>Top 1%</span></div>
+          </div>
+        </section>
       </div>
 
-      <div class="benchmark-grid reveal d3" aria-label="Selected wealth benchmarks">
-        <div class="benchmark">
-          <strong id="benchmarkMedian">$0</strong>
-          <span id="benchmarkMedianLabel">Selected median</span>
+      <section class="wealth-projection" id="projection" aria-labelledby="projectionTitle">
+        <div class="projection-heading">
+          <div>
+            <span class="result-kicker">Planning scenario</span>
+            <h3 id="projectionTitle">Where consistency <em>could lead</em></h3>
+          </div>
+          <p>Explore a constant-dollar scenario using a real return after inflation. It is a planning illustration, not a market forecast.</p>
         </div>
-        <div class="benchmark">
-          <strong id="benchmarkTop20">$0</strong>
-          <span>Estimated top 20%</span>
+        <div class="projection-layout">
+          <form class="projection-controls" id="projectionForm" aria-label="Future net worth projection inputs">
+            <div class="projection-grid">
+              <div class="planner-field">
+                <label for="targetAge">Target age</label>
+                <input class="planner-control" id="targetAge" type="number" inputmode="numeric" min="19" max="95" step="1" value="65">
+              </div>
+              <div class="planner-field">
+                <label for="annualAddition">Annual net worth added</label>
+                <div class="money-control"><input class="planner-control" id="annualAddition" type="number" inputmode="decimal" min="0" step="500" value="12000"></div>
+              </div>
+              <div class="planner-field full">
+                <label for="realReturn">Expected real annual return (%)</label>
+                <div class="percent-control"><input class="planner-control" id="realReturn" type="number" inputmode="decimal" min="0" max="12" step="0.1" value="4" aria-describedby="realReturnHelp"></div>
+                <span class="planner-help" id="realReturnHelp">4% is the assumed annual return after inflation.</span>
+              </div>
+            </div>
+            <button class="btn-secondary projection-submit" type="submit">Update projection</button>
+            <p class="projection-note">The scenario applies one return to total net worth and assumes additions are made at year-end. Real life includes taxes, housing changes, fees, and uneven returns.</p>
+          </form>
+
+          <div class="projection-summary" aria-live="polite">
+            <div class="projection-total">
+              <div>
+                <span id="projectionHorizon">In 27 years</span>
+                <strong id="projectedNetWorth">$0</strong>
+              </div>
+              <div class="projection-rank">
+                <span>Estimated target-age rank</span>
+                <strong id="projectedPercentile">0th</strong>
+              </div>
+            </div>
+            <div class="projection-metrics">
+              <div class="projection-metric"><span>Your added savings</span><strong id="projectedContributions">$0</strong></div>
+              <div class="projection-metric"><span>Estimated growth</span><strong id="projectedGrowth">$0</strong></div>
+            </div>
+            <div class="projection-bars" aria-label="Projection comparison">
+              <div class="projection-bar"><span>Today</span><div class="projection-bar-track"><i class="projection-bar-fill" id="currentBar"></i></div><strong id="currentBarValue">$0</strong></div>
+              <div class="projection-bar"><span>Projection</span><div class="projection-bar-track"><i class="projection-bar-fill" id="projectionBar"></i></div><strong id="projectionBarValue">$0</strong></div>
+              <div class="projection-bar"><span>Peer median</span><div class="projection-bar-track"><i class="projection-bar-fill" id="peerBar"></i></div><strong id="peerBarValue">$0</strong></div>
+            </div>
+          </div>
         </div>
-        <div class="benchmark">
-          <strong id="benchmarkTop10">$0</strong>
-          <span>Estimated top 10%</span>
+      </section>
+
+      <section class="wealth-charts" aria-labelledby="dataExplorerTitle">
+        <div class="data-explorer-head">
+          <div>
+            <span class="eyebrow">Explore the benchmarks</span>
+            <h3 id="dataExplorerTitle">See the data from <em>more than one angle</em>.</h3>
+          </div>
+          <p>Ten benchmark views connect income, net worth, age, province, and financial composition. They respond to the profile above without sending your information anywhere.</p>
         </div>
-        <div class="benchmark">
-          <strong id="benchmarkTop1">$0</strong>
-          <span>Estimated top 1%</span>
+
+        <div class="explorer-toolbar">
+          <div>
+            <label for="chartAge">Explore one age across every chart</label>
+            <span class="explorer-toolbar-copy">This changes the chart readouts only. Your calculator age remains unchanged.</span>
+          </div>
+          <output class="chart-age-output" id="chartAgeOutput" for="chartAge">Age 38</output>
+          <input id="chartAge" type="range" min="21" max="85" step="1" value="38" aria-label="Age shown across the financial charts">
         </div>
-      </div>
-      <p class="source-links reveal d3">Sources: <a href="https://www150.statcan.gc.ca/n1/daily-quotidien/241029/t001a-eng.htm" target="_blank" rel="noopener">Statistics Canada Survey of Financial Security, 2023</a>; <a href="https://www.pbo-dpb.ca/en/publications/RP-2526-009-S--estimating-top-tail-family-wealth-distribution-in-canada-2025-update--estimation-extremite-superieure-distribution-patrimoine-familial-canada-mises-jour-2025" target="_blank" rel="noopener">Parliamentary Budget Officer High-net-worth Families Database update</a>. Province estimates scale national thresholds by the selected province median, so they should be treated as rough planning estimates.</p>
+
+        <div class="chart-grid">
+          <article class="chart-panel chart-panel-wide" aria-labelledby="incomeAgeChartTitle">
+            <div class="chart-header">
+              <div>
+                <h4 id="incomeAgeChartTitle">Estimated employment income by age</h4>
+                <p id="incomeAgeChartSubtitle">Individual wage percentile curves - Canada estimate</p>
+              </div>
+              <span class="chart-badge">Interactive</span>
+            </div>
+            <div class="chart-stage">
+              <svg class="dashboard-chart-svg" id="incomeAgeChart" role="img" aria-labelledby="incomeAgeChartTitle incomeAgeChartDescription">
+                <desc id="incomeAgeChartDescription">Estimated annual employment-income percentile curves by age with a marker for the entered income.</desc>
+              </svg>
+              <div class="chart-readout" id="incomeAgeReadout" aria-live="polite"></div>
+              <div class="chart-legend" aria-label="Income chart legend">
+                <span><i class="chart-swatch s90"></i>90th percentile</span>
+                <span><i class="chart-swatch s75"></i>75th percentile</span>
+                <span><i class="chart-swatch s50"></i>Median</span>
+                <span><i class="chart-swatch s25"></i>25th percentile</span>
+                <span><i class="chart-swatch s10"></i>10th percentile</span>
+                <span><i class="chart-swatch user"></i>Your income</span>
+              </div>
+            </div>
+            <details class="chart-method">
+              <summary>How the income curves are estimated</summary>
+              <p>Official 2023 wage medians anchor each age band. Lines between ages and the 10th, 25th, 75th, and 90th percentile ranges are interpolated estimates, scaled by the selected province's official median wage.</p>
+            </details>
+          </article>
+
+          <article class="chart-panel chart-panel-wide" aria-labelledby="ageChartTitle">
+            <div class="chart-header">
+              <div>
+                <h4 id="ageChartTitle">Estimated net worth by age</h4>
+                <p id="ageChartSubtitle">Household percentile curves - Canada estimate</p>
+              </div>
+              <span class="chart-badge">Interactive</span>
+            </div>
+            <div class="chart-stage">
+              <svg class="age-chart-svg" id="ageWealthChart" role="img" aria-labelledby="ageChartTitle ageChartDescription">
+                <desc id="ageChartDescription">Estimated household net worth percentile curves by age, with a marker for the calculator result.</desc>
+              </svg>
+              <div class="chart-readout" id="ageChartReadout" aria-live="polite"></div>
+              <div class="chart-legend" aria-label="Chart legend">
+                <span><i class="chart-swatch s90"></i>90th percentile</span>
+                <span><i class="chart-swatch s75"></i>75th percentile</span>
+                <span><i class="chart-swatch s50"></i>Median</span>
+                <span><i class="chart-swatch s25"></i>25th percentile</span>
+                <span><i class="chart-swatch s10"></i>10th percentile</span>
+                <span><i class="chart-swatch user"></i>Your estimate</span>
+              </div>
+            </div>
+            <details class="chart-method">
+              <summary>How this chart is estimated</summary>
+              <p>The lines scale national percentile thresholds using the five published age-group medians, with simple interpolation between groups. Province selection applies the same median adjustment used elsewhere on this page. It is a smooth planning view, not single-age survey data.</p>
+            </details>
+          </article>
+
+          <article class="chart-panel" aria-labelledby="incomeCompositionTitle">
+            <div class="chart-header">
+              <div>
+                <h4 id="incomeCompositionTitle">Median income composition by age</h4>
+                <p>Employment, investments, pensions, and transfers</p>
+              </div>
+            </div>
+            <div class="chart-stage">
+              <svg class="dashboard-chart-svg" id="incomeCompositionChart" role="img" aria-labelledby="incomeCompositionTitle incomeCompositionDescription">
+                <desc id="incomeCompositionDescription">Estimated median income components across age.</desc>
+              </svg>
+              <div class="chart-legend compact" aria-label="Income composition legend">
+                <span><i class="chart-swatch employment"></i>Employment</span>
+                <span><i class="chart-swatch investment"></i>Investment</span>
+                <span><i class="chart-swatch pension"></i>Pensions</span>
+                <span><i class="chart-swatch transfer"></i>Transfers</span>
+              </div>
+              <p class="chart-inline-readout" id="incomeCompositionReadout"></p>
+            </div>
+            <details class="chart-method">
+              <summary>About this composition</summary>
+              <p>The changing mix is an educational estimate informed by Canadian Income Survey and benefit patterns. It is not a published single-age breakdown.</p>
+            </details>
+          </article>
+
+          <article class="chart-panel" aria-labelledby="wealthCompositionAgeTitle">
+            <div class="chart-header">
+              <div>
+                <h4 id="wealthCompositionAgeTitle">Median wealth composition by age</h4>
+                <p>Real estate, financial assets, pensions, debt, and net worth</p>
+              </div>
+            </div>
+            <div class="chart-stage">
+              <svg class="dashboard-chart-svg" id="wealthCompositionAgeChart" role="img" aria-labelledby="wealthCompositionAgeTitle wealthCompositionAgeDescription">
+                <desc id="wealthCompositionAgeDescription">Estimated median asset and debt composition across age.</desc>
+              </svg>
+              <div class="chart-legend compact" aria-label="Wealth composition legend">
+                <span><i class="chart-swatch real-estate"></i>Real estate</span>
+                <span><i class="chart-swatch financial"></i>Financial</span>
+                <span><i class="chart-swatch pension"></i>Pensions</span>
+                <span><i class="chart-swatch other"></i>Other</span>
+                <span><i class="chart-swatch debt"></i>Debt</span>
+                <span><i class="chart-swatch median-line"></i>Net worth</span>
+              </div>
+              <p class="chart-inline-readout" id="wealthCompositionAgeReadout"></p>
+            </div>
+            <details class="chart-method">
+              <summary>About this composition</summary>
+              <p>Age-group net worth is official. Component shares and debt paths are smoothed educational estimates informed by the Survey of Financial Security asset and debt categories.</p>
+            </details>
+          </article>
+
+          <article class="chart-panel" aria-labelledby="incomeDistributionTitle">
+            <div class="chart-header">
+              <div>
+                <h4 id="incomeDistributionTitle">Employment income distribution</h4>
+                <p id="incomeDistributionSubtitle">Age and province-adjusted estimate</p>
+              </div>
+            </div>
+            <div class="chart-stage">
+              <svg class="dashboard-chart-svg" id="incomeDistributionChart" role="img" aria-labelledby="incomeDistributionTitle incomeDistributionDescription">
+                <desc id="incomeDistributionDescription">Estimated employment income distribution with a marker for the entered income.</desc>
+              </svg>
+              <p class="chart-inline-readout" id="incomeDistributionSummary"></p>
+            </div>
+            <details class="chart-method">
+              <summary>How the distribution is estimated</summary>
+              <p>A smooth log-normal curve is fitted around the selected age and province median. It illustrates skew and percentile position; it is not a count of individual tax records.</p>
+            </details>
+          </article>
+
+          <article class="chart-panel" aria-labelledby="wealthDistributionTitle">
+            <div class="chart-header">
+              <div>
+                <h4 id="wealthDistributionTitle">Net worth distribution</h4>
+                <p id="wealthDistributionSubtitle">Household percentile model</p>
+              </div>
+            </div>
+            <div class="chart-stage">
+              <svg class="dashboard-chart-svg" id="wealthDistributionChart" role="img" aria-labelledby="wealthDistributionTitle wealthDistributionDescription">
+                <desc id="wealthDistributionDescription">Estimated household net worth distribution with a marker for the calculator result.</desc>
+              </svg>
+              <p class="chart-inline-readout" id="wealthDistributionSummary"></p>
+            </div>
+            <details class="chart-method">
+              <summary>How the distribution is estimated</summary>
+              <p>The bars are synthesized from the page's published national percentile anchors, then scaled for age and province. They are not survey microdata.</p>
+            </details>
+          </article>
+
+          <article class="chart-panel" aria-labelledby="incomeProvinceTitle">
+            <div class="chart-header">
+              <div>
+                <h4 id="incomeProvinceTitle">Median income by province</h4>
+                <p>Official 2023 median wages with estimated 10th-90th ranges</p>
+              </div>
+            </div>
+            <div class="chart-stage">
+              <svg class="dashboard-chart-svg province-range-svg" id="incomeProvinceChart" role="img" aria-labelledby="incomeProvinceTitle incomeProvinceDescription">
+                <desc id="incomeProvinceDescription">Median annual wages by Canadian province with estimated percentile ranges.</desc>
+              </svg>
+              <p class="chart-inline-readout" id="incomeProvinceSummary"></p>
+            </div>
+            <details class="chart-method">
+              <summary>About the province ranges</summary>
+              <p>Median dots are official annual wages, salaries, and commissions. Whiskers use the same estimated national percentile ratios as the income-age chart.</p>
+            </details>
+          </article>
+
+          <article class="chart-panel" aria-labelledby="futureProvinceTitle">
+            <div class="chart-header">
+              <div>
+                <h4 id="futureProvinceTitle">Target-age net worth by province</h4>
+                <p id="futureProvinceSubtitle">Estimated household range at age 65</p>
+              </div>
+            </div>
+            <div class="chart-stage">
+              <svg class="dashboard-chart-svg province-range-svg" id="futureProvinceChart" role="img" aria-labelledby="futureProvinceTitle futureProvinceDescription">
+                <desc id="futureProvinceDescription">Estimated median household net worth by province at the selected target age with percentile ranges.</desc>
+              </svg>
+              <p class="chart-inline-readout" id="futureProvinceSummary"></p>
+            </div>
+            <details class="chart-method">
+              <summary>How target-age ranges are estimated</summary>
+              <p>Each province's 2023 median is combined with the selected target-age median and national percentile ratios. This is a comparison benchmark, not a forecast of provincial markets.</p>
+            </details>
+          </article>
+
+          <article class="chart-panel chart-panel-wide" aria-labelledby="genderIncomeTitle">
+            <div class="chart-header">
+              <div>
+                <h4 id="genderIncomeTitle">Employment income by sex and age</h4>
+                <p id="genderIncomeSubtitle">Official median wage anchors with estimated percentile bands</p>
+              </div>
+            </div>
+            <div class="chart-stage">
+              <svg class="dashboard-chart-svg" id="genderIncomeChart" role="img" aria-labelledby="genderIncomeTitle genderIncomeDescription">
+                <desc id="genderIncomeDescription">Estimated employment income by age for women and men, with a marker for the entered income.</desc>
+              </svg>
+              <div class="chart-legend" aria-label="Gender income chart legend">
+                <span><i class="chart-swatch male"></i>Men median</span>
+                <span><i class="chart-swatch female"></i>Women median</span>
+                <span><i class="chart-swatch user"></i>Your income</span>
+              </div>
+              <p class="chart-inline-readout" id="genderIncomeReadout"></p>
+            </div>
+            <details class="chart-method">
+              <summary>What this comparison can and cannot show</summary>
+              <p>Official age-by-sex medians include full-time, part-time, full-year, and part-year wage earners. The chart describes group medians and does not explain differences in hours, occupation, experience, or caregiving.</p>
+            </details>
+          </article>
+
+          <article class="chart-panel chart-panel-wide" aria-labelledby="incomeWealthTitle">
+            <div class="chart-header">
+              <div>
+                <h4 id="incomeWealthTitle">Median income versus net worth by age</h4>
+                <p id="incomeWealthSubtitle">How the two benchmarks move through a financial lifetime</p>
+              </div>
+            </div>
+            <div class="chart-stage">
+              <svg class="dashboard-chart-svg" id="incomeWealthChart" role="img" aria-labelledby="incomeWealthTitle incomeWealthDescription">
+                <desc id="incomeWealthDescription">A connected scatter chart comparing median employment income and median net worth by age.</desc>
+              </svg>
+              <div class="chart-legend" aria-label="Income and net worth chart legend">
+                <span><i class="chart-swatch median-line"></i>Age path</span>
+                <span><i class="chart-swatch user"></i>Your profile</span>
+              </div>
+              <p class="chart-inline-readout" id="incomeWealthSummary"></p>
+            </div>
+            <details class="chart-method">
+              <summary>Important interpretation note</summary>
+              <p>Each point pairs separate median wage and family net worth series for the same age. It does not follow the same households over time and does not imply that income alone caused the wealth shown.</p>
+            </details>
+          </article>
+
+          <article class="chart-panel" aria-labelledby="provinceChartTitle">
+            <div class="chart-header">
+              <div>
+                <h4 id="provinceChartTitle">Current median wealth by province</h4>
+                <p>2023 family net worth - select a row to compare</p>
+              </div>
+            </div>
+            <div class="chart-stage">
+              <div class="province-bars" id="provinceBars" role="group" aria-label="Select a province by median family net worth"></div>
+              <p class="province-summary" id="provinceChartSummary">Canada median: $519,700.</p>
+            </div>
+            <details class="chart-method">
+              <summary>About the province data</summary>
+              <p>Bars use the median family net worth values from the 2023 Survey of Financial Security. Territories are not included in that provincial comparison.</p>
+            </details>
+          </article>
+
+          <article class="chart-panel" aria-labelledby="compositionChartTitle">
+            <div class="chart-header">
+              <div>
+                <h4 id="compositionChartTitle">Your wealth composition</h4>
+                <p>How the assets and debts entered above build your result</p>
+              </div>
+            </div>
+            <div class="chart-stage">
+              <div class="composition-layout">
+                <div class="asset-donut" id="assetDonut" role="img" aria-label="Asset composition chart">
+                  <div class="asset-donut-center"><span id="assetTotalLabel">Total assets</span><strong id="assetTotal">$0</strong></div>
+                </div>
+                <div class="composition-legend" id="compositionLegend">
+                  <div class="composition-row"><i class="composition-dot"></i><span>Cash &amp; investments</span><strong id="mixInvestments">$0</strong></div>
+                  <div class="composition-row"><i class="composition-dot home"></i><span>Home equity</span><strong id="mixHome">$0</strong></div>
+                  <div class="composition-row"><i class="composition-dot other"></i><span>Other assets</span><strong id="mixOther">$0</strong></div>
+                  <div class="composition-row"><i class="composition-dot debt"></i><span>Debts subtracted</span><strong id="mixDebts">$0</strong></div>
+                </div>
+              </div>
+              <div class="debt-meter" id="debtMeter">
+                <div class="debt-meter-head"><span>Debt as a share of assets</span><strong id="debtRatio">0%</strong></div>
+                <div class="debt-track"><i class="debt-fill" id="debtFill"></i></div>
+              </div>
+              <p class="composition-message" id="compositionMessage">Your chart updates with the detailed inputs above.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="wealth-guidance" aria-labelledby="guidanceTitle">
+        <div class="guidance-head">
+          <span class="eyebrow">Use the number well</span>
+          <h3 id="guidanceTitle">A rank is context, <em>not a verdict</em>.</h3>
+        </div>
+        <div class="insight-grid">
+          <article class="insight"><span class="insight-number">01</span><h4>Compare like with like</h4><p>Age, home ownership, family size, pensions, and regional housing costs can move net worth dramatically. Start with your age-peer view before drawing conclusions.</p></article>
+          <article class="insight"><span class="insight-number">02</span><h4>Watch the direction</h4><p>A rising net worth over several years is usually more useful than a single percentile. Track assets and debts consistently, using the same definitions each time.</p></article>
+          <article class="insight"><span class="insight-number">03</span><h4>Focus on controllables</h4><p>Debt reduction, an emergency reserve, regular investing, and avoiding concentrated bets matter more than chasing somebody else's rank.</p></article>
+        </div>
+
+        <details class="method-panel">
+          <summary>Data, method, and important limitations</summary>
+          <div class="method-content">
+            <div>
+              <p>The national wealth curve interpolates between published family net worth benchmarks. Age and province estimates scale that curve using corresponding official medians. Income views use official 2023 wage medians by age, sex, and province.</p>
+              <p>Single-age lines, percentile ranges, compositions, and histograms are transparent estimates between published anchors. Statistics Canada reports wealth for family units and wages for individual tax filers, so the page keeps those units labelled separately.</p>
+            </div>
+            <ul>
+              <li>Results are estimates rounded for readability.</li>
+              <li>Negative net worth is supported.</li>
+              <li>Territories are excluded because the cited SFS provincial table covers the 10 provinces.</li>
+              <li>The future scenario uses today's dollars and does not model tax, fees, or volatility.</li>
+            </ul>
+          </div>
+        </details>
+        <p class="source-links">Sources: <a href="https://www150.statcan.gc.ca/n1/daily-quotidien/241029/t001a-eng.htm" target="_blank" rel="noopener">Statistics Canada Survey of Financial Security, 2023</a>; <a href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110001601" target="_blank" rel="noopener">SFS assets and debts by age</a>; <a href="https://www150.statcan.gc.ca/n1/daily-quotidien/250401/t002b-eng.htm" target="_blank" rel="noopener">2023 wages by age and sex</a>; <a href="https://www150.statcan.gc.ca/n1/daily-quotidien/250401/t001b-eng.htm" target="_blank" rel="noopener">2023 wages by province and sex</a>; <a href="https://www.pbo-dpb.ca/en/publications/RP-2526-009-S--estimating-top-tail-family-wealth-distribution-in-canada-2025-update--estimation-extremite-superieure-distribution-patrimoine-familial-canada-mises-jour-2025" target="_blank" rel="noopener">Parliamentary Budget Officer high-net-worth families update</a>.</p>
+      </section>
     </div>
   </section>
 </main>
@@ -475,7 +1200,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   (function () {
     const form = document.getElementById('wealthRankForm');
     if (!form) return;
-
+    const projectionForm = document.getElementById('projectionForm');
+    const detailedInputs = document.getElementById('detailedInputs');
+    const totalInput = document.getElementById('totalInput');
+    const modeButtons = Array.from(document.querySelectorAll('[data-mode]'));
+    const contextButtons = Array.from(document.querySelectorAll('[data-context]'));
     const moneyFormatter = new Intl.NumberFormat('en-CA', {
       style: 'currency',
       currency: 'CAD',
@@ -487,18 +1216,22 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       maximumFractionDigits: 1,
     });
     const nationalMedian = 519700;
+    const nationalWageMedian = 47650;
+    let inputMode = 'details';
+    let activeContext = 'national';
+    let latestResult = null;
     const provinces = {
-      canada: { label: 'Canada overall', short: 'Canada', median: 519700 },
-      nl: { label: 'Newfoundland and Labrador', short: 'NL', median: 333500 },
-      pe: { label: 'Prince Edward Island', short: 'PEI', median: 399800 },
-      ns: { label: 'Nova Scotia', short: 'NS', median: 354600 },
-      nb: { label: 'New Brunswick', short: 'NB', median: 286200 },
-      qc: { label: 'Quebec', short: 'QC', median: 371000 },
-      on: { label: 'Ontario', short: 'ON', median: 665600 },
-      mb: { label: 'Manitoba', short: 'MB', median: 386300 },
-      sk: { label: 'Saskatchewan', short: 'SK', median: 394600 },
-      ab: { label: 'Alberta', short: 'AB', median: 457100 },
-      bc: { label: 'British Columbia', short: 'BC', median: 773500 },
+      canada: { label: 'Canada overall', short: 'Canada', median: 519700, wage: 47650, maleWage: 54770, femaleWage: 41640 },
+      nl: { label: 'Newfoundland and Labrador', short: 'NL', median: 333500, wage: 40000, maleWage: 47210, femaleWage: 34310 },
+      pe: { label: 'Prince Edward Island', short: 'PEI', median: 399800, wage: 38660, maleWage: 41600, femaleWage: 35780 },
+      ns: { label: 'Nova Scotia', short: 'NS', median: 354600, wage: 42490, maleWage: 47780, femaleWage: 37810 },
+      nb: { label: 'New Brunswick', short: 'NB', median: 286200, wage: 41610, maleWage: 45920, femaleWage: 38170 },
+      qc: { label: 'Quebec', short: 'QC', median: 371000, wage: 47300, maleWage: 53070, femaleWage: 42290 },
+      on: { label: 'Ontario', short: 'ON', median: 665600, wage: 48160, maleWage: 54790, femaleWage: 42680 },
+      mb: { label: 'Manitoba', short: 'MB', median: 386300, wage: 42810, maleWage: 49160, femaleWage: 37080 },
+      sk: { label: 'Saskatchewan', short: 'SK', median: 394600, wage: 45880, maleWage: 54630, femaleWage: 38960 },
+      ab: { label: 'Alberta', short: 'AB', median: 457100, wage: 50670, maleWage: 62490, femaleWage: 41090 },
+      bc: { label: 'British Columbia', short: 'BC', median: 773500, wage: 49300, maleWage: 58130, femaleWage: 42190 },
     };
     const ageMedians = {
       under35: { label: 'under 35', median: 159100 },
@@ -507,6 +1240,72 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       '55to64': { label: '55 to 64', median: 873400 },
       '65plus': { label: '65 and older', median: 738900 },
     };
+    const ageMedianAnchors = [
+      { age: 21, median: 159100 },
+      { age: 30, median: 159100 },
+      { age: 40, median: 409300 },
+      { age: 50, median: 675800 },
+      { age: 60, median: 873400 },
+      { age: 70, median: 738900 },
+      { age: 85, median: 738900 },
+    ];
+    const incomeAgeAnchors = [
+      { age: 21, median: 16200 },
+      { age: 30, median: 48600 },
+      { age: 40, median: 63770 },
+      { age: 50, median: 67800 },
+      { age: 60, median: 54020 },
+      { age: 70, median: 20960 },
+      { age: 80, median: 630 },
+      { age: 85, median: 630 },
+    ];
+    const maleIncomeAgeAnchors = [
+      { age: 21, median: 18060 },
+      { age: 30, median: 54680 },
+      { age: 40, median: 74740 },
+      { age: 50, median: 79420 },
+      { age: 60, median: 64000 },
+      { age: 70, median: 23670 },
+      { age: 80, median: 630 },
+      { age: 85, median: 630 },
+    ];
+    const femaleIncomeAgeAnchors = [
+      { age: 21, median: 14730 },
+      { age: 30, median: 43000 },
+      { age: 40, median: 54020 },
+      { age: 50, median: 58120 },
+      { age: 60, median: 46020 },
+      { age: 70, median: 18330 },
+      { age: 80, median: 670 },
+      { age: 85, median: 670 },
+    ];
+    const incomePercentileFactors = [
+      { percentile: 5, factor: 0.35 },
+      { percentile: 10, factor: 0.59 },
+      { percentile: 25, factor: 0.78 },
+      { percentile: 50, factor: 1 },
+      { percentile: 75, factor: 1.42 },
+      { percentile: 90, factor: 2 },
+      { percentile: 99, factor: 3.4 },
+    ];
+    const incomeCompositionAnchors = [
+      { age: 21, total: 22000, employment: 0.90, investment: 0.01, pension: 0, transfer: 0.09 },
+      { age: 30, total: 53000, employment: 0.94, investment: 0.02, pension: 0, transfer: 0.04 },
+      { age: 40, total: 69000, employment: 0.93, investment: 0.03, pension: 0, transfer: 0.04 },
+      { age: 50, total: 75000, employment: 0.89, investment: 0.05, pension: 0.01, transfer: 0.05 },
+      { age: 60, total: 68000, employment: 0.69, investment: 0.08, pension: 0.13, transfer: 0.10 },
+      { age: 70, total: 55000, employment: 0.12, investment: 0.12, pension: 0.58, transfer: 0.18 },
+      { age: 85, total: 43000, employment: 0.02, investment: 0.15, pension: 0.62, transfer: 0.21 },
+    ];
+    const wealthCompositionAnchors = [
+      { age: 21, debt: 20000, realEstate: 0.08, financial: 0.42, pension: 0.10, other: 0.40 },
+      { age: 30, debt: 70000, realEstate: 0.45, financial: 0.20, pension: 0.15, other: 0.20 },
+      { age: 40, debt: 150000, realEstate: 0.50, financial: 0.15, pension: 0.25, other: 0.10 },
+      { age: 50, debt: 125000, realEstate: 0.48, financial: 0.18, pension: 0.27, other: 0.07 },
+      { age: 60, debt: 60000, realEstate: 0.42, financial: 0.22, pension: 0.32, other: 0.04 },
+      { age: 70, debt: 15000, realEstate: 0.38, financial: 0.28, pension: 0.30, other: 0.04 },
+      { age: 85, debt: 2000, realEstate: 0.34, financial: 0.36, pension: 0.26, other: 0.04 },
+    ];
     const rankPoints = [
       { netWorth: -100000, percentile: 5 },
       { netWorth: 0, percentile: 15 },
@@ -520,32 +1319,86 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       { netWorth: 36500000, percentile: 99.9 },
       { netWorth: 175000000, percentile: 99.99 },
     ];
-    const baseMilestones = [
-      { label: 'median', netWorth: 519700 },
-      { label: 'top 20%', netWorth: 1300000 },
-      { label: 'top 10%', netWorth: 2100000 },
-      { label: 'top 5%', netWorth: 2900000 },
-      { label: 'top 1%', netWorth: 7500000 },
-      { label: 'top 0.1%', netWorth: 36500000 },
-    ];
-    const ids = ['wealthInvestments', 'wealthHomeEquity', 'wealthOtherAssets', 'wealthDebts', 'wealthAgeGroup', 'provinceSelect'];
+    const ids = ['wealthInvestments', 'wealthHomeEquity', 'wealthOtherAssets', 'wealthDebts', 'wealthDirectTotal', 'wealthAge', 'wealthAnnualIncome', 'provinceSelect'];
     const output = {
       percentile: document.getElementById('wealthPercentile'),
+      percentileLabel: document.getElementById('wealthPercentileLabel'),
+      nationalPercentile: document.getElementById('nationalPercentile'),
       provincePercentile: document.getElementById('provincePercentile'),
+      agePercentile: document.getElementById('agePercentile'),
+      incomePercentile: document.getElementById('incomePercentile'),
+      incomeMetricLabel: document.getElementById('incomeMetricLabel'),
+      provinceMetricLabel: document.getElementById('provinceMetricLabel'),
+      ageMetricLabel: document.getElementById('ageMetricLabel'),
+      ageGroupHint: document.getElementById('ageGroupHint'),
       caption: document.getElementById('wealthRankCaption'),
-      fill: document.getElementById('wealthRankFill'),
       netWorth: document.getElementById('wealthNetWorth'),
-      band: document.getElementById('wealthRankBand'),
-      provinceRatio: document.getElementById('provinceRatio'),
-      ageRatio: document.getElementById('wealthAgeRatio'),
-      milestoneGap: document.getElementById('wealthMilestoneGap'),
-      ageCaption: document.getElementById('wealthAgeCaption'),
+      rankMeter: document.getElementById('rankMeter'),
+      rankMarker: document.getElementById('wealthRankMarker'),
+      rankMarkerLabel: document.getElementById('rankMarkerLabel'),
+      contextSummary: document.getElementById('contextSummary'),
+      benchmark25: document.getElementById('benchmark25'),
       benchmarkMedian: document.getElementById('benchmarkMedian'),
-      benchmarkMedianLabel: document.getElementById('benchmarkMedianLabel'),
       benchmarkTop20: document.getElementById('benchmarkTop20'),
       benchmarkTop10: document.getElementById('benchmarkTop10'),
       benchmarkTop1: document.getElementById('benchmarkTop1'),
+      projectionHorizon: document.getElementById('projectionHorizon'),
+      projectedNetWorth: document.getElementById('projectedNetWorth'),
+      projectedPercentile: document.getElementById('projectedPercentile'),
+      projectedContributions: document.getElementById('projectedContributions'),
+      projectedGrowth: document.getElementById('projectedGrowth'),
+      currentBar: document.getElementById('currentBar'),
+      projectionBar: document.getElementById('projectionBar'),
+      peerBar: document.getElementById('peerBar'),
+      currentBarValue: document.getElementById('currentBarValue'),
+      projectionBarValue: document.getElementById('projectionBarValue'),
+      peerBarValue: document.getElementById('peerBarValue'),
+      realReturnHelp: document.getElementById('realReturnHelp'),
+      ageChart: document.getElementById('ageWealthChart'),
+      ageChartSubtitle: document.getElementById('ageChartSubtitle'),
+      chartAge: document.getElementById('chartAge'),
+      chartAgeOutput: document.getElementById('chartAgeOutput'),
+      ageChartReadout: document.getElementById('ageChartReadout'),
+      incomeAgeChart: document.getElementById('incomeAgeChart'),
+      incomeAgeChartSubtitle: document.getElementById('incomeAgeChartSubtitle'),
+      incomeAgeReadout: document.getElementById('incomeAgeReadout'),
+      incomeCompositionChart: document.getElementById('incomeCompositionChart'),
+      incomeCompositionReadout: document.getElementById('incomeCompositionReadout'),
+      wealthCompositionAgeChart: document.getElementById('wealthCompositionAgeChart'),
+      wealthCompositionAgeReadout: document.getElementById('wealthCompositionAgeReadout'),
+      incomeDistributionChart: document.getElementById('incomeDistributionChart'),
+      incomeDistributionSubtitle: document.getElementById('incomeDistributionSubtitle'),
+      incomeDistributionSummary: document.getElementById('incomeDistributionSummary'),
+      wealthDistributionChart: document.getElementById('wealthDistributionChart'),
+      wealthDistributionSubtitle: document.getElementById('wealthDistributionSubtitle'),
+      wealthDistributionSummary: document.getElementById('wealthDistributionSummary'),
+      incomeProvinceChart: document.getElementById('incomeProvinceChart'),
+      incomeProvinceSummary: document.getElementById('incomeProvinceSummary'),
+      futureProvinceChart: document.getElementById('futureProvinceChart'),
+      futureProvinceSubtitle: document.getElementById('futureProvinceSubtitle'),
+      futureProvinceSummary: document.getElementById('futureProvinceSummary'),
+      genderIncomeChart: document.getElementById('genderIncomeChart'),
+      genderIncomeSubtitle: document.getElementById('genderIncomeSubtitle'),
+      genderIncomeReadout: document.getElementById('genderIncomeReadout'),
+      incomeWealthChart: document.getElementById('incomeWealthChart'),
+      incomeWealthSubtitle: document.getElementById('incomeWealthSubtitle'),
+      incomeWealthSummary: document.getElementById('incomeWealthSummary'),
+      provinceBars: document.getElementById('provinceBars'),
+      provinceChartSummary: document.getElementById('provinceChartSummary'),
+      assetDonut: document.getElementById('assetDonut'),
+      assetTotalLabel: document.getElementById('assetTotalLabel'),
+      assetTotal: document.getElementById('assetTotal'),
+      compositionLegend: document.getElementById('compositionLegend'),
+      mixInvestments: document.getElementById('mixInvestments'),
+      mixHome: document.getElementById('mixHome'),
+      mixOther: document.getElementById('mixOther'),
+      mixDebts: document.getElementById('mixDebts'),
+      debtMeter: document.getElementById('debtMeter'),
+      debtRatio: document.getElementById('debtRatio'),
+      debtFill: document.getElementById('debtFill'),
+      compositionMessage: document.getElementById('compositionMessage'),
     };
+    const svgNamespace = 'http://www.w3.org/2000/svg';
 
     function numericValue(id) {
       const number = Number.parseFloat(document.getElementById(id)?.value);
@@ -588,20 +1441,28 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       return 99.99;
     }
 
-    function rankBand(percentile) {
-      if (percentile >= 99.9) return 'Top 0.1%';
-      if (percentile >= 99.5) return 'Top 0.5%';
-      if (percentile >= 99) return 'Top 1%';
-      if (percentile >= 95) return 'Top 5%';
-      if (percentile >= 90) return 'Top 10%';
-      if (percentile >= 80) return 'Top 20%';
-      if (percentile >= 50) return 'Above median';
-      if (percentile >= 40) return 'Middle range';
-      return 'Bottom 40%';
+    function estimateThreshold(percentile) {
+      if (percentile <= rankPoints[0].percentile) return rankPoints[0].netWorth;
+      for (let index = 1; index < rankPoints.length; index += 1) {
+        const low = rankPoints[index - 1];
+        const high = rankPoints[index];
+        if (percentile <= high.percentile) {
+          const amount = (percentile - low.percentile) / (high.percentile - low.percentile);
+          if (low.netWorth > 0 && high.netWorth > 0) {
+            return Math.exp(lerp(Math.log(low.netWorth), Math.log(high.netWorth), amount));
+          }
+          return lerp(low.netWorth, high.netWorth, amount);
+        }
+      }
+      return rankPoints[rankPoints.length - 1].netWorth;
     }
 
     function ordinal(number) {
-      const rounded = Math.round(number);
+      if (number > 99 && number < 100) {
+        const precision = number >= 99.9 ? 2 : 1;
+        return `${number.toFixed(precision).replace(/0+$/, '').replace(/\.$/, '')}th`;
+      }
+      const rounded = Math.round(clamp(number, 0, 100));
       const mod100 = rounded % 100;
       if (mod100 >= 11 && mod100 <= 13) return `${rounded}th`;
       const mod10 = rounded % 10;
@@ -616,74 +1477,1068 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     }
 
     function formatCompact(number) {
-      return `$${compactFormatter.format(Math.round(number || 0)).replace('$', '')}`;
+      const value = Math.round(number || 0);
+      const sign = value < 0 ? '-' : '';
+      return `${sign}$${compactFormatter.format(Math.abs(value))}`;
     }
 
-    function formatRatio(ratio) {
-      if (ratio >= 10) return ratio.toFixed(0);
-      if (ratio < 2) return ratio.toFixed(2);
-      return ratio.toFixed(1);
+    function ageDetails(age) {
+      if (age < 35) return { key: 'under35', ...ageMedians.under35 };
+      if (age < 45) return { key: '35to44', ...ageMedians['35to44'] };
+      if (age < 55) return { key: '45to54', ...ageMedians['45to54'] };
+      if (age < 65) return { key: '55to64', ...ageMedians['55to64'] };
+      return { key: '65plus', ...ageMedians['65plus'] };
     }
 
-    function scaledMilestones(scale) {
-      return baseMilestones.map((milestone) => ({
-        label: milestone.label,
-        netWorth: milestone.netWorth * scale,
+    function ageMedianAt(age) {
+      const selectedAge = clamp(age, ageMedianAnchors[0].age, ageMedianAnchors[ageMedianAnchors.length - 1].age);
+      for (let index = 1; index < ageMedianAnchors.length; index += 1) {
+        const low = ageMedianAnchors[index - 1];
+        const high = ageMedianAnchors[index];
+        if (selectedAge <= high.age) {
+          const amount = (selectedAge - low.age) / (high.age - low.age);
+          return lerp(low.median, high.median, amount);
+        }
+      }
+      return ageMedianAnchors[ageMedianAnchors.length - 1].median;
+    }
+
+    function anchorValueAt(age, anchors, key = 'median') {
+      const selectedAge = clamp(age, anchors[0].age, anchors[anchors.length - 1].age);
+      for (let index = 1; index < anchors.length; index += 1) {
+        const low = anchors[index - 1];
+        const high = anchors[index];
+        if (selectedAge <= high.age) {
+          const amount = (selectedAge - low.age) / (high.age - low.age);
+          return lerp(low[key], high[key], amount);
+        }
+      }
+      return anchors[anchors.length - 1][key];
+    }
+
+    function interpolatedRecordAt(age, anchors, keys) {
+      const selectedAge = clamp(age, anchors[0].age, anchors[anchors.length - 1].age);
+      for (let index = 1; index < anchors.length; index += 1) {
+        const low = anchors[index - 1];
+        const high = anchors[index];
+        if (selectedAge <= high.age) {
+          const amount = (selectedAge - low.age) / (high.age - low.age);
+          return Object.fromEntries(keys.map((key) => [key, lerp(low[key], high[key], amount)]));
+        }
+      }
+      return Object.fromEntries(keys.map((key) => [key, anchors[anchors.length - 1][key]]));
+    }
+
+    function incomeFactorAt(percentile) {
+      if (percentile <= incomePercentileFactors[0].percentile) return incomePercentileFactors[0].factor;
+      for (let index = 1; index < incomePercentileFactors.length; index += 1) {
+        const low = incomePercentileFactors[index - 1];
+        const high = incomePercentileFactors[index];
+        if (percentile <= high.percentile) {
+          const amount = (percentile - low.percentile) / (high.percentile - low.percentile);
+          return lerp(low.factor, high.factor, amount);
+        }
+      }
+      return incomePercentileFactors[incomePercentileFactors.length - 1].factor;
+    }
+
+    function incomeAtAge(age, percentile, provinceScale = 1, anchors = incomeAgeAnchors) {
+      return anchorValueAt(age, anchors) * incomeFactorAt(percentile) * provinceScale;
+    }
+
+    function estimateIncomePercentile(income, median) {
+      if (income <= 0 || median <= 0) return 1;
+      const factor = income / median;
+      if (factor <= incomePercentileFactors[0].factor) {
+        return clamp((factor / incomePercentileFactors[0].factor) * incomePercentileFactors[0].percentile, 1, 5);
+      }
+      for (let index = 1; index < incomePercentileFactors.length; index += 1) {
+        const low = incomePercentileFactors[index - 1];
+        const high = incomePercentileFactors[index];
+        if (factor <= high.factor) {
+          const amount = (factor - low.factor) / (high.factor - low.factor);
+          return lerp(low.percentile, high.percentile, clamp(amount, 0, 1));
+        }
+      }
+      return 99;
+    }
+
+    function incomeComponentsAtAge(age, provinceScale) {
+      const record = interpolatedRecordAt(age, incomeCompositionAnchors, ['total', 'employment', 'investment', 'pension', 'transfer']);
+      const total = record.total * provinceScale;
+      return {
+        total,
+        employment: total * record.employment,
+        investment: total * record.investment,
+        pension: total * record.pension,
+        transfer: total * record.transfer,
+      };
+    }
+
+    function wealthComponentsAtAge(age, provinceScale) {
+      const record = interpolatedRecordAt(age, wealthCompositionAnchors, ['debt', 'realEstate', 'financial', 'pension', 'other']);
+      const netWorth = ageMedianAt(age) * provinceScale;
+      const debt = record.debt * provinceScale;
+      const totalAssets = Math.max(0, netWorth + debt);
+      return {
+        totalAssets,
+        netWorth,
+        debt,
+        realEstate: totalAssets * record.realEstate,
+        financial: totalAssets * record.financial,
+        pension: totalAssets * record.pension,
+        other: totalAssets * record.other,
+      };
+    }
+
+    function selectedChartAge() {
+      return clamp(Math.round(Number(output.chartAge.value) || latestResult?.ageValue || 38), 21, 85);
+    }
+
+    function wealthAtAge(age, percentile, provinceScale) {
+      return estimateThreshold(percentile) * (ageMedianAt(age) / nationalMedian) * provinceScale;
+    }
+
+    function svgElement(name, attributes = {}, text = '') {
+      const element = document.createElementNS(svgNamespace, name);
+      Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, String(value)));
+      if (text) element.textContent = text;
+      return element;
+    }
+
+    function appendReadout(label, value, container = output.ageChartReadout) {
+      const item = document.createElement('div');
+      item.className = 'chart-readout-item';
+      const itemLabel = document.createElement('span');
+      itemLabel.textContent = label;
+      const itemValue = document.createElement('strong');
+      itemValue.textContent = value;
+      item.append(itemLabel, itemValue);
+      container.appendChild(item);
+    }
+
+    function createChartFrame(svg, options) {
+      const rect = svg.getBoundingClientRect();
+      const width = Math.max(240, Math.round(rect.width) || 600);
+      const height = Math.max(250, Math.round(rect.height) || 300);
+      const compact = width < 520;
+      const margin = compact
+        ? { top: 18, right: 12, bottom: 40, left: 55 }
+        : { top: 20, right: 20, bottom: 44, left: 70 };
+      const minX = options.minX;
+      const maxX = options.maxX;
+      const minY = options.minY ?? 0;
+      const maxY = Math.max(minY + 1, options.maxY);
+      const x = (value) => margin.left + (((value - minX) / (maxX - minX || 1)) * (width - margin.left - margin.right));
+      const y = (value) => margin.top + ((1 - ((value - minY) / (maxY - minY || 1))) * (height - margin.top - margin.bottom));
+      const xTicks = options.xTicks || [minX, maxX];
+      const yTickCount = options.yTickCount || 4;
+
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.replaceChildren();
+      svg.appendChild(svgElement('desc', { id: options.descriptionId }, options.description));
+
+      for (let index = 0; index <= yTickCount; index += 1) {
+        const value = minY + (((maxY - minY) * index) / yTickCount);
+        const lineY = y(value);
+        svg.appendChild(svgElement('line', { x1: margin.left, y1: lineY, x2: width - margin.right, y2: lineY, class: 'chart-grid-line' }));
+        svg.appendChild(svgElement('text', { x: margin.left - 8, y: lineY + 4, 'text-anchor': 'end' }, (options.yFormat || formatCompact)(value)));
+      }
+      xTicks.forEach((value) => {
+        const lineX = x(value);
+        svg.appendChild(svgElement('line', { x1: lineX, y1: margin.top, x2: lineX, y2: height - margin.bottom, class: 'chart-grid-line' }));
+        svg.appendChild(svgElement('text', { x: lineX, y: height - 13, 'text-anchor': 'middle' }, (options.xFormat || String)(value)));
+      });
+      svg.appendChild(svgElement('line', { x1: margin.left, y1: height - margin.bottom, x2: width - margin.right, y2: height - margin.bottom, class: 'chart-axis-line' }));
+      return { svg, width, height, margin, minX, maxX, minY, maxY, x, y };
+    }
+
+    function linePath(points, frame) {
+      return points.map((point, index) => `${index === 0 ? 'M' : 'L'} ${frame.x(point.x).toFixed(2)} ${frame.y(point.y).toFixed(2)}`).join(' ');
+    }
+
+    function areaPath(upperPoints, lowerPoints, frame) {
+      const upper = upperPoints.map((point, index) => `${index === 0 ? 'M' : 'L'} ${frame.x(point.x).toFixed(2)} ${frame.y(point.y).toFixed(2)}`).join(' ');
+      const lower = [...lowerPoints].reverse().map((point) => `L ${frame.x(point.x).toFixed(2)} ${frame.y(point.y).toFixed(2)}`).join(' ');
+      return `${upper} ${lower} Z`;
+    }
+
+    function stackedAreaPath(ages, lowerValues, upperValues, frame) {
+      const upper = ages.map((age, index) => ({ x: age, y: upperValues[index] }));
+      const lower = ages.map((age, index) => ({ x: age, y: lowerValues[index] }));
+      return areaPath(upper, lower, frame);
+    }
+
+    function addFocusLine(svg, frame, value) {
+      const focusX = frame.x(value);
+      svg.appendChild(svgElement('line', {
+        x1: focusX,
+        y1: frame.margin.top,
+        x2: focusX,
+        y2: frame.height - frame.margin.bottom,
+        class: 'chart-focus-line',
       }));
+      return focusX;
     }
 
-    function updateWealthRank() {
-      const netWorth = numericValue('wealthInvestments')
+    function renderAgeChart() {
+      if (!latestResult || !output.ageChart) return;
+      const svg = output.ageChart;
+      const measuredWidth = Math.round(svg.getBoundingClientRect().width);
+      const width = Math.max(240, measuredWidth || 760);
+      const height = width < 520 ? 300 : 350;
+      const margin = width < 520
+        ? { top: 20, right: 12, bottom: 38, left: 54 }
+        : { top: 22, right: 22, bottom: 42, left: 76 };
+      const plotWidth = width - margin.left - margin.right;
+      const plotHeight = height - margin.top - margin.bottom;
+      const minAge = 21;
+      const maxAge = 85;
+      const selectedAge = selectedChartAge();
+      const provinceScale = latestResult.provinceScale;
+      const ages = Array.from({ length: maxAge - minAge + 1 }, (_, index) => minAge + index);
+      const series = [
+        { percentile: 90, className: 'chart-series chart-series-90', dot: '#145437' },
+        { percentile: 75, className: 'chart-series chart-series-75', dot: '#2d8a59' },
+        { percentile: 50, className: 'chart-series chart-series-50', dot: '#96550f' },
+        { percentile: 25, className: 'chart-series chart-series-25', dot: '#7d8c7b' },
+        { percentile: 10, className: 'chart-series chart-series-10', dot: '#a8afa8' },
+      ];
+      const maximum = Math.max(...ages.map((age) => wealthAtAge(age, 90, provinceScale))) * 1.08;
+      const x = (age) => margin.left + (((age - minAge) / (maxAge - minAge)) * plotWidth);
+      const y = (value) => margin.top + (plotHeight - ((clamp(value, 0, maximum) / maximum) * plotHeight));
+
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.replaceChildren();
+      svg.appendChild(svgElement('desc', { id: 'ageChartDescription' }, 'Estimated household net worth percentile curves by age, with a marker for the calculator result.'));
+
+      for (let index = 0; index <= 4; index += 1) {
+        const value = maximum * (index / 4);
+        const lineY = y(value);
+        svg.appendChild(svgElement('line', { x1: margin.left, y1: lineY, x2: width - margin.right, y2: lineY, class: 'chart-grid-line' }));
+        svg.appendChild(svgElement('text', { x: margin.left - 9, y: lineY + 4, 'text-anchor': 'end' }, formatCompact(value)));
+      }
+      [21, 35, 50, 65, 85].forEach((age) => {
+        const lineX = x(age);
+        svg.appendChild(svgElement('line', { x1: lineX, y1: margin.top, x2: lineX, y2: height - margin.bottom, class: 'chart-grid-line' }));
+        svg.appendChild(svgElement('text', { x: lineX, y: height - 13, 'text-anchor': 'middle' }, String(age)));
+      });
+      svg.appendChild(svgElement('line', { x1: margin.left, y1: height - margin.bottom, x2: width - margin.right, y2: height - margin.bottom, class: 'chart-axis-line' }));
+
+      series.forEach((item) => {
+        const path = ages.map((age, index) => `${index === 0 ? 'M' : 'L'} ${x(age).toFixed(2)} ${y(wealthAtAge(age, item.percentile, provinceScale)).toFixed(2)}`).join(' ');
+        svg.appendChild(svgElement('path', { d: path, class: item.className }));
+      });
+
+      const focusX = x(selectedAge);
+      svg.appendChild(svgElement('line', { x1: focusX, y1: margin.top, x2: focusX, y2: height - margin.bottom, class: 'chart-focus-line' }));
+      series.forEach((item) => {
+        svg.appendChild(svgElement('circle', {
+          cx: focusX,
+          cy: y(wealthAtAge(selectedAge, item.percentile, provinceScale)),
+          r: 5,
+          fill: item.dot,
+          class: 'chart-focus-dot',
+        }));
+      });
+
+      const userPoint = svgElement('circle', {
+        cx: x(clamp(latestResult.ageValue, minAge, maxAge)),
+        cy: y(latestResult.netWorth),
+        r: 7,
+        class: 'chart-user-dot',
+      });
+      userPoint.appendChild(svgElement('title', {}, `Your estimate: ${formatMoney(latestResult.netWorth)} at age ${latestResult.ageValue}`));
+      svg.appendChild(userPoint);
+
+      output.chartAgeOutput.textContent = `Age ${selectedAge}`;
+      output.ageChartSubtitle.textContent = `Household percentile curves - ${latestResult.province.label} estimate`;
+      svg.setAttribute('aria-label', `Estimated household net worth by age for ${latestResult.province.label}. Selected age ${selectedAge}.`);
+      output.ageChartReadout.replaceChildren();
+      appendReadout('90th percentile', formatCompact(wealthAtAge(selectedAge, 90, provinceScale)));
+      appendReadout('75th percentile', formatCompact(wealthAtAge(selectedAge, 75, provinceScale)));
+      appendReadout('Median', formatCompact(wealthAtAge(selectedAge, 50, provinceScale)));
+      appendReadout('25th percentile', formatCompact(wealthAtAge(selectedAge, 25, provinceScale)));
+      appendReadout('10th percentile', formatCompact(wealthAtAge(selectedAge, 10, provinceScale)));
+      appendReadout('Your estimate', formatCompact(latestResult.netWorth));
+    }
+
+    function renderIncomeAgeChart() {
+      if (!latestResult || !output.incomeAgeChart) return;
+      const svg = output.incomeAgeChart;
+      const selectedAge = selectedChartAge();
+      const ages = Array.from({ length: 65 }, (_, index) => 21 + index);
+      const series = [
+        { percentile: 90, className: 'series-line series-income-90', color: '#145437' },
+        { percentile: 75, className: 'series-line series-income-75', color: '#2d8a59' },
+        { percentile: 50, className: 'series-line series-income-50', color: '#96550f' },
+        { percentile: 25, className: 'series-line series-income-25', color: '#7d8c7b' },
+        { percentile: 10, className: 'series-line series-income-10', color: '#a8afa8' },
+      ];
+      const maximum = Math.max(...ages.map((age) => incomeAtAge(age, 90, latestResult.incomeProvinceScale))) * 1.08;
+      const frame = createChartFrame(svg, {
+        minX: 21,
+        maxX: 85,
+        maxY: maximum,
+        xTicks: [21, 35, 50, 65, 85],
+        descriptionId: 'incomeAgeChartDescription',
+        description: `Estimated annual employment-income percentile curves by age for ${latestResult.province.label}.`,
+      });
+
+      series.forEach((item) => {
+        const points = ages.map((age) => ({ x: age, y: incomeAtAge(age, item.percentile, latestResult.incomeProvinceScale) }));
+        svg.appendChild(svgElement('path', { d: linePath(points, frame), class: item.className }));
+      });
+      const focusX = addFocusLine(svg, frame, selectedAge);
+      series.forEach((item) => {
+        svg.appendChild(svgElement('circle', {
+          cx: focusX,
+          cy: frame.y(incomeAtAge(selectedAge, item.percentile, latestResult.incomeProvinceScale)),
+          r: 4.5,
+          fill: item.color,
+          class: 'chart-focus-dot',
+        }));
+      });
+      const userPoint = svgElement('circle', {
+        cx: frame.x(clamp(latestResult.ageValue, 21, 85)),
+        cy: frame.y(clamp(latestResult.annualIncome, 0, maximum)),
+        r: 7,
+        class: 'chart-user-dot',
+      });
+      userPoint.appendChild(svgElement('title', {}, `Your income: ${formatMoney(latestResult.annualIncome)} at age ${latestResult.ageValue}`));
+      svg.appendChild(userPoint);
+
+      output.incomeAgeChartSubtitle.textContent = `Individual wage percentile curves - ${latestResult.province.label} estimate`;
+      svg.setAttribute('aria-label', `Estimated employment income by age for ${latestResult.province.label}. Selected age ${selectedAge}.`);
+      output.incomeAgeReadout.replaceChildren();
+      appendReadout('90th percentile', formatCompact(incomeAtAge(selectedAge, 90, latestResult.incomeProvinceScale)), output.incomeAgeReadout);
+      appendReadout('75th percentile', formatCompact(incomeAtAge(selectedAge, 75, latestResult.incomeProvinceScale)), output.incomeAgeReadout);
+      appendReadout('Median', formatCompact(incomeAtAge(selectedAge, 50, latestResult.incomeProvinceScale)), output.incomeAgeReadout);
+      appendReadout('25th percentile', formatCompact(incomeAtAge(selectedAge, 25, latestResult.incomeProvinceScale)), output.incomeAgeReadout);
+      appendReadout('10th percentile', formatCompact(incomeAtAge(selectedAge, 10, latestResult.incomeProvinceScale)), output.incomeAgeReadout);
+      appendReadout('Your income', formatCompact(latestResult.annualIncome), output.incomeAgeReadout);
+    }
+
+    function renderIncomeCompositionChart() {
+      if (!latestResult || !output.incomeCompositionChart) return;
+      const svg = output.incomeCompositionChart;
+      const selectedAge = selectedChartAge();
+      const ages = Array.from({ length: 65 }, (_, index) => 21 + index);
+      const records = ages.map((age) => incomeComponentsAtAge(age, latestResult.incomeProvinceScale));
+      const maximum = Math.max(...records.map((record) => record.total)) * 1.08;
+      const frame = createChartFrame(svg, {
+        minX: 21,
+        maxX: 85,
+        maxY: maximum,
+        xTicks: [21, 35, 50, 65, 85],
+        descriptionId: 'incomeCompositionDescription',
+        description: `Estimated median income composition by age for ${latestResult.province.label}.`,
+      });
+      const layers = [
+        { key: 'employment', className: 'chart-area area-employment' },
+        { key: 'investment', className: 'chart-area area-investment' },
+        { key: 'pension', className: 'chart-area area-pension' },
+        { key: 'transfer', className: 'chart-area area-transfer' },
+      ];
+      let lower = ages.map(() => 0);
+      layers.forEach((layer) => {
+        const upper = records.map((record, index) => lower[index] + record[layer.key]);
+        svg.appendChild(svgElement('path', { d: stackedAreaPath(ages, lower, upper, frame), class: layer.className }));
+        lower = upper;
+      });
+      addFocusLine(svg, frame, selectedAge);
+      const selected = incomeComponentsAtAge(selectedAge, latestResult.incomeProvinceScale);
+      output.incomeCompositionReadout.textContent = `Age ${selectedAge}: ${formatMoney(selected.employment)} employment, ${formatMoney(selected.investment)} investment income, ${formatMoney(selected.pension)} pensions, and ${formatMoney(selected.transfer)} transfers.`;
+      svg.setAttribute('aria-label', `Estimated median income composition by age for ${latestResult.province.label}. At age ${selectedAge}, total income is ${formatMoney(selected.total)}.`);
+    }
+
+    function renderWealthCompositionAgeChart() {
+      if (!latestResult || !output.wealthCompositionAgeChart) return;
+      const svg = output.wealthCompositionAgeChart;
+      const selectedAge = selectedChartAge();
+      const ages = Array.from({ length: 65 }, (_, index) => 21 + index);
+      const records = ages.map((age) => wealthComponentsAtAge(age, latestResult.provinceScale));
+      const maximum = Math.max(...records.map((record) => record.totalAssets)) * 1.08;
+      const frame = createChartFrame(svg, {
+        minX: 21,
+        maxX: 85,
+        maxY: maximum,
+        xTicks: [21, 35, 50, 65, 85],
+        descriptionId: 'wealthCompositionAgeDescription',
+        description: `Estimated median wealth composition by age for ${latestResult.province.label}.`,
+      });
+      const layers = [
+        { key: 'realEstate', className: 'chart-area area-real-estate' },
+        { key: 'financial', className: 'chart-area area-financial' },
+        { key: 'pension', className: 'chart-area area-pension' },
+        { key: 'other', className: 'chart-area area-other' },
+      ];
+      let lower = ages.map(() => 0);
+      layers.forEach((layer) => {
+        const upper = records.map((record, index) => lower[index] + record[layer.key]);
+        svg.appendChild(svgElement('path', { d: stackedAreaPath(ages, lower, upper, frame), class: layer.className }));
+        lower = upper;
+      });
+      svg.appendChild(svgElement('path', {
+        d: linePath(ages.map((age, index) => ({ x: age, y: records[index].debt })), frame),
+        class: 'series-debt',
+      }));
+      svg.appendChild(svgElement('path', {
+        d: linePath(ages.map((age, index) => ({ x: age, y: records[index].netWorth })), frame),
+        class: 'series-line series-net-worth',
+      }));
+      addFocusLine(svg, frame, selectedAge);
+      const selected = wealthComponentsAtAge(selectedAge, latestResult.provinceScale);
+      output.wealthCompositionAgeReadout.textContent = `Age ${selectedAge}: ${formatMoney(selected.totalAssets)} in estimated assets, ${formatMoney(selected.debt)} in debt, and ${formatMoney(selected.netWorth)} in median net worth.`;
+      svg.setAttribute('aria-label', `Estimated median wealth composition by age for ${latestResult.province.label}. At age ${selectedAge}, estimated net worth is ${formatMoney(selected.netWorth)}.`);
+    }
+
+    function renderHistogram(svg, options) {
+      const maximumShare = Math.max(...options.bins.map((bin) => bin.share), 1) * 1.08;
+      const frame = createChartFrame(svg, {
+        minX: options.minX,
+        maxX: options.maxX,
+        maxY: maximumShare,
+        xTicks: options.xTicks,
+        xFormat: formatCompact,
+        yFormat: (value) => `${Math.round(value)}%`,
+        descriptionId: options.descriptionId,
+        description: options.description,
+      });
+      const gap = Math.max(1, (frame.width - frame.margin.left - frame.margin.right) / options.bins.length * 0.12);
+      options.bins.forEach((bin) => {
+        const x1 = frame.x(bin.start) + (gap / 2);
+        const x2 = frame.x(bin.end) - (gap / 2);
+        const barY = frame.y(bin.share);
+        const rect = svgElement('rect', {
+          x: x1,
+          y: barY,
+          width: Math.max(1, x2 - x1),
+          height: Math.max(0, frame.y(0) - barY),
+          rx: 2,
+          class: 'histogram-bar',
+        });
+        rect.appendChild(svgElement('title', {}, `${formatMoney(bin.start)} to ${formatMoney(bin.end)}: about ${bin.share.toFixed(1)}%`));
+        svg.appendChild(rect);
+      });
+      const markerValue = clamp(options.marker, options.minX, options.maxX);
+      const markerX = frame.x(markerValue);
+      svg.appendChild(svgElement('line', {
+        x1: markerX,
+        y1: frame.margin.top,
+        x2: markerX,
+        y2: frame.height - frame.margin.bottom,
+        class: 'histogram-marker',
+      }));
+      svg.appendChild(svgElement('circle', {
+        cx: markerX,
+        cy: frame.margin.top + 8,
+        r: 6,
+        class: 'histogram-marker-dot',
+      }));
+      return frame;
+    }
+
+    function renderIncomeDistributionChart() {
+      if (!latestResult || !output.incomeDistributionChart) return;
+      const age = selectedChartAge();
+      const median = incomeAtAge(age, 50, latestResult.incomeProvinceScale);
+      const maximum = Math.max(10000, incomeAtAge(age, 99, latestResult.incomeProvinceScale));
+      const binCount = 22;
+      const binWidth = maximum / binCount;
+      const sigma = 0.62;
+      const rawBins = Array.from({ length: binCount }, (_, index) => {
+        const start = index * binWidth;
+        const end = (index + 1) * binWidth;
+        const midpoint = Math.max(1, (start + end) / 2);
+        const density = (1 / (midpoint * sigma * Math.sqrt(2 * Math.PI)))
+          * Math.exp(-Math.pow(Math.log(midpoint) - Math.log(Math.max(1, median)), 2) / (2 * sigma * sigma));
+        return { start, end, density: density * binWidth };
+      });
+      const totalDensity = rawBins.reduce((sum, bin) => sum + bin.density, 0) || 1;
+      const bins = rawBins.map((bin) => ({ ...bin, share: (bin.density / totalDensity) * 100 }));
+      renderHistogram(output.incomeDistributionChart, {
+        bins,
+        minX: 0,
+        maxX: maximum,
+        xTicks: [0, maximum * 0.33, maximum * 0.66, maximum],
+        marker: latestResult.annualIncome,
+        descriptionId: 'incomeDistributionDescription',
+        description: `Estimated employment-income distribution at age ${age} for ${latestResult.province.label}, with the entered income marked.`,
+      });
+      const percentile = estimateIncomePercentile(latestResult.annualIncome, median);
+      output.incomeDistributionSubtitle.textContent = `Age ${age} - ${latestResult.province.label}`;
+      output.incomeDistributionSummary.textContent = `${formatMoney(latestResult.annualIncome)} is estimated around the ${ordinal(percentile)} percentile against a median of ${formatMoney(median)}.`;
+      output.incomeDistributionChart.setAttribute('aria-label', `Estimated employment income distribution at age ${age}. Entered income is around the ${ordinal(percentile)} percentile.`);
+    }
+
+    function renderWealthDistributionChart() {
+      if (!latestResult || !output.wealthDistributionChart) return;
+      const age = selectedChartAge();
+      const contextScale = latestResult.provinceScale * (ageMedianAt(age) / nationalMedian);
+      const minimum = estimateThreshold(5) * contextScale;
+      const maximum = estimateThreshold(95) * contextScale;
+      const binCount = 24;
+      const binWidth = (maximum - minimum) / binCount;
+      const counts = Array.from({ length: binCount }, () => 0);
+      for (let index = 0; index < 500; index += 1) {
+        const percentile = 1 + ((98 * index) / 499);
+        const value = estimateThreshold(percentile) * contextScale;
+        const binIndex = clamp(Math.floor((value - minimum) / binWidth), 0, binCount - 1);
+        counts[binIndex] += 1;
+      }
+      const total = counts.reduce((sum, count) => sum + count, 0) || 1;
+      const bins = counts.map((count, index) => ({
+        start: minimum + (index * binWidth),
+        end: minimum + ((index + 1) * binWidth),
+        share: (count / total) * 100,
+      }));
+      renderHistogram(output.wealthDistributionChart, {
+        bins,
+        minX: minimum,
+        maxX: maximum,
+        xTicks: [minimum, 0, maximum * 0.5, maximum],
+        marker: latestResult.netWorth,
+        descriptionId: 'wealthDistributionDescription',
+        description: `Estimated household net worth distribution at age ${age} for ${latestResult.province.label}, with the entered net worth marked.`,
+      });
+      const percentile = estimatePercentile(latestResult.netWorth / contextScale);
+      output.wealthDistributionSubtitle.textContent = `Age ${age} - ${latestResult.province.label}`;
+      output.wealthDistributionSummary.textContent = `${formatMoney(latestResult.netWorth)} is estimated around the ${ordinal(percentile)} percentile for the selected age and province context.`;
+      output.wealthDistributionChart.setAttribute('aria-label', `Estimated household net worth distribution at age ${age}. Entered net worth is around the ${ordinal(percentile)} percentile.`);
+    }
+
+    function renderWhiskerChart(svg, entries, options) {
+      const rect = svg.getBoundingClientRect();
+      const width = Math.max(260, Math.round(rect.width) || 540);
+      const height = 46 + (entries.length * 27);
+      const margin = { top: 10, right: 62, bottom: 30, left: 38 };
+      const plotWidth = width - margin.left - margin.right;
+      const x = (value) => margin.left + ((value / options.maximum) * plotWidth);
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.replaceChildren();
+      svg.appendChild(svgElement('desc', { id: options.descriptionId }, options.description));
+
+      entries.forEach((entry, index) => {
+        const rowY = margin.top + 13 + (index * 27);
+        if (entry.key === options.selectedKey) {
+          svg.appendChild(svgElement('rect', { x: 0, y: rowY - 12, width, height: 24, rx: 4, class: 'whisker-row-selected' }));
+        }
+        svg.appendChild(svgElement('text', { x: 4, y: rowY + 4, class: 'chart-axis-title' }, entry.code));
+        svg.appendChild(svgElement('line', { x1: x(entry.low), y1: rowY, x2: x(entry.high), y2: rowY, class: 'whisker-line' }));
+        svg.appendChild(svgElement('line', { x1: x(entry.low), y1: rowY - 5, x2: x(entry.low), y2: rowY + 5, class: 'whisker-cap' }));
+        svg.appendChild(svgElement('line', { x1: x(entry.high), y1: rowY - 5, x2: x(entry.high), y2: rowY + 5, class: 'whisker-cap' }));
+        const dot = svgElement('circle', { cx: x(entry.median), cy: rowY, r: 5, class: 'whisker-median' });
+        dot.appendChild(svgElement('title', {}, `${entry.label}: median ${formatMoney(entry.median)}, estimated range ${formatMoney(entry.low)} to ${formatMoney(entry.high)}`));
+        svg.appendChild(dot);
+        svg.appendChild(svgElement('text', { x: width - 4, y: rowY + 4, 'text-anchor': 'end' }, formatCompact(entry.median)));
+      });
+      [0, options.maximum / 2, options.maximum].forEach((value) => {
+        const tickX = x(value);
+        svg.appendChild(svgElement('line', { x1: tickX, y1: height - margin.bottom + 2, x2: tickX, y2: height - margin.bottom + 7, class: 'chart-axis-line' }));
+        svg.appendChild(svgElement('text', { x: tickX, y: height - 7, 'text-anchor': 'middle' }, formatCompact(value)));
+      });
+      svg.setAttribute('aria-label', options.ariaLabel);
+    }
+
+    function renderIncomeProvinceChart() {
+      if (!latestResult || !output.incomeProvinceChart) return;
+      const entries = Object.entries(provinces)
+        .map(([key, province]) => ({
+          key,
+          code: key === 'canada' ? 'CA' : province.short,
+          label: province.label,
+          low: province.wage * incomeFactorAt(10),
+          median: province.wage,
+          high: province.wage * incomeFactorAt(90),
+        }))
+        .sort((a, b) => b.median - a.median);
+      const maximum = Math.max(...entries.map((entry) => entry.high)) * 1.04;
+      renderWhiskerChart(output.incomeProvinceChart, entries, {
+        maximum,
+        selectedKey: latestResult.provinceKey,
+        descriptionId: 'incomeProvinceDescription',
+        description: 'Official 2023 median annual wages by province with estimated 10th to 90th percentile ranges.',
+        ariaLabel: `Median employment income by province. ${latestResult.province.label} is selected.`,
+      });
+      output.incomeProvinceSummary.textContent = `${latestResult.province.label}: official median wage ${formatMoney(latestResult.province.wage)}; estimated 10th-90th range ${formatMoney(latestResult.province.wage * incomeFactorAt(10))} to ${formatMoney(latestResult.province.wage * incomeFactorAt(90))}.`;
+    }
+
+    function renderFutureProvinceChart() {
+      if (!latestResult || !output.futureProvinceChart) return;
+      const targetAge = clamp(Math.round(numericValue('targetAge') || 65), 21, 95);
+      const entries = Object.entries(provinces)
+        .map(([key, province]) => {
+          const scale = province.median / nationalMedian;
+          return {
+            key,
+            code: key === 'canada' ? 'CA' : province.short,
+            label: province.label,
+            low: wealthAtAge(targetAge, 10, scale),
+            median: wealthAtAge(targetAge, 50, scale),
+            high: wealthAtAge(targetAge, 90, scale),
+          };
+        })
+        .sort((a, b) => b.median - a.median);
+      const maximum = Math.max(...entries.map((entry) => entry.high)) * 1.04;
+      renderWhiskerChart(output.futureProvinceChart, entries, {
+        maximum,
+        selectedKey: latestResult.provinceKey,
+        descriptionId: 'futureProvinceDescription',
+        description: `Estimated household net worth by province at age ${targetAge} with 10th to 90th percentile ranges.`,
+        ariaLabel: `Estimated target-age household net worth by province at age ${targetAge}. ${latestResult.province.label} is selected.`,
+      });
+      const selectedScale = latestResult.province.median / nationalMedian;
+      output.futureProvinceSubtitle.textContent = `Estimated household range at age ${targetAge}`;
+      output.futureProvinceSummary.textContent = `${latestResult.province.label} at age ${targetAge}: estimated median ${formatMoney(wealthAtAge(targetAge, 50, selectedScale))}, with a broad 10th-90th range of ${formatMoney(wealthAtAge(targetAge, 10, selectedScale))} to ${formatMoney(wealthAtAge(targetAge, 90, selectedScale))}.`;
+    }
+
+    function renderGenderIncomeChart() {
+      if (!latestResult || !output.genderIncomeChart) return;
+      const svg = output.genderIncomeChart;
+      const selectedAge = selectedChartAge();
+      const ages = Array.from({ length: 65 }, (_, index) => 21 + index);
+      const maleScale = latestResult.province.maleWage / provinces.canada.maleWage;
+      const femaleScale = latestResult.province.femaleWage / provinces.canada.femaleWage;
+      const maleMedian = ages.map((age) => ({ x: age, y: anchorValueAt(age, maleIncomeAgeAnchors) * maleScale }));
+      const femaleMedian = ages.map((age) => ({ x: age, y: anchorValueAt(age, femaleIncomeAgeAnchors) * femaleScale }));
+      const maleLow = maleMedian.map((point) => ({ x: point.x, y: point.y * incomeFactorAt(10) }));
+      const maleHigh = maleMedian.map((point) => ({ x: point.x, y: point.y * incomeFactorAt(90) }));
+      const femaleLow = femaleMedian.map((point) => ({ x: point.x, y: point.y * incomeFactorAt(10) }));
+      const femaleHigh = femaleMedian.map((point) => ({ x: point.x, y: point.y * incomeFactorAt(90) }));
+      const maximum = Math.max(...maleHigh.map((point) => point.y), ...femaleHigh.map((point) => point.y)) * 1.08;
+      const frame = createChartFrame(svg, {
+        minX: 21,
+        maxX: 85,
+        maxY: maximum,
+        xTicks: [21, 35, 50, 65, 85],
+        descriptionId: 'genderIncomeDescription',
+        description: `Estimated employment-income medians and percentile bands by sex and age for ${latestResult.province.label}.`,
+      });
+      svg.appendChild(svgElement('path', { d: areaPath(maleHigh, maleLow, frame), class: 'chart-area area-gender-male' }));
+      svg.appendChild(svgElement('path', { d: areaPath(femaleHigh, femaleLow, frame), class: 'chart-area area-gender-female' }));
+      svg.appendChild(svgElement('path', { d: linePath(maleMedian, frame), class: 'series-line series-male' }));
+      svg.appendChild(svgElement('path', { d: linePath(femaleMedian, frame), class: 'series-line series-female' }));
+      const focusX = addFocusLine(svg, frame, selectedAge);
+      const selectedMale = anchorValueAt(selectedAge, maleIncomeAgeAnchors) * maleScale;
+      const selectedFemale = anchorValueAt(selectedAge, femaleIncomeAgeAnchors) * femaleScale;
+      svg.appendChild(svgElement('circle', { cx: focusX, cy: frame.y(selectedMale), r: 5, fill: '#476a8c', class: 'chart-focus-dot' }));
+      svg.appendChild(svgElement('circle', { cx: focusX, cy: frame.y(selectedFemale), r: 5, fill: '#765d73', class: 'chart-focus-dot' }));
+      const userPoint = svgElement('circle', {
+        cx: frame.x(clamp(latestResult.ageValue, 21, 85)),
+        cy: frame.y(clamp(latestResult.annualIncome, 0, maximum)),
+        r: 7,
+        class: 'chart-user-dot',
+      });
+      userPoint.appendChild(svgElement('title', {}, `Your entered income: ${formatMoney(latestResult.annualIncome)}`));
+      svg.appendChild(userPoint);
+      const gap = selectedMale - selectedFemale;
+      output.genderIncomeSubtitle.textContent = `Official median anchors - ${latestResult.province.label} estimate`;
+      output.genderIncomeReadout.textContent = `Age ${selectedAge}: estimated men's median ${formatMoney(selectedMale)} and women's median ${formatMoney(selectedFemale)}, a difference of ${formatMoney(Math.abs(gap))}.`;
+      svg.setAttribute('aria-label', `Employment income by sex and age for ${latestResult.province.label}. At age ${selectedAge}, estimated men's median is ${formatMoney(selectedMale)} and women's median is ${formatMoney(selectedFemale)}.`);
+    }
+
+    function renderIncomeWealthChart() {
+      if (!latestResult || !output.incomeWealthChart) return;
+      const svg = output.incomeWealthChart;
+      const selectedAge = selectedChartAge();
+      const ages = Array.from({ length: 33 }, (_, index) => 21 + (index * 2));
+      const points = ages.map((age) => ({
+        age,
+        x: incomeAtAge(age, 50, latestResult.incomeProvinceScale),
+        y: wealthAtAge(age, 50, latestResult.provinceScale),
+      }));
+      const maximumIncome = Math.max(latestResult.annualIncome, ...points.map((point) => point.x), 1) * 1.1;
+      const maximumWealth = Math.max(latestResult.netWorth, ...points.map((point) => point.y), 1) * 1.1;
+      const frame = createChartFrame(svg, {
+        minX: 0,
+        maxX: maximumIncome,
+        maxY: maximumWealth,
+        xTicks: [0, maximumIncome * 0.33, maximumIncome * 0.66, maximumIncome],
+        xFormat: formatCompact,
+        descriptionId: 'incomeWealthDescription',
+        description: `Connected age path comparing median employment income and household net worth for ${latestResult.province.label}.`,
+      });
+      svg.appendChild(svgElement('path', { d: linePath(points, frame), class: 'scatter-path' }));
+      const labelAges = frame.width < 520
+        ? new Set([21, 53, 69, 85])
+        : new Set([21, 29, 45, 53, 61, 69, 77, 85]);
+      points.forEach((point) => {
+        if (!labelAges.has(point.age) || Math.abs(point.age - selectedAge) < 4) return;
+        const dot = svgElement('circle', { cx: frame.x(point.x), cy: frame.y(point.y), r: 5, class: 'scatter-dot' });
+        dot.appendChild(svgElement('title', {}, `Age ${point.age}: income ${formatMoney(point.x)}, net worth ${formatMoney(point.y)}`));
+        svg.appendChild(dot);
+        svg.appendChild(svgElement('text', { x: frame.x(point.x) + 7, y: frame.y(point.y) - 7 }, String(point.age)));
+      });
+      const selectedIncome = incomeAtAge(selectedAge, 50, latestResult.incomeProvinceScale);
+      const selectedWealth = wealthAtAge(selectedAge, 50, latestResult.provinceScale);
+      const selectedDot = svgElement('circle', { cx: frame.x(selectedIncome), cy: frame.y(selectedWealth), r: 7, class: 'whisker-median' });
+      selectedDot.appendChild(svgElement('title', {}, `Selected age ${selectedAge}: income ${formatMoney(selectedIncome)}, net worth ${formatMoney(selectedWealth)}`));
+      svg.appendChild(selectedDot);
+      svg.appendChild(svgElement('text', { x: frame.x(selectedIncome) + 8, y: frame.y(selectedWealth) - 8 }, String(selectedAge)));
+      const userPoint = svgElement('circle', {
+        cx: frame.x(clamp(latestResult.annualIncome, 0, maximumIncome)),
+        cy: frame.y(clamp(latestResult.netWorth, 0, maximumWealth)),
+        r: 8,
+        class: 'chart-user-dot',
+      });
+      userPoint.appendChild(svgElement('title', {}, `Your profile: income ${formatMoney(latestResult.annualIncome)}, net worth ${formatMoney(latestResult.netWorth)}`));
+      svg.appendChild(userPoint);
+      svg.appendChild(svgElement('text', { x: frame.width - frame.margin.right, y: frame.height - 4, 'text-anchor': 'end', class: 'chart-axis-title' }, 'Annual employment income'));
+      svg.appendChild(svgElement('text', { x: frame.margin.left, y: frame.margin.top - 7, class: 'chart-axis-title' }, 'Household net worth'));
+      output.incomeWealthSubtitle.textContent = `Connected age path - ${latestResult.province.label}`;
+      output.incomeWealthSummary.textContent = `At age ${selectedAge}, the paired medians are ${formatMoney(selectedIncome)} in employment income and ${formatMoney(selectedWealth)} in household net worth. Your entered profile is marked separately.`;
+      svg.setAttribute('aria-label', `Median employment income versus household net worth by age for ${latestResult.province.label}, with the entered profile marked.`);
+    }
+
+    function renderProvinceChart() {
+      if (!latestResult || !output.provinceBars) return;
+      const provinceEntries = Object.entries(provinces)
+        .map(([key, province]) => ({ key, ...province }))
+        .sort((a, b) => b.median - a.median);
+      const maximum = Math.max(...provinceEntries.map((province) => province.median));
+      if (!output.provinceBars.childElementCount) {
+        provinceEntries.forEach((province) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'province-row';
+          button.dataset.provinceKey = province.key;
+          button.setAttribute('aria-label', `${province.label}: median family net worth ${formatMoney(province.median)}. Select for comparison.`);
+
+          const code = document.createElement('span');
+          code.className = 'province-code';
+          code.textContent = province.key === 'canada' ? 'CA' : province.short;
+          const track = document.createElement('span');
+          track.className = 'province-track';
+          const fill = document.createElement('i');
+          fill.className = 'province-fill';
+          fill.style.width = `${(province.median / maximum) * 100}%`;
+          track.appendChild(fill);
+          const value = document.createElement('strong');
+          value.className = 'province-value';
+          value.textContent = formatCompact(province.median);
+          button.append(code, track, value);
+          button.addEventListener('click', () => {
+            const select = document.getElementById('provinceSelect');
+            select.value = button.dataset.provinceKey;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            window.requestAnimationFrame(() => button.focus());
+          });
+          output.provinceBars.appendChild(button);
+        });
+      }
+      output.provinceBars.querySelectorAll('.province-row').forEach((button) => {
+        button.setAttribute('aria-pressed', button.dataset.provinceKey === latestResult.provinceKey ? 'true' : 'false');
+      });
+
+      const difference = latestResult.province.median - nationalMedian;
+      if (latestResult.provinceKey === 'canada') {
+        output.provinceChartSummary.textContent = `Canada median family net worth: ${formatMoney(nationalMedian)}.`;
+      } else {
+        output.provinceChartSummary.textContent = `${latestResult.province.label}: ${formatMoney(latestResult.province.median)}, or ${formatMoney(Math.abs(difference))} ${difference >= 0 ? 'above' : 'below'} the Canada median.`;
+      }
+    }
+
+    function renderCompositionChart() {
+      if (!latestResult || !output.assetDonut) return;
+      if (inputMode === 'total') {
+        output.assetTotalLabel.textContent = 'Net worth';
+        output.assetTotal.textContent = formatCompact(latestResult.netWorth);
+        output.assetDonut.style.background = latestResult.netWorth < 0 ? '#b74832' : 'var(--green)';
+        output.assetDonut.setAttribute('aria-label', `Direct net worth entered: ${formatMoney(latestResult.netWorth)}. Asset composition is unavailable.`);
+        output.compositionLegend.hidden = true;
+        output.debtMeter.hidden = true;
+        output.compositionMessage.textContent = 'Switch to Build from details to see how assets and debts make up this total.';
+        return;
+      }
+
+      const investments = Math.max(0, numericValue('wealthInvestments'));
+      const home = Math.max(0, numericValue('wealthHomeEquity'));
+      const other = Math.max(0, numericValue('wealthOtherAssets'));
+      const debts = Math.max(0, numericValue('wealthDebts'));
+      const totalAssets = investments + home + other;
+      const investmentShare = totalAssets > 0 ? (investments / totalAssets) * 100 : 0;
+      const homeShare = totalAssets > 0 ? (home / totalAssets) * 100 : 0;
+      const homeEnd = investmentShare + homeShare;
+      const debtShare = totalAssets > 0 ? (debts / totalAssets) * 100 : 0;
+
+      output.assetTotalLabel.textContent = 'Total assets';
+      output.assetTotal.textContent = formatCompact(totalAssets);
+      output.assetDonut.style.background = totalAssets > 0
+        ? `conic-gradient(var(--green) 0 ${investmentShare}%, var(--gold-soft) ${investmentShare}% ${homeEnd}%, var(--sage) ${homeEnd}% 100%)`
+        : 'var(--bg-warm)';
+      output.assetDonut.setAttribute('aria-label', `Assets total ${formatMoney(totalAssets)}: ${formatMoney(investments)} cash and investments, ${formatMoney(home)} home equity, and ${formatMoney(other)} other assets. Debts of ${formatMoney(debts)} are subtracted.`);
+      output.compositionLegend.hidden = false;
+      output.debtMeter.hidden = false;
+      output.mixInvestments.textContent = formatCompact(investments);
+      output.mixHome.textContent = formatCompact(home);
+      output.mixOther.textContent = formatCompact(other);
+      output.mixDebts.textContent = formatCompact(debts);
+      output.debtRatio.textContent = `${Math.round(debtShare)}%`;
+      output.debtFill.style.width = `${clamp(debtShare, 0, 100)}%`;
+      output.compositionMessage.textContent = `After subtracting ${formatMoney(debts)} in debt, estimated household net worth is ${formatMoney(latestResult.netWorth)}.`;
+    }
+
+    function renderAgeDrivenCharts() {
+      renderIncomeAgeChart();
+      renderAgeChart();
+      renderIncomeCompositionChart();
+      renderWealthCompositionAgeChart();
+      renderIncomeDistributionChart();
+      renderWealthDistributionChart();
+      renderGenderIncomeChart();
+      renderIncomeWealthChart();
+    }
+
+    function updateCharts() {
+      renderAgeDrivenCharts();
+      renderIncomeProvinceChart();
+      renderFutureProvinceChart();
+      renderProvinceChart();
+      renderCompositionChart();
+    }
+
+    function detailedNetWorth() {
+      return numericValue('wealthInvestments')
         + numericValue('wealthHomeEquity')
         + numericValue('wealthOtherAssets')
         - numericValue('wealthDebts');
-      const selectedProvince = provinces[document.getElementById('provinceSelect').value] || provinces.canada;
-      const provinceScale = selectedProvince.median / nationalMedian;
-      const selectedAge = ageMedians[document.getElementById('wealthAgeGroup').value] || ageMedians['35to44'];
-      const nationalPercentile = estimatePercentile(netWorth);
-      const provinceEquivalentNetWorth = provinceScale > 0 ? netWorth / provinceScale : netWorth;
-      const provincePercentile = estimatePercentile(provinceEquivalentNetWorth);
-      const topShare = Math.max(0.01, 100 - nationalPercentile);
-      const ageDifference = netWorth - selectedAge.median;
-      const ageRatio = selectedAge.median > 0 ? netWorth / selectedAge.median : 0;
-      const provinceRatio = selectedProvince.median > 0 ? netWorth / selectedProvince.median : 0;
-      const milestones = scaledMilestones(provinceScale);
-      const nextMilestone = milestones.find((milestone) => netWorth < milestone.netWorth);
+    }
 
-      output.percentile.textContent = ordinal(nationalPercentile);
-      output.provincePercentile.textContent = ordinal(provincePercentile);
-      output.fill.style.width = `${clamp(nationalPercentile, 0, 100)}%`;
+    function currentNetWorth() {
+      return inputMode === 'total' ? numericValue('wealthDirectTotal') : detailedNetWorth();
+    }
+
+    function setInputMode(mode, syncValue = true) {
+      inputMode = mode === 'total' ? 'total' : 'details';
+      if (inputMode === 'total' && syncValue) {
+        document.getElementById('wealthDirectTotal').value = Math.round(detailedNetWorth());
+      }
+      detailedInputs.hidden = inputMode !== 'details';
+      totalInput.hidden = inputMode !== 'total';
+      modeButtons.forEach((button) => {
+        button.setAttribute('aria-pressed', button.dataset.mode === inputMode ? 'true' : 'false');
+      });
+      updateDashboard();
+    }
+
+    function contextDetails(context, result) {
+      if (context === 'province') {
+        return {
+          label: result.province.short,
+          longLabel: result.province.label,
+          scale: result.provinceScale,
+          percentile: result.provincePercentile,
+          median: result.province.median,
+        };
+      }
+      if (context === 'age') {
+        return {
+          label: `Age ${result.age.label}`,
+          longLabel: `households led by someone age ${result.age.label}`,
+          scale: result.ageScale,
+          percentile: result.agePercentile,
+          median: result.age.median,
+        };
+      }
+      return {
+        label: 'Canada',
+        longLabel: 'Canada overall',
+        scale: 1,
+        percentile: result.nationalPercentile,
+        median: nationalMedian,
+      };
+    }
+
+    function topShareText(percentile) {
+      const share = Math.max(0.01, 100 - percentile);
+      return share < 1 ? `top ${share.toFixed(1)}%` : `top ${Math.round(share)}%`;
+    }
+
+    function setContext(context) {
+      activeContext = ['national', 'province', 'age'].includes(context) ? context : 'national';
+      contextButtons.forEach((button) => {
+        button.setAttribute('aria-pressed', button.dataset.context === activeContext ? 'true' : 'false');
+      });
+      updateContextView();
+    }
+
+    function updateContextView() {
+      if (!latestResult) return;
+      const context = contextDetails(activeContext, latestResult);
+      const percentile = context.percentile;
+      const difference = latestResult.netWorth - context.median;
+      const comparison = difference >= 0 ? 'above' : 'below';
+      const markerPosition = clamp(percentile, 2, 98);
+
+      output.percentile.textContent = ordinal(percentile);
+      output.percentileLabel.textContent = `${context.label} percentile`;
+      output.rankMarker.style.left = `${markerPosition}%`;
+      output.rankMarkerLabel.textContent = ordinal(percentile);
+      output.rankMeter.setAttribute('aria-valuenow', percentile.toFixed(1));
+      output.rankMeter.setAttribute('aria-valuetext', `${ordinal(percentile)} percentile compared with ${context.longLabel}`);
+      output.contextSummary.textContent = `${formatMoney(latestResult.netWorth)} is ${formatMoney(Math.abs(difference))} ${comparison} the ${context.label} median of ${formatMoney(context.median)}. That places the estimate around the ${ordinal(percentile)} percentile${percentile >= 50 ? `, or roughly the ${topShareText(percentile)}` : ''}.`;
+      output.benchmark25.textContent = formatCompact(estimateThreshold(25) * context.scale);
+      output.benchmarkMedian.textContent = formatCompact(estimateThreshold(50) * context.scale);
+      output.benchmarkTop20.textContent = formatCompact(estimateThreshold(80) * context.scale);
+      output.benchmarkTop10.textContent = formatCompact(estimateThreshold(90) * context.scale);
+      output.benchmarkTop1.textContent = formatCompact(estimateThreshold(99) * context.scale);
+    }
+
+    function updateDashboard() {
+      const netWorth = currentNetWorth();
+      const ageValue = clamp(Math.round(numericValue('wealthAge') || 38), 18, 90);
+      const age = ageDetails(ageValue);
+      const selectedProvinceKey = document.getElementById('provinceSelect').value;
+      const selectedProvince = provinces[selectedProvinceKey] || provinces.canada;
+      const provinceScale = selectedProvince.median / nationalMedian;
+      const incomeProvinceScale = selectedProvince.wage / nationalWageMedian;
+      const ageScale = age.median / nationalMedian;
+      const annualIncome = Math.max(0, numericValue('wealthAnnualIncome'));
+      const nationalPercentile = estimatePercentile(netWorth);
+      const provincePercentile = estimatePercentile(netWorth / provinceScale);
+      const agePercentile = estimatePercentile(netWorth / ageScale);
+      const incomeMedian = incomeAtAge(ageValue, 50, incomeProvinceScale);
+      const incomePercentile = estimateIncomePercentile(annualIncome, incomeMedian);
+      latestResult = {
+        netWorth,
+        annualIncome,
+        ageValue,
+        age,
+        ageScale,
+        agePercentile,
+        provinceKey: provinces[selectedProvinceKey] ? selectedProvinceKey : 'canada',
+        province: selectedProvince,
+        provinceScale,
+        incomeProvinceScale,
+        incomeMedian,
+        incomePercentile,
+        provincePercentile,
+        nationalPercentile,
+      };
+
       output.netWorth.textContent = formatMoney(netWorth);
-      output.band.textContent = rankBand(nationalPercentile);
-      output.provinceRatio.textContent = `${formatRatio(Math.max(0, provinceRatio))}x`;
-      output.provinceRatio.classList.toggle('good', netWorth >= selectedProvince.median);
-      output.provinceRatio.classList.toggle('warn', netWorth < selectedProvince.median);
-      output.ageRatio.textContent = `${formatRatio(Math.max(0, ageRatio))}x`;
-      output.ageRatio.classList.toggle('good', ageDifference >= 0);
-      output.ageRatio.classList.toggle('warn', ageDifference < 0);
-      output.milestoneGap.textContent = nextMilestone
-        ? formatMoney(nextMilestone.netWorth - netWorth)
-        : 'Reached';
-      const nationalCaption = nationalPercentile >= 50
-        ? `Roughly top ${topShare < 1 ? topShare.toFixed(1) : Math.round(topShare)}% nationally.`
-        : 'Below the national median family net worth.';
-      output.caption.textContent = `${nationalCaption} ${selectedProvince.short} estimate: ${ordinal(provincePercentile)} percentile.`;
-      output.ageCaption.textContent = `Compared with ${selectedProvince.label}, this is ${formatMoney(Math.abs(netWorth - selectedProvince.median))} ${netWorth >= selectedProvince.median ? 'above' : 'below'} the provincial median of ${formatMoney(selectedProvince.median)}. Age-group median: ${formatMoney(selectedAge.median)}.`;
-      output.benchmarkMedian.textContent = formatCompact(selectedProvince.median);
-      output.benchmarkMedianLabel.textContent = `${selectedProvince.short} median`;
-      output.benchmarkTop20.textContent = formatCompact(1300000 * provinceScale);
-      output.benchmarkTop10.textContent = formatCompact(2100000 * provinceScale);
-      output.benchmarkTop1.textContent = formatCompact(7500000 * provinceScale);
+      output.nationalPercentile.textContent = ordinal(nationalPercentile);
+      output.provincePercentile.textContent = ordinal(provincePercentile);
+      output.agePercentile.textContent = ordinal(agePercentile);
+      output.incomePercentile.textContent = ordinal(incomePercentile);
+      output.provinceMetricLabel.textContent = selectedProvince.short === 'Canada' ? 'Canada comparison' : `${selectedProvince.short} estimate`;
+      output.ageMetricLabel.textContent = `Age ${age.label} peers`;
+      output.incomeMetricLabel.textContent = `Age ${ageValue} income rank`;
+      output.ageGroupHint.textContent = `Compared with households led by someone age ${age.label}.`;
+      output.caption.textContent = nationalPercentile >= 50
+        ? `This estimate is around the ${ordinal(nationalPercentile)} percentile nationally, or roughly the ${topShareText(nationalPercentile)}.`
+        : `This estimate is around the ${ordinal(nationalPercentile)} percentile nationally. A percentile is context, not a measure of financial wellbeing.`;
+
+      if (inputMode === 'details') {
+        document.getElementById('wealthDirectTotal').value = Math.round(netWorth);
+      }
+
+      const targetAge = document.getElementById('targetAge');
+      targetAge.min = String(Math.min(ageValue + 1, 95));
+      if (numericValue('targetAge') <= ageValue) targetAge.value = String(Math.min(ageValue + 1, 95));
+      updateContextView();
+      updateProjection();
+      updateCharts();
+    }
+
+    function setBarWidth(element, value, maximum) {
+      const width = value <= 0 ? 0 : clamp((value / maximum) * 100, 2, 100);
+      element.style.width = `${width}%`;
+    }
+
+    function updateProjection() {
+      if (!latestResult) return;
+      const currentAge = latestResult.ageValue;
+      const targetAge = clamp(Math.round(numericValue('targetAge') || 65), currentAge + 1, 95);
+      const years = Math.max(1, targetAge - currentAge);
+      const annualAddition = Math.max(0, numericValue('annualAddition'));
+      const realReturnPercent = clamp(numericValue('realReturn'), 0, 12);
+      const realReturn = realReturnPercent / 100;
+      const growthFactor = Math.pow(1 + realReturn, years);
+      const contributionValue = realReturn > 0
+        ? annualAddition * ((growthFactor - 1) / realReturn)
+        : annualAddition * years;
+      const projected = (latestResult.netWorth * growthFactor) + contributionValue;
+      const contributions = annualAddition * years;
+      const growth = projected - latestResult.netWorth - contributions;
+      const targetPeer = ageDetails(targetAge);
+      const targetPeerScale = targetPeer.median / nationalMedian;
+      const projectedPercentile = estimatePercentile(projected / targetPeerScale);
+      const maximum = Math.max(Math.abs(latestResult.netWorth), Math.max(0, projected), targetPeer.median, 1);
+
+      const formattedReturn = Number.isInteger(realReturnPercent) ? realReturnPercent.toFixed(0) : realReturnPercent.toFixed(1);
+      output.realReturnHelp.textContent = `${formattedReturn}% is the assumed annual return after inflation.`;
+      output.projectionHorizon.textContent = `At age ${targetAge} - ${years} ${years === 1 ? 'year' : 'years'}`;
+      output.projectedNetWorth.textContent = formatMoney(projected);
+      output.projectedPercentile.textContent = ordinal(projectedPercentile);
+      output.projectedContributions.textContent = formatMoney(contributions);
+      output.projectedGrowth.textContent = formatMoney(growth);
+      output.currentBarValue.textContent = formatCompact(latestResult.netWorth);
+      output.projectionBarValue.textContent = formatCompact(projected);
+      output.peerBarValue.textContent = formatCompact(targetPeer.median);
+      setBarWidth(output.currentBar, Math.max(0, latestResult.netWorth), maximum);
+      setBarWidth(output.projectionBar, Math.max(0, projected), maximum);
+      setBarWidth(output.peerBar, targetPeer.median, maximum);
     }
 
     ids.forEach((id) => {
       const field = document.getElementById(id);
       if (!field) return;
-      field.addEventListener('input', updateWealthRank);
-      field.addEventListener('change', updateWealthRank);
+      const handleDashboardChange = () => {
+        if (id === 'wealthAge') {
+          output.chartAge.value = String(clamp(Math.round(numericValue('wealthAge') || 38), 21, 85));
+        }
+        updateDashboard();
+      };
+      field.addEventListener('input', handleDashboardChange);
+      field.addEventListener('change', handleDashboardChange);
     });
-    form.addEventListener('submit', (event) => event.preventDefault());
-    updateWealthRank();
+    ['targetAge', 'annualAddition', 'realReturn'].forEach((id) => {
+      const field = document.getElementById(id);
+      const handleProjectionChange = () => {
+        updateProjection();
+        if (id === 'targetAge') renderFutureProvinceChart();
+      };
+      field.addEventListener('input', handleProjectionChange);
+      field.addEventListener('change', handleProjectionChange);
+    });
+    modeButtons.forEach((button) => button.addEventListener('click', () => setInputMode(button.dataset.mode)));
+    contextButtons.forEach((button) => button.addEventListener('click', () => setContext(button.dataset.context)));
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      updateDashboard();
+      document.getElementById('wealth-results').focus({ preventScroll: true });
+    });
+    form.addEventListener('reset', () => {
+      window.setTimeout(() => {
+        setInputMode('details', false);
+        setContext('national');
+        updateDashboard();
+      }, 0);
+    });
+    projectionForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      updateProjection();
+      renderFutureProvinceChart();
+    });
+    output.chartAge.addEventListener('input', renderAgeDrivenCharts);
+    function setChartAgeFromPointer(event) {
+      const bounds = output.ageChart.getBoundingClientRect();
+      if (!bounds.width) return;
+      const chartMargin = bounds.width < 520 ? 54 : 76;
+      const usableWidth = Math.max(1, bounds.width - chartMargin - (bounds.width < 520 ? 12 : 22));
+      const ratio = clamp((event.clientX - bounds.left - chartMargin) / usableWidth, 0, 1);
+      output.chartAge.value = String(Math.round(21 + (ratio * 64)));
+      renderAgeDrivenCharts();
+    }
+    output.ageChart.addEventListener('click', setChartAgeFromPointer);
+    let chartResizeTimer;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(chartResizeTimer);
+      chartResizeTimer = window.setTimeout(updateCharts, 100);
+    });
+    updateDashboard();
   })();
 
   (function(){
