@@ -12,7 +12,7 @@ export default defineConfig({
     video: 'retain-on-failure',
   },
   webServer: {
-    command: 'npm.cmd run preview',
+    command: 'node scripts/serve-dist.mjs',
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: false,
     timeout: 30_000,
