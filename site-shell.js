@@ -21,6 +21,36 @@
     '[tabindex]:not([tabindex="-1"])',
   ].join(',');
 
+  function initializePlannerNavigation() {
+    const plannerHref = new URL('planner/', shellSource).href;
+
+    function addLink(container, beforeSelector) {
+      if (!container || container.querySelector('[data-planner-link]')) return;
+      const link = document.createElement('a');
+      link.href = plannerHref;
+      link.textContent = 'Planner';
+      link.dataset.plannerLink = '';
+      const before = beforeSelector ? container.querySelector(beforeSelector) : null;
+      container.insertBefore(link, before);
+    }
+
+    addLink(document.querySelector('.nav-links'), '[data-region-rewards]');
+    addLink(document.getElementById('mobile-menu'), '[data-region-rewards]');
+
+    document.querySelectorAll('footer.site-footer .footer-col').forEach((column) => {
+      const list = column.querySelector('ul');
+      if (!list || list.querySelector('[data-planner-link]') || !list.querySelector('a[href*="cash-flow"]')) return;
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = plannerHref;
+      link.textContent = 'Planner';
+      link.dataset.plannerLink = '';
+      item.appendChild(link);
+      const cashFlowItem = list.querySelector('a[href*="cash-flow"]')?.closest('li');
+      cashFlowItem?.insertAdjacentElement('afterend', item);
+    });
+  }
+
   function initializeMenu() {
     const button = document.getElementById('hamburger');
     const menu = document.getElementById('mobile-menu');
@@ -184,6 +214,7 @@
   }
 
   function initialize() {
+    initializePlannerNavigation();
     initializeMenu();
     initializeNewsletterDialogs();
     initializeRevealFallback();

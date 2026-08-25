@@ -215,15 +215,19 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Back home
   </a>
-  <div class="updated">Last updated · July 2026</div>
+  <div class="updated">Last updated · August 24, 2026</div>
   <h1>Privacy <em>Policy</em></h1>
-  <p class="lead">Accessible Finance is an independent educational publication. We respect your privacy and collect as little data as possible. This policy explains what we do collect and how we use it.</p>
+  <p class="lead">Accessible Finance is an independent educational publication and provides an optional financial-planning tool. We respect your privacy, do not sell personal information, and explain here what the public site and Planner process.</p>
 </header>
 
 <main class="legal-body">
   <section>
     <h2>Information we <em>collect</em></h2>
     <ul>
+      <li><strong>Planner account information</strong> — if you create a Planner account, Supabase Auth processes your email address, password credential, account identifiers, authentication events, and related security metadata. Accessible Finance cannot read your password.</li>
+      <li><strong>Planner profile and financial inputs</strong> — if you use Cloud Saved Plan, Supabase stores the first name, province or territory, date of birth, plan assumptions, income, expenses, assets, debts, retirement settings, manual CPP/OAS estimates, and scenario differences that you choose to save.</li>
+      <li><strong>Planner calculations</strong> — projection outputs are calculated in your browser and are not intentionally stored in the database, analytics, or application logs. Export files are created locally and saved only where you choose.</li>
+      <li><strong>Demo Mode data</strong> — the Planner starts with fictional values and stores Demo Mode edits in this origin's browser <code>sessionStorage</code>. Demo data is not sent to Supabase. Use fictional values only because storage is shared with other pages on this website origin.</li>
       <li><strong>Email address</strong> — only if you voluntarily subscribe to our newsletter via Substack.</li>
       <li><strong>Edition preference</strong> — your Canada or United States selection is stored locally in your browser so the site can remember your choice. It is not sent to us.</li>
       <li><strong>Advertising data</strong> — when Google AdSense is active on an eligible content page, Google may use cookies or similar technologies and process device, approximate location, and interaction data to serve, limit, and measure ads, subject to your consent choices and Google's policies.</li>
@@ -233,18 +237,32 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 
   <section>
     <h2>How we <em>use</em> your information</h2>
-    <p>Your email is used by Substack to deliver the newsletter you requested. You can unsubscribe through the link in a newsletter. Your locally stored edition preference is used only to remember whether you selected Canada or the United States. Google AdSense processes advertising data under Google's policies and your available consent choices. Accessible Finance does not sell personal information.</p>
+    <p>Planner account information is used to authenticate you, recover access, enforce ownership, and load the same saved plan when you sign in from another device. Saved financial inputs are used only to provide the Planner and synchronize the plan you explicitly save. The browser calculates projections locally.</p>
+    <p>Your newsletter email is used by Substack to deliver the newsletter you requested. Your locally stored edition preference remembers whether you selected Canada or the United States. Google AdSense processes advertising data on eligible public content pages under Google's policies and your available consent choices. Accessible Finance does not sell personal information or use Planner financial inputs for advertising.</p>
   </section>
 
   <section>
     <h2>Third-party <em>services</em></h2>
-    <p>We use Substack to host the newsletter, Google Fonts to serve typography, Google Translate when you choose Farsi, French, or German from the language menu, and Google AdSense to serve and measure limited advertising on eligible content pages. These services have their own privacy policies. Separate referral pages link to Wealthsimple, Rakuten, and Polymarket; a destination may set tracking cookies after you click, under its own policy.</p>
+    <p><a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer"><strong>Supabase</strong></a> provides Planner authentication and PostgreSQL storage. <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer"><strong>Netlify</strong></a> builds, hosts, and delivers the website and may process standard request records. These providers process information under their own terms, security controls, configured project regions, and subprocessors. Depending on those configurations, information may be processed outside your province or country.</p>
+    <p>The Planner itself does not load the public site's advertising, translation, analytics, or newsletter scripts. The Planner and public pages use Google Fonts to serve typography. Other Accessible Finance pages also use Substack to host the newsletter, Google Translate when you choose Farsi, French, or German, and Google AdSense to serve and measure limited advertising on eligible content pages. These services have their own privacy policies. Separate referral pages link to Wealthsimple, Rakuten, and Polymarket; a destination may set tracking cookies after you click, under its own policy.</p>
     <p>Learn more about <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer"><strong>how Google uses information from sites that use its services</strong></a> and use <a href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer"><strong>Google's ad controls</strong></a> to manage advertising preferences.</p>
   </section>
 
   <section>
+    <h2>Browser storage and <em>security</em></h2>
+    <p>The Planner intentionally does not persist its Supabase authentication session in origin-wide local or session storage while it shares a website origin with public pages that load third-party scripts. A signed-in session is held by the active Planner page, so refreshing requires signing in again. Password-reset links are accepted only through the configured Planner recovery route.</p>
+    <p>Cloud records are protected by encrypted transport, database constraints, and PostgreSQL row-level security designed to limit each signed-in user to their own rows. No internet service can promise absolute security. Keep exported JSON files private: although they omit credentials and account identifiers, they contain the financial information you entered.</p>
+  </section>
+
+  <section>
+    <h2>Retention and <em>control</em></h2>
+    <p>Cloud plan inputs remain in Supabase until you delete individual records or request deletion of the Planner account and its associated data. Self-service full account deletion is not yet available in this first version; use the contact page to request it. Demo Mode data is removed when you choose Exit Demo Mode and normally ends with that browser-tab session. An exported JSON file remains wherever you save or share it until you delete it.</p>
+    <p>Authentication and infrastructure providers may retain limited security, backup, or operational records for the periods described in their own policies or required by law. Newsletter information remains with Substack until you unsubscribe or exercise the controls available through that service.</p>
+  </section>
+
+  <section>
     <h2>Your <em>rights</em></h2>
-    <p>You can remove your email from the newsletter list by unsubscribing through Substack. You can clear the edition preference by deleting this site's local browser data. For advertising data processed by Google AdSense, use Google's privacy controls or contact Google under its policies. Accessible Finance does not directly maintain advertising profiles about readers.</p>
+    <p>The Planner lets a signed-in user review and correct plan inputs and download a portable JSON copy. You may request access to or deletion of Planner account data through the contact page; applicable rights and exceptions depend on where you live. You can remove your email from the newsletter list through Substack, clear local preferences through browser controls, and use Google's privacy controls for advertising data processed by Google AdSense.</p>
   </section>
 
   <section>

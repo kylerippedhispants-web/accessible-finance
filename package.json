@@ -1,0 +1,38 @@
+{
+  "name": "accessible-finance-web",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "node scripts/validate-planner-env.mjs development && vite --config vite.config.mts",
+    "build": "node scripts/validate-planner-env.mjs production && node scripts/build-site.mjs && vite build --config vite.config.mts",
+    "preview": "node scripts/serve-dist.mjs",
+    "test": "vitest run",
+    "test:e2e": "npm run build && playwright test",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "validate:legacy": "node scripts/validate-site.js",
+    "validate": "npm run validate:legacy && npm run typecheck && npm run test && npm run build"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.112.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-router-dom": "7.18.2",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "6.1.0",
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.62.1",
+    "jsdom": "^27.2.0",
+    "typescript": "7.0.2",
+    "vite": "8.2.2",
+    "vitest": "4.1.11"
+  }
+}

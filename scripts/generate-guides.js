@@ -356,6 +356,7 @@ function updateSitemap(build) {
     ['https://accessible-finance.com/wealth-rank.html', '0.8', 'monthly'],
     ['https://accessible-finance.com/tax-calculator.html', '0.8', 'monthly'],
     ['https://accessible-finance.com/cash-flow.html', '0.8', 'monthly'],
+    ['https://accessible-finance.com/planner/', '0.9', 'monthly'],
     ['https://accessible-finance.com/about.html', '0.7', 'monthly'],
     ['https://accessible-finance.com/editorial-policy.html', '0.6', 'monthly'],
     ['https://accessible-finance.com/contact.html', '0.5', 'yearly'],

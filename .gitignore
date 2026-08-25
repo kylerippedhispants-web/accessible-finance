@@ -1,6 +1,7 @@
 ﻿node_modules/
 .env
 .env.*
+!.env.example
 dist/
 build/
 .vscode/
@@ -10,3 +11,7 @@ Thumbs.db
 *.log
 npm-debug.log*
 yarn-error.log*
+playwright-report/
+test-results/
+coverage/
+.codex-remote-attachments/

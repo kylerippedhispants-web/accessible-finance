@@ -8,7 +8,12 @@ const errors = [];
 
 function walk(directory, prefix = '') {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
-    if (entry.name.startsWith('.') || entry.name === 'node_modules') return [];
+    if (
+      entry.name.startsWith('.')
+      || entry.name === 'node_modules'
+      || entry.name === 'planner-app'
+      || entry.name === 'dist'
+    ) return [];
     const relative = path.posix.join(prefix, entry.name);
     const absolute = path.join(directory, entry.name);
     return entry.isDirectory() ? walk(absolute, relative) : [relative];
@@ -83,7 +88,10 @@ htmlFiles.forEach((file) => {
 
   [...html.matchAll(/\b(?:href|src)="([^"]+)"/gi)].forEach((match) => {
     const target = resolveLocalTarget(file, match[1]);
-    if (target) assert(fileSet.has(target), `${file}: broken local target ${match[1]} -> ${target}`);
+    if (target) {
+      const isBuiltPlannerRoute = target === 'planner/index.html';
+      assert(fileSet.has(target) || isBuiltPlannerRoute, `${file}: broken local target ${match[1]} -> ${target}`);
+    }
   });
 });
 
@@ -130,6 +138,7 @@ assert(!/article\.html\?id=/i.test(sitemap), 'sitemap contains legacy query arti
 assert(!/(?:earn|rewards)\.html/i.test(sitemap), 'sitemap contains referral-only pages');
 assert(!/journal\.html/i.test(sitemap), 'sitemap contains the unfinished Articles placeholder');
 assert(sitemap.includes('/cash-flow.html'), 'sitemap is missing the cash-flow planner');
+assert(sitemap.includes('/planner/'), 'sitemap is missing Accessible Finance Planner');
 assert(sitemap.includes('/editorial-policy.html'), 'sitemap is missing the editorial policy');
 assert(sitemap.includes('/contact.html'), 'sitemap is missing the contact page');
 
@@ -156,6 +165,10 @@ referralPages.forEach((file) => {
 const regionScript = fs.readFileSync(path.join(root, 'site-region.js'), 'utf8');
 assert(/data-region-rewards/i.test(regionScript), 'site-region.js: missing universal Rewards link handling');
 assert(/us\/rewards\.html/i.test(regionScript), 'site-region.js: missing U.S. Rewards destination');
+
+const shellScript = fs.readFileSync(path.join(root, 'site-shell.js'), 'utf8');
+assert(/data-planner-link/i.test(shellScript), 'site-shell.js: missing shared Planner navigation');
+assert(/new URL\('planner\//i.test(shellScript), 'site-shell.js: Planner link is not site-root aware');
 
 ['about.html', 'articles.html', 'journal.html', 'topic.html', 'privacy.html', 'disclaimer.html', 'editorial-policy.html', 'contact.html', '404.html']
   .forEach((file) => {
