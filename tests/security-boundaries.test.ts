@@ -31,6 +31,8 @@ describe('deployed planner security boundaries', () => {
     expect(netlify).toContain('Content-Security-Policy');
     expect(netlify).toContain("frame-ancestors 'none'");
     expect(netlify).toContain('Cross-Origin-Opener-Policy');
+    expect(netlify).toContain('PLANNER_REQUIRE_CLOUD = "true"');
+    expect(netlify).not.toContain('wss://*.supabase.co');
     expect(netlify).not.toMatch(/from\s*=\s*"\/\*"/);
   });
 

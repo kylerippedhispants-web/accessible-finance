@@ -23,12 +23,15 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     if (!this.state.failed) return this.props.children;
     return (
       <main className="centered-page">
-        <section className="standalone-card">
+        <section className="standalone-card error-card" role="alert" aria-labelledby="planner-error-title" aria-describedby="planner-error-description">
+          <div className="error-mark" aria-hidden="true">!</div>
           <span className="eyebrow">Planner stopped safely</span>
-          <h1>That plan could not be displayed.</h1>
-          <p>No financial details were sent to an error tracker or written to a production log.</p>
-          <button className="button button-primary" type="button" onClick={() => window.location.assign('/planner/settings')}>Review plan settings</button>
-          <a className="text-button" href="/planner/">Return to planner start</a>
+          <h1 id="planner-error-title">Something went wrong loading your planner.</h1>
+          <p id="planner-error-description">Your financial details were not sent to an error tracker or written to a production log. Reload the page to try again.</p>
+          <div className="form-actions">
+            <button className="button button-primary" type="button" onClick={() => window.location.reload()}>Reload planner</button>
+            <a className="button button-secondary" href="/planner/dashboard">Return to dashboard</a>
+          </div>
         </section>
       </main>
     );

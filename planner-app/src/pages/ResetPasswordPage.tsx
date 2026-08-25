@@ -8,8 +8,26 @@ export function ResetPasswordPage() {
   const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState<string>();
   const [busy, setBusy] = useState(false);
+  const [completed, setCompleted] = useState(false);
+
+  if (completed) {
+    return (
+      <main className="centered-page">
+        <Brand />
+        <section className="standalone-card" aria-labelledby="reset-complete-title">
+          <span className="eyebrow">Password updated</span>
+          <h1 id="reset-complete-title">Your new password is ready.</h1>
+          <p>The recovery link has been used and cannot change your password again.</p>
+          <button className="button button-primary button-wide" type="button" onClick={() => navigate('/dashboard', { replace: true })}>
+            Return to dashboard
+          </button>
+        </section>
+      </main>
+    );
+  }
 
   if (!auth.recoveryMode || !auth.session) {
     return (
@@ -35,14 +53,18 @@ export function ResetPasswordPage() {
       setMessage('The passwords do not match.');
       return;
     }
+    setMessage(undefined);
     setBusy(true);
-    const result = await auth.updatePassword(password);
-    setBusy(false);
-    if (result.error) {
-      setMessage(result.error);
-      return;
+    try {
+      const result = await auth.updatePassword(password);
+      if (result.error) {
+        setMessage(result.error);
+        return;
+      }
+      setCompleted(true);
+    } finally {
+      setBusy(false);
     }
-    navigate('/dashboard', { replace: true });
   };
 
   return (
@@ -52,10 +74,16 @@ export function ResetPasswordPage() {
         <span className="eyebrow">Account security</span>
         <h1 id="reset-title">Choose a new password.</h1>
         <p>The reset link must be opened in this browser before the password can be changed.</p>
-        <form onSubmit={submit}>
-          <label><span>New password</span><input type="password" autoComplete="new-password" minLength={8} value={password} onChange={(event) => setPassword(event.target.value)} /></label>
-          <label><span>Confirm new password</span><input type="password" autoComplete="new-password" minLength={8} value={confirmation} onChange={(event) => setConfirmation(event.target.value)} /></label>
-          {message && <p className="form-status error" role="alert">{message}</p>}
+        <form onSubmit={submit} aria-busy={busy} noValidate>
+          <label>
+            <span>New password</span>
+            <span className="password-input">
+              <input type={showPassword ? 'text' : 'password'} autoComplete="new-password" minLength={8} value={password} onChange={(event) => setPassword(event.target.value)} disabled={busy} aria-describedby={message ? 'reset-form-message' : undefined} />
+              <button className="password-toggle" type="button" aria-pressed={showPassword} onClick={() => setShowPassword((visible) => !visible)} disabled={busy}>{showPassword ? 'Hide' : 'Show'}</button>
+            </span>
+          </label>
+          <label><span>Confirm new password</span><input type={showPassword ? 'text' : 'password'} autoComplete="new-password" minLength={8} value={confirmation} onChange={(event) => setConfirmation(event.target.value)} disabled={busy} aria-describedby={message ? 'reset-form-message' : undefined} /></label>
+          {message && <p id="reset-form-message" className="form-status error" role="alert">{message}</p>}
           <button className="button button-primary button-wide" type="submit" disabled={busy}>{busy ? 'Updating…' : 'Update password'}</button>
         </form>
         <Link className="text-button" to="/">Back to planner sign in</Link>

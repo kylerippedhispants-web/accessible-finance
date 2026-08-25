@@ -16,8 +16,9 @@ import {
   type IncomeType,
   type RecurringFrequency,
 } from '../domain';
-import { NumberField, SelectField, TextField, ToggleField } from '../components/FormFields';
+import { MoneyField, NumberField, PercentField, SelectField, TextField, ToggleField } from '../components/FormFields';
 import { createEntityId } from '../data/demoPlan';
+import { formatCad, formatPercent as formatPercentValue } from '../lib/formatters';
 import { usePlanner, type PlannerMode } from '../state/PlannerContext';
 
 type SelectOption = { value: string; label: string };
@@ -128,22 +129,16 @@ const recurringFrequencyOptions: readonly SelectOption[] = [
 const propertyAssetTypes: readonly AssetType[] = ['primary_residence', 'rental_property'];
 const earnedIncomeTypes: readonly IncomeType[] = ['employment', 'self_employment'];
 
-const currencyFormatter = new Intl.NumberFormat('en-CA', {
-  style: 'currency',
-  currency: 'CAD',
-  maximumFractionDigits: 0,
-});
-
 function makeOptions<T extends string>(values: readonly T[], labels: Record<T, string>): SelectOption[] {
   return values.map((value) => ({ value, label: labels[value] }));
 }
 
 function formatMoney(value: number): string {
-  return currencyFormatter.format(value);
+  return formatCad(value);
 }
 
 function formatPercent(value: number | undefined): string {
-  return value === undefined ? 'Default' : `${value.toLocaleString('en-CA')}%`;
+  return value === undefined ? 'Default' : formatPercentValue(value, 2);
 }
 
 function isFiniteNumber(value: number | undefined): value is number {
@@ -503,7 +498,7 @@ export function IncomePage() {
             <div className="form-grid two">
               <TextField label="Income name" value={editor.draft.name} maxLength={120} required onChange={(name) => updateDraft({ ...editor.draft, name })} />
               <SelectField label="Income type" value={editor.draft.type} options={incomeTypeOptions} onChange={selectType} />
-              <NumberField label="Amount" prefix="$" min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.amount} onChange={(amount) => updateDraft({ ...editor.draft, amount })} hint="Enter the amount for each selected payment period." />
+              <MoneyField label="Amount" required min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.amount} onChange={(amount) => updateDraft({ ...editor.draft, amount })} hint="Enter the amount for each selected payment period." />
               <SelectField label="Frequency" value={editor.draft.frequency} options={frequencyOptions} onChange={selectFrequency} hint="Biweekly means 26 payments per year." />
             </div>
           </fieldset>
@@ -513,6 +508,7 @@ export function IncomePage() {
             <div className="form-grid three">
               <NumberField
                 label={editor.draft.frequency === 'one_time' ? 'Year received' : 'Start year'}
+                required
                 min={1900}
                 max={2200}
                 step={1}
@@ -522,7 +518,7 @@ export function IncomePage() {
               {editor.draft.frequency !== 'one_time' && (
                 <>
                   <NumberField label="End year (optional)" min={1900} max={2200} step={1} value={editor.draft.endYear} onChange={(endYear) => updateDraft({ ...editor.draft, endYear })} hint="Leave blank to continue through the planning horizon." />
-                  <NumberField label="Annual growth" suffix="%" min={-100} max={100} step="0.1" value={editor.draft.annualGrowthPercent} onChange={(annualGrowthPercent) => updateDraft({ ...editor.draft, annualGrowthPercent })} hint="Use 0 if the amount stays flat." />
+                  <PercentField label="Annual growth" required min={-100} max={100} step="0.1" value={editor.draft.annualGrowthPercent} onChange={(annualGrowthPercent) => updateDraft({ ...editor.draft, annualGrowthPercent })} hint="Use 0 if the amount stays flat." />
                 </>
               )}
             </div>
@@ -710,7 +706,7 @@ export function ExpensesPage() {
             <div className="form-grid two">
               <TextField label="Expense name" value={editor.draft.name} maxLength={120} required onChange={(name) => updateDraft({ ...editor.draft, name })} />
               <SelectField label="Category" value={editor.draft.category} options={expenseCategoryOptions} onChange={selectCategory} />
-              <NumberField label="Amount" prefix="$" min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.amount} onChange={(amount) => updateDraft({ ...editor.draft, amount })} hint="Enter the amount for each selected payment period." />
+              <MoneyField label="Amount" required min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.amount} onChange={(amount) => updateDraft({ ...editor.draft, amount })} hint="Enter the amount for each selected payment period." />
               <SelectField label="Frequency" value={editor.draft.frequency} options={frequencyOptions} onChange={selectFrequency} hint="Biweekly means 26 payments per year." />
             </div>
           </fieldset>
@@ -720,6 +716,7 @@ export function ExpensesPage() {
             <div className="form-grid three">
               <NumberField
                 label={editor.draft.frequency === 'one_time' ? 'Year paid' : 'Start year'}
+                required
                 min={1900}
                 max={2200}
                 step={1}
@@ -729,7 +726,7 @@ export function ExpensesPage() {
               {editor.draft.frequency !== 'one_time' && (
                 <>
                   <NumberField label="End year (optional)" min={1900} max={2200} step={1} value={editor.draft.endYear} onChange={(endYear) => updateDraft({ ...editor.draft, endYear })} hint="Leave blank to continue through the planning horizon." />
-                  <NumberField label="Annual inflation" suffix="%" min={-100} max={100} step="0.1" value={editor.draft.inflationPercent} onChange={(inflationPercent) => updateDraft({ ...editor.draft, inflationPercent })} hint="Set your own assumption; the planner does not guess future inflation." />
+                  <PercentField label="Annual inflation" required min={-100} max={100} step="0.1" value={editor.draft.inflationPercent} onChange={(inflationPercent) => updateDraft({ ...editor.draft, inflationPercent })} hint="Set your own assumption; the planner does not guess future inflation." />
                 </>
               )}
             </div>
@@ -938,7 +935,7 @@ export function AssetsPage() {
             <div className="form-grid two">
               <TextField label="Asset name" value={editor.draft.name} maxLength={120} required onChange={(name) => updateDraft({ ...editor.draft, name })} />
               <SelectField label="Account or asset type" value={editor.draft.type} options={assetTypeOptions} onChange={selectType} />
-              <NumberField label={property ? 'Current property value' : 'Current balance or value'} prefix="$" min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.currentValue} onChange={(currentValue) => updateDraft({ ...editor.draft, currentValue })} />
+              <MoneyField label={property ? 'Current property value' : 'Current balance or value'} required min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.currentValue} onChange={(currentValue) => updateDraft({ ...editor.draft, currentValue })} />
               <NumberField label="First year included (optional)" min={1900} max={2200} step={1} value={editor.draft.startYear} onChange={(startYear) => updateDraft({ ...editor.draft, startYear })} hint="Defaults to the plan base year if blank." />
             </div>
           </fieldset>
@@ -947,16 +944,16 @@ export function AssetsPage() {
             <fieldset className="form-section">
               <legend>Property projection</legend>
               <div className="form-grid two">
-                <NumberField label="Annual appreciation" suffix="%" min={-100} max={100} step="0.1" value={editor.draft.annualAppreciationPercent} onChange={(annualAppreciationPercent) => updateDraft({ ...editor.draft, annualAppreciationPercent })} hint="Your assumption, not a forecast. Use 0 for no change." />
+                <PercentField label="Annual appreciation" min={-100} max={100} step="0.1" value={editor.draft.annualAppreciationPercent} onChange={(annualAppreciationPercent) => updateDraft({ ...editor.draft, annualAppreciationPercent })} hint="Your assumption, not a forecast. Use 0 for no change." />
               </div>
             </fieldset>
           ) : (
             <fieldset className="form-section">
               <legend>Growth and contributions</legend>
               <div className="form-grid three">
-                <NumberField label="Expected annual return (optional)" suffix="%" min={-100} max={100} step="0.1" value={editor.draft.expectedReturnPercent} onChange={(expectedReturnPercent) => updateDraft({ ...editor.draft, expectedReturnPercent })} hint="Before retirement. Blank uses the plan default for investment assets." />
-                <NumberField label="Return after retirement (optional)" suffix="%" min={-100} max={100} step="0.1" value={editor.draft.postRetirementReturnPercent} onChange={(postRetirementReturnPercent) => updateDraft({ ...editor.draft, postRetirementReturnPercent })} hint="Blank uses the retirement assumption where applicable." />
-                <NumberField label="Annual contribution (optional)" prefix="$" min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.annualContribution} onChange={(annualContribution) => updateDraft({ ...editor.draft, annualContribution })} hint="Enter the full-year total, not each deposit." />
+                <PercentField label="Expected annual return (optional)" min={-100} max={100} step="0.1" value={editor.draft.expectedReturnPercent} onChange={(expectedReturnPercent) => updateDraft({ ...editor.draft, expectedReturnPercent })} hint="Before retirement. Blank uses the plan default for investment assets." />
+                <PercentField label="Return after retirement (optional)" min={-100} max={100} step="0.1" value={editor.draft.postRetirementReturnPercent} onChange={(postRetirementReturnPercent) => updateDraft({ ...editor.draft, postRetirementReturnPercent })} hint="Blank uses the retirement assumption where applicable." />
+                <MoneyField label="Annual contribution (optional)" min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.annualContribution} onChange={(annualContribution) => updateDraft({ ...editor.draft, annualContribution })} hint="Enter the full-year total, not each deposit." />
                 <SelectField label="Contribution frequency" value={editor.draft.contributionFrequency ?? 'monthly'} options={recurringFrequencyOptions} onChange={(value) => updateDraft({ ...editor.draft, contributionFrequency: value as RecurringFrequency })} hint="Controls how the annual total is spread through the year." />
                 <NumberField label="Contribution start year (optional)" min={1900} max={2200} step={1} value={editor.draft.contributionStartYear} onChange={(contributionStartYear) => updateDraft({ ...editor.draft, contributionStartYear })} />
                 <NumberField label="Contribution end year (optional)" min={1900} max={2200} step={1} value={editor.draft.contributionEndYear} onChange={(contributionEndYear) => updateDraft({ ...editor.draft, contributionEndYear })} />
@@ -1153,9 +1150,9 @@ export function DebtsPage() {
             <div className="form-grid two">
               <TextField label="Debt name" value={editor.draft.name} maxLength={120} required onChange={(name) => updateDraft({ ...editor.draft, name })} />
               <SelectField label="Debt type" value={editor.draft.type} options={debtTypeOptions} onChange={selectType} />
-              <NumberField label="Current balance" prefix="$" min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.balance} onChange={(balance) => updateDraft({ ...editor.draft, balance })} />
-              <NumberField label="Annual interest rate" suffix="%" min={0} max={100} step="0.01" value={editor.draft.annualInterestPercent} onChange={(annualInterestPercent) => updateDraft({ ...editor.draft, annualInterestPercent })} />
-              <NumberField label="Regular payment" prefix="$" min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.paymentAmount} onChange={(paymentAmount) => updateDraft({ ...editor.draft, paymentAmount })} hint="Amount per payment period. Enter 0 to calculate a level payment from the remaining amortization." />
+              <MoneyField label="Current balance" required min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.balance} onChange={(balance) => updateDraft({ ...editor.draft, balance })} />
+              <PercentField label="Annual interest rate" required min={0} max={100} step="0.01" value={editor.draft.annualInterestPercent} onChange={(annualInterestPercent) => updateDraft({ ...editor.draft, annualInterestPercent })} />
+              <MoneyField label="Regular payment" required min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.paymentAmount} onChange={(paymentAmount) => updateDraft({ ...editor.draft, paymentAmount })} hint="Amount per payment period. Enter 0 to calculate a level payment from the remaining amortization." />
               <SelectField label="Payment frequency" value={editor.draft.paymentFrequency} options={recurringFrequencyOptions} onChange={(value) => updateDraft({ ...editor.draft, paymentFrequency: value as RecurringFrequency })} />
             </div>
           </fieldset>
@@ -1163,8 +1160,8 @@ export function DebtsPage() {
           <fieldset className="form-section">
             <legend>Amortization</legend>
             <div className="form-grid three">
-              <NumberField label="Remaining amortization (months)" min={0} max={1_200} step={1} value={editor.draft.remainingAmortizationMonths} onChange={(remainingAmortizationMonths) => updateDraft({ ...editor.draft, remainingAmortizationMonths })} hint="For example, 25 years is 300 months. An insufficient regular payment produces a final balloon payoff." />
-              <NumberField label="Extra payment per payment (optional)" prefix="$" min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.extraPaymentAmount} onChange={(extraPaymentAmount) => updateDraft({ ...editor.draft, extraPaymentAmount })} />
+              <NumberField label="Remaining amortization (months)" required min={0} max={1_200} step={1} value={editor.draft.remainingAmortizationMonths} onChange={(remainingAmortizationMonths) => updateDraft({ ...editor.draft, remainingAmortizationMonths })} hint="For example, 25 years is 300 months. Enter 0 when the full balance is due in the first projected year; an insufficient regular payment produces a final balloon payoff." />
+              <MoneyField label="Extra payment per payment (optional)" min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.extraPaymentAmount} onChange={(extraPaymentAmount) => updateDraft({ ...editor.draft, extraPaymentAmount })} />
               <NumberField label="Compounding periods per year (optional)" min={1} max={365} step={1} value={editor.draft.compoundingPeriodsPerYear} onChange={(compoundingPeriodsPerYear) => updateDraft({ ...editor.draft, compoundingPeriodsPerYear })} hint={editor.draft.type === 'mortgage' ? 'Defaults to 2 for a mortgage. Confirm the convention in your agreement.' : 'Leave blank to use the payment frequency.'} />
               <NumberField label="First year included (optional)" min={1900} max={2200} step={1} value={editor.draft.startYear} onChange={(startYear) => updateDraft({ ...editor.draft, startYear })} hint="Defaults to the plan base year if blank." />
             </div>

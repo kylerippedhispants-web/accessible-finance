@@ -1,15 +1,20 @@
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { lazy, Suspense, useEffect } from 'react';
+import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import { useAuth } from './auth/AuthContext';
-import { AppShell, PlannerLoading } from './components/AppShell';
-import { DashboardPage } from './pages/DashboardPage';
-import { IncomePage, ExpensesPage, AssetsPage, DebtsPage } from './pages/CollectionPages';
-import { LandingPage } from './pages/LandingPage';
-import { OnboardingPage } from './pages/OnboardingPage';
-import { ResetPasswordPage } from './pages/ResetPasswordPage';
-import { RetirementPage } from './pages/RetirementPage';
-import { ScenariosPage } from './pages/ScenariosPage';
-import { SettingsPage } from './pages/SettingsPage';
+import { AppShell, PlannerLoading, PlannerRouteLoading } from './components/AppShell';
 import { usePlanner } from './state/PlannerContext';
+
+const DashboardPage = lazy(() => import('./pages/DashboardPage').then((module) => ({ default: module.DashboardPage })));
+const LandingPage = lazy(() => import('./pages/LandingPage').then((module) => ({ default: module.LandingPage })));
+const OnboardingPage = lazy(() => import('./pages/OnboardingPage').then((module) => ({ default: module.OnboardingPage })));
+const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage').then((module) => ({ default: module.ResetPasswordPage })));
+const RetirementPage = lazy(() => import('./pages/RetirementPage').then((module) => ({ default: module.RetirementPage })));
+const ScenariosPage = lazy(() => import('./pages/ScenariosPage').then((module) => ({ default: module.ScenariosPage })));
+const SettingsPage = lazy(() => import('./pages/SettingsPage').then((module) => ({ default: module.SettingsPage })));
+const IncomePage = lazy(() => import('./pages/CollectionPages').then((module) => ({ default: module.IncomePage })));
+const ExpensesPage = lazy(() => import('./pages/CollectionPages').then((module) => ({ default: module.ExpensesPage })));
+const AssetsPage = lazy(() => import('./pages/CollectionPages').then((module) => ({ default: module.AssetsPage })));
+const DebtsPage = lazy(() => import('./pages/CollectionPages').then((module) => ({ default: module.DebtsPage })));
 
 function PlannerUnavailable() {
   const planner = usePlanner();
@@ -56,24 +61,31 @@ function OnboardingRoute() {
 
 export function App() {
   const auth = useAuth();
+  const { clearRecoveryMode } = auth;
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname !== '/reset-password') clearRecoveryMode();
+  }, [clearRecoveryMode, location.pathname]);
+
   if (!auth.ready) return <PlannerLoading />;
 
   return (
     <Routes>
-      <Route path="/" element={<StartRoute />} />
-      <Route path="/reset-password" element={<ResetPasswordPage />} />
-      <Route path="/onboarding" element={<OnboardingRoute />} />
+      <Route path="/" element={<Suspense fallback={<PlannerLoading />}><StartRoute /></Suspense>} />
+      <Route path="/reset-password" element={<Suspense fallback={<PlannerLoading />}><ResetPasswordPage /></Suspense>} />
+      <Route path="/onboarding" element={<Suspense fallback={<PlannerLoading />}><OnboardingRoute /></Suspense>} />
       <Route element={<PlannerGate />}>
         <Route element={<AppShell />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/income" element={<IncomePage />} />
-          <Route path="/expenses" element={<ExpensesPage />} />
-          <Route path="/assets" element={<AssetsPage />} />
-          <Route path="/debts" element={<DebtsPage />} />
-          <Route path="/retirement" element={<RetirementPage />} />
-          <Route path="/scenarios" element={<ScenariosPage />} />
-          <Route path="/profile" element={<SettingsPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/dashboard" element={<Suspense fallback={<PlannerRouteLoading />}><DashboardPage /></Suspense>} />
+          <Route path="/income" element={<Suspense fallback={<PlannerRouteLoading />}><IncomePage /></Suspense>} />
+          <Route path="/expenses" element={<Suspense fallback={<PlannerRouteLoading />}><ExpensesPage /></Suspense>} />
+          <Route path="/assets" element={<Suspense fallback={<PlannerRouteLoading />}><AssetsPage /></Suspense>} />
+          <Route path="/debts" element={<Suspense fallback={<PlannerRouteLoading />}><DebtsPage /></Suspense>} />
+          <Route path="/retirement" element={<Suspense fallback={<PlannerRouteLoading />}><RetirementPage /></Suspense>} />
+          <Route path="/scenarios" element={<Suspense fallback={<PlannerRouteLoading />}><ScenariosPage /></Suspense>} />
+          <Route path="/profile" element={<Suspense fallback={<PlannerRouteLoading />}><SettingsPage /></Suspense>} />
+          <Route path="/settings" element={<Suspense fallback={<PlannerRouteLoading />}><SettingsPage /></Suspense>} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />

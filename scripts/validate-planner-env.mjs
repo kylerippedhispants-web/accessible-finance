@@ -50,6 +50,10 @@ const repositoryRoot = resolve(import.meta.dirname, '..');
 
 try {
   const configured = validatePublicConfiguration(loadEnv(mode, repositoryRoot, 'VITE_'));
+  const cloudRequired = process.env.PLANNER_REQUIRE_CLOUD === 'true';
+  if (cloudRequired && !configured) {
+    throw new Error('Production cloud mode is required, but the public Supabase configuration is missing.');
+  }
   process.stdout.write(configured
     ? 'Validated public Supabase browser configuration.\n'
     : 'Supabase browser configuration is empty; building Demo Mode without cloud sync.\n');

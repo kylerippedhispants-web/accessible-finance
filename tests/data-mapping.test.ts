@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   assetFromRow,
   assetToRow,
+  CloudRepositoryError,
   debtFromRow,
   debtToRow,
   expenseFromRow,
@@ -23,6 +24,23 @@ describe('Supabase data mapping', () => {
     const row = incomeToRow(source, snapshot.plan.id, 0);
     expect(row).not.toHaveProperty('user_id');
     expect(incomeFromRow(row)).toMatchObject(source);
+  });
+
+  it('rejects malformed required cloud values instead of substituting defaults', () => {
+    const source = snapshot.plan.incomeSources[0];
+    const row = incomeToRow(source, snapshot.plan.id, 0);
+    expect(() => incomeFromRow({ ...row, amount: null })).toThrow(CloudRepositoryError);
+    expect(() => incomeFromRow({ ...row, taxable: 'false' })).toThrow(CloudRepositoryError);
+    expect(() => incomeFromRow({ ...row, amount: true })).toThrow(CloudRepositoryError);
+    expect(() => incomeFromRow({ ...row, end_year: '' })).toThrow(CloudRepositoryError);
+    let malformedError: unknown;
+    try {
+      incomeFromRow({ ...row, amount: 'not-a-number' });
+    } catch (error) {
+      malformedError = error;
+    }
+    expect(malformedError).toBeInstanceOf(CloudRepositoryError);
+    expect((malformedError as CloudRepositoryError).code).toBe('invalid_data');
   });
 
   it('round-trips an expense without ownership metadata', () => {
@@ -74,6 +92,12 @@ describe('portable plan transfer', () => {
     expect(serialized).not.toContain('supabase_anon');
   });
 
+  it('refuses to export an invalid in-memory snapshot', () => {
+    const snapshot = createDemoSnapshot();
+    snapshot.plan.name = '';
+    expect(() => createPlanExport(snapshot)).toThrow(/name/i);
+  });
+
   it('validates imported values before accepting them', () => {
     const exported = createPlanExport(createDemoSnapshot());
     exported.data.plan.retirement.targetRetirementAge = -1;
@@ -86,6 +110,60 @@ describe('portable plan transfer', () => {
       assumptions: { effectiveTaxPercent: 'free money' },
     } as never;
     expect(() => parsePlanImport(JSON.stringify(exported))).toThrow();
+  });
+
+  it('caps aggregate scenario operations even when every individual collection is bounded', () => {
+    const snapshot = createDemoSnapshot();
+    const copyForScenario = <T extends { id: string; planId?: string }>(
+      template: T,
+      prefix: string,
+      count: number,
+    ): T[] => Array.from({ length: count }, (_, index) => ({
+      ...template,
+      id: `${prefix}-${index}`,
+      planId: snapshot.plan.id,
+    }));
+
+    snapshot.scenarios = Array.from({ length: 6 }, (_, scenarioIndex) => ({
+      id: `capacity-scenario-${scenarioIndex}`,
+      planId: snapshot.plan.id,
+      name: `Capacity scenario ${scenarioIndex}`,
+      overrides: {
+        incomeSources: {
+          add: copyForScenario(
+            snapshot.plan.incomeSources[0],
+            `scenario-${scenarioIndex}-income`,
+            250 - snapshot.plan.incomeSources.length,
+          ),
+        },
+        expenses: {
+          add: copyForScenario(
+            snapshot.plan.expenses[0],
+            `scenario-${scenarioIndex}-expense`,
+            250 - snapshot.plan.expenses.length,
+          ),
+        },
+        assets: {
+          add: copyForScenario(
+            snapshot.plan.assets[0],
+            `scenario-${scenarioIndex}-asset`,
+            250 - snapshot.plan.assets.length,
+          ),
+        },
+        debts: {
+          add: copyForScenario(
+            snapshot.plan.debts[0],
+            `scenario-${scenarioIndex}-debt`,
+            250 - snapshot.plan.debts.length,
+          ),
+        },
+      },
+    }));
+
+    const result = plannerSnapshotSchema.safeParse(snapshot);
+    expect(result.success).toBe(false);
+    expect(result.error?.issues.some((issue) => /5,000 scenario differences/i.test(issue.message)))
+      .toBe(true);
   });
 
   it('rejects scenario updates that reference another plan record', () => {
@@ -190,5 +268,33 @@ describe('portable plan transfer', () => {
     expect(imported.plan.id).toBe(targetPlanId);
     expect(imported.plan.profile.id).toBe(targetProfileId);
     expect(imported.scenarios.every((scenario) => scenario.planId === targetPlanId)).toBe(true);
+  });
+
+  it('rekeys scenario references independently when collections reuse a source ID', () => {
+    const source = createDemoSnapshot();
+    const sharedSourceId = 'same-id-in-different-tables';
+    source.plan.incomeSources[0].id = sharedSourceId;
+    source.plan.debts[0].id = sharedSourceId;
+    source.scenarios[0].overrides.incomeSources = {
+      update: [{ entityId: sharedSourceId, changes: { amount: 91_000 } }],
+    };
+    source.scenarios[0].overrides.debts = {
+      update: [{ entityId: sharedSourceId, changes: { balance: 449_000 } }],
+    };
+
+    const imported = parsePlanImport(JSON.stringify(createPlanExport(source)));
+    const incomeId = imported.plan.incomeSources[0].id;
+    const debtId = imported.plan.debts[0].id;
+    expect(incomeId).not.toBe(debtId);
+    expect(imported.scenarios[0].overrides.incomeSources?.update?.[0].entityId).toBe(incomeId);
+    expect(imported.scenarios[0].overrides.debts?.update?.[0].entityId).toBe(debtId);
+    expect(plannerSnapshotSchema.safeParse(imported).success).toBe(true);
+  });
+
+  it('validates caller-supplied target identities after rekeying', () => {
+    const exported = createPlanExport(createDemoSnapshot());
+    expect(() => parsePlanImport(JSON.stringify(exported), {
+      planId: 'x'.repeat(121),
+    })).toThrow();
   });
 });

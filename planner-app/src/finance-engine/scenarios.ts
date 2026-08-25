@@ -78,11 +78,11 @@ export function applyScenarioOverrides(
       ...retirementOverride,
       cpp: {
         ...baseline.retirement.cpp,
-        ...(retirementOverride?.cpp ?? {}),
+        ...retirementOverride?.cpp,
       },
       oas: {
         ...baseline.retirement.oas,
-        ...(retirementOverride?.oas ?? {}),
+        ...retirementOverride?.oas,
       },
     },
     incomeSources: applyCollectionOverrides(

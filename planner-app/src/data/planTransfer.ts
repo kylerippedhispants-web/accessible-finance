@@ -5,30 +5,49 @@ import type {
   Expense,
   IncomeSource,
   PlanEntity,
-  PlanScenario,
   ScenarioOverrides,
 } from '../domain';
 import type { PlannerSnapshot } from './demoPlan';
-import { exportedPlanSchema, type ExportedPlan } from '../validation/planSchemas';
+import {
+  exportedPlanSchema,
+  plannerSnapshotSchema,
+  type ExportedPlan,
+} from '../validation/planSchemas';
 
 export function createPlanExport(snapshot: PlannerSnapshot): ExportedPlan {
-  return {
+  const data = plannerSnapshotSchema.parse(structuredClone(snapshot));
+  return exportedPlanSchema.parse({
     format: 'accessible-finance-planner',
     version: 1,
     exportedAt: new Date().toISOString(),
-    data: structuredClone(snapshot),
-  };
+    data,
+  });
 }
 
-export function downloadPlanExport(snapshot: PlannerSnapshot): void {
+function safeExportFilename(filename: string | undefined): string {
+  const fallback = `accessible-finance-plan-${new Date().toISOString().slice(0, 10)}.json`;
+  if (!filename?.trim()) return fallback;
+  const safeBase = filename
+    .trim()
+    .replace(/\.json$/i, '')
+    .replace(/[^a-zA-Z0-9._-]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 100);
+  return safeBase ? `${safeBase}.json` : fallback;
+}
+
+export function downloadPlanExport(snapshot: PlannerSnapshot, filename?: string): void {
   const payload = JSON.stringify(createPlanExport(snapshot), null, 2);
   const blob = new Blob([payload], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = `accessible-finance-plan-${new Date().toISOString().slice(0, 10)}.json`;
+  link.download = safeExportFilename(filename);
+  link.hidden = true;
+  document.body.append(link);
   link.click();
-  URL.revokeObjectURL(url);
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
 function rekeyCollection<T extends PlanEntity>(
@@ -49,31 +68,26 @@ function rekeyOverrides<T extends PlanEntity>(
   idMap: Map<string, string>,
 ): CollectionOverrides<T> | undefined {
   if (!collection) return undefined;
-  const added = collection.add ? rekeyCollection(collection.add, planId, idMap) : undefined;
+  const added = collection.add?.map((item) => ({
+    ...item,
+    id: crypto.randomUUID(),
+    planId,
+  }));
+  const baselineId = (sourceId: string): string => {
+    const mapped = idMap.get(sourceId);
+    if (!mapped) {
+      throw new Error(`Scenario refers to an unknown baseline record: ${sourceId}`);
+    }
+    return mapped;
+  };
   return {
     add: added,
     update: collection.update?.map((update) => ({
       ...update,
-      entityId: idMap.get(update.entityId) ?? update.entityId,
+      entityId: baselineId(update.entityId),
     })),
-    removeIds: collection.removeIds?.map((id) => idMap.get(id) ?? id),
+    removeIds: collection.removeIds?.map(baselineId),
   };
-}
-
-function rekeyScenario(
-  scenario: PlanScenario,
-  planId: string,
-  idMap: Map<string, string>,
-): PlanScenario {
-  const overrides: ScenarioOverrides = {
-    assumptions: scenario.overrides.assumptions,
-    retirement: scenario.overrides.retirement,
-    incomeSources: rekeyOverrides<IncomeSource>(scenario.overrides.incomeSources, planId, idMap),
-    expenses: rekeyOverrides<Expense>(scenario.overrides.expenses, planId, idMap),
-    assets: rekeyOverrides<Asset>(scenario.overrides.assets, planId, idMap),
-    debts: rekeyOverrides<Debt>(scenario.overrides.debts, planId, idMap),
-  };
-  return { ...scenario, id: crypto.randomUUID(), planId, overrides };
 }
 
 export function parsePlanImport(
@@ -83,16 +97,28 @@ export function parsePlanImport(
   const validated = exportedPlanSchema.parse(JSON.parse(json));
   const source = validated.data;
   const planId = target?.planId ?? crypto.randomUUID();
-  const idMap = new Map<string, string>();
-  idMap.set(source.plan.id, planId);
+  const incomeIds = new Map<string, string>();
+  const expenseIds = new Map<string, string>();
+  const assetIds = new Map<string, string>();
+  const debtIds = new Map<string, string>();
 
-  const incomeSources = rekeyCollection(source.plan.incomeSources, planId, idMap);
-  const expenses = rekeyCollection(source.plan.expenses, planId, idMap);
-  const assets = rekeyCollection(source.plan.assets, planId, idMap);
-  const debts = rekeyCollection(source.plan.debts, planId, idMap);
-  const scenarios = source.scenarios.map((scenario) => rekeyScenario(scenario, planId, idMap));
+  const incomeSources = rekeyCollection(source.plan.incomeSources, planId, incomeIds);
+  const expenses = rekeyCollection(source.plan.expenses, planId, expenseIds);
+  const assets = rekeyCollection(source.plan.assets, planId, assetIds);
+  const debts = rekeyCollection(source.plan.debts, planId, debtIds);
+  const scenarios = source.scenarios.map((scenario) => {
+    const overrides: ScenarioOverrides = {
+      assumptions: scenario.overrides.assumptions,
+      retirement: scenario.overrides.retirement,
+      incomeSources: rekeyOverrides<IncomeSource>(scenario.overrides.incomeSources, planId, incomeIds),
+      expenses: rekeyOverrides<Expense>(scenario.overrides.expenses, planId, expenseIds),
+      assets: rekeyOverrides<Asset>(scenario.overrides.assets, planId, assetIds),
+      debts: rekeyOverrides<Debt>(scenario.overrides.debts, planId, debtIds),
+    };
+    return { ...scenario, id: crypto.randomUUID(), planId, overrides };
+  });
 
-  return {
+  return plannerSnapshotSchema.parse({
     plan: {
       ...source.plan,
       id: planId,
@@ -106,5 +132,5 @@ export function parsePlanImport(
       debts,
     },
     scenarios,
-  };
+  });
 }

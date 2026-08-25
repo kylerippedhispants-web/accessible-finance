@@ -271,6 +271,37 @@ describe("year-by-year projection", () => {
     expect(firstYear.netWorth).toBe(120_000);
   });
 
+  it("excludes disabled assets and debts from balances and cash flow", () => {
+    const plan = createPlan();
+    plan.assets = [{
+      id: "disabled-asset",
+      name: "Disabled asset",
+      type: "tfsa",
+      currentValue: 10_000,
+      expectedReturnPercent: 5,
+      annualContribution: 1_200,
+      enabled: false,
+    }];
+    plan.debts = [{
+      id: "disabled-debt",
+      name: "Disabled debt",
+      type: "personal_loan",
+      balance: 5_000,
+      annualInterestPercent: 10,
+      paymentAmount: 500,
+      paymentFrequency: "monthly",
+      remainingAmortizationMonths: 12,
+      enabled: false,
+    }];
+
+    const firstYear = projectFinances(plan)[0];
+    expect(firstYear.contributions).toBe(0);
+    expect(firstYear.debtPayments).toBe(0);
+    expect(firstYear.totalAssets).toBe(0);
+    expect(firstYear.totalLiabilities).toBe(0);
+    expect(firstYear.netWorth).toBe(0);
+  });
+
   it("uses a final balloon payment instead of freezing an underfunded debt", () => {
     const plan = createPlan();
     plan.incomeSources = [{
@@ -490,6 +521,134 @@ describe("year-by-year projection", () => {
     expect(year.propertyAssets).toBe(510_000);
     expect(year.investmentGrowth).toBeGreaterThan(500);
     expect(year.propertyGrowth).toBe(10_000);
+  });
+
+  it("does not create investment gains from an unfunded contribution", () => {
+    const plan = createPlan();
+    plan.assumptions.generalInflationPercent = 0;
+    plan.assets = [{
+      id: "unfunded-tfsa",
+      name: "Unfunded TFSA",
+      type: "tfsa",
+      currentValue: 0,
+      expectedReturnPercent: 5,
+      annualContribution: 1_200,
+      contributionFrequency: "monthly",
+    }];
+
+    const firstYear = projectFinances(plan)[0];
+    expect(firstYear.availableSavings).toBe(0);
+    expect(firstYear.contributions).toBe(0);
+    expect(firstYear.investmentGrowth).toBe(0);
+    expect(firstYear.investmentAssets).toBe(0);
+    expect(firstYear.netWorth).toBe(0);
+  });
+
+  it("caps scheduled contributions at cash that remains after required spending", () => {
+    const plan = createPlan();
+    plan.assumptions.generalInflationPercent = 0;
+    plan.incomeSources = [{
+      id: "partial-funding",
+      name: "Partial contribution funding",
+      type: "other",
+      amount: 600,
+      frequency: "annual",
+      startYear: plan.baseYear,
+      endYear: plan.baseYear,
+      annualGrowthPercent: 0,
+      taxable: false,
+    }];
+    plan.assets = [{
+      id: "partially-funded-tfsa",
+      name: "Partially funded TFSA",
+      type: "tfsa",
+      currentValue: 0,
+      expectedReturnPercent: 0,
+      annualContribution: 1_200,
+      contributionFrequency: "monthly",
+    }];
+
+    const firstYear = projectFinances(plan)[0];
+    expect(firstYear.availableSavings).toBe(600);
+    expect(firstYear.contributions).toBe(600);
+    expect(firstYear.investmentAssets).toBe(600);
+    expect(firstYear.unfundedCashFlow).toBe(0);
+    expect(firstYear.netWorth).toBe(600);
+  });
+
+  it("reports prior unallocated cash used to cover a later deficit as a withdrawal", () => {
+    const plan = createPlan();
+    plan.assumptions.generalInflationPercent = 0;
+    plan.incomeSources = [{
+      id: "cash-reserve-income",
+      name: "Cash reserve funding",
+      type: "other",
+      amount: 1_000,
+      frequency: "annual",
+      startYear: plan.baseYear,
+      endYear: plan.baseYear,
+      annualGrowthPercent: 0,
+      taxable: false,
+    }];
+    plan.expenses = [{
+      id: "later-cost",
+      name: "Later required cost",
+      category: "other",
+      amount: 600,
+      frequency: "annual",
+      startYear: plan.baseYear + 1,
+      endYear: plan.baseYear + 1,
+      inflationPercent: 0,
+    }];
+
+    const [fundingYear, spendingYear] = projectFinances(plan);
+    expect(fundingYear.cashAssets).toBe(1_000);
+    expect(spendingYear.availableSavings).toBe(-600);
+    expect(spendingYear.withdrawals).toBe(600);
+    expect(spendingYear.cashAssets).toBe(400);
+    expect(spendingYear.unfundedCashFlow).toBe(0);
+  });
+
+  it("prioritizes an existing required-spending shortfall over new contributions", () => {
+    const plan = createPlan();
+    plan.assumptions.generalInflationPercent = 0;
+    plan.retirement.planningEndAge = 38;
+    plan.expenses = [{
+      id: "shortfall",
+      name: "Required cost",
+      category: "other",
+      amount: 500,
+      frequency: "annual",
+      startYear: plan.baseYear,
+      endYear: plan.baseYear,
+      inflationPercent: 0,
+    }];
+    plan.incomeSources = [{
+      id: "later-income",
+      name: "Later income",
+      type: "other",
+      amount: 500,
+      frequency: "annual",
+      startYear: plan.baseYear + 1,
+      endYear: plan.baseYear + 1,
+      annualGrowthPercent: 0,
+      taxable: false,
+    }];
+    plan.assets = [{
+      id: "scheduled-savings",
+      name: "Scheduled savings",
+      type: "tfsa",
+      currentValue: 0,
+      expectedReturnPercent: 0,
+      annualContribution: 500,
+      contributionFrequency: "annual",
+    }];
+
+    const [deficitYear, recoveryYear] = projectFinances(plan);
+    expect(deficitYear.unfundedCashFlow).toBe(500);
+    expect(deficitYear.contributions).toBe(0);
+    expect(recoveryYear.contributions).toBe(0);
+    expect(recoveryYear.totalLiabilities).toBe(0);
   });
 
   it("applies sparse scenario overrides without mutating the baseline", () => {

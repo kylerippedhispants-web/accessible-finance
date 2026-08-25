@@ -1,4 +1,4 @@
-import { type KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { type KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { usePlanner } from '../state/PlannerContext';
@@ -23,14 +23,28 @@ export function AppShell() {
     () => window.matchMedia('(max-width: 1000px)').matches,
   );
   const firstLink = useRef<HTMLAnchorElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const previousPath = useRef(location.pathname);
+  const cloudOffline = planner.mode === 'cloud' && planner.offline;
+  const saveConflict = planner.saveState === 'conflict';
+
+  const closeMenu = useCallback((restoreFocus = false) => {
+    setMenuOpen(false);
+    if (restoreFocus) {
+      window.requestAnimationFrame(() => menuButton.current?.focus());
+    }
+  }, []);
 
   useEffect(() => {
+    if (previousPath.current === location.pathname) return;
+    previousPath.current = location.pathname;
     setMenuOpen(false);
+    window.requestAnimationFrame(() => document.getElementById('planner-main')?.focus());
   }, [location.pathname]);
 
   useEffect(() => {
-    if (menuOpen) firstLink.current?.focus();
-  }, [menuOpen]);
+    if (menuOpen && compactNavigation) firstLink.current?.focus();
+  }, [compactNavigation, menuOpen]);
 
   useEffect(() => {
     const media = window.matchMedia('(max-width: 1000px)');
@@ -39,10 +53,41 @@ export function AppShell() {
     return () => media.removeEventListener('change', update);
   }, []);
 
+  useEffect(() => {
+    if (!compactNavigation) setMenuOpen(false);
+  }, [compactNavigation]);
+
+  useEffect(() => {
+    if (!compactNavigation || !menuOpen) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [compactNavigation, menuOpen]);
+
   const handleMenuKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Escape') {
-      setMenuOpen(false);
-      document.getElementById('planner-menu-button')?.focus();
+      event.preventDefault();
+      closeMenu(true);
+      return;
+    }
+    if (event.key !== 'Tab' || !compactNavigation || !menuOpen) return;
+
+    const focusable = Array.from(event.currentTarget.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    )).filter((element) => element.getAttribute('aria-hidden') !== 'true');
+    if (!focusable.length) return;
+
+    const first = focusable[0];
+    const last = focusable.at(-1)!;
+    const active = document.activeElement;
+    if (event.shiftKey && (active === first || !event.currentTarget.contains(active))) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
     }
   };
 
@@ -59,34 +104,41 @@ export function AppShell() {
     }
   };
 
+  const discardConflictedDraft = () => {
+    if (!window.confirm('Discard this unsaved local draft and reload the latest cloud copy? Export the draft first if you may need it. This cannot be undone.')) return;
+    planner.discardAndReloadCloud();
+  };
+
   return (
-    <div className="app-shell">
+    <div className={`app-shell${compactNavigation && menuOpen ? ' menu-open' : ''}`}>
       <a className="skip-link" href="#planner-main">Skip to planner content</a>
       <header className="app-header">
-        <Link className="brand" to="/dashboard" aria-label="Accessible Finance Planner dashboard">
+        <Link className="brand" to="/dashboard" aria-label="Accessible Finance Planner dashboard" tabIndex={compactNavigation && menuOpen ? -1 : undefined}>
           <img src="/Logo-256.png" alt="" width="40" height="40" />
           <span>Accessible Finance <small>Planner</small></span>
         </Link>
         <div className="header-actions">
-          <span className={`mode-badge ${planner.mode}`}>
-            <span aria-hidden="true" />{planner.mode === 'demo' ? 'Demo Mode' : 'Cloud Saved Plan'}
+          <span className={`mode-badge ${cloudOffline ? 'offline' : planner.mode}`}>
+            <span aria-hidden="true" />{planner.mode === 'demo' ? 'Demo Mode' : cloudOffline ? 'Offline · Local Draft' : 'Cloud Saved Plan'}
           </span>
           <button
             className="button button-primary save-button"
             type="button"
             onClick={() => void planner.save()}
-            disabled={!planner.dirty || planner.saveState === 'saving'}
+            disabled={!planner.dirty || planner.saveState === 'saving' || saveConflict}
+            tabIndex={compactNavigation && menuOpen ? -1 : undefined}
           >
-            {planner.saveState === 'saving' ? 'Saving…' : planner.dirty ? 'Save changes' : 'Saved'}
+            {planner.saveState === 'saving' ? 'Saving…' : saveConflict ? 'Resolve conflict' : planner.dirty ? 'Save changes' : 'Saved'}
           </button>
           <button
             id="planner-menu-button"
+            ref={menuButton}
             className="planner-menu-button"
             type="button"
             aria-label={menuOpen ? 'Close planner menu' : 'Open planner menu'}
             aria-expanded={menuOpen}
             aria-controls="planner-sidebar"
-            onClick={() => setMenuOpen((open) => !open)}
+            onClick={() => menuOpen ? closeMenu() : setMenuOpen(true)}
           >
             <span /><span /><span />
           </button>
@@ -94,15 +146,20 @@ export function AppShell() {
       </header>
 
       <div className="app-body">
-        {menuOpen && <button className="sidebar-scrim" type="button" aria-label="Close planner menu" onClick={() => setMenuOpen(false)} />}
+        {menuOpen && <button className="sidebar-scrim" type="button" aria-label="Close planner menu" onClick={() => closeMenu(true)} />}
         <aside
           className={`app-sidebar${menuOpen ? ' open' : ''}`}
           id="planner-sidebar"
           aria-label="Planner navigation and account"
           aria-hidden={compactNavigation && !menuOpen ? true : undefined}
+          aria-modal={compactNavigation && menuOpen ? true : undefined}
+          role={compactNavigation && menuOpen ? 'dialog' : undefined}
           inert={compactNavigation && !menuOpen ? true : undefined}
           onKeyDown={handleMenuKeyDown}
         >
+          <button className="sidebar-close-button" type="button" aria-label="Close planner menu" onClick={() => closeMenu(true)}>
+            <span aria-hidden="true">×</span>
+          </button>
           <nav aria-label="Planner sections">
             {navigation.map((item, index) => (
               <NavLink
@@ -125,16 +182,31 @@ export function AppShell() {
           </div>
         </aside>
 
-        <div className="app-content">
+        <div className="app-content" inert={compactNavigation && menuOpen ? true : undefined}>
+          {cloudOffline && !saveConflict && (
+            <div className="connection-banner" role="status">
+              <strong>You’re offline.</strong>
+              <span>Your cloud plan cannot sync, but changes remain open on this page.</span>
+            </div>
+          )}
+          {saveConflict && (
+            <section className="conflict-banner" role="alert" aria-labelledby="save-conflict-title">
+              <div><strong id="save-conflict-title">Cloud plan changed elsewhere.</strong><span>This local draft is still open and has not been overwritten.</span></div>
+              <div className="conflict-actions">
+                <Link className="text-button" to="/settings">Export draft in Settings</Link>
+                <button className="text-button danger" type="button" onClick={discardConflictedDraft}>Discard draft and reload</button>
+              </div>
+            </section>
+          )}
           {planner.mode === 'demo' && (
             <div className="demo-banner" role="status">
               <strong>Demo Mode</strong>
               <span>Starts with fictional values. Use fictional data only; nothing uploads to Supabase.</span>
             </div>
           )}
-          <div className={`save-announcement ${planner.saveState}`} aria-live="polite" aria-atomic="true">
+          {!saveConflict && <div className={`save-announcement ${planner.saveState}`} role={planner.saveState === 'error' ? 'alert' : 'status'} aria-live="polite" aria-atomic="true">
             {planner.saveMessage}
-          </div>
+          </div>}
           <main id="planner-main" tabIndex={-1}>
             <Outlet />
           </main>
@@ -150,10 +222,29 @@ export function AppShell() {
 
 export function PlannerLoading() {
   return (
-    <main className="centered-page" aria-busy="true">
-      <div className="loading-mark" aria-hidden="true" />
-      <h1>Opening your plan…</h1>
-      <p>Loading inputs securely. Projections will run on this device.</p>
+    <main className="centered-page planner-loading-page" aria-busy="true" aria-labelledby="planner-loading-title">
+      <section className="loading-card" role="status" aria-live="polite">
+        <div className="loading-brand" aria-hidden="true">
+          <img src="/Logo-256.png" alt="" width="42" height="42" />
+          <span>Accessible Finance <small>Planner</small></span>
+        </div>
+        <div className="loading-mark" aria-hidden="true" />
+        <h1 id="planner-loading-title">Opening your plan…</h1>
+        <p>Loading your saved inputs. Projections will run on this device.</p>
+        <div className="loading-lines" aria-hidden="true"><span /><span /><span /></div>
+      </section>
     </main>
+  );
+}
+
+export function PlannerRouteLoading() {
+  return (
+    <div className="route-loading" role="status" aria-live="polite" aria-busy="true">
+      <div className="loading-mark" aria-hidden="true" />
+      <div>
+        <strong>Loading this section…</strong>
+        <span>Your plan stays open while this page is prepared.</span>
+      </div>
+    </div>
   );
 }

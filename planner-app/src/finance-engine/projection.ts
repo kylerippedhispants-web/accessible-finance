@@ -390,8 +390,10 @@ function withdrawFromAssets(states: AssetState[], requested: number): number {
   };
   const candidates = states
     .map((state, index) => ({ state, index, category: assetCategory(state.asset) }))
-    .filter(({ state, category }) => state.active && category !== "property" && state.balance > 0)
-    .sort((a, b) => categoryPriority[a.category] - categoryPriority[b.category] || a.index - b.index);
+    .filter(({ state, category }) => state.active && category !== "property" && state.balance > 0);
+  // `candidates` is a fresh local array, so sorting it cannot mutate caller state.
+  // oxlint-disable-next-line unicorn/no-array-sort
+  candidates.sort((a, b) => categoryPriority[a.category] - categoryPriority[b.category] || a.index - b.index);
 
   for (const { state } of candidates) {
     if (remaining <= 0) {
@@ -428,11 +430,11 @@ export function projectFinances(
   const plan = applyScenarioOverrides(baseline, scenarioOrOverrides);
   const birthYear = validatePlan(plan);
   const finalYear = birthYear + plan.retirement.planningEndAge;
-  const assetStates: AssetState[] = plan.assets.map((asset) => {
+  const assetStates: AssetState[] = plan.assets.filter(isEnabled).map((asset) => {
     const active = (asset.startYear ?? plan.baseYear) <= plan.baseYear;
     return { asset, active, balance: active ? asset.currentValue : 0 };
   });
-  const debtStates: DebtState[] = plan.debts.map((debt) => {
+  const debtStates: DebtState[] = plan.debts.filter(isEnabled).map((debt) => {
     const active = (debt.startYear ?? plan.baseYear) <= plan.baseYear;
     const scheduledPaymentCount = Math.max(
       0,
@@ -538,6 +540,39 @@ export function projectFinances(
       debtPrincipal += result.totalPrincipal;
     }
 
+    const availableSavings = netIncome - expenses - debtPayments;
+    const plannedContributions = assetStates.reduce(
+      (sum, state) => sum + (state.active
+        ? contributionForYear(state.asset, year, plan.baseYear)
+        : 0),
+      0,
+    );
+    let contributionFunding = 0;
+    let withdrawals = 0;
+    let unfundedCashFlow = 0;
+    const liquidCashAfterRequiredSpending = unallocatedCash + availableSavings;
+    const cashUsedForRequiredSpending = Math.min(
+      unallocatedCash,
+      Math.max(0, -availableSavings),
+    );
+    withdrawals += cashUsedForRequiredSpending;
+
+    if (liquidCashAfterRequiredSpending >= 0) {
+      const shortfallRepayment = Math.min(shortfallLiability, liquidCashAfterRequiredSpending);
+      shortfallLiability -= shortfallRepayment;
+      const cashAfterShortfallRepayment = liquidCashAfterRequiredSpending - shortfallRepayment;
+      contributionFunding = Math.min(plannedContributions, cashAfterShortfallRepayment);
+      unallocatedCash = cashAfterShortfallRepayment - contributionFunding;
+    } else {
+      // Existing cash can fund required spending, but scheduled contributions
+      // are optional savings and must never fund themselves through a same-year
+      // withdrawal from the asset that just received them.
+      unallocatedCash = 0;
+    }
+
+    const contributionFundingRatio = plannedContributions > 0
+      ? contributionFunding / plannedContributions
+      : 0;
     let contributions = 0;
     let investmentGrowth = 0;
     let propertyGrowth = 0;
@@ -547,7 +582,8 @@ export function projectFinances(
         continue;
       }
       const category = assetCategory(state.asset);
-      const annualContribution = contributionForYear(state.asset, year, plan.baseYear);
+      const annualContribution = contributionForYear(state.asset, year, plan.baseYear)
+        * contributionFundingRatio;
       const openingBalance = state.balance;
       const endingBalance = futureValueWithRecurringContributions({
         initialBalance: openingBalance,
@@ -568,21 +604,8 @@ export function projectFinances(
       }
     }
 
-    const availableSavings = netIncome - expenses - debtPayments;
-    const cashAfterContributions = availableSavings - contributions;
-    let withdrawals = 0;
-    let unfundedCashFlow = 0;
-    if (cashAfterContributions >= 0) {
-      const shortfallRepayment = Math.min(shortfallLiability, cashAfterContributions);
-      shortfallLiability -= shortfallRepayment;
-      unallocatedCash += cashAfterContributions - shortfallRepayment;
-    } else {
-      let fundingNeeded = -cashAfterContributions;
-      const cashUsed = Math.min(unallocatedCash, fundingNeeded);
-      unallocatedCash -= cashUsed;
-      fundingNeeded -= cashUsed;
-      withdrawals += cashUsed;
-
+    if (liquidCashAfterRequiredSpending < 0) {
+      let fundingNeeded = -liquidCashAfterRequiredSpending;
       const assetWithdrawal = withdrawFromAssets(assetStates, fundingNeeded);
       withdrawals += assetWithdrawal;
       fundingNeeded -= assetWithdrawal;

@@ -12,9 +12,10 @@
     "test": "vitest run",
     "test:e2e": "npm run build && playwright test",
     "test:watch": "vitest",
+    "lint": "oxlint -D correctness -D suspicious --react-plugin --jsx-a11y-plugin --vitest-plugin --import-plugin -A react-in-jsx-scope -A no-named-as-default -A no-unassigned-import -A require-to-throw-message -A no-conditional-expect -A prefer-tag-over-role -A autocomplete-valid -A no-array-sort -A no-useless-fallback-in-spread -A set-state-in-effect -A no-noninteractive-tabindex -A no-noninteractive-element-interactions -A label-has-associated-control --deny-warnings planner-app/src tests scripts vite.config.mts playwright.config.mts",
     "typecheck": "tsc --noEmit",
     "validate:legacy": "node scripts/validate-site.js",
-    "validate": "npm run validate:legacy && npm run typecheck && npm run test && npm run build"
+    "validate": "npm run validate:legacy && npm run lint && npm run typecheck && npm run test && npm run build"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.112.3",
@@ -24,13 +25,14 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.62.1",
     "@types/node": "^24.10.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "6.1.0",
-    "@axe-core/playwright": "4.13.0",
-    "@playwright/test": "1.62.1",
     "jsdom": "^27.2.0",
+    "oxlint": "1.80.0",
     "typescript": "7.0.2",
     "vite": "8.2.2",
     "vitest": "4.1.11"

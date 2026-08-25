@@ -12,6 +12,10 @@ import {
 import type { PlannerSnapshot } from '../data/demoPlan';
 import { applyScenarioOverrides } from '../finance-engine/scenarios';
 
+export const MAX_PLAN_COLLECTION_ITEMS = 250;
+export const MAX_PLAN_SCENARIOS = 50;
+export const MAX_SCENARIO_OVERRIDE_OPERATIONS = 5_000;
+
 const idSchema = z.string().trim().min(1).max(120);
 const nameSchema = z.string().trim().min(1, 'Enter a name.').max(120);
 const planNameSchema = z.string().trim().min(1, 'Enter a name.').max(100);
@@ -152,10 +156,10 @@ export const financialPlanSchema: z.ZodType<FinancialPlan> = z.object({
     effectiveTaxPercent: z.number().finite().min(0).max(100),
     generalInflationPercent: generalInflationSchema,
   }),
-  incomeSources: z.array(incomeSchema).max(250),
-  expenses: z.array(expenseSchema).max(250),
-  assets: z.array(assetSchema).max(250),
-  debts: z.array(debtSchema).max(250),
+  incomeSources: z.array(incomeSchema).max(MAX_PLAN_COLLECTION_ITEMS),
+  expenses: z.array(expenseSchema).max(MAX_PLAN_COLLECTION_ITEMS),
+  assets: z.array(assetSchema).max(MAX_PLAN_COLLECTION_ITEMS),
+  debts: z.array(debtSchema).max(MAX_PLAN_COLLECTION_ITEMS),
   retirement: retirementSchema,
 }).superRefine((plan, context) => {
   const birthYear = Number(plan.profile.dateOfBirth.slice(0, 4));
@@ -264,15 +268,15 @@ function collectionOverridesSchema<
   TChanges extends z.ZodType,
 >(entitySchema: TEntity, changesSchema: TChanges) {
   return z.object({
-    add: z.array(entitySchema).max(250).optional(),
+    add: z.array(entitySchema).max(MAX_PLAN_COLLECTION_ITEMS).optional(),
     update: z.array(z.object({
       entityId: idSchema,
       changes: changesSchema,
     }).strict().refine(
       (value) => Object.keys((value as { changes: object }).changes).length > 0,
       { message: 'Scenario update must change at least one field.', path: ['changes'] },
-    )).max(250).optional(),
-    removeIds: z.array(idSchema).max(250).optional(),
+    )).max(MAX_PLAN_COLLECTION_ITEMS).optional(),
+    removeIds: z.array(idSchema).max(MAX_PLAN_COLLECTION_ITEMS).optional(),
   }).strict();
 }
 
@@ -310,7 +314,7 @@ export const planScenarioSchema: z.ZodType<PlanScenario> = z.object({
   id: idSchema,
   planId: idSchema,
   name: planNameSchema,
-  description: z.string().max(500).optional(),
+  description: z.string().max(1_000).optional(),
   isBaseline: z.boolean().optional(),
   overrides: scenarioOverridesSchema,
 }).superRefine((scenario, context) => {
@@ -347,11 +351,12 @@ export const planScenarioSchema: z.ZodType<PlanScenario> = z.object({
 
 export const plannerSnapshotSchema: z.ZodType<PlannerSnapshot> = z.object({
   plan: financialPlanSchema,
-  scenarios: z.array(planScenarioSchema).max(50),
+  scenarios: z.array(planScenarioSchema).max(MAX_PLAN_SCENARIOS),
 }).superRefine((snapshot, context) => {
   const scenarioIds = new Set<string>();
   const scenarioNames = new Set<string>();
   let baselineCount = 0;
+  let overrideOperationCount = 0;
 
   snapshot.scenarios.forEach((scenario, index) => {
     if (scenarioIds.has(scenario.id)) {
@@ -372,6 +377,22 @@ export const plannerSnapshotSchema: z.ZodType<PlannerSnapshot> = z.object({
     }
     scenarioNames.add(scenario.name);
     if (scenario.isBaseline) baselineCount += 1;
+    if (scenario.overrides.assumptions && Object.keys(scenario.overrides.assumptions).length) {
+      overrideOperationCount += 1;
+    }
+    if (scenario.overrides.retirement && Object.keys(scenario.overrides.retirement).length) {
+      overrideOperationCount += 1;
+    }
+    for (const collection of [
+      scenario.overrides.incomeSources,
+      scenario.overrides.expenses,
+      scenario.overrides.assets,
+      scenario.overrides.debts,
+    ]) {
+      overrideOperationCount += (collection?.add?.length ?? 0)
+        + (collection?.update?.length ?? 0)
+        + (collection?.removeIds?.length ?? 0);
+    }
 
     if (scenario.planId !== snapshot.plan.id) {
       context.addIssue({
@@ -425,6 +446,13 @@ export const plannerSnapshotSchema: z.ZodType<PlannerSnapshot> = z.object({
     context.addIssue({
       code: 'custom',
       message: 'Only one scenario can be marked as the baseline.',
+      path: ['scenarios'],
+    });
+  }
+  if (overrideOperationCount > MAX_SCENARIO_OVERRIDE_OPERATIONS) {
+    context.addIssue({
+      code: 'custom',
+      message: `A plan can contain at most ${MAX_SCENARIO_OVERRIDE_OPERATIONS.toLocaleString('en-CA')} scenario differences.`,
       path: ['scenarios'],
     });
   }

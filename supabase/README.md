@@ -1,9 +1,15 @@
 # Accessible Finance Planner database
 
-The migration in `migrations/20260824010000_planner_foundation.sql` creates the
-normalized Supabase foundation for web and future mobile clients. It stores plan
-inputs only. Projection results stay on-device and are recalculated by the shared
-finance engine.
+The migrations create the normalized Supabase foundation for web and future
+mobile clients, then add an atomic optimistic-concurrency save boundary:
+
+- `migrations/20260824010000_planner_foundation.sql` creates the tables, row-level
+  security policies, constraints, triggers, and direct authenticated CRUD grants.
+- `migrations/20260825010000_planner_atomic_save.sql` adds the plan `revision`
+  token and authenticated `save_planner_snapshot` RPC.
+
+Only plan inputs are stored. Projection results stay on-device and are
+recalculated by the shared finance engine.
 
 ## Apply the migration
 
@@ -38,10 +44,14 @@ For a new project where the CLI cannot be used:
 
 1. Open **SQL Editor** in the intended Supabase project.
 2. Choose **New query**.
-3. Paste the complete contents of
+3. Paste and run the complete contents of
    `supabase/migrations/20260824010000_planner_foundation.sql`.
-4. Choose **Run** once. The migration is transactional, so an error rolls the
-   whole migration back instead of leaving a partial schema.
+4. In a new query, paste and run the complete contents of
+   `supabase/migrations/20260825010000_planner_atomic_save.sql`.
+
+Run the files in timestamp order and run each file only once. Both migrations
+are transactional, so an error rolls that migration back instead of leaving a
+partial change.
 
 Choose one application method for the initial migration. Dashboard execution does
 not create the same local/remote CLI migration-history workflow, so do not later
@@ -82,6 +92,24 @@ The migration defines `SELECT`, `INSERT`, `UPDATE`, and `DELETE` policies for
 each table. Policies are limited to the authenticated role and compare every
 row's `user_id` with `auth.uid()`.
 
+Verify the atomic save API after both migrations are applied:
+
+```sql
+select column_name, data_type, is_nullable, column_default
+from information_schema.columns
+where table_schema = 'public'
+  and table_name = 'financial_plans'
+  and column_name = 'revision';
+
+select routine_name, security_type
+from information_schema.routines
+where routine_schema = 'public'
+  and routine_name = 'save_planner_snapshot';
+```
+
+The first query must return one non-nullable `bigint` column with a default of
+zero. The second must return `save_planner_snapshot` with `INVOKER` security.
+
 ## Ownership and data-shape guarantees
 
 - `user_id` defaults to `auth.uid()`, and RLS rejects a submitted owner that does
@@ -97,6 +125,13 @@ row's `user_id` with `auth.uid()`.
   profile data.
 - All modification timestamps are database-managed through a trigger function
   with an empty `search_path`.
+- Current planner clients load a `revision` and pass it to
+  `save_planner_snapshot`. The RPC locks the plan through a conditional update,
+  replaces all related inputs in one transaction, and rejects stale revisions.
+- Direct authenticated table policies and grants remain available for older
+  clients. Those calls retain RLS ownership protection, but direct child-table
+  writes are not atomic snapshot saves and do not participate in optimistic
+  conflict detection. New clients should use the RPC for complete-plan saves.
 - CPP and OAS amounts, start ages, taxability, and growth are explicit user
   inputs. The schema does not calculate or imply benefit entitlement.
 

@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 const script = resolve(import.meta.dirname, '../scripts/validate-planner-env.mjs');
 
-function runValidator(url: string, key: string) {
+function runValidator(url: string, key: string, cloudRequired = false) {
   return spawnSync(process.execPath, [script, 'production'], {
     cwd: resolve(import.meta.dirname, '..'),
     encoding: 'utf8',
@@ -12,6 +12,7 @@ function runValidator(url: string, key: string) {
       ...process.env,
       VITE_SUPABASE_URL: url,
       VITE_SUPABASE_ANON_KEY: key,
+      PLANNER_REQUIRE_CLOUD: cloudRequired ? 'true' : '',
     },
   });
 }
@@ -19,6 +20,12 @@ function runValidator(url: string, key: string) {
 describe('planner build environment security', () => {
   it('allows a demo-only build with no cloud values', () => {
     expect(runValidator('', '').status).toBe(0);
+  });
+
+  it('blocks a production-gated build when cloud values are missing', () => {
+    const result = runValidator('', '', true);
+    expect(result.status).not.toBe(0);
+    expect(`${result.stdout}${result.stderr}`).toContain('cloud mode is required');
   });
 
   it('allows a public Supabase publishable key', () => {

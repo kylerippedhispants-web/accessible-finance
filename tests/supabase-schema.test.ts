@@ -7,6 +7,11 @@ const migrationPath = resolve(
   'supabase/migrations/20260824010000_planner_foundation.sql',
 )
 const sql = readFileSync(migrationPath, 'utf8')
+const atomicSaveMigrationPath = resolve(
+  process.cwd(),
+  'supabase/migrations/20260825010000_planner_atomic_save.sql',
+)
+const atomicSaveSql = readFileSync(atomicSaveMigrationPath, 'utf8')
 
 const tables = [
   'profiles',
@@ -230,5 +235,66 @@ describe('Supabase planner foundation migration', () => {
     expect(sql).toMatch(
       /grant\s+select\s*,\s*insert\s*,\s*update\s*,\s*delete\s+on\s+table[\s\S]*?to\s+authenticated\s*;/i,
     )
+  })
+})
+
+describe('Supabase atomic planner save migration', () => {
+  it('adds a non-negative optimistic revision without rewriting the foundation', () => {
+    expect(atomicSaveSql).toMatch(
+      /alter\s+table\s+public\.financial_plans[\s\S]*?add\s+column\s+revision\s+bigint\s+not\s+null\s+default\s+0/i,
+    )
+    expect(atomicSaveSql).toMatch(/check\s*\(\s*revision\s*>=\s*0\s*\)/i)
+    expect(sql).not.toMatch(/\brevision\s+bigint\b/i)
+  })
+
+  it('increments revisions for supported and compatible direct plan updates', () => {
+    expect(atomicSaveSql).toMatch(
+      /create\s+or\s+replace\s+function\s+public\.bump_planner_revision\(\)[\s\S]*?new\.revision\s*=\s*old\.revision\s*\+\s*1/i,
+    )
+    expect(atomicSaveSql).toMatch(
+      /create\s+trigger\s+financial_plans_bump_revision[\s\S]*?before\s+update\s+on\s+public\.financial_plans/i,
+    )
+  })
+
+  it('defines a hardened authenticated atomic save RPC with conflict detection', () => {
+    const definition = atomicSaveSql.match(
+      /create\s+or\s+replace\s+function\s+public\.save_planner_snapshot\([\s\S]*?\$\$\s*;/i,
+    )?.[0]
+    expect(definition).toBeDefined()
+    expect(definition).toMatch(/security\s+invoker/i)
+    expect(definition).toMatch(/set\s+search_path\s*=\s*''/i)
+    expect(definition).toMatch(/auth\.uid\(\)/i)
+    expect(definition).toMatch(/revision\s*=\s*p_expected_revision/i)
+    expect(definition).toMatch(/planner_revision_conflict/i)
+    expect(definition).toMatch(/jsonb_array_length[\s\S]*?5000/i)
+    expect(atomicSaveSql).toMatch(
+      /revoke\s+all\s+on\s+function\s+public\.save_planner_snapshot\(jsonb,\s*bigint\)\s+from\s+anon/i,
+    )
+    expect(atomicSaveSql).toMatch(
+      /grant\s+execute\s+on\s+function\s+public\.save_planner_snapshot\(jsonb,\s*bigint\)\s+to\s+authenticated/i,
+    )
+  })
+
+  it('replaces child rows and scenario overrides inside the RPC transaction', () => {
+    expect(atomicSaveSql.trimStart()).toMatch(/^--[\s\S]*?\bbegin\s*;/i)
+    expect(atomicSaveSql.trimEnd()).toMatch(/commit\s*;$/i)
+    for (const table of ['income_sources', 'expenses', 'assets', 'debts', 'scenarios']) {
+      expect(atomicSaveSql).toMatch(
+        new RegExp(`insert\\s+into\\s+public\\.${table}\\b[\\s\\S]*?on\\s+conflict`, 'i'),
+      )
+      expect(atomicSaveSql).toMatch(
+        new RegExp(`delete\\s+from\\s+public\\.${table}\\b`, 'i'),
+      )
+    }
+    expect(atomicSaveSql).toMatch(
+      /delete\s+from\s+public\.scenario_overrides[\s\S]*?insert\s+into\s+public\.scenario_overrides/i,
+    )
+  })
+
+  it('preserves the original direct authenticated table grants for compatibility', () => {
+    expect(sql).toMatch(
+      /grant\s+select\s*,\s*insert\s*,\s*update\s*,\s*delete\s+on\s+table[\s\S]*?to\s+authenticated\s*;/i,
+    )
+    expect(atomicSaveSql).not.toMatch(/revoke[\s\S]*?on\s+table[\s\S]*?from\s+authenticated/i)
   })
 })

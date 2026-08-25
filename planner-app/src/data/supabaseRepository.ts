@@ -10,47 +10,185 @@ import type {
   RetirementSettings,
   ScenarioOverrides,
 } from '../domain';
-import { createBlankPlan, type PlannerSnapshot } from './demoPlan';
+import type { PlannerSnapshot } from './demoPlan';
 import { getSupabaseClient } from '../lib/supabase';
+import {
+  MAX_PLAN_COLLECTION_ITEMS,
+  MAX_PLAN_SCENARIOS,
+  MAX_SCENARIO_OVERRIDE_OPERATIONS,
+  plannerSnapshotSchema,
+} from '../validation/planSchemas';
 
 type Row = Record<string, unknown>;
 
+export type CloudRepositoryErrorCode =
+  | 'not_configured'
+  | 'offline'
+  | 'session_expired'
+  | 'conflict'
+  | 'invalid_data'
+  | 'capacity'
+  | 'unavailable';
+
+const RETRYABLE_ERROR_CODES = new Set<CloudRepositoryErrorCode>(['offline', 'unavailable']);
+
+export class CloudRepositoryError extends Error {
+  readonly code: CloudRepositoryErrorCode;
+  readonly retryable: boolean;
+
+  constructor(
+    code: CloudRepositoryErrorCode,
+    message: string,
+    options?: { cause?: unknown; retryable?: boolean },
+  ) {
+    super(message, options?.cause === undefined ? undefined : { cause: options.cause });
+    this.name = 'CloudRepositoryError';
+    this.code = code;
+    this.retryable = options?.retryable ?? RETRYABLE_ERROR_CODES.has(code);
+  }
+}
+
+export interface LoadedPlannerSnapshot {
+  snapshot: PlannerSnapshot;
+  revision: number;
+}
+
+export interface SavedPlannerSnapshot {
+  revision: number;
+}
+
 function clientOrThrow(): SupabaseClient {
   const client = getSupabaseClient();
-  if (!client) throw new Error('Cloud sync is unavailable.');
+  if (!client) {
+    throw new CloudRepositoryError(
+      'not_configured',
+      'Cloud sync has not been configured for this deployment.',
+    );
+  }
   return client;
 }
 
-function failIf(error: PostgrestError | null, operation: string): void {
-  if (error) throw new Error(`Cloud ${operation} failed.`);
+function asRepositoryError(
+  error: unknown,
+  operation: string,
+  status?: number,
+): CloudRepositoryError {
+  if (error instanceof CloudRepositoryError) return error;
+
+  const postgrest = error && typeof error === 'object'
+    ? error as Partial<PostgrestError>
+    : undefined;
+  const code = typeof postgrest?.code === 'string' ? postgrest.code : '';
+  const rawMessage = typeof postgrest?.message === 'string'
+    ? postgrest.message
+    : error instanceof Error ? error.message : '';
+
+  if (code === 'P0001' && rawMessage.includes('planner_revision_conflict')) {
+    return new CloudRepositoryError(
+      'conflict',
+      'This plan changed in another session. Reload the cloud copy before saving again.',
+      { cause: error },
+    );
+  }
+  if (status === 401 || code === '28000' || code === 'PGRST301' || code === 'PGRST302') {
+    return new CloudRepositoryError(
+      'session_expired',
+      'Your cloud session expired. Sign in again before retrying.',
+      { cause: error },
+    );
+  }
+  if (code === '54000') {
+    return new CloudRepositoryError(
+      'capacity',
+      'This plan is too large to load or save safely.',
+      { cause: error },
+    );
+  }
+  if (/^(?:22|23)/.test(code)) {
+    return new CloudRepositoryError(
+      'invalid_data',
+      `Cloud ${operation} was rejected because the plan data is invalid.`,
+      { cause: error },
+    );
+  }
+  if (
+    error instanceof TypeError
+    || status === 0
+    || /failed to fetch|networkerror|network request failed|offline/i.test(rawMessage)
+  ) {
+    return new CloudRepositoryError(
+      'offline',
+      `Cloud ${operation} could not reach Supabase. Check the connection and try again.`,
+      { cause: error },
+    );
+  }
+  return new CloudRepositoryError(
+    'unavailable',
+    `Cloud ${operation} is temporarily unavailable. Try again.`,
+    { cause: error },
+  );
 }
 
-function numberValue(value: unknown, fallback = 0): number {
-  const parsed = typeof value === 'number' ? value : Number(value);
-  return Number.isFinite(parsed) ? parsed : fallback;
+function failIf(
+  error: PostgrestError | null,
+  operation: string,
+  status?: number,
+): void {
+  if (error) throw asRepositoryError(error, operation, status);
 }
 
-function stringValue(value: unknown, fallback = ''): string {
-  return typeof value === 'string' ? value : fallback;
+function invalidCloudValue(field: string): never {
+  throw new CloudRepositoryError(
+    'invalid_data',
+    `Cloud plan data contains an invalid ${field}. No data was changed.`,
+  );
 }
 
-function nullableNumber(value: unknown): number | undefined {
-  if (value === null || value === undefined || value === '') return undefined;
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : undefined;
+function numberValue(value: unknown, field = 'number'): number {
+  const parsed = typeof value === 'number'
+    ? value
+    : typeof value === 'string' && value.trim() !== ''
+      ? Number(value)
+      : Number.NaN;
+  return Number.isFinite(parsed) ? parsed : invalidCloudValue(field);
 }
 
-function nullableBoolean(value: unknown): boolean | undefined {
-  return typeof value === 'boolean' ? value : undefined;
+function integerValue(value: unknown, field = 'integer'): number {
+  const parsed = numberValue(value, field);
+  return Number.isSafeInteger(parsed) ? parsed : invalidCloudValue(field);
+}
+
+function stringValue(value: unknown, field = 'text'): string {
+  return typeof value === 'string' ? value : invalidCloudValue(field);
+}
+
+function nullableNumber(value: unknown, field = 'number'): number | undefined {
+  if (value === null || value === undefined) return undefined;
+  return numberValue(value, field);
+}
+
+function booleanValue(value: unknown, field = 'boolean'): boolean {
+  return typeof value === 'boolean' ? value : invalidCloudValue(field);
+}
+
+function nullableBoolean(value: unknown, field = 'boolean'): boolean | undefined {
+  if (value === null || value === undefined) return undefined;
+  return booleanValue(value, field);
+}
+
+function objectValue(value: unknown, field = 'object'): Row {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) invalidCloudValue(field);
+  return value as Row;
 }
 
 function profileFromRow(row: Row | null): PlannerProfile {
+  if (!row) invalidCloudValue('profile');
   return {
-    id: stringValue(row?.id, crypto.randomUUID()),
-    firstName: stringValue(row?.first_name),
-    provinceOrTerritory: (stringValue(row?.province_code, 'ON') || 'ON') as PlannerProfile['provinceOrTerritory'],
-    dateOfBirth: stringValue(row?.date_of_birth, '1990-01-01'),
-    currency: 'CAD',
+    id: stringValue(row.id, 'profile ID'),
+    firstName: stringValue(row.first_name, 'profile first name'),
+    provinceOrTerritory: stringValue(row.province_code, 'province or territory') as PlannerProfile['provinceOrTerritory'],
+    dateOfBirth: stringValue(row.date_of_birth, 'date of birth'),
+    currency: stringValue(row.currency_code, 'profile currency') as PlannerProfile['currency'],
   };
 }
 
@@ -65,9 +203,9 @@ export function incomeFromRow(row: Row): IncomeSource {
     startYear: numberValue(row.start_year),
     endYear: nullableNumber(row.end_year),
     annualGrowthPercent: numberValue(row.annual_growth_percent),
-    taxable: Boolean(row.taxable),
-    endsAtRetirement: nullableBoolean(row.ends_at_retirement),
-    enabled: row.enabled !== false,
+    taxable: booleanValue(row.taxable, 'income taxability'),
+    endsAtRetirement: nullableBoolean(row.ends_at_retirement, 'income retirement behavior'),
+    enabled: booleanValue(row.enabled, 'income enabled state'),
     position: numberValue(row.position),
   };
 }
@@ -83,7 +221,7 @@ export function expenseFromRow(row: Row): Expense {
     startYear: numberValue(row.start_year),
     endYear: nullableNumber(row.end_year),
     inflationPercent: numberValue(row.inflation_percent),
-    enabled: row.enabled !== false,
+    enabled: booleanValue(row.enabled, 'expense enabled state'),
     position: numberValue(row.position),
   };
 }
@@ -94,19 +232,22 @@ export function assetFromRow(row: Row): Asset {
     planId: stringValue(row.plan_id),
     name: stringValue(row.name),
     type: stringValue(row.asset_type) as Asset['type'],
-    category: row.category ? stringValue(row.category) as Asset['category'] : undefined,
+    category: row.category === null || row.category === undefined
+      ? undefined
+      : stringValue(row.category, 'asset category') as Asset['category'],
     currentValue: numberValue(row.current_value),
     expectedReturnPercent: nullableNumber(row.expected_return_percent),
     postRetirementReturnPercent: nullableNumber(row.post_retirement_return_percent),
     annualAppreciationPercent: nullableNumber(row.annual_appreciation_percent),
     annualContribution: nullableNumber(row.annual_contribution),
-    contributionFrequency: row.contribution_frequency
-      ? stringValue(row.contribution_frequency) as Asset['contributionFrequency']
-      : undefined,
+    contributionFrequency: row.contribution_frequency === null
+      || row.contribution_frequency === undefined
+      ? undefined
+      : stringValue(row.contribution_frequency, 'asset contribution frequency') as Asset['contributionFrequency'],
     contributionStartYear: nullableNumber(row.contribution_start_year),
     contributionEndYear: nullableNumber(row.contribution_end_year),
     startYear: nullableNumber(row.start_year),
-    enabled: row.enabled !== false,
+    enabled: booleanValue(row.enabled, 'asset enabled state'),
     position: numberValue(row.position),
   };
 }
@@ -125,33 +266,33 @@ export function debtFromRow(row: Row): Debt {
     extraPaymentAmount: nullableNumber(row.extra_payment_amount),
     compoundingPeriodsPerYear: nullableNumber(row.compounding_periods_per_year),
     startYear: nullableNumber(row.start_year),
-    enabled: row.enabled !== false,
+    enabled: booleanValue(row.enabled, 'debt enabled state'),
     position: numberValue(row.position),
   };
 }
 
-function retirementFromRow(row: Row | null, fallback: RetirementSettings): RetirementSettings {
-  if (!row) return fallback;
+function retirementFromRow(row: Row | null): RetirementSettings {
+  if (!row) invalidCloudValue('retirement settings');
   return {
-    targetRetirementAge: numberValue(row.retirement_age, fallback.targetRetirementAge),
-    planningEndAge: numberValue(row.planning_end_age, fallback.planningEndAge),
+    targetRetirementAge: numberValue(row.retirement_age, 'retirement age'),
+    planningEndAge: numberValue(row.planning_end_age, 'planning end age'),
     estimatedAnnualSpending: numberValue(row.estimated_annual_spending),
     spendingInflationPercent: numberValue(row.inflation_percent),
     investmentReturnBeforeRetirementPercent: numberValue(row.investment_return_before_percent),
     investmentReturnAfterRetirementPercent: numberValue(row.investment_return_after_percent),
-    expenseMode: stringValue(row.expense_mode, 'replace_recurring') as RetirementSettings['expenseMode'],
+    expenseMode: stringValue(row.expense_mode, 'retirement expense mode') as RetirementSettings['expenseMode'],
     cpp: {
-      enabled: Boolean(row.cpp_enabled),
+      enabled: booleanValue(row.cpp_enabled, 'CPP enabled state'),
       annualAmount: numberValue(row.cpp_annual_estimate),
-      startAge: numberValue(row.cpp_start_age, 65),
-      taxable: Boolean(row.cpp_taxable),
+      startAge: numberValue(row.cpp_start_age, 'CPP start age'),
+      taxable: booleanValue(row.cpp_taxable, 'CPP taxability'),
       annualGrowthPercent: numberValue(row.cpp_annual_growth_percent),
     },
     oas: {
-      enabled: Boolean(row.oas_enabled),
+      enabled: booleanValue(row.oas_enabled, 'OAS enabled state'),
       annualAmount: numberValue(row.oas_annual_estimate),
-      startAge: numberValue(row.oas_start_age, 65),
-      taxable: Boolean(row.oas_taxable),
+      startAge: numberValue(row.oas_start_age, 'OAS start age'),
+      taxable: booleanValue(row.oas_taxable, 'OAS taxability'),
       annualGrowthPercent: numberValue(row.oas_annual_growth_percent),
     },
   };
@@ -170,29 +311,37 @@ function addCollectionOverride(
   const collection = (overrides[key] ?? {}) as LooseCollection;
   const operation = stringValue(row.operation);
   const targetId = stringValue(row.target_id);
-  const changes = (row.changes && typeof row.changes === 'object' ? row.changes : {}) as Row;
+  const changes = objectValue(row.changes, 'scenario changes');
 
   if (operation === 'add') {
     const added = { id: targetId, planId: stringValue(row.plan_id), ...changes };
     collection.add = [...(collection.add ?? []), added];
   } else if (operation === 'delete') {
     collection.removeIds = [...(collection.removeIds ?? []), targetId];
-  } else {
+  } else if (operation === 'update') {
     collection.update = [...(collection.update ?? []), { entityId: targetId, changes }];
+  } else {
+    invalidCloudValue('scenario operation');
   }
   (overrides as unknown as Record<string, LooseCollection>)[key] = collection;
 }
 
 export function scenariosFromRows(scenarioRows: Row[], overrideRows: Row[]): PlanScenario[] {
-  return scenarioRows.filter((row) => row.is_archived !== true).map((row) => {
+  return scenarioRows.filter((row) => !booleanValue(row.is_archived, 'scenario archived state')).map((row) => {
     const overrides: ScenarioOverrides = {};
     overrideRows.filter((candidate) => candidate.scenario_id === row.id).forEach((override) => {
-      const changes = (override.changes && typeof override.changes === 'object' ? override.changes : {}) as Row;
+      const changes = objectValue(override.changes, 'scenario changes');
+      const operation = stringValue(override.operation, 'scenario operation');
       switch (override.entity_type) {
         case 'financial_plan':
-          overrides.assumptions = (changes.assumptions ?? changes) as ScenarioOverrides['assumptions'];
+          if (operation !== 'update') invalidCloudValue('financial plan scenario operation');
+          overrides.assumptions = objectValue(
+            changes.assumptions ?? changes,
+            'scenario assumptions',
+          ) as ScenarioOverrides['assumptions'];
           break;
         case 'retirement_settings':
+          if (operation !== 'update') invalidCloudValue('retirement scenario operation');
           overrides.retirement = changes as ScenarioOverrides['retirement'];
           break;
         case 'income_source':
@@ -207,69 +356,133 @@ export function scenariosFromRows(scenarioRows: Row[], overrideRows: Row[]): Pla
         case 'debt':
           addCollectionOverride(overrides, 'debts', override);
           break;
+        default:
+          invalidCloudValue('scenario entity type');
       }
     });
     return {
       id: stringValue(row.id),
       planId: stringValue(row.plan_id),
       name: stringValue(row.name),
-      description: row.description ? stringValue(row.description) : undefined,
-      isBaseline: Boolean(row.is_baseline),
+      description: row.description === null || row.description === undefined
+        ? undefined
+        : stringValue(row.description, 'scenario description'),
+      isBaseline: booleanValue(row.is_baseline, 'scenario baseline state'),
       overrides,
     };
   });
 }
 
-export async function loadPlannerSnapshot(): Promise<PlannerSnapshot | null> {
-  const supabase = clientOrThrow();
-  const [profileResult, planResult] = await Promise.all([
-    supabase.from('profiles').select('*').limit(1).maybeSingle(),
-    supabase.from('financial_plans').select('*').order('is_default', { ascending: false }).order('updated_at', { ascending: false }).limit(1).maybeSingle(),
-  ]);
-  failIf(profileResult.error, 'profile load');
-  failIf(planResult.error, 'plan load');
-  if (!planResult.data) return null;
+const PROFILE_COLUMNS = 'id,first_name,province_code,date_of_birth,currency_code';
+const PLAN_COLUMNS = 'id,schema_version,name,base_year,currency_code,effective_tax_percent,general_inflation_percent,is_default,revision,updated_at';
+const INCOME_COLUMNS = 'id,plan_id,name,income_type,amount,frequency,start_year,end_year,annual_growth_percent,taxable,ends_at_retirement,enabled,position';
+const EXPENSE_COLUMNS = 'id,plan_id,name,category,amount,frequency,start_year,end_year,inflation_percent,enabled,position';
+const ASSET_COLUMNS = 'id,plan_id,name,asset_type,category,current_value,expected_return_percent,post_retirement_return_percent,annual_appreciation_percent,annual_contribution,contribution_frequency,contribution_start_year,contribution_end_year,start_year,enabled,position';
+const DEBT_COLUMNS = 'id,plan_id,name,debt_type,balance,annual_interest_percent,payment_amount,payment_frequency,remaining_amortization_months,extra_payment_amount,compounding_periods_per_year,start_year,enabled,position';
+const RETIREMENT_COLUMNS = 'plan_id,retirement_age,planning_end_age,estimated_annual_spending,inflation_percent,investment_return_before_percent,investment_return_after_percent,expense_mode,cpp_enabled,cpp_annual_estimate,cpp_start_age,cpp_taxable,cpp_annual_growth_percent,oas_enabled,oas_annual_estimate,oas_start_age,oas_taxable,oas_annual_growth_percent';
+const SCENARIO_COLUMNS = 'id,plan_id,name,description,is_baseline,is_archived';
+const OVERRIDE_COLUMNS = 'plan_id,scenario_id,entity_type,target_id,operation,changes';
 
-  const planRow = planResult.data as Row;
-  const planId = stringValue(planRow.id);
-  const [incomeResult, expenseResult, assetResult, debtResult, retirementResult, scenarioResult, overrideResult] = await Promise.all([
-    supabase.from('income_sources').select('*').eq('plan_id', planId).order('position'),
-    supabase.from('expenses').select('*').eq('plan_id', planId).order('position'),
-    supabase.from('assets').select('*').eq('plan_id', planId).order('position'),
-    supabase.from('debts').select('*').eq('plan_id', planId).order('position'),
-    supabase.from('retirement_settings').select('*').eq('plan_id', planId).maybeSingle(),
-    supabase.from('scenarios').select('*').eq('plan_id', planId).order('updated_at', { ascending: false }),
-    supabase.from('scenario_overrides').select('*').eq('plan_id', planId),
-  ]);
-  [incomeResult, expenseResult, assetResult, debtResult, retirementResult, scenarioResult, overrideResult]
-    .forEach((result) => failIf(result.error, 'plan data load'));
+function rowsWithinLimit(data: unknown, maximum: number, label: string): Row[] {
+  if (data !== null && !Array.isArray(data)) invalidCloudValue(`${label} collection`);
+  const rows = (data ?? []) as Row[];
+  if (rows.length > maximum) {
+    throw new CloudRepositoryError(
+      'capacity',
+      `This plan contains too many ${label} records to load safely.`,
+    );
+  }
+  return rows;
+}
 
-  const profile = profileFromRow(profileResult.data as Row | null);
-  const fallback = createBlankPlan(profile);
-  const plan: FinancialPlan = {
-    schemaVersion: 1,
-    id: planId,
-    name: stringValue(planRow.name, 'My financial plan'),
-    baseYear: numberValue(planRow.base_year, new Date().getFullYear()),
-    profile,
-    assumptions: {
-      effectiveTaxPercent: numberValue(planRow.effective_tax_percent),
-      generalInflationPercent: numberValue(planRow.general_inflation_percent, 2),
-    },
-    incomeSources: ((incomeResult.data ?? []) as Row[]).map(incomeFromRow),
-    expenses: ((expenseResult.data ?? []) as Row[]).map(expenseFromRow),
-    assets: ((assetResult.data ?? []) as Row[]).map(assetFromRow),
-    debts: ((debtResult.data ?? []) as Row[]).map(debtFromRow),
-    retirement: retirementFromRow(retirementResult.data as Row | null, fallback.retirement),
-  };
+export async function loadPlannerSnapshot(): Promise<LoadedPlannerSnapshot | null> {
+  try {
+    const supabase = clientOrThrow();
+    // Read the plan revision first and again after all related queries. Atomic
+    // RPC saves change the revision in the same transaction as every child row,
+    // so equal revisions prove this multi-request read did not straddle a save.
+    const planResult = await supabase
+      .from('financial_plans')
+      .select(PLAN_COLUMNS)
+      .order('is_default', { ascending: false })
+      .order('updated_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    failIf(planResult.error, 'plan load', planResult.status);
+    if (!planResult.data) return null;
 
-  return {
-    plan,
-    scenarios: scenariosFromRows(
-      (scenarioResult.data ?? []) as Row[],
-      (overrideResult.data ?? []) as Row[],
-    ),
-  };
+    const selectedPlanRow = planResult.data as Row;
+    const planId = stringValue(selectedPlanRow.id, 'plan ID');
+    const revision = integerValue(selectedPlanRow.revision, 'plan revision');
+    const [profileResult, incomeResult, expenseResult, assetResult, debtResult, retirementResult, scenarioResult, overrideResult] = await Promise.all([
+      supabase.from('profiles').select(PROFILE_COLUMNS).limit(1).maybeSingle(),
+      supabase.from('income_sources').select(INCOME_COLUMNS).eq('plan_id', planId).order('position').order('id').limit(MAX_PLAN_COLLECTION_ITEMS + 1),
+      supabase.from('expenses').select(EXPENSE_COLUMNS).eq('plan_id', planId).order('position').order('id').limit(MAX_PLAN_COLLECTION_ITEMS + 1),
+      supabase.from('assets').select(ASSET_COLUMNS).eq('plan_id', planId).order('position').order('id').limit(MAX_PLAN_COLLECTION_ITEMS + 1),
+      supabase.from('debts').select(DEBT_COLUMNS).eq('plan_id', planId).order('position').order('id').limit(MAX_PLAN_COLLECTION_ITEMS + 1),
+      supabase.from('retirement_settings').select(RETIREMENT_COLUMNS).eq('plan_id', planId).maybeSingle(),
+      supabase.from('scenarios').select(SCENARIO_COLUMNS).eq('plan_id', planId).eq('is_archived', false).order('updated_at', { ascending: false }).limit(MAX_PLAN_SCENARIOS + 1),
+      supabase.from('scenario_overrides').select(OVERRIDE_COLUMNS).eq('plan_id', planId).order('scenario_id').order('entity_type').order('target_id').limit(MAX_SCENARIO_OVERRIDE_OPERATIONS + 1),
+    ]);
+    [profileResult, incomeResult, expenseResult, assetResult, debtResult, retirementResult, scenarioResult, overrideResult]
+      .forEach((result) => failIf(result.error, 'plan data load', result.status));
+
+    const profile = profileFromRow(profileResult.data as Row | null);
+    if (integerValue(selectedPlanRow.schema_version, 'plan schema version') !== 1) {
+      invalidCloudValue('plan schema version');
+    }
+    if (stringValue(selectedPlanRow.currency_code, 'plan currency') !== 'CAD') {
+      invalidCloudValue('plan currency');
+    }
+    if (!booleanValue(selectedPlanRow.is_default, 'default plan state')) {
+      invalidCloudValue('default plan state');
+    }
+    const plan: FinancialPlan = {
+      schemaVersion: 1,
+      id: planId,
+      name: stringValue(selectedPlanRow.name, 'plan name'),
+      baseYear: integerValue(selectedPlanRow.base_year, 'plan base year'),
+      profile,
+      assumptions: {
+        effectiveTaxPercent: numberValue(selectedPlanRow.effective_tax_percent, 'effective tax percentage'),
+        generalInflationPercent: numberValue(selectedPlanRow.general_inflation_percent, 'general inflation percentage'),
+      },
+      incomeSources: rowsWithinLimit(incomeResult.data, MAX_PLAN_COLLECTION_ITEMS, 'income').map(incomeFromRow),
+      expenses: rowsWithinLimit(expenseResult.data, MAX_PLAN_COLLECTION_ITEMS, 'expense').map(expenseFromRow),
+      assets: rowsWithinLimit(assetResult.data, MAX_PLAN_COLLECTION_ITEMS, 'asset').map(assetFromRow),
+      debts: rowsWithinLimit(debtResult.data, MAX_PLAN_COLLECTION_ITEMS, 'debt').map(debtFromRow),
+      retirement: retirementFromRow(retirementResult.data as Row | null),
+    };
+    const snapshotResult = plannerSnapshotSchema.safeParse({
+      plan,
+      scenarios: scenariosFromRows(
+        rowsWithinLimit(scenarioResult.data, MAX_PLAN_SCENARIOS, 'scenario'),
+        rowsWithinLimit(overrideResult.data, MAX_SCENARIO_OVERRIDE_OPERATIONS, 'scenario difference'),
+      ),
+    });
+    if (!snapshotResult.success) invalidCloudValue('planner snapshot');
+
+    const revisionResult = await supabase
+      .from('financial_plans')
+      .select('revision')
+      .eq('id', planId)
+      .maybeSingle();
+    failIf(revisionResult.error, 'revision check', revisionResult.status);
+    const endingRevision = revisionResult.data
+      ? integerValue((revisionResult.data as Row).revision, 'plan revision')
+      : undefined;
+    if (endingRevision !== revision) {
+      throw new CloudRepositoryError(
+        'conflict',
+        'The cloud plan changed while it was loading. Try loading it again.',
+        { retryable: true },
+      );
+    }
+
+    return { snapshot: snapshotResult.data, revision };
+  } catch (error) {
+    throw asRepositoryError(error, 'plan load');
+  }
 }
 
 function profileRow(plan: FinancialPlan): Row {
@@ -443,80 +656,82 @@ export function overridesToRows(scenario: PlanScenario): Row[] {
   return rows;
 }
 
-async function syncCollection(
-  supabase: SupabaseClient,
-  table: string,
-  rows: Row[],
-  currentIds: string[],
-  previousIds: string[],
-): Promise<void> {
-  if (rows.length) {
-    const { error } = await supabase.from(table).upsert(rows, { onConflict: 'id' });
-    failIf(error, `${table} save`);
-  }
-  const removed = previousIds.filter((id) => !currentIds.includes(id));
-  if (removed.length) {
-    const { error } = await supabase.from(table).delete().in('id', removed);
-    failIf(error, `${table} delete`);
-  }
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function requireUuid(value: string, field: string): void {
+  if (!UUID_PATTERN.test(value)) invalidCloudValue(field);
 }
 
-export async function savePlannerSnapshot(next: PlannerSnapshot, previous: PlannerSnapshot | null): Promise<void> {
-  const supabase = clientOrThrow();
+function assertCloudIdentities(snapshot: PlannerSnapshot): void {
+  requireUuid(snapshot.plan.id, 'plan ID');
+  requireUuid(snapshot.plan.profile.id, 'profile ID');
+  for (const [label, collection] of [
+    ['income', snapshot.plan.incomeSources],
+    ['expense', snapshot.plan.expenses],
+    ['asset', snapshot.plan.assets],
+    ['debt', snapshot.plan.debts],
+  ] as const) {
+    collection.forEach((item) => requireUuid(item.id, `${label} ID`));
+  }
+  snapshot.scenarios.forEach((scenario) => {
+    requireUuid(scenario.id, 'scenario ID');
+    for (const [label, collection] of [
+      ['income', scenario.overrides.incomeSources],
+      ['expense', scenario.overrides.expenses],
+      ['asset', scenario.overrides.assets],
+      ['debt', scenario.overrides.debts],
+    ] as const) {
+      collection?.add?.forEach((item) => requireUuid(item.id, `scenario ${label} addition ID`));
+      collection?.update?.forEach((item) => requireUuid(item.entityId, `scenario ${label} update ID`));
+      collection?.removeIds?.forEach((id) => requireUuid(id, `scenario ${label} removal ID`));
+    }
+  });
+}
 
-  const profileResult = await supabase.from('profiles').upsert(profileRow(next.plan), { onConflict: 'user_id' });
-  failIf(profileResult.error, 'profile save');
-  const planResult = await supabase.from('financial_plans').upsert(planRow(next.plan), { onConflict: 'id' });
-  failIf(planResult.error, 'plan save');
+function savePayload(snapshot: PlannerSnapshot): Row {
+  const overrides = snapshot.scenarios.flatMap(overridesToRows);
+  if (overrides.length > MAX_SCENARIO_OVERRIDE_OPERATIONS) {
+    throw new CloudRepositoryError(
+      'capacity',
+      'This plan contains too many scenario differences to save safely.',
+    );
+  }
+  return {
+    profile: profileRow(snapshot.plan),
+    plan: planRow(snapshot.plan),
+    retirement: retirementRow(snapshot.plan),
+    income_sources: snapshot.plan.incomeSources.map((item, position) => incomeToRow(item, snapshot.plan.id, position)),
+    expenses: snapshot.plan.expenses.map((item, position) => expenseToRow(item, snapshot.plan.id, position)),
+    assets: snapshot.plan.assets.map((item, position) => assetToRow(item, snapshot.plan.id, position)),
+    debts: snapshot.plan.debts.map((item, position) => debtToRow(item, snapshot.plan.id, position)),
+    scenarios: snapshot.scenarios.map(scenarioRow),
+    scenario_overrides: overrides,
+  };
+}
 
-  const retirementResult = await supabase
-    .from('retirement_settings')
-    .upsert(retirementRow(next.plan), { onConflict: 'plan_id,user_id' });
-  failIf(retirementResult.error, 'retirement settings save');
+export async function savePlannerSnapshot(
+  next: PlannerSnapshot,
+  expectedRevision: number | null,
+): Promise<SavedPlannerSnapshot> {
+  try {
+    if (
+      expectedRevision !== null
+      && (!Number.isSafeInteger(expectedRevision) || expectedRevision < 0)
+    ) {
+      invalidCloudValue('expected plan revision');
+    }
+    const validated = plannerSnapshotSchema.safeParse(next);
+    if (!validated.success) invalidCloudValue('planner snapshot');
+    assertCloudIdentities(validated.data);
 
-  await Promise.all([
-    syncCollection(
-      supabase,
-      'income_sources',
-      next.plan.incomeSources.map((item, position) => incomeToRow(item, next.plan.id, position)),
-      next.plan.incomeSources.map((item) => item.id),
-      previous?.plan.incomeSources.map((item) => item.id) ?? [],
-    ),
-    syncCollection(
-      supabase,
-      'expenses',
-      next.plan.expenses.map((item, position) => expenseToRow(item, next.plan.id, position)),
-      next.plan.expenses.map((item) => item.id),
-      previous?.plan.expenses.map((item) => item.id) ?? [],
-    ),
-    syncCollection(
-      supabase,
-      'assets',
-      next.plan.assets.map((item, position) => assetToRow(item, next.plan.id, position)),
-      next.plan.assets.map((item) => item.id),
-      previous?.plan.assets.map((item) => item.id) ?? [],
-    ),
-    syncCollection(
-      supabase,
-      'debts',
-      next.plan.debts.map((item, position) => debtToRow(item, next.plan.id, position)),
-      next.plan.debts.map((item) => item.id),
-      previous?.plan.debts.map((item) => item.id) ?? [],
-    ),
-    syncCollection(
-      supabase,
-      'scenarios',
-      next.scenarios.map(scenarioRow),
-      next.scenarios.map((item) => item.id),
-      previous?.scenarios.map((item) => item.id) ?? [],
-    ),
-  ]);
-
-  const deleteOverrides = await supabase.from('scenario_overrides').delete().eq('plan_id', next.plan.id);
-  failIf(deleteOverrides.error, 'scenario override refresh');
-  const overrideRows = next.scenarios.flatMap(overridesToRows);
-  if (overrideRows.length) {
-    const insertOverrides = await supabase.from('scenario_overrides').insert(overrideRows);
-    failIf(insertOverrides.error, 'scenario override save');
+    const supabase = clientOrThrow();
+    const result = await supabase.rpc('save_planner_snapshot', {
+      p_payload: savePayload(validated.data),
+      p_expected_revision: expectedRevision,
+    });
+    failIf(result.error, 'plan save', result.status);
+    return { revision: integerValue(result.data, 'saved plan revision') };
+  } catch (error) {
+    throw asRepositoryError(error, 'plan save');
   }
 }

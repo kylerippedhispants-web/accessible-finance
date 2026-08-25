@@ -34,7 +34,13 @@ test('demo mode supports navigation, CRUD, explicit save, and session restore', 
   await page.getByRole('link', { name: 'Income' }).click();
   await page.getByRole('button', { name: 'Add income' }).click();
   await page.getByLabel('Income name').fill('Side work');
+  await page.getByLabel('Amount').fill('not a number');
+  await page.getByLabel('Amount').blur();
+  await expect(page.getByLabel('Amount')).toHaveValue('not a number');
+  await expect(page.getByText('Enter a valid number.')).toBeVisible();
   await page.getByRole('spinbutton', { name: /^Amount/ }).fill('500');
+  await page.getByLabel('Amount').blur();
+  await expect(page.getByLabel('Amount')).toHaveValue('$500');
   await page.getByLabel('Frequency').selectOption('monthly');
   await page.getByRole('button', { name: 'Add to plan' }).click();
   await expect(page.getByRole('heading', { name: 'Side work' })).toBeVisible();
@@ -54,6 +60,23 @@ test('what-if controls update locally and can become a sparse scenario', async (
   await page.getByRole('button', { name: 'Add scenario' }).click();
   await page.getByRole('link', { name: 'Scenarios' }).click();
   await expect(page.getByText('Cautious returns', { exact: true }).first()).toBeVisible();
+});
+
+test('scenario presets remain previews until explicitly saved', async ({ page }) => {
+  await openDemo(page);
+  await page.getByRole('link', { name: 'Scenarios' }).click();
+
+  const scenarioList = page.getByRole('complementary', { name: 'Your scenarios' });
+  await expect(scenarioList.getByText('Lower returns', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: /Retire at 55/i }).click();
+
+  await expect(page.getByText('Unsaved preview', { exact: true })).toBeVisible();
+  await expect(scenarioList.getByText('Retire at 55', { exact: true })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Save scenario', exact: true }).click();
+  await expect(scenarioList.getByText('Retire at 55', { exact: true })).toBeVisible();
+
+  await page.getByRole('button', { name: 'Return to baseline' }).click();
+  await expect(page.getByRole('heading', { name: 'Baseline plan', exact: true })).toBeVisible();
 });
 
 test('landing and dashboard have no serious axe violations', async ({ page }) => {

@@ -3,7 +3,7 @@
 This repository now builds the existing static Accessible Finance website and a
 client-rendered planner mounted at `/planner/`. The repository is a deployment
 candidate, not a live production launch: cloud accounts and synchronization
-remain disabled until a Supabase project, the included migration, the two public
+remain disabled until a Supabase project, the included migrations, the two public
 build variables, and the production verification steps below are completed. The
 current public `/planner` URL will remain unchanged/404 until this branch is
 deployed to the existing Netlify site.
@@ -81,8 +81,16 @@ key, database password, management token, or admin credential. Vite embeds every
    SMTP** before public launch. Supabase's built-in email sender is intended for
    testing, is heavily rate-limited, and does not provide a production delivery
    guarantee. Test sign-up confirmation and password recovery end to end.
-5. Apply `supabase/migrations/20260824010000_planner_foundation.sql`. The CLI path
-   is recommended:
+5. Apply both migrations in timestamp order. The foundation creates the
+   normalized RLS-protected schema; the atomic-save migration adds optimistic
+   revisions and the transactional save RPC:
+
+   ```text
+   supabase/migrations/20260824010000_planner_foundation.sql
+   supabase/migrations/20260825010000_planner_atomic_save.sql
+   ```
+
+   The CLI path is recommended:
 
    ```powershell
    npx.cmd supabase@latest init
@@ -92,9 +100,9 @@ key, database password, management token, or admin credential. Vite embeds every
    ```
 
    If `supabase/config.toml` already exists, skip `init`. For a new project where
-   the CLI cannot be used, run the complete migration once in the Dashboard SQL
-   Editor. Do not mix that approach with `db push` until migration history is
-   reconciled.
+   the CLI cannot be used, run each complete migration once, in order, in the
+   Dashboard SQL Editor. Do not mix that approach with `db push` until migration
+   history is reconciled.
 6. In **Project Settings > API**, copy the project URL and its public publishable
    key into `.env.local` for local development and into Netlify for production.
 7. Run both read-only verification queries in `supabase/README.md`. They must show
@@ -110,12 +118,12 @@ Official references: [Supabase migrations](https://supabase.com/docs/guides/depl
 [custom SMTP](https://supabase.com/docs/guides/auth/auth-smtp), and
 [password security](https://supabase.com/docs/guides/auth/password-security).
 
-## Database created by the migration
+## Database created by the migrations
 
 | Table | Purpose |
 | --- | --- |
 | `profiles` | Name, province/territory, birth date, and CAD preference |
-| `financial_plans` | Plan identity, base year, tax and inflation assumptions |
+| `financial_plans` | Plan identity, base year, assumptions, and optimistic revision |
 | `income_sources` | Recurring and one-time income inputs |
 | `expenses` | Recurring and one-time expense inputs |
 | `assets` | Cash, investment, pension, property, and Canadian account inputs |
@@ -138,9 +146,15 @@ policies. Projection outputs are not stored.
   shell.
 - Signed-in routes are guarded in the client for navigation. RLS remains the
   actual data-access boundary if a visitor bypasses the UI.
-- A signed-in user's latest plan is loaded once into application state. Changes
-  recalculate immediately in the browser and become dirty. **Save changes** sends
-  a batched logical snapshot; no write occurs on each keystroke.
+- A signed-in user's latest plan and revision are loaded into application state.
+  Changes recalculate immediately in the browser and become dirty. **Save
+  changes** sends one logical snapshot to a transactional PostgreSQL RPC; no
+  write occurs on each keystroke.
+- Saves are explicit, deduplicated while a request is in flight, and use
+  optimistic revision matching. A newer edit is never replaced by an older save
+  response. If another session saved first, the local draft stays open and the
+  UI requires the user to export it if needed or deliberately reload the cloud
+  copy. Network and offline failures never present an unsaved draft as saved.
 - Demo Mode starts with fictional inputs and stores its edits in origin-wide
   `sessionStorage` under `accessibleFinancePlannerDemoV1`. It does not call
   Supabase. Use fictional values only; exiting Demo Mode removes that item.
@@ -173,7 +187,10 @@ site.
 4. In **Project configuration > Environment variables**, add
    `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` with the same public values
    used locally. Scope them to production and any preview contexts that should
-   use this Supabase project. Trigger a new build after changing them.
+   use this Supabase project. Trigger a new build after changing them. The
+   production context sets `PLANNER_REQUIRE_CLOUD=true` in `netlify.toml`, so a
+   production build fails instead of silently publishing Demo-only mode when
+   either public value is missing. Deploy Previews may remain Demo-only.
 5. Deploy the existing site. `scripts/build-site.mjs` copies all legacy static
    pages without changing their URLs; Vite then emits the planner into
    `dist/planner/`.
@@ -233,10 +250,14 @@ npm.cmd audit
 git diff --check
 ```
 
-`validate` runs the legacy static-site validator, TypeScript, all Vitest suites,
-and the production build. The Playwright suite checks legacy integration, direct
+`validate` runs the legacy static-site validator, Oxlint with warnings denied,
+TypeScript, all Vitest suites, and the production build. The Playwright suite checks legacy integration, direct
 planner routes, Demo Mode CRUD/session restore, what-if scenarios, serious or
 critical axe findings, and viewport overflow down to 320 px.
+
+Pull requests and pushes to `master` also run the same validation, Playwright
+Chromium checks, and a production-dependency audit in
+`.github/workflows/planner-quality.yml`.
 
 ## Privacy and security review
 
@@ -253,8 +274,11 @@ critical axe findings, and viewport overflow down to 320 px.
   this origin is shared.
 - No plan, balance, scenario, session, or repository payload is written to the
   console. Generic user-facing errors do not echo financial inputs.
-- RLS, table grants, constraints, owner foreign keys, and sparse-diff checks are
-  in the migration. Frontend filtering is never treated as ownership control.
+- RLS, table grants, constraints, owner foreign keys, sparse-diff checks, and the
+  authenticated atomic-save RPC are in the migrations. Frontend filtering is
+  never treated as ownership control. Direct legacy table writes remain
+  owner-isolated by RLS, but new complete-plan clients should use the RPC so
+  every child update participates in one transaction and revision check.
 - The app uses no `dangerouslySetInnerHTML`; React renders imported names and
   descriptions as text. Imported JSON is size-capped and schema-validated.
 - Planner responses deny framing, isolate opener contexts, disable MIME
@@ -270,12 +294,10 @@ third-party executable scripts and deploy a tested site-wide CSP. Demo
 `sessionStorage` is also origin-wide, which is why the UI instructs visitors to
 use fictional values only.
 
-Remaining data-integrity limitation: a cloud save uses several RLS-protected
-Supabase requests rather than one database transaction. A mid-save network error
-can leave part of the snapshot updated, and concurrent devices use last-write
-wins without conflict detection. No cross-user access results from that, but a
-Phase 2 transactional PostgreSQL RPC and optimistic version column should address
-partial saves and concurrent edits.
+Cloud loads read the plan revision before and after their bounded child queries.
+If an atomic save commits between those reads, the load is rejected and retried
+rather than assembling rows from two revisions. Every reconstructed cloud
+snapshot is strictly decoded and schema-validated before it reaches the engine.
 
 ## Free-tier constraints to monitor
 
@@ -306,6 +328,13 @@ calculator. It currently supports frequency conversion, annual growth and
 inflation, recurring contributions, asset growth, property appreciation,
 nominal/real dollars, amortized debts and mortgages, retirement transitions,
 manual benefits, surplus/withdrawal flow, net worth, and sparse scenarios.
+
+Scheduled asset contributions are limited to modeled cash actually available
+after required spending, debt payments, and prior shortfall repayment; unfunded
+contributions do not create investment gains. Disabled records are excluded.
+When a debt's entered payment is too small for its remaining horizon, the final
+period becomes a transparent balloon payoff; zero remaining months means the
+balance is due in the first projected year.
 
 It deliberately does **not** implement:
 
