@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "react-in-jsx-scope": "off",
+    "no-named-as-default": "off",
+    "no-unassigned-import": "off",
+    "require-to-throw-message": "off"
+  }
+}

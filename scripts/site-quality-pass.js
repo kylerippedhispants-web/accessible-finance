@@ -28,7 +28,12 @@ const noIndex = new Set([
 
 function listHtml(directory, prefix = '') {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
-    if (entry.name.startsWith('.') || entry.name === 'node_modules') return [];
+    if (
+      entry.name.startsWith('.')
+      || entry.name === 'node_modules'
+      || entry.name === 'planner-app'
+      || entry.name === 'dist'
+    ) return [];
     const relativePath = path.posix.join(prefix, entry.name);
     const absolutePath = path.join(directory, entry.name);
     if (entry.isDirectory()) return listHtml(absolutePath, relativePath);
