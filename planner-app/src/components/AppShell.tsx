@@ -120,7 +120,7 @@ export function AppShell() {
         </Link>
         <div className="header-actions">
           <span className={`mode-badge ${cloudOffline ? 'offline' : planner.mode}`}>
-            <span aria-hidden="true" />{planner.mode === 'demo' ? 'Demo Mode' : cloudOffline ? 'Offline · Local Draft' : 'Cloud Saved Plan'}
+            <span aria-hidden="true" />{planner.mode === 'demo' ? 'Demo Mode' : cloudOffline ? 'Offline · Local Draft' : 'Cloud Plan'}
           </span>
           <button
             className="button button-primary save-button"
@@ -141,7 +141,8 @@ export function AppShell() {
             aria-controls="planner-sidebar"
             onClick={() => menuOpen ? closeMenu() : setMenuOpen(true)}
           >
-            <span /><span /><span />
+            <span className="planner-menu-label" aria-hidden="true">{menuOpen ? 'Close' : 'Menu'}</span>
+            <span className="planner-menu-lines" aria-hidden="true"><span /><span /><span /></span>
           </button>
         </div>
       </header>

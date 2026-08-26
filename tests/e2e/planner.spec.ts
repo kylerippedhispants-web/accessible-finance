@@ -85,6 +85,8 @@ test('planning guide explains the model and links to trusted Canadian resources'
 
   await expect(page).toHaveURL(/\/planner\/guide$/);
   await expect(page.getByRole('heading', { name: 'Build a plan you can explain.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Open the menu to add your inputs' })).toBeVisible();
+  await expect(page.getByText('How saving and sync work.')).toBeVisible();
   await expect(page.getByRole('heading', { name: "Today's dollars and future dollars" })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Continue with trusted Canadian resources' })).toBeVisible();
   await expect(page.getByRole('link', { name: /Making a budget/ })).toHaveAttribute('href', /canada\.ca/);
@@ -127,6 +129,8 @@ test('mobile navigation, forms, retirement, and scenarios remain accessible with
   })).toBe(false);
 
   const menuButton = page.getByRole('button', { name: 'Open planner menu' });
+  await expect(menuButton).toContainText('Menu');
+  await expect(page.getByRole('heading', { name: 'How to add and save your inputs' })).toBeVisible();
   await menuButton.click();
   await expect(sidebar).not.toHaveAttribute('aria-hidden', 'true');
   await expect(firstSidebarLink).toBeFocused();

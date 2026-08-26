@@ -22,6 +22,7 @@ export function GuidePage() {
           </div>
         </div>
         <div className="form-actions">
+          <a className="button button-quiet button-small" href="#adding-inputs">Add inputs &amp; sync</a>
           <a className="button button-quiet button-small" href="#baseline">Reliable baseline</a>
           <a className="button button-quiet button-small" href="#dollars">Dollar views</a>
           <a className="button button-quiet button-small" href="#building-blocks">Plan inputs</a>
@@ -32,10 +33,33 @@ export function GuidePage() {
         </div>
       </nav>
 
-      <section id="baseline" className="panel form-panel" aria-labelledby="baseline-title">
+      <section id="adding-inputs" className="panel form-panel" aria-labelledby="adding-inputs-title">
         <div className="panel-heading">
           <div>
             <span className="step-number">01</span>
+            <h2 id="adding-inputs-title">Open the menu to add your inputs</h2>
+            <p>The Dashboard shows results. Your detailed inputs live in the planner sections.</p>
+          </div>
+        </div>
+        <ol>
+          <li>On a phone or narrow screen, select the three-line <strong>Menu</strong> button in the top-right. On a larger screen, the same navigation stays open on the left.</li>
+          <li>Choose <Link to="/income">Income</Link>, <Link to="/expenses">Expenses</Link>, <Link to="/assets">Assets</Link>, or <Link to="/debts">Debts</Link>, then select that page&apos;s Add button and submit the form.</li>
+          <li>Use <Link to="/retirement">Retirement</Link> for plan-wide assumptions and <Link to="/settings">Profile &amp; settings</Link> for your profile, transfers, and plan details.</li>
+        </ol>
+        <div className="method-note">
+          <strong>How saving and sync work.</strong>
+          <p>Submitting a form updates the open draft first. In a signed-in cloud plan, choose <strong>Save changes</strong> in the header to send validated inputs to Supabase; <strong>Saved</strong> confirms the sync. Sign in to the same account on another browser or device to load that saved plan. Sync is explicit, not automatic or real-time. In Demo Mode, Save changes keeps fictional edits only for the current browser session and never uploads them.</p>
+        </div>
+        <div className="form-actions">
+          <Link className="button button-primary" to="/income">Add or review income</Link>
+          <Link className="button button-secondary" to="/settings">Review plan settings</Link>
+        </div>
+      </section>
+
+      <section id="baseline" className="panel form-panel" aria-labelledby="baseline-title">
+        <div className="panel-heading">
+          <div>
+            <span className="step-number">02</span>
             <h2 id="baseline-title">Start with a reliable baseline</h2>
             <p>Your baseline is the plan every scenario is measured against.</p>
           </div>
@@ -67,7 +91,7 @@ export function GuidePage() {
       <section id="dollars" className="panel form-panel" aria-labelledby="dollars-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">02</span>
+            <span className="step-number">03</span>
             <h2 id="dollars-title">Today&apos;s dollars and future dollars</h2>
             <p>Both views use the same projection. Only the way future amounts are displayed changes.</p>
           </div>
@@ -97,7 +121,7 @@ export function GuidePage() {
       <section id="building-blocks" className="panel form-panel" aria-labelledby="building-blocks-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">03</span>
+            <span className="step-number">04</span>
             <h2 id="building-blocks-title">Build the plan from four parts</h2>
             <p>Each collection feeds the year-by-year projection in a different way.</p>
           </div>
@@ -141,7 +165,7 @@ export function GuidePage() {
       <section id="retirement-guide" className="panel form-panel" aria-labelledby="retirement-guide-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">04</span>
+            <span className="step-number">05</span>
             <h2 id="retirement-guide-title">Make retirement assumptions explicit</h2>
             <p>Retirement begins in the calendar year when the projection reaches your target age.</p>
           </div>
@@ -161,7 +185,7 @@ export function GuidePage() {
       <section id="scenario-guide" className="panel form-panel" aria-labelledby="scenario-guide-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">05</span>
+            <span className="step-number">06</span>
             <h2 id="scenario-guide-title">Use scenarios to compare, not predict</h2>
             <p>A scenario stores selected differences from the baseline instead of copying the whole plan.</p>
           </div>
@@ -181,7 +205,7 @@ export function GuidePage() {
       <section id="reading-results" className="panel form-panel" aria-labelledby="reading-results-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">06</span>
+            <span className="step-number">07</span>
             <h2 id="reading-results-title">Read the projection in layers</h2>
             <p>The chart is most useful when you also inspect the cash flow and balances behind the line.</p>
           </div>
@@ -220,7 +244,7 @@ export function GuidePage() {
       <section id="privacy-guide" className="panel form-panel" aria-labelledby="privacy-guide-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">07</span>
+            <span className="step-number">08</span>
             <h2 id="privacy-guide-title">Know where your data goes</h2>
             <p>The planner separates saved inputs from locally calculated projection results.</p>
           </div>
@@ -232,7 +256,7 @@ export function GuidePage() {
           </article>
           <article>
             <span aria-hidden="true">C</span>
-            <div><h3>Cloud-saved plan</h3><p>For signed-in users, an explicit save sends validated plan inputs to Supabase. The planner does not write on every keystroke, and refreshing requires signing in again.</p></div>
+            <div><h3>Cloud-saved plan</h3><p>For signed-in users, an explicit save sends validated plan inputs to Supabase. The planner does not write on every keystroke. If you are offline or the cloud plan changed elsewhere, your draft stays open and the planner tells you what to do next. Refreshing requires signing in again.</p></div>
           </article>
           <article>
             <span aria-hidden="true">D</span>
@@ -251,7 +275,7 @@ export function GuidePage() {
       <section className="panel form-panel" aria-labelledby="canadian-resources-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">08</span>
+            <span className="step-number">09</span>
             <h2 id="canadian-resources-title">Continue with trusted Canadian resources</h2>
             <p>
               These Financial Consumer Agency of Canada pages can help you review the real-world

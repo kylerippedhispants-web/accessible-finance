@@ -158,7 +158,7 @@ export function OnboardingPage() {
           <button className="button button-primary button-wide" type="submit" disabled={busy}>
             {busy ? 'Creating your plan…' : 'Create my plan'}
           </button>
-          <p className="form-footnote">Next, add accounts, property, debts, and detailed spending from the planner navigation.</p>
+          <p className="form-footnote">Next, use the navigation on the left—or the three-line <strong>Menu</strong> button in the top-right on a phone—to add accounts, property, debts, and detailed spending. Submit each item, then choose <strong>Save changes</strong> in the header to sync a cloud plan; Demo Mode saves only for that browser session.</p>
         </form>
       </div>
     </main>

@@ -11,6 +11,7 @@ describe('planning guide content', () => {
     );
 
     for (const heading of [
+      'Open the menu to add your inputs',
       'Start with a reliable baseline',
       'Today&#x27;s dollars and future dollars',
       'Build the plan from four parts',
@@ -24,6 +25,13 @@ describe('planning guide content', () => {
     }
 
     expect(markup).toContain('https://www.canada.ca/en/financial-consumer-agency/services/make-budget.html');
+    expect(markup).toContain('three-line <strong>Menu</strong> button in the top-right');
+    expect(markup).toContain('<strong>Save changes</strong> in the header to send validated inputs to Supabase');
+    expect(markup).toContain('Sync is explicit, not automatic or real-time.');
+    expect(markup).toContain('Demo Mode, Save changes keeps fictional edits only for the current browser session');
+    for (const route of ['/income', '/expenses', '/assets', '/debts']) {
+      expect(markup).toContain(`href="${route}"`);
+    }
     expect(markup).toContain('Educational projections, not advice.');
     expect(markup).toContain('aria-labelledby="guide-contents-title"');
   });

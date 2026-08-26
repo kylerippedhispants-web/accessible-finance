@@ -350,6 +350,39 @@ export function DashboardPage() {
         </aside>
       )}
 
+      <section className="dashboard-insights planner-input-guide" aria-labelledby="planner-input-guide-title">
+        <div className="insights-heading">
+          <span className="eyebrow">Add your details</span>
+          <h2 id="planner-input-guide-title">How to add and save your inputs</h2>
+          <Link className="text-button" to="/guide">See the full walkthrough</Link>
+        </div>
+        <ul>
+          <li>
+            <span aria-hidden="true">01</span>
+            <div>
+              <strong>Open the planner sections</strong>
+              <p>On a phone or narrow screen, select the three-line <strong>Menu</strong> button in the top-right. On a larger screen, use the navigation on the left.</p>
+            </div>
+          </li>
+          <li>
+            <span aria-hidden="true">02</span>
+            <div>
+              <strong>Add each input</strong>
+              <p>Choose Income, Expenses, Assets, or Debts, select its Add button, and submit the form. This updates the plan currently open on your screen.</p>
+            </div>
+          </li>
+          <li>
+            <span aria-hidden="true">03</span>
+            <div>
+              <strong>{planner.mode === 'demo' ? 'Save this demo session' : 'Sync the cloud plan'}</strong>
+              <p>{planner.mode === 'demo'
+                ? 'Choose Save changes in the header to keep the fictional demo in this browser session. Demo data is never uploaded or synced.'
+                : 'Choose Save changes in the header to send the validated draft to Supabase. Saved confirms it is available after you sign in to the same account on another browser or device.'}</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
       <section className="dashboard-story" aria-labelledby="plan-story-title">
         <h2 id="plan-story-title" className="sr-only">Plan snapshot</h2>
 

@@ -232,8 +232,10 @@ input[readonly] { background: var(--bg-warm); color: var(--ink-2); }
 .mode-badge.offline { border-color: #e5ca99; background: var(--warning-light); color: var(--warning); }
 .mode-badge.offline > span { background: var(--gold-bright); box-shadow: 0 0 0 3px rgba(200,130,42,.14); }
 .save-button { min-width: 132px; }
-.planner-menu-button { width: 46px; height: 46px; display: none; place-content: center; border: 1px solid var(--border); border-radius: 50%; background: var(--surface); }
-.planner-menu-button span { display: block; width: 20px; height: 2px; margin: 2px 0; background: var(--ink); }
+.planner-menu-button { min-width: 78px; height: 46px; display: none; grid-template-columns: auto auto; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--border); border-radius: 100px; background: var(--surface); color: var(--ink); padding: 0 12px; }
+.planner-menu-label { font: 800 .67rem var(--sans); letter-spacing: .03em; text-transform: uppercase; }
+.planner-menu-lines { display: grid; gap: 3px; }
+.planner-menu-lines > span { display: block; width: 17px; height: 2px; background: currentColor; }
 .app-body { display: grid; grid-template-columns: 248px minmax(0, 1fr); }
 .app-sidebar { height: calc(100vh - 72px); position: sticky; top: 72px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--border); background: var(--surface-soft); padding: 24px 15px 20px; overflow-y: auto; }
 .app-sidebar nav { display: grid; gap: 5px; }
@@ -309,6 +311,10 @@ input[readonly] { background: var(--bg-warm); color: var(--ink-2); }
 .dashboard-insights p { margin: 5px 0 0; color: var(--ink-2); font: .73rem/1.55 var(--sans); }
 .dashboard-next-steps ul { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 15px; }
 .dashboard-next-steps .text-button { display: inline-flex; margin-top: 9px; font-size: .68rem; }
+.planner-input-guide { background: var(--green-light); border-color: var(--green-border); }
+.planner-input-guide .insights-heading .text-button { display: inline-flex; margin-top: 10px; font-size: .68rem; }
+.planner-input-guide li { border-color: var(--green-border); }
+.planner-input-guide li > span { background: var(--surface); }
 .projection-panel { padding: 30px; }
 .projection-heading { align-items: center; }
 .segmented-control { flex: 0 0 auto; display: flex; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-warm); padding: 3px; }

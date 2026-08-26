@@ -219,10 +219,10 @@ function PrivacyNotice({ mode }: { mode: PlannerMode | null }) {
     <aside className="collection-privacy notice" aria-label="How these changes are saved">
       <strong>Review first, then save.</strong>
       <span>
-        Submit an item to add it to this plan, then use <strong>Save changes</strong> in the header.
+        Submit an item to update the open plan and projection. It is not saved automatically; use <strong>Save changes</strong> in the header.
         {' '}{mode === 'demo'
-          ? 'Demo changes stay in this browser session and are never uploaded.'
-          : 'Cloud saving sends these inputs to your private Supabase plan; amounts are not sent to analytics.'}
+          ? 'This stores fictional edits for this browser session; nothing is uploaded.'
+          : 'This validates and sends the current inputs to your private Supabase plan; amounts are not sent to analytics.'}
       </span>
     </aside>
   );
