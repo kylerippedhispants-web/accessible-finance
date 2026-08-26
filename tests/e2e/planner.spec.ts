@@ -79,6 +79,20 @@ test('scenario presets remain previews until explicitly saved', async ({ page })
   await expect(page.getByRole('heading', { name: 'Baseline plan', exact: true })).toBeVisible();
 });
 
+test('planning guide explains the model and links to trusted Canadian resources', async ({ page }) => {
+  await openDemo(page);
+  await page.getByRole('link', { name: 'Planning guide' }).first().click();
+
+  await expect(page).toHaveURL(/\/planner\/guide$/);
+  await expect(page.getByRole('heading', { name: 'Build a plan you can explain.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: "Today's dollars and future dollars" })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Continue with trusted Canadian resources' })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Making a budget/ })).toHaveAttribute('href', /canada\.ca/);
+
+  const guideAxe = await new AxeBuilder({ page }).analyze();
+  expect(guideAxe.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''))).toEqual([]);
+});
+
 test('landing and dashboard have no serious axe violations', async ({ page }) => {
   await page.goto('/planner/');
   const landing = await new AxeBuilder({ page }).analyze();
@@ -144,7 +158,9 @@ test('mobile navigation, forms, retirement, and scenarios remain accessible with
   await assertNoPageOverflow();
   await navigate('Scenarios');
   await assertNoPageOverflow();
+  await navigate('Planning guide');
+  await assertNoPageOverflow();
 
-  const scenariosAxe = await new AxeBuilder({ page }).analyze();
-  expect(scenariosAxe.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''))).toEqual([]);
+  const mobileAxe = await new AxeBuilder({ page }).analyze();
+  expect(mobileAxe.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''))).toEqual([]);
 });

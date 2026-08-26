@@ -20,6 +20,129 @@ interface WhatIfValues {
   monthlyContribution: number;
 }
 
+export interface DashboardNextStep {
+  id: string;
+  title: string;
+  description: string;
+  route: string;
+  action: string;
+}
+
+export function buildDashboardNextSteps(
+  plan: FinancialPlan,
+  scenarioCount: number,
+): DashboardNextStep[] {
+  const steps: DashboardNextStep[] = [];
+  const collections = [
+    {
+      id: 'income',
+      singular: 'income entry',
+      plural: 'income entries',
+      route: '/income',
+      action: 'Review income',
+      items: plan.incomeSources,
+      emptyTitle: 'Add income details',
+      emptyDescription: 'No income sources are included in the current projection. Add the entries you want the model to use.',
+    },
+    {
+      id: 'expenses',
+      singular: 'expense entry',
+      plural: 'expense entries',
+      route: '/expenses',
+      action: 'Review expenses',
+      items: plan.expenses,
+      emptyTitle: 'Add spending details',
+      emptyDescription: 'No baseline expense entries are included. Add the recurring or one-time costs you want modeled.',
+    },
+    {
+      id: 'assets',
+      singular: 'asset',
+      plural: 'assets',
+      route: '/assets',
+      action: 'Review assets',
+      items: plan.assets,
+      emptyTitle: 'Add asset details',
+      emptyDescription: 'No asset balances are included. Add the accounts or property you want reflected in this plan.',
+    },
+    {
+      id: 'debts',
+      singular: 'debt entry',
+      plural: 'debt entries',
+      route: '/debts',
+      action: 'Review debts',
+      items: plan.debts,
+      emptyTitle: 'Confirm debt details',
+      emptyDescription: 'No debt entries are included. Confirm that matches this plan, or add the balances and payment terms you want modeled.',
+    },
+  ] as const;
+
+  collections.forEach((collection) => {
+    if (!collection.items.length) {
+      steps.push({
+        id: collection.id,
+        title: collection.emptyTitle,
+        description: collection.emptyDescription,
+        route: collection.route,
+        action: collection.action,
+      });
+      return;
+    }
+
+    const disabledCount = collection.items.filter((item) => item.enabled === false).length;
+    if (disabledCount > 0) {
+      const records = disabledCount === 1 ? collection.singular : collection.plural;
+      steps.push({
+        id: `disabled-${collection.id}`,
+        title: `Review disabled ${collection.id}`,
+        description: `${disabledCount} ${records} ${disabledCount === 1 ? 'is' : 'are'} disabled and excluded from projections. Review ${disabledCount === 1 ? 'it' : 'them'} if you want to include ${disabledCount === 1 ? 'it' : 'them'}.`,
+        route: collection.route,
+        action: collection.action,
+      });
+    }
+  });
+
+  const enabledAssets = plan.assets.filter((asset) => asset.enabled !== false);
+  if (enabledAssets.length > 0 && !enabledAssets.some((asset) => assetCategory(asset) === 'cash')) {
+    steps.push({
+      id: 'cash',
+      title: 'Review cash representation',
+      description: 'Enabled assets are present, but none use the cash category. Add or recategorize an asset only if you want cash shown separately in the model.',
+      route: '/assets',
+      action: 'Review assets',
+    });
+  }
+
+  if (plan.retirement.estimatedAnnualSpending === 0) {
+    steps.push({
+      id: 'retirement-spending',
+      title: 'Review retirement spending',
+      description: 'The annual retirement-spending input is currently zero. Update it if that is not the value you want the retirement years to use.',
+      route: '/retirement',
+      action: 'Review retirement settings',
+    });
+  }
+
+  steps.push({
+    id: 'retirement-age',
+    title: 'Confirm retirement timing',
+    description: `Retirement assumptions start at age ${plan.retirement.targetRetirementAge}. Confirm that this is the age you want the model to use.`,
+    route: '/retirement',
+    action: 'Review retirement settings',
+  });
+
+  if (scenarioCount === 0) {
+    steps.push({
+      id: 'scenarios',
+      title: 'Keep an alternative',
+      description: 'No saved scenarios are attached to this plan. Use Scenarios if you want to preserve a set of differences from the baseline.',
+      route: '/scenarios',
+      action: 'Open scenarios',
+    });
+  }
+
+  return steps;
+}
+
 function valuesDiffer(next: number, initial: number): boolean {
   return Math.abs(next - initial) > 0.000_001;
 }
@@ -127,6 +250,10 @@ function differencePhrase(value: number): string {
 export function DashboardPage() {
   const planner = usePlanner();
   const plan = planner.snapshot!.plan;
+  const nextSteps = useMemo(
+    () => buildDashboardNextSteps(plan, planner.snapshot?.scenarios.length ?? 0),
+    [plan, planner.snapshot?.scenarios.length],
+  );
   const baseline = useMemo(() => projectFinances(plan), [plan]);
   const firstProjection = baseline[0];
   const minimumWhatIfAge = Math.min(100, Math.max(18, firstProjection.age));
@@ -273,6 +400,25 @@ export function DashboardPage() {
           <li><span aria-hidden="true">01</span><div><strong>Base-year cash flow</strong><p>{cashFlowInsight}</p></div></li>
           <li><span aria-hidden="true">02</span><div><strong>Liability runway</strong><p>{liabilityInsight}</p></div></li>
           <li><span aria-hidden="true">03</span><div><strong>Plan-level what-if</strong><p>By age {finalBaseline.age}, the current what-if {differencePhrase(finalWhatIfDifference)} in {dollarView === 'real' ? 'today’s' : 'nominal'} dollars.</p></div></li>
+        </ul>
+      </section>
+
+      <section className="dashboard-insights dashboard-next-steps" aria-labelledby="next-steps-title">
+        <div className="insights-heading">
+          <span className="eyebrow">Next steps</span>
+          <h2 id="next-steps-title">Build a stronger plan</h2>
+        </div>
+        <ul>
+          {nextSteps.map((step, index) => (
+            <li key={step.id}>
+              <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <strong>{step.title}</strong>
+                <p>{step.description}</p>
+                <Link className="text-button" to={step.route}>{step.action}</Link>
+              </div>
+            </li>
+          ))}
         </ul>
       </section>
 

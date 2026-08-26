@@ -5,6 +5,7 @@ import { usePlanner } from '../state/PlannerContext';
 
 const navigation = [
   { to: '/dashboard', label: 'Dashboard', icon: '⌁' },
+  { to: '/guide', label: 'Planning guide', icon: '?' },
   { to: '/income', label: 'Income', icon: '↗' },
   { to: '/expenses', label: 'Expenses', icon: '↙' },
   { to: '/assets', label: 'Assets', icon: '◇' },
@@ -212,7 +213,7 @@ export function AppShell() {
           </main>
           <footer className="app-footer">
             <p>Educational estimates only — not financial, investment, tax, accounting, or legal advice.</p>
-            <div><a href="/privacy.html">Privacy</a><a href="/disclaimer.html">Full disclaimer</a></div>
+            <div><Link to="/guide">Planning guide</Link><a href="/privacy.html">Privacy</a><a href="/disclaimer.html">Full disclaimer</a></div>
           </footer>
         </div>
       </div>

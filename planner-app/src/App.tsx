@@ -5,6 +5,7 @@ import { AppShell, PlannerLoading, PlannerRouteLoading } from './components/AppS
 import { usePlanner } from './state/PlannerContext';
 
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then((module) => ({ default: module.DashboardPage })));
+const GuidePage = lazy(() => import('./pages/GuidePage').then((module) => ({ default: module.GuidePage })));
 const LandingPage = lazy(() => import('./pages/LandingPage').then((module) => ({ default: module.LandingPage })));
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage').then((module) => ({ default: module.OnboardingPage })));
 const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage').then((module) => ({ default: module.ResetPasswordPage })));
@@ -78,6 +79,7 @@ export function App() {
       <Route element={<PlannerGate />}>
         <Route element={<AppShell />}>
           <Route path="/dashboard" element={<Suspense fallback={<PlannerRouteLoading />}><DashboardPage /></Suspense>} />
+          <Route path="/guide" element={<Suspense fallback={<PlannerRouteLoading />}><GuidePage /></Suspense>} />
           <Route path="/income" element={<Suspense fallback={<PlannerRouteLoading />}><IncomePage /></Suspense>} />
           <Route path="/expenses" element={<Suspense fallback={<PlannerRouteLoading />}><ExpensesPage /></Suspense>} />
           <Route path="/assets" element={<Suspense fallback={<PlannerRouteLoading />}><AssetsPage /></Suspense>} />

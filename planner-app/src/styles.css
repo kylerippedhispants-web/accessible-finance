@@ -307,6 +307,8 @@ input[readonly] { background: var(--bg-warm); color: var(--ink-2); }
 .dashboard-insights li > span { display: grid; place-items: center; width: 27px; height: 27px; border-radius: 50%; background: var(--green-light); color: var(--green-dark); font: 800 .62rem var(--sans); }
 .dashboard-insights strong { font: 800 .76rem var(--sans); }
 .dashboard-insights p { margin: 5px 0 0; color: var(--ink-2); font: .73rem/1.55 var(--sans); }
+.dashboard-next-steps ul { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 15px; }
+.dashboard-next-steps .text-button { display: inline-flex; margin-top: 9px; font-size: .68rem; }
 .projection-panel { padding: 30px; }
 .projection-heading { align-items: center; }
 .segmented-control { flex: 0 0 auto; display: flex; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-warm); padding: 3px; }
@@ -476,6 +478,30 @@ th:first-child { text-align: left; }
 .account-card h2 { margin: 10px 0 5px; font-size: 2rem; overflow-wrap: anywhere; }
 .account-card p { margin: 0; color: var(--ink-2); }
 
+/* Planning guide and in-context education */
+.guide-page { width: min(100%, 1240px); }
+.guide-page > :is(nav, section) { scroll-margin-top: 94px; }
+.guide-page > .form-panel { padding: clamp(24px, 3.5vw, 40px); }
+.guide-page > nav.form-panel { background: var(--surface-soft); }
+.guide-page > nav .panel-heading { margin-bottom: 18px; }
+.guide-page > nav .form-actions { margin-top: 0; }
+.guide-page > nav .button { text-decoration: none; }
+.guide-page .panel-heading h2 { font-size: clamp(2rem, 3vw, 2.65rem); }
+.guide-page .panel-heading p { max-width: 760px; }
+.guide-page > section > :is(ol, ul) { display: grid; gap: 13px; margin: 0; color: var(--ink-2); }
+.guide-page > section > ol { counter-reset: guide-step; padding: 0; list-style: none; }
+.guide-page > section > ol > li { position: relative; padding-left: 42px; }
+.guide-page > section > ol > li::before { content: counter(guide-step); counter-increment: guide-step; position: absolute; top: 1px; left: 0; display: grid; place-items: center; width: 27px; height: 27px; border-radius: 50%; background: var(--green-light); color: var(--green-dark); font: 800 .68rem var(--sans); }
+.guide-page > section > ul { padding-left: 22px; }
+.guide-page > section > ul li::marker { color: var(--green); }
+.guide-page a:not(.button) { color: var(--green-dark); text-decoration-color: var(--green-border); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.guide-page a:not(.button):hover { text-decoration-color: currentColor; }
+.guide-page .privacy-grid article { min-width: 0; }
+.guide-page .privacy-grid h3 a { overflow-wrap: anywhere; }
+.guide-page > .notice { margin-top: 24px; }
+.collection-guidance { margin-top: 4px; }
+.collection-guidance p { line-height: 1.6; }
+
 @media (max-width: 1240px) {
   .form-grid.five { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .scenario-workspace { grid-template-columns: 1fr; }
@@ -498,6 +524,7 @@ th:first-child { text-align: left; }
   .conflict-banner { align-items: flex-start; flex-direction: column; }
   .conflict-actions { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
   .what-if-layout { grid-template-columns: 1fr; }
+  .collection-guidance { grid-template-columns: 1fr; }
   .collection-list { grid-template-columns: 1fr; }
   .scenario-preset-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .onboarding-grid { grid-template-columns: 1fr; }

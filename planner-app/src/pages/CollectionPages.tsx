@@ -228,6 +228,114 @@ function PrivacyNotice({ mode }: { mode: PlannerMode | null }) {
   );
 }
 
+type CollectionGuidanceKind = 'income' | 'expenses' | 'assets' | 'debts';
+
+interface GuidanceItem {
+  title: string;
+  body: string;
+}
+
+interface GuidanceContent {
+  heading: string;
+  items: readonly [GuidanceItem, GuidanceItem, GuidanceItem];
+}
+
+export const COLLECTION_GUIDANCE: Record<CollectionGuidanceKind, GuidanceContent> = {
+  income: {
+    heading: 'Build a cleaner income picture',
+    items: [
+      {
+        title: 'What to include',
+        body: 'Add each recurring source using the amount for its selected frequency: employment pay, net self-employment or rental income, pensions, benefits, and other cash income. Add unusual receipts as one-time income.',
+      },
+      {
+        title: 'How it is modeled',
+        body: 'The selected frequency is annualized. Timing, annual growth, retirement treatment, and the plan\u2019s effective tax rate determine when and how much is counted.',
+      },
+      {
+        title: 'Avoid double counting',
+        body: 'Do not enter transfers or unrealized investment growth as income. If returns stay invested and are already captured by an asset assumption, do not add them again.',
+      },
+    ],
+  },
+  expenses: {
+    heading: 'Build a cleaner spending picture',
+    items: [
+      {
+        title: 'What to include',
+        body: 'Use ordinary current spending for each payment period, plus material one-time costs in the year you expect them. Include irregular essentials a monthly budget can miss.',
+      },
+      {
+        title: 'How it is modeled',
+        body: 'Recurring amounts are annualized and adjusted by each item\u2019s inflation setting between its start and end years. One-time costs are counted once.',
+      },
+      {
+        title: 'Avoid double counting',
+        body: 'Exclude payments already listed under Debts and savings transfers captured as asset contributions. Do not combine an all-in budget with the same detailed categories.',
+      },
+    ],
+  },
+  assets: {
+    heading: 'Build a cleaner asset picture',
+    items: [
+      {
+        title: 'What to include',
+        body: 'Add each account or property once using its current balance or market value. Keep registered account types separate when their assumptions differ.',
+      },
+      {
+        title: 'How it is modeled',
+        body: 'Investments use the entered or plan-default return, and contributions are limited by projected cash available. Property uses its appreciation setting.',
+      },
+      {
+        title: 'Avoid double counting',
+        body: 'Do not enter both an account total and its individual holdings. Record property at gross value and its mortgage under Debts instead of subtracting the mortgage twice.',
+      },
+    ],
+  },
+  debts: {
+    heading: 'Build a cleaner debt picture',
+    items: [
+      {
+        title: 'What to include',
+        body: 'Use current lender balances, annual rates, regular payments for the selected frequency, remaining months, and any extra amount paid with each regular payment.',
+      },
+      {
+        title: 'How it is modeled',
+        body: 'The projection accrues interest and applies scheduled and extra payments. A zero regular payment is calculated from the amortization, with any unpaid balance due at its end.',
+      },
+      {
+        title: 'Avoid double counting',
+        body: 'Do not also enter modeled debt payments as Expenses. For a mortgaged property, keep the full property value in Assets and the outstanding mortgage here.',
+      },
+    ],
+  },
+};
+
+export function CollectionGuidance({ kind }: { kind: CollectionGuidanceKind }) {
+  const guidance = COLLECTION_GUIDANCE[kind];
+  const headingId = `${kind}-guidance-title`;
+
+  return (
+    <section className="dashboard-insights collection-guidance" aria-labelledby={headingId}>
+      <div className="insights-heading">
+        <span className="eyebrow">Input guide</span>
+        <h2 id={headingId}>{guidance.heading}</h2>
+      </div>
+      <ul>
+        {guidance.items.map((item, index) => (
+          <li key={item.title}>
+            <span aria-hidden="true">{index + 1}</span>
+            <div>
+              <strong>{item.title}</strong>
+              <p>{item.body}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 interface EditorPanelProps {
   title: string;
   description: string;
@@ -535,6 +643,8 @@ export function IncomePage() {
         </EditorPanel>
       )}
 
+      <CollectionGuidance kind="income" />
+
       {plan.incomeSources.length === 0 ? (
         <EmptyState title="No income sources yet" body="Add employment, pension, benefits, investment income, or a one-time amount." actionLabel="Add your first income source" onAction={openAdd} />
       ) : (
@@ -738,6 +848,8 @@ export function ExpensesPage() {
           </fieldset>
         </EditorPanel>
       )}
+
+      <CollectionGuidance kind="expenses" />
 
       {plan.expenses.length === 0 ? (
         <EmptyState title="No detailed expenses yet" body="Add housing, food, transportation, subscriptions, or a one-time cost." actionLabel="Add your first expense" onAction={openAdd} />
@@ -968,6 +1080,8 @@ export function AssetsPage() {
         </EditorPanel>
       )}
 
+      <CollectionGuidance kind="assets" />
+
       <aside className="notice notice-caution">
         <strong>Canadian account rules are not applied.</strong>
         <span>TFSA, RRSP, FHSA, RESP, and RRIF labels do not enforce contribution room, deductions, withdrawals, grants, or tax treatment.</span>
@@ -1173,6 +1287,8 @@ export function DebtsPage() {
           </fieldset>
         </EditorPanel>
       )}
+
+      <CollectionGuidance kind="debts" />
 
       <aside className="notice notice-caution">
         <strong>Check your loan agreement.</strong>
