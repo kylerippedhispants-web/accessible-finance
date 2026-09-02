@@ -17,10 +17,10 @@ export function LandingPage({ onTryDemo }: LandingPageProps) {
         <section className="landing-hero">
           <div className="landing-copy">
             <span className="eyebrow">Accessible Finance Planner</span>
-            <h1>See where your money is going — and where it <em>could take you.</em></h1>
+            <h1>See the amount and year behind your <em>financial independence path.</em></h1>
             <p className="landing-lead">
-              Bring income, spending, assets, debt, and retirement goals into one calm Canadian planning view.
-              Change an assumption and see the projection update immediately.
+              Bring income, spending, assets, debt, and retirement assumptions into one calm Canadian planning view.
+              See a modeled FIRE target, inspect the full projection, and compare another path.
             </p>
             <div className="landing-actions">
               <button className="button button-primary" type="button" onClick={onTryDemo}>Try the fictional demo</button>
@@ -34,11 +34,11 @@ export function LandingPage({ onTryDemo }: LandingPageProps) {
           </div>
           <div className="projection-preview" aria-label="Illustrative projection preview">
             <div className="preview-topline">
-              <span>Illustrative net worth</span>
+              <span>Illustrative FIRE amount</span>
               <span className="mode-pill">Today’s dollars</span>
             </div>
             <strong>$1.24M</strong>
-            <span className="preview-caption">Projected at age 60</span>
+            <span className="preview-caption">Modeled FIRE year 2054 · age 60</span>
             <svg viewBox="0 0 520 230" role="img" aria-labelledby="preview-chart-title preview-chart-desc">
               <title id="preview-chart-title">Illustrative upward net worth projection</title>
               <desc id="preview-chart-desc">A fictional example rising over time. It is not a forecast or promise.</desc>
@@ -53,7 +53,7 @@ export function LandingPage({ onTryDemo }: LandingPageProps) {
               <circle cx="300" cy="118" r="6" />
               <circle cx="510" cy="18" r="7" />
             </svg>
-            <p>Fictional example only. Your projection depends entirely on the inputs and assumptions you choose.</p>
+            <p>Fictional example only. The FIRE amount excludes property and is not a guarantee or safe-withdrawal recommendation.</p>
           </div>
         </section>
 

@@ -1,7 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FireOverview } from '../components/FireOverview';
 import { ProjectionChart, type DollarView } from '../components/ProjectionChart';
-import { assetCategory, estimateRetirementAge, projectFinances, type ProjectionYear } from '../finance-engine';
+import { buildFireOverviewModel } from '../dashboard/fireMetrics';
+import {
+  assetCategory,
+  estimateFireTarget,
+  hasModeledRetirementOutflow,
+  projectFinances,
+  projectionPassesFireScreen,
+} from '../finance-engine';
 import type { FinancialPlan, PlanScenario, ScenarioOverrides } from '../domain';
 import {
   formatCad,
@@ -233,15 +241,6 @@ function MoneyMetric({ value, tone }: { value: number; tone?: 'positive' | 'nega
   );
 }
 
-function sustainedLiabilityFreeYear(projection: ProjectionYear[]): ProjectionYear | undefined {
-  let earliest: ProjectionYear | undefined;
-  for (let index = projection.length - 1; index >= 0; index -= 1) {
-    if (projection[index].totalLiabilities > 0.01) break;
-    earliest = projection[index];
-  }
-  return earliest;
-}
-
 function differencePhrase(value: number): string {
   if (Math.abs(value) < 0.005) return 'matches the baseline';
   return `${formatCad(Math.abs(value))} ${value > 0 ? 'above' : 'below'} the baseline`;
@@ -271,7 +270,17 @@ export function DashboardPage() {
     setWhatIf(initialWhatIf(plan, minimumWhatIfAge, maximumWhatIfAge));
   }, [maximumWhatIfAge, minimumWhatIfAge, plan]);
 
-  const estimatedRetirementAge = useMemo(() => estimateRetirementAge(plan), [plan]);
+  const fireEstimate = useMemo(() => estimateFireTarget(plan), [plan]);
+  const fireModel = useMemo(
+    () => buildFireOverviewModel(plan, fireEstimate, baseline),
+    [baseline, fireEstimate, plan],
+  );
+  const chartMilestones = useMemo(() => [
+    ...(fireEstimate.status === 'estimated'
+      ? [{ year: fireEstimate.year, label: 'FIRE timing', kind: 'fire' as const }]
+      : []),
+    { year: fireModel.plannedRetirementYear, label: 'Planned retirement', kind: 'planned' as const },
+  ], [fireEstimate, fireModel.plannedRetirementYear]);
   const overrides = useMemo(() => whatIfOverrides(plan, whatIf, syntheticAssetId), [plan, syntheticAssetId, whatIf]);
   const comparison = useMemo(() => projectFinances(plan, overrides), [overrides, plan]);
   const retirementPoint = baseline.find((row) => row.age >= plan.retirement.targetRetirementAge) ?? baseline.at(-1)!;
@@ -283,20 +292,23 @@ export function DashboardPage() {
     .filter((debt) => debt.enabled !== false && (debt.startYear ?? plan.baseYear) <= plan.baseYear)
     .reduce((sum, debt) => sum + debt.balance, 0);
   const startingNetWorth = startingAssets - startingDebts;
-  const sustainedDebtFree = sustainedLiabilityFreeYear(baseline);
   const finalBaseline = baseline.at(-1)!;
   const finalComparison = comparison.at(-1)!;
   const finalBaselineValue = dollarView === 'real' ? finalBaseline.realNetWorth : finalBaseline.netWorth;
   const finalComparisonValue = dollarView === 'real' ? finalComparison.realNetWorth : finalComparison.netWorth;
   const finalWhatIfDifference = finalComparisonValue - finalBaselineValue;
+  const whatIfTransition = comparison.find((row) => row.retired);
+  const firstWhatIfShortfall = comparison.find((row) => row.unfundedCashFlow > 0.01);
+  const whatIfHasRetirementOutflow = hasModeledRetirementOutflow(comparison);
+  const whatIfPlanFunded = projectionPassesFireScreen(comparison);
 
   const cashFlowInsight = firstProjection.unfundedCashFlow > 0.01
     ? `The model records ${formatCad(firstProjection.unfundedCashFlow)} of unfunded cash flow in ${firstProjection.year} after available non-property assets are used.`
     : firstProjection.availableSavings < 0
       ? `Required outflows exceed projected net income by ${formatCad(Math.abs(firstProjection.availableSavings))} in ${firstProjection.year}; available assets cover the gap before a shortfall is recorded.`
       : `${formatCad(firstProjection.availableSavings)} remains in ${firstProjection.year} after taxes, spending, and debt payments, before scheduled contributions.`;
-  const liabilityInsight = sustainedDebtFree
-    ? `Modeled liabilities remain at zero from ${sustainedDebtFree.year} onward.`
+  const liabilityInsight = fireModel.debtFreeYear
+    ? `Modeled liabilities remain at zero from ${fireModel.debtFreeYear} onward.`
     : `${formatCad(retirementPoint.totalLiabilities)} of modeled liabilities remain at the target retirement age.`;
 
   const updateWhatIf = (key: keyof WhatIfValues, value: number) => {
@@ -338,7 +350,7 @@ export function DashboardPage() {
         <div>
           <span className="eyebrow">Financial overview</span>
           <h1>Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 18 ? 'afternoon' : 'evening'}, {plan.profile.firstName || 'there'}.</h1>
-          <p>Starting balances and projected end-of-year results are separated below, so each number has a clear point in time.</p>
+          <p>See the modeled amount and year on your path to financial independence, then inspect every assumption behind it.</p>
         </div>
         <div className="as-of-card"><span>Projection starts</span><strong>{plan.baseYear}</strong><small>End-of-year values · CAD</small></div>
       </header>
@@ -349,6 +361,8 @@ export function DashboardPage() {
           <Link to="/retirement">Add tax assumption</Link>
         </aside>
       )}
+
+      <FireOverview plan={plan} model={fireModel} />
 
       <section className="dashboard-insights planner-input-guide" aria-labelledby="planner-input-guide-title">
         <div className="insights-heading">
@@ -421,7 +435,7 @@ export function DashboardPage() {
           </div>
           <dl className="summary-details">
             <div><dt>Nominal estimate</dt><dd>{formatCad(retirementPoint.netWorth)}</dd></div>
-            <div><dt>Modeled cash-flow test</dt><dd>{estimatedRetirementAge === null ? 'Not reached' : `Age ${formatInteger(estimatedRetirementAge)}`}</dd></div>
+            <div><dt>Estimated FIRE year</dt><dd>{fireEstimate.status === 'estimated' ? `${fireEstimate.year} · age ${formatInteger(fireEstimate.age)}` : 'Not reached'}</dd></div>
           </dl>
           <p className="summary-footnote">The cash-flow test finds the earliest tested age with no modeled unfunded cash flow through age {plan.retirement.planningEndAge}; it is not a guarantee.</p>
         </article>
@@ -455,47 +469,58 @@ export function DashboardPage() {
         </ul>
       </section>
 
-      <section className="panel projection-panel" aria-labelledby="projection-title">
+      <section id="fire-path-chart" className="panel projection-panel" aria-labelledby="projection-title">
         <div className="panel-heading projection-heading">
           <div>
-            <span className="eyebrow">Main projection</span>
-            <h2 id="projection-title">Net worth projection</h2>
-            <p>Inspect any year with a mouse, touch, arrow keys, or the range control.</p>
+            <span className="eyebrow">Your path over time</span>
+            <h2 id="projection-title">Path to modeled financial independence</h2>
+            <p>Inspect any year with a mouse, touch, arrow keys, or the range control. The FIRE marker shows timing only; the lines remain your planned-retirement baseline and live preview.</p>
           </div>
           <div className="segmented-control" role="group" aria-label="Dollar display">
             <button type="button" aria-pressed={dollarView === 'nominal'} onClick={() => setDollarView('nominal')}>Nominal dollars</button>
             <button type="button" aria-pressed={dollarView === 'real'} onClick={() => setDollarView('real')}>Today’s dollars</button>
           </div>
         </div>
-        <ProjectionChart baseline={baseline} comparison={comparison} comparisonLabel="Live what-if" dollarView={dollarView} />
+        <ProjectionChart baseline={baseline} comparison={comparison} comparisonLabel="Live what-if" dollarView={dollarView} milestones={chartMilestones} />
       </section>
 
-      <section className="what-if-layout" aria-labelledby="what-if-title">
+      <section id="fire-what-if" className="what-if-layout" aria-labelledby="what-if-title">
         <div className="panel what-if-panel">
           <div className="panel-heading">
             <div><span className="eyebrow">Interactive model</span><h2 id="what-if-title">What if you changed the plan?</h2></div>
             <button className="text-button" type="button" onClick={resetWhatIf}>Reset controls</button>
           </div>
+          <div className={`what-if-fire-result${whatIfPlanFunded ? ' funded' : ' not-funded'}`}>
+            <div>
+              <span>Live planned-retirement test · not saved</span>
+              <strong>Age {whatIf.retirementAge}: {!whatIfHasRetirementOutflow ? 'needs spending inputs' : whatIfPlanFunded ? 'modeled as funded' : 'modeled shortfall'}</strong>
+            </div>
+            <p>{!whatIfHasRetirementOutflow
+              ? 'Add retirement spending, keep recurring expenses active after retirement, or include a debt payment to run a meaningful funding test.'
+              : whatIfTransition
+                ? `${formatCad(dollarView === 'real' ? whatIfTransition.realOpeningModeledWithdrawableAssets : whatIfTransition.openingModeledWithdrawableAssets)} of opening modeled-withdrawable assets in ${dollarView === 'real' ? 'today’s' : 'nominal'} dollars. ${firstWhatIfShortfall ? `The first unfunded year is ${firstWhatIfShortfall.year}.` : `The screen runs through age ${finalComparison.age}.`}`
+                : 'Choose a retirement age inside the projection horizon.'}</p>
+          </div>
           <div className="slider-grid">
             <label>
               <span><strong>Retirement age</strong><output>{whatIf.retirementAge}</output></span>
-              <input type="range" min={minimumWhatIfAge} max={maximumWhatIfAge} value={whatIf.retirementAge} onChange={(event) => updateWhatIf('retirementAge', Number(event.target.value))} />
+              <input type="range" min={minimumWhatIfAge} max={maximumWhatIfAge} value={whatIf.retirementAge} aria-valuetext={`Age ${whatIf.retirementAge}`} onChange={(event) => updateWhatIf('retirementAge', Number(event.target.value))} />
             </label>
             <label>
               <span><strong>Investment return</strong><output>{whatIf.investmentReturn.toFixed(1)}%</output></span>
-              <input type="range" min={-5} max={12} step={0.25} value={whatIf.investmentReturn} onChange={(event) => updateWhatIf('investmentReturn', Number(event.target.value))} />
+              <input type="range" min={-5} max={12} step={0.25} value={whatIf.investmentReturn} aria-valuetext={`${whatIf.investmentReturn.toFixed(2)} percent`} onChange={(event) => updateWhatIf('investmentReturn', Number(event.target.value))} />
             </label>
             <label>
               <span><strong>Inflation</strong><output>{whatIf.inflation.toFixed(1)}%</output></span>
-              <input type="range" min={0} max={8} step={0.25} value={whatIf.inflation} onChange={(event) => updateWhatIf('inflation', Number(event.target.value))} />
+              <input type="range" min={0} max={8} step={0.25} value={whatIf.inflation} aria-valuetext={`${whatIf.inflation.toFixed(2)} percent`} onChange={(event) => updateWhatIf('inflation', Number(event.target.value))} />
             </label>
             <label>
               <span><strong>Annual retirement spending</strong><output>{formatCad(whatIf.retirementSpending)}</output></span>
-              <input type="range" min={0} max={Math.max(150_000, whatIf.retirementSpending)} step={1_000} value={whatIf.retirementSpending} onChange={(event) => updateWhatIf('retirementSpending', Number(event.target.value))} />
+              <input type="range" min={0} max={Math.max(150_000, whatIf.retirementSpending)} step={1_000} value={whatIf.retirementSpending} aria-valuetext={formatCad(whatIf.retirementSpending)} onChange={(event) => updateWhatIf('retirementSpending', Number(event.target.value))} />
             </label>
             <label>
               <span><strong>Monthly investment contribution</strong><output>{formatCad(whatIf.monthlyContribution)}</output></span>
-              <input type="range" min={0} max={10_000} step={100} value={whatIf.monthlyContribution} onChange={(event) => updateWhatIf('monthlyContribution', Number(event.target.value))} />
+              <input type="range" min={0} max={10_000} step={100} value={whatIf.monthlyContribution} aria-valuetext={`${formatCad(whatIf.monthlyContribution)} per month`} onChange={(event) => updateWhatIf('monthlyContribution', Number(event.target.value))} />
             </label>
           </div>
           <p className="model-note">The return and inflation controls are assumptions, not forecasts. They apply plan-level values to eligible records and may differ from item-specific baseline assumptions. Retirement spending excludes payments modeled under Debts.</p>

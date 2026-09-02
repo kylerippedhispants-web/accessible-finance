@@ -112,15 +112,15 @@ export function OnboardingPage() {
       <div className="onboarding-grid">
         <header>
           <span className="eyebrow">A five-minute foundation</span>
-          <h1>Start with the shape of your plan.</h1>
+          <h1>Build your first financial independence estimate.</h1>
           <p>
-            Use broad annual estimates for now. Every item and assumption can be refined later from the planner.
+            Start with broad annual cash flow, then add cash, investments, property, and debt from the planner. Every input can be refined later.
           </p>
           <ol className="onboarding-steps" aria-label="Onboarding progress">
             <li className="active"><span>1</span><strong>About you</strong></li>
             <li className="active"><span>2</span><strong>Timeline</strong></li>
             <li className="active"><span>3</span><strong>Cash flow</strong></li>
-            <li><span>4</span><strong>Add details later</strong></li>
+            <li><span>4</span><strong>Add assets next</strong></li>
           </ol>
         </header>
 
@@ -137,8 +137,8 @@ export function OnboardingPage() {
           <fieldset>
             <legend><span>02</span> Planning timeline</legend>
             <div className="form-grid two">
-              <NumberField id="onboarding-retirementAge" label="Target retirement age" min={Math.max(18, currentAge ?? 18)} max={100} step={1} value={retirementAge} required error={fieldErrors.retirementAge} onChange={(value) => { setRetirementAge(value); setFieldErrors((current) => ({ ...current, retirementAge: undefined })); }} hint={currentAge === undefined ? 'Enter your date of birth to confirm the minimum.' : `You are age ${currentAge} in the ${projectionBaseYear} projection year. Use ${currentAge} if already retired.`} />
-              <NumberField id="onboarding-endAge" label="Planning end age" min={Math.max(19, currentAge ?? 18, (retirementAge ?? 18) + 1)} max={120} step={1} value={endAge} required error={fieldErrors.endAge} onChange={(value) => { setEndAge(value); setFieldErrors((current) => ({ ...current, endAge: undefined })); }} hint="Ages beyond this point are not projected." />
+              <NumberField id="onboarding-retirementAge" label="Planned retirement age" min={Math.max(18, currentAge ?? 18)} max={100} step={1} value={retirementAge} required error={fieldErrors.retirementAge} onChange={(value) => { setRetirementAge(value); setFieldErrors((current) => ({ ...current, retirementAge: undefined })); }} hint={currentAge === undefined ? 'Enter your date of birth to confirm the minimum.' : `This is the age you want to test. The FIRE estimate may differ; you are age ${currentAge} in ${projectionBaseYear}.`} />
+              <NumberField id="onboarding-endAge" label="Plan through age" min={Math.max(19, currentAge ?? 18, (retirementAge ?? 18) + 1)} max={120} step={1} value={endAge} required error={fieldErrors.endAge} onChange={(value) => { setEndAge(value); setFieldErrors((current) => ({ ...current, endAge: undefined })); }} hint="The end of the model, not a life-expectancy estimate." />
             </div>
           </fieldset>
 
@@ -146,7 +146,7 @@ export function OnboardingPage() {
             <legend><span>03</span> Broad annual amounts</legend>
             <div className="form-grid two">
               <MoneyField id="onboarding-income" label="Employment income" min={0} max={1_000_000_000_000} step={1000} value={income} required error={fieldErrors.income} onChange={(value) => { setIncome(value); setFieldErrors((current) => ({ ...current, income: undefined })); }} hint="Before tax, per year. Enter $0 if none." />
-              <MoneyField id="onboarding-expenses" label="Approximate expenses" min={0} max={1_000_000_000_000} step={1000} value={expenses} required error={fieldErrors.expenses} onChange={(value) => { setExpenses(value); setFieldErrors((current) => ({ ...current, expenses: undefined })); }} hint="Living costs per year. Exclude payments you will model under Debts; enter $0 if none." />
+              <MoneyField id="onboarding-expenses" label="Approximate annual spending" min={0} max={1_000_000_000_000} step={1000} value={expenses} required error={fieldErrors.expenses} onChange={(value) => { setExpenses(value); setFieldErrors((current) => ({ ...current, expenses: undefined })); }} hint="Used as both current living costs and your starting estimate after work stops. Exclude payments you will model under Debts." />
             </div>
           </fieldset>
 
@@ -156,9 +156,9 @@ export function OnboardingPage() {
           </aside>
           {error && <p className="form-status error" role="alert">{error}</p>}
           <button className="button button-primary button-wide" type="submit" disabled={busy}>
-            {busy ? 'Creating your plan…' : 'Create my plan'}
+            {busy ? 'Creating your plan…' : 'See my FIRE estimate'}
           </button>
-          <p className="form-footnote">Next, use the navigation on the left—or the three-line <strong>Menu</strong> button in the top-right on a phone—to add accounts, property, debts, and detailed spending. Submit each item, then choose <strong>Save changes</strong> in the header to sync a cloud plan; Demo Mode saves only for that browser session.</p>
+          <p className="form-footnote">Your first result may say “Not reached” until you add cash, investments, and contributions. Use the navigation on the left—or the three-line <strong>Menu</strong> button in the top-right on a phone—to add them. Submit each item, then choose <strong>Save changes</strong> in the header to sync a cloud plan; Demo Mode saves only for that browser session.</p>
         </form>
       </div>
     </main>

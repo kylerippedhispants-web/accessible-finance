@@ -11,6 +11,14 @@ async function openDemo(page: import('@playwright/test').Page) {
 test('dashboard comparison starts aligned and its chart is keyboard and pointer operable', async ({ page }) => {
   await openDemo(page);
 
+  const fireRegion = page.getByRole('region', { name: 'Your FIRE outlook' });
+  await expect(fireRegion.getByText('Estimated FIRE year')).toBeVisible();
+  await expect(fireRegion.getByText('Modeled FIRE amount · today’s dollars')).toBeVisible();
+  await expect(fireRegion).not.toContainText(/NaN|Infinity/);
+  const fireProgress = fireRegion.getByRole('progressbar', { name: 'Current assets as a share of projected opening FIRE amount' });
+  await expect(fireProgress).toHaveAttribute('max', '100');
+  await expect(fireProgress).toHaveAttribute('aria-valuetext', /modeled-withdrawable assets/i);
+
   const baselinePath = page.locator('.chart-path.baseline').first();
   const comparisonPath = page.locator('.chart-path.comparison').first();
   expect(await comparisonPath.getAttribute('d')).toBe(await baselinePath.getAttribute('d'));
@@ -44,6 +52,14 @@ test('mobile drawer traps focus, locks scroll, and leaves the dashboard containe
   await page.setViewportSize({ width: 390, height: 844 });
   await openDemo(page);
 
+  const mobileFire = page.getByRole('region', { name: 'Your FIRE outlook' });
+  await expect(mobileFire).toBeVisible();
+  for (const selector of ['.fire-overview', '.fire-driver-grid', '.fire-timeline', '.chart-canvas']) {
+    expect(await page.locator(selector).first().evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
+  }
+  const mobileAxe = await new AxeBuilder({ page }).analyze();
+  expect(mobileAxe.violations).toEqual([]);
+
   const menuButton = page.getByRole('button', { name: 'Open planner menu' });
   const sidebar = page.locator('#planner-sidebar');
   const appContent = page.locator('.app-content');
@@ -71,6 +87,7 @@ test('mobile drawer traps focus, locks scroll, and leaves the dashboard containe
 
   await page.setViewportSize({ width: 320, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+  expect(await page.locator('.fire-overview').evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
   expect(await page.locator('.chart-canvas').first().evaluate((chart) => chart.scrollWidth <= chart.clientWidth)).toBe(true);
   await expect(page.locator('.chart-inspector-card').first()).toBeVisible();
 });

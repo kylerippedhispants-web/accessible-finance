@@ -91,6 +91,20 @@ export function createDemoSnapshot(): PlannerSnapshot {
     estimatedAnnualSpending: 48_000,
     investmentReturnBeforeRetirementPercent: 5,
     investmentReturnAfterRetirementPercent: 3.5,
+    cpp: {
+      enabled: true,
+      annualAmount: 15_000,
+      startAge: 65,
+      taxable: true,
+      annualGrowthPercent: 2,
+    },
+    oas: {
+      enabled: true,
+      annualAmount: 8_000,
+      startAge: 65,
+      taxable: true,
+      annualGrowthPercent: 2,
+    },
   };
 
   plan.incomeSources = [
@@ -99,7 +113,7 @@ export function createDemoSnapshot(): PlannerSnapshot {
       planId: plan.id,
       name: 'Employment income',
       type: 'employment',
-      amount: 90_000,
+      amount: 125_000,
       frequency: 'annual',
       startYear: plan.baseYear,
       annualGrowthPercent: 2,
@@ -109,12 +123,12 @@ export function createDemoSnapshot(): PlannerSnapshot {
   ];
 
   const annualExpenses: Array<[string, Expense['category'], number]> = [
-    ['Housing and property costs (mortgage excluded)', 'housing', 22_800],
-    ['Food', 'food', 8_400],
-    ['Transportation', 'transportation', 6_000],
+    ['Housing and property costs (mortgage excluded)', 'housing', 12_000],
+    ['Food', 'food', 7_200],
+    ['Transportation', 'transportation', 5_400],
     ['Utilities and insurance', 'utilities', 4_800],
     ['Travel and entertainment', 'entertainment', 3_600],
-    ['Healthcare and other', 'healthcare', 2_400],
+    ['Healthcare and other', 'healthcare', 3_000],
   ];
   plan.expenses = annualExpenses.map(([name, category, amount], position) => ({
     id: `demo-expense-${position + 1}`,
@@ -129,9 +143,9 @@ export function createDemoSnapshot(): PlannerSnapshot {
   } satisfies Expense));
 
   const assets: Array<[string, Asset['type'], number, Partial<Asset>]> = [
-    ['Cash reserve', 'cash', 10_000, { expectedReturnPercent: 0 }],
-    ['TFSA', 'tfsa', 30_000, { expectedReturnPercent: 5, annualContribution: 4_800 }],
-    ['RRSP', 'rrsp', 25_000, { expectedReturnPercent: 5, annualContribution: 3_600 }],
+    ['Cash reserve', 'cash', 20_000, { expectedReturnPercent: 0 }],
+    ['TFSA', 'tfsa', 80_000, { expectedReturnPercent: 5, annualContribution: 8_400 }],
+    ['RRSP', 'rrsp', 90_000, { expectedReturnPercent: 5, annualContribution: 7_200 }],
     ['FHSA', 'fhsa', 10_000, { expectedReturnPercent: 5, annualContribution: 2_400 }],
     ['Primary residence', 'primary_residence', 600_000, { annualAppreciationPercent: 2 }],
   ];

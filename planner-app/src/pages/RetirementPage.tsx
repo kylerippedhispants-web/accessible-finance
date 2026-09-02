@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useDeferredValue, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { MoneyField, NumberField, PercentField, SelectField, ToggleField } from '../components/FormFields';
 import type { FinancialPlan, ManualRetirementBenefit, RetirementSettings } from '../domain';
+import { estimateFireTarget } from '../finance-engine';
+import { formatCad, formatCadMetric } from '../lib/formatters';
 import { usePlanner } from '../state/PlannerContext';
 
 function bounded(value: number | undefined, fallback: number, minimum: number, maximum: number): number {
@@ -15,6 +18,9 @@ export function RetirementPage() {
   const minimumRetirementAge = Math.max(18, baseAge);
   const maximumRetirementAge = Math.min(100, plan.retirement.planningEndAge - 1);
   const [timelineError, setTimelineError] = useState<string>();
+  const deferredPlan = useDeferredValue(plan);
+  const fireEstimate = useMemo(() => estimateFireTarget(deferredPlan), [deferredPlan]);
+  const fireEstimatePending = deferredPlan !== plan;
 
   const patchPlan = (changes: Partial<FinancialPlan>) => {
     planner.updatePlan((current) => ({ ...current, ...changes }));
@@ -39,7 +45,7 @@ export function RetirementPage() {
     if (value === undefined) return;
     const next = Math.round(value);
     if (next < minimumRetirementAge || next > maximumRetirementAge) {
-      setTimelineError(`Retirement age must be from ${minimumRetirementAge} through ${maximumRetirementAge}. Use ${minimumRetirementAge} if already retired.`);
+      setTimelineError(`Planned retirement age must be from ${minimumRetirementAge} through ${maximumRetirementAge}. Use ${minimumRetirementAge} if already retired.`);
       return;
     }
     setTimelineError(undefined);
@@ -51,7 +57,7 @@ export function RetirementPage() {
     const minimum = Math.max(19, baseAge, plan.retirement.targetRetirementAge + 1);
     const next = Math.round(value);
     if (next < minimum || next > 120) {
-      setTimelineError(`Planning end age must be from ${minimum} through 120.`);
+      setTimelineError(`Plan-through age must be from ${minimum} through 120.`);
       return;
     }
     setTimelineError(undefined);
@@ -61,15 +67,47 @@ export function RetirementPage() {
   return (
     <div className="page retirement-page">
       <header className="page-header">
-        <div><span className="eyebrow">Timeline & assumptions</span><h1>Retirement</h1><p>Set the model’s transition point and your own transparent assumptions. Nothing here is a promise or an entitlement calculation.</p></div>
+        <div><span className="eyebrow">Goal &amp; assumptions</span><h1>Retirement</h1><p>These inputs drive your modeled FIRE amount and year. Changes update the estimate, but nothing here is a promise or entitlement calculation.</p></div>
       </header>
 
+      <section
+        className="retirement-fire-preview"
+        aria-labelledby="retirement-fire-title"
+        aria-busy={fireEstimatePending ? true : undefined}
+      >
+        <div>
+          <span className="eyebrow">Live baseline estimate</span>
+          <h2 id="retirement-fire-title">{fireEstimatePending
+            ? 'Updating your FIRE estimate…'
+            : fireEstimate.status === 'estimated'
+              ? `FIRE in ${fireEstimate.year}`
+              : 'Your FIRE estimate needs attention'}</h2>
+          <p>{fireEstimatePending
+            ? 'Your latest input is applied. The annual funding screen is updating in the background.'
+            : fireEstimate.status === 'estimated'
+              ? `Age ${fireEstimate.age}, using the first annual retirement boundary that funds modeled cash flow through age ${fireEstimate.horizonAge}.`
+              : fireEstimate.status === 'needs_inputs'
+                ? 'Add annual spending after work income stops before the planner presents a FIRE amount.'
+                : `No tested retirement year currently funds the full plan through age ${fireEstimate.horizonAge}.`}</p>
+        </div>
+        <div className="retirement-fire-result">
+          <span>Modeled FIRE amount · today’s dollars</span>
+          {!fireEstimatePending && fireEstimate.status === 'estimated' ? (() => {
+            const amount = formatCadMetric(fireEstimate.realOpeningModeledWithdrawableAssets);
+            return <><strong><span aria-hidden="true">{amount.display}</span><span className="sr-only">{amount.precise}</span></strong><small>{formatCad(fireEstimate.openingModeledWithdrawableAssets)} nominal at the opening of {fireEstimate.year}</small></>;
+          })() : fireEstimatePending
+            ? <><strong>Updating…</strong><small>Using your latest inputs.</small></>
+            : <><strong>Not available</strong><small>Review the inputs below.</small></>}
+        </div>
+        <Link className="text-button" to="/dashboard">See the full FIRE outlook</Link>
+      </section>
+
       <section className="panel form-panel" aria-labelledby="timeline-title">
-        <div className="panel-heading"><div><span className="step-number">01</span><h2 id="timeline-title">Timeline and spending</h2><p>Retirement starts in the calendar year when you reach the target age.</p></div></div>
+        <div className="panel-heading"><div><span className="step-number">01</span><h2 id="timeline-title">Timeline and spending</h2><p>The planned age tests when work income stops. It is separate from the earliest age the FIRE screen finds.</p></div></div>
         <div className="form-grid three">
-          <NumberField label="Target retirement age" required min={minimumRetirementAge} max={maximumRetirementAge} step={1} value={plan.retirement.targetRetirementAge} onChange={updateRetirementAge} error={timelineError?.startsWith('Retirement') ? timelineError : undefined} hint={`You are age ${baseAge} in the ${plan.baseYear} projection year. Use ${minimumRetirementAge} if already retired.`} />
-          <NumberField label="Planning end age" required min={Math.max(19, baseAge, plan.retirement.targetRetirementAge + 1)} max={120} step={1} value={plan.retirement.planningEndAge} onChange={updatePlanningEndAge} error={timelineError?.startsWith('Planning') ? timelineError : undefined} />
-          <MoneyField label="Annual retirement spending" required min={0} max={1_000_000_000_000} step={1000} value={plan.retirement.estimatedAnnualSpending} onChange={(value) => patchRetirement({ estimatedAnnualSpending: bounded(value, plan.retirement.estimatedAnnualSpending, 0, 1_000_000_000_000) })} hint="Base-year dollars. Exclude payments modeled under Debts." />
+          <NumberField label="Planned retirement age" required min={minimumRetirementAge} max={maximumRetirementAge} step={1} value={plan.retirement.targetRetirementAge} onChange={updateRetirementAge} error={timelineError?.startsWith('Planned retirement') ? timelineError : undefined} hint={`Your chosen baseline retirement age. You are age ${baseAge} in ${plan.baseYear}; the FIRE estimate may differ.`} />
+          <NumberField label="Plan through age" required min={Math.max(19, baseAge, plan.retirement.targetRetirementAge + 1)} max={120} step={1} value={plan.retirement.planningEndAge} onChange={updatePlanningEndAge} error={timelineError?.startsWith('Plan-through') ? timelineError : undefined} hint="The end of the model, not a life-expectancy estimate." />
+          <MoneyField label="Annual spending after work income stops" required min={0} max={1_000_000_000_000} step={1000} value={plan.retirement.estimatedAnnualSpending} onChange={(value) => patchRetirement({ estimatedAnnualSpending: bounded(value, plan.retirement.estimatedAnnualSpending, 0, 1_000_000_000_000) })} hint="Base-year dollars. Exclude payments modeled under Debts." />
           <PercentField label="Retirement spending inflation" required min={-10} max={20} step={0.1} value={plan.retirement.spendingInflationPercent} onChange={(value) => patchRetirement({ spendingInflationPercent: bounded(value, plan.retirement.spendingInflationPercent, -10, 20) })} />
           <SelectField
             label="Retirement expense treatment"

@@ -45,6 +45,16 @@ export interface ProjectionYear {
   propertyGrowth: number;
   otherAssetGrowth: number;
   unfundedCashFlow: number;
+  /**
+   * Cash plus non-property assets the model may draw from at the opening of
+   * this calendar year. This deliberately excludes property because the
+   * projection never assumes a sale.
+   */
+  openingModeledWithdrawableAssets: number;
+  /** Closing value for the same modeled-withdrawable asset set. */
+  modeledWithdrawableAssets: number;
+  /** Cumulative required cash flow that could not be funded by modeled assets. */
+  shortfallLiability: number;
 
   cashAssets: number;
   investmentAssets: number;
@@ -61,6 +71,8 @@ export interface ProjectionYear {
   realExpenses: number;
   realDebtPayments: number;
   realContributions: number;
+  realOpeningModeledWithdrawableAssets: number;
+  realModeledWithdrawableAssets: number;
   realCashAssets: number;
   realInvestmentAssets: number;
   realPropertyAssets: number;
@@ -461,6 +473,11 @@ export function projectFinances(
     const retired = age >= plan.retirement.targetRetirementAge;
     activateAssets(assetStates, year, plan.baseYear);
     activateDebts(debtStates, year, plan.baseYear);
+    const openingModeledWithdrawableAssets = sumAssetCategory(assetStates, "cash")
+      + sumAssetCategory(assetStates, "investment")
+      + sumAssetCategory(assetStates, "pension")
+      + sumAssetCategory(assetStates, "other")
+      + unallocatedCash;
 
     let grossIncome = 0;
     let taxableIncome = 0;
@@ -621,6 +638,7 @@ export function projectFinances(
     const otherAssets = sumAssetCategory(assetStates, "pension")
       + sumAssetCategory(assetStates, "other");
     const totalAssets = cashAssets + investmentAssets + propertyAssets + otherAssets;
+    const modeledWithdrawableAssets = cashAssets + investmentAssets + otherAssets;
     const debtLiabilities = debtStates.reduce(
       (sum, state) => sum + (state.active ? state.balance : 0),
       0,
@@ -650,6 +668,9 @@ export function projectFinances(
       propertyGrowth: roundMoney(propertyGrowth),
       otherAssetGrowth: roundMoney(otherAssetGrowth),
       unfundedCashFlow: roundMoney(unfundedCashFlow),
+      openingModeledWithdrawableAssets: roundMoney(openingModeledWithdrawableAssets),
+      modeledWithdrawableAssets: roundMoney(modeledWithdrawableAssets),
+      shortfallLiability: roundMoney(shortfallLiability),
       cashAssets: roundMoney(cashAssets),
       investmentAssets: roundMoney(investmentAssets),
       propertyAssets: roundMoney(propertyAssets),
@@ -664,6 +685,16 @@ export function projectFinances(
       realExpenses: real(expenses, plan.assumptions.generalInflationPercent, yearsFromBase),
       realDebtPayments: real(debtPayments, plan.assumptions.generalInflationPercent, yearsFromBase),
       realContributions: real(contributions, plan.assumptions.generalInflationPercent, yearsFromBase),
+      realOpeningModeledWithdrawableAssets: real(
+        openingModeledWithdrawableAssets,
+        plan.assumptions.generalInflationPercent,
+        yearsFromBase,
+      ),
+      realModeledWithdrawableAssets: real(
+        modeledWithdrawableAssets,
+        plan.assumptions.generalInflationPercent,
+        yearsFromBase,
+      ),
       realCashAssets: real(cashAssets, plan.assumptions.generalInflationPercent, yearsFromBase),
       realInvestmentAssets: real(
         investmentAssets,
