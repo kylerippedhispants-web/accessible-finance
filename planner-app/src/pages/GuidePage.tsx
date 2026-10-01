@@ -234,7 +234,7 @@ export function GuidePage() {
         <ul>
           <li>Use Dashboard what-if controls or a quick preview to see a temporary comparison immediately.</li>
           <li>Return to the baseline often so you know which line represents the plan you actually entered.</li>
-          <li>Previewing does not create or sync a scenario. Save the scenario, then use Save changes in the header to send it to the cloud.</li>
+          <li>Previewing does not create or sync a scenario. Save the scenario, then use Save changes in the header to keep it for the demo browser session or sync a signed-in cloud plan.</li>
           <li>Compare several plausible inputs rather than treating one scenario as a forecast or probability of success.</li>
         </ul>
         <div className="form-actions">
@@ -301,7 +301,7 @@ export function GuidePage() {
           </article>
           <article>
             <span aria-hidden="true">D</span>
-            <div><h3>Demo Mode</h3><p>Demo changes stay in browser session storage and are never uploaded. Use fictional information only, because browser storage is not a secure place for personal financial data.</p></div>
+            <div><h3>Demo Mode</h3><p>Demo edits you explicitly save stay in browser session storage and are never uploaded. Unsaved edits remain on this page only. Use fictional information only, because browser storage is not a secure place for personal financial data.</p></div>
           </article>
           <article>
             <span aria-hidden="true">J</span>

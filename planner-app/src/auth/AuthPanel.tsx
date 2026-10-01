@@ -1,5 +1,4 @@
 import { type FormEvent, useState } from 'react';
-import { cloudConfigurationMessage } from '../lib/supabase';
 import { useAuth } from './AuthContext';
 
 type AuthView = 'sign-in' | 'sign-up' | 'forgot';
@@ -88,6 +87,20 @@ export function AuthPanel() {
       setBusy(false);
     }
   };
+
+  if (!auth.configured) {
+    return (
+      <section className="auth-panel" aria-labelledby="auth-title">
+        <div className="auth-panel-body">
+          <span className="eyebrow">Demo preview</span>
+          <h2 id="auth-title">Cloud saving is unavailable here.</h2>
+          <p>Explore the planner with fictional values in Demo Mode. Choose Save changes to keep your edits for this browser session only.</p>
+          <p>Accounts, sign-in, and password recovery are not enabled in this preview.</p>
+          <a className="text-button" href="/articles.html">Browse the educational guides</a>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="auth-panel" aria-labelledby="auth-title">
@@ -210,7 +223,6 @@ export function AuthPanel() {
             </label>
           )}
 
-          {!auth.configured && <p className="notice notice-caution">{cloudConfigurationMessage()}</p>}
           {message && (
             <p className={`form-status${isError ? ' error' : ''}`} role={isError ? 'alert' : 'status'}>
               <span id="auth-form-message">{message}</span>

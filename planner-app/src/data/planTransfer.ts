@@ -14,6 +14,15 @@ import {
   type ExportedPlan,
 } from '../validation/planSchemas';
 
+export const MAX_PLAN_TRANSFER_BYTES = 16_000_000;
+export const PLAN_TRANSFER_SIZE_MESSAGE = 'Planner backups must be 16 MB or smaller.';
+
+function checkTransferSize(json: string): void {
+  if (new TextEncoder().encode(json).byteLength > MAX_PLAN_TRANSFER_BYTES) {
+    throw new RangeError(PLAN_TRANSFER_SIZE_MESSAGE);
+  }
+}
+
 export function createPlanExport(snapshot: PlannerSnapshot): ExportedPlan {
   const data = plannerSnapshotSchema.parse(structuredClone(snapshot));
   return exportedPlanSchema.parse({
@@ -22,6 +31,12 @@ export function createPlanExport(snapshot: PlannerSnapshot): ExportedPlan {
     exportedAt: new Date().toISOString(),
     data,
   });
+}
+
+export function serializePlanExport(snapshot: PlannerSnapshot): string {
+  const payload = JSON.stringify(createPlanExport(snapshot), null, 2);
+  checkTransferSize(payload);
+  return payload;
 }
 
 function safeExportFilename(filename: string | undefined): string {
@@ -37,7 +52,7 @@ function safeExportFilename(filename: string | undefined): string {
 }
 
 export function downloadPlanExport(snapshot: PlannerSnapshot, filename?: string): void {
-  const payload = JSON.stringify(createPlanExport(snapshot), null, 2);
+  const payload = serializePlanExport(snapshot);
   const blob = new Blob([payload], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
@@ -94,6 +109,7 @@ export function parsePlanImport(
   json: string,
   target?: { planId?: string; profileId?: string },
 ): PlannerSnapshot {
+  checkTransferSize(json);
   const validated = exportedPlanSchema.parse(JSON.parse(json));
   const source = validated.data;
   const planId = target?.planId ?? crypto.randomUUID();

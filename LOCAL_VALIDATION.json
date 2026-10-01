@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "completedAtUtc": "2026-10-01T00:06:17Z",
+  "localDate": "2026-09-30",
+  "timezone": "America/Toronto",
+  "status": "passed",
+  "sourceScope": "Primary imported FIRE working copy, including website/planner integration and reviewed demo, transfer, and preview-server polish.",
+  "historicalSnapshot": {
+    "branch": "codex/fire-experience",
+    "commit": "c6225efe43ae4da2bd372eedfe6939be91fc92a5",
+    "gitHistoryRestored": false
+  },
+  "mode": "Local fictional Demo Mode, without Supabase configuration",
+  "tooling": {
+    "node": "24.19.0",
+    "npm": "11.6.2",
+    "npmLocation": ".local-tools/package/bin/npm-cli.js",
+    "dependencyInstall": "npm ci completed during integration work",
+    "browser": "Installed Microsoft Edge via PLAYWRIGHT_CHANNEL=msedge",
+    "browserHelpers": ".local-tools/browsers"
+  },
+  "fixtureRepair": {
+    "file": "tests/environment-security.test.ts",
+    "repairedRedactions": 2,
+    "replacement": "Explicitly fictional constructed URL credentials and token; no original credentials restored"
+  },
+  "checks": {
+    "validate": {
+      "command": "npm run validate",
+      "exitCode": 0,
+      "staticPages": 63,
+      "staticGuides": 42,
+      "unitSuites": 15,
+      "unitTests": 142,
+      "lint": "passed",
+      "typecheck": "passed",
+      "build": "passed"
+    },
+    "browser": {
+      "command": "npm run test:e2e",
+      "exitCode": 0,
+      "tests": 24,
+      "newIntegrationTests": 8,
+      "accessibility": "Existing axe checks passed",
+      "responsiveWidths": [
+        320,
+        390,
+        820,
+        1440
+      ]
+    },
+    "dependencyAudit": {
+      "allDependencies": "passed",
+      "productionDependencies": "passed",
+      "reportedVulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      }
+    },
+    "whitespace": {
+      "status": "passed",
+      "filesCompared": 178,
+      "method": "git diff --no-index --check for changed files against preserved source; new files compared with empty file; temporary command-level line-ending settings only",
+      "gitRepositoryNotRequired": true
+    },
+    "packageFilesMatchImport": [
+      {
+        "file": "package.json",
+        "actualSHA256": "88EA822B18775F9E3537CE3CD3113158D2F3DEAB5240CB200C0C902372D0A980",
+        "preservedSHA256": "88EA822B18775F9E3537CE3CD3113158D2F3DEAB5240CB200C0C902372D0A980",
+        "matchesPreserved": true
+      },
+      {
+        "file": "package-lock.json",
+        "actualSHA256": "8E3B0A30E1CBD23647A41862D7F3A0AB40656C75035B3293B556688A125107C1",
+        "preservedSHA256": "8E3B0A30E1CBD23647A41862D7F3A0AB40656C75035B3293B556688A125107C1",
+        "matchesPreserved": true
+      }
+    ]
+  },
+  "evidence": {
+    "validate": ".local-tools/validation-baseline/validate.log",
+    "browser": ".local-tools/validation-baseline/e2e.log",
+    "auditAll": ".local-tools/validation-baseline/npm-audit-all.json",
+    "auditProduction": ".local-tools/validation-baseline/npm-audit-production.txt",
+    "whitespace": ".local-tools/validation-baseline/whitespace-check.json",
+    "packageIntegrity": ".local-tools/validation-baseline/package-integrity.json",
+    "sourceHashes": ".local-tools/validation-baseline/validated-source-hashes.json"
+  },
+  "limits": [
+    "Cloud authentication, migrations, RLS, email delivery, synchronization, and production deployment are not validated by this local baseline.",
+    "The archived source and import verification records remain reference evidence, separate from these current local checks.",
+    "Calculator inputs remain separate from planner inputs."
+  ],
+  "evidenceAvailability": "Evidence paths point to ignored logs retained on the validating local copy. They are not committed or portable proof; rerun the documented commands on another machine.",
+  "reviewedFixes": [
+    "Unavailable cloud account controls and demo draft preservation",
+    "Accurate saved-demo wording and single exit confirmation",
+    "Shared 16 MB import/export byte policy with 5000-operation backup round trip",
+    "Malformed preview request and missing-file server survival"
+  ]
+}

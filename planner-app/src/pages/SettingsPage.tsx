@@ -1,9 +1,10 @@
 import { type ChangeEvent, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ZodError } from 'zod';
 import { useAuth } from '../auth/AuthContext';
 import { NumberField, SelectField, TextField } from '../components/FormFields';
 import { CANADIAN_PROVINCES_AND_TERRITORIES, type ProvinceOrTerritory } from '../domain';
-import { downloadPlanExport, parsePlanImport } from '../data/planTransfer';
+import { downloadPlanExport, MAX_PLAN_TRANSFER_BYTES, parsePlanImport, PLAN_TRANSFER_SIZE_MESSAGE } from '../data/planTransfer';
 import { cloudConfigurationMessage } from '../lib/supabase';
 import { usePlanner } from '../state/PlannerContext';
 import { formatValidationError } from '../validation/planSchemas';
@@ -99,8 +100,8 @@ export function SettingsPage() {
       setTransferError(true);
       return;
     }
-    if (file.size > 2_000_000) {
-      setTransferMessage(`“${file.name}” is too large. Planner exports must be under 2 MB.`);
+    if (file.size > MAX_PLAN_TRANSFER_BYTES) {
+      setTransferMessage(`“${file.name}” is too large. ${PLAN_TRANSFER_SIZE_MESSAGE}`);
       setTransferError(true);
       return;
     }
@@ -118,6 +119,8 @@ export function SettingsPage() {
         setTransferMessage(`“${file.name}” does not contain valid JSON.`);
       } else if (error instanceof ZodError) {
         setTransferMessage(`“${file.name}” is not a valid planner export: ${formatValidationError(error)}`);
+      } else if (error instanceof RangeError) {
+        setTransferMessage(error.message);
       } else {
         setTransferMessage(`“${file.name}” could not be read as an Accessible Finance Planner export.`);
       }
@@ -138,6 +141,7 @@ export function SettingsPage() {
       setTransferError(true);
       setTransferMessage(error instanceof ZodError
         ? `The plan cannot be exported until this is fixed: ${formatValidationError(error)}`
+        : error instanceof RangeError ? error.message
         : 'The browser could not create the JSON backup. No file was downloaded.');
     }
   };
@@ -153,6 +157,7 @@ export function SettingsPage() {
   };
 
   const exitDemoForAccount = () => {
+    if (!auth.configured) return;
     const detail = planner.dirty ? ' Unsaved demo edits will also be removed.' : '';
     if (!window.confirm(`Exit Demo Mode and remove its fictional session data?${detail}`)) return;
     planner.exitDemo();
@@ -194,16 +199,26 @@ export function SettingsPage() {
         </>
       ) : (
          <section className="panel transfer-card" aria-labelledby="cloud-transfer-title">
-           <span className="eyebrow">Cloud account feature</span><h2 id="cloud-transfer-title">Import and export after sign-in</h2>
-           <p>Demo Mode is for fictional values only. To use personal information, exit the demo and create or sign in to a cloud account. Demo values are never copied automatically.</p>
-           <button className="button button-secondary" type="button" onClick={exitDemoForAccount}>Exit demo to sign in</button>
+           <span className="eyebrow">{auth.configured ? 'Cloud account feature' : 'Demo preview'}</span>
+           <h2 id="cloud-transfer-title">{auth.configured ? 'Import and export after sign-in' : 'Keep exploring the fictional demo.'}</h2>
+           {auth.configured ? (
+             <>
+               <p>Demo Mode is for fictional values only. To use personal information, exit the demo and create or sign in to a cloud account. Demo values are never copied automatically.</p>
+               <button className="button button-secondary" type="button" onClick={exitDemoForAccount}>Exit demo to sign in</button>
+             </>
+           ) : (
+             <>
+               <p>Accounts, cloud saving, and file transfers are unavailable in this preview. Keep adjusting the sample plan, and choose Save changes to keep fictional edits for this browser session.</p>
+               <Link className="button button-secondary" to="/dashboard">Continue demo</Link>
+             </>
+           )}
         </section>
       )}
 
       <section className="panel privacy-panel" aria-labelledby="privacy-title">
         <div className="panel-heading"><div><span className="step-number">02</span><h2 id="privacy-title">Storage and privacy</h2><p>Exactly where this planner keeps information.</p></div></div>
         <div className="privacy-grid">
-          <article><span aria-hidden="true">⌁</span><div><h3>{planner.mode === 'demo' ? 'Demo Mode storage' : 'Cloud plan storage'}</h3><p>{planner.mode === 'demo' ? 'The default fictional plan and any edits are stored in origin-wide sessionStorage until you exit Demo Mode or end the browser session. Use fictional values only; nothing is sent to Supabase.' : 'Financial plan inputs are stored in Supabase and protected by row-level security. The app does not cache cloud financial records in localStorage.'}</p></div></article>
+          <article><span aria-hidden="true">⌁</span><div><h3>{planner.mode === 'demo' ? 'Demo Mode storage' : 'Cloud plan storage'}</h3><p>{planner.mode === 'demo' ? 'The default fictional plan and edits you explicitly save are stored in origin-wide sessionStorage until you exit Demo Mode or end the browser session. Unsaved edits remain on this page only. Use fictional values only; nothing is sent to Supabase.' : 'Financial plan inputs are stored in Supabase and protected by row-level security. The app does not cache cloud financial records in localStorage.'}</p></div></article>
           <article><span aria-hidden="true">◇</span><div><h3>Authentication session</h3><p>For signed-in users, the official Supabase client holds the session in the active planner page only. It is not persisted in origin-wide web storage, so a refresh requires signing in again. The planner never logs or exports tokens.</p></div></article>
           <article><span aria-hidden="true">◎</span><div><h3>Local calculations</h3><p>Projection outputs remain in memory and are recalculated in this browser. They are not written to the database, analytics, or logs.</p></div></article>
           <article><span aria-hidden="true">×</span><div><h3>No financial tracking scripts</h3><p>The planner shell does not load AdSense, analytics, the newsletter embed, or Google Translate.</p></div></article>

@@ -93,12 +93,13 @@ export function AppShell() {
   };
 
   const leavePlanner = async () => {
-    if (planner.dirty && !window.confirm('Leave without saving your planner changes?')) return;
     if (planner.mode === 'demo') {
-      if (!window.confirm('Exit Demo Mode and remove its fictional session data?')) return;
+      const detail = planner.dirty ? ' Unsaved demo edits will also be removed.' : '';
+      if (!window.confirm(`Exit Demo Mode and remove its fictional session data?${detail}`)) return;
       planner.exitDemo();
       return;
     }
+    if (planner.dirty && !window.confirm('Leave without saving your planner changes?')) return;
     const result = await auth.signOut();
     if (result.error) {
       window.alert(`This browser attempted to sign out, but Supabase could not confirm global session revocation: ${result.error}`);
@@ -176,11 +177,17 @@ export function AppShell() {
             ))}
           </nav>
           <div className="sidebar-bottom">
+            <div className="sidebar-learning" aria-label="Learn alongside your plan">
+              <strong>Learn alongside your plan</strong>
+              <a href="/articles.html" className="text-button" target="_blank" rel="noopener noreferrer">Educational guides <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
+              <a href="/fire.html" className="text-button" target="_blank" rel="noopener noreferrer">FIRE basics <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
+              <p>Website links open in a new tab so your plan stays open here.</p>
+            </div>
             <p>{planner.mode === 'demo' ? 'Session-only demo data' : auth.user?.email}</p>
             <button className="text-button" type="button" onClick={() => void leavePlanner()}>
               {planner.mode === 'demo' ? 'Exit Demo Mode' : 'Sign out'}
             </button>
-            <a href="/" className="text-button">Main Accessible Finance site</a>
+            <a href="/" className="text-button" target="_blank" rel="noopener noreferrer">Main Accessible Finance site <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
           </div>
         </aside>
 
@@ -214,7 +221,7 @@ export function AppShell() {
           </main>
           <footer className="app-footer">
             <p>Educational estimates only — not financial, investment, tax, accounting, or legal advice.</p>
-            <div><Link to="/guide">Planning guide</Link><a href="/privacy.html">Privacy</a><a href="/disclaimer.html">Full disclaimer</a></div>
+            <div><Link to="/guide">Planning guide</Link><a href="/privacy.html" target="_blank" rel="noopener noreferrer">Privacy <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a><a href="/disclaimer.html" target="_blank" rel="noopener noreferrer">Full disclaimer <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a></div>
           </footer>
         </div>
       </div>

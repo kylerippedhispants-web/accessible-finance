@@ -341,7 +341,9 @@ export function DashboardPage() {
     }
     planner.setScenarios(validated.data.scenarios);
     setScenarioName('');
-    setScenarioNotice(`“${name}” is ready. Save changes to sync it.`);
+    setScenarioNotice(`“${name}” is ready. ${planner.mode === 'demo'
+      ? 'Choose Save changes to keep it for this browser session.'
+      : 'Choose Save changes to sync it to your cloud account.'}`);
   };
 
   return (

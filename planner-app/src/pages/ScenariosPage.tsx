@@ -188,6 +188,9 @@ export function ScenariosPage() {
   const planner = usePlanner();
   const snapshot = planner.snapshot!;
   const plan = snapshot.plan;
+  const saveReminder = planner.mode === 'demo'
+    ? 'Choose Save changes in the header to keep these changes for this browser session.'
+    : 'Choose Save changes in the header to sync these changes to your cloud account.';
   const baseAge = plan.baseYear - Number(plan.profile.dateOfBirth.slice(0, 4));
   const minimumRetirementAge = Math.max(18, baseAge);
   const maximumRetirementAge = Math.min(100, plan.retirement.planningEndAge - 1);
@@ -385,7 +388,7 @@ export function ScenariosPage() {
     setSelectedId(preview.id);
     setDraft(undefined);
     setPreview(undefined);
-    setNotice({ message: `“${preview.name}” is in the plan. Use Save changes in the header to sync it.` });
+    setNotice({ message: `“${preview.name}” is in the plan. ${saveReminder}` });
   };
 
   const returnToBaseline = () => {
@@ -410,14 +413,14 @@ export function ScenariosPage() {
     setSelectedId(duplicate.id);
     setPreview(undefined);
     setDraft(undefined);
-    setNotice({ message: `“${duplicate.name}” was duplicated. Use Save changes to sync it.` });
+    setNotice({ message: `“${duplicate.name}” was duplicated. ${saveReminder}` });
   };
 
   const deleteScenario = (scenario: PlanScenario) => {
     if (!window.confirm(`Delete the “${scenario.name}” scenario? The baseline plan will not change.`)) return;
     planner.setScenarios(snapshot.scenarios.filter((item) => item.id !== scenario.id));
     if (selectedId === scenario.id) returnToBaseline();
-    setNotice({ message: `“${scenario.name}” was removed. Use Save changes to sync the deletion.` });
+    setNotice({ message: `“${scenario.name}” was removed. ${saveReminder}` });
   };
 
   const renameScenario = (event: FormEvent, scenario: PlanScenario) => {
@@ -436,7 +439,7 @@ export function ScenariosPage() {
     planner.setScenarios(validated.data.scenarios);
     setRenamingId(undefined);
     setRenameValue('');
-    setNotice({ message: `Scenario renamed to “${name}”. Use Save changes to sync it.` });
+    setNotice({ message: `Scenario renamed to “${name}”. ${saveReminder}` });
   };
 
   return (
@@ -558,7 +561,7 @@ export function ScenariosPage() {
             <button className="button button-primary" type="button" onClick={savePreview} disabled={!preview || preview.id !== draft.id}>{draft.mode === 'edit' ? 'Update scenario' : 'Save scenario'}</button>
             <button className="button button-quiet" type="button" onClick={() => { setDraft(undefined); setPreview(undefined); setNotice(undefined); }}>Cancel</button>
           </div>
-          <p className="form-footnote">Preview is temporary. Save scenario adds it to this plan; Save changes in the header then syncs the plan.</p>
+          <p className="form-footnote">Preview is temporary. Save scenario updates the open plan. {saveReminder}</p>
         </section>
       )}
 
