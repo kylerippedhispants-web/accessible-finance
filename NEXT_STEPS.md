@@ -17,14 +17,21 @@ planner. Local Demo Mode checks do not validate cloud services or public launch.
 
 ## Before public launch
 
-- [ ] Review [draft PR #13](https://github.com/kylerippedhispants-web/accessible-finance/pull/13)
-  and its latest checks. Keep it in draft until the launch requirements below
-  are satisfied, then review the release before merging.
+- [x] Merge [PR #13](https://github.com/kylerippedhispants-web/accessible-finance/pull/13).
+  The merged commit `7efd2df6446a94266f1ec23937c28b3deceb2bc8` passed GitHub's
+  planner checks. Netlify's production build failed because the required public
+  Supabase configuration is missing; the production site still serves its
+  earlier release.
+- [ ] Finish the cloud safety fixes, rerun local checks, and publish the reviewed
+  follow-up changes before retrying deployment.
 - [ ] Confirm the intended Supabase Free project and current account limits.
   Create a project only if needed. Follow [PLANNER_SETUP.md](PLANNER_SETUP.md).
-- [ ] Apply the two migrations in order, check grants and RLS using
+- [ ] Apply all three migrations in order, check grants and RLS using
   [supabase/README.md](supabase/README.md), and verify isolation with two unrelated
   test accounts. Account B must not read, change, or attach rows to A's plan.
+- [ ] Complete [SUPABASE_VERIFICATION.md](SUPABASE_VERIFICATION.md), recording
+  actual database, account, email, and application results separately from Demo
+  Mode results. A prepared verification script is not a passed cloud check.
 - [ ] Configure only the public project URL and publishable key for local cloud
   testing and the intended Netlify build. Keep secrets out of client variables.
   Retain the production cloud-configuration gate.
