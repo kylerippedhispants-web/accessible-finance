@@ -33,7 +33,11 @@ remain valid; public API and local build checks can continue separately.
   head `451467b1ab028ca5b110dcc4c70d8dfb138a0827`.
   [Planner quality run 36809903915](https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36809903915)
   passed: 16 unit suites, 152 tests, and 24 browser checks.
-- [ ] Complete review and merge the follow-up changes before production release.
+- [x] Review and merge the follow-up changes as commit
+  `ce61addb0bec1220e3c261e4467238e5811970ef`.
+  The updated branch `83fb812db65a284f0239391bb41eac9f2d040fb9` passed
+  [Planner quality run 36881349362](https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36881349362).
+  Production configuration and authenticated acceptance remain pending.
 - [x] Create the Accessible Finance Free organization and healthy Supabase
   project `accessible-finance-planner` (`drjfjdgzqmvjmrqfeluz`). Its region is West US (Oregon),
   `us-west-2`, not Canada. Keep the database password private.

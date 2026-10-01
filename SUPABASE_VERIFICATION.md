@@ -177,11 +177,12 @@ browser behavior or cloud operations. The redacted report is
 | Current production planner availability | FAIL | `/planner/`, `/planner/dashboard`, and `/planner/reset-password` each return 404; October 1, 10:57 a.m. Toronto |
 | Production smoke test | PENDING | After release: real-domain signup/recovery callbacks, save/reload, routes, and security headers pass |
 
-Draft [PR #14](https://github.com/kylerippedhispants-web/accessible-finance/pull/14)
-at `451467b1ab028ca5b110dcc4c70d8dfb138a0827` passed
-[Planner quality run 36809903915](https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36809903915):
-16 unit suites, 152 tests, and 24 browser checks. Those checks do not replace
-the pending real cloud and email acceptance tests.
+[PR #14](https://github.com/kylerippedhispants-web/accessible-finance/pull/14)
+was merged as `ce61addb0bec1220e3c261e4467238e5811970ef`. The implementation
+passed 16 unit suites, 152 tests, and 24 browser checks. The updated branch
+`83fb812db65a284f0239391bb41eac9f2d040fb9` also passed
+[Planner quality run 36881349362](https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36881349362).
+Those checks do not replace the pending real cloud and email acceptance tests.
 
 Keep deployment pending until the candidate's cloud checks pass. After release,
 record production observations separately; a preview PASS is not a production
