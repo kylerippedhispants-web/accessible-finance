@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 1,
+  "observedLocalDate": "2026-10-01",
+  "timezone": "America/Toronto",
+  "status": "database_and_anonymous_api_verified_authenticated_flows_pending",
+  "observationSource": "Supabase Dashboard observations reported by the coordinating agent, with SQL-result captures and current public API/build receipts listed below. Validation scopes are recorded separately.",
+  "organization": {
+    "name": "Accessible Finance",
+    "id": "xwbugaccilzeirzhhprs",
+    "plan": "Free"
+  },
+  "project": {
+    "reference": "drjfjdgzqmvjmrqfeluz",
+    "name": "accessible-finance-planner",
+    "nameStatus": "rename_saved_and_reflected_in_dashboard_header",
+    "health": "healthy",
+    "region": "us-west-2",
+    "regionLabel": "West US (Oregon)",
+    "createdBy": "owner",
+    "regionNote": "The actual owner-created project is in Oregon, not the previously prepared Canada Central region."
+  },
+  "preflight": {
+    "status": "passed",
+    "publicTables": 0,
+    "nonInternalAuthUsersTriggers": 0,
+    "cliMigrationHistoryTablePresent": false
+  },
+  "migrations": {
+    "status": "applied",
+    "method": "Supabase Dashboard SQL Editor; complete files in timestamp order",
+    "historyManagedByCli": false,
+    "reconciliationRequiredBeforeDbPush": true,
+    "hashSource": ".local-tools/migration-plan.json",
+    "localFilesMatchRecordedHashes": true,
+    "files": [
+      {
+        "order": 1,
+        "path": "supabase/migrations/20260824010000_planner_foundation.sql",
+        "sha256": "BA6EC16B2237A6119CE850AF6608EF5618307CD702453DA08329B38A19BB3DB6",
+        "executionStatus": "success"
+      },
+      {
+        "order": 2,
+        "path": "supabase/migrations/20260825010000_planner_atomic_save.sql",
+        "sha256": "811376F1041625A23620DDCF54F6E124238CBED1EE4348840D42DE5EDD6EE557",
+        "executionStatus": "success"
+      },
+      {
+        "order": 3,
+        "path": "supabase/migrations/20260930010000_planner_payload_validation.sql",
+        "sha256": "AD6FAA21DF11AA68793C9968325DDE856549BEEF3F802A46A2B35EB4AD11FB49",
+        "executionStatus": "success"
+      }
+    ],
+    "handledExecutionError": "An editor-append attempt repeated the foundation and stopped with profiles already exists before the atomic migration applied. The schema was rechecked, then only the missing complete migration scripts were run."
+  },
+  "databaseVerification": {
+    "status": "passed",
+    "script": "supabase/verification/planner-cloud-checks.sql",
+    "transactionOutcome": "rolled_back",
+    "allDatabaseChecksPassed": true,
+    "checksCompleted": 9,
+    "expectedChecks": 9,
+    "scope": "Transactional SQL verification with fictional users and authenticated/anonymous roles; not actual Auth, REST, browser, or SMTP verification",
+    "cleanup": {
+      "authUsers": 0,
+      "profiles": 0,
+      "plans": 0,
+      "temporaryResultsRemoved": true
+    },
+    "schema": {
+      "rlsTables": 10,
+      "policies": 40,
+      "revisionExists": true
+    },
+    "localEvidence": {
+      "ignoredFiles": true,
+      "summary": ".local-tools/supabase-setup/database-checks.txt",
+      "cleanup": ".local-tools/supabase-setup/cleanup-checks.txt",
+      "screenshot": ".local-tools/supabase-setup/database-checks-passed.jpg"
+    }
+  },
+  "authConfiguration": {
+    "providerSettingsStatus": "saved",
+    "emailProviderEnabled": true,
+    "confirmEmailEnabled": true,
+    "anonymousSignInEnabled": false,
+    "manualAccountLinkingEnabled": false,
+    "urlSettingsStatus": "saved",
+    "siteUrl": "https://accessible-finance.com/planner/",
+    "redirectUrls": [
+      "https://accessible-finance.com/planner/dashboard",
+      "https://accessible-finance.com/planner/reset-password",
+      "http://127.0.0.1:4174/planner/dashboard",
+      "http://127.0.0.1:4174/planner/reset-password",
+      "http://localhost:5173/planner/dashboard",
+      "http://localhost:5173/planner/reset-password",
+      "https://deploy-preview-14--accessiblefinance.netlify.app/planner/dashboard",
+      "https://deploy-preview-14--accessiblefinance.netlify.app/planner/reset-password"
+    ],
+    "actualCallbackFlowsStatus": "pending",
+    "passwordPolicy": {
+      "status": "verified_persisted",
+      "minimumLength": 8,
+      "securePasswordChangeEnabled": true,
+      "saveButtonDisabled": true,
+      "verificationMethod": "Visual inspection of saved Auth email settings",
+      "localEvidence": ".local-tools/supabase-setup/auth-email-security.jpg"
+    }
+  },
+  "sourceValidation": {
+    "pullRequest": "https://github.com/kylerippedhispants-web/accessible-finance/pull/14",
+    "pullRequestStateAtObservation": "draft",
+    "headSha": "451467b1ab028ca5b110dcc4c70d8dfb138a0827",
+    "workflowRun": "https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36809903915",
+    "workflowConclusion": "success",
+    "unitSuites": 16,
+    "unitTests": 152,
+    "browserChecks": 24,
+    "scope": "Source validation; does not establish actual project Auth, REST, email delivery, or configured cloud browser flows"
+  },
+  "localPublicConfiguration": {
+    "status": "configured_anonymous_api_and_required_cloud_build_passed",
+    "location": ".env.local",
+    "ignored": true,
+    "projectReference": "drjfjdgzqmvjmrqfeluz",
+    "keyType": "existing_default_publishable",
+    "secretOrServiceRoleKeyAccessed": false
+  },
+  "publicApiAndBuildVerification": {
+    "checkedAtUtc": "2026-10-01T15:02:01.982Z",
+    "evidence": ".local-tools/supabase-setup/public-cloud-validation.json",
+    "sdkVersion": "2.112.3",
+    "usedOnlyPublicConfig": true,
+    "anonymousTableChecks": {
+      "status": "passed",
+      "tableCount": 10,
+      "method": "GET with limit 0",
+      "httpStatus": 401,
+      "postgresCode": "42501"
+    },
+    "anonymousSaveRpc": {
+      "status": "passed",
+      "name": "save_planner_snapshot",
+      "method": "POST with null payload",
+      "httpStatus": 401,
+      "postgresCode": "42501"
+    },
+    "publicAuthSettings": {
+      "status": "passed",
+      "httpStatus": 200,
+      "emailProviderEnabled": true,
+      "emailConfirmationEnabled": true,
+      "signupEnabled": true
+    },
+    "requiredCloudBuild": {
+      "status": "passed",
+      "command": "npm run build",
+      "plannerRequireCloud": true,
+      "envLocalActive": true,
+      "exitCode": 0,
+      "validatedPublicConfiguration": true,
+      "log": ".local-tools/supabase-setup/required-cloud-build.log"
+    },
+    "accountsCreated": 0,
+    "emailsSent": 0,
+    "databaseMutationsPerformed": 0,
+    "authenticatedFlowsVerified": false
+  },
+  "smtpPreparation": {
+    "status": "guide_prepared_actual_setup_pending",
+    "guide": "SMTP_SETUP.md",
+    "plannedProvider": "Resend",
+    "requiredPlan": "Transactional Free",
+    "accountSetupVerified": false,
+    "senderDnsVerified": false,
+    "smtpConfigured": false,
+    "actualDeliveryVerified": false
+  },
+  "publicHttpVerification": {
+    "checkedAtUtc": "2026-10-01T14:57:46.9624989Z",
+    "checkedAtToronto": "2026-10-01T10:57:46.9624989-04:00",
+    "method": "Unauthenticated public HTTP GET and same-origin referenced JavaScript inspection",
+    "evidence": ".local-tools/supabase-setup/deployment-http-checks.json",
+    "production": {
+      "baseUrl": "https://accessible-finance.com",
+      "homepageHttpStatus": 200,
+      "plannerRoutes": {
+        "/planner/": 404,
+        "/planner/dashboard": 404,
+        "/planner/reset-password": 404
+      },
+      "plannerAvailable": false
+    },
+    "preview14": {
+      "baseUrl": "https://deploy-preview-14--accessiblefinance.netlify.app",
+      "homepageHttpStatus": 200,
+      "plannerRoutes": {
+        "/planner/": 200,
+        "/planner/dashboard": 200,
+        "/planner/reset-password": 200
+      },
+      "plannerHtmlAndExpectedSecurityHeadersPresent": true,
+      "bundleScanComplete": true,
+      "intendedProjectReferenceFound": false,
+      "specificSupabaseProjectUrlFound": false,
+      "publicPublishableKeyPatternFound": false,
+      "jwtShapedValueFound": false,
+      "interpretation": "Unconfigured Demo build; static inspection only, not a browser or cloud-flow test"
+    },
+    "authenticatedOrBrowserFlowsTested": false
+  },
+  "operationalBlocker": {
+    "status": "browser_connection_unavailable",
+    "observedBy": "coordinating agent",
+    "impact": "Further authenticated Dashboard configuration and browser checks cannot continue until browser access is restored",
+    "unaffectedScope": "Recorded database observations remain valid; public API and local build checks can continue independently"
+  },
+  "remainingVerification": {
+    "smtpAndSenderDns": "pending",
+    "controlledExternalUserSignupAndConfirmation": "pending",
+    "passwordRecoveryEmailAndPasswordChange": "pending",
+    "authenticatedAuthAndRestFlows": "pending",
+    "netlifyPublicBuildVariables": "pending",
+    "cloudSaveReloadAndBrowserIsolation": "pending",
+    "cloudConflictOfflineAndBackupFlows": "pending",
+    "configuredPreview14": "pending",
+    "productionDeploymentAndSmokeTest": "pending"
+  },
+  "releaseReady": false,
+  "secretsPolicy": "No emails, passwords, tokens, API keys, or SMTP credentials are recorded here. Frontend and Netlify build configuration may contain only the intended public Supabase project URL and publishable/anon client key."
+}

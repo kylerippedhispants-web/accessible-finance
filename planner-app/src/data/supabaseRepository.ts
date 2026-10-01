@@ -383,14 +383,58 @@ const RETIREMENT_COLUMNS = 'plan_id,retirement_age,planning_end_age,estimated_an
 const SCENARIO_COLUMNS = 'id,plan_id,name,description,is_baseline,is_archived';
 const OVERRIDE_COLUMNS = 'plan_id,scenario_id,entity_type,target_id,operation,changes';
 
-function rowsWithinLimit(data: unknown, maximum: number, label: string): Row[] {
-  if (data !== null && !Array.isArray(data)) invalidCloudValue(`${label} collection`);
-  const rows = (data ?? []) as Row[];
-  if (rows.length > maximum) {
-    throw new CloudRepositoryError(
-      'capacity',
-      `This plan contains too many ${label} records to load safely.`,
-    );
+const CLOUD_PAGE_SIZE = 1_000;
+
+interface CollectionPage {
+  data: unknown;
+  count: number | null;
+  error: PostgrestError | null;
+  status: number;
+}
+
+async function loadCollectionRows(
+  fetchPage: (from: number, to: number) => PromiseLike<CollectionPage>,
+  maximum: number,
+  label: string,
+): Promise<Row[]> {
+  const rows: Row[] = [];
+  let expectedCount: number | undefined;
+
+  while (expectedCount === undefined || rows.length < expectedCount) {
+    const from = rows.length;
+    const to = Math.min(from + CLOUD_PAGE_SIZE - 1, expectedCount === undefined ? maximum : expectedCount - 1);
+    const page = await fetchPage(from, to);
+    failIf(page.error, `${label} load`, page.status);
+    if (page.count === null || !Number.isSafeInteger(page.count) || page.count < 0) {
+      invalidCloudValue(`${label} record count`);
+    }
+    if (page.count > maximum) {
+      throw new CloudRepositoryError(
+        'capacity',
+        `This plan contains too many ${label} records to load safely.`,
+      );
+    }
+    if (expectedCount !== undefined && page.count !== expectedCount) {
+      throw new CloudRepositoryError(
+        'conflict',
+        'The cloud plan changed while it was loading. Try loading it again.',
+        { retryable: true },
+      );
+    }
+    expectedCount = page.count;
+    if (!Array.isArray(page.data) || page.data.length > to - from + 1 || from + page.data.length > expectedCount) {
+      invalidCloudValue(`${label} collection`);
+    }
+    if (page.data.length === 0 && from < expectedCount) {
+      throw new CloudRepositoryError(
+        'unavailable',
+        'The complete cloud plan could not be loaded. Try loading it again.',
+      );
+    }
+    rows.push(...page.data as Row[]);
+    // Exact counts prevent a server row cap from masquerading as the end of a
+    // collection. Advance by received rows, even if the cap is below our page
+    // size. Every non-final page must make progress within the domain limit.
   }
   return rows;
 }
@@ -414,17 +458,17 @@ export async function loadPlannerSnapshot(): Promise<LoadedPlannerSnapshot | nul
     const selectedPlanRow = planResult.data as Row;
     const planId = stringValue(selectedPlanRow.id, 'plan ID');
     const revision = integerValue(selectedPlanRow.revision, 'plan revision');
-    const [profileResult, incomeResult, expenseResult, assetResult, debtResult, retirementResult, scenarioResult, overrideResult] = await Promise.all([
+    const [profileResult, incomeRows, expenseRows, assetRows, debtRows, retirementResult, scenarioRows, overrideRows] = await Promise.all([
       supabase.from('profiles').select(PROFILE_COLUMNS).limit(1).maybeSingle(),
-      supabase.from('income_sources').select(INCOME_COLUMNS).eq('plan_id', planId).order('position').order('id').limit(MAX_PLAN_COLLECTION_ITEMS + 1),
-      supabase.from('expenses').select(EXPENSE_COLUMNS).eq('plan_id', planId).order('position').order('id').limit(MAX_PLAN_COLLECTION_ITEMS + 1),
-      supabase.from('assets').select(ASSET_COLUMNS).eq('plan_id', planId).order('position').order('id').limit(MAX_PLAN_COLLECTION_ITEMS + 1),
-      supabase.from('debts').select(DEBT_COLUMNS).eq('plan_id', planId).order('position').order('id').limit(MAX_PLAN_COLLECTION_ITEMS + 1),
+      loadCollectionRows((from, to) => supabase.from('income_sources').select(INCOME_COLUMNS, { count: 'exact' }).eq('plan_id', planId).order('position').order('id').range(from, to), MAX_PLAN_COLLECTION_ITEMS, 'income'),
+      loadCollectionRows((from, to) => supabase.from('expenses').select(EXPENSE_COLUMNS, { count: 'exact' }).eq('plan_id', planId).order('position').order('id').range(from, to), MAX_PLAN_COLLECTION_ITEMS, 'expense'),
+      loadCollectionRows((from, to) => supabase.from('assets').select(ASSET_COLUMNS, { count: 'exact' }).eq('plan_id', planId).order('position').order('id').range(from, to), MAX_PLAN_COLLECTION_ITEMS, 'asset'),
+      loadCollectionRows((from, to) => supabase.from('debts').select(DEBT_COLUMNS, { count: 'exact' }).eq('plan_id', planId).order('position').order('id').range(from, to), MAX_PLAN_COLLECTION_ITEMS, 'debt'),
       supabase.from('retirement_settings').select(RETIREMENT_COLUMNS).eq('plan_id', planId).maybeSingle(),
-      supabase.from('scenarios').select(SCENARIO_COLUMNS).eq('plan_id', planId).eq('is_archived', false).order('updated_at', { ascending: false }).limit(MAX_PLAN_SCENARIOS + 1),
-      supabase.from('scenario_overrides').select(OVERRIDE_COLUMNS).eq('plan_id', planId).order('scenario_id').order('entity_type').order('target_id').limit(MAX_SCENARIO_OVERRIDE_OPERATIONS + 1),
+      loadCollectionRows((from, to) => supabase.from('scenarios').select(SCENARIO_COLUMNS, { count: 'exact' }).eq('plan_id', planId).eq('is_archived', false).order('updated_at', { ascending: false }).order('id').range(from, to), MAX_PLAN_SCENARIOS, 'scenario'),
+      loadCollectionRows((from, to) => supabase.from('scenario_overrides').select(OVERRIDE_COLUMNS, { count: 'exact' }).eq('plan_id', planId).order('scenario_id').order('entity_type').order('target_id').order('id').range(from, to), MAX_SCENARIO_OVERRIDE_OPERATIONS, 'scenario difference'),
     ]);
-    [profileResult, incomeResult, expenseResult, assetResult, debtResult, retirementResult, scenarioResult, overrideResult]
+    [profileResult, retirementResult]
       .forEach((result) => failIf(result.error, 'plan data load', result.status));
 
     const profile = profileFromRow(profileResult.data as Row | null);
@@ -447,18 +491,15 @@ export async function loadPlannerSnapshot(): Promise<LoadedPlannerSnapshot | nul
         effectiveTaxPercent: numberValue(selectedPlanRow.effective_tax_percent, 'effective tax percentage'),
         generalInflationPercent: numberValue(selectedPlanRow.general_inflation_percent, 'general inflation percentage'),
       },
-      incomeSources: rowsWithinLimit(incomeResult.data, MAX_PLAN_COLLECTION_ITEMS, 'income').map(incomeFromRow),
-      expenses: rowsWithinLimit(expenseResult.data, MAX_PLAN_COLLECTION_ITEMS, 'expense').map(expenseFromRow),
-      assets: rowsWithinLimit(assetResult.data, MAX_PLAN_COLLECTION_ITEMS, 'asset').map(assetFromRow),
-      debts: rowsWithinLimit(debtResult.data, MAX_PLAN_COLLECTION_ITEMS, 'debt').map(debtFromRow),
+      incomeSources: incomeRows.map(incomeFromRow),
+      expenses: expenseRows.map(expenseFromRow),
+      assets: assetRows.map(assetFromRow),
+      debts: debtRows.map(debtFromRow),
       retirement: retirementFromRow(retirementResult.data as Row | null),
     };
     const snapshotResult = plannerSnapshotSchema.safeParse({
       plan,
-      scenarios: scenariosFromRows(
-        rowsWithinLimit(scenarioResult.data, MAX_PLAN_SCENARIOS, 'scenario'),
-        rowsWithinLimit(overrideResult.data, MAX_SCENARIO_OVERRIDE_OPERATIONS, 'scenario difference'),
-      ),
+      scenarios: scenariosFromRows(scenarioRows, overrideRows),
     });
     if (!snapshotResult.success) invalidCloudValue('planner snapshot');
 

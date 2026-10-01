@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "completedAtUtc": "2026-10-01T00:06:17Z",
+  "completedAtUtc": "2026-10-01T03:13:31Z",
   "localDate": "2026-09-30",
   "timezone": "America/Toronto",
   "status": "passed",
-  "sourceScope": "Primary imported FIRE working copy, including website/planner integration and reviewed demo, transfer, and preview-server polish.",
+  "sourceScope": "Selected FIRE working copy, including website/planner integration, demo and transfer polish, complete bounded cloud loading, and NULL-safe save migration preparation.",
   "historicalSnapshot": {
     "branch": "codex/fire-experience",
     "commit": "c6225efe43ae4da2bd372eedfe6939be91fc92a5",
@@ -30,8 +30,8 @@
       "exitCode": 0,
       "staticPages": 63,
       "staticGuides": 42,
-      "unitSuites": 15,
-      "unitTests": 142,
+      "unitSuites": 16,
+      "unitTests": 152,
       "lint": "passed",
       "typecheck": "passed",
       "build": "passed"
@@ -83,8 +83,8 @@
     ]
   },
   "evidence": {
-    "validate": ".local-tools/validation-baseline/validate.log",
-    "browser": ".local-tools/validation-baseline/e2e.log",
+    "validate": ".local-tools/cloud-hardening-validation/validate.log",
+    "browser": ".local-tools/cloud-hardening-validation/e2e.log",
     "auditAll": ".local-tools/validation-baseline/npm-audit-all.json",
     "auditProduction": ".local-tools/validation-baseline/npm-audit-production.txt",
     "whitespace": ".local-tools/validation-baseline/whitespace-check.json",
@@ -101,6 +101,8 @@
     "Unavailable cloud account controls and demo draft preservation",
     "Accurate saved-demo wording and single exit confirmation",
     "Shared 16 MB import/export byte policy with 5000-operation backup round trip",
-    "Malformed preview request and missing-file server survival"
+    "Malformed preview request and missing-file server survival",
+    "Complete paginated cloud loads with exact counts, capacity limits, and revision/count race rejection",
+    "Prepared third SQL migration rejecting missing/null/wrong payload sections; live SQL verification pending"
   ]
 }

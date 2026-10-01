@@ -9,7 +9,8 @@ local checks do not verify the current public `/planner` URL or Netlify status.
 Review and deploy this branch to the intended existing site only after the
 cloud and release checks below pass.
 
-Use [NEXT_STEPS.md](NEXT_STEPS.md) for the ordered setup and release checklist.
+Use [NEXT_STEPS.md](NEXT_STEPS.md) for the ordered setup and release checklist,
+and [SUPABASE_VERIFICATION.md](SUPABASE_VERIFICATION.md) for cloud acceptance.
 
 ## Architecture
 
@@ -112,23 +113,28 @@ an unsaved draft remaining open while reading a guide, and narrow mobile layouts
 
    ```text
    Site URL: https://accessible-finance.com/planner/
-   Redirect URL: https://accessible-finance.com/planner/**
-   Redirect URL: http://localhost:5173/planner/**
+   Redirect URL: https://accessible-finance.com/planner/dashboard
+   Redirect URL: https://accessible-finance.com/planner/reset-password
+   Redirect URL: http://localhost:5173/planner/dashboard
+   Redirect URL: http://localhost:5173/planner/reset-password
    ```
 
-   If Netlify Deploy Previews will exercise authentication, add only the preview
-   URL pattern actually used by this site. Avoid a broader wildcard than needed.
+   Add the same two exact paths on the local preview origin actually in use
+   (currently `http://127.0.0.1:4174`) and on the specific Netlify Deploy Preview
+   used for acceptance. Keep production entries exact; avoid broad wildcards.
 4. Configure a production SMTP provider in **Project Settings > Authentication >
    SMTP** before public launch. Supabase's built-in email sender is intended for
    testing, is heavily rate-limited, and does not provide a production delivery
    guarantee. Test sign-up confirmation and password recovery end to end.
-5. Apply both migrations in timestamp order. The foundation creates the
+5. Apply all three migrations in timestamp order. The foundation creates the
    normalized RLS-protected schema; the atomic-save migration adds optimistic
-   revisions and the transactional save RPC:
+   revisions and the transactional save RPC; the payload-validation migration
+   rejects missing required fields before any rows can be changed:
 
    ```text
    supabase/migrations/20260824010000_planner_foundation.sql
    supabase/migrations/20260825010000_planner_atomic_save.sql
+   supabase/migrations/20260930010000_planner_payload_validation.sql
    ```
 
    The CLI path is recommended:
@@ -206,7 +212,7 @@ policies. Projection outputs are not stored.
   in origin-wide web storage, so refreshing requires signing in again. The app
   does not inspect, log, or export tokens.
 - Exported JSON is versioned, validated, and omits account IDs, auth data,
-  credentials, and database timestamps. Imports are limited to 2 MB, validate
+  credentials, and database timestamps. Imports are limited to 16 MB, validate
   all plan and sparse-scenario fields, reject invalid references, re-key records,
   and remain unsaved until the user explicitly saves.
 
