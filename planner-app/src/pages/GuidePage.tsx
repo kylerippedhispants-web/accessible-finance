@@ -8,8 +8,8 @@ export function GuidePage() {
           <span className="eyebrow">Planning guide</span>
           <h1>Build a plan you can explain.</h1>
           <p>
-            A useful projection starts with a clear baseline, transparent assumptions, and an
-            understanding of what the model leaves out. Use this guide as you work through your plan.
+            Understand your modeled FIRE amount and year, then build the clear baseline and
+            transparent assumptions behind them. Use this guide as you work through your plan.
           </p>
         </div>
       </header>
@@ -22,6 +22,7 @@ export function GuidePage() {
           </div>
         </div>
         <div className="form-actions">
+          <a className="button button-quiet button-small" href="#fire-guide">FIRE estimate</a>
           <a className="button button-quiet button-small" href="#adding-inputs">Add inputs &amp; sync</a>
           <a className="button button-quiet button-small" href="#baseline">Reliable baseline</a>
           <a className="button button-quiet button-small" href="#dollars">Dollar views</a>
@@ -33,10 +34,50 @@ export function GuidePage() {
         </div>
       </nav>
 
-      <section id="adding-inputs" className="panel form-panel" aria-labelledby="adding-inputs-title">
+      <section id="fire-guide" className="panel form-panel" aria-labelledby="fire-guide-title">
         <div className="panel-heading">
           <div>
             <span className="step-number">01</span>
+            <h2 id="fire-guide-title">Understand your FIRE estimate</h2>
+            <p>FIRE means financial independence, retire early. This planner treats it as a transparent annual cash-flow screen, not a promise.</p>
+          </div>
+        </div>
+        <div className="privacy-grid">
+          <article>
+            <span aria-hidden="true">Y</span>
+            <div><h3>Estimated FIRE year</h3><p>The earliest tested calendar year when earned income can stop, every modeled cash flow stays funded through your plan horizon, and ending net worth remains non-negative.</p></div>
+          </article>
+          <article>
+            <span aria-hidden="true">$</span>
+            <div><h3>Modeled FIRE amount</h3><p>Cash, investments, pensions, and other non-property assets available at the opening of that year, shown in today&apos;s dollars and nominal dollars. Debt payments remain in cash flow, so debt is not subtracted again. It is not a 4% rule target.</p></div>
+          </article>
+          <article>
+            <span aria-hidden="true">H</span>
+            <div><h3>Why home equity is separate</h3><p>The projection appreciates property but never assumes a sale. Property therefore contributes to net worth but not to the FIRE amount used to fund spending.</p></div>
+          </article>
+          <article>
+            <span aria-hidden="true">P</span>
+            <div><h3>Planned versus estimated</h3><p>Your planned retirement age is the date you want to test. The estimated FIRE age is the earliest annual boundary that passes the model&apos;s funding screen.</p></div>
+          </article>
+        </div>
+        <div className="method-note">
+          <strong>Why the result is a year, not an exact date.</strong>
+          <p>The finance engine works in calendar years and reports end-of-year ages and balances. A precise month or day would imply accuracy the model does not have.</p>
+        </div>
+        <aside className="notice notice-caution" aria-label="FIRE estimate limitations">
+          <strong>Modeled availability is not legal or tax availability.</strong>
+          <span>Account access rules, withdrawal tax, contribution limits, fees, market volatility, sequence risk, and property sales are not modeled. Review the amount alongside every assumption below.</span>
+        </aside>
+        <div className="form-actions">
+          <Link className="button button-primary" to="/dashboard">See my FIRE outlook</Link>
+          <Link className="button button-secondary" to="/retirement">Review goal &amp; assumptions</Link>
+        </div>
+      </section>
+
+      <section id="adding-inputs" className="panel form-panel" aria-labelledby="adding-inputs-title">
+        <div className="panel-heading">
+          <div>
+            <span className="step-number">02</span>
             <h2 id="adding-inputs-title">Open the menu to add your inputs</h2>
             <p>The Dashboard shows results. Your detailed inputs live in the planner sections.</p>
           </div>
@@ -59,7 +100,7 @@ export function GuidePage() {
       <section id="baseline" className="panel form-panel" aria-labelledby="baseline-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">02</span>
+            <span className="step-number">03</span>
             <h2 id="baseline-title">Start with a reliable baseline</h2>
             <p>Your baseline is the plan every scenario is measured against.</p>
           </div>
@@ -91,7 +132,7 @@ export function GuidePage() {
       <section id="dollars" className="panel form-panel" aria-labelledby="dollars-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">03</span>
+            <span className="step-number">04</span>
             <h2 id="dollars-title">Today&apos;s dollars and future dollars</h2>
             <p>Both views use the same projection. Only the way future amounts are displayed changes.</p>
           </div>
@@ -121,7 +162,7 @@ export function GuidePage() {
       <section id="building-blocks" className="panel form-panel" aria-labelledby="building-blocks-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">04</span>
+            <span className="step-number">05</span>
             <h2 id="building-blocks-title">Build the plan from four parts</h2>
             <p>Each collection feeds the year-by-year projection in a different way.</p>
           </div>
@@ -165,7 +206,7 @@ export function GuidePage() {
       <section id="retirement-guide" className="panel form-panel" aria-labelledby="retirement-guide-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">05</span>
+            <span className="step-number">06</span>
             <h2 id="retirement-guide-title">Make retirement assumptions explicit</h2>
             <p>Retirement begins in the calendar year when the projection reaches your target age.</p>
           </div>
@@ -185,7 +226,7 @@ export function GuidePage() {
       <section id="scenario-guide" className="panel form-panel" aria-labelledby="scenario-guide-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">06</span>
+            <span className="step-number">07</span>
             <h2 id="scenario-guide-title">Use scenarios to compare, not predict</h2>
             <p>A scenario stores selected differences from the baseline instead of copying the whole plan.</p>
           </div>
@@ -193,7 +234,7 @@ export function GuidePage() {
         <ul>
           <li>Use Dashboard what-if controls or a quick preview to see a temporary comparison immediately.</li>
           <li>Return to the baseline often so you know which line represents the plan you actually entered.</li>
-          <li>Previewing does not create or sync a scenario. Save the scenario, then use Save changes in the header to send it to the cloud.</li>
+          <li>Previewing does not create or sync a scenario. Save the scenario, then use Save changes in the header to keep it for the demo browser session or sync a signed-in cloud plan.</li>
           <li>Compare several plausible inputs rather than treating one scenario as a forecast or probability of success.</li>
         </ul>
         <div className="form-actions">
@@ -205,7 +246,7 @@ export function GuidePage() {
       <section id="reading-results" className="panel form-panel" aria-labelledby="reading-results-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">07</span>
+            <span className="step-number">08</span>
             <h2 id="reading-results-title">Read the projection in layers</h2>
             <p>The chart is most useful when you also inspect the cash flow and balances behind the line.</p>
           </div>
@@ -229,7 +270,7 @@ export function GuidePage() {
           </article>
           <article>
             <span aria-hidden="true">5</span>
-            <div><h3>Estimated retirement age</h3><p>This screening metric finds the earliest tested age with no unfunded retirement cash flow through the plan end and non-negative ending net worth. It is not a success rate or recommendation.</p></div>
+            <div><h3>Estimated FIRE age and year</h3><p>This screening metric checks the entire projection for unfunded cash flow, then finds the earliest tested retirement year that reaches the plan end with non-negative net worth. It is not a success rate or recommendation.</p></div>
           </article>
           <article>
             <span aria-hidden="true">6</span>
@@ -244,7 +285,7 @@ export function GuidePage() {
       <section id="privacy-guide" className="panel form-panel" aria-labelledby="privacy-guide-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">08</span>
+            <span className="step-number">09</span>
             <h2 id="privacy-guide-title">Know where your data goes</h2>
             <p>The planner separates saved inputs from locally calculated projection results.</p>
           </div>
@@ -260,7 +301,7 @@ export function GuidePage() {
           </article>
           <article>
             <span aria-hidden="true">D</span>
-            <div><h3>Demo Mode</h3><p>Demo changes stay in browser session storage and are never uploaded. Use fictional information only, because browser storage is not a secure place for personal financial data.</p></div>
+            <div><h3>Demo Mode</h3><p>Demo edits you explicitly save stay in browser session storage and are never uploaded. Unsaved edits remain on this page only. Use fictional information only, because browser storage is not a secure place for personal financial data.</p></div>
           </article>
           <article>
             <span aria-hidden="true">J</span>
@@ -275,7 +316,7 @@ export function GuidePage() {
       <section className="panel form-panel" aria-labelledby="canadian-resources-title">
         <div className="panel-heading">
           <div>
-            <span className="step-number">09</span>
+            <span className="step-number">10</span>
             <h2 id="canadian-resources-title">Continue with trusted Canadian resources</h2>
             <p>
               These Financial Consumer Agency of Canada pages can help you review the real-world

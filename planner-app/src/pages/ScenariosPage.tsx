@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState, type FormEvent } from 'react';
+import { useDeferredValue, useEffect, useMemo, useState, type FormEvent } from 'react';
 import { MoneyField, NumberField, PercentField, TextField } from '../components/FormFields';
 import { ProjectionChart, type DollarView } from '../components/ProjectionChart';
-import { applyScenarioOverrides, assetCategory, projectFinances } from '../finance-engine';
+import { applyScenarioOverrides, assetCategory, estimateFireTarget, projectFinances, type FireEstimate } from '../finance-engine';
 import type { FinancialPlan, PlanScenario, ScenarioOverrides } from '../domain';
 import { formatCad, formatCadDelta, formatPercent } from '../lib/formatters';
 import { usePlanner } from '../state/PlannerContext';
@@ -146,10 +146,51 @@ function uniqueCopyName(name: string, scenarios: readonly PlanScenario[]): strin
   return `Scenario ${crypto.randomUUID().slice(0, 8)}`;
 }
 
+function uniquePreviewName(name: string, scenarios: readonly PlanScenario[]): string {
+  const existing = new Set(scenarios.map((scenario) => scenario.name.toLocaleLowerCase('en-CA')));
+  if (!existing.has(name.toLocaleLowerCase('en-CA'))) return name;
+  const previewName = `${name} preview`.slice(0, 100);
+  if (!existing.has(previewName.toLocaleLowerCase('en-CA'))) return previewName;
+  let counter = 2;
+  while (counter < 1000) {
+    const suffix = ` preview ${counter}`;
+    const candidate = `${name.slice(0, 100 - suffix.length)}${suffix}`;
+    if (!existing.has(candidate.toLocaleLowerCase('en-CA'))) return candidate;
+    counter += 1;
+  }
+  return `Preview ${crypto.randomUUID().slice(0, 8)}`;
+}
+
+function fireTiming(estimate: FireEstimate): string {
+  if (estimate.status === 'estimated') return `${estimate.year} · age ${estimate.age}`;
+  return estimate.status === 'needs_inputs' ? 'Needs spending input' : 'Not reached';
+}
+
+function fireAmount(estimate: FireEstimate, dollarView: DollarView): string {
+  if (estimate.status !== 'estimated') return 'Not available';
+  return formatCad(dollarView === 'real'
+    ? estimate.realOpeningModeledWithdrawableAssets
+    : estimate.openingModeledWithdrawableAssets);
+}
+
+function fireTimingDelta(baseline: FireEstimate, comparison: FireEstimate): string {
+  if (baseline.status !== 'estimated' || comparison.status !== 'estimated') {
+    if (baseline.status !== 'estimated' && comparison.status === 'estimated') return 'This path reaches the modeled FIRE screen.';
+    if (baseline.status === 'estimated' && comparison.status !== 'estimated') return 'This path no longer reaches the modeled FIRE screen.';
+    return 'Neither path reaches a modeled FIRE year with the current inputs.';
+  }
+  const difference = comparison.year - baseline.year;
+  if (difference === 0) return 'Both paths reach the modeled FIRE screen in the same year.';
+  return `This path reaches the modeled FIRE screen ${Math.abs(difference)} year${Math.abs(difference) === 1 ? '' : 's'} ${difference < 0 ? 'earlier' : 'later'}.`;
+}
+
 export function ScenariosPage() {
   const planner = usePlanner();
   const snapshot = planner.snapshot!;
   const plan = snapshot.plan;
+  const saveReminder = planner.mode === 'demo'
+    ? 'Choose Save changes in the header to keep these changes for this browser session.'
+    : 'Choose Save changes in the header to sync these changes to your cloud account.';
   const baseAge = plan.baseYear - Number(plan.profile.dateOfBirth.slice(0, 4));
   const minimumRetirementAge = Math.max(18, baseAge);
   const maximumRetirementAge = Math.min(100, plan.retirement.planningEndAge - 1);
@@ -175,10 +216,18 @@ export function ScenariosPage() {
 
   const selected = snapshot.scenarios.find((scenario) => scenario.id === selectedId);
   const comparedScenario = preview ?? selected;
+  const deferredPlan = useDeferredValue(plan);
+  const deferredComparedScenario = useDeferredValue(comparedScenario);
+  const fireEstimatePending = deferredPlan !== plan || deferredComparedScenario !== comparedScenario;
   const baseline = useMemo(() => projectFinances(plan), [plan]);
+  const baselineFire = useMemo(() => estimateFireTarget(deferredPlan), [deferredPlan]);
   const comparison = useMemo(
     () => comparedScenario ? projectFinances(plan, comparedScenario) : undefined,
     [comparedScenario, plan],
+  );
+  const comparisonFire = useMemo(
+    () => deferredComparedScenario ? estimateFireTarget(deferredPlan, deferredComparedScenario) : undefined,
+    [deferredComparedScenario, deferredPlan],
   );
   const differences = useMemo(
     () => comparedScenario ? scenarioDifferences(plan, comparedScenario) : [],
@@ -223,9 +272,9 @@ export function ScenariosPage() {
     let scenario: PlanScenario;
     if (preset === 'early') {
       const age = Math.min(maximumRetirementAge, Math.max(minimumRetirementAge, 55));
-      scenario = createScenario(plan, `Retire at ${age}`, { retirement: { targetRetirementAge: age } }, `Moves the retirement transition to age ${age}.`);
+      scenario = createScenario(plan, uniquePreviewName(`Retire at ${age}`, snapshot.scenarios), { retirement: { targetRetirementAge: age } }, `Moves the retirement transition to age ${age}.`);
     } else if (preset === 'savings') {
-      scenario = createScenario(plan, 'Higher savings', {
+      scenario = createScenario(plan, uniquePreviewName('Higher savings', snapshot.scenarios), {
         assets: {
           update: investmentsWithSavings.map((asset) => ({
             entityId: asset.id,
@@ -235,7 +284,7 @@ export function ScenariosPage() {
       }, 'Increases existing investment contributions by 25%.');
     } else if (preset === 'returns') {
       const lower = Math.max(-100, plan.retirement.investmentReturnBeforeRetirementPercent - 2);
-      scenario = createScenario(plan, 'Lower returns', {
+      scenario = createScenario(plan, uniquePreviewName('Lower returns', snapshot.scenarios), {
         retirement: {
           investmentReturnBeforeRetirementPercent: lower,
           investmentReturnAfterRetirementPercent: Math.max(-100, plan.retirement.investmentReturnAfterRetirementPercent - 2),
@@ -248,7 +297,7 @@ export function ScenariosPage() {
         },
       }, 'Reduces modeled investment returns by two percentage points.');
     } else {
-      scenario = createScenario(plan, 'Pay debt faster', {
+      scenario = createScenario(plan, uniquePreviewName('Pay debt faster', snapshot.scenarios), {
         debts: {
           update: enabledDebts.map((debt) => ({
             entityId: debt.id,
@@ -339,7 +388,7 @@ export function ScenariosPage() {
     setSelectedId(preview.id);
     setDraft(undefined);
     setPreview(undefined);
-    setNotice({ message: `“${preview.name}” is in the plan. Use Save changes in the header to sync it.` });
+    setNotice({ message: `“${preview.name}” is in the plan. ${saveReminder}` });
   };
 
   const returnToBaseline = () => {
@@ -364,14 +413,14 @@ export function ScenariosPage() {
     setSelectedId(duplicate.id);
     setPreview(undefined);
     setDraft(undefined);
-    setNotice({ message: `“${duplicate.name}” was duplicated. Use Save changes to sync it.` });
+    setNotice({ message: `“${duplicate.name}” was duplicated. ${saveReminder}` });
   };
 
   const deleteScenario = (scenario: PlanScenario) => {
     if (!window.confirm(`Delete the “${scenario.name}” scenario? The baseline plan will not change.`)) return;
     planner.setScenarios(snapshot.scenarios.filter((item) => item.id !== scenario.id));
     if (selectedId === scenario.id) returnToBaseline();
-    setNotice({ message: `“${scenario.name}” was removed. Use Save changes to sync the deletion.` });
+    setNotice({ message: `“${scenario.name}” was removed. ${saveReminder}` });
   };
 
   const renameScenario = (event: FormEvent, scenario: PlanScenario) => {
@@ -390,26 +439,26 @@ export function ScenariosPage() {
     planner.setScenarios(validated.data.scenarios);
     setRenamingId(undefined);
     setRenameValue('');
-    setNotice({ message: `Scenario renamed to “${name}”. Use Save changes to sync it.` });
+    setNotice({ message: `Scenario renamed to “${name}”. ${saveReminder}` });
   };
 
   return (
     <div className="page scenarios-page">
       <header className="page-header">
-        <div><span className="eyebrow">Explore uncertainty</span><h1>Scenarios</h1><p>Preview sparse differences against one baseline. A preview never rewrites your core plan or saves itself.</p></div>
+        <div><span className="eyebrow">Compare paths to financial independence</span><h1>Scenarios</h1><p>See how a set of assumptions changes your modeled FIRE year, opening amount, and full projection. A preview never rewrites your core plan or saves itself.</p></div>
         <button className="button button-secondary" type="button" onClick={returnToBaseline}>Return to baseline</button>
       </header>
 
       <section className="scenario-preset-grid" aria-labelledby="presets-title">
         <div className="section-intro"><span className="eyebrow">Quick previews</span><h2 id="presets-title">Stress-test a familiar idea.</h2><p>Choosing a quick preview does not add a scenario. Review it first, then save it deliberately.</p></div>
-        <button type="button" onClick={() => beginPreset('early')} disabled={!canPreviewEarlierRetirement}><span>Earlier retirement</span><strong>Retire at {Math.min(maximumRetirementAge, Math.max(minimumRetirementAge, 55))}</strong><small>Previews a valid retirement transition.</small></button>
+        <button type="button" onClick={() => beginPreset('early')} disabled={!canPreviewEarlierRetirement}><span>Retirement timing</span><strong>Test retirement at {Math.min(maximumRetirementAge, Math.max(minimumRetirementAge, 55))}</strong><small>Tests a chosen transition; it does not prove FIRE is reached.</small></button>
         <button type="button" onClick={() => beginPreset('savings')} disabled={!investmentsWithSavings.length}><span>Higher savings</span><strong>Contribute 25% more</strong><small>{investmentsWithSavings.length ? 'Adjusts existing investment contributions.' : 'Add an investment contribution first.'}</small></button>
         <button type="button" onClick={() => beginPreset('returns')}><span>Lower returns</span><strong>Reduce returns by 2%</strong><small>Uses percentage points, not a forecast.</small></button>
         <button type="button" onClick={() => beginPreset('debt')} disabled={!enabledDebts.length}><span>Debt payoff</span><strong>Pay debt faster</strong><small>{enabledDebts.length ? 'Adds 25% to included regular payments.' : 'Add or include a debt first.'}</small></button>
       </section>
 
       {notice && <p className={`form-status scenario-notice${notice.error ? ' error' : ''}`} role={notice.error ? 'alert' : 'status'}>{notice.message}</p>}
-      {preview && <aside className="notice scenario-preview-banner" role="status"><strong>Unsaved preview</strong><span>“{preview.name}” is visible in the comparison but is not yet in your saved scenario list.</span></aside>}
+      {preview && <div className="notice scenario-preview-banner"><strong>Unsaved preview</strong><span>“{preview.name}” is visible in the comparison but is not yet in your saved scenario list.</span></div>}
 
       <div className="scenario-workspace">
         <aside className="panel scenario-list" aria-labelledby="saved-scenarios-title">
@@ -462,10 +511,22 @@ export function ScenariosPage() {
           </div>
           {comparedScenario && comparisonFinalValue !== undefined ? (
             <>
+              {comparisonFire && !fireEstimatePending && (
+                <section className="scenario-fire-summary" aria-labelledby="scenario-fire-title">
+                  <div className="scenario-fire-heading">
+                    <div><span className="eyebrow">Primary outcome</span><h3 id="scenario-fire-title">Path to modeled FIRE</h3></div>
+                    <p>{fireTimingDelta(baselineFire, comparisonFire)}</p>
+                  </div>
+                  <div className="scenario-fire-grid">
+                    <article><span>Baseline FIRE</span><strong>{fireTiming(baselineFire)}</strong><small>{fireAmount(baselineFire, dollarView)} opening amount</small></article>
+                    <article><span>{comparedScenario.name}</span><strong>{fireTiming(comparisonFire)}</strong><small>{fireAmount(comparisonFire, dollarView)} opening amount</small></article>
+                  </div>
+                </section>
+              )}
               <div className="comparison-stats">
-                <div><span>Baseline at age {finalBaseline.age}</span><strong>{formatCad(baselineFinalValue)}</strong></div>
-                <div><span>{comparedScenario.name}</span><strong>{formatCad(comparisonFinalValue)}</strong></div>
-                <div><span>Difference</span><strong>{formatCadDelta(comparisonFinalValue - baselineFinalValue)}</strong></div>
+                <div><span>Baseline net worth at age {finalBaseline.age}</span><strong>{formatCad(baselineFinalValue)}</strong></div>
+                <div><span>{comparedScenario.name} at age {finalBaseline.age}</span><strong>{formatCad(comparisonFinalValue)}</strong></div>
+                <div><span>End-of-plan difference</span><strong>{formatCadDelta(comparisonFinalValue - baselineFinalValue)}</strong></div>
               </div>
               <div className="scenario-difference-summary" aria-labelledby="differences-title">
                 <h3 id="differences-title">Differences from baseline</h3>
@@ -500,7 +561,7 @@ export function ScenariosPage() {
             <button className="button button-primary" type="button" onClick={savePreview} disabled={!preview || preview.id !== draft.id}>{draft.mode === 'edit' ? 'Update scenario' : 'Save scenario'}</button>
             <button className="button button-quiet" type="button" onClick={() => { setDraft(undefined); setPreview(undefined); setNotice(undefined); }}>Cancel</button>
           </div>
-          <p className="form-footnote">Preview is temporary. Save scenario adds it to this plan; Save changes in the header then syncs the plan.</p>
+          <p className="form-footnote">Preview is temporary. Save scenario updates the open plan. {saveReminder}</p>
         </section>
       )}
 

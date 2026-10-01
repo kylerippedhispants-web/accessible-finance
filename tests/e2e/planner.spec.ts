@@ -19,7 +19,7 @@ test('planner deep links return the app shell instead of a 404', async ({ page }
   const response = await page.goto('/planner/dashboard');
   expect(response?.status()).toBe(200);
   await expect(page).toHaveURL(/\/planner\/?$/);
-  await expect(page.getByRole('heading', { name: /See where your money is going/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /financial independence path/ })).toBeVisible();
 });
 
 test('password update form requires a verified recovery event', async ({ page }) => {
@@ -68,7 +68,10 @@ test('scenario presets remain previews until explicitly saved', async ({ page })
 
   const scenarioList = page.getByRole('complementary', { name: 'Your scenarios' });
   await expect(scenarioList.getByText('Lower returns', { exact: true })).toBeVisible();
-  await page.getByRole('button', { name: /Retire at 55/i }).click();
+  await page.getByRole('button', { name: /Reduce returns by 2%/i }).click();
+  await expect(page.getByText(/“Lower returns preview” is visible in the comparison/)).toBeVisible();
+  await page.getByRole('button', { name: 'Return to baseline' }).click();
+  await page.getByRole('button', { name: /Test retirement at 55/i }).click();
 
   await expect(page.getByText('Unsaved preview', { exact: true })).toBeVisible();
   await expect(scenarioList.getByText('Retire at 55', { exact: true })).toHaveCount(0);
@@ -77,6 +80,23 @@ test('scenario presets remain previews until explicitly saved', async ({ page })
 
   await page.getByRole('button', { name: 'Return to baseline' }).click();
   await expect(page.getByRole('heading', { name: 'Baseline plan', exact: true })).toBeVisible();
+});
+
+test('retirement and scenario FIRE summaries have no axe violations', async ({ page }) => {
+  await openDemo(page);
+  await page.getByRole('link', { name: 'Retirement', exact: true }).click();
+
+  const retirementEstimate = page.locator('.retirement-fire-preview');
+  await expect(retirementEstimate).not.toHaveAttribute('aria-busy', 'true');
+  await expect(retirementEstimate.getByRole('heading', { name: /FIRE in|needs attention/i })).toBeVisible();
+  const retirementAxe = await new AxeBuilder({ page }).analyze();
+  expect(retirementAxe.violations).toEqual([]);
+
+  await page.getByRole('link', { name: 'Scenarios', exact: true }).click();
+  await page.getByRole('button', { name: /Reduce returns by 2%/i }).click();
+  await expect(page.getByRole('heading', { name: 'Path to modeled FIRE' })).toBeVisible();
+  const scenariosAxe = await new AxeBuilder({ page }).analyze();
+  expect(scenariosAxe.violations).toEqual([]);
 });
 
 test('planning guide explains the model and links to trusted Canadian resources', async ({ page }) => {

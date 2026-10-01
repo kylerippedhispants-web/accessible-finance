@@ -7,6 +7,7 @@ import {
   applyScenarioOverrides,
   calculateMortgagePayment,
   compoundGrowth,
+  estimateFireTarget,
   estimateRetirementAge,
   futureValue,
   futureValueWithRecurringContributions,
@@ -481,6 +482,114 @@ describe("year-by-year projection", () => {
 
     plan.incomeSources = [];
     expect(estimateRetirementAge(plan)).toBeNull();
+  });
+
+  it("returns an opening FIRE amount that matches modeled-withdrawable assets", () => {
+    const plan = createPlan();
+    plan.retirement.planningEndAge = 40;
+    plan.retirement.estimatedAnnualSpending = 100;
+    plan.retirement.spendingInflationPercent = 0;
+    plan.retirement.investmentReturnBeforeRetirementPercent = 0;
+    plan.retirement.investmentReturnAfterRetirementPercent = 0;
+    plan.assets = [
+      {
+        id: "future-investment",
+        name: "Future investment",
+        type: "tfsa",
+        currentValue: 1_000,
+        startYear: 2028,
+        expectedReturnPercent: 0,
+      },
+      {
+        id: "home",
+        name: "Home",
+        type: "primary_residence",
+        currentValue: 1_000_000,
+        annualAppreciationPercent: 0,
+      },
+    ];
+
+    const estimate = estimateFireTarget(plan);
+
+    expect(estimate).toMatchObject({
+      status: "estimated",
+      age: 38,
+      year: 2028,
+      openingModeledWithdrawableAssets: 1_000,
+      horizonAge: 40,
+      horizonYear: 2030,
+    });
+    expect(estimate.realOpeningModeledWithdrawableAssets).toBeCloseTo(961.17, 2);
+  });
+
+  it("does not hide a pre-retirement funding failure behind property equity", () => {
+    const plan = createPlan();
+    plan.retirement.planningEndAge = 40;
+    plan.retirement.estimatedAnnualSpending = 100;
+    plan.retirement.spendingInflationPercent = 0;
+    plan.assets = [{
+      id: "home",
+      name: "Home",
+      type: "primary_residence",
+      currentValue: 1_000_000,
+      annualAppreciationPercent: 0,
+    }];
+    plan.expenses = [{
+      id: "unfunded-expense",
+      name: "Immediate expense",
+      category: "one_time",
+      amount: 1_000,
+      frequency: "one_time",
+      startYear: plan.baseYear,
+      endYear: plan.baseYear,
+      inflationPercent: 0,
+    }];
+
+    expect(estimateFireTarget(plan)).toMatchObject({ status: "not_reached" });
+    expect(estimateRetirementAge(plan)).toBeNull();
+  });
+
+  it("asks for retirement spending before presenting a FIRE target", () => {
+    const plan = createPlan();
+
+    expect(estimateFireTarget(plan)).toMatchObject({
+      status: "needs_inputs",
+      age: null,
+      openingModeledWithdrawableAssets: null,
+    });
+  });
+
+  it("does not fabricate a zero-dollar FIRE target for an empty add-to-recurring plan", () => {
+    const plan = createPlan();
+    plan.retirement.expenseMode = "add_to_recurring";
+
+    expect(estimateFireTarget(plan)).toMatchObject({
+      status: "needs_inputs",
+      age: null,
+      openingModeledWithdrawableAssets: null,
+    });
+  });
+
+  it("uses recurring retirement expenses when added retirement spending is zero", () => {
+    const plan = createPlan();
+    plan.retirement.expenseMode = "add_to_recurring";
+    plan.retirement.planningEndAge = 40;
+    plan.assets = [{ id: "cash", name: "Cash", type: "cash", currentValue: 10_000 }];
+    plan.expenses = [{
+      id: "living-costs",
+      name: "Living costs",
+      category: "housing",
+      amount: 100,
+      frequency: "annual",
+      startYear: plan.baseYear,
+      inflationPercent: 0,
+    }];
+
+    expect(estimateFireTarget(plan)).toMatchObject({
+      status: "estimated",
+      age: 36,
+      year: 2026,
+    });
   });
 
   it("applies investment and property growth plus recurring contributions", () => {

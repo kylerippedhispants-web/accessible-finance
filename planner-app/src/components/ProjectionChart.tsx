@@ -12,11 +12,18 @@ import { formatCad, formatCadCompact, formatCadDelta } from '../lib/formatters';
 
 export type DollarView = 'nominal' | 'real';
 
+export interface ProjectionMilestone {
+  year: number;
+  label: string;
+  kind: 'fire' | 'planned';
+}
+
 interface ProjectionChartProps {
   baseline: ProjectionYear[];
   comparison?: ProjectionYear[];
   comparisonLabel?: string;
   dollarView: DollarView;
+  milestones?: ProjectionMilestone[];
 }
 
 const DESKTOP_CHART = {
@@ -98,6 +105,7 @@ export const ProjectionChart = memo(function ProjectionChart({
   comparison,
   comparisonLabel = 'What-if',
   dollarView,
+  milestones = [],
 }: ProjectionChartProps) {
   const titleId = useId();
   const descriptionId = useId();
@@ -107,7 +115,11 @@ export const ProjectionChart = memo(function ProjectionChart({
   const dimensions = compact ? COMPACT_CHART : DESKTOP_CHART;
   const plotWidth = dimensions.width - dimensions.margin.left - dimensions.margin.right;
   const plotHeight = dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(() => {
+    const fireYear = milestones.find((milestone) => milestone.kind === 'fire')?.year;
+    const fireIndex = fireYear === undefined ? -1 : baseline.findIndex((point) => point.year === fireYear);
+    return Math.max(0, fireIndex);
+  });
   const [keyboardAnnouncement, setKeyboardAnnouncement] = useState('');
   const safeIndex = Math.min(selectedIndex, Math.max(0, baseline.length - 1));
   const viewLabel = dollarView === 'real' ? 'Today’s dollars' : 'Nominal dollars';
@@ -201,6 +213,9 @@ export const ProjectionChart = memo(function ProjectionChart({
 
   const description = [
     `${viewLabel}. Baseline net worth changes from ${formatCad(netWorth(baseline[0], dollarView))} at age ${baseline[0].age} to ${formatCad(netWorth(finalPoint, dollarView))} at age ${finalPoint.age}.`,
+    milestones.length
+      ? `Milestones: ${milestones.map((milestone) => `${milestone.label}, ${milestone.year}`).join('; ')}.`
+      : undefined,
     finalComparisonPoint && finalDelta !== undefined
       ? `${comparisonLabel} ends ${deltaDescription(finalDelta)}.`
       : undefined,
@@ -212,6 +227,8 @@ export const ProjectionChart = memo(function ProjectionChart({
         <ul className="chart-legend" aria-label="Projection series">
           <li><span className="chart-key baseline" aria-hidden="true" />Baseline</li>
           {comparison && <li><span className="chart-key comparison" aria-hidden="true" />{comparisonLabel}</li>}
+          {milestones.some((milestone) => milestone.kind === 'fire') && <li><span className="chart-key milestone fire" aria-hidden="true" />Estimated FIRE</li>}
+          {milestones.some((milestone) => milestone.kind === 'planned') && <li><span className="chart-key milestone planned" aria-hidden="true" />Planned retirement</li>}
         </ul>
         <p id={instructionId} className="chart-instructions">Click or touch the chart, or focus it and use Left, Right, Home, and End.</p>
       </div>
@@ -260,6 +277,19 @@ export const ProjectionChart = memo(function ProjectionChart({
             </g>
             {geometry.comparisonPath && <path className="chart-path comparison" d={geometry.comparisonPath} aria-hidden="true" />}
             <path className="chart-path baseline" d={geometry.baselinePath} aria-hidden="true" />
+            <g className="chart-milestones" aria-hidden="true">
+              {milestones.map((milestone, index) => {
+                const milestonePoint = baseline.find((row) => row.year === milestone.year);
+                if (!milestonePoint) return null;
+                const x = geometry.x(milestonePoint);
+                return (
+                  <g key={`${milestone.kind}-${milestone.year}`} className={`chart-milestone ${milestone.kind}`}>
+                    <line x1={x} x2={x} y1={dimensions.margin.top} y2={dimensions.height - dimensions.margin.bottom} />
+                    <text x={x + 6} y={dimensions.margin.top + 15 + index * 17}>{milestone.label}</text>
+                  </g>
+                );
+              })}
+            </g>
             <g className="chart-inspector" aria-hidden="true">
               <line x1={inspectedX} x2={inspectedX} y1={dimensions.margin.top} y2={dimensions.height - dimensions.margin.bottom} />
               <circle cx={inspectedX} cy={geometry.y(inspectedBaseline)} r="6" />
@@ -277,6 +307,9 @@ export const ProjectionChart = memo(function ProjectionChart({
             <div><dt>Gross income</dt><dd>{formatCad(field(point, dollarView, 'grossIncome', 'realGrossIncome'))}</dd></div>
             <div><dt>Taxes</dt><dd>{formatCad(field(point, dollarView, 'taxes', 'realTaxes'))}</dd></div>
             <div><dt>Spending</dt><dd>{formatCad(field(point, dollarView, 'expenses', 'realExpenses'))}</dd></div>
+            <div><dt>Opening modeled-withdrawable assets</dt><dd>{formatCad(field(point, dollarView, 'openingModeledWithdrawableAssets', 'realOpeningModeledWithdrawableAssets'))}</dd></div>
+            <div><dt>Investments</dt><dd>{formatCad(field(point, dollarView, 'investmentAssets', 'realInvestmentAssets'))}</dd></div>
+            <div><dt>Property</dt><dd>{formatCad(field(point, dollarView, 'propertyAssets', 'realPropertyAssets'))}</dd></div>
             <div><dt>Total assets</dt><dd>{formatCad(field(point, dollarView, 'totalAssets', 'realTotalAssets'))}</dd></div>
             <div><dt>Total liabilities</dt><dd>{formatCad(field(point, dollarView, 'totalLiabilities', 'realTotalLiabilities'))}</dd></div>
             <div className="inspector-total"><dt>Baseline net worth</dt><dd>{formatCad(inspectedBaseline)}</dd></div>
@@ -317,7 +350,7 @@ export const ProjectionChart = memo(function ProjectionChart({
             <caption className="sr-only">Projection in {viewLabel.toLocaleLowerCase('en-CA')}. Dollar amounts are Canadian dollars.</caption>
             <thead>
               <tr>
-                <th scope="col">Year</th><th scope="col">Age</th><th scope="col">Income</th><th scope="col">Taxes</th><th scope="col">Spending</th><th scope="col">Assets</th><th scope="col">Liabilities</th><th scope="col">Baseline net worth</th>
+                <th scope="col">Year</th><th scope="col">Age</th>{milestones.length > 0 && <th scope="col">Milestone</th>}<th scope="col">Income</th><th scope="col">Taxes</th><th scope="col">Spending</th><th scope="col">Assets</th><th scope="col">Liabilities</th><th scope="col">Baseline net worth</th>
                 {comparison && <><th scope="col">{comparisonLabel} net worth</th><th scope="col">Difference</th></>}
               </tr>
             </thead>
@@ -330,6 +363,7 @@ export const ProjectionChart = memo(function ProjectionChart({
                   <tr key={row.year}>
                     <th scope="row">{row.year}</th>
                     <td>{row.age}</td>
+                    {milestones.length > 0 && <td>{milestones.filter((milestone) => milestone.year === row.year).map((milestone) => milestone.label).join('; ') || '—'}</td>}
                     <td>{formatCad(field(row, dollarView, 'grossIncome', 'realGrossIncome'))}</td>
                     <td>{formatCad(field(row, dollarView, 'taxes', 'realTaxes'))}</td>
                     <td>{formatCad(field(row, dollarView, 'expenses', 'realExpenses'))}</td>

@@ -13,7 +13,7 @@ import {
   scenariosFromRows,
 } from '../planner-app/src/data/supabaseRepository';
 import { createDemoSnapshot } from '../planner-app/src/data/demoPlan';
-import { createPlanExport, parsePlanImport } from '../planner-app/src/data/planTransfer';
+import { createPlanExport, MAX_PLAN_TRANSFER_BYTES, parsePlanImport, serializePlanExport } from '../planner-app/src/data/planTransfer';
 import { exportedPlanSchema, plannerSnapshotSchema } from '../planner-app/src/validation/planSchemas';
 
 describe('Supabase data mapping', () => {
@@ -82,6 +82,53 @@ describe('Supabase data mapping', () => {
 });
 
 describe('portable plan transfer', () => {
+  it('restores a downloadable backup with the maximum supported scenario operations', () => {
+    const snapshot = createDemoSnapshot();
+    snapshot.plan.expenses = Array.from({ length: 250 }, (_, index) => ({
+      ...snapshot.plan.expenses[0],
+      id: `expense-${index}`,
+      name: `Expense ${index}`,
+    }));
+    snapshot.scenarios = Array.from({ length: 20 }, (_, index) => ({
+      id: `scenario-${index}`,
+      planId: snapshot.plan.id,
+      name: `Scenario ${index}`,
+      overrides: {
+        expenses: {
+          update: snapshot.plan.expenses.map((expense) => ({
+            entityId: expense.id,
+            changes: {
+              name: 'Example expense '.repeat(7),
+              amount: 1234,
+              frequency: expense.frequency,
+              category: expense.category,
+              startYear: snapshot.plan.baseYear,
+              inflationPercent: 3,
+              enabled: true,
+              position: 0,
+            },
+          })),
+        },
+      },
+    }));
+
+    const json = serializePlanExport(snapshot);
+    const bytes = new TextEncoder().encode(json).byteLength;
+    expect(bytes).toBeGreaterThan(2_000_000);
+    expect(bytes).toBeLessThanOrEqual(MAX_PLAN_TRANSFER_BYTES);
+    const imported = parsePlanImport(json);
+    expect(imported.scenarios).toHaveLength(20);
+    expect(imported.scenarios[19].overrides.expenses?.update).toHaveLength(250);
+    expect(imported.scenarios[19].overrides.expenses?.update?.[249].changes.amount).toBe(1234);
+    expect(imported.scenarios[19].overrides.expenses?.update?.[249].entityId)
+      .toBe(imported.plan.expenses[249].id);
+  });
+
+  it('rejects oversized input before attempting to parse it as JSON', () => {
+    expect(() => parsePlanImport(' '.repeat(MAX_PLAN_TRANSFER_BYTES + 1)))
+      .toThrow('Planner backups must be 16 MB or smaller.');
+  });
+
   it('creates a validated versioned export with no user or auth metadata', () => {
     const exported = createPlanExport(createDemoSnapshot());
     expect(exportedPlanSchema.safeParse(exported).success).toBe(true);

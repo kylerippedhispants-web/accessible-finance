@@ -5,8 +5,11 @@ client-rendered planner mounted at `/planner/`. The repository is a deployment
 candidate, not a live production launch: cloud accounts and synchronization
 remain disabled until a Supabase project, the included migrations, the two public
 build variables, and the production verification steps below are completed. The
-current public `/planner` URL will remain unchanged/404 until this branch is
-deployed to the existing Netlify site.
+local checks do not verify the current public `/planner` URL or Netlify status.
+Review and deploy this branch to the intended existing site only after the
+cloud and release checks below pass.
+
+Use [NEXT_STEPS.md](NEXT_STEPS.md) for the ordered setup and release checklist.
 
 ## Architecture
 
@@ -55,6 +58,44 @@ publishable browser key is preferred; the legacy `anon` key also works. Both are
 public client identifiers protected by RLS. Never use a secret key, service-role
 key, database password, management token, or admin credential. Vite embeds every
 `VITE_` value in public JavaScript.
+
+## Integrated local preview
+
+To try the educational website and planner together, use the combined build:
+
+```powershell
+npm.cmd run build
+npm.cmd run preview
+```
+
+Open `http://127.0.0.1:4173/` for the website and follow **Open the FIRE planner**.
+The planner is served at `/planner/` on the same local address. The homepage,
+FIRE and cash-flow tools, guide pages, and regional navigation link to the
+Canadian planner. Educational links inside an open plan use a separate tab so
+the current draft remains open. Calculator inputs are not automatically copied
+into the planner because their models and assumptions differ.
+
+With both Supabase variables absent, this preview uses fictional Demo Mode.
+It does not enable cloud saving. Production's cloud-configuration gate remains
+in place. `npm run dev` is still the planner-only Vite development server;
+rebuild and use `preview` when testing the entire website together.
+
+On this imported Windows copy, portable npm is available in the ignored
+`.local-tools` folder. If npm is not on PATH, use:
+
+```powershell
+$env:PATH = (Join-Path (Get-Location).Path '.local-tools/bin') + ';' + $env:PATH
+node .local-tools/package/bin/npm-cli.js run build
+node .local-tools/package/bin/npm-cli.js run preview
+```
+
+Browser checks normally use Playwright Chromium. To use an installed Microsoft
+Edge instead, set `$env:PLAYWRIGHT_CHANNEL = 'msedge'` before `npm run test:e2e`.
+On this copy, also set
+`$env:PLAYWRIGHT_BROWSERS_PATH = (Join-Path (Get-Location).Path '.local-tools/browsers')`
+to use the locally installed video-recording helper.
+The `site-planner-integration.spec.ts` suite checks the complete navigation flow,
+an unsaved draft remaining open while reading a guide, and narrow mobile layouts.
 
 ## Exact Supabase setup
 
@@ -142,8 +183,9 @@ policies. Projection outputs are not stored.
 ## Authentication and save behaviour
 
 - The landing page supports sign-up, sign-in, forgotten-password email, and Demo
-  Mode. `/planner/reset-password` handles the recovery link. Logout is in the app
-  shell.
+  Mode when cloud configuration is present. Without it, the landing page offers
+  fictional Demo Mode and explains that accounts are unavailable.
+  `/planner/reset-password` handles the recovery link. Logout is in the app shell.
 - Signed-in routes are guarded in the client for navigation. RLS remains the
   actual data-access boundary if a visitor bypasses the UI.
 - A signed-in user's latest plan and revision are loaded into application state.
@@ -280,7 +322,9 @@ Chromium checks, and a production-dependency audit in
   owner-isolated by RLS, but new complete-plan clients should use the RPC so
   every child update participates in one transaction and revision check.
 - The app uses no `dangerouslySetInnerHTML`; React renders imported names and
-  descriptions as text. Imported JSON is size-capped and schema-validated.
+  descriptions as text. JSON imports and downloadable exports share a 16 MB
+  UTF-8 byte limit and are schema-validated. The same bound applies before an
+  imported file is parsed, so backups above the old 2 MB limit can be restored.
 - Planner responses deny framing, isolate opener contexts, disable MIME
   sniffing, limit referrers, and disable camera, microphone, and geolocation. A
   planner-scoped Content Security Policy permits only its own scripts and images,
@@ -379,9 +423,9 @@ Recommended Phase 2 work:
 4. Reuse the pure projection engine on-device and implement a mobile repository
    adapter for the same database rows. Mobile clients should read inputs, compute
    outputs locally, and explicitly sync changes just like the web client.
-5. Add transactional saves, optimistic concurrency, merge/conflict UI, schema
-   compatibility tests, user-requested account/data deletion, and documented
-   backup/recovery operations.
+5. Build on the existing transactional saves and optimistic revisions with
+   merge/conflict UI, schema compatibility tests, user-requested account/data
+   deletion, and documented backup/recovery operations.
 6. Add verified, versioned Canadian tax and registered-account modules only from
    authoritative sources, with effective dates and regression fixtures.
 

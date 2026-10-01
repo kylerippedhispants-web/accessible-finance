@@ -23,12 +23,13 @@
 
   function initializePlannerNavigation() {
     const plannerHref = new URL('planner/', shellSource).href;
+    const plannerLabel = isUsSite ? 'Canadian Planner' : 'FIRE Planner';
 
     function addLink(container, beforeSelector) {
       if (!container || container.querySelector('[data-planner-link]')) return;
       const link = document.createElement('a');
       link.href = plannerHref;
-      link.textContent = 'Planner';
+      link.textContent = plannerLabel;
       link.dataset.plannerLink = '';
       const before = beforeSelector ? container.querySelector(beforeSelector) : null;
       container.insertBefore(link, before);
@@ -43,12 +44,45 @@
       const item = document.createElement('li');
       const link = document.createElement('a');
       link.href = plannerHref;
-      link.textContent = 'Planner';
+      link.textContent = plannerLabel;
       link.dataset.plannerLink = '';
       item.appendChild(link);
       const cashFlowItem = list.querySelector('a[href*="cash-flow"]')?.closest('li');
       cashFlowItem?.insertAdjacentElement('afterend', item);
     });
+  }
+
+  function initializePlannerBridge() {
+    const pathname = window.location.pathname;
+    const isGuide = /\/guides\/[^/]+\.html$/.test(pathname);
+    const isCalculator = /\/(?:fire|cash-flow)\.html$/.test(pathname);
+    const main = document.getElementById('main-content');
+    if (!main || (!isGuide && !isCalculator) || document.getElementById('planner-bridge')) return;
+
+    const section = document.createElement('aside');
+    section.className = 'planner-bridge';
+    section.id = 'planner-bridge';
+    section.setAttribute('aria-labelledby', 'planner-bridge-title');
+    const copy = document.createElement('div');
+    const title = document.createElement('h2');
+    title.id = 'planner-bridge-title';
+    title.textContent = isGuide ? 'Put the idea into a bigger picture.' : 'Explore the longer-term picture.';
+    const description = document.createElement('p');
+    description.textContent = 'The Canadian FIRE planner connects income, spending, assets, and debts to an estimated financial independence year and amount.';
+    const note = document.createElement('p');
+    note.className = 'planner-bridge-note';
+    note.textContent = isCalculator
+      ? 'This calculator and the planner use separate inputs and models. Nothing transfers automatically. Start with the fictional demo.'
+      : 'Try a fictional plan, inspect the assumptions, and compare scenarios. Educational estimates only.';
+    copy.append(title, description, note);
+    const link = document.createElement('a');
+    link.className = 'journey-action';
+    link.href = new URL('planner/', shellSource).href;
+    link.textContent = 'Explore the Canadian planner';
+    section.append(copy, link);
+    const newsletter = main.querySelector('#newsletter');
+    if (newsletter?.parentElement === main) main.insertBefore(section, newsletter);
+    else main.appendChild(section);
   }
 
   function initializeMenu() {
@@ -215,6 +249,7 @@
 
   function initialize() {
     initializePlannerNavigation();
+    initializePlannerBridge();
     initializeMenu();
     initializeNewsletterDialogs();
     initializeRevealFallback();

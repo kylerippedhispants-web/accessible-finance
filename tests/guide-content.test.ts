@@ -11,6 +11,7 @@ describe('planning guide content', () => {
     );
 
     for (const heading of [
+      'Understand your FIRE estimate',
       'Open the menu to add your inputs',
       'Start with a reliable baseline',
       'Today&#x27;s dollars and future dollars',
@@ -33,6 +34,8 @@ describe('planning guide content', () => {
       expect(markup).toContain(`href="${route}"`);
     }
     expect(markup).toContain('Educational projections, not advice.');
+    expect(markup).toContain('It is not a 4% rule target.');
+    expect(markup).toContain('Why the result is a year, not an exact date.');
     expect(markup).toContain('aria-labelledby="guide-contents-title"');
   });
 });
