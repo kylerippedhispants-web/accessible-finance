@@ -265,6 +265,7 @@ nav.site-nav {
 }
 .hero-card {
   position: relative; z-index: 1;
+  margin: 0;
   background: var(--surface);
   border-radius: 24px;
   padding: 40px;
@@ -282,26 +283,33 @@ nav.site-nav {
   padding-bottom: 4px; border-bottom: 1px solid var(--border);
 }
 .hero-chart .bar {
-  flex: 1; border-radius: 3px 3px 0 0;
+  flex: 1; min-width: 0; height: var(--bar-height);
+  appearance: none; -webkit-appearance: none;
+  border: 0; border-radius: 3px 3px 0 0; padding: 0;
   background: linear-gradient(180deg, var(--ink) 0%, #2c2925 100%);
   opacity: 0.55;
+  cursor: pointer; touch-action: manipulation;
   transform-origin: bottom;
   animation: barGrow 1.2s cubic-bezier(.2,.7,.2,1) forwards;
   transform: scaleY(0);
+  transition: background 0.2s, box-shadow 0.2s, filter 0.2s, opacity 0.2s;
 }
-.hero-chart .bar:nth-child(1) { height: 34%; animation-delay: .05s; }
-.hero-chart .bar:nth-child(2) { height: 40%; animation-delay: .1s; }
-.hero-chart .bar:nth-child(3) { height: 47%; animation-delay: .15s; }
-.hero-chart .bar:nth-child(4) { height: 55%; animation-delay: .2s; }
-.hero-chart .bar:nth-child(5) { height: 63%; animation-delay: .25s; }
-.hero-chart .bar:nth-child(6) { height: 72%; animation-delay: .3s; }
-.hero-chart .bar:nth-child(7) {
-  height: 88%; animation-delay: .35s;
-  background: linear-gradient(180deg, var(--green) 0%, var(--green-mid) 100%); opacity: 0.9;
+.hero-chart .bar:nth-child(1) { animation-delay: .05s; }
+.hero-chart .bar:nth-child(2) { animation-delay: .1s; }
+.hero-chart .bar:nth-child(3) { animation-delay: .15s; }
+.hero-chart .bar:nth-child(4) { animation-delay: .2s; }
+.hero-chart .bar:nth-child(5) { animation-delay: .25s; }
+.hero-chart .bar:nth-child(6) { animation-delay: .3s; }
+.hero-chart .bar:nth-child(7) { animation-delay: .35s; }
+.hero-chart .bar:nth-child(8) { animation-delay: .4s; }
+.hero-chart .bar:nth-child(9) { animation-delay: .45s; }
+.hero-chart .bar:hover { opacity: 0.8; filter: saturate(1.1); }
+.hero-chart .bar:focus-visible {
+  outline: 2px solid var(--gold); outline-offset: 3px;
 }
-.hero-chart .bar:nth-child(8) {
-  height: 100%; animation-delay: .4s;
+.hero-chart .bar.is-selected {
   background: linear-gradient(180deg, var(--green) 0%, var(--green-mid) 100%); opacity: 1;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.24);
 }
 @keyframes barGrow { to { transform: scaleY(1); } }
 .hero-chart-axis {
@@ -1097,25 +1105,33 @@ footer.site-footer {
   </div>
 
   <div class="hero-card-wrap reveal d2">
-    <div class="hero-card" role="img" aria-label="Hypothetical chart: a $10,000 starting balance with no added deposits, compounding at 5% annually, reaches about $14,775 after eight years, an increase of $4,775. Actual investment returns are not guaranteed.">
-      <div class="hero-card-eyebrow">Hypothetical Growth · 5% a Year</div>
-      <div class="hero-chart" aria-hidden="true">
-        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    <figure class="hero-card" aria-labelledby="growthChartTitle" aria-describedby="growthChartNote">
+      <div class="hero-card-eyebrow" id="growthChartTitle">Hypothetical Growth · 5% a Year</div>
+      <div class="hero-chart" id="growthChart" role="group" aria-label="Select a year to explore hypothetical compound growth" data-principal="10000" data-rate="0.05">
+        <button class="bar" type="button" data-year="0" style="--bar-height:67.7%" aria-label="Year 0: $10,000 starting balance, no growth" title="Year 0 · $10,000 · No growth" aria-pressed="false" tabindex="-1"></button>
+        <button class="bar" type="button" data-year="1" style="--bar-height:71.1%" aria-label="Year 1: $10,500 balance, $500 growth" title="Year 1 · $10,500 · $500 growth" aria-pressed="false" tabindex="-1"></button>
+        <button class="bar" type="button" data-year="2" style="--bar-height:74.6%" aria-label="Year 2: $11,025 balance, $1,025 growth" title="Year 2 · $11,025 · $1,025 growth" aria-pressed="false" tabindex="-1"></button>
+        <button class="bar" type="button" data-year="3" style="--bar-height:78.3%" aria-label="Year 3: $11,576 balance, $1,576 growth" title="Year 3 · $11,576 · $1,576 growth" aria-pressed="false" tabindex="-1"></button>
+        <button class="bar" type="button" data-year="4" style="--bar-height:82.3%" aria-label="Year 4: $12,155 balance, $2,155 growth" title="Year 4 · $12,155 · $2,155 growth" aria-pressed="false" tabindex="-1"></button>
+        <button class="bar" type="button" data-year="5" style="--bar-height:86.4%" aria-label="Year 5: $12,763 balance, $2,763 growth" title="Year 5 · $12,763 · $2,763 growth" aria-pressed="false" tabindex="-1"></button>
+        <button class="bar" type="button" data-year="6" style="--bar-height:90.7%" aria-label="Year 6: $13,401 balance, $3,401 growth" title="Year 6 · $13,401 · $3,401 growth" aria-pressed="false" tabindex="-1"></button>
+        <button class="bar" type="button" data-year="7" style="--bar-height:95.2%" aria-label="Year 7: $14,071 balance, $4,071 growth" title="Year 7 · $14,071 · $4,071 growth" aria-pressed="false" tabindex="-1"></button>
+        <button class="bar is-selected" type="button" data-year="8" style="--bar-height:100%" aria-label="Year 8: $14,775 balance, $4,775 growth" title="Year 8 · $14,775 · $4,775 growth" aria-pressed="true"></button>
       </div>
-      <div class="hero-chart-axis"><span>Year 0</span><span>Year 2</span><span>Year 4</span><span>Year 6</span><span>Year 8</span></div>
+      <div class="hero-chart-axis" aria-hidden="true"><span>Year 0</span><span>Year 2</span><span>Year 4</span><span>Year 6</span><span>Year 8</span></div>
       <div class="hero-stat-row">
         <div>
           <div class="hero-stat-num">$10,000</div>
           <div class="hero-stat-label">Starting balance · No added deposits</div>
         </div>
-        <div class="hero-stat-badge">
-          <span>After 8 years</span>
-          <strong>$14,775</strong>
-          <small>+$4,775 from growth</small>
+        <div class="hero-stat-badge" aria-live="polite" aria-atomic="true">
+          <span id="growthYear">After 8 years</span>
+          <strong id="growthBalance">$14,775</strong>
+          <small id="growthGain">+$4,775 from growth</small>
         </div>
       </div>
-    </div>
+      <figcaption class="sr-only" id="growthChartNote">Choose a bar or use the left and right arrow keys to compare years. This illustration assumes a steady annual return; actual investment returns vary and are not guaranteed.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -1529,6 +1545,60 @@ footer.site-footer {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Interactive compound-growth illustration
+  (function () {
+    const chart = document.getElementById('growthChart');
+    const yearOutput = document.getElementById('growthYear');
+    const balanceOutput = document.getElementById('growthBalance');
+    const gainOutput = document.getElementById('growthGain');
+    if (!chart || !yearOutput || !balanceOutput || !gainOutput) return;
+
+    const bars = Array.from(chart.querySelectorAll('.bar[data-year]'));
+    const principal = Number(chart.dataset.principal);
+    const annualRate = Number(chart.dataset.rate);
+    const money = new Intl.NumberFormat('en-CA', {
+      style: 'currency',
+      currency: 'CAD',
+      maximumFractionDigits: 0,
+    });
+
+    function selectYear(bar, moveFocus) {
+      const year = Number(bar.dataset.year);
+      const balance = Math.round(principal * Math.pow(1 + annualRate, year));
+      const gain = balance - principal;
+
+      bars.forEach((item) => {
+        const selected = item === bar;
+        item.classList.toggle('is-selected', selected);
+        item.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        item.tabIndex = selected ? 0 : -1;
+      });
+
+      yearOutput.textContent = year === 0 ? 'Starting point' : `After ${year} ${year === 1 ? 'year' : 'years'}`;
+      balanceOutput.textContent = money.format(balance);
+      gainOutput.textContent = year === 0 ? 'No growth yet' : `+${money.format(gain)} from growth`;
+      if (moveFocus) bar.focus({ preventScroll: true });
+    }
+
+    bars.forEach((bar, index) => {
+      bar.addEventListener('focus', () => selectYear(bar, false));
+      bar.addEventListener('click', () => selectYear(bar, false));
+      bar.addEventListener('keydown', (event) => {
+        let nextIndex = index;
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') nextIndex = Math.max(0, index - 1);
+        else if (event.key === 'ArrowRight' || event.key === 'ArrowUp') nextIndex = Math.min(bars.length - 1, index + 1);
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = bars.length - 1;
+        else return;
+
+        event.preventDefault();
+        selectYear(bars[nextIndex], true);
+      });
+    });
+
+    selectYear(bars[bars.length - 1], false);
+  })();
 
   // Mobile hamburger
   (function(){
