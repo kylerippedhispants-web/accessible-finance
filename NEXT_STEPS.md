@@ -4,14 +4,14 @@ Updated October 1, 2026 (America/Toronto). This checklist covers the selected FI
 website and planner. Local Demo Mode checks do not validate cloud services or
 public launch.
 
-Browser access is restored and the existing accounts are signed in. Resend's
-auth sender domain is verified and the approved automatic SMTP connection is
-saved in Supabase. The configured Netlify preview passes public HTTP and bundle
-checks. The owner confirmed two test inboxes, and live authenticated repository
-checks pass, including cleanup. Preview 15 now passes positive-income onboarding,
-saved-plan reload, separate-account views, and actual JSON export/import. Recovery
-completion and production release remain pending; new password entry is an owner
-handoff. Two fictional browser-created plans remain after the earlier harness cleanup.
+**The website and cloud planner are published at https://accessible-finance.com.**
+The owner explicitly requested merge and production deployment without waiting
+for the remaining recovery and privacy checks. Production public delivery and
+an existing confirmed account's sign-in/saved-plan load pass; recovery completion
+and explicit storage/log inspection remain pending follow-ups. Earlier preview-15
+onboarding, save/reload, account separation, and JSON export/import proofs are
+recorded below. Two fictional browser-created plans remain after the earlier
+authenticated harness cleanup.
 
 ## Completed locally
 
@@ -30,7 +30,7 @@ handoff. Two fictional browser-created plans remain after the earlier harness cl
   pass. Ownership validation is unchanged. The source also passes 24 Edge
   browser checks; actual preview-15 cloud proofs are recorded separately below.
 
-## Completed cloud and preview checks
+## Completed cloud, preview, and production checks
 
 - [x] Merge [PR #13](https://github.com/kylerippedhispants-web/accessible-finance/pull/13).
   The merged commit `7efd2df6446a94266f1ec23937c28b3deceb2bc8` passed GitHub's
@@ -47,8 +47,8 @@ handoff. Two fictional browser-created plans remain after the earlier harness cl
   `ce61addb0bec1220e3c261e4467238e5811970ef`.
   The updated branch `83fb812db65a284f0239391bb41eac9f2d040fb9` passed
   [Planner quality run 36881349362](https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36881349362).
-  Those source checks preceded the authenticated results below. Production
-  deployment remains pending.
+  Those source checks preceded the authenticated results and the production
+  release recorded below.
 - [x] Create the Accessible Finance Free organization and healthy Supabase
   project `accessible-finance-planner` (`drjfjdgzqmvjmrqfeluz`). Its region is West US (Oregon),
   `us-west-2`, not Canada. Keep the database password private.
@@ -119,8 +119,25 @@ handoff. Two fictional browser-created plans remain after the earlier harness cl
   an unsaved draft; explicitly choosing Save then reaches Saved status.
 - [x] Check the signed-out preview-15 reset route: a current reset link is
   required and no password-entry form is available without a recovery session.
+- [x] Merge PR #15 head `efc95f83104ba7a34d0c685573cbbcd5e31cda4b` as master
+  `fd3ba75e87effab0a42043fb42ef73dc50ef1107` on October 1. Netlify shows deploy
+  `6abf288d7965070008c23118` as Published.
+  [Production quality run 36961465028](https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36961465028)
+  passes. The homepage and all three planner routes return 200; planner security
+  headers pass and all 19 planner scripts match the verified preview bytes,
+  including the public configuration and onboarding fix. Evidence:
+  `.local-tools/supabase-setup/production-pr15-http-verification.json`.
+- [x] Follow the live homepage's Canada edition and Open FIRE planner link,
+  sign in as confirmed account B, and load its existing fictional plan with
+  $80,000 annual income/$40,000 spending and the Cloud Plan Saved header.
+  Sign-out restored the Welcome back screen and cleared the plan/cloud header.
+  The production check made no cloud data writes. Evidence:
+  `.local-tools/supabase-setup/production-browser-checks.json`.
 
-## Remaining before production
+## Pending release follow-ups
+
+These checks were incomplete when the owner requested publication; deployment
+does not change their status to PASS.
 
 - [ ] Complete recovery for account A. Its request was accepted from preview 15;
   the owner must receive/use the email, enter a new password privately, then
@@ -131,10 +148,11 @@ handoff. Two fictional browser-created plans remain after the earlier harness cl
 - [ ] Inspect browser localStorage/sessionStorage for cloud tokens/records and
   logs for plan data. Refresh/sign-out behavior and Auth-free export pass, but
   do not substitute for this explicit privacy inspection.
-- [ ] Finish the release gate in [SUPABASE_VERIFICATION.md](SUPABASE_VERIFICATION.md),
-  then publish only through the authorized release workflow. Production remains
-  pending. After release, verify real-domain recovery/callbacks, saved-plan reload,
-  planner routes, homepage navigation, and security headers separately.
+- [ ] Verify real-domain signup/recovery callbacks and remaining production
+  session/save behavior. Production HTTP delivery, homepage-to-planner navigation,
+  sign-in, loading an existing saved plan, and sign-out already pass; those checks do not
+  prove recovery or a new production save. See
+  [SUPABASE_VERIFICATION.md](SUPABASE_VERIFICATION.md).
 
 ## Subsequent coverage and operational follow-ups
 

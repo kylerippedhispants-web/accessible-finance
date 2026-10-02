@@ -7,14 +7,17 @@ Sender DNS, custom SMTP, Netlify public variables, and the configured preview
 build/public delivery also pass. The owner reported both signup confirmations;
 live authenticated repository tests and cleanup pass. Preview 15 also passes
 onboarding, save/reload, account separation, and JSON export/import checks.
-Recovery completion and production verification remain PENDING. Database results do not establish
-email delivery or end-to-end application readiness. See
+**Production is published at https://accessible-finance.com:** public delivery,
+homepage-to-planner navigation, confirmed-account sign-in, and loading an existing
+saved plan pass. The owner requested publication with recovery completion and
+explicit storage/log inspection still PENDING. Database results do not establish
+email delivery or completion of those remaining checks. See
 [SUPABASE_STATUS.json](SUPABASE_STATUS.json) for the recorded observations and
 migration hashes.
 
 Browser access and the existing account sign-ins are restored. The approved
-Resend connection and domain-restricted SMTP key are configured. The preview is
-ready for controlled testing. Both signup confirmations are owner-reported,
+Resend connection and domain-restricted SMTP key are configured. Both signup
+confirmations are owner-reported,
 and real Auth verified both identities. An onboarding ID mismatch was found:
 the page replaced the parent ID after creating its income/spending rows. The
 fix selects the existing identity before creating children; validation remains
@@ -85,7 +88,7 @@ actual confirmation or recovery delivery.
 Use the matching local origin and port; `127.0.0.1` and `localhost` are different
 origins. If the actual preview origin changes, replace its two exact
 entries before testing. Remove obsolete preview entries after testing. The
-production domain must serve the candidate before its final callback smoke test.
+production domain now serves the release; real-domain callback tests remain pending.
 [Supabase redirect guidance](https://supabase.com/docs/guides/auth/redirect-urls)
 
 ## 3. Configure free email delivery
@@ -189,7 +192,7 @@ new report is `.local-tools/supabase-setup/configured-preview-http.json`;
 the earlier redacted report is
 `.local-tools/supabase-setup/deployment-http-checks.json`.
 
-The current candidate is [PR #15](https://github.com/kylerippedhispants-web/accessible-finance/pull/15),
+The tested preview-15 candidate was [PR #15](https://github.com/kylerippedhispants-web/accessible-finance/pull/15),
 commit `8acac16b3aaf8fe1970b9103ea00e6cb39fca50a`, deployed successfully as
 `6abf18672a51ee0008e70ca1` at
 `https://deploy-preview-15--accessiblefinance.netlify.app`.
@@ -206,6 +209,25 @@ cleared the plan view. Neither session showed the other account's name. Account
 B downloaded JSON without Auth fields, reimported it as an unsaved draft, then
 explicitly saved it successfully. These are scoped browser proofs, not a full
 storage/log audit or a production test.
+
+On October 1, the owner explicitly requested merge and deployment without waiting
+for the remaining recovery/privacy checks. PR #15 head
+`efc95f83104ba7a34d0c685573cbbcd5e31cda4b` was merged as master
+`fd3ba75e87effab0a42043fb42ef73dc50ef1107`. Netlify shows deploy
+`6abf288d7965070008c23118` as Published at `https://accessible-finance.com`.
+[Production quality run 36961465028](https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36961465028)
+passed. At 11:46 p.m. Toronto, public checks verified the homepage and all three
+planner routes return 200, expected planner security headers, and all 19 scripts
+byte-identical to the verified preview, including its public configuration and
+onboarding fix. Evidence: `.local-tools/supabase-setup/production-pr15-http-verification.json`.
+
+The separate production browser check followed the homepage's Canada edition and
+Open FIRE planner link, signed in as confirmed account B, and loaded its existing
+fictional $80,000 income/$40,000 spending plan with the Cloud Plan Saved header.
+Sign-out restored the Welcome back screen and removed the plan and cloud header.
+The check made no cloud data writes. Evidence:
+`.local-tools/supabase-setup/production-browser-checks.json`. This verifies
+production sign-in and an existing plan read, not recovery or a new cloud save.
 
 | Check | Status | Evidence / remaining action |
 | --- | --- | --- |
@@ -236,24 +258,27 @@ storage/log audit or a production test.
 | Configured preview 14 public delivery | PASS | Three planner routes return 200 with planner HTML/security headers; referenced scripts match intended public Supabase configuration; deploy `6abf0657fbb1a09ea1ab46c3`; October 1, 9:23 p.m. Toronto |
 | Configured preview 15 source and public delivery | PASS | Deploy `6abf18672a51ee0008e70ca1`; exact commit above; seven intended blobs, 197 unrelated files preserved, three routes and 19 scripts verified |
 | Wider preview navigation/accessibility | PENDING | Homepage journey, Canadian/US navigation, keyboard use, and a real narrow-screen device remain distinct from the verified cloud flow and 24 automated Edge checks |
-| Current production planner availability | FAIL | `/planner/`, `/planner/dashboard`, and `/planner/reset-password` each return 404; October 1, 10:57 a.m. Toronto |
-| Production smoke test | PENDING | After release: real-domain signup/recovery callbacks, save/reload, routes, and security headers pass |
+| Earlier production planner availability | FAIL (historical) | All three planner routes returned 404 on October 1, 10:57 a.m. Toronto; superseded by the published release below |
+| Production release and quality | PASS | Master `fd3ba75e87effab0a42043fb42ef73dc50ef1107`; Netlify Published deploy `6abf288d7965070008c23118`; quality run 36961465028 succeeds; October 1 |
+| Production public delivery | PASS | Homepage and all three planner routes return 200; planner security headers and all 19 preview-equivalent scripts verified; October 1, 11:46 p.m. Toronto |
+| Production navigation, Auth, existing plan read, and sign-out | PASS | Actual homepage-to-planner path, confirmed B sign-in, existing fictional $80,000/$40,000 plan and Cloud Plan Saved header; sign-out clears the view; no cloud data writes |
+| Remaining production acceptance | PENDING | Real-domain signup/recovery callbacks and remaining session/save behavior; recovery completion and storage/log inspection remain unverified |
 
 [PR #14](https://github.com/kylerippedhispants-web/accessible-finance/pull/14)
 was merged as `ce61addb0bec1220e3c261e4467238e5811970ef`. The implementation
 passed 16 unit suites, 152 tests, and 24 browser checks. The updated branch
 `83fb812db65a284f0239391bb41eac9f2d040fb9` also passed
 [Planner quality run 36881349362](https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36881349362).
-Those earlier checks do not replace the later preview-15 proofs or pending
-recovery and production tests.
+Those earlier checks do not replace the later preview-15 and production proofs
+or the still-pending recovery/privacy checks.
 
-## 5. Release gate and follow-ups
+## 5. Release decision and follow-ups
 
-Before production, finish the real recovery/password-change flow, the remaining
-recovery-session guards, and the explicit storage/log privacy inspection. No
-production release or recovery PASS is established by the current evidence.
-After an authorized release, record real-domain callbacks, save/reload, routes,
-and security headers as a separate production smoke test.
+The owner requested publication while the real recovery/password-change flow,
+remaining recovery-session guards, and explicit storage/log privacy inspection
+were incomplete. Production publication and the scoped checks above pass;
+those unfinished checks remain PENDING follow-ups. Complete them and the remaining
+real-domain callback/session/save checks without treating deployment as proof.
 
 Keep wider device/navigation coverage, large/invalid browser-import cases,
 account/data deletion and backup procedures, and free-quota monitoring visible

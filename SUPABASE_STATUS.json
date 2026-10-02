@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "observedLocalDate": "2026-10-01",
   "timezone": "America/Toronto",
-  "status": "corrected_cloud_preview_and_authenticated_acceptance_passed_recovery_handoff_pending",
-  "observationSource": "Current Dashboard, authoritative DNS, public HTTP/build, real Auth/REST/RPC, and scoped CUA browser observations. Both signup confirmations are owner-reported and verified as confirmed identities by live Auth. Recovery completion, browser storage/offline checks, and production remain pending.",
+  "status": "production_published_smoke_checks_passed_recovery_and_privacy_followups_pending",
+  "observationSource": "Current Dashboard, authoritative DNS, public HTTP/build, real Auth/REST/RPC, and scoped CUA browser observations. Production is published and verified by public delivery plus actual confirmed-account sign-in and existing fictional plan load. Recovery completion and explicit live privacy/offline inspection remain pending.",
   "organization": {
     "name": "Accessible Finance",
     "id": "xwbugaccilzeirzhhprs",
@@ -281,13 +281,14 @@
       "interpretation": "Unconfigured Demo build; static inspection only, not a browser or cloud-flow test"
     },
     "authenticatedOrBrowserFlowsTested": false,
-    "observationNote": "Historical morning observation retained; the later configured preview is recorded separately in configuredPreviewVerification. Production has not been republished."
+    "observationNote": "Historical morning observation retained; later configured previews and the published production release are recorded separately. Morning production 404 results do not describe the current release."
   },
   "operationalBlocker": {
-    "status": "owner_recovery_email_and_new_password_handoff_pending",
+    "status": "post_release_recovery_owner_handoff_pending",
     "browserConnection": "available",
-    "impact": "Corrected preview saves both fictional onboarding plans, keeps account views separate, reloads saved inputs after sign-in, and restores a backup only after explicit save. Recovery request accepted; owner must open the newest email and enter/submit a new password.",
-    "unaffectedScope": "Database, anonymous boundary, actual authenticated repository acceptance/cleanup, dedicated SMTP, public preview15, CI, onboarding/save/reload/isolation, and ordinary cloud backup checks pass."
+    "blocksProductionDeployment": false,
+    "impact": "The owner explicitly requested release of the tested head. Production is published, the homepage opens the planner, and an existing confirmed test account loads its saved fictional plan. Recovery email and new-password completion still require the owner; no completion is claimed.",
+    "unaffectedScope": "Database, anonymous boundary, authenticated repository acceptance, scoped preview browser flows, SMTP setup, production public delivery/configuration, source quality checks, and production browser sign-in/plan load pass."
   },
   "remainingVerification": {
     "smtpAndSenderDns": "passed",
@@ -298,7 +299,7 @@
     "cloudSaveReloadAndBrowserIsolation": "passed_scoped_preview15_browser_and_live_api_tests",
     "cloudConflictOfflineAndBackupFlows": "rpc_stale_revision_and_browser_backup_passed_live_offline_and_storage_inspection_pending",
     "configuredPreview14": "public_build_and_http_passed_auth_and_browser_acceptance_pending",
-    "productionDeploymentAndSmokeTest": "pending_recovery_completion",
+    "productionDeploymentAndSmokeTest": "passed_published_production_routes_headers_fixed_bundle_homepage_navigation_and_confirmed_account_saved_plan_load",
     "configuredPreview15": "build_public_delivery_onboarding_save_reload_isolation_and_backup_passed_recovery_pending"
   },
   "releaseReady": false,
@@ -416,7 +417,7 @@
     "evidence": ".local-tools/cloud-acceptance-result.json"
   },
   "onboardingFix": {
-    "status": "pushed_corrected_preview_verified",
+    "status": "merged_and_published_to_production",
     "cause": "Parent plan ID replaced after starter income/spending rows were constructed; pre-save ownership validation rejected those children.",
     "change": "Select existing plan/profile identity and base year before constructing child records; ownership validation is unchanged.",
     "files": [
@@ -432,7 +433,7 @@
     "cloudRequiredBuild": "passed",
     "browserChecks": "24_passed_in_demo_plus_scoped_actual_cloud_checks",
     "pullRequest": "https://github.com/kylerippedhispants-web/accessible-finance/pull/15",
-    "pullRequestState": "draft_open",
+    "pullRequestState": "merged",
     "validatedSourceCommit": "8acac16b3aaf8fe1970b9103ea00e6cb39fca50a",
     "workflowRun": "https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36956324281",
     "workflowConclusion": "success",
@@ -440,7 +441,9 @@
       "exactChangedBlobs": 7,
       "unrelatedEntriesPreserved": 197,
       "evidence": ".local-tools/supabase-setup/pr15-public-verification.json"
-    }
+    },
+    "validatedHeadSha": "efc95f83104ba7a34d0c685573cbbcd5e31cda4b",
+    "mergeCommitSha": "fd3ba75e87effab0a42043fb42ef73dc50ef1107"
   },
   "configuredPreview15Verification": {
     "baseUrl": "https://deploy-preview-15--accessiblefinance.netlify.app",
@@ -465,11 +468,49 @@
       "recoveryInboxAndNewPassword": "PENDING",
       "usedExpiredOrOrdinarySessionRecoveryGuard": "PENDING",
       "liveOfflineAndBrowserStorageInspection": "PENDING",
-      "productionRelease": "PENDING"
+      "productionRelease": "PASS_scoped_production_smoke_checks"
     },
     "browserEvidence": ".local-tools/supabase-setup/preview15-browser-checks.json",
     "screenshot": ".local-tools/supabase-setup/preview15-fixed-cloud-dashboard-full.jpg",
     "fictionalBrowserPlansRetained": 2,
     "harnessCleanupScope": "Passed before these two separate browser fixtures were created; not an overall zero-plan claim."
+  },
+  "productionPublished": true,
+  "fullAcceptanceComplete": false,
+  "productionRelease": {
+    "clientDate": "2026-10-01",
+    "timezone": "America/Toronto",
+    "observedAtUtc": "2026-10-02T03:48:40.360Z",
+    "ownerAuthorization": "Explicit request to merge and push to production with previously disclosed recovery and privacy checks still pending.",
+    "pullRequest": "https://github.com/kylerippedhispants-web/accessible-finance/pull/15",
+    "mergeCommitSha": "fd3ba75e87effab0a42043fb42ef73dc50ef1107",
+    "deployId": "6abf288d7965070008c23118",
+    "deployUrl": "https://app.netlify.com/projects/accessiblefinance/deploys/6abf288d7965070008c23118",
+    "netlifyStatus": "Published deploy",
+    "baseUrl": "https://accessible-finance.com",
+    "plannerUrl": "https://accessible-finance.com/planner/",
+    "sourceQualityRun": "https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36961465028",
+    "sourceQualityConclusion": "success",
+    "publicRouteStatuses": {
+      "/": 200,
+      "/planner/": 200,
+      "/planner/dashboard": 200,
+      "/planner/reset-password": 200
+    },
+    "plannerSecurityHeaders": "PASS",
+    "fixedConfiguredScriptsMatchVerifiedPreview15": 19,
+    "homepagePlannerNavigation": "PASS",
+    "confirmedExistingTestAccountSignIn": "PASS",
+    "existingFictionalCloudPlanLoad": "PASS",
+    "productionCloudDataWrites": false,
+    "publicEvidence": ".local-tools/supabase-setup/production-pr15-http-verification.json",
+    "browserEvidence": ".local-tools/supabase-setup/production-browser-checks.json",
+    "screenshot": ".local-tools/supabase-setup/production-cloud-dashboard.jpg",
+    "remainingFollowups": [
+      "actual recovery completion",
+      "other recovery guard variants",
+      "explicit live cloud storage/privacy inspection"
+    ],
+    "acceptanceNote": "The published release does not claim completion of all previously documented live acceptance checks; releaseReady remains false for that full checklist."
   }
 }

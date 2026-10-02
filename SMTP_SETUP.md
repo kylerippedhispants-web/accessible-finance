@@ -7,6 +7,9 @@ confirmed. Real Supabase password sign-in and separate preview-15 browser
 sessions verified both confirmed identities. A recovery request for account A
 was accepted from preview 15; receipt, password change, and subsequent sign-in
 are still an owner handoff.
+Production was published on October 1 at the owner's request to proceed before
+the remaining recovery/privacy checks. Production sign-in and loading an existing
+saved plan pass; production recovery and mail callbacks remain unverified.
 The owner's Resend account is signed in. Authenticated Billing shows
 Transactional Free at **$0/month for 3,000 emails**, with no payment method.
 Resend marks `auth.accessible-finance.com` **Verified**. The exact three sender
@@ -100,7 +103,7 @@ These are Resend's documented
   The two callbacks for `https://deploy-preview-15--accessiblefinance.netlify.app`
   are saved, bringing the allowlist to ten URLs while preserving the prior eight.
   These match `AuthContext.tsx`. Test on an origin serving the configured app;
-  verify production callbacks again after release.
+  production is now published, and real-domain callback verification remains pending.
   [Supabase redirect configuration](https://supabase.com/docs/guides/auth/redirect-urls)
 
 ## 3. Prove confirmation and recovery work
@@ -136,10 +139,13 @@ does not prove delivery. Follow the real
   recovery session. If a fresh link is already consumed,
   investigate mailbox link scanning before retrying or changing templates.
 
-Keep public release pending until recovery and the remaining recovery-session
-checks pass, then complete the release checks in
-[SUPABASE_VERIFICATION.md](SUPABASE_VERIFICATION.md). Preview results do not
-establish production delivery or callbacks.
+The owner explicitly requested merge and production publication without waiting
+for recovery and the remaining recovery-session/privacy checks. Netlify deploy
+`6abf288d7965070008c23118` is Published at `https://accessible-finance.com`;
+its production merge commit is `fd3ba75e87effab0a42043fb42ef73dc50ef1107`.
+The unfinished checks above remain pending follow-ups. See
+[SUPABASE_VERIFICATION.md](SUPABASE_VERIFICATION.md) for the separate production
+delivery and sign-in/read proofs. They do not establish recovery or mail callbacks.
 
 ## 4. Delivery follow-ups
 
