@@ -203,12 +203,18 @@ export function createStarterPlan(input: {
   planningEndAge: number;
   annualEmploymentIncome: number;
   annualExpenses: number;
-}): FinancialPlan {
+}, initial?: Pick<FinancialPlan, 'id' | 'profile' | 'baseYear'>): FinancialPlan {
   const plan = createBlankPlan({
     firstName: input.firstName,
     provinceOrTerritory: input.provinceOrTerritory,
     dateOfBirth: input.dateOfBirth,
   });
+  // Choose the draft's identity before creating records that belong to it.
+  if (initial) {
+    plan.id = initial.id;
+    plan.profile.id = initial.profile.id;
+    plan.baseYear = initial.baseYear;
+  }
   plan.retirement.targetRetirementAge = input.targetRetirementAge;
   plan.retirement.planningEndAge = input.planningEndAge;
   plan.retirement.estimatedAnnualSpending = input.annualExpenses;

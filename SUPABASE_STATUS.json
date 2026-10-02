@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "observedLocalDate": "2026-10-01",
   "timezone": "America/Toronto",
-  "status": "database_and_anonymous_api_verified_authenticated_flows_pending",
-  "observationSource": "Supabase Dashboard observations reported by the coordinating agent, with SQL-result captures and current public API/build receipts listed below. Validation scopes are recorded separately.",
+  "status": "corrected_cloud_preview_and_authenticated_acceptance_passed_recovery_handoff_pending",
+  "observationSource": "Current Dashboard, authoritative DNS, public HTTP/build, real Auth/REST/RPC, and scoped CUA browser observations. Both signup confirmations are owner-reported and verified as confirmed identities by live Auth. Recovery completion, browser storage/offline checks, and production remain pending.",
   "organization": {
     "name": "Accessible Finance",
     "id": "xwbugaccilzeirzhhprs",
@@ -96,9 +96,11 @@
       "http://localhost:5173/planner/dashboard",
       "http://localhost:5173/planner/reset-password",
       "https://deploy-preview-14--accessiblefinance.netlify.app/planner/dashboard",
-      "https://deploy-preview-14--accessiblefinance.netlify.app/planner/reset-password"
+      "https://deploy-preview-14--accessiblefinance.netlify.app/planner/reset-password",
+      "https://deploy-preview-15--accessiblefinance.netlify.app/planner/dashboard",
+      "https://deploy-preview-15--accessiblefinance.netlify.app/planner/reset-password"
     ],
-    "actualCallbackFlowsStatus": "pending",
+    "actualCallbackFlowsStatus": "signup_owner_reported_confirmed_recovery_request_accepted_completion_pending",
     "passwordPolicy": {
       "status": "verified_persisted",
       "minimumLength": 8,
@@ -106,6 +108,13 @@
       "saveButtonDisabled": true,
       "verificationMethod": "Visual inspection of saved Auth email settings",
       "localEvidence": ".local-tools/supabase-setup/auth-email-security.jpg"
+    },
+    "confirmEmailRecheckedAfterSmtp": true,
+    "preview15Callbacks": {
+      "status": "saved",
+      "exactUrls": 2,
+      "totalSavedUrls": 10,
+      "evidence": ".local-tools/supabase-setup/preview15-auth-callbacks.jpg"
     }
   },
   "sourceValidation": {
@@ -170,14 +179,75 @@
     "authenticatedFlowsVerified": false
   },
   "smtpPreparation": {
-    "status": "guide_prepared_actual_setup_pending",
+    "status": "sender_and_confirmation_passed_recovery_request_accepted_owner_password_handoff_pending",
     "guide": "SMTP_SETUP.md",
-    "plannedProvider": "Resend",
+    "provider": "Resend",
     "requiredPlan": "Transactional Free",
-    "accountSetupVerified": false,
-    "senderDnsVerified": false,
-    "smtpConfigured": false,
-    "actualDeliveryVerified": false
+    "accountSetupVerified": true,
+    "subscriptionVerified": {
+      "monthlyPriceUsd": 0,
+      "monthlyEmails": 3000,
+      "paymentMethods": 0,
+      "paidOveragesEnabled": false,
+      "evidence": ".local-tools/supabase-setup/resend-free-billing.txt"
+    },
+    "sender": {
+      "domain": "auth.accessible-finance.com",
+      "region": "us-east-1",
+      "providerStatus": "Verified",
+      "receivingEnabled": false,
+      "trackingSubdomainCreated": false,
+      "dnsRecords": ".local-tools/supabase-setup/resend-dns-records.json",
+      "collisionPreflight": ".local-tools/supabase-setup/sender-dns-exact-collision-preflight.json",
+      "authoritativePublicationEvidence": ".local-tools/supabase-setup/sender-dns-publication-check-after-add.json",
+      "savedTtlSeconds": 3600,
+      "cnamesDnsOnly": true
+    },
+    "senderDnsVerified": true,
+    "smtpConfigured": true,
+    "actualDeliveryVerified": false,
+    "integration": {
+      "status": "owner_approved_org_access_and_dedicated_smtp_key_connected",
+      "requestedPermissions": [
+        "Auth READ + WRITE",
+        "Projects READ + WRITE"
+      ],
+      "organization": "Accessible Finance",
+      "accessGranted": true,
+      "evidence": ".local-tools/supabase-setup/resend-supabase-permissions.jpg",
+      "projectReference": "drjfjdgzqmvjmrqfeluz",
+      "key": {
+        "name": "Supabase Integration",
+        "permission": "Sending access",
+        "domain": "auth.accessible-finance.com",
+        "domainRestrictionVerified": true,
+        "transferredAutomatically": true,
+        "privateCredentialRecorded": false,
+        "evidence": ".local-tools/supabase-setup/resend-smtp-key-scope.json"
+      }
+    },
+    "savedConfiguration": {
+      "customSmtpEnabled": true,
+      "fromAddress": "no-reply@auth.accessible-finance.com",
+      "senderName": "Accessible Finance",
+      "host": "smtp.resend.com",
+      "port": 465,
+      "username": "resend",
+      "privateCredentialStoredBySupabase": true,
+      "saveButtonDisabledAtVerification": true,
+      "emailsPerHour": 25,
+      "perUserRetryIntervalSeconds": 1,
+      "intervalEditNote": "Attempted edit to 60 seconds did not persist and was cancelled; recorded value remains 1.",
+      "evidence": ".local-tools/supabase-setup/supabase-custom-smtp-saved.jpg",
+      "rateEvidence": ".local-tools/supabase-setup/supabase-auth-rate-limits.jpg"
+    },
+    "confirmationDelivery": {
+      "status": "passed_owner_report",
+      "testedInboxes": 2,
+      "observation": "Owner reported both signup emails confirmed; live Auth sign-in independently verified both confirmed identities.",
+      "timingPlacementAndHeadersRecorded": false,
+      "differentProvidersVerified": false
+    }
   },
   "publicHttpVerification": {
     "checkedAtUtc": "2026-10-01T14:57:46.9624989Z",
@@ -210,25 +280,196 @@
       "jwtShapedValueFound": false,
       "interpretation": "Unconfigured Demo build; static inspection only, not a browser or cloud-flow test"
     },
-    "authenticatedOrBrowserFlowsTested": false
+    "authenticatedOrBrowserFlowsTested": false,
+    "observationNote": "Historical morning observation retained; the later configured preview is recorded separately in configuredPreviewVerification. Production has not been republished."
   },
   "operationalBlocker": {
-    "status": "browser_connection_unavailable",
-    "observedBy": "coordinating agent",
-    "impact": "Further authenticated Dashboard configuration and browser checks cannot continue until browser access is restored",
-    "unaffectedScope": "Recorded database observations remain valid; public API and local build checks can continue independently"
+    "status": "owner_recovery_email_and_new_password_handoff_pending",
+    "browserConnection": "available",
+    "impact": "Corrected preview saves both fictional onboarding plans, keeps account views separate, reloads saved inputs after sign-in, and restores a backup only after explicit save. Recovery request accepted; owner must open the newest email and enter/submit a new password.",
+    "unaffectedScope": "Database, anonymous boundary, actual authenticated repository acceptance/cleanup, dedicated SMTP, public preview15, CI, onboarding/save/reload/isolation, and ordinary cloud backup checks pass."
   },
   "remainingVerification": {
-    "smtpAndSenderDns": "pending",
-    "controlledExternalUserSignupAndConfirmation": "pending",
-    "passwordRecoveryEmailAndPasswordChange": "pending",
-    "authenticatedAuthAndRestFlows": "pending",
-    "netlifyPublicBuildVariables": "pending",
-    "cloudSaveReloadAndBrowserIsolation": "pending",
-    "cloudConflictOfflineAndBackupFlows": "pending",
-    "configuredPreview14": "pending",
-    "productionDeploymentAndSmokeTest": "pending"
+    "smtpAndSenderDns": "passed",
+    "controlledExternalUserSignupAndConfirmation": "passed_owner_report_and_live_auth_confirmation",
+    "passwordRecoveryEmailAndPasswordChange": "request_accepted_owner_inbox_and_new_password_completion_pending",
+    "authenticatedAuthAndRestFlows": "passed_repository_harness",
+    "netlifyPublicBuildVariables": "passed",
+    "cloudSaveReloadAndBrowserIsolation": "passed_scoped_preview15_browser_and_live_api_tests",
+    "cloudConflictOfflineAndBackupFlows": "rpc_stale_revision_and_browser_backup_passed_live_offline_and_storage_inspection_pending",
+    "configuredPreview14": "public_build_and_http_passed_auth_and_browser_acceptance_pending",
+    "productionDeploymentAndSmokeTest": "pending_recovery_completion",
+    "configuredPreview15": "build_public_delivery_onboarding_save_reload_isolation_and_backup_passed_recovery_pending"
   },
   "releaseReady": false,
-  "secretsPolicy": "No emails, passwords, tokens, API keys, or SMTP credentials are recorded here. Frontend and Netlify build configuration may contain only the intended public Supabase project URL and publishable/anon client key."
+  "secretsPolicy": "No private test-inbox addresses, passwords, tokens, API keys, or SMTP credentials are recorded here. The public sender address and project reference are setup metadata. Frontend and Netlify configuration may contain only the intended public Supabase URL and public publishable/anon client key.",
+  "freeUsageReview": {
+    "status": "supabase_resend_and_netlify_free_plans_reviewed",
+    "supabase": {
+      "plan": "Free",
+      "quotaExceeded": false,
+      "databaseMbApprox": 26,
+      "databaseLimitMb": 500,
+      "monthlyActiveUsers": 0,
+      "overageBilling": false,
+      "evidence": ".local-tools/supabase-setup/supabase-free-usage.txt"
+    },
+    "netlify": {
+      "observedAtUtc": "2026-10-02T01:13:25.429Z",
+      "plan": "Free",
+      "monthlyPriceUsd": 0,
+      "monthlyCredits": 300,
+      "remainingCredits": 295.4,
+      "overageCharges": false,
+      "paymentMethodSaved": false,
+      "billingPeriod": "September 27–October 26, 2026",
+      "evidence": ".local-tools/supabase-setup/netlify-free-usage.json"
+    }
+  },
+  "netlifyPublicConfiguration": {
+    "status": "saved_and_configured_preview_build_passed",
+    "variables": [
+      "VITE_SUPABASE_URL",
+      "VITE_SUPABASE_ANON_KEY"
+    ],
+    "keyType": "existing_default_publishable",
+    "sameValueAllDeployContexts": true,
+    "scopes": "All; specific scopes require a paid plan",
+    "privilegedValuesUsed": false,
+    "productionCloudGateRequired": true,
+    "evidence": ".local-tools/supabase-setup/netlify-public-vars-saved.jpg"
+  },
+  "configuredPreviewVerification": {
+    "status": "build_and_public_http_passed_real_auth_and_browser_flows_pending",
+    "baseUrl": "https://deploy-preview-14--accessiblefinance.netlify.app",
+    "deployId": "6abf0657fbb1a09ea1ab46c3",
+    "context": "deploy-preview",
+    "commit": "83fb812db65a284f0239391bb41eac9f2d040fb9",
+    "buildStatus": "success",
+    "checkedAtUtc": "2026-10-02T01:23:38.721Z",
+    "plannerRouteStatuses": {
+      "/planner/": 200,
+      "/planner/dashboard": 200,
+      "/planner/reset-password": 200
+    },
+    "plannerHtmlAndExpectedSecurityHeadersPresent": true,
+    "intendedProjectAndExactPublicKeyFound": true,
+    "scannedPrivilegedCredentialPatternsDetected": false,
+    "bundleScanComplete": true,
+    "scope": "Unauthenticated public delivery and referenced same-origin script inspection; not real Auth, SMTP delivery, saved plans, or production acceptance.",
+    "evidence": ".local-tools/supabase-setup/configured-preview-http.json"
+  },
+  "authenticatedRepositoryVerification": {
+    "completedAtUtc": "2026-10-02T02:32:05.724Z",
+    "projectRef": "drjfjdgzqmvjmrqfeluz",
+    "status": "passed",
+    "checks": [
+      {
+        "name": "two confirmed existing accounts and in-memory sessions",
+        "status": "PASS"
+      },
+      {
+        "name": "fictional snapshots save and reload through actual app repository",
+        "status": "PASS"
+      },
+      {
+        "name": "bidirectional REST and RPC isolation across ten tables",
+        "status": "PASS"
+      },
+      {
+        "name": "anonymous REST and RPC access denied",
+        "status": "PASS"
+      },
+      {
+        "name": "33 malformed payloads reject without changing stored rows",
+        "status": "PASS"
+      },
+      {
+        "name": "late constraint failure rolls back profile and full snapshot",
+        "status": "PASS"
+      },
+      {
+        "name": "second-session stale save rejected and latest revision reloads",
+        "status": "PASS"
+      },
+      {
+        "name": "all 5000 differences restore through bounded application pagination",
+        "status": "PASS"
+      },
+      {
+        "name": "sign-out clears session and password sign-in reloads saved plan",
+        "status": "PASS"
+      }
+    ],
+    "cleanup": {
+      "status": "passed",
+      "errors": []
+    },
+    "observedRequests": 362,
+    "largeLoadPages": 5,
+    "sourceHashes": {
+      "planner-app/src/data/supabaseRepository.ts": "aa317855d21cd0923ca38d8a94c4fa68dd5d8ff3c24502eecb36575d994acb22",
+      "planner-app/src/data/demoPlan.ts": "d3533f7cf554773976a301dd90428bccc68ef29ab129d8f7f34baa17d1ab94dd",
+      "planner-app/src/validation/planSchemas.ts": "565ce69423420405ac29a9e95c14e613b2bf8a19dc847de6f0955fbfd99fc5ac"
+    },
+    "scope": "Real public-SDK Auth/REST/RPC and unchanged app repository with two owner-supplied confirmed clean test accounts. This does not test React UI, recovery email/password change, browser storage, or production.",
+    "evidence": ".local-tools/cloud-acceptance-result.json"
+  },
+  "onboardingFix": {
+    "status": "pushed_corrected_preview_verified",
+    "cause": "Parent plan ID replaced after starter income/spending rows were constructed; pre-save ownership validation rejected those children.",
+    "change": "Select existing plan/profile identity and base year before constructing child records; ownership validation is unchanged.",
+    "files": [
+      "planner-app/src/data/demoPlan.ts",
+      "planner-app/src/pages/OnboardingPage.tsx",
+      "tests/onboarding-plan.test.ts"
+    ],
+    "regressionTests": 8,
+    "fullUnitSuites": 17,
+    "fullUnitTests": 160,
+    "lint": "passed",
+    "typecheck": "passed",
+    "cloudRequiredBuild": "passed",
+    "browserChecks": "24_passed_in_demo_plus_scoped_actual_cloud_checks",
+    "pullRequest": "https://github.com/kylerippedhispants-web/accessible-finance/pull/15",
+    "pullRequestState": "draft_open",
+    "validatedSourceCommit": "8acac16b3aaf8fe1970b9103ea00e6cb39fca50a",
+    "workflowRun": "https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36956324281",
+    "workflowConclusion": "success",
+    "remoteTreePreservation": {
+      "exactChangedBlobs": 7,
+      "unrelatedEntriesPreserved": 197,
+      "evidence": ".local-tools/supabase-setup/pr15-public-verification.json"
+    }
+  },
+  "configuredPreview15Verification": {
+    "baseUrl": "https://deploy-preview-15--accessiblefinance.netlify.app",
+    "deployId": "6abf18672a51ee0008e70ca1",
+    "commit": "8acac16b3aaf8fe1970b9103ea00e6cb39fca50a",
+    "buildStatus": "success",
+    "publicDeliveryStatus": "passed",
+    "publicDeliveryEvidence": ".local-tools/supabase-setup/pr15-public-verification.json",
+    "browserChecks": {
+      "positiveOnboardingAccountA": "PASS",
+      "positiveOnboardingAccountB": "PASS",
+      "distinctBrowserAccountPlans": "PASS",
+      "refreshRequiresSignIn": "PASS",
+      "accountASavedInputsReloadAfterSignIn": "PASS",
+      "signOutRemovesAccountAView": "PASS",
+      "actualCloudBackupDownload": "PASS",
+      "exportAuthenticationFieldsAbsent": "PASS",
+      "importDraftUnsavedUntilExplicitSave": "PASS",
+      "explicitImportedDraftSave": "PASS",
+      "directSignedOutRecoveryGuard": "PASS",
+      "recoveryRequestAccepted": "PASS",
+      "recoveryInboxAndNewPassword": "PENDING",
+      "usedExpiredOrOrdinarySessionRecoveryGuard": "PENDING",
+      "liveOfflineAndBrowserStorageInspection": "PENDING",
+      "productionRelease": "PENDING"
+    },
+    "browserEvidence": ".local-tools/supabase-setup/preview15-browser-checks.json",
+    "screenshot": ".local-tools/supabase-setup/preview15-fixed-cloud-dashboard-full.jpg",
+    "fictionalBrowserPlansRetained": 2,
+    "harnessCleanupScope": "Passed before these two separate browser fixtures were created; not an overall zero-plan claim."
+  }
 }
