@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "observedLocalDate": "2026-10-01",
   "timezone": "America/Toronto",
-  "status": "authenticated_repository_passed_onboarding_fix_and_recovery_browser_tests_pending",
-  "observationSource": "Current Supabase, Resend, Cloudflare, and Netlify Dashboard observations, with scoped SQL, anonymous API, build, public HTTP, and authoritative DNS receipts. Authentication and inbox acceptance remain pending.",
+  "status": "corrected_cloud_preview_and_authenticated_acceptance_passed_recovery_handoff_pending",
+  "observationSource": "Current Dashboard, authoritative DNS, public HTTP/build, real Auth/REST/RPC, and scoped CUA browser observations. Both signup confirmations are owner-reported and verified as confirmed identities by live Auth. Recovery completion, browser storage/offline checks, and production remain pending.",
   "organization": {
     "name": "Accessible Finance",
     "id": "xwbugaccilzeirzhhprs",
@@ -96,9 +96,11 @@
       "http://localhost:5173/planner/dashboard",
       "http://localhost:5173/planner/reset-password",
       "https://deploy-preview-14--accessiblefinance.netlify.app/planner/dashboard",
-      "https://deploy-preview-14--accessiblefinance.netlify.app/planner/reset-password"
+      "https://deploy-preview-14--accessiblefinance.netlify.app/planner/reset-password",
+      "https://deploy-preview-15--accessiblefinance.netlify.app/planner/dashboard",
+      "https://deploy-preview-15--accessiblefinance.netlify.app/planner/reset-password"
     ],
-    "actualCallbackFlowsStatus": "pending",
+    "actualCallbackFlowsStatus": "signup_owner_reported_confirmed_recovery_request_accepted_completion_pending",
     "passwordPolicy": {
       "status": "verified_persisted",
       "minimumLength": 8,
@@ -107,7 +109,13 @@
       "verificationMethod": "Visual inspection of saved Auth email settings",
       "localEvidence": ".local-tools/supabase-setup/auth-email-security.jpg"
     },
-    "confirmEmailRecheckedAfterSmtp": true
+    "confirmEmailRecheckedAfterSmtp": true,
+    "preview15Callbacks": {
+      "status": "saved",
+      "exactUrls": 2,
+      "totalSavedUrls": 10,
+      "evidence": ".local-tools/supabase-setup/preview15-auth-callbacks.jpg"
+    }
   },
   "sourceValidation": {
     "pullRequest": "https://github.com/kylerippedhispants-web/accessible-finance/pull/14",
@@ -171,7 +179,7 @@
     "authenticatedFlowsVerified": false
   },
   "smtpPreparation": {
-    "status": "free_sender_verified_custom_smtp_saved_delivery_pending",
+    "status": "sender_and_confirmation_passed_recovery_request_accepted_owner_password_handoff_pending",
     "guide": "SMTP_SETUP.md",
     "provider": "Resend",
     "requiredPlan": "Transactional Free",
@@ -276,21 +284,22 @@
     "observationNote": "Historical morning observation retained; the later configured preview is recorded separately in configuredPreviewVerification. Production has not been republished."
   },
   "operationalBlocker": {
-    "status": "onboarding_fix_preview_and_recovery_handoff_pending",
+    "status": "owner_recovery_email_and_new_password_handoff_pending",
     "browserConnection": "available",
-    "impact": "Live authenticated repository acceptance and fixture cleanup pass. The onboarding fix needs a deployed browser check; owner must enter/submit any new recovery password.",
-    "unaffectedScope": "Verified sender/SMTP, two confirmed identities, database checks, anonymous API, authenticated repository acceptance, public preview14 delivery, and local source checks."
+    "impact": "Corrected preview saves both fictional onboarding plans, keeps account views separate, reloads saved inputs after sign-in, and restores a backup only after explicit save. Recovery request accepted; owner must open the newest email and enter/submit a new password.",
+    "unaffectedScope": "Database, anonymous boundary, actual authenticated repository acceptance/cleanup, dedicated SMTP, public preview15, CI, onboarding/save/reload/isolation, and ordinary cloud backup checks pass."
   },
   "remainingVerification": {
     "smtpAndSenderDns": "passed",
     "controlledExternalUserSignupAndConfirmation": "passed_owner_report_and_live_auth_confirmation",
-    "passwordRecoveryEmailAndPasswordChange": "pending",
+    "passwordRecoveryEmailAndPasswordChange": "request_accepted_owner_inbox_and_new_password_completion_pending",
     "authenticatedAuthAndRestFlows": "passed_repository_harness",
     "netlifyPublicBuildVariables": "passed",
-    "cloudSaveReloadAndBrowserIsolation": "pending",
-    "cloudConflictOfflineAndBackupFlows": "rpc_stale_revision_passed_browser_offline_and_backup_pending",
+    "cloudSaveReloadAndBrowserIsolation": "passed_scoped_preview15_browser_and_live_api_tests",
+    "cloudConflictOfflineAndBackupFlows": "rpc_stale_revision_and_browser_backup_passed_live_offline_and_storage_inspection_pending",
     "configuredPreview14": "public_build_and_http_passed_auth_and_browser_acceptance_pending",
-    "productionDeploymentAndSmokeTest": "pending"
+    "productionDeploymentAndSmokeTest": "pending_recovery_completion",
+    "configuredPreview15": "build_public_delivery_onboarding_save_reload_isolation_and_backup_passed_recovery_pending"
   },
   "releaseReady": false,
   "secretsPolicy": "No private test-inbox addresses, passwords, tokens, API keys, or SMTP credentials are recorded here. The public sender address and project reference are setup metadata. Frontend and Netlify configuration may contain only the intended public Supabase URL and public publishable/anon client key.",
@@ -407,7 +416,7 @@
     "evidence": ".local-tools/cloud-acceptance-result.json"
   },
   "onboardingFix": {
-    "status": "local_source_verified_deployed_browser_test_pending",
+    "status": "pushed_corrected_preview_verified",
     "cause": "Parent plan ID replaced after starter income/spending rows were constructed; pre-save ownership validation rejected those children.",
     "change": "Select existing plan/profile identity and base year before constructing child records; ownership validation is unchanged.",
     "files": [
@@ -421,6 +430,46 @@
     "lint": "passed",
     "typecheck": "passed",
     "cloudRequiredBuild": "passed",
-    "browserChecks": "pending"
+    "browserChecks": "24_passed_in_demo_plus_scoped_actual_cloud_checks",
+    "pullRequest": "https://github.com/kylerippedhispants-web/accessible-finance/pull/15",
+    "pullRequestState": "draft_open",
+    "validatedSourceCommit": "8acac16b3aaf8fe1970b9103ea00e6cb39fca50a",
+    "workflowRun": "https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36956324281",
+    "workflowConclusion": "success",
+    "remoteTreePreservation": {
+      "exactChangedBlobs": 7,
+      "unrelatedEntriesPreserved": 197,
+      "evidence": ".local-tools/supabase-setup/pr15-public-verification.json"
+    }
+  },
+  "configuredPreview15Verification": {
+    "baseUrl": "https://deploy-preview-15--accessiblefinance.netlify.app",
+    "deployId": "6abf18672a51ee0008e70ca1",
+    "commit": "8acac16b3aaf8fe1970b9103ea00e6cb39fca50a",
+    "buildStatus": "success",
+    "publicDeliveryStatus": "passed",
+    "publicDeliveryEvidence": ".local-tools/supabase-setup/pr15-public-verification.json",
+    "browserChecks": {
+      "positiveOnboardingAccountA": "PASS",
+      "positiveOnboardingAccountB": "PASS",
+      "distinctBrowserAccountPlans": "PASS",
+      "refreshRequiresSignIn": "PASS",
+      "accountASavedInputsReloadAfterSignIn": "PASS",
+      "signOutRemovesAccountAView": "PASS",
+      "actualCloudBackupDownload": "PASS",
+      "exportAuthenticationFieldsAbsent": "PASS",
+      "importDraftUnsavedUntilExplicitSave": "PASS",
+      "explicitImportedDraftSave": "PASS",
+      "directSignedOutRecoveryGuard": "PASS",
+      "recoveryRequestAccepted": "PASS",
+      "recoveryInboxAndNewPassword": "PENDING",
+      "usedExpiredOrOrdinarySessionRecoveryGuard": "PENDING",
+      "liveOfflineAndBrowserStorageInspection": "PENDING",
+      "productionRelease": "PENDING"
+    },
+    "browserEvidence": ".local-tools/supabase-setup/preview15-browser-checks.json",
+    "screenshot": ".local-tools/supabase-setup/preview15-fixed-cloud-dashboard-full.jpg",
+    "fictionalBrowserPlansRetained": 2,
+    "harnessCleanupScope": "Passed before these two separate browser fixtures were created; not an overall zero-plan claim."
   }
 }

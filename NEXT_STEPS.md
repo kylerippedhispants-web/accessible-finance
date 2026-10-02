@@ -8,9 +8,10 @@ Browser access is restored and the existing accounts are signed in. Resend's
 auth sender domain is verified and the approved automatic SMTP connection is
 saved in Supabase. The configured Netlify preview passes public HTTP and bundle
 checks. The owner confirmed two test inboxes, and live authenticated repository
-checks pass, including cleanup. An onboarding identity bug found during testing
-is fixed locally. Its deployed browser check, recovery, and production release
-remain pending; new password entry is an owner handoff.
+checks pass, including cleanup. Preview 15 now passes positive-income onboarding,
+saved-plan reload, separate-account views, and actual JSON export/import. Recovery
+completion and production release remain pending; new password entry is an owner
+handoff. Two fictional browser-created plans remain after the earlier harness cleanup.
 
 ## Completed locally
 
@@ -26,9 +27,10 @@ remain pending; new password entry is an owner handoff.
 - [x] Fix onboarding's plan ID mismatch before creating income/spending rows.
   Eight new regressions pass, including actual form submission and failed-save
   retry; all 160 tests in 17 suites, TypeScript, lint, and cloud-required build
-  pass. Ownership validation is unchanged.
+  pass. Ownership validation is unchanged. The source also passes 24 Edge
+  browser checks; actual preview-15 cloud proofs are recorded separately below.
 
-## Before public launch
+## Completed cloud and preview checks
 
 - [x] Merge [PR #13](https://github.com/kylerippedhispants-web/accessible-finance/pull/13).
   The merged commit `7efd2df6446a94266f1ec23937c28b3deceb2bc8` passed GitHub's
@@ -45,17 +47,20 @@ remain pending; new password entry is an owner handoff.
   `ce61addb0bec1220e3c261e4467238e5811970ef`.
   The updated branch `83fb812db65a284f0239391bb41eac9f2d040fb9` passed
   [Planner quality run 36881349362](https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36881349362).
-  Production deployment and authenticated acceptance remain pending.
+  Those source checks preceded the authenticated results below. Production
+  deployment remains pending.
 - [x] Create the Accessible Finance Free organization and healthy Supabase
   project `accessible-finance-planner` (`drjfjdgzqmvjmrqfeluz`). Its region is West US (Oregon),
   `us-west-2`, not Canada. Keep the database password private.
 - [x] Apply all three complete migrations through the Dashboard SQL Editor.
   Run the rollback-only database helper: all nine checks passed, with zero
-  remaining Auth users, profiles, and plans; 10 RLS tables and 40 policies.
+  Auth users, profiles, and plans immediately after that run; 10 RLS tables and
+  40 policies. This historical cleanup does not count later browser-created plans.
   See [SUPABASE_STATUS.json](SUPABASE_STATUS.json) for hashes and evidence.
   Dashboard execution did not manage CLI history; reconcile before `db push`.
-- [x] Save the production planner Site URL and eight exact callbacks for
-  production, `127.0.0.1:4174`, `localhost:5173`, and Netlify preview 14.
+- [x] Save the production planner Site URL and ten exact callbacks for
+  production, `127.0.0.1:4174`, `localhost:5173`, and Netlify previews 14 and 15.
+  Preview 15's dashboard/reset-password entries preserve the prior eight URLs.
   Email and confirmation are enabled; anonymous sign-in/manual linking are off.
 - [x] Visually confirm the persisted eight-character minimum and enabled secure
   password change; Save is disabled in the verified settings.
@@ -66,16 +71,13 @@ remain pending; new password entry is an owner handoff.
 - [x] Verify real Auth/REST/RPC isolation with the two confirmed controlled test
   accounts. Both directions across all ten tables pass; foreign ownership and
   attachments are rejected. Fixtures were removed and original profile fields
-  restored. React/browser isolation remains a separate check.
-- [ ] Complete [SUPABASE_VERIFICATION.md](SUPABASE_VERIFICATION.md), recording
-  actual database, account, email, and application results separately from Demo
-  Mode results. Database and authenticated repository checks pass; recovery and
-  deployed application checks remain pending.
+  restored before the subsequent browser tests. The two fictional browser plans
+  remain; do not rerun the clean-account harness against these populated accounts.
 - [x] Configure the project URL and existing public publishable key in ignored
   `.env.local`. Actual anonymous API checks deny access to all 10 tables and the
   save RPC. Public Auth settings confirm email confirmation is enabled. The
-  local production build passes with `PLANNER_REQUIRE_CLOUD=true`. Authenticated
-  account and browser checks remain pending. Evidence:
+  local production build passes with `PLANNER_REQUIRE_CLOUD=true`. Later
+  authenticated repository and preview-15 browser results are separate evidence:
   `.local-tools/supabase-setup/public-cloud-validation.json`.
 - [x] Configure the two public Supabase values in Netlify, using the existing
   public publishable key. Values apply to all deploy contexts; Free requires
@@ -86,17 +88,6 @@ remain pending; new password entry is an owner handoff.
   remains enabled; the actual email limit is 25/hour.
 - [x] Receive signup confirmations for two controlled inboxes (owner-reported);
   real password sign-in confirms both accounts through Supabase Auth.
-- [ ] Test password recovery using controlled accounts and saved callback URLs.
-  [SMTP_SETUP.md](SMTP_SETUP.md) records the verified sender and SMTP connection.
-  Recovery inbox receipt and password-change actions remain pending.
-- [ ] Test cloud load/save, stale-revision conflicts, sign-out, and signing in
-  again after refresh. Check that auth tokens and cloud financial records are
-  absent from localStorage/sessionStorage and that logs contain no plan data.
-- [ ] Test JSON backup and restore in cloud mode, including a large plan and an
-  invalid file. Review imported values before explicitly saving them.
-- [ ] Define and verify account/data deletion and backup/recovery procedures.
-  Review privacy, storage, and educational modelling disclosures against the
-  behaviour of the configured service.
 - [x] Review Netlify's Free plan, public variables, redirects, and planner
   headers. Rebuild preview 14 as deploy `6abf0657fbb1a09ea1ab46c3`, commit
   `83fb812db65a284f0239391bb41eac9f2d040fb9`. Public configuration validation and
@@ -108,15 +99,56 @@ remain pending; new password entry is an owner handoff.
   200 with correct planner HTML and expected security headers. Inspected bundles
   lack the intended Supabase project URL/reference and public key, so the preview
   was an unconfigured Demo build at that earlier check. The later configured
-  preview above supersedes that configuration result, while cloud/browser
-  acceptance remains pending.
+  preview above supersedes that historical configuration result. Later
+  preview-15 browser evidence is recorded below.
   Evidence: `.local-tools/supabase-setup/deployment-http-checks.json`.
-- [ ] Check the deployed homepage-to-planner journey, nested planner routes,
-  Canadian/US navigation, keyboard access, and a real narrow-screen device.
-  Record cloud and deployment results separately from the local baseline.
+- [x] Build [PR #15](https://github.com/kylerippedhispants-web/accessible-finance/pull/15)
+  commit `8acac16b3aaf8fe1970b9103ea00e6cb39fca50a` as successful preview-15 deploy
+  `6abf18672a51ee0008e70ca1`.
+  [Planner quality run 36956324281](https://github.com/kylerippedhispants-web/accessible-finance/actions/runs/36956324281)
+  passes. `.local-tools/supabase-setup/pr15-public-verification.json` verifies seven intended
+  file blobs, 197 unrelated files preserved, all three planner routes, and 19
+  scripts with the intended public configuration and fixed onboarding module.
+- [x] Complete actual preview-15 onboarding in separate confirmed A/B sessions.
+  Fictional annual income/spending of $60,000/$30,000 for A and $80,000/$40,000
+  for B reached Saved dashboards without the ownership error. Neither session
+  showed the other account's name; REST/RPC isolation is proved separately.
+- [x] Refresh A's preview-15 session, require sign-in, then reload its saved
+  $60,000/$30,000 inputs. Sign-out clears the plan view.
+- [x] Download B's real JSON backup with no Auth fields. Reimporting creates only
+  an unsaved draft; explicitly choosing Save then reaches Saved status.
+- [x] Check the signed-out preview-15 reset route: a current reset link is
+  required and no password-entry form is available without a recovery session.
 
-## After the launch baseline
+## Remaining before production
 
+- [ ] Complete recovery for account A. Its request was accepted from preview 15;
+  the owner must receive/use the email, enter a new password privately, then
+  verify the new password works and the old one fails. Request acceptance is
+  not proof of receipt or password change. See [SMTP_SETUP.md](SMTP_SETUP.md).
+- [ ] Verify an ordinary signed-in session and used/expired reset links cannot
+  authorize password changes. The signed-out direct-visit guard already passes.
+- [ ] Inspect browser localStorage/sessionStorage for cloud tokens/records and
+  logs for plan data. Refresh/sign-out behavior and Auth-free export pass, but
+  do not substitute for this explicit privacy inspection.
+- [ ] Finish the release gate in [SUPABASE_VERIFICATION.md](SUPABASE_VERIFICATION.md),
+  then publish only through the authorized release workflow. Production remains
+  pending. After release, verify real-domain recovery/callbacks, saved-plan reload,
+  planner routes, homepage navigation, and security headers separately.
+
+## Subsequent coverage and operational follow-ups
+
+- [ ] Exercise browser offline-save failure and competing edits without losing
+  the draft. The live repository stale-revision check already passes.
+- [ ] Cover large and invalid JSON files in the deployed browser. Normal cloud
+  download/import/explicit save passes; local transfer and large repository
+  pagination tests are separate evidence.
+- [ ] Check Canadian/US navigation, keyboard access, and a real narrow-screen
+  device beyond the 24 automated Edge checks. Keep deployment results distinct
+  from the local baseline.
+- [ ] Define and verify account/data deletion and backup/recovery procedures.
+  Review privacy, storage, and educational modelling disclosures against the
+  configured service; no deletion/recovery procedure is claimed verified here.
 - [ ] Monitor free-plan usage, service pauses, email delivery, and backup recovery.
 - [ ] Add a clear merge/reload workflow for competing saves and versioned schema
   compatibility tests before introducing another client.

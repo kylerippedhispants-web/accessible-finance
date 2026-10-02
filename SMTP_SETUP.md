@@ -3,7 +3,10 @@
 Prepared October 1, 2026 for Supabase project `drjfjdgzqmvjmrqfeluz`.
 **Sender verification, SMTP configuration, and signup confirmation PASS;
 password recovery remains PENDING.** The owner reported both test inboxes
-confirmed. Real Supabase password sign-in verified both confirmed identities.
+confirmed. Real Supabase password sign-in and separate preview-15 browser
+sessions verified both confirmed identities. A recovery request for account A
+was accepted from preview 15; receipt, password change, and subsequent sign-in
+are still an owner handoff.
 The owner's Resend account is signed in. Authenticated Billing shows
 Transactional Free at **$0/month for 3,000 emails**, with no payment method.
 Resend marks `auth.accessible-finance.com` **Verified**. The exact three sender
@@ -94,6 +97,8 @@ These are Resend's documented
 - [x] Confirm Site URL is `https://accessible-finance.com/planner/`. Allow the
   exact `/planner/dashboard` and `/planner/reset-password` URLs on each actual
   local or preview origin used for testing, and on the production origin.
+  The two callbacks for `https://deploy-preview-15--accessiblefinance.netlify.app`
+  are saved, bringing the allowlist to ten URLs while preserving the prior eight.
   These match `AuthContext.tsx`. Test on an origin serving the configured app;
   verify production callbacks again after release.
   [Supabase redirect configuration](https://supabase.com/docs/guides/auth/redirect-urls)
@@ -104,33 +109,42 @@ Use two owner-controlled test addresses outside the Supabase organization team,
 preferably with different mailbox providers. Gmail plus aliases can serve as
 separate planner identities in one controlled inbox; they do not test delivery
 to different providers. [Google's address-variation guidance](https://support.google.com/a/users/answer/9282734?hl=en)
-Use fictional planner inputs. Stop at onboarding until the authenticated
-acceptance harness and its cleanup pass; onboarding submission saves a plan
-and would violate the harness's clean-account precondition.
+Use fictional planner inputs. The authenticated acceptance harness and its
+cleanup passed before the browser tests. Both accounts now have fictional
+browser-created plans; they no longer meet the harness's clean-account
+precondition. For any future harness run, use separately prepared clean test
+accounts and stop at onboarding until that run and its cleanup pass.
 An SMTP/API success response, generated link, or admin-created account alone
 does not prove delivery. Follow the real
 [password authentication flow](https://supabase.com/docs/guides/auth/passwords).
 
-- [x] **Confirmation:** submit normal signup from the configured app. Receive
-  the message, check its sender and inbox placement, then use its link. Require
-  the intended origin and planner onboarding/dashboard, followed by successful
-  password sign-in. Both confirmations are owner-reported, and live Auth
-  sign-in verified both identities. Arrival delay, spam placement, mail headers,
-  and delivery to different providers were not recorded.
-- [ ] **Recovery:** request a reset for a confirmed test account from the app.
-  Receive the message and reach `/planner/reset-password`. Set a new password;
-  after sign-out, require the new password to work and the old one to fail.
+- [x] **Confirmation:** both signup confirmations are owner-reported; live Auth
+  and separate preview-15 browser sign-ins verified the two identities. Both
+  accounts completed onboarding and reached their own saved-plan dashboard.
+  Arrival delay, spam placement, mail headers, and delivery to different
+  providers were not recorded.
+- [ ] **Recovery:** the reset request for confirmed account A was accepted from
+  `https://deploy-preview-15--accessiblefinance.netlify.app`. The owner must
+  receive the message, follow its link to `/planner/reset-password`, and set a
+  new password privately. After sign-out, require the new password to work and
+  the old one to fail. Request acceptance alone is not a recovery PASS.
+- [x] **Signed-out direct visit:** preview 15 requires a current reset link and
+  shows no password-entry form at `/planner/reset-password` without a recovery
+  session. The earlier local direct-visit result is separate evidence.
 - [ ] **Invalid links:** in a fresh signed-out browser, a used or expired link
-  must fail safely. Directly opening the reset page must not permit a password
-  change without a valid recovery session. If a fresh link is already consumed,
+  must fail safely; an ordinary signed-in session must not substitute for a
+  recovery session. If a fresh link is already consumed,
   investigate mailbox link scanning before retrying or changing templates.
-- [ ] **Delivery evidence:** require actual receipt and completed account actions
-  in both inboxes. Review delivery/bounce status and SPF/DKIM/DMARC results.
+
+Keep public release pending until recovery and the remaining recovery-session
+checks pass, then complete the release checks in
+[SUPABASE_VERIFICATION.md](SUPABASE_VERIFICATION.md). Preview results do not
+establish production delivery or callbacks.
+
+## 4. Delivery follow-ups
+
+- [ ] Review delivery/bounce status, inbox placement, and SPF/DKIM/DMARC results.
   Record date, tested origin, inbox label A/B, PASS/FAIL, arrival delay, and spam
   placement. Never record passwords, tokens, confirmation URLs, or message bodies.
-
-Keep public account signup/recovery release pending until these tests pass:
-users must be able to confirm ownership and recover access. Then finish the
-remaining application and deployment checks in
-[SUPABASE_VERIFICATION.md](SUPABASE_VERIFICATION.md). Free-tier email quota must
-continue to cover both confirmation and recovery traffic.
+- [ ] Check another mailbox provider if both test identities use one provider.
+- [ ] Monitor free-tier quota for both confirmation and recovery traffic.
