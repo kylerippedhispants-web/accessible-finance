@@ -3,16 +3,24 @@
 Updated October 1, 2026 (America/Toronto). **The Free project is healthy, all
 three migrations are applied, and the nine transactional database checks pass.**
 Anonymous Data API denial and a local build with the production cloud gate also pass.
-SMTP, real account and browser flows, Netlify public build variables, configured preview,
-and production verification remain PENDING. Database results do not establish
+Sender DNS, custom SMTP, Netlify public variables, and the configured preview
+build/public delivery also pass. The owner reported both signup confirmations;
+live authenticated repository tests and cleanup now pass. Recovery, deployed
+browser flows, and production verification remain PENDING. Database results do not establish
 email delivery or end-to-end application readiness. See
 [SUPABASE_STATUS.json](SUPABASE_STATUS.json) for the recorded observations and
 migration hashes.
 
-The browser connection is currently unavailable, preventing further Dashboard
-setup and authenticated browser checks. This is an operational blocker; it does
-not invalidate the recorded database results. Public HTTP/API and local build
-checks can be recorded separately as they finish.
+Browser access and the existing account sign-ins are restored. The approved
+Resend connection and domain-restricted SMTP key are configured. The preview is
+ready for controlled testing. Both signup confirmations are owner-reported,
+and real Auth verified both identities. An onboarding ID mismatch was found:
+the page replaced the parent ID after creating its income/spending rows. The
+fix selects the existing identity before creating children; validation remains
+unchanged. Eight regressions, all 160 unit tests, lint, TypeScript, and a
+cloud-required build pass. Deployed browser verification remains pending.
+Recorded database, public HTTP/API, and local build results remain separate
+from the unfinished email and authenticated application checks.
 
 Organization: Accessible Finance (`xwbugaccilzeirzhhprs`). Project:
 `accessible-finance-planner` (`drjfjdgzqmvjmrqfeluz`). The owner created it in
@@ -25,7 +33,8 @@ and existing Netlify site on their free plans; do not enable paid add-ons.
 ## 1. Project setup and remaining configuration
 
 1. The account, organization, and Free project above are created. Keep the
-   database password private and review current free-plan usage before release.
+   database password private. Current Free usage was reviewed: no quota exceeded,
+   database about 26 MB of 500 MB, zero monthly active users, and no overage billing.
    Custom SMTP is included; leaked-password protection,
    configurable session timeouts, and single-session enforcement are not.
    Free projects can pause after one week of inactivity. [Free-plan details](https://supabase.com/pricing)
@@ -44,8 +53,10 @@ and existing Netlify site on their free plans; do not enable paid add-ons.
    configured in ignored `.env.local`. The actual anonymous API checks and local
    production build with `PLANNER_REQUIRE_CLOUD=true` pass. Authenticated account
    and browser checks remain pending.
-   Netlify configuration remains pending. Configure only `VITE_SUPABASE_URL`
-   and `VITE_SUPABASE_ANON_KEY` in the intended Netlify build contexts. The second variable
+   Netlify now has `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, using the
+   same intended public configuration in all deploy contexts. Free requires
+   all scopes. Preview deploy `6abf0657fbb1a09ea1ab46c3` passes build and public
+   HTTP/bundle checks. The second variable
    accepts the public `sb_publishable_` browser key (preferred) or legacy `anon`
    key. **No secret/service-role key, database password, management token, or
    SMTP credential belongs in frontend code, Netlify environment variables,
@@ -75,8 +86,13 @@ production domain must serve the candidate before its final callback smoke test.
 
 ## 3. Configure free email delivery
 
-The [Resend Free setup checklist](SMTP_SETUP.md) is prepared. Actual SMTP
-configuration, sender-domain access, account setup, and delivery remain PENDING.
+The [Resend Free setup checklist](SMTP_SETUP.md) records the signed-in account,
+verified $0 subscription with no payment method and verified
+`auth.accessible-finance.com` sender. Exact DNS matches were checked on both
+authoritative Cloudflare servers. The approved automatic connector configured
+Supabase SMTP with a Sending-access key restricted to that domain. Saved sender
+is `no-reply@auth.accessible-finance.com`, name Accessible Finance, host
+`smtp.resend.com`, port 465, username `resend`. Actual inbox delivery remains PENDING.
 
 The default Supabase sender only delivers to organization-team addresses and
 allows two messages per hour. It cannot validate public signup. Choose a free
@@ -90,11 +106,13 @@ Verify a sender on the existing domain or a dedicated auth subdomain using the
 provider's DNS records (SPF/DKIM and the appropriate DMARC policy). Preserve
 existing website and mail records. The domain's authoritative nameservers were
 verified as Cloudflare on September 30; sender records belong in that Cloudflare
-zone, and account access remains unverified. For Resend, the documented Supabase settings
+zone; account access and the sender records are now verified. For Resend, the documented Supabase settings
 are `smtp.resend.com`, port `465`, username `resend`, and an API key as the SMTP
 password. Disable link tracking so auth links are not rewritten. Keep auth
-messages separate from newsletters. Supabase's initial custom-SMTP limit is
-30 messages/hour; provider limits apply as well.
+messages separate from newsletters. Supabase's documented initial custom-SMTP
+limit is 30 messages/hour; this project's actual saved email limit is **25/hour**
+and its integration's per-user retry interval is 1 second. Provider daily and
+monthly limits apply as well. Confirm Email remains enabled after setup.
 [Resend integration](https://resend.com/docs/send-with-supabase-smtp),
 [Supabase email guidance](https://supabase.com/docs/guides/auth/auth-smtp)
 
@@ -148,8 +166,15 @@ homepage available, but `/planner/`, `/planner/dashboard`, and
 `/planner/reset-password` all returned 404. Those three preview-14 routes
 returned 200 with the planner HTML and expected security headers. Its inspected
 bundles lacked the intended Supabase project URL/reference and public key,
-indicating an unconfigured Demo build. This verifies static delivery only, not
-browser behavior or cloud operations. The redacted report is
+indicating an unconfigured Demo build at that earlier check. The configured
+preview was rebuilt successfully later on October 1 as deploy
+`6abf0657fbb1a09ea1ab46c3`, commit `83fb812db65a284f0239391bb41eac9f2d040fb9`.
+Its three planner routes return 200 with the expected security headers, and
+the inspected scripts contain the intended project and exact public key.
+No scanned privileged credential patterns were detected. These observations
+verify public delivery, not browser authentication or cloud operations. The
+new report is `.local-tools/supabase-setup/configured-preview-http.json`;
+the earlier redacted report is
 `.local-tools/supabase-setup/deployment-http-checks.json`.
 
 | Check | Status | Evidence / remaining action |
@@ -162,17 +187,20 @@ browser behavior or cloud operations. The redacted report is
 | Local public configuration | PASS | Project URL and existing public publishable key saved to ignored `.env.local`; October 1 |
 | Anonymous public API boundary | PASS | All 10 tables and `save_planner_snapshot` denied with HTTP 401 / `42501`; public Auth settings return 200 with email confirmation enabled; no users, emails, or data created |
 | Cloud-required local build | PASS | `.env.local` active, `PLANNER_REQUIRE_CLOUD=true`, validated public configuration, build exit 0; `.local-tools/supabase-setup/public-cloud-validation.json` |
-| Netlify public build configuration | PENDING | Set and verify public project URL/browser key in intended build contexts; no privileged values |
-| Sender verification and delivery | PENDING | Free SMTP account; DNS verified; controlled external-team inbox receives confirmation |
-| New external-user account | PENDING | Normal signup → received confirmation → correct callback → onboarding → sign-in |
+| Netlify public build configuration | PASS | Intended public URL/browser key saved in all deploy contexts; cloud-required preview build passes; inspected scripts match the intended public configuration |
+| Sender DNS and SMTP configuration | PASS | Resend domain Verified; all three records match both authoritative nameservers; domain-restricted Sending key transferred; custom SMTP saved and enabled |
+| Signup confirmation | PASS | Owner reported both controlled inbox confirmations; real Auth sign-in verified both confirmed identities; mail timing/placement/headers not recorded |
+| Password recovery delivery | PENDING | Controlled inbox must receive recovery email and complete the password change |
+| New external-user onboarding | PENDING | Signup/sign-in pass; positive-income onboarding bug fixed locally; deployed save/dashboard check pending |
 | Cloud save and reload | PENDING | Save fictional plan; sign out; sign in in another browser; same saved inputs load |
-| Browser account isolation | PENDING | Account B cannot read, change, delete, or attach rows to A's plan; test API boundary, not just UI |
+| Authenticated repository acceptance | PASS | Nine live check groups: actual app save/load, bidirectional ten-table REST/RPC isolation, anonymous denial, 33 malformed requests, atomic rollback, stale revision, 5,000 changes across five pages, and sign-out/sign-in; fixture/profile cleanup passes; `.local-tools/cloud-acceptance-result.json` |
+| Browser account isolation | PENDING | REST/RPC boundary passes in both directions; React/browser account-switch isolation remains to verify |
 | Competing saves and offline failure | PENDING | Stale revision rejected; local draft preserved; failed save never shown as saved |
 | Password recovery | PENDING | Public reset form → received email → intended reset page → new password works; old password fails |
-| Recovery guard | PENDING | Direct/reset-page visit or ordinary session cannot change a password without a valid recovery event; used/expired link fails safely |
+| Recovery guard | PENDING | Signed-out direct local reset-page guard passes; ordinary session and used/expired link checks remain pending |
 | Session and privacy | PENDING | Refresh requires sign-in; sign-out clears auth; no tokens/cloud records in localStorage or sessionStorage; no plan data in logs |
 | Backup/import and Demo Mode | PENDING | Export/reimport and large/invalid files checked; import remains unsaved until Save; Demo makes no Supabase writes |
-| Preview 14 static HTTP delivery | PASS | Three planner routes return 200 with planner HTML/security headers; bundle remains unconfigured for Supabase; October 1, 10:57 a.m. Toronto |
+| Configured preview 14 public delivery | PASS | Three planner routes return 200 with planner HTML/security headers; referenced scripts match intended public Supabase configuration; deploy `6abf0657fbb1a09ea1ab46c3`; October 1, 9:23 p.m. Toronto |
 | Candidate preview | PENDING | Cloud flow, deep-route refresh, mobile/keyboard use, headers, and legacy navigation pass on the configured preview |
 | Current production planner availability | FAIL | `/planner/`, `/planner/dashboard`, and `/planner/reset-password` each return 404; October 1, 10:57 a.m. Toronto |
 | Production smoke test | PENDING | After release: real-domain signup/recovery callbacks, save/reload, routes, and security headers pass |

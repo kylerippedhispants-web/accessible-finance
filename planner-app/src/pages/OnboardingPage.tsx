@@ -87,11 +87,7 @@ export function OnboardingPage() {
        planningEndAge: endAge!,
        annualEmploymentIncome: income!,
        annualExpenses: expenses!,
-    });
-    if (initial) {
-      plan.id = initial.id;
-      plan.profile.id = initial.profile.id;
-    }
+    }, initial);
     const validated = financialPlanSchema.safeParse(plan);
     if (!validated.success) {
       setBusy(false);
