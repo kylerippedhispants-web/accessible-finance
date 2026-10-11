@@ -289,18 +289,20 @@ nav.site-nav {
   animation: barGrow 1.2s cubic-bezier(.2,.7,.2,1) forwards;
   transform: scaleY(0);
 }
-.hero-chart .bar:nth-child(1) { height: 34%; animation-delay: .05s; }
-.hero-chart .bar:nth-child(2) { height: 40%; animation-delay: .1s; }
-.hero-chart .bar:nth-child(3) { height: 47%; animation-delay: .15s; }
-.hero-chart .bar:nth-child(4) { height: 55%; animation-delay: .2s; }
-.hero-chart .bar:nth-child(5) { height: 63%; animation-delay: .25s; }
-.hero-chart .bar:nth-child(6) { height: 72%; animation-delay: .3s; }
-.hero-chart .bar:nth-child(7) {
-  height: 88%; animation-delay: .35s;
+/* Year 0–8 balances at 5% annually, shown relative to the final balance. */
+.hero-chart .bar:nth-child(1) { height: 67.68%; animation-delay: .05s; }
+.hero-chart .bar:nth-child(2) { height: 71.07%; animation-delay: .1s; }
+.hero-chart .bar:nth-child(3) { height: 74.62%; animation-delay: .15s; }
+.hero-chart .bar:nth-child(4) { height: 78.35%; animation-delay: .2s; }
+.hero-chart .bar:nth-child(5) { height: 82.27%; animation-delay: .25s; }
+.hero-chart .bar:nth-child(6) { height: 86.38%; animation-delay: .3s; }
+.hero-chart .bar:nth-child(7) { height: 90.70%; animation-delay: .35s; }
+.hero-chart .bar:nth-child(8) {
+  height: 95.24%; animation-delay: .4s;
   background: linear-gradient(180deg, var(--green) 0%, var(--green-mid) 100%); opacity: 0.9;
 }
-.hero-chart .bar:nth-child(8) {
-  height: 100%; animation-delay: .4s;
+.hero-chart .bar:nth-child(9) {
+  height: 100%; animation-delay: .45s;
   background: linear-gradient(180deg, var(--green) 0%, var(--green-mid) 100%); opacity: 1;
 }
 @keyframes barGrow { to { transform: scaleY(1); } }
@@ -1101,7 +1103,7 @@ footer.site-footer {
       <div class="hero-card-eyebrow">Hypothetical Growth · 5% a Year</div>
       <div class="hero-chart" aria-hidden="true">
         <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
       </div>
       <div class="hero-chart-axis"><span>Year 0</span><span>Year 2</span><span>Year 4</span><span>Year 6</span><span>Year 8</span></div>
       <div class="hero-stat-row">

@@ -28,6 +28,8 @@ export function AppShell() {
   const previousPath = useRef(location.pathname);
   const cloudOffline = planner.mode === 'cloud' && planner.offline;
   const saveConflict = planner.saveState === 'conflict';
+  const modeLabel = planner.mode === 'demo' ? 'Demo Mode' : cloudOffline ? 'Offline · Local Draft' : 'Cloud Plan';
+  const compactModeLabel = planner.mode === 'demo' ? 'Demo' : cloudOffline ? 'Offline' : 'Cloud';
 
   const closeMenu = useCallback((restoreFocus = false) => {
     setMenuOpen(false);
@@ -121,7 +123,10 @@ export function AppShell() {
         </Link>
         <div className="header-actions">
           <span className={`mode-badge ${cloudOffline ? 'offline' : planner.mode}`}>
-            <span aria-hidden="true" />{planner.mode === 'demo' ? 'Demo Mode' : cloudOffline ? 'Offline · Local Draft' : 'Cloud Plan'}
+            <span className="mode-indicator" aria-hidden="true" />
+            <span className="sr-only">{modeLabel}</span>
+            <span className="mode-badge-label" aria-hidden="true">{modeLabel}</span>
+            <span className="mode-badge-compact" aria-hidden="true">{compactModeLabel}</span>
           </span>
           <button
             className="button button-primary save-button"

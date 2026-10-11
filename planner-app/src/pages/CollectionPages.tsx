@@ -174,6 +174,35 @@ function canReplaceEditor(editorOpen: boolean): boolean {
   return !editorOpen || window.confirm('Discard the unsubmitted changes in the open form?');
 }
 
+function useCollectionFeedback(kind: string) {
+  const [message, setMessage] = useState<string>();
+  const editorTrigger = useRef<HTMLElement | null>(null);
+
+  const rememberTrigger = (trigger: HTMLButtonElement) => {
+    editorTrigger.current = trigger;
+    setMessage(undefined);
+  };
+
+  const restoreFocus = (useEditorTrigger = true) => {
+    const preferred = useEditorTrigger ? editorTrigger.current : null;
+    window.requestAnimationFrame(() => {
+      const target = preferred?.isConnected ? preferred : document.getElementById(`${kind}-add-button`);
+      target?.focus();
+    });
+  };
+
+  const reportChange = (outcome: string, useEditorTrigger = true) => {
+    setMessage(outcome);
+    restoreFocus(useEditorTrigger);
+  };
+
+  return { message, rememberTrigger, restoreFocus, reportChange };
+}
+
+function CollectionStatus({ message, dirty }: { message: string | undefined; dirty: boolean }) {
+  return <p className={`collection-status${message ? ' form-status' : ''}`} role="status" aria-live="polite" aria-atomic="true">{message}{message && dirty ? ' Choose Save changes to keep this draft.' : ''}</p>;
+}
+
 interface CollectionHeaderProps {
   headingId: string;
   eyebrow: string;
@@ -182,7 +211,8 @@ interface CollectionHeaderProps {
   count: number;
   singular: string;
   addLabel: string;
-  onAdd: () => void;
+  addButtonId: string;
+  onAdd: (trigger: HTMLButtonElement) => void;
 }
 
 function CollectionHeader({
@@ -193,6 +223,7 @@ function CollectionHeader({
   count,
   singular,
   addLabel,
+  addButtonId,
   onAdd,
 }: CollectionHeaderProps) {
   return (
@@ -206,7 +237,7 @@ function CollectionHeader({
         <span className="collection-count" aria-live="polite">
           {count} {count === 1 ? singular : `${singular}s`}
         </span>
-        <button className="button button-primary" type="button" onClick={onAdd}>
+        <button id={addButtonId} className="button button-primary" type="button" onClick={(event) => onAdd(event.currentTarget)}>
           {addLabel}
         </button>
       </div>
@@ -389,7 +420,7 @@ interface EntityCardProps {
   metrics: readonly { label: string; value: string }[];
   editLabel: string;
   deleteLabel: string;
-  onEdit: () => void;
+  onEdit: (trigger: HTMLButtonElement) => void;
   onDelete: () => void;
 }
 
@@ -423,7 +454,7 @@ function EntityCard({
         ))}
       </dl>
       <div className="entity-actions">
-        <button className="button button-secondary button-small" type="button" onClick={onEdit} aria-label={editLabel}>
+        <button className="button button-secondary button-small" type="button" onClick={(event) => onEdit(event.currentTarget)} aria-label={editLabel}>
           Edit
         </button>
         <button className="button button-danger button-small" type="button" onClick={onDelete} aria-label={deleteLabel}>
@@ -438,14 +469,14 @@ function EmptyState({ title, body, actionLabel, onAction }: {
   title: string;
   body: string;
   actionLabel: string;
-  onAction: () => void;
+  onAction: (trigger: HTMLButtonElement) => void;
 }) {
   return (
     <div className="collection-empty">
       <span className="empty-mark" aria-hidden="true">+</span>
       <h2>{title}</h2>
       <p>{body}</p>
-      <button className="button button-secondary" type="button" onClick={onAction}>{actionLabel}</button>
+      <button className="button button-secondary" type="button" onClick={(event) => onAction(event.currentTarget)}>{actionLabel}</button>
     </div>
   );
 }
@@ -466,11 +497,13 @@ export function IncomePage() {
   const plan = planner.snapshot?.plan;
   const [editor, setEditor] = useState<EditorState<IncomeDraft> | null>(null);
   const [error, setError] = useState<string>();
+  const feedback = useCollectionFeedback('income');
 
   if (!plan) return <MissingPlan section="income plan" />;
 
-  const openAdd = () => {
+  const openAdd = (trigger: HTMLButtonElement) => {
     if (!canReplaceEditor(editor !== null)) return;
+    feedback.rememberTrigger(trigger);
     setError(undefined);
     setEditor({
       mode: 'add',
@@ -492,8 +525,9 @@ export function IncomePage() {
     });
   };
 
-  const openEdit = (item: IncomeSource) => {
+  const openEdit = (item: IncomeSource, trigger: HTMLButtonElement) => {
     if (!canReplaceEditor(editor !== null)) return;
+    feedback.rememberTrigger(trigger);
     setError(undefined);
     setEditor({ mode: 'edit', draft: { ...item } });
   };
@@ -507,6 +541,7 @@ export function IncomePage() {
         .map((candidate, position) => ({ ...candidate, position })),
     }));
     if (editor?.draft.id === item.id) setEditor(null);
+    feedback.reportChange(`${item.name} removed from the open plan.`, false);
   };
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
@@ -545,6 +580,7 @@ export function IncomePage() {
     }));
     setEditor(null);
     setError(undefined);
+    feedback.reportChange(`${name} ${editor.mode === 'add' ? 'added to' : 'updated in'} the open plan.`);
   };
 
   const updateDraft = (next: IncomeDraft) => {
@@ -588,9 +624,11 @@ export function IncomePage() {
         count={plan.incomeSources.length}
         singular="source"
         addLabel="Add income"
+        addButtonId="income-add-button"
         onAdd={openAdd}
       />
       <PrivacyNotice mode={planner.mode} />
+      <CollectionStatus message={feedback.message} dirty={planner.dirty} />
 
       {editor && (
         <EditorPanel
@@ -599,7 +637,7 @@ export function IncomePage() {
           submitLabel={editor.mode === 'add' ? 'Add to plan' : 'Update in plan'}
           error={error}
           onSubmit={submit}
-          onCancel={() => { setEditor(null); setError(undefined); }}
+          onCancel={() => { setEditor(null); setError(undefined); feedback.restoreFocus(); }}
         >
           <fieldset className="form-section">
             <legend>Income details</legend>
@@ -664,7 +702,7 @@ export function IncomePage() {
                   ]}
                   editLabel={`Edit income source ${item.name}`}
                   deleteLabel={`Delete income source ${item.name}`}
-                  onEdit={() => openEdit(item)}
+                  onEdit={(trigger) => openEdit(item, trigger)}
                   onDelete={() => remove(item)}
                 />
               </li>
@@ -681,11 +719,13 @@ export function ExpensesPage() {
   const plan = planner.snapshot?.plan;
   const [editor, setEditor] = useState<EditorState<ExpenseDraft> | null>(null);
   const [error, setError] = useState<string>();
+  const feedback = useCollectionFeedback('expenses');
 
   if (!plan) return <MissingPlan section="expense plan" />;
 
-  const openAdd = () => {
+  const openAdd = (trigger: HTMLButtonElement) => {
     if (!canReplaceEditor(editor !== null)) return;
+    feedback.rememberTrigger(trigger);
     setError(undefined);
     setEditor({
       mode: 'add',
@@ -705,8 +745,9 @@ export function ExpensesPage() {
     });
   };
 
-  const openEdit = (item: Expense) => {
+  const openEdit = (item: Expense, trigger: HTMLButtonElement) => {
     if (!canReplaceEditor(editor !== null)) return;
+    feedback.rememberTrigger(trigger);
     setError(undefined);
     setEditor({ mode: 'edit', draft: { ...item } });
   };
@@ -720,6 +761,7 @@ export function ExpensesPage() {
         .map((candidate, position) => ({ ...candidate, position })),
     }));
     if (editor?.draft.id === item.id) setEditor(null);
+    feedback.reportChange(`${item.name} removed from the open plan.`, false);
   };
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
@@ -757,6 +799,7 @@ export function ExpensesPage() {
     }));
     setEditor(null);
     setError(undefined);
+    feedback.reportChange(`${name} ${editor.mode === 'add' ? 'added to' : 'updated in'} the open plan.`);
   };
 
   const updateDraft = (next: ExpenseDraft) => {
@@ -798,9 +841,11 @@ export function ExpensesPage() {
         count={plan.expenses.length}
         singular="expense"
         addLabel="Add expense"
+        addButtonId="expenses-add-button"
         onAdd={openAdd}
       />
       <PrivacyNotice mode={planner.mode} />
+      <CollectionStatus message={feedback.message} dirty={planner.dirty} />
 
       {editor && (
         <EditorPanel
@@ -809,7 +854,7 @@ export function ExpensesPage() {
           submitLabel={editor.mode === 'add' ? 'Add to plan' : 'Update in plan'}
           error={error}
           onSubmit={submit}
-          onCancel={() => { setEditor(null); setError(undefined); }}
+          onCancel={() => { setEditor(null); setError(undefined); feedback.restoreFocus(); }}
         >
           <fieldset className="form-section">
             <legend>Expense details</legend>
@@ -870,7 +915,7 @@ export function ExpensesPage() {
                   ]}
                   editLabel={`Edit expense ${item.name}`}
                   deleteLabel={`Delete expense ${item.name}`}
-                  onEdit={() => openEdit(item)}
+                  onEdit={(trigger) => openEdit(item, trigger)}
                   onDelete={() => remove(item)}
                 />
               </li>
@@ -887,11 +932,13 @@ export function AssetsPage() {
   const plan = planner.snapshot?.plan;
   const [editor, setEditor] = useState<EditorState<AssetDraft> | null>(null);
   const [error, setError] = useState<string>();
+  const feedback = useCollectionFeedback('assets');
 
   if (!plan) return <MissingPlan section="asset plan" />;
 
-  const openAdd = () => {
+  const openAdd = (trigger: HTMLButtonElement) => {
     if (!canReplaceEditor(editor !== null)) return;
+    feedback.rememberTrigger(trigger);
     setError(undefined);
     setEditor({
       mode: 'add',
@@ -914,8 +961,9 @@ export function AssetsPage() {
     });
   };
 
-  const openEdit = (item: Asset) => {
+  const openEdit = (item: Asset, trigger: HTMLButtonElement) => {
     if (!canReplaceEditor(editor !== null)) return;
+    feedback.rememberTrigger(trigger);
     setError(undefined);
     setEditor({ mode: 'edit', draft: { ...item } });
   };
@@ -929,6 +977,7 @@ export function AssetsPage() {
         .map((candidate, position) => ({ ...candidate, position })),
     }));
     if (editor?.draft.id === item.id) setEditor(null);
+    feedback.reportChange(`${item.name} removed from the open plan.`, false);
   };
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
@@ -996,6 +1045,7 @@ export function AssetsPage() {
     }));
     setEditor(null);
     setError(undefined);
+    feedback.reportChange(`${name} ${editor.mode === 'add' ? 'added to' : 'updated in'} the open plan.`);
   };
 
   const updateDraft = (next: AssetDraft) => {
@@ -1029,9 +1079,11 @@ export function AssetsPage() {
         count={plan.assets.length}
         singular="asset"
         addLabel="Add asset"
+        addButtonId="assets-add-button"
         onAdd={openAdd}
       />
       <PrivacyNotice mode={planner.mode} />
+      <CollectionStatus message={feedback.message} dirty={planner.dirty} />
 
       {editor && (
         <EditorPanel
@@ -1040,7 +1092,7 @@ export function AssetsPage() {
           submitLabel={editor.mode === 'add' ? 'Add to plan' : 'Update in plan'}
           error={error}
           onSubmit={submit}
-          onCancel={() => { setEditor(null); setError(undefined); }}
+          onCancel={() => { setEditor(null); setError(undefined); feedback.restoreFocus(); }}
         >
           <fieldset className="form-section">
             <legend>Asset details</legend>
@@ -1109,7 +1161,7 @@ export function AssetsPage() {
                   ]}
                   editLabel={`Edit asset ${item.name}`}
                   deleteLabel={`Delete asset ${item.name}`}
-                  onEdit={() => openEdit(item)}
+                  onEdit={(trigger) => openEdit(item, trigger)}
                   onDelete={() => remove(item)}
                 />
               </li>
@@ -1126,11 +1178,13 @@ export function DebtsPage() {
   const plan = planner.snapshot?.plan;
   const [editor, setEditor] = useState<EditorState<DebtDraft> | null>(null);
   const [error, setError] = useState<string>();
+  const feedback = useCollectionFeedback('debts');
 
   if (!plan) return <MissingPlan section="debt plan" />;
 
-  const openAdd = () => {
+  const openAdd = (trigger: HTMLButtonElement) => {
     if (!canReplaceEditor(editor !== null)) return;
+    feedback.rememberTrigger(trigger);
     setError(undefined);
     setEditor({
       mode: 'add',
@@ -1153,8 +1207,9 @@ export function DebtsPage() {
     });
   };
 
-  const openEdit = (item: Debt) => {
+  const openEdit = (item: Debt, trigger: HTMLButtonElement) => {
     if (!canReplaceEditor(editor !== null)) return;
+    feedback.rememberTrigger(trigger);
     setError(undefined);
     setEditor({ mode: 'edit', draft: { ...item } });
   };
@@ -1168,6 +1223,7 @@ export function DebtsPage() {
         .map((candidate, position) => ({ ...candidate, position })),
     }));
     if (editor?.draft.id === item.id) setEditor(null);
+    feedback.reportChange(`${item.name} removed from the open plan.`, false);
   };
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
@@ -1216,6 +1272,7 @@ export function DebtsPage() {
     }));
     setEditor(null);
     setError(undefined);
+    feedback.reportChange(`${name} ${editor.mode === 'add' ? 'added to' : 'updated in'} the open plan.`);
   };
 
   const updateDraft = (next: DebtDraft) => {
@@ -1246,9 +1303,11 @@ export function DebtsPage() {
         count={plan.debts.length}
         singular="debt"
         addLabel="Add debt"
+        addButtonId="debts-add-button"
         onAdd={openAdd}
       />
       <PrivacyNotice mode={planner.mode} />
+      <CollectionStatus message={feedback.message} dirty={planner.dirty} />
 
       {editor && (
         <EditorPanel
@@ -1257,7 +1316,7 @@ export function DebtsPage() {
           submitLabel={editor.mode === 'add' ? 'Add to plan' : 'Update in plan'}
           error={error}
           onSubmit={submit}
-          onCancel={() => { setEditor(null); setError(undefined); }}
+          onCancel={() => { setEditor(null); setError(undefined); feedback.restoreFocus(); }}
         >
           <fieldset className="form-section">
             <legend>Debt details</legend>
@@ -1314,7 +1373,7 @@ export function DebtsPage() {
                   ]}
                   editLabel={`Edit debt ${item.name}`}
                   deleteLabel={`Delete debt ${item.name}`}
-                  onEdit={() => openEdit(item)}
+                  onEdit={(trigger) => openEdit(item, trigger)}
                   onDelete={() => remove(item)}
                 />
               </li>

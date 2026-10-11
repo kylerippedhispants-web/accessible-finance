@@ -1,6 +1,6 @@
 # Website and planner next steps
 
-Updated October 1, 2026 (America/Toronto). This checklist covers the selected FIRE
+Updated October 11, 2026 (America/Toronto). This checklist covers the selected FIRE
 website and planner. Local Demo Mode checks do not validate cloud services or
 public launch.
 
@@ -12,6 +12,33 @@ and explicit storage/log inspection remain pending follow-ups. Earlier preview-1
 onboarding, save/reload, account separation, and JSON export/import proofs are
 recorded below. Two fictional browser-created plans remain after the earlier
 authenticated harness cleanup.
+
+## October 11 site polish and local checks
+
+- [x] Add guide search that combines with topic filters, includes the featured
+  guide in the result count, and explains empty results. Make the phone topic
+  strip visibly scrollable.
+- [x] Open direct educational links in their URL's edition without a mandatory
+  first-visit dialog. Preserve the edition switchers and saved home preference.
+- [x] Make tablet navigation scroll, improve footer contrast, and correct the
+  homepage's nine chart bars to match its existing Year 0–8, 5% example.
+- [x] Restore keyboard focus after planner collection actions; announce draft
+  changes and retain the explicit Save reminder. Contain long names at 320px,
+  retain a compact mobile storage badge, show JSON picker focus, and complete
+  the planning guide's contents and return links.
+- [x] Validate 63 static pages and 42 guides, lint, TypeScript, 160 unit tests in
+  17 suites, and the production build with cloud configuration required.
+- [x] Exercise 40 Edge browser cases, including 16 new regressions: 38 passed
+  in the initial full run, and the remaining two passed after correcting a new
+  test's navigation wait and its expected count for two matching guides.
+- [x] Verify the production dependency audit reports zero vulnerabilities.
+  Keep the ignored local public configuration byte-for-byte unchanged during
+  Demo Mode testing. Evidence is in `.local-tools/polish-20261010/` on this copy;
+  these ignored logs are not portable proof.
+
+These checks do not complete the recovery or cloud privacy follow-ups below.
+The cloud-only JSON picker focus treatment was reviewed in source; this polish
+pass did not sign in to an account or verify that control in a cloud session.
 
 ## Completed locally
 
@@ -162,7 +189,7 @@ does not change their status to PASS.
   download/import/explicit save passes; local transfer and large repository
   pagination tests are separate evidence.
 - [ ] Check Canadian/US navigation, keyboard access, and a real narrow-screen
-  device beyond the 24 automated Edge checks. Keep deployment results distinct
+  device beyond the 40 automated Edge cases. Keep deployment results distinct
   from the local baseline.
 - [ ] Define and verify account/data deletion and backup/recovery procedures.
   Review privacy, storage, and educational modelling disclosures against the

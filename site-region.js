@@ -9,18 +9,14 @@
       code: 'CA',
       name: 'Canada',
       flagClass: 'region-flag-ca',
-      description: 'RRSP, TFSA, Canadian taxes and provincial tools.',
     },
     us: {
       code: 'US',
       name: 'United States',
       flagClass: 'region-flag-us',
-      description: '401(k), IRA, HSA and U.S. tax basics.',
     },
   };
 
-  let modal = null;
-  let lastFocusedElement = null;
   let regionMenuCount = 0;
 
   function getSavedRegion() {
@@ -86,7 +82,6 @@
       return;
     }
     if (region === getCurrentRegion()) {
-      closeModal();
       closeMobileMenu();
       return;
     }
@@ -101,102 +96,6 @@
       button?.setAttribute('aria-expanded', 'false');
       if (returnFocus) button?.focus();
     });
-  }
-
-  function getFocusableElements() {
-    if (!modal || modal.hidden) return [];
-    return Array.from(modal.querySelectorAll('button:not([hidden]), [href], [tabindex]:not([tabindex="-1"])'))
-      .filter((element) => !element.disabled && element.offsetParent !== null);
-  }
-
-  function handleModalKeydown(event) {
-    if (!modal || modal.hidden) return;
-
-    if (event.key === 'Escape') {
-      if (modal.dataset.required !== 'true') closeModal();
-      return;
-    }
-
-    if (event.key !== 'Tab') return;
-    const focusable = getFocusableElements();
-    if (!focusable.length) return;
-
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  }
-
-  function buildModal() {
-    const currentRegion = getCurrentRegion();
-    const overlay = document.createElement('div');
-    overlay.className = 'region-overlay';
-    overlay.hidden = true;
-    overlay.setAttribute('role', 'dialog');
-    overlay.setAttribute('aria-modal', 'true');
-    overlay.setAttribute('aria-labelledby', 'region-title');
-    overlay.setAttribute('aria-describedby', 'region-intro');
-    overlay.innerHTML = `
-      <div class="region-dialog">
-        <button class="region-close" type="button" aria-label="Close edition chooser">&#x2715;</button>
-        <div class="region-brand">
-          <img src="${new URL('Logo.png', getSiteRoot()).href}" alt="">
-          <span>Accessible Finance</span>
-        </div>
-        <div class="region-eyebrow">Choose your edition</div>
-        <h2 class="region-title" id="region-title">Where are you <em>investing?</em></h2>
-        <p class="region-intro" id="region-intro">Choose the country that matches the accounts and tax rules you use.</p>
-        <div class="region-choices">
-          ${Object.entries(regionDetails).map(([region, details]) => `
-            <button class="region-choice" type="button" data-region-choice="${region}" data-current="${region === currentRegion}">
-              <span class="region-flag region-choice-flag ${details.flagClass}" aria-hidden="true"></span>
-              <span class="region-choice-name">${details.name}</span>
-              <span class="region-choice-copy">${details.description}</span>
-              <span class="region-choice-status">Current edition</span>
-              <span class="region-choice-arrow" aria-hidden="true">&rarr;</span>
-            </button>
-          `).join('')}
-        </div>
-      </div>
-    `;
-
-    overlay.querySelector('.region-close').addEventListener('click', closeModal);
-    overlay.querySelectorAll('[data-region-choice]').forEach((button) => {
-      button.addEventListener('click', () => selectRegion(button.dataset.regionChoice));
-    });
-    overlay.addEventListener('click', (event) => {
-      if (event.target === overlay && overlay.dataset.required !== 'true') closeModal();
-    });
-    document.addEventListener('keydown', handleModalKeydown);
-    document.body.appendChild(overlay);
-    return overlay;
-  }
-
-  function openModal(required) {
-    if (!modal) modal = buildModal();
-    lastFocusedElement = document.activeElement;
-    modal.dataset.required = String(Boolean(required));
-    modal.hidden = false;
-    document.body.classList.add('region-dialog-open');
-
-    window.requestAnimationFrame(() => {
-      const preferred = modal.querySelector(`[data-region-choice="${getCurrentRegion()}"]`);
-      preferred?.focus();
-    });
-  }
-
-  function closeModal() {
-    if (!modal || modal.hidden) return;
-    modal.hidden = true;
-    document.body.classList.remove('region-dialog-open');
-    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
-      lastFocusedElement.focus();
-    }
   }
 
   function buildDesktopSwitcher() {
@@ -333,10 +232,8 @@
       if (!event.target.closest('[data-region-switcher]')) closeRegionMenus(false);
     }, true);
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && modal && !modal.hidden) return;
       if (event.key === 'Escape') closeRegionMenus(true);
     });
-    if (!savedRegion) openModal(true);
   }
 
   if (document.readyState === 'loading') {

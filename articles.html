@@ -76,6 +76,19 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .filter-btn { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink2); background: var(--bg-warm); border: 1px solid transparent; padding: 12px 20px; border-radius: 100px; cursor: pointer; transition: all 0.25s; }
 .filter-btn:hover { background: var(--surface); border-color: var(--border-strong); color: var(--ink); }
 .filter-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.guide-search-row { display: flex; align-items: end; gap: 24px; margin-bottom: 22px; }
+.guide-search { flex: 1; max-width: 620px; }
+.guide-search label { display: block; margin-bottom: 10px; font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--ink); }
+.guide-search input { width: 100%; padding: 13px 16px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--ink); font-family: var(--body); line-height: 1.5; }
+.guide-search input::placeholder { color: var(--ink2); }
+.guide-results { margin: 0 0 12px; font-family: var(--body); font-size: 13px; line-height: 1.5; color: var(--ink2); }
+.filter-scroll-hint { display: none; }
+@media (max-width: 768px) {
+  .guide-search-row { flex-direction: column; align-items: stretch; gap: 12px; padding-right: 24px; }
+  .guide-search { max-width: none; }
+  .guide-results { margin-bottom: 0; }
+  .filter-scroll-hint { display: block; margin: 10px 24px 0 0; font-family: var(--body); font-size: 13px; color: var(--ink2); }
+}
 
 /* FEATURED */
 .featured-wrap { max-width: 1200px; margin: 56px auto 0; padding: 0 40px; }
@@ -509,6 +522,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 </header>
 
 <div class="filters-wrap reveal">
+  <div class="guide-search-row">
+    <div class="guide-search">
+      <label for="guideSearch">Search guides</label>
+      <input id="guideSearch" type="search" placeholder="Try compound interest or TFSA" aria-controls="articlesGrid" autocomplete="off">
+    </div>
+    <p class="guide-results" id="guideResults" role="status" aria-live="polite" aria-atomic="true">42 guides in the library.</p>
+  </div>
   <div class="filters" role="group" aria-label="Filter guides">
     <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All Topics</button>
     <button class="filter-btn" type="button" data-filter="fundamentals" aria-pressed="false">Fundamentals</button>
@@ -521,6 +541,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <button class="filter-btn" type="button" data-filter="beginner" aria-pressed="false">Beginner</button>
     <button class="filter-btn" type="button" data-filter="intermediate" aria-pressed="false">Intermediate</button>
   </div>
+  <p class="filter-scroll-hint">Scroll to explore all topics <span aria-hidden="true">→</span></p>
 </div>
 
 <!-- FEATURED_GUIDE_START -->
@@ -870,7 +891,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <!-- GUIDE_GRID_END -->
   </div>
 
-  <div class="empty-state" id="emptyState">No guides match this filter yet — try another.</div>
+  <div class="empty-state" id="emptyState"><strong>No guides match your search and topic.</strong><br>Try another search or choose All Topics.</div>
 
   <div class="load-wrap">
     <button class="load-btn" id="loadMore" type="button">Load More Guides</button>
@@ -983,16 +1004,24 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     const grid = document.getElementById('articlesGrid');
     const cards = Array.from(grid.querySelectorAll('.card'));
     const featured = document.querySelector('.featured');
+    const featuredWrap = featured?.closest('.featured-wrap');
     const filterBtns = document.querySelectorAll('.filter-btn');
     const loadBtn = document.getElementById('loadMore');
     const emptyState = document.getElementById('emptyState');
+    const searchInput = document.getElementById('guideSearch');
+    const resultCount = document.getElementById('guideResults');
+    const searchableText = new Map([...cards, ...(featured ? [featured] : [])].map(card => [
+      card,
+      Array.from(card.querySelectorAll('h2, h3, .ex')).map(part => part.textContent).join(' ').toLowerCase(),
+    ]));
     let visibleCount = PAGE_SIZE;
     let currentFilter = 'all';
+    let searchWords = [];
 
     function matches(card, f) {
-      if (f === 'all') return true;
-      if (f === 'beginner' || f === 'intermediate') return card.dataset.level === f;
-      return card.dataset.cat === f;
+      const matchesFilter = f === 'all'
+        || ((f === 'beginner' || f === 'intermediate') ? card.dataset.level === f : card.dataset.cat === f);
+      return matchesFilter && searchWords.every(word => searchableText.get(card).includes(word));
     }
 
     function applyView() {
@@ -1007,8 +1036,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           c.style.display = 'none';
         }
       });
-      if (featured) featured.style.display = matches(featured, currentFilter) ? '' : 'none';
-      emptyState.classList.toggle('show', totalMatching === 0);
+      const featuredMatches = featured && matches(featured, currentFilter);
+      if (featuredWrap) featuredWrap.hidden = !featuredMatches;
+      const totalGuides = totalMatching + (featuredMatches ? 1 : 0);
+      const shownGuides = shown + (featuredMatches ? 1 : 0);
+      resultCount.textContent = totalGuides
+        ? `Showing ${shownGuides} of ${totalGuides} ${totalGuides === 1 ? 'guide' : 'guides'}.`
+        : 'No guides match. Try another search or choose All Topics.';
+      emptyState.classList.toggle('show', totalGuides === 0);
       loadBtn.style.display = totalMatching > visibleCount ? '' : 'none';
     }
 
@@ -1026,6 +1061,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       });
     });
 
+    searchInput.addEventListener('input', () => {
+      searchWords = searchInput.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      visibleCount = PAGE_SIZE;
+      applyView();
+    });
+
     loadBtn.addEventListener('click', () => {
       visibleCount += PAGE_SIZE;
       applyView();
@@ -1034,12 +1075,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     // URL ?cat=... pre-filter
     const params = new URLSearchParams(location.search);
     const cat = params.get('cat');
-    if (cat) {
-      const target = Array.from(filterBtns).find(b => b.dataset.filter === cat);
-      if (target) { target.click(); }
-    } else {
-      applyView();
-    }
+    const initialFilter = Array.from(filterBtns).find(b => b.dataset.filter === cat);
+    if (initialFilter) initialFilter.click();
+    else applyView();
   })();
 
   (function () {
