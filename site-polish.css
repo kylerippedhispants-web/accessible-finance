@@ -190,9 +190,26 @@ html.site-us footer.site-footer a:hover {
   text-underline-offset: 4px;
 }
 
+html.site-ca footer.site-footer .footer-disclaimer,
+html.site-us footer.site-footer .footer-disclaimer {
+  color: rgba(247, 245, 240, 0.68);
+}
+
+html.site-ca footer.site-footer .footer-copy,
+html.site-us footer.site-footer .footer-copy {
+  color: rgba(247, 245, 240, 0.62);
+}
+
 html.site-ca .mobile-menu,
 html.site-us .mobile-menu {
   gap: 0 !important;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+html.site-ca .mobile-menu > *,
+html.site-us .mobile-menu > * {
+  flex-shrink: 0;
 }
 
 html.site-ca .mobile-menu > a,
@@ -304,11 +321,16 @@ html.site-us .mobile-menu > a.cta {
     padding: 2px 24px 10px 0;
     scroll-padding-inline: 24px;
     scroll-snap-type: x proximity;
-    scrollbar-width: none;
+    scrollbar-width: thin;
   }
 
   html.site-ca .filters::-webkit-scrollbar {
-    display: none;
+    height: 6px;
+  }
+
+  html.site-ca .filters::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 3px;
   }
 
   html.site-ca .filter-btn {

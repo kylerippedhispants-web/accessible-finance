@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 
+function BackToTopics() {
+  return <a className="text-button guide-back-link" href="#guide-topics">Back to topics <span aria-hidden="true">↑</span></a>;
+}
+
 export function GuidePage() {
   return (
     <div className="page guide-page">
@@ -14,7 +18,7 @@ export function GuidePage() {
         </div>
       </header>
 
-      <nav className="panel form-panel" aria-labelledby="guide-contents-title">
+      <nav id="guide-topics" className="panel form-panel" aria-labelledby="guide-contents-title">
         <div className="panel-heading">
           <div>
             <span className="eyebrow">On this page</span>
@@ -31,6 +35,7 @@ export function GuidePage() {
           <a className="button button-quiet button-small" href="#scenario-guide">Scenarios</a>
           <a className="button button-quiet button-small" href="#reading-results">Read results</a>
           <a className="button button-quiet button-small" href="#privacy-guide">Data and privacy</a>
+          <a className="button button-quiet button-small" href="#canadian-resources">Canadian resources</a>
         </div>
       </nav>
 
@@ -72,6 +77,7 @@ export function GuidePage() {
           <Link className="button button-primary" to="/dashboard">See my FIRE outlook</Link>
           <Link className="button button-secondary" to="/retirement">Review goal &amp; assumptions</Link>
         </div>
+        <BackToTopics />
       </section>
 
       <section id="adding-inputs" className="panel form-panel" aria-labelledby="adding-inputs-title">
@@ -95,6 +101,7 @@ export function GuidePage() {
           <Link className="button button-primary" to="/income">Add or review income</Link>
           <Link className="button button-secondary" to="/settings">Review plan settings</Link>
         </div>
+        <BackToTopics />
       </section>
 
       <section id="baseline" className="panel form-panel" aria-labelledby="baseline-title">
@@ -127,6 +134,7 @@ export function GuidePage() {
           <Link className="button button-primary" to="/dashboard">Review dashboard</Link>
           <Link className="button button-secondary" to="/settings">Review plan details</Link>
         </div>
+        <BackToTopics />
       </section>
 
       <section id="dollars" className="panel form-panel" aria-labelledby="dollars-title">
@@ -157,6 +165,7 @@ export function GuidePage() {
           <strong>Keep the distinction clear.</strong>
           <p>Changing the chart view does not change cash flow, balances, or investment growth. It only changes how projection values are presented.</p>
         </div>
+        <BackToTopics />
       </section>
 
       <section id="building-blocks" className="panel form-panel" aria-labelledby="building-blocks-title">
@@ -201,6 +210,7 @@ export function GuidePage() {
           <strong>Account labels are not tax rules.</strong>
           <span>TFSA, RRSP, FHSA, RESP, RRIF, and non-registered labels organize assets. The planner does not calculate contribution room, deductions, grants, minimum withdrawals, or withdrawal tax.</span>
         </aside>
+        <BackToTopics />
       </section>
 
       <section id="retirement-guide" className="panel form-panel" aria-labelledby="retirement-guide-title">
@@ -221,6 +231,7 @@ export function GuidePage() {
         <div className="form-actions">
           <Link className="button button-primary" to="/retirement">Review retirement assumptions</Link>
         </div>
+        <BackToTopics />
       </section>
 
       <section id="scenario-guide" className="panel form-panel" aria-labelledby="scenario-guide-title">
@@ -241,6 +252,7 @@ export function GuidePage() {
           <Link className="button button-primary" to="/scenarios">Open scenarios</Link>
           <Link className="button button-secondary" to="/dashboard">Use what-if controls</Link>
         </div>
+        <BackToTopics />
       </section>
 
       <section id="reading-results" className="panel form-panel" aria-labelledby="reading-results-title">
@@ -280,6 +292,7 @@ export function GuidePage() {
         <div className="form-actions">
           <Link className="button button-primary" to="/dashboard">Inspect the projection</Link>
         </div>
+        <BackToTopics />
       </section>
 
       <section id="privacy-guide" className="panel form-panel" aria-labelledby="privacy-guide-title">
@@ -311,9 +324,10 @@ export function GuidePage() {
         <div className="form-actions">
           <Link className="button button-secondary" to="/settings">Open privacy and transfer settings</Link>
         </div>
+        <BackToTopics />
       </section>
 
-      <section className="panel form-panel" aria-labelledby="canadian-resources-title">
+      <section id="canadian-resources" className="panel form-panel" aria-labelledby="canadian-resources-title">
         <div className="panel-heading">
           <div>
             <span className="step-number">10</span>
@@ -354,6 +368,7 @@ export function GuidePage() {
             </div>
           </article>
         </div>
+        <BackToTopics />
       </section>
 
       <aside className="notice notice-caution" aria-labelledby="guide-disclaimer-title">
