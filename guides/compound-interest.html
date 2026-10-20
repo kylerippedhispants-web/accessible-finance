@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/compound-interest.html",
       "inLanguage": "en-CA",
       "articleSection": "Compounding",
-      "wordCount": 1086,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 914,
+      "timeRequired": "PT6M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>Compound interest: growth on <em>growth</em></h1>
     <p class="deck">Compounding happens when returns remain invested and begin producing returns of their own. Time gives the process room to accelerate.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">6 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Compounding rewards time, consistency, and low friction.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Contributions build the engine first</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">Ten years versus thirty years</a></li>
-      <li><a href="#decision-map">A projection is a range, not a promise</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">Ten years versus thirty years</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Four variables drive a simple projection: starting balance, contribution amount, return, and time. Investors control contributions and time more directly than returns.</p><p>Compounding also works in reverse. Fund fees, borrowing costs, and taxes can repeatedly reduce the base that would otherwise keep growing.</p><h3>The essentials</h3><ul><li>Reinvested returns enlarge the base for future growth.</li><li>More time can matter as much as a larger monthly deposit.</li><li>Higher projected returns come with uncertainty and should not be treated as promises.</li><li>Lower recurring costs leave more capital available to compound.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Contributions build the engine first</span></h2>
-      <p>At the beginning, deposits usually create more growth than investment returns because the balance is small. Later, returns have a larger base to work on. This is why early progress can feel slow even when the plan is functioning exactly as expected.</p><p>A useful projection separates contributions from growth. It also tests several return assumptions. If the goal works only at an unusually high return, the safer adjustment may be a higher contribution, a later date, or a smaller target.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>At a hypothetical 6% annual return, $200 contributed monthly grows differently over 10 years than over 30 because the earliest deposits receive many more growth periods. Real markets will not deliver a smooth 6% each year.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>Ten years versus thirty years</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>Ten years versus thirty years</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Compound-growth illustration</div>
       <p>At a hypothetical 6% annual return compounded monthly, contributing $200 a month grows to about $32,776 after 10 years. The investor supplied $24,000 and the illustration adds roughly $8,776 of growth.</p><p>After 30 years, the same schedule reaches about $200,903. Contributions total $72,000, while illustrated growth supplies about $128,903. Real returns will be uneven and may be lower; the example isolates what additional time can do.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Monthly deposit</dt><dd>$200</dd></div><div class="case-fact"><dt>10-year value</dt><dd>$32,776</dd></div><div class="case-fact"><dt>30-year value</dt><dd>$200,903</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>A projection is a range, not a promise</span></h2>
-      <p>Compounding calculators create smooth curves because they must use one assumed rate. Real portfolios arrive at the same long-term average through uneven years, and the final value can change when deposits or withdrawals occur during those years. A useful projection shows at least three return cases and separates contributions, investment growth, fees, tax, and inflation.</p><p>The model should also expose unrealistic dependencies. If a retirement goal succeeds at 8% but fails badly at 5%, the plan is relying on the market to solve a savings gap. Raising contributions by a manageable amount or extending the date may produce a sturdier result than adding risk. Re-run the model annually with actual balances, but resist changing its long-term assumptions simply because the most recent year was unusually strong or weak.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Start with an affordable recurring amount.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Increase contributions when income rises.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Reinvest distributions when they are not needed for spending.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Model conservative, middle, and weak-return scenarios.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>A compound-interest calculator is a planning illustration, not a forecast. Returns vary, and inflation, fees, and taxes affect what the ending amount can buy.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Contributions build the engine first</summary><p>At the beginning, deposits usually create more growth than investment returns because the balance is small. Later, returns have a larger base to work on. This is why early progress can feel slow even when the plan is functioning exactly as expected.</p><p>A useful projection separates contributions from growth. It also tests several return assumptions. If the goal works only at an unusually high return, the safer adjustment may be a higher contribution, a later date, or a smaller target.</p></details><details class="guide-detail" id="decision-map"><summary>A projection is a range, not a promise</summary><p>Compounding calculators create smooth curves because they must use one assumed rate. Real portfolios arrive at the same long-term average through uneven years, and the final value can change when deposits or withdrawals occur during those years. A useful projection shows at least three return cases and separates contributions, investment growth, fees, tax, and inflation.</p><p>The model should also expose unrealistic dependencies. If a retirement goal succeeds at 8% but fails badly at 5%, the plan is relying on the market to solve a savings gap. Raising contributions by a manageable amount or extending the date may produce a sturdier result than adding risk. Re-run the model annually with actual balances, but resist changing its long-term assumptions simply because the most recent year was unusually strong or weak.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">A small recurring contribution</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">Consistency and future increases matter more than early dollar returns.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Debt repayment offers a known interest saving while market returns are uncertain.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Compare after-tax outcomes and preserve enough liquidity for emergencies.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Make compounding visible with a small scenario table. Show the starting amount, recurring contribution, years, assumed return, fees, and inflation. Then run lower and higher return cases instead of presenting one precise future balance. Separating total contributions from projected growth helps explain where the result comes from and prevents a calculator from looking more certain than the real market.</p><p>Focus first on the inputs you control. Contribution amount, contribution frequency, fees, taxes, and time are more actionable than next year's return. Revisit the projection after a meaningful income change or once a year, not after every market move. If the conservative scenario misses the goal, adjust savings, timing, or the goal itself before reaching for a riskier assumption.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Start with an affordable recurring amount.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Increase contributions when income rises.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Reinvest distributions when they are not needed for spending.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Model conservative, middle, and weak-return scenarios.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Make compounding visible with a small scenario table. Show the starting amount, recurring contribution, years, assumed return, fees, and inflation. Then run lower and higher return cases instead of presenting one precise future balance. Separating total contributions from projected growth helps explain where the result comes from and prevents a calculator from looking more certain than the real market.</p><p>Focus first on the inputs you control. Contribution amount, contribution frequency, fees, taxes, and time are more actionable than next year's return. Revisit the projection after a meaningful income change or once a year, not after every market move. If the conservative scenario misses the goal, adjust savings, timing, or the goal itself before reaching for a riskier assumption.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>At a hypothetical 6% annual return, $200 contributed monthly grows differently over 10 years than over 30 because the earliest deposits receive many more growth periods. Real markets will not deliver a smooth 6% each year.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Is compound interest the same for investments and savings accounts?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Is compound interest the same for investments and savings accounts?</summary>
           <p>The mathematics is similar, but the return pattern is not. A savings rate may be stated and relatively stable for a period. Investment returns vary and can be negative. Use compound-growth illustrations for planning, not as a schedule of what a portfolio will earn each year.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Why does my balance grow slowly at first?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Why does my balance grow slowly at first?</summary>
           <p>Early in the journey, the balance is small, so even a good percentage return creates a modest dollar amount. Contributions do most of the work. As the base grows, returns can become larger than new deposits, but reaching that stage requires time and consistency.</p>
-        </div>
-        <div class="faq-item">
-          <h3>How often should compounding be calculated?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>How often should compounding be calculated?</summary>
           <p>The stated compounding frequency matters for guaranteed products, but for a market portfolio it is less important than using a realistic long-term return after costs. Monthly calculations can align with contributions, while annual summaries are often easier to understand and review.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>A compound-interest calculator is a planning illustration, not a forecast. Returns vary, and inflation, fees, and taxes affect what the ending amount can buy.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Compounding rewards time, consistency, and low friction. The practical edge is not finding a magical rate; it is keeping a sound plan working for longer.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator" target="_blank" rel="noopener noreferrer">Investor.gov: Compound Interest Calculator</a></li></ul>
     </section>
   </article>
@@ -631,17 +604,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="starting-early.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Why Starting Early Matters More Than Starting Big</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="automatic-contributions.html" class="related-card reveal">
         <div class="cat">Getting Started</div>
         <h3>Setting Up Automatic Contributions</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
     <a href="investment-fees.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Fees: Compound Interest in Reverse</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

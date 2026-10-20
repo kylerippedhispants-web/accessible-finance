@@ -27,7 +27,7 @@ describe('planning guide content', () => {
 
     expect(markup).toContain('https://www.canada.ca/en/financial-consumer-agency/services/make-budget.html');
     expect(markup).toContain('three-line <strong>Menu</strong> button in the top-right');
-    expect(markup).toContain('<strong>Save changes</strong> in the header to send validated inputs to Supabase');
+    expect(markup).toContain('<strong>Save changes</strong> in the header to save your inputs to your account');
     expect(markup).toContain('Sync is explicit, not automatic or real-time.');
     expect(markup).toContain('Demo Mode, Save changes keeps fictional edits only for the current browser session');
     for (const route of ['/income', '/expenses', '/assets', '/debts']) {

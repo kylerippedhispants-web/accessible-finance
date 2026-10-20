@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/rule-of-72.html",
       "inLanguage": "en-CA",
       "articleSection": "Compounding",
-      "wordCount": 1102,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 932,
+      "timeRequired": "PT6M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>The Rule of 72 and other <em>quick estimates</em></h1>
     <p class="deck">Divide 72 by an annual growth rate to estimate how many years money may take to double. It is a shortcut, not a forecast.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">6 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Mental math is useful for spotting implausible claims.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Use shortcuts to challenge assumptions</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">Three rates, three very different timelines</a></li>
-      <li><a href="#decision-map">Use the shortcut to ask better questions</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">Three rates, three very different timelines</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>At a hypothetical 6% annual rate, 72 divided by 6 suggests roughly 12 years to double. At 8%, the estimate is about 9 years. The same shortcut exposes costs: a recurring 3% drag has a large effect over roughly 24 years.</p><p>Another useful check is real return: subtract inflation from a nominal return as a rough first estimate. Precise compounding uses division rather than simple subtraction, but the shortcut is useful for orientation.</p><h3>The essentials</h3><ul><li>72 divided by the rate estimates doubling time.</li><li>The rule assumes a positive and relatively steady compound rate.</li><li>It can illustrate growth, inflation, debt, or fee drag.</li><li>Use a calculator for actual planning decisions.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Use shortcuts to challenge assumptions</span></h2>
-      <p>The Rule of 72 is most helpful as a credibility test. A projection that doubles money every six years assumes roughly 12% compound growth. That may be possible in some periods, but it is aggressive enough to demand a clear discussion of risk, fees, and downside.</p><p>The same rule makes invisible drags more intuitive. Persistent inflation near 3% would halve purchasing power in roughly 24 years. A recurring 2% cost does not literally halve the account by itself, but it creates an equally important long-term compounding gap.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A sales pitch assumes money will double every six years. The Rule of 72 implies a 12% annual compound return. That quick check should prompt questions about risk and whether the assumption is credible.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>Three rates, three very different timelines</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>Three rates, three very different timelines</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Mental-math example</div>
       <p>At 8%, the Rule of 72 estimates a doubling time near nine years. At 6%, it estimates 12 years. At 3%, it estimates 24 years. The exact mathematical results differ slightly, but the shortcut is close enough for a first conversation.</p><p>This makes sales claims easier to inspect. If a product illustration assumes repeated doubling, translate the timeline back into an implied annual return before deciding whether the risk sounds realistic.</p>
       <dl class="case-facts"><div class="case-fact"><dt>At 8%</dt><dd>About 9 years</dd></div><div class="case-fact"><dt>At 6%</dt><dd>About 12 years</dd></div><div class="case-fact"><dt>At 3%</dt><dd>About 24 years</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Use the shortcut to ask better questions</span></h2>
-      <p>A doubling estimate is meaningful only after the rate is labelled. A nominal investment return, an after-fee return, and a real return after inflation describe different outcomes. At 6% nominal growth with 2% inflation, the account balance and its purchasing power double on very different schedules. The shortcut makes that distinction visible even before a detailed model is built.</p><p>The rule is also useful outside investing. It can approximate how quickly a price level rises under steady inflation or how rapidly unpaid debt grows at a high rate. It is less useful when returns change sharply, payments are added, or the rate is very high. Treat the answer as a reasonableness check, then use an amortization or compound-growth calculator when a real commitment depends on the result.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Use the rule to challenge return assumptions.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Run the same estimate for fees and inflation.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Confirm important decisions with a proper calculator.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Model a range instead of one optimistic rate.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>The rule does not account for taxes, contributions, withdrawals, changing returns, or losses. Precision-looking projections can still be based on unrealistic inputs.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Use shortcuts to challenge assumptions</summary><p>The Rule of 72 is most helpful as a credibility test. A projection that doubles money every six years assumes roughly 12% compound growth. That may be possible in some periods, but it is aggressive enough to demand a clear discussion of risk, fees, and downside.</p><p>The same rule makes invisible drags more intuitive. Persistent inflation near 3% would halve purchasing power in roughly 24 years. A recurring 2% cost does not literally halve the account by itself, but it creates an equally important long-term compounding gap.</p></details><details class="guide-detail" id="decision-map"><summary>Use the shortcut to ask better questions</summary><p>A doubling estimate is meaningful only after the rate is labelled. A nominal investment return, an after-fee return, and a real return after inflation describe different outcomes. At 6% nominal growth with 2% inflation, the account balance and its purchasing power double on very different schedules. The shortcut makes that distinction visible even before a detailed model is built.</p><p>The rule is also useful outside investing. It can approximate how quickly a price level rises under steady inflation or how rapidly unpaid debt grows at a high rate. It is less useful when returns change sharply, payments are added, or the rate is very high. Treat the answer as a reasonableness check, then use an amortization or compound-growth calculator when a real commitment depends on the result.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">A long-term return assumption</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">Determine whether the rate is before fees, tax, and inflation.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">The balance may grow quickly when required payments are missed.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Use the shortcut for urgency, then build an exact repayment schedule.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Use the Rule of 72 as a conversation starter, then move to a proper calculation for decisions. Divide 72 by an annual percentage to estimate a doubling period. The shortcut is most useful for moderate positive rates and smooth compounding. It becomes less accurate with very high rates, changing returns, recurring deposits, taxes, or withdrawals.</p><p>Its real value is comparison. Estimate how quickly prices double under inflation, how long a debt balance would double without payments, or how fees change a portfolio's net growth rate. Then ask whether the rate is nominal or after inflation and whether it is guaranteed or merely assumed. Those labels matter more than an extra decimal place in the estimate.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Use the rule to challenge return assumptions.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Run the same estimate for fees and inflation.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Confirm important decisions with a proper calculator.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Model a range instead of one optimistic rate.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Use the Rule of 72 as a conversation starter, then move to a proper calculation for decisions. Divide 72 by an annual percentage to estimate a doubling period. The shortcut is most useful for moderate positive rates and smooth compounding. It becomes less accurate with very high rates, changing returns, recurring deposits, taxes, or withdrawals.</p><p>Its real value is comparison. Estimate how quickly prices double under inflation, how long a debt balance would double without payments, or how fees change a portfolio's net growth rate. Then ask whether the rate is nominal or after inflation and whether it is guaranteed or merely assumed. Those labels matter more than an extra decimal place in the estimate.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A sales pitch assumes money will double every six years. The Rule of 72 implies a 12% annual compound return. That quick check should prompt questions about risk and whether the assumption is credible.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Why 72 instead of 70 or 69.3?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Why 72 instead of 70 or 69.3?</summary>
           <p>The mathematically exact constant for continuous compounding is close to 69.3, but 72 divides neatly by many common rates and gives a convenient approximation. The shortcut trades a little precision for mental arithmetic.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can I use the rule for investment forecasts?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Can I use the rule for investment forecasts?</summary>
           <p>Only as a rough illustration. Market returns are uneven, fees reduce the net rate, and taxes or withdrawals alter the path. Use a calculator with conservative assumptions for an actual goal, then compare the result with the Rule of 72 as a reasonableness check.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can the rule explain inflation?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Can the rule explain inflation?</summary>
           <p>Yes. At steady 3% inflation, the shortcut suggests prices double in about 24 years. Actual inflation varies and different goods rise at different rates, but the estimate makes the long-term effect of seemingly small annual price increases easier to grasp.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>The rule does not account for taxes, contributions, withdrawals, changing returns, or losses. Precision-looking projections can still be based on unrealistic inputs.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Mental math is useful for spotting implausible claims. Treat the Rule of 72 as a first check, then use realistic scenario modelling.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator" target="_blank" rel="noopener noreferrer">Investor.gov: Compound Interest Calculator</a></li></ul>
     </section>
   </article>
@@ -631,17 +604,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="compound-interest.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Compound Interest: The Most Powerful Force in Investing</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="investment-fees.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Fees: Compound Interest in Reverse</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
     <a href="inflation-and-cash.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>The Cost of Doing Nothing: Inflation and Your Cash</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

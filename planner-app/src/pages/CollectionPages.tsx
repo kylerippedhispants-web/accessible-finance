@@ -16,7 +16,7 @@ import {
   type IncomeType,
   type RecurringFrequency,
 } from '../domain';
-import { MoneyField, NumberField, PercentField, SelectField, TextField, ToggleField } from '../components/FormFields';
+import { MoneyField, NumberField, PercentField, SelectField, TextField, ToggleField, validateNumberFields } from '../components/FormFields';
 import { createEntityId } from '../data/demoPlan';
 import { formatCad, formatPercent as formatPercentValue } from '../lib/formatters';
 import { usePlanner, type PlannerMode } from '../state/PlannerContext';
@@ -253,7 +253,7 @@ function PrivacyNotice({ mode }: { mode: PlannerMode | null }) {
         Submit an item to update the open plan and projection. It is not saved automatically; use <strong>Save changes</strong> in the header.
         {' '}{mode === 'demo'
           ? 'This stores fictional edits for this browser session; nothing is uploaded.'
-          : 'This validates and sends the current inputs to your private Supabase plan; amounts are not sent to analytics.'}
+          : 'This saves your inputs to your private account. Your financial amounts are not sent to analytics.'}
       </span>
     </aside>
   );
@@ -401,7 +401,13 @@ function EditorPanel({
         </div>
         <button className="button button-quiet" type="button" onClick={onCancel}>Close</button>
       </div>
-      <form onSubmit={onSubmit} noValidate>
+      <form onSubmit={(event) => {
+        if (!validateNumberFields(event.currentTarget)) {
+          event.preventDefault();
+          return;
+        }
+        onSubmit(event);
+      }} noValidate>
         {children}
         {error && <p className="form-status error" role="alert">{error}</p>}
         <div className="form-actions">
@@ -633,7 +639,7 @@ export function IncomePage() {
       {editor && (
         <EditorPanel
           title={editor.mode === 'add' ? 'Add income source' : `Edit ${editor.draft.name}`}
-          description="This form updates the plan in memory. The header Save button controls cloud or session persistence."
+          description="Add this income to your open plan, then choose Save changes in the header to keep it."
           submitLabel={editor.mode === 'add' ? 'Add to plan' : 'Update in plan'}
           error={error}
           onSubmit={submit}
@@ -1115,8 +1121,8 @@ export function AssetsPage() {
             <fieldset className="form-section">
               <legend>Growth and contributions</legend>
               <div className="form-grid three">
-                <PercentField label="Expected annual return (optional)" min={-100} max={100} step="0.1" value={editor.draft.expectedReturnPercent} onChange={(expectedReturnPercent) => updateDraft({ ...editor.draft, expectedReturnPercent })} hint="Before retirement. Blank uses the plan default for investment assets." />
-                <PercentField label="Return after retirement (optional)" min={-100} max={100} step="0.1" value={editor.draft.postRetirementReturnPercent} onChange={(postRetirementReturnPercent) => updateDraft({ ...editor.draft, postRetirementReturnPercent })} hint="Blank uses the retirement assumption where applicable." />
+                <PercentField label="Expected annual return (optional)" min={-100} max={100} step="0.1" value={editor.draft.expectedReturnPercent} onChange={(expectedReturnPercent) => updateDraft({ ...editor.draft, expectedReturnPercent })} hint="Annual nominal return before inflation and before retirement. Blank uses the plan default for investment assets." />
+                <PercentField label="Return after retirement (optional)" min={-100} max={100} step="0.1" value={editor.draft.postRetirementReturnPercent} onChange={(postRetirementReturnPercent) => updateDraft({ ...editor.draft, postRetirementReturnPercent })} hint="Annual nominal return before inflation. Blank uses the retirement assumption where applicable." />
                 <MoneyField label="Annual contribution (optional)" min={0} max={1_000_000_000_000} step="0.01" value={editor.draft.annualContribution} onChange={(annualContribution) => updateDraft({ ...editor.draft, annualContribution })} hint="Enter the full-year total, not each deposit." />
                 <SelectField label="Contribution frequency" value={editor.draft.contributionFrequency ?? 'monthly'} options={recurringFrequencyOptions} onChange={(value) => updateDraft({ ...editor.draft, contributionFrequency: value as RecurringFrequency })} hint="Controls how the annual total is spread through the year." />
                 <NumberField label="Contribution start year (optional)" min={1900} max={2200} step={1} value={editor.draft.contributionStartYear} onChange={(contributionStartYear) => updateDraft({ ...editor.draft, contributionStartYear })} />

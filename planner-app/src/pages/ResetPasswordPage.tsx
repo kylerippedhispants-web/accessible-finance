@@ -36,7 +36,7 @@ export function ResetPasswordPage() {
         <section className="standalone-card" aria-labelledby="reset-title">
           <span className="eyebrow">Account security</span>
           <h1 id="reset-title">Open your reset link first.</h1>
-          <p>This form becomes available only after Supabase verifies a current password-recovery link in this browser.</p>
+          <p>Open the current password-reset link from your email in this browser to choose a new password.</p>
           <Link className="text-button" to="/">Request a new reset email</Link>
         </section>
       </main>

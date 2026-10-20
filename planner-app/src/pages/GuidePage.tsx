@@ -1,10 +1,31 @@
+import { useEffect, type AnchorHTMLAttributes } from 'react';
 import { Link } from 'react-router-dom';
 
 function BackToTopics() {
-  return <a className="text-button guide-back-link" href="#guide-topics">Back to topics <span aria-hidden="true">↑</span></a>;
+  return <TopicLink className="text-button guide-back-link" href="#guide-topics">Back to topics <span aria-hidden="true">↑</span></TopicLink>;
+}
+
+function openTopic(hash: string) {
+    const target = document.getElementById(hash.slice(1));
+    if (!target) return;
+    if (target instanceof HTMLDetailsElement) target.open = true;
+    const focusTarget = target instanceof HTMLDetailsElement ? target.querySelector('summary') : target;
+    if (!(target instanceof HTMLDetailsElement)) focusTarget?.setAttribute('tabindex', '-1');
+    (focusTarget as HTMLElement)?.focus();
+    target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+}
+
+function TopicLink({ href, children, ...props }: AnchorHTMLAttributes<HTMLAnchorElement>) {
+  return <a {...props} href={href} onClick={(event) => {
+    event.preventDefault();
+    const hash = event.currentTarget.hash;
+    history.replaceState(null, '', hash);
+    openTopic(hash);
+  }}>{children}</a>;
 }
 
 export function GuidePage() {
+  useEffect(() => { if (window.location.hash) openTopic(window.location.hash); }, []);
   return (
     <div className="page guide-page">
       <header className="page-header">
@@ -26,27 +47,22 @@ export function GuidePage() {
           </div>
         </div>
         <div className="form-actions">
-          <a className="button button-quiet button-small" href="#fire-guide">FIRE estimate</a>
-          <a className="button button-quiet button-small" href="#adding-inputs">Add inputs &amp; sync</a>
-          <a className="button button-quiet button-small" href="#baseline">Reliable baseline</a>
-          <a className="button button-quiet button-small" href="#dollars">Dollar views</a>
-          <a className="button button-quiet button-small" href="#building-blocks">Plan inputs</a>
-          <a className="button button-quiet button-small" href="#retirement-guide">Retirement</a>
-          <a className="button button-quiet button-small" href="#scenario-guide">Scenarios</a>
-          <a className="button button-quiet button-small" href="#reading-results">Read results</a>
-          <a className="button button-quiet button-small" href="#privacy-guide">Data and privacy</a>
-          <a className="button button-quiet button-small" href="#canadian-resources">Canadian resources</a>
+          <TopicLink className="button button-quiet button-small" href="#fire-guide">FIRE estimate</TopicLink>
+          <TopicLink className="button button-quiet button-small" href="#adding-inputs">Add inputs &amp; sync</TopicLink>
+          <TopicLink className="button button-quiet button-small" href="#baseline">Reliable baseline</TopicLink>
+          <TopicLink className="button button-quiet button-small" href="#dollars">Dollar views</TopicLink>
+          <TopicLink className="button button-quiet button-small" href="#building-blocks">Plan inputs</TopicLink>
+          <TopicLink className="button button-quiet button-small" href="#retirement-guide">Retirement</TopicLink>
+          <TopicLink className="button button-quiet button-small" href="#scenario-guide">Scenarios</TopicLink>
+          <TopicLink className="button button-quiet button-small" href="#reading-results">Read results</TopicLink>
+          <TopicLink className="button button-quiet button-small" href="#privacy-guide">Data and privacy</TopicLink>
+          <TopicLink className="button button-quiet button-small" href="#canadian-resources">Canadian resources</TopicLink>
         </div>
       </nav>
 
-      <section id="fire-guide" className="panel form-panel" aria-labelledby="fire-guide-title">
-        <div className="panel-heading">
-          <div>
-            <span className="step-number">01</span>
-            <h2 id="fire-guide-title">Understand your FIRE estimate</h2>
-            <p>FIRE means financial independence, retire early. This planner treats it as a transparent annual cash-flow screen, not a promise.</p>
-          </div>
-        </div>
+      <details id="fire-guide" className="panel form-panel guide-topic" open>
+        <summary><h2 id="fire-guide-title"><span className="step-number">01</span>Understand your FIRE estimate</h2></summary>
+        <p>FIRE means financial independence, retire early. This planner treats it as a transparent annual cash-flow screen, not a promise.</p>
         <div className="privacy-grid">
           <article>
             <span aria-hidden="true">Y</span>
@@ -78,16 +94,11 @@ export function GuidePage() {
           <Link className="button button-secondary" to="/retirement">Review goal &amp; assumptions</Link>
         </div>
         <BackToTopics />
-      </section>
+      </details>
 
-      <section id="adding-inputs" className="panel form-panel" aria-labelledby="adding-inputs-title">
-        <div className="panel-heading">
-          <div>
-            <span className="step-number">02</span>
-            <h2 id="adding-inputs-title">Open the menu to add your inputs</h2>
-            <p>The Dashboard shows results. Your detailed inputs live in the planner sections.</p>
-          </div>
-        </div>
+      <details id="adding-inputs" className="panel form-panel guide-topic" open>
+        <summary><h2 id="adding-inputs-title"><span className="step-number">02</span>Open the menu to add your inputs</h2></summary>
+        <p>The Dashboard shows results. Your detailed inputs live in the planner sections.</p>
         <ol>
           <li>On a phone or narrow screen, select the three-line <strong>Menu</strong> button in the top-right. On a larger screen, the same navigation stays open on the left.</li>
           <li>Choose <Link to="/income">Income</Link>, <Link to="/expenses">Expenses</Link>, <Link to="/assets">Assets</Link>, or <Link to="/debts">Debts</Link>, then select that page&apos;s Add button and submit the form.</li>
@@ -95,23 +106,18 @@ export function GuidePage() {
         </ol>
         <div className="method-note">
           <strong>How saving and sync work.</strong>
-          <p>Submitting a form updates the open draft first. In a signed-in cloud plan, choose <strong>Save changes</strong> in the header to send validated inputs to Supabase; <strong>Saved</strong> confirms the sync. Sign in to the same account on another browser or device to load that saved plan. Sync is explicit, not automatic or real-time. In Demo Mode, Save changes keeps fictional edits only for the current browser session and never uploads them.</p>
+          <p>Submitting a form updates the open draft first. In a signed-in cloud plan, choose <strong>Save changes</strong> in the header to save your inputs to your account; <strong>Saved</strong> confirms the sync. Sign in to the same account on another browser or device to load that saved plan. Sync is explicit, not automatic or real-time. In Demo Mode, Save changes keeps fictional edits only for the current browser session and never uploads them.</p>
         </div>
         <div className="form-actions">
           <Link className="button button-primary" to="/income">Add or review income</Link>
           <Link className="button button-secondary" to="/settings">Review plan settings</Link>
         </div>
         <BackToTopics />
-      </section>
+      </details>
 
-      <section id="baseline" className="panel form-panel" aria-labelledby="baseline-title">
-        <div className="panel-heading">
-          <div>
-            <span className="step-number">03</span>
-            <h2 id="baseline-title">Start with a reliable baseline</h2>
-            <p>Your baseline is the plan every scenario is measured against.</p>
-          </div>
-        </div>
+      <details id="baseline" className="panel form-panel guide-topic">
+        <summary><h2 id="baseline-title"><span className="step-number">03</span>Start with a reliable baseline</h2></summary>
+        <p>Your baseline is the plan every scenario is measured against.</p>
         <ol>
           <li>
             Confirm your profile, projection year, and plan name in <Link to="/settings">Settings</Link>.
@@ -135,16 +141,11 @@ export function GuidePage() {
           <Link className="button button-secondary" to="/settings">Review plan details</Link>
         </div>
         <BackToTopics />
-      </section>
+      </details>
 
-      <section id="dollars" className="panel form-panel" aria-labelledby="dollars-title">
-        <div className="panel-heading">
-          <div>
-            <span className="step-number">04</span>
-            <h2 id="dollars-title">Today&apos;s dollars and future dollars</h2>
-            <p>Both views use the same projection. Only the way future amounts are displayed changes.</p>
-          </div>
-        </div>
+      <details id="dollars" className="panel form-panel guide-topic">
+        <summary><h2 id="dollars-title"><span className="step-number">04</span>Today&apos;s dollars and future dollars</h2></summary>
+        <p>Both views use the same projection. Only the way future amounts are displayed changes.</p>
         <div className="privacy-grid">
           <article>
             <span aria-hidden="true">N</span>
@@ -166,16 +167,11 @@ export function GuidePage() {
           <p>Changing the chart view does not change cash flow, balances, or investment growth. It only changes how projection values are presented.</p>
         </div>
         <BackToTopics />
-      </section>
+      </details>
 
-      <section id="building-blocks" className="panel form-panel" aria-labelledby="building-blocks-title">
-        <div className="panel-heading">
-          <div>
-            <span className="step-number">05</span>
-            <h2 id="building-blocks-title">Build the plan from four parts</h2>
-            <p>Each collection feeds the year-by-year projection in a different way.</p>
-          </div>
-        </div>
+      <details id="building-blocks" className="panel form-panel guide-topic">
+        <summary><h2 id="building-blocks-title"><span className="step-number">05</span>Build the plan from four parts</h2></summary>
+        <p>Each collection feeds the year-by-year projection in a different way.</p>
         <div className="privacy-grid">
           <article>
             <span aria-hidden="true">I</span>
@@ -211,20 +207,15 @@ export function GuidePage() {
           <span>TFSA, RRSP, FHSA, RESP, RRIF, and non-registered labels organize assets. The planner does not calculate contribution room, deductions, grants, minimum withdrawals, or withdrawal tax.</span>
         </aside>
         <BackToTopics />
-      </section>
+      </details>
 
-      <section id="retirement-guide" className="panel form-panel" aria-labelledby="retirement-guide-title">
-        <div className="panel-heading">
-          <div>
-            <span className="step-number">06</span>
-            <h2 id="retirement-guide-title">Make retirement assumptions explicit</h2>
-            <p>Retirement begins in the calendar year when the projection reaches your target age.</p>
-          </div>
-        </div>
+      <details id="retirement-guide" className="panel form-panel guide-topic">
+        <summary><h2 id="retirement-guide-title"><span className="step-number">06</span>Make retirement assumptions explicit</h2></summary>
+        <p>Retirement begins in the calendar year when the projection reaches your target age.</p>
         <ul>
           <li>Choose whether retirement spending replaces recurring expenses or is added to them. One-time expenses remain in either mode.</li>
-          <li>Enter separate investment return assumptions before and after retirement.</li>
-          <li>Enter CPP and OAS amounts, start ages, taxability, and growth manually. The planner does not calculate eligibility or entitlement.</li>
+          <li>Enter annual nominal investment returns before and after retirement. These rates are before inflation; the planner applies inflation separately.</li>
+          <li>Enter CPP and OAS amounts in future dollars at the age payments begin. Annual indexation applies only after that start age. For example, $10,000 received in 20 years has about $6,730 of today’s purchasing power at 2% inflation. The planner does not calculate eligibility or entitlement.</li>
           <li>Supply your own flat effective-tax assumption. Canadian tax brackets, credits, deductions, and registered-account withdrawal tax are not modelled.</li>
           <li>Set a planning end age long enough to show the period you want to inspect; it is the end of the model, not a life-expectancy estimate.</li>
         </ul>
@@ -232,16 +223,11 @@ export function GuidePage() {
           <Link className="button button-primary" to="/retirement">Review retirement assumptions</Link>
         </div>
         <BackToTopics />
-      </section>
+      </details>
 
-      <section id="scenario-guide" className="panel form-panel" aria-labelledby="scenario-guide-title">
-        <div className="panel-heading">
-          <div>
-            <span className="step-number">07</span>
-            <h2 id="scenario-guide-title">Use scenarios to compare, not predict</h2>
-            <p>A scenario stores selected differences from the baseline instead of copying the whole plan.</p>
-          </div>
-        </div>
+      <details id="scenario-guide" className="panel form-panel guide-topic">
+        <summary><h2 id="scenario-guide-title"><span className="step-number">07</span>Use scenarios to compare, not predict</h2></summary>
+        <p>A scenario stores selected differences from the baseline instead of copying the whole plan.</p>
         <ul>
           <li>Use Dashboard what-if controls or a quick preview to see a temporary comparison immediately.</li>
           <li>Return to the baseline often so you know which line represents the plan you actually entered.</li>
@@ -253,16 +239,11 @@ export function GuidePage() {
           <Link className="button button-secondary" to="/dashboard">Use what-if controls</Link>
         </div>
         <BackToTopics />
-      </section>
+      </details>
 
-      <section id="reading-results" className="panel form-panel" aria-labelledby="reading-results-title">
-        <div className="panel-heading">
-          <div>
-            <span className="step-number">08</span>
-            <h2 id="reading-results-title">Read the projection in layers</h2>
-            <p>The chart is most useful when you also inspect the cash flow and balances behind the line.</p>
-          </div>
-        </div>
+      <details id="reading-results" className="panel form-panel guide-topic">
+        <summary><h2 id="reading-results-title"><span className="step-number">08</span>Read the projection in layers</h2></summary>
+        <p>The chart is most useful when you also inspect the cash flow and balances behind the line.</p>
         <div className="privacy-grid">
           <article>
             <span aria-hidden="true">1</span>
@@ -293,51 +274,41 @@ export function GuidePage() {
           <Link className="button button-primary" to="/dashboard">Inspect the projection</Link>
         </div>
         <BackToTopics />
-      </section>
+      </details>
 
-      <section id="privacy-guide" className="panel form-panel" aria-labelledby="privacy-guide-title">
-        <div className="panel-heading">
-          <div>
-            <span className="step-number">09</span>
-            <h2 id="privacy-guide-title">Know where your data goes</h2>
-            <p>The planner separates saved inputs from locally calculated projection results.</p>
-          </div>
-        </div>
+      <details id="privacy-guide" className="panel form-panel guide-topic">
+        <summary><h2 id="privacy-guide-title"><span className="step-number">09</span>Know where your data goes</h2></summary>
+        <p>The planner separates saved inputs from locally calculated projection results.</p>
         <div className="privacy-grid">
           <article>
             <span aria-hidden="true">B</span>
-            <div><h3>Browser calculations</h3><p>Projection calculations run on this device. Changing an assumption does not send projection output to Supabase or a Netlify Function.</p></div>
+            <div><h3>Browser calculations</h3><p>Projection calculations run on this device. Changing an assumption does not upload the calculated results.</p></div>
           </article>
           <article>
             <span aria-hidden="true">C</span>
-            <div><h3>Cloud-saved plan</h3><p>For signed-in users, an explicit save sends validated plan inputs to Supabase. The planner does not write on every keystroke. If you are offline or the cloud plan changed elsewhere, your draft stays open and the planner tells you what to do next. Refreshing requires signing in again.</p></div>
+            <div><h3>Cloud-saved plan</h3><p>For signed-in users, choosing Save changes sends your plan inputs to your private account. The planner does not write on every keystroke. If you are offline or the cloud plan changed elsewhere, your draft stays open and the planner tells you what to do next. Refreshing requires signing in again.</p></div>
           </article>
           <article>
             <span aria-hidden="true">D</span>
-            <div><h3>Demo Mode</h3><p>Demo edits you explicitly save stay in browser session storage and are never uploaded. Unsaved edits remain on this page only. Use fictional information only, because browser storage is not a secure place for personal financial data.</p></div>
+            <div><h3>Demo Mode</h3><p>Saved demo edits stay in this browser tab and are never uploaded. Unsaved edits remain on this page only. Use fictional information only, because browser storage is not a secure place for personal financial data.</p></div>
           </article>
           <article>
             <span aria-hidden="true">J</span>
-            <div><h3>JSON transfer</h3><p>Exports omit authentication data and cloud ownership metadata, but the downloaded file still contains your plan. Store and share it with appropriate care.</p></div>
+            <div><h3>Downloadable backup</h3><p>Your backup contains your plan and scenarios, but no passwords or sign-in credentials. Keep the file private and share it only with people you choose.</p></div>
           </article>
         </div>
         <div className="form-actions">
           <Link className="button button-secondary" to="/settings">Open privacy and transfer settings</Link>
         </div>
         <BackToTopics />
-      </section>
+      </details>
 
-      <section id="canadian-resources" className="panel form-panel" aria-labelledby="canadian-resources-title">
-        <div className="panel-heading">
-          <div>
-            <span className="step-number">10</span>
-            <h2 id="canadian-resources-title">Continue with trusted Canadian resources</h2>
-            <p>
+      <details id="canadian-resources" className="panel form-panel guide-topic">
+        <summary><h2 id="canadian-resources-title"><span className="step-number">10</span>Continue with trusted Canadian resources</h2></summary>
+        <p>
               These Financial Consumer Agency of Canada pages can help you review the real-world
               information behind your inputs. They are separate from this planner and do not share data with it.
             </p>
-          </div>
-        </div>
         <div className="privacy-grid">
           <article>
             <span aria-hidden="true">B</span>
@@ -369,7 +340,7 @@ export function GuidePage() {
           </article>
         </div>
         <BackToTopics />
-      </section>
+      </details>
 
       <aside className="notice notice-caution" aria-labelledby="guide-disclaimer-title">
         <strong id="guide-disclaimer-title">Educational projections, not advice.</strong>

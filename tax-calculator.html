@@ -214,6 +214,19 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   .breakdown th:nth-child(2),
   .breakdown td:nth-child(2) { display: none; }
 }
+
+/* Show every breakdown value without horizontal panning on a phone. */
+.result-limit { color: var(--ink2); line-height: 1.65; }
+.breakdown:focus-visible { outline: 3px solid var(--green); outline-offset: 5px; }
+@media (max-width: 600px) {
+  .breakdown table { min-width: 0 !important; }
+  .breakdown thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .breakdown tbody, .breakdown tr { display: block; }
+  .breakdown tbody tr { padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .breakdown td, .breakdown td:nth-child(2), .breakdown td:last-child { display: block; width: auto; padding: 3px 0; border: 0; text-align: left; white-space: normal; overflow-wrap: anywhere; font-size: 14px; }
+  .breakdown td:first-child { font-weight: 700; }
+  .breakdown td:last-child { font-size: 19px; font-weight: 700; color: var(--ink); }
+}
 </style>
 <link rel="stylesheet" href="site-language.css?v=20260801">
 <link rel="stylesheet" href="site-region.css?v=20260801">
@@ -299,7 +312,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 
 <main>
   <section class="calculator-wrap" aria-labelledby="calculatorTitle">
-    <div class="calculator-shell reveal">
+    <div class="calculator-shell">
       <div class="calc-inputs">
         <h2 class="calc-title" id="calculatorTitle">Estimate your tax</h2>
         <p class="calc-copy">Enter ordinary income, net realized capital gains, RRSP and TFSA contributions, then choose your province or territory of residence on December 31, 2026.</p>
@@ -367,9 +380,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <div class="calc-results" aria-live="polite">
         <div>
           <div class="result-kicker" id="resultLocation">Ontario estimate</div>
+          <p class="result-sub"><strong>Income tax before credits</strong></p>
           <div class="total-tax" id="totalTax">$0</div>
           <p class="result-sub" id="summaryText">Estimated bracket tax on $0 of income.</p>
         </div>
+        <p class="result-sub result-limit"><strong>This is not take-home pay.</strong> Results omit tax credits (including the basic personal amount), CPP/QPP, EI, provincial surtaxes and premiums. The remaining-income figure subtracts only modeled tax and entered RRSP/TFSA contributions.</p>
         <div class="tax-stack" aria-hidden="true">
           <span class="federal" id="federalBar"></span>
           <span class="provincial" id="provincialBar"></span>
@@ -380,7 +395,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         </div>
         <div class="metrics">
           <div class="metric">
-            <div class="label">Cash after tax and contributions</div>
+            <div class="label">Income remaining before payroll deductions</div>
             <div class="value" id="afterTax">$0</div>
           </div>
           <div class="metric">
@@ -396,7 +411,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
             <div class="value" id="capitalGainsTax">$0</div>
           </div>
           <div class="metric">
-            <div class="label">RRSP tax savings</div>
+            <div class="label">RRSP bracket-tax reduction</div>
             <div class="value" id="rrspSavings">$0</div>
           </div>
           <div class="metric">
@@ -416,8 +431,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
             <div class="value" id="abatementValue">$0</div>
           </div>
         </div>
-        <div class="breakdown">
-          <h2>Breakdown</h2>
+        <div class="breakdown" role="region" aria-labelledby="tax-breakdown-heading" tabindex="0">
+          <h2 id="tax-breakdown-heading">Breakdown before tax credits</h2>
           <table>
             <thead>
               <tr>
@@ -523,8 +538,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-    <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-    <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+    <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
   </div>
 </div>
 
@@ -734,7 +749,7 @@ function updateCalculator() {
     province.abatement ? ['Quebec federal abatement', '16.5% reduction to federal bracket tax', `-${moneyFormatter.format(abatement)}`] : null,
     [`${province.name} bracket tax`, rateRange(taxableIncome, province.brackets), moneyFormatter.format(provincial)],
     ['Tax attributable to capital gain', 'Difference from the same estimate without the entered gain', moneyFormatter.format(capitalGainsTax)],
-    ['RRSP tax savings', 'Difference between tax before and after the RRSP deduction', moneyFormatter.format(rrspSavings)],
+    ['RRSP bracket-tax reduction', 'Difference between tax before and after the RRSP deduction', moneyFormatter.format(rrspSavings)],
     ['TFSA contribution', 'Tracked only; no current-year income-tax deduction', moneyFormatter.format(tfsa)],
     ['Total estimate', 'Federal plus provincial or territorial bracket tax', moneyFormatter.format(total)]
   ].filter(Boolean);

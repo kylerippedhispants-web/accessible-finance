@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/disability-investing-canada.html",
       "inLanguage": "en-CA",
       "articleSection": "Canadian Money",
-      "wordCount": 1072,
+      "wordCount": 908,
       "timeRequired": "PT6M",
-      "dateModified": "2026-07-27",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -447,9 +453,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <span class="meta-item">Intermediate</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Use the RDSP for its intended long-term role, preserve accessible cash for nearer needs, and verify every benefit interaction under the exact program that applies.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Liquidity and long-term support are separate jobs</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">Splitting a family gift by time horizon</a></li>
-      <li><a href="#decision-map">Government incentives are only one layer</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">Splitting a family gift by time horizon</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>RDSP contributions are not deductible. Depending on eligibility and family income, government grants or bonds may be available. Investment income, grants, and bonds are generally treated under the RDSP payment rules when money is paid out.</p><p>Provincial and territorial disability programs set their own asset and income rules. The treatment of an RDSP, trust, gift, withdrawal, or taxable account must be checked with the specific program.</p><h3>The essentials</h3><ul><li>Confirm Disability Tax Credit eligibility.</li><li>Check grant and bond eligibility before deciding the contribution amount.</li><li>Understand repayment rules tied to some withdrawals.</li><li>Verify provincial benefit treatment directly with the program.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Liquidity and long-term support are separate jobs</span></h2>
-      <p>An RDSP is designed for long-term support and may attract federal grants or bonds, but withdrawal rules can make it a poor substitute for an emergency fund. Accessible cash, disability-related expenses, housing, and caregiving needs should be planned separately.</p><p>Provincial and territorial assistance rules are not uniform. Before moving a gift, inheritance, trust distribution, or investment, confirm how the exact program treats assets and income. Written program guidance and specialized advice can prevent a well-intentioned transfer from disrupting support.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A family considers adding money to an RDSP but expects a near-term expense. Before contributing, they compare the long-term purpose and withdrawal rules with a separate accessible emergency fund.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>Splitting a family gift by time horizon</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>Splitting a family gift by time horizon</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Disability-planning example</div>
       <p>A DTC-approved beneficiary receives a $10,000 family gift and expects $3,000 of accessibility equipment costs within a year. Placing the full gift in an RDSP could make the near-term money harder to use efficiently.</p><p>After checking provincial rules and potential grant entitlement, the family keeps the equipment amount accessible and considers the remaining $7,000 for long-term planning. The exact split depends on benefit, tax, and RDSP withdrawal rules.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Family gift</dt><dd>$10,000</dd></div><div class="case-fact"><dt>Near-term need</dt><dd>$3,000</dd></div><div class="case-fact"><dt>Long-term amount</dt><dd>$7,000</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Government incentives are only one layer</span></h2>
-      <p>An RDSP can attract valuable grants or bonds, but the beneficiary may also need accessible cash, equipment, housing support, insurance, and help navigating public benefits. Money locked into a long-term structure should not leave immediate needs exposed. Separate the emergency and near-term plan from the long-horizon RDSP allocation before deciding how much family money to contribute.</p><p>Estate and decision-support arrangements deserve early attention. A parent may intend to leave money for a beneficiary, but a direct inheritance, trust, insurance benefit, and RDSP can interact differently with provincial assistance and control of funds. Rules vary and circumstances are personal. Create a coordinated plan with professionals who understand disability benefits, tax, estates, and supported decision-making rather than optimizing one account in isolation.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Read the federal RDSP guide.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Request current provincial benefit rules in writing where possible.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Map short-term support needs separately from long-term savings.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Consult a disability-planning professional for trusts or large transfers.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Do not assume a strategy that protects benefits in one province works in another. Withdrawal, grant repayment, tax, and estate consequences can interact.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Liquidity and long-term support are separate jobs</summary><p>An RDSP is designed for long-term support and may attract federal grants or bonds, but withdrawal rules can make it a poor substitute for an emergency fund. Accessible cash, disability-related expenses, housing, and caregiving needs should be planned separately.</p><p>Provincial and territorial assistance rules are not uniform. Before moving a gift, inheritance, trust distribution, or investment, confirm how the exact program treats assets and income. Written program guidance and specialized advice can prevent a well-intentioned transfer from disrupting support.</p></details><details class="guide-detail" id="decision-map"><summary>Government incentives are only one layer</summary><p>An RDSP can attract valuable grants or bonds, but the beneficiary may also need accessible cash, equipment, housing support, insurance, and help navigating public benefits. Money locked into a long-term structure should not leave immediate needs exposed. Separate the emergency and near-term plan from the long-horizon RDSP allocation before deciding how much family money to contribute.</p><p>Estate and decision-support arrangements deserve early attention. A parent may intend to leave money for a beneficiary, but a direct inheritance, trust, insurance benefit, and RDSP can interact differently with provincial assistance and control of funds. Rules vary and circumstances are personal. Create a coordinated plan with professionals who understand disability benefits, tax, estates, and supported decision-making rather than optimizing one account in isolation.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">The beneficiary may qualify for grants or bonds</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">Eligibility, age, income, and carry-forward rules affect available support.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Benefits, trusts, tax, and decision authority may interact.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Coordinate the estate plan with qualified disability-planning advice.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Begin with eligibility and available support, not the investment menu. An RDSP can provide long-term tax-deferred growth and may attract Canada Disability Savings Grants or Bonds under current rules. Access commonly depends on Disability Tax Credit eligibility, and grant or bond amounts can depend on family income, contributions, age, and prior entitlements. Verify these details before deciding how much personal money to add.</p><p>Coordinate the RDSP with immediate accessibility costs, emergency savings, provincial or territorial benefits, trusts, insurance, estate plans, and the beneficiary's decision-making support. Withdrawal rules can be complex, including repayment consequences tied to recent government assistance. Keep a timeline of contributions, grants, bonds, and planned withdrawals, and involve a qualified disability-planning professional when the amounts or benefit interactions are significant.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Read the federal RDSP guide.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Request current provincial benefit rules in writing where possible.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Map short-term support needs separately from long-term savings.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Consult a disability-planning professional for trusts or large transfers.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Begin with eligibility and available support, not the investment menu. An RDSP can provide long-term tax-deferred growth and may attract Canada Disability Savings Grants or Bonds under current rules. Access commonly depends on Disability Tax Credit eligibility, and grant or bond amounts can depend on family income, contributions, age, and prior entitlements. Verify these details before deciding how much personal money to add.</p><p>Coordinate the RDSP with immediate accessibility costs, emergency savings, provincial or territorial benefits, trusts, insurance, estate plans, and the beneficiary's decision-making support. Withdrawal rules can be complex, including repayment consequences tied to recent government assistance. Keep a timeline of contributions, grants, bonds, and planned withdrawals, and involve a qualified disability-planning professional when the amounts or benefit interactions are significant.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A family considers adding money to an RDSP but expects a near-term expense. Before contributing, they compare the long-term purpose and withdrawal rules with a separate accessible emergency fund.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Is an RDSP only for families with money to contribute?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Is an RDSP only for families with money to contribute?</summary>
           <p>No. The Canada Disability Savings Bond may be available to eligible lower-income beneficiaries without a personal contribution, under current rules. Grants can also increase qualifying contributions. Eligibility, age, and income details should be confirmed with official sources.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can RDSP money be used for any purpose?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Can RDSP money be used for any purpose?</summary>
           <p>Payments are intended for the beneficiary, but the plan has detailed withdrawal formulas, tax treatment, and possible assistance-repayment rules. Ask the provider for a written illustration before a withdrawal so the net payment and consequences are understood.</p>
-        </div>
-        <div class="faq-item">
-          <h3>How should an RDSP be invested?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>How should an RDSP be invested?</summary>
           <p>Match the holdings to the beneficiary&#039;s time horizon, expected withdrawal pattern, risk capacity, and wider support system. Government incentives do not eliminate market risk. Money needed soon may require stability, while very long-term funds may support a diversified growth allocation.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Do not assume a strategy that protects benefits in one province works in another. Withdrawal, grant repayment, tax, and estate consequences can interact.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Use the RDSP for its intended long-term role, preserve accessible cash for nearer needs, and verify every benefit interaction under the exact program that applies.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/registered-disability-savings-plan-rdsp.html" target="_blank" rel="noopener noreferrer">CRA: Registered Disability Savings Plan</a></li><li><a href="https://www.canada.ca/en/employment-social-development/programs/disability/savings.html" target="_blank" rel="noopener noreferrer">Employment and Social Development Canada: Disability Savings</a></li></ul>
     </section>
   </article>
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

@@ -265,11 +265,7 @@
       ['Is an RRSP only useful in a high tax bracket?', 'A higher current deduction rate can increase its value, but time, employer matching, future income, benefits, and retirement tax rates also matter. Lower-income savers may still benefit, while sometimes preferring TFSA flexibility. Compare the full household timeline rather than one year alone.']
     ]),
 
-    'tfsa-vs-rrsp': depth([
-      'Compare the accounts using the same dollar of before-tax income. An RRSP contribution can create a deduction but future withdrawals are generally taxable. A TFSA contribution uses after-tax money and qualified withdrawals are generally tax-free. If the tax rate is the same at contribution and withdrawal and the RRSP tax saving is also invested, the mathematical outcomes can be similar. Differences in rates, flexibility, benefits, and behaviour create the practical result.',
-      'Assign each account to a job. TFSA flexibility can suit uncertain goals, emergency overflow, or retirement spending that should not add taxable income. RRSP room can be especially valuable with employer matching or when deductions are claimed at a meaningfully higher rate than expected withdrawals. Many households should use both over time. Revisit the split after income, province, benefits, home plans, or retirement projections change.'
-    ], [
-      ['Which account should a beginner open first?', 'Start with employer matching if available, then consider income, deduction value, contribution room, withdrawal flexibility, and the goal. A lower-income person expecting higher future earnings may value TFSA flexibility, while a strong current deduction can favour the RRSP.'],
+    'tfsa-vs-rrsp': depth([], [
       ['Can I hold the same investments in both?', 'Often yes, if the investments are qualified and offered by the provider. The asset mix should follow the goal and total household portfolio. Account tax rules can influence location, but they do not make an unsuitable investment suitable.'],
       ['Do TFSA and RRSP limits reset every year?', 'New room may arise under their respective rules, but unused room, withdrawals, pension adjustments, and prior contributions affect the amount differently. Check current official records and keep a personal ledger rather than treating each January as a clean slate.']
     ]),

@@ -1036,49 +1036,26 @@
           <div class="decision-map-cell" role="cell" data-label="Practical move">${escapeHtml(move)}</div>
         </div>`).join('')}
     </div>`;
-  const decisionNotes = [
-    'Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.',
-    'Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.',
-    'Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.',
-    'Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.'
-  ];
-  const planningReview = [
-    '<strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.',
-    'Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.'
-  ];
   const renderDecisionPlan = (item) => `
-    ${renderParagraphs(item.context)}
-    <h3>Your four-part worksheet</h3>
     <ol class="decision-steps">
-      ${item.actions.slice(0, 4).map((action, index) => `
+      ${item.actions.map((action, index) => `
         <li class="decision-step">
           <span class="decision-step-number" aria-hidden="true">${index + 1}</span>
           <div class="decision-step-copy">
             <strong>${action}</strong>
-            <p>${decisionNotes[index]}</p>
           </div>
         </li>`).join('')}
-    </ol>
-    <div class="planning-close">
-      ${renderParagraphs(planningReview)}
-    </div>`;
+    </ol>`;
   const renderQuestions = (questions) => `
     <div class="faq-list">
       ${questions.map(([question, answer]) => `
-        <div class="faq-item">
-          <h3>${escapeHtml(question)}</h3>
+        <details class="guide-detail faq-item">
+          <summary>${escapeHtml(question)}</summary>
           <p>${escapeHtml(answer)}</p>
-        </div>`).join('')}
+        </details>`).join('')}
     </div>`;
   const countWords = (item) => {
-    const content = [
-      item.intro, item.explanation, item.points, item.deepDive, item.example,
-      item.caseStudy && item.caseStudy.paragraphs,
-      item.caseStudy && item.caseStudy.facts && item.caseStudy.facts.map((fact) => `${fact.label} ${fact.value}`),
-      item.perspective, item.decisionRows && item.decisionRows.flat(),
-      item.context, item.actions, decisionNotes.slice(0, Math.min(item.actions.length, 4)),
-      planningReview, item.questions && item.questions.flat(), item.caution, item.takeaway
-    ].flat(Infinity).filter(Boolean).join(' ');
+    const content = buildSections(item).map((section) => section.body).join(' ');
     const plainText = content.replace(/<[^>]*>/g, ' ').replace(/&[a-z0-9#]+;/gi, ' ');
     return (plainText.match(/[A-Za-z0-9]+(?:['-][A-Za-z0-9]+)*/g) || []).length;
   };
@@ -1089,7 +1066,7 @@
   };
   const renderArticleBrief = (item) => `
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>${escapeHtml(firstSentence(item.takeaway))}</p>
       </div>
@@ -1112,53 +1089,42 @@
       }
     ];
 
-    if (item.deepDive && item.deepDive.length) {
+    sections.push({
+      id: 'practical-example', title: item.caseStudy?.title || item.exampleTitle,
+      body: item.caseStudy
+        ? `<div id="real-world-case">${renderCaseStudy(item.caseStudy)}</div>`
+        : renderParagraphs(item.example)
+    });
+    sections.push({
+      id: 'build-your-plan', title: 'Your next-step checklist',
+      body: `${renderDecisionPlan(item)}
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>${item.caution}</p></div>`
+    });
+
+    // Extra context remains available without making every beginner read several
+    // overlapping explanations before reaching the example and next steps.
+    const extraDetails = [];
+    if (item.deepDive?.length) {
+      extraDetails.push(`<details class="guide-detail" id="deeper-look"><summary>${escapeHtml(item.deepDiveTitle || 'A deeper look')}</summary>${renderParagraphs(item.deepDive)}</details>`);
+    }
+    if (item.decisionRows?.length) {
+      extraDetails.push(`<details class="guide-detail" id="decision-map"><summary>${escapeHtml(item.perspectiveTitle || 'How the answer changes with your situation')}</summary>${renderParagraphs(item.perspective || [])}${renderDecisionMap(item.decisionRows)}</details>`);
+    }
+    if (item.context?.length) {
+      extraDetails.push(`<details class="guide-detail"><summary>Put the idea into a wider plan</summary>${renderParagraphs(item.context)}</details>`);
+    }
+    if (item.caseStudy && item.example?.length) {
+      extraDetails.push(`<details class="guide-detail"><summary>Another way to think about it</summary>${renderParagraphs(item.example)}</details>`);
+    }
+    if (item.questions?.length) {
+      extraDetails.push(`<div id="common-questions">${renderQuestions(item.questions)}</div>`);
+    }
+    if (extraDetails.length) {
       sections.push({
-        id: 'deeper-look', title: item.deepDiveTitle || 'A deeper look',
-        body: renderParagraphs(item.deepDive)
+        id: 'more-detail', title: 'Explore further, if useful',
+        body: `<p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p>${extraDetails.join('')}`
       });
     }
-
-    sections.push({ id: 'practical-example', title: item.exampleTitle, body: renderParagraphs(item.example) });
-
-    if (item.caseStudy) {
-      sections.push({
-        id: 'real-world-case', title: item.caseStudy.title || 'A real-world case',
-        body: renderCaseStudy(item.caseStudy)
-      });
-    }
-
-    if (item.perspective && item.perspective.length && item.decisionRows && item.decisionRows.length) {
-      sections.push({
-        id: 'decision-map', title: item.perspectiveTitle || 'What changes the answer',
-        body: `${renderParagraphs(item.perspective)}<h3>Use the idea in context</h3>${renderDecisionMap(item.decisionRows)}`
-      });
-    }
-
-    if (item.context && item.context.length) {
-      sections.push({
-        id: 'build-your-plan', title: 'Build it into your plan',
-        body: renderDecisionPlan(item)
-      });
-    }
-
-    if (item.questions && item.questions.length) {
-      sections.push({
-        id: 'common-questions', title: 'Questions people ask',
-        body: renderQuestions(item.questions)
-      });
-    }
-
-    sections.push(
-      {
-        id: 'what-to-watch-for', title: 'What to watch for',
-        body: `<div class="callout"><div class="callout-label">Important</div><p>${item.caution}</p></div>`
-      },
-      {
-        id: 'key-takeaway', title: 'Key takeaway',
-        body: `<div class="callout bottom"><div class="callout-label">Bottom line</div><p>${item.takeaway}</p></div>`
-      }
-    );
 
     if (item.sources.length) {
       sections.push({

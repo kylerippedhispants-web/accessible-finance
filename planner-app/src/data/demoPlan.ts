@@ -70,7 +70,15 @@ export function createBlankPlan(profile?: Partial<PlannerProfile>): FinancialPla
   };
 }
 
-export function createDemoSnapshot(): PlannerSnapshot {
+export const DEMO_PRESETS = [
+  { id: 'alex', name: 'Alex’s original example', description: 'A homeowner comparing retirement plans, with a mortgage and several investment accounts.' },
+  { id: 'starting-out', name: 'Starting out', description: 'Jordan, 28: a $45,000 salary, a small cash buffer, and student debt.' },
+  { id: 'variable-income', name: 'Variable income', description: 'Sam, 35: a steady income base with project work that changes after two years.' },
+  { id: 'approaching-retirement', name: 'Approaching retirement', description: 'Morgan, 58: comparing savings, retirement spending, and fictional future benefits.' },
+] as const;
+export type DemoPresetId = typeof DEMO_PRESETS[number]['id'];
+
+export function createDemoSnapshot(preset: DemoPresetId = 'alex'): PlannerSnapshot {
   const plan = createBlankPlan({
     firstName: 'Alex',
     provinceOrTerritory: 'ON',
@@ -176,6 +184,52 @@ export function createDemoSnapshot(): PlannerSnapshot {
     } satisfies Debt,
   ];
 
+  if (preset !== 'alex') {
+    const examples = {
+      'starting-out': { firstName: 'Jordan', born: '1998-04-12', income: 45_000, spending: 32_000, retirementAge: 65, cash: 2_000, tfsa: 1_500, contribution: 1_800, rrsp: 0, tax: 18 },
+      'variable-income': { firstName: 'Sam', born: '1991-09-03', income: 36_000, spending: 33_600, retirementAge: 65, cash: 5_000, tfsa: 8_000, contribution: 3_000, rrsp: 0, tax: 20 },
+      'approaching-retirement': { firstName: 'Morgan', born: '1968-02-20', income: 75_000, spending: 40_000, retirementAge: 63, cash: 30_000, tfsa: 90_000, contribution: 6_000, rrsp: 240_000, tax: 22 },
+    }[preset];
+    plan.id = `demo-plan-${preset}`;
+    plan.profile.id = `demo-profile-${preset}`;
+    plan.profile.firstName = examples.firstName;
+    plan.profile.dateOfBirth = examples.born;
+    plan.name = `${examples.firstName}’s fictional ${DEMO_PRESETS.find((item) => item.id === preset)!.name.toLowerCase()} plan`;
+    plan.assumptions.effectiveTaxPercent = examples.tax;
+    plan.retirement.targetRetirementAge = examples.retirementAge;
+    plan.retirement.estimatedAnnualSpending = examples.spending;
+    plan.retirement.cpp = { ...plan.retirement.cpp, enabled: preset === 'approaching-retirement', annualAmount: preset === 'approaching-retirement' ? 10_500 : 0 };
+    plan.retirement.oas = { ...plan.retirement.oas, enabled: preset === 'approaching-retirement', annualAmount: preset === 'approaching-retirement' ? 8_000 : 0 };
+    plan.incomeSources = [{ ...plan.incomeSources[0], amount: examples.income, name: preset === 'variable-income' ? 'Regular contract income' : 'Employment income' }];
+    if (preset === 'variable-income') {
+      plan.incomeSources.push(
+        { ...plan.incomeSources[0], id: 'demo-income-projects-now', name: 'Project work: first two years', type: 'self_employment', amount: 12_000, annualGrowthPercent: 0, endYear: 2027 },
+        { ...plan.incomeSources[0], id: 'demo-income-projects-later', name: 'Project work: lower future assumption', type: 'self_employment', amount: 6_000, annualGrowthPercent: 0, startYear: 2028 },
+      );
+    }
+    plan.expenses = [{
+      ...plan.expenses[0],
+      name: 'Living costs including rent (debt payments excluded)',
+      category: 'other',
+      amount: examples.spending,
+    }];
+    plan.assets = [
+      { ...plan.assets[0], currentValue: examples.cash },
+      { ...plan.assets[1], currentValue: examples.tfsa, annualContribution: examples.contribution },
+      ...(examples.rrsp ? [{ ...plan.assets[2], currentValue: examples.rrsp, annualContribution: 3_600 }] : []),
+    ];
+    plan.debts = preset === 'starting-out' ? [{
+      ...plan.debts[0], id: 'demo-debt-student', name: 'Fictional student loan', type: 'student_loan',
+      balance: 8_000, annualInterestPercent: 5, paymentAmount: 120, remainingAmortizationMonths: 84, compoundingPeriodsPerYear: 12,
+    }] : preset === 'variable-income' ? [{
+      ...plan.debts[0], id: 'demo-debt-card', name: 'Credit card balance', type: 'credit_card',
+      balance: 3_000, annualInterestPercent: 19, paymentAmount: 150, remainingAmortizationMonths: 36, compoundingPeriodsPerYear: 12,
+    }] : [];
+    for (const collection of [plan.incomeSources, plan.expenses, plan.assets, plan.debts]) {
+      collection.forEach((item, position) => { item.planId = plan.id; item.position = position; });
+    }
+  }
+
   return {
     plan,
     scenarios: [
@@ -188,6 +242,10 @@ export function createDemoSnapshot(): PlannerSnapshot {
           retirement: {
             investmentReturnBeforeRetirementPercent: 3.5,
             investmentReturnAfterRetirementPercent: 2.5,
+          },
+          assets: {
+            update: plan.assets.filter((asset) => asset.type === 'tfsa' || asset.type === 'rrsp' || asset.type === 'fhsa')
+              .map((asset) => ({ entityId: asset.id, changes: { expectedReturnPercent: 3.5 } })),
           },
         },
       },

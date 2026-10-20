@@ -109,6 +109,8 @@ test('planning guide explains the model and links to trusted Canadian resources'
   await expect(page.getByText('How saving and sync work.')).toBeVisible();
   await expect(page.getByRole('heading', { name: "Today's dollars and future dollars" })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Continue with trusted Canadian resources' })).toBeVisible();
+  await page.getByRole('navigation', { name: 'Choose a topic.' }).getByRole('link', { name: 'Canadian resources', exact: true }).click();
+  await expect(page.locator('#canadian-resources')).toHaveAttribute('open', '');
   await expect(page.getByRole('link', { name: /Making a budget/ })).toHaveAttribute('href', /canada\.ca/);
 
   const guideAxe = await new AxeBuilder({ page }).analyze();

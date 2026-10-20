@@ -1,6 +1,6 @@
 import { useDeferredValue, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MoneyField, NumberField, PercentField, SelectField, ToggleField } from '../components/FormFields';
+import { FieldValidationScope, MoneyField, NumberField, PercentField, SelectField, ToggleField } from '../components/FormFields';
 import type { FinancialPlan, ManualRetirementBenefit, RetirementSettings } from '../domain';
 import { estimateFireTarget } from '../finance-engine';
 import { formatCad, formatCadMetric } from '../lib/formatters';
@@ -18,6 +18,7 @@ export function RetirementPage() {
   const minimumRetirementAge = Math.max(18, baseAge);
   const maximumRetirementAge = Math.min(100, plan.retirement.planningEndAge - 1);
   const [timelineError, setTimelineError] = useState<string>();
+  const [inputsValid, setInputsValid] = useState(true);
   const deferredPlan = useDeferredValue(plan);
   const fireEstimate = useMemo(() => estimateFireTarget(deferredPlan), [deferredPlan]);
   const fireEstimatePending = deferredPlan !== plan;
@@ -42,7 +43,7 @@ export function RetirementPage() {
   };
 
   const updateRetirementAge = (value: number | undefined) => {
-    if (value === undefined) return;
+    if (value === undefined || !Number.isFinite(value)) return;
     const next = Math.round(value);
     if (next < minimumRetirementAge || next > maximumRetirementAge) {
       setTimelineError(`Planned retirement age must be from ${minimumRetirementAge} through ${maximumRetirementAge}. Use ${minimumRetirementAge} if already retired.`);
@@ -53,7 +54,7 @@ export function RetirementPage() {
   };
 
   const updatePlanningEndAge = (value: number | undefined) => {
-    if (value === undefined) return;
+    if (value === undefined || !Number.isFinite(value)) return;
     const minimum = Math.max(19, baseAge, plan.retirement.targetRetirementAge + 1);
     const next = Math.round(value);
     if (next < minimum || next > 120) {
@@ -65,12 +66,14 @@ export function RetirementPage() {
   };
 
   return (
+    <FieldValidationScope onValidityChange={setInputsValid}>
     <div className="page retirement-page">
       <header className="page-header">
         <div><span className="eyebrow">Goal &amp; assumptions</span><h1>Retirement</h1><p>These inputs drive your modeled FIRE amount and year. Changes update the estimate, but nothing here is a promise or entitlement calculation.</p></div>
       </header>
 
-      <section
+      {!inputsValid && <p className="form-status error" role="alert">Correct the highlighted number to update the estimate. Your unfinished edit has not been applied or saved.</p>}
+      {inputsValid && <section
         className="retirement-fire-preview"
         aria-labelledby="retirement-fire-title"
         aria-busy={fireEstimatePending ? true : undefined}
@@ -100,7 +103,7 @@ export function RetirementPage() {
             : <><strong>Not available</strong><small>Review the inputs below.</small></>}
         </div>
         <Link className="text-button" to="/dashboard">See the full FIRE outlook</Link>
-      </section>
+      </section>}
 
       <section className="panel form-panel" aria-labelledby="timeline-title">
         <div className="panel-heading"><div><span className="step-number">01</span><h2 id="timeline-title">Timeline and spending</h2><p>The planned age tests when work income stops. It is separate from the earliest age the FIRE screen finds.</p></div></div>
@@ -127,8 +130,8 @@ export function RetirementPage() {
         <div className="form-grid two">
           <PercentField label="Effective tax assumption" required min={0} max={100} step={0.1} value={plan.assumptions.effectiveTaxPercent} onChange={(value) => patchPlan({ assumptions: { ...plan.assumptions, effectiveTaxPercent: bounded(value, plan.assumptions.effectiveTaxPercent, 0, 100) } })} hint="Your flat estimate on taxable income. This is not a tax calculation." />
           <PercentField label="General inflation" required min={-10} max={20} step={0.1} value={plan.assumptions.generalInflationPercent} onChange={(value) => patchPlan({ assumptions: { ...plan.assumptions, generalInflationPercent: bounded(value, plan.assumptions.generalInflationPercent, -10, 20) } })} hint="Used to show values in today’s dollars." />
-          <PercentField label="Investment return before retirement" required min={-100} max={100} step={0.1} value={plan.retirement.investmentReturnBeforeRetirementPercent} onChange={(value) => patchRetirement({ investmentReturnBeforeRetirementPercent: bounded(value, plan.retirement.investmentReturnBeforeRetirementPercent, -100, 100) })} />
-          <PercentField label="Investment return after retirement" required min={-100} max={100} step={0.1} value={plan.retirement.investmentReturnAfterRetirementPercent} onChange={(value) => patchRetirement({ investmentReturnAfterRetirementPercent: bounded(value, plan.retirement.investmentReturnAfterRetirementPercent, -100, 100) })} />
+          <PercentField label="Investment return before retirement" required min={-100} max={100} step={0.1} value={plan.retirement.investmentReturnBeforeRetirementPercent} onChange={(value) => patchRetirement({ investmentReturnBeforeRetirementPercent: bounded(value, plan.retirement.investmentReturnBeforeRetirementPercent, -100, 100) })} hint="Annual nominal return, before inflation. Enter 5 for 5%; inflation is applied separately." />
+          <PercentField label="Investment return after retirement" required min={-100} max={100} step={0.1} value={plan.retirement.investmentReturnAfterRetirementPercent} onChange={(value) => patchRetirement({ investmentReturnAfterRetirementPercent: bounded(value, plan.retirement.investmentReturnAfterRetirementPercent, -100, 100) })} hint="Annual nominal return, before inflation. A constant assumption cannot predict market changes." />
         </div>
         <aside className="notice notice-caution" aria-label="Tax calculation limitation">
           <strong>No Canadian tax tables are applied.</strong>
@@ -149,6 +152,7 @@ export function RetirementPage() {
         <p>The planner does not currently model provincial/federal tax brackets, CPP contribution history, OAS recovery tax, pension splitting, RRIF minimums, TFSA/RRSP/FHSA limits, or GIS. Unsupported rules are intentionally left out rather than guessed.</p>
       </div>
     </div>
+    </FieldValidationScope>
   );
 }
 
@@ -166,9 +170,9 @@ function BenefitEditor({
       <legend>{label}</legend>
       <ToggleField label={`Include manual ${label} estimate`} checked={benefit.enabled} onChange={(enabled) => onChange({ enabled })} />
       <div className="form-grid two" aria-disabled={!benefit.enabled}>
-        <MoneyField label="Annual amount" required={benefit.enabled} min={0} max={1_000_000_000_000} step={100} value={benefit.annualAmount} onChange={(value) => onChange({ annualAmount: bounded(value, benefit.annualAmount, 0, 1_000_000_000_000) })} disabled={!benefit.enabled} />
-        <NumberField label="Start age" required={benefit.enabled} min={18} max={120} step={1} value={benefit.startAge} onChange={(value) => onChange({ startAge: Math.round(bounded(value, 65, 18, 120)) })} disabled={!benefit.enabled} />
-        <PercentField label="Annual indexation" required={benefit.enabled} min={-100} max={100} step={0.1} value={benefit.annualGrowthPercent} onChange={(value) => onChange({ annualGrowthPercent: bounded(value, benefit.annualGrowthPercent, -100, 100) })} disabled={!benefit.enabled} />
+        <MoneyField label="Annual amount at start age" required={benefit.enabled} min={0} max={1_000_000_000_000} step={100} value={benefit.annualAmount} onChange={(value) => onChange({ annualAmount: bounded(value, benefit.annualAmount, 0, 1_000_000_000_000) })} disabled={!benefit.enabled} hint="Future dollars in the first payment year, not today’s dollars. Adjust an official estimate in today’s dollars before entering it." />
+        <NumberField label="Start age" required={benefit.enabled} min={18} max={120} step={1} value={benefit.startAge} onChange={(value) => onChange({ startAge: Math.round(bounded(value, benefit.startAge, 18, 120)) })} disabled={!benefit.enabled} />
+        <PercentField label="Annual indexation" required={benefit.enabled} min={-100} max={100} step={0.1} value={benefit.annualGrowthPercent} onChange={(value) => onChange({ annualGrowthPercent: bounded(value, benefit.annualGrowthPercent, -100, 100) })} disabled={!benefit.enabled} hint="Annual increase after payments begin. No growth is applied before the start age." />
         <ToggleField label="Treat as taxable" checked={benefit.taxable} disabled={!benefit.enabled} onChange={(taxable) => onChange({ taxable })} hint="Uses the plan’s flat effective-tax assumption." />
       </div>
     </fieldset>

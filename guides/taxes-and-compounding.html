@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/taxes-and-compounding.html",
       "inLanguage": "en-CA",
       "articleSection": "Compounding",
-      "wordCount": 1095,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 932,
+      "timeRequired": "PT6M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>Taxes, compounding, and what <em>tax-advantaged</em> means</h1>
     <p class="deck">Account rules affect when tax is paid, whether a contribution is deductible, and how much capital remains available to grow.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">6 min read</span>
       <span class="meta-item">Intermediate</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Tax-advantaged accounts improve the environment around an investment.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Tax location changes the return you keep</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">The value of keeping more capital invested</a></li>
-      <li><a href="#decision-map">Tax efficiency starts after suitability</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">The value of keeping more capital invested</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>TFSA contributions are not deductible, while eligible growth and withdrawals are generally tax-free. RRSP contributions may reduce taxable income, growth is generally tax-deferred, and withdrawals are usually taxable. An FHSA can combine deductible contributions with tax-free qualifying home withdrawals.</p><p>The best sequence depends on the goal, income today, expected income later, available employer matching, and the flexibility needed.</p><h3>The essentials</h3><ul><li>The account is a container; it does not choose the investment.</li><li>Tax-free and tax-deferred are different benefits.</li><li>Contribution room and withdrawal rules must be tracked.</li><li>A tax deduction is most useful when it supports the broader plan.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Tax location changes the return you keep</span></h2>
-      <p>Tax drag can arise from interest, foreign income, dividends, realized gains, or fund distributions. The exact treatment depends on the account, investment, jurisdiction, and investor. That makes asset location a second decision after asset allocation.</p><p>Registered accounts can reduce annual tax friction, but their withdrawal rules differ. The account with the largest immediate deduction is not automatically the best place for money that may be needed soon.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>Two people can own the same balanced ETF but experience different tax treatment because one holds it in a TFSA and the other in a taxable account. The market exposure is the same; the account rules are not.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>The value of keeping more capital invested</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>The value of keeping more capital invested</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Tax-drag illustration</div>
       <p>A one-time $7,000 investment compounding annually at 6% for 20 years reaches about $22,450. If annual tax drag reduces the effective growth rate to 4.8%, the same illustration ends near $17,878.</p><p>The $4,572 difference is not a universal TFSA benefit calculation. Real tax depends on the return type and personal circumstances. It demonstrates the mechanism: annual tax leaves a smaller base available for the next year.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Starting amount</dt><dd>$7,000</dd></div><div class="case-fact"><dt>6% for 20 years</dt><dd>$22,450</dd></div><div class="case-fact"><dt>4.8% for 20 years</dt><dd>$17,878</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Tax efficiency starts after suitability</span></h2>
-      <p>Tax planning works best when the household portfolio is viewed as one system. A holding that is inefficient in one account may be reasonable in another, but asset location should not distort the intended level of risk. Moving every bond to one spouse's account or every stock to another can create unequal liquidity, beneficiary, or withdrawal consequences even when the spreadsheet shows a tax benefit.</p><p>Benefits and income-tested credits can also change the effective cost of a withdrawal. A dollar of taxable retirement income may affect more than the stated bracket, while a TFSA withdrawal generally behaves differently. These interactions are personal and rules change, so projections should label assumptions and dates. Use educational comparisons to identify questions, then verify material decisions with current CRA guidance or qualified advice.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Start with the goal and expected withdrawal.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Confirm room using current records.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Capture any valuable employer match first.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Review beneficiary designations and account paperwork.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Tax rules change and individual circumstances matter. Verify current limits and consequences with the CRA or a qualified professional before acting.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Tax location changes the return you keep</summary><p>Tax drag can arise from interest, foreign income, dividends, realized gains, or fund distributions. The exact treatment depends on the account, investment, jurisdiction, and investor. That makes asset location a second decision after asset allocation.</p><p>Registered accounts can reduce annual tax friction, but their withdrawal rules differ. The account with the largest immediate deduction is not automatically the best place for money that may be needed soon.</p></details><details class="guide-detail" id="decision-map"><summary>Tax efficiency starts after suitability</summary><p>Tax planning works best when the household portfolio is viewed as one system. A holding that is inefficient in one account may be reasonable in another, but asset location should not distort the intended level of risk. Moving every bond to one spouse's account or every stock to another can create unequal liquidity, beneficiary, or withdrawal consequences even when the spreadsheet shows a tax benefit.</p><p>Benefits and income-tested credits can also change the effective cost of a withdrawal. A dollar of taxable retirement income may affect more than the stated bracket, while a TFSA withdrawal generally behaves differently. These interactions are personal and rules change, so projections should label assumptions and dates. Use educational comparisons to identify questions, then verify material decisions with current CRA guidance or qualified advice.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">Choosing between account types</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">Current deduction, future withdrawal tax, flexibility, and benefit interactions.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Capital gain, loss rules, transaction cost, and replacement exposure.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Estimate the after-tax transition before allowing tax alone to dictate the trade.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Evaluate investments on an after-tax, after-fee basis without letting tax become the only objective. Start with the goal and suitable asset mix, then choose among available account types and decide where different holdings belong. A tax-efficient structure cannot rescue an unsuitable or excessively risky investment, but repeated tax drag can meaningfully reduce the amount left to compound.</p><p>Keep a simple map of each account: contribution deductibility, tax treatment of growth, withdrawal rules, room or limits, beneficiary details, and the records you must retain. For taxable holdings, track adjusted cost base and distribution details. Revisit the map after income, province, family status, or legislation changes. When the decision is material, verify current rules with the CRA or a qualified tax professional instead of relying on an old summary.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Start with the goal and expected withdrawal.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Confirm room using current records.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Capture any valuable employer match first.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Review beneficiary designations and account paperwork.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Evaluate investments on an after-tax, after-fee basis without letting tax become the only objective. Start with the goal and suitable asset mix, then choose among available account types and decide where different holdings belong. A tax-efficient structure cannot rescue an unsuitable or excessively risky investment, but repeated tax drag can meaningfully reduce the amount left to compound.</p><p>Keep a simple map of each account: contribution deductibility, tax treatment of growth, withdrawal rules, room or limits, beneficiary details, and the records you must retain. For taxable holdings, track adjusted cost base and distribution details. Revisit the map after income, province, family status, or legislation changes. When the decision is material, verify current rules with the CRA or a qualified tax professional instead of relying on an old summary.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>Two people can own the same balanced ETF but experience different tax treatment because one holds it in a TFSA and the other in a taxable account. The market exposure is the same; the account rules are not.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Should taxes determine what I invest in?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Should taxes determine what I invest in?</summary>
           <p>Taxes are one input. Risk, diversification, time horizon, liquidity, and cost come first. Avoiding tax on a poor investment is not a good outcome, and selling solely for tax reasons can damage the larger plan. Compare the after-tax result while preserving the intended portfolio.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Is tax deferral the same as tax elimination?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Is tax deferral the same as tax elimination?</summary>
           <p>No. Deferral postpones tax and allows money that would otherwise leave the account to remain invested. The eventual withdrawal may still be taxable. Its value depends partly on the deduction received, future tax rate, time, and how the tax refund is used.</p>
-        </div>
-        <div class="faq-item">
-          <h3>When should I get professional tax help?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>When should I get professional tax help?</summary>
           <p>Consider help when dealing with a business, cross-border status, trusts, significant capital gains, estate planning, complex benefits, or large registered-account decisions. A professional can apply current rules to your facts; an educational article cannot determine your personal tax result.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Tax rules change and individual circumstances matter. Verify current limits and consequences with the CRA or a qualified professional before acting.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Tax-advantaged accounts improve the environment around an investment. Choose the container and the investment deliberately rather than treating either one as the complete plan.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/what.html" target="_blank" rel="noopener noreferrer">CRA: Tax-Free Savings Account</a></li><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/registered-retirement-savings-plan-rrsp.html" target="_blank" rel="noopener noreferrer">CRA: Registered Retirement Savings Plan</a></li><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account.html" target="_blank" rel="noopener noreferrer">CRA: First Home Savings Account</a></li></ul>
     </section>
   </article>
@@ -636,12 +609,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="tfsa-vs-rrsp.html" class="related-card reveal">
         <div class="cat">Canadian Money</div>
         <h3>TFSA vs. RRSP: Which Should You Use First?</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">5 min read &middot; Intermediate</div>
       </a>
     <a href="fhsa-explained.html" class="related-card reveal">
         <div class="cat">Canadian Money</div>
         <h3>The FHSA: Canada&#039;s First Home Savings Account Explained</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

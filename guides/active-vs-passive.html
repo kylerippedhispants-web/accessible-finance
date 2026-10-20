@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/active-vs-passive.html",
       "inLanguage": "en-CA",
       "articleSection": "Asset Classes",
-      "wordCount": 1212,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 1049,
+      "timeRequired": "PT6M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>Active vs. passive investing: what the <em>evidence means</em></h1>
     <p class="deck">Active investing tries to outperform a benchmark. Passive investing tries to capture a benchmark, usually at lower cost.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">6 min read</span>
       <span class="meta-item">Intermediate</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Passive investing offers a low-cost default.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Survivorship and benchmark choice matter</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">What the 2025 SPIVA Canada scorecard found</a></li>
-      <li><a href="#decision-map">The benchmark must fit the mandate</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">What the 2025 SPIVA Canada scorecard found</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Active managers select securities, adjust weights, or change exposures in an effort to beat a benchmark or control risk. Passive funds follow a stated index and accept its composition.</p><p>A fair comparison uses an appropriate benchmark, the same risk level, and returns after all fees. One strong period is not enough to establish repeatable skill.</p><h3>The essentials</h3><ul><li>Active results should be compared after fees and against the right benchmark.</li><li>Passive funds still make choices through index design.</li><li>Taxes and trading can widen the cost difference.</li><li>Consistency and portfolio fit matter more than labels.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Survivorship and benchmark choice matter</span></h2>
-      <p>A fund comparison can look better when failed or merged products disappear from the data. A rigorous scorecard keeps track of those funds and compares each category with a relevant benchmark. It also looks beyond one year, because style cycles can make temporary outperformance look like permanent skill.</p><p>Passive funds do not win every period, and an active manager may provide downside control or a specialized mandate. The evidence question is whether the benefit persists after fees and whether the investor can identify it before, rather than after, the result.</p><p>Manager risk is separate from market risk. A manager can leave, the process can change, assets can grow too large for the original strategy, or a concentrated view can remain wrong for years. Active investors need a monitoring rule for those changes as well as patience during ordinary underperformance.</p><p>Index investors face governance choices too. An index provider decides which securities qualify and how weights change. The practical advantage is that those rules are usually published in advance, making the exposure and performance benchmark easier to audit.</p><p>Some investors combine the approaches by using broad index funds as a low-cost core and a limited active allocation for a clearly defined purpose. That structure only helps when the active sleeve has a size limit, a fair benchmark, and a reason stronger than recent performance.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>An active Canadian equity fund that holds smaller companies should not be judged only against a large-company index. The investor should compare like with like and include the management fee.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>What the 2025 SPIVA Canada scorecard found</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>What the 2025 SPIVA Canada scorecard found</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Current Canadian evidence</div>
       <p>S&P Dow Jones Indices reported that 93.4% of Canadian Equity funds underperformed the S&P/TSX Composite Index in 2025. The underperformance rate was 98.8% over the ten-year horizon ending in 2025.</p><p>The report also said 47.1% of Canadian Equity funds merged or liquidated over ten years. This does not prove every active decision is wrong. It shows how high the hurdle becomes after costs, selection, and survivorship are included.</p>
       <dl class="case-facts"><div class="case-fact"><dt>2025 underperformed</dt><dd>93.4%</dd></div><div class="case-fact"><dt>10-year underperformed</dt><dd>98.8%</dd></div><div class="case-fact"><dt>10-year merged / closed</dt><dd>47.1%</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>The benchmark must fit the mandate</span></h2>
-      <p>Active performance can look impressive when the benchmark is easier, safer, or simply different. A small-company manager compared with a large-company index may appear skilful during a small-cap rally without adding value relative to the market actually owned. Compare holdings, factor exposures, cash, and risk before attributing the gap to security selection.</p><p>Taxes and capacity can change the real result. Frequent trading can realize gains in taxable accounts, while a strategy that worked with a small asset base may struggle after attracting billions because its best opportunities cannot absorb the new money. A due-diligence process should examine people, philosophy, portfolio construction, fees, turnover, and whether success itself could weaken the approach.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Identify the benchmark in the fund documents.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Compare long periods and multiple market conditions.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Measure total cost and tax impact.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Write down what would justify keeping or replacing the strategy.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Past outperformance can disappear, while switching after weak performance can lock investors into chasing whichever style just won.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Survivorship and benchmark choice matter</summary><p>A fund comparison can look better when failed or merged products disappear from the data. A rigorous scorecard keeps track of those funds and compares each category with a relevant benchmark. It also looks beyond one year, because style cycles can make temporary outperformance look like permanent skill.</p><p>Passive funds do not win every period, and an active manager may provide downside control or a specialized mandate. The evidence question is whether the benefit persists after fees and whether the investor can identify it before, rather than after, the result.</p><p>Manager risk is separate from market risk. A manager can leave, the process can change, assets can grow too large for the original strategy, or a concentrated view can remain wrong for years. Active investors need a monitoring rule for those changes as well as patience during ordinary underperformance.</p><p>Index investors face governance choices too. An index provider decides which securities qualify and how weights change. The practical advantage is that those rules are usually published in advance, making the exposure and performance benchmark easier to audit.</p><p>Some investors combine the approaches by using broad index funds as a low-cost core and a limited active allocation for a clearly defined purpose. That structure only helps when the active sleeve has a size limit, a fair benchmark, and a reason stronger than recent performance.</p></details><details class="guide-detail" id="decision-map"><summary>The benchmark must fit the mandate</summary><p>Active performance can look impressive when the benchmark is easier, safer, or simply different. A small-company manager compared with a large-company index may appear skilful during a small-cap rally without adding value relative to the market actually owned. Compare holdings, factor exposures, cash, and risk before attributing the gap to security selection.</p><p>Taxes and capacity can change the real result. Frequent trading can realize gains in taxable accounts, while a strategy that worked with a small asset base may struggle after attracting billions because its best opportunities cannot absorb the new money. A due-diligence process should examine people, philosophy, portfolio construction, fees, turnover, and whether success itself could weaken the approach.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">A broad developed-market allocation</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">Markets are liquid and low-cost index options are readily available.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Performance may reflect style, bad luck, broken process, or excess cost.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Review mandate and holdings instead of selling solely from the ranking.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Define the comparison before looking at performance. The active fund and benchmark should cover similar assets, geography, company size, and risk. Use returns after all recurring costs and examine several market environments. A manager who owns smaller companies should not be judged against a large-company index, and a strong single year cannot establish repeatable skill.</p><p>Write down why active management is being used. Possible reasons include a specific risk-control mandate, access to a less efficient market, tax management, or a service relationship that supports the wider plan. Then identify the evidence and review date. A broad low-cost passive portfolio is a strong default because cost and exposure are knowable; active management carries the added burden of proving that its role justifies higher cost and monitoring.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Identify the benchmark in the fund documents.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Compare long periods and multiple market conditions.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Measure total cost and tax impact.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Write down what would justify keeping or replacing the strategy.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Define the comparison before looking at performance. The active fund and benchmark should cover similar assets, geography, company size, and risk. Use returns after all recurring costs and examine several market environments. A manager who owns smaller companies should not be judged against a large-company index, and a strong single year cannot establish repeatable skill.</p><p>Write down why active management is being used. Possible reasons include a specific risk-control mandate, access to a less efficient market, tax management, or a service relationship that supports the wider plan. Then identify the evidence and review date. A broad low-cost passive portfolio is a strong default because cost and exposure are knowable; active management carries the added burden of proving that its role justifies higher cost and monitoring.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>An active Canadian equity fund that holds smaller companies should not be judged only against a large-company index. The investor should compare like with like and include the management fee.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Can an active manager beat an index?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Can an active manager beat an index?</summary>
           <p>Yes, some do over particular periods. The challenge is identifying them in advance, after fees, and distinguishing skill from luck. Persistence is difficult, which is why a process should not rely on choosing next decade&#039;s winner from last decade&#039;s rankings.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Does passive investing guarantee average returns?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Does passive investing guarantee average returns?</summary>
           <p>An index fund aims to track its benchmark before costs, not guarantee a gain. The benchmark itself can fall, and the fund will usually trail it slightly after expenses. Average refers to market exposure, not a smooth or risk-free result.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can I combine active and passive funds?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Can I combine active and passive funds?</summary>
           <p>Yes. A core broad-market allocation can sit beside a smaller active position with a clearly defined purpose and limit. Measure the combined fees, overlap, and risk so the satellite holding does not quietly replace the diversified core.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Past outperformance can disappear, while switching after weak performance can lock investors into chasing whichever style just won.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Passive investing offers a low-cost default. Active investing needs a clear role, fair benchmark, and evidence strong enough to justify its extra cost and complexity.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing/getting-started/understanding-fees" target="_blank" rel="noopener noreferrer">Investor.gov: Understanding Fees</a></li><li><a href="https://www.spglobal.com/spdji/en/spiva/article/spiva-canada/" target="_blank" rel="noopener noreferrer">S&amp;P Dow Jones Indices: SPIVA Canada Year-End 2025</a></li></ul>
     </section>
   </article>
@@ -636,7 +609,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="investment-fees.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Fees: Compound Interest in Reverse</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
     <a href="investor-behaviour.html" class="related-card reveal">
         <div class="cat">Market Behaviour</div>
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

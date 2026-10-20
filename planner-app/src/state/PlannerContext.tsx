@@ -9,10 +9,12 @@ import {
   useState,
 } from 'react';
 import { useAuth } from '../auth/AuthContext';
+import { validateNumberFields } from '../components/FormFields';
 import type { FinancialPlan, PlanScenario } from '../domain';
 import {
   createBlankPlan,
   createDemoSnapshot,
+  type DemoPresetId,
   type PlannerSnapshot,
 } from '../data/demoPlan';
 import {
@@ -35,7 +37,7 @@ interface PlannerContextValue {
   offline: boolean;
   saveState: SaveState;
   saveMessage?: string;
-  startDemo: () => void;
+  startDemo: (preset?: DemoPresetId) => void;
   exitDemo: () => void;
   updatePlan: (updater: (plan: FinancialPlan) => FinancialPlan) => void;
   replaceSnapshot: (snapshot: PlannerSnapshot) => void;
@@ -378,8 +380,8 @@ export function PlannerProvider({ children }: PropsWithChildren) {
     return () => window.removeEventListener('beforeunload', warnIfDirty);
   }, []);
 
-  const startDemo = useCallback(() => {
-    const next = readDemoSnapshot() ?? createDemoSnapshot();
+  const startDemo = useCallback((preset?: DemoPresetId) => {
+    const next = preset ? createDemoSnapshot(preset) : readDemoSnapshot() ?? createDemoSnapshot();
     const stored = writeDemoSnapshot(next);
     lastSavedRef.current = stored ? next : null;
     revisionRef.current = null;
@@ -393,7 +395,7 @@ export function PlannerProvider({ children }: PropsWithChildren) {
     setSaveState(stored ? 'saved' : 'error');
     setSaveMessage(stored
       ? 'Fictional demo data is saved for this browser session only.'
-      : 'Browser storage is unavailable. Demo changes will remain in memory only until you close this page.');
+      : 'Your browser cannot keep the example after a refresh. Changes last until you leave this page.');
   }, [installDirty, installOnboardingRequired, installSnapshot]);
 
   const exitDemo = useCallback(() => {
@@ -440,6 +442,11 @@ export function PlannerProvider({ children }: PropsWithChildren) {
 
   const save = useCallback((provided?: PlannerSnapshot): Promise<boolean> => {
     if (inFlightSaveRef.current) return inFlightSaveRef.current;
+    if (!validateNumberFields()) {
+      setSaveState('error');
+      setSaveMessage('Correct the highlighted number before saving. That edit has not been applied to your plan.');
+      return Promise.resolve(false);
+    }
 
     const next = provided ?? snapshotRef.current;
     const currentMode = userId ? 'cloud' : manualMode;
@@ -479,7 +486,7 @@ export function PlannerProvider({ children }: PropsWithChildren) {
         if (currentMode === 'demo') {
           if (!writeDemoSnapshot(validated.data)) {
             setSaveState('error');
-            setSaveMessage('Browser storage is unavailable. Your demo changes remain in memory on this page only.');
+            setSaveMessage('Your browser cannot keep the example after a refresh. Your changes are still open on this page.');
             return false;
           }
         } else {

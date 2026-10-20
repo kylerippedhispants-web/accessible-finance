@@ -13,14 +13,14 @@
       { id: 'income-other', name: 'Other income', amount: 0 },
     ],
     expenses: [
-      { id: 'expense-housing', name: 'Housing', amount: 1650 },
-      { id: 'expense-groceries', name: 'Groceries', amount: 550 },
-      { id: 'expense-transport', name: 'Transportation', amount: 450 },
-      { id: 'expense-utilities', name: 'Utilities', amount: 250 },
-      { id: 'expense-debt', name: 'Debt payments', amount: 300 },
-      { id: 'expense-lifestyle', name: 'Lifestyle', amount: 500 },
-      { id: 'expense-savings', name: 'Savings & investing', amount: 900 },
-      { id: 'expense-other', name: 'Other spending', amount: 200 },
+      { id: 'expense-housing', name: 'Housing', amount: 1650, kind: 'spending' },
+      { id: 'expense-groceries', name: 'Groceries', amount: 550, kind: 'spending' },
+      { id: 'expense-transport', name: 'Transportation', amount: 450, kind: 'spending' },
+      { id: 'expense-utilities', name: 'Utilities', amount: 250, kind: 'spending' },
+      { id: 'expense-debt', name: 'Debt payments', amount: 300, kind: 'debt' },
+      { id: 'expense-lifestyle', name: 'Lifestyle', amount: 500, kind: 'spending' },
+      { id: 'expense-savings', name: 'Savings & investing', amount: 900, kind: 'saving' },
+      { id: 'expense-other', name: 'Other spending', amount: 200, kind: 'spending' },
     ],
   };
 
@@ -38,6 +38,7 @@
     chartEmpty: document.getElementById('chartEmpty'),
     chartError: document.getElementById('chartError'),
     chartDescription: document.getElementById('sankeyDescription'),
+    dataRows: document.getElementById('cashFlowDataRows'),
     chartPeriod: document.getElementById('chartPeriod'),
     flowStatus: document.getElementById('flowStatus'),
     summaryIncome: document.getElementById('summaryIncome'),
@@ -72,10 +73,16 @@
   }
 
   function validRow(row, prefix, index) {
+    // One-time migration keeps old savings classifications, then saves an explicit
+    // kind. Renaming a row after migration never changes its classification.
+    const kind = ['spending', 'saving', 'debt'].includes(row?.kind) ? row.kind
+      : /(sav|invest|retire|emergency fund)/i.test(row?.name || '') ? 'saving'
+        : /debt|loan|credit card/i.test(row?.name || '') ? 'debt' : 'spending';
     return {
       id: typeof row?.id === 'string' && row.id ? row.id : `${prefix}-${Date.now()}-${index}`,
       name: typeof row?.name === 'string' ? row.name.slice(0, 48) : '',
       amount: Number.isFinite(Number(row?.amount)) ? Math.max(0, Number(row.amount)) : 0,
+      ...(prefix === 'expense' ? { kind } : {}),
     };
   }
 
@@ -174,6 +181,12 @@
           <input class="flow-amount" id="${type}-amount-${index}" type="number" inputmode="decimal" min="0" step="10" value="${row.amount || ''}" data-type="${type}" data-field="amount" data-id="${escapeHtml(row.id)}" aria-label="${escapeHtml(rowName)} amount">
         </div>
         <button class="remove-row" type="button" data-remove="${type}" data-id="${escapeHtml(row.id)}" aria-label="Remove ${escapeHtml(rowName)}" title="Remove category">&times;</button>
+        ${type === 'expenses' ? `<label class="flow-kind-label" for="${type}-kind-${index}">Type
+          <select id="${type}-kind-${index}" class="flow-kind" data-type="${type}" data-field="kind" data-id="${escapeHtml(row.id)}" aria-label="${escapeHtml(rowName)} type">
+            <option value="spending"${row.kind === 'spending' ? ' selected' : ''}>Spending</option>
+            <option value="saving"${row.kind === 'saving' ? ' selected' : ''}>Saving / investing</option>
+            <option value="debt"${row.kind === 'debt' ? ' selected' : ''}>Debt payment</option>
+          </select></label>` : ''}
       </div>`;
   }
 
@@ -201,7 +214,12 @@
     const rows = type === 'income' ? state.income : state.expenses;
     const row = rows.find((item) => item.id === id);
     if (!row) return;
-    row[field] = field === 'amount' ? roundMoney(value) : String(value).slice(0, 48);
+    if (field === 'kind') {
+      if (!['spending', 'saving', 'debt'].includes(value)) return;
+      row.kind = value;
+    } else {
+      row[field] = field === 'amount' ? roundMoney(value) : String(value).slice(0, 48);
+    }
     updateOutputs();
   }
 
@@ -214,6 +232,7 @@
       const name = input.value.trim() || `${groupName} category`;
       input.classList.toggle('flow-name-long', input.value.trim().length > 16);
       row?.querySelector('.flow-amount')?.setAttribute('aria-label', `${name} amount`);
+      row?.querySelector('.flow-kind')?.setAttribute('aria-label', `${name} type`);
       row?.querySelector('.remove-row')?.setAttribute('aria-label', `Remove ${name}`);
     }
     updateRow(input.dataset.type, input.dataset.id, input.dataset.field, input.value);
@@ -233,7 +252,7 @@
     const key = type === 'income' ? 'income' : 'expenses';
     if (state[key].length >= maximumRows) return;
     const id = `${type}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
-    state[key].push({ id, name: type === 'income' ? 'New income' : 'New expense', amount: 0 });
+    state[key].push({ id, name: type === 'income' ? 'New income' : 'New expense', amount: 0, ...(type === 'income' ? {} : { kind: 'spending' }) });
     renderRows(type, id);
     updateOutputs();
   }
@@ -281,6 +300,10 @@
   }
 
   function drawChart(activeIncome, activeExpenses, incomeTotal, expenseTotal) {
+    const balance = incomeTotal - expenseTotal;
+    const incomingNames = activeIncome.map((row) => row.name || 'Income').join(', ') || 'no entered income';
+    const outgoingNames = activeExpenses.map((row) => row.name || 'Expense').join(', ') || 'no entered expenses';
+    elements.chartDescription.textContent = `${formatMoney(incomeTotal)} enters from ${incomingNames}. ${formatMoney(expenseTotal)} flows to ${outgoingNames}. ${balance >= 0 ? formatMoney(balance) + ' is shown as surplus.' : formatMoney(Math.abs(balance)) + ' is shown as a funding shortfall.'} Full values are in the cash-flow table.`;
     const chart = window.d3?.select ? window.d3.select(elements.chart) : null;
     if (!chart || typeof window.d3.sankey !== 'function') {
       elements.chartError.hidden = false;
@@ -289,7 +312,8 @@
     }
 
     elements.chartError.hidden = true;
-    chart.selectAll('*').remove();
+    // Keep the nodes referenced by aria-labelledby attached during every redraw.
+    chart.selectAll('g').remove();
 
     if (incomeTotal <= 0 && expenseTotal <= 0) {
       elements.chartEmpty.hidden = false;
@@ -297,7 +321,6 @@
     }
     elements.chartEmpty.hidden = true;
 
-    const balance = incomeTotal - expenseTotal;
     const remaining = Math.max(0, balance);
     const shortfall = Math.max(0, -balance);
     const nodes = [];
@@ -403,27 +426,24 @@
       .attr('dy', (item) => item.kind === 'available' ? (phone ? 14 : 17) : 13)
       .text((item) => formatCompact(item.amount));
 
-    const incomingNames = activeIncome.map((row) => row.name || 'Income').join(', ') || 'no entered income';
-    const outgoingNames = activeExpenses.map((row) => row.name || 'Expense').join(', ') || 'no entered expenses';
-    elements.chartDescription.textContent = `${formatMoney(incomeTotal)} enters from ${incomingNames}. ${formatMoney(expenseTotal)} flows to ${outgoingNames}. ${balance >= 0 ? formatMoney(balance) + ' is shown as surplus.' : formatMoney(Math.abs(balance)) + ' is shown as a funding shortfall.'}`;
     lastChartWidth = width;
   }
 
   function updateInsights(activeExpenses, incomeTotal, expenseTotal, balance) {
     const savingsAmount = activeExpenses
-      .filter((row) => /(sav|invest|retire|emergency fund)/i.test(row.name))
+      .filter((row) => row.kind === 'saving')
       .reduce((sum, row) => sum + row.amount, 0);
     const savingsRate = incomeTotal > 0 ? (savingsAmount / incomeTotal) * 100 : 0;
     elements.savingsRate.textContent = `${savingsRate.toFixed(savingsRate >= 10 ? 0 : 1)}%`;
     elements.savingsNote.textContent = savingsAmount > 0
-      ? `${formatMoney(savingsAmount)} is labelled for saving or investing.`
-      : 'Name a category saving or investing to include it here.';
+      ? `${formatMoney(savingsAmount)} is assigned to Saving / investing. Debt payments are excluded.`
+      : 'Choose Saving / investing in a category’s Type menu to include it here.';
 
     const largest = [...activeExpenses].sort((a, b) => b.amount - a.amount)[0];
     elements.largestExpense.textContent = largest?.name || 'None';
     elements.largestExpenseNote.textContent = largest
-      ? `${formatMoney(largest.amount)} or ${expenseTotal > 0 ? Math.round((largest.amount / expenseTotal) * 100) : 0}% of expenses.`
-      : 'Add expenses to compare categories.';
+      ? `${formatMoney(largest.amount)} or ${expenseTotal > 0 ? Math.round((largest.amount / expenseTotal) * 100) : 0}% of money out.`
+      : 'Add outflows to compare categories.';
 
     if (balance > 0.005) {
       elements.cashPosition.textContent = 'Surplus';
@@ -447,6 +467,13 @@
     const incomeTotal = total(activeIncome);
     const expenseTotal = total(activeExpenses);
     const balance = incomeTotal - expenseTotal;
+    const kindLabels = { spending: 'Spending', saving: 'Saving / investing', debt: 'Debt payment' };
+    const tableRows = [
+      ...activeIncome.map((row) => ({ ...row, label: 'Income' })),
+      ...activeExpenses.map((row) => ({ ...row, label: kindLabels[row.kind] || 'Spending' })),
+      { name: balance >= 0 ? 'Unassigned surplus' : 'Funding shortfall', label: 'Balance', amount: Math.abs(balance) },
+    ];
+    elements.dataRows.innerHTML = tableRows.map((row) => `<tr><th scope="row">${escapeHtml(row.name)}<span>${escapeHtml(row.label)}</span></th><td>${escapeHtml(formatMoney(row.amount))}</td></tr>`).join('');
 
     elements.incomeTotal.textContent = formatMoney(incomeTotal);
     elements.expenseTotal.textContent = formatMoney(expenseTotal);
@@ -456,7 +483,7 @@
     elements.summaryBalance.classList.toggle('positive', balance > 0.005);
     elements.summaryBalance.classList.toggle('negative', balance < -0.005);
     elements.chartPeriod.textContent = `${state.period === 'annual' ? 'Annual' : 'Monthly'} cash flow`;
-    elements.breakdownBasis.textContent = `Share of ${state.period === 'annual' ? 'annual' : 'monthly'} expenses`;
+    elements.breakdownBasis.textContent = `Share of ${state.period === 'annual' ? 'annual' : 'monthly'} money out`;
 
     if (balance > 0.005) {
       elements.balanceLabel.textContent = 'Surplus';
@@ -480,6 +507,7 @@
 
   elements.incomeRows.addEventListener('input', handleRowInput);
   elements.expenseRows.addEventListener('input', handleRowInput);
+  elements.expenseRows.addEventListener('change', handleRowInput);
   elements.incomeRows.addEventListener('click', handleRemove);
   elements.expenseRows.addEventListener('click', handleRemove);
   elements.addIncome.addEventListener('click', () => addRow('income'));
@@ -512,6 +540,14 @@
   }
 
   document.querySelector(`input[name="period"][value="${state.period}"]`).checked = true;
+  const mapDetails = document.getElementById('cashFlowMap');
+  const narrowScreen = window.matchMedia('(max-width: 600px)').matches;
+  if (mapDetails && narrowScreen) mapDetails.open = false;
+  const valuesDetails = document.getElementById('cashFlowValues');
+  if (valuesDetails && !narrowScreen) valuesDetails.open = false;
+  mapDetails?.addEventListener('toggle', () => {
+    if (mapDetails.open) updateOutputs();
+  });
   renderAllRows();
   updateOutputs();
 })();

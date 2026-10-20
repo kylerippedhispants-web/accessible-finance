@@ -46,6 +46,10 @@ const server = createServer((request, response) => {
 
   try {
     if (fileStat(target)?.isDirectory()) target = join(target, 'index.html');
+    // Match Netlify's public pretty URLs, not just the source .html filenames.
+    if (!fileStat(target)?.isFile() && !extname(target) && fileStat(`${target}.html`)?.isFile()) {
+      target = `${target}.html`;
+    }
     if (!fileStat(target)?.isFile() && pathname.startsWith('/planner/')) {
       target = join(root, 'planner', 'index.html');
     }

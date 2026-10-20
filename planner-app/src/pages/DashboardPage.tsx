@@ -393,7 +393,7 @@ export function DashboardPage() {
               <strong>{planner.mode === 'demo' ? 'Save this demo session' : 'Sync the cloud plan'}</strong>
               <p>{planner.mode === 'demo'
                 ? 'Choose Save changes in the header to keep the fictional demo in this browser session. Demo data is never uploaded or synced.'
-                : 'Choose Save changes in the header to send the validated draft to Supabase. Saved confirms it is available after you sign in to the same account on another browser or device.'}</p>
+                : 'Choose Save changes in the header to save your plan to your account. Saved confirms you can open it after signing in on another browser or device.'}</p>
             </div>
           </li>
         </ul>
@@ -525,7 +525,7 @@ export function DashboardPage() {
               <input type="range" min={0} max={10_000} step={100} value={whatIf.monthlyContribution} aria-valuetext={`${formatCad(whatIf.monthlyContribution)} per month`} onChange={(event) => updateWhatIf('monthlyContribution', Number(event.target.value))} />
             </label>
           </div>
-          <p className="model-note">The return and inflation controls are assumptions, not forecasts. They apply plan-level values to eligible records and may differ from item-specific baseline assumptions. Retirement spending excludes payments modeled under Debts.</p>
+          <p className="model-note">Investment return is an annual nominal rate, before inflation. These are assumptions, not forecasts. The controls apply to eligible records and may differ from each item’s original assumptions. Retirement spending excludes payments modeled under Debts.</p>
         </div>
 
         <aside className="panel scenario-save-card" aria-labelledby="save-scenario-title">

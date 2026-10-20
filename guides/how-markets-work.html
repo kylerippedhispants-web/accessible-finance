@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/how-markets-work.html",
       "inLanguage": "en-CA",
       "articleSection": "Fundamentals",
-      "wordCount": 1189,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 1045,
+      "timeRequired": "PT6M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>How markets actually work, in <em>plain English</em></h1>
     <p class="deck">A market is a continuous negotiation between buyers and sellers. Prices move when their willingness to trade changes.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">6 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Markets are auctions for expectations.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Price, value, and execution are different</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">What a four-cent spread can cost</a></li>
-      <li><a href="#decision-map">Execution is part of the return</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">What a four-cent spread can cost</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,50 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Buy orders state a price someone will pay; sell orders state a price someone will accept. The highest bid and lowest ask form the spread. A market order prioritizes execution, while a limit order sets a maximum purchase price or minimum sale price.</p><p>Prices can change even when a company releases no news. A large seller, a change in interest-rate expectations, or a broad shift away from risk can alter the balance of orders.</p><h3>The essentials</h3><ul><li>The last trade is a price, not a promise.</li><li>Bid-ask spreads tend to be wider in less liquid securities.</li><li>Market orders trade quickly but do not guarantee the displayed quote.</li><li>New information matters through how it changes expectations, not just whether it sounds good or bad.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Price, value, and execution are different</span></h2>
-      <p>A quoted price is information about the latest trade, not a guarantee for the next one. In a liquid security, many orders may sit close together. In a thin market, the next available seller can be far above the last trade or the next buyer far below it. That gap is why order type matters.</p><p>A market order says execution matters more than price. A limit order says the trade should happen only at the stated price or better. A limit can protect the price but may never fill. Neither order type answers the larger question of whether the security is worth owning.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A company reports higher profit, but its stock falls. That can happen when investors expected an even stronger result. The news was positive in isolation, but disappointing relative to the price already implied by expectations.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>What a four-cent spread can cost</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>What a four-cent spread can cost</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Trade execution example</div>
       <p>Suppose an ETF shows a $24.98 bid and a $25.02 ask. Buying 400 units immediately at the ask costs about $10,008. Selling immediately at the bid would return about $9,992 before commissions, creating a $16 round-trip spread cost.</p><p>On a long-term diversified holding, that one-time amount may be modest. On repeated short-term trades, the same friction compounds against the trader. The visible commission can be zero while execution still has a cost.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Bid / ask</dt><dd>$24.98 / $25.02</dd></div><div class="case-fact"><dt>Units</dt><dd>400</dd></div><div class="case-fact"><dt>Round-trip spread</dt><dd>$16</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Execution is part of the return</span></h2>
-      <p>A security can be a sensible long-term holding and still be traded poorly. Spreads often widen near market open, around major announcements, or when the underlying market is closed. An ETF that owns overseas securities may trade while some of those holdings are not producing fresh prices, which can make its quoted price less certain. The order screen is therefore not a neutral final step; it is part of implementation.</p><p>Order size matters relative to available liquidity. Buying one hundred units of a heavily traded fund may barely affect the quote, while selling the same dollar amount of a thin small-company stock can move through several price levels. Break a large decision into the investment thesis, the urgency of completion, and the cost of waiting. A limit order controls price, but an unrealistic limit can create a different cost by leaving needed cash or exposure unfinished.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Use limit orders when price control matters.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Check trading volume and spreads before buying a thinly traded asset.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Avoid treating every daily move as a verdict on a long-term plan.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Fast markets can produce prices far from a recent quote. Complex order types and short-term trading add execution risk that beginners may not need.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Price, value, and execution are different</summary><p>A quoted price is information about the latest trade, not a guarantee for the next one. In a liquid security, many orders may sit close together. In a thin market, the next available seller can be far above the last trade or the next buyer far below it. That gap is why order type matters.</p><p>A market order says execution matters more than price. A limit order says the trade should happen only at the stated price or better. A limit can protect the price but may never fill. Neither order type answers the larger question of whether the security is worth owning.</p></details><details class="guide-detail" id="decision-map"><summary>Execution is part of the return</summary><p>A security can be a sensible long-term holding and still be traded poorly. Spreads often widen near market open, around major announcements, or when the underlying market is closed. An ETF that owns overseas securities may trade while some of those holdings are not producing fresh prices, which can make its quoted price less certain. The order screen is therefore not a neutral final step; it is part of implementation.</p><p>Order size matters relative to available liquidity. Buying one hundred units of a heavily traded fund may barely affect the quote, while selling the same dollar amount of a thin small-company stock can move through several price levels. Break a large decision into the investment thesis, the urgency of completion, and the cost of waiting. A limit order controls price, but an unrealistic limit can create a different cost by leaving needed cash or exposure unfinished.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">A liquid broad-market ETF</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">The bid-ask spread, trading time, and whether the underlying market is open.</div>
@@ -543,70 +562,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Completion matters, but a rushed market order can still receive a poor price.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Raise cash before the deadline and use suitable assets for near-term obligations.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Before trading, separate the investment decision from the execution decision. The investment decision asks whether the security fits your goal, risk, costs, and portfolio. Execution asks how to enter or leave without accepting an unnecessary price. Check the bid, ask, recent trading volume, and whether markets are moving unusually quickly. A familiar ticker can still trade poorly when activity is thin or news has disrupted normal liquidity.</p><p>Use an order type deliberately. A market order prioritizes completion but leaves the final price uncertain. A limit order controls the worst acceptable price but may remain unfilled. For a recurring purchase of a liquid broad-market fund, the difference may be small; for a thin security or a large order, it can be meaningful. Record commissions, spreads, currency conversion, and taxes so the true cost of turnover is visible.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Use limit orders when price control matters.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Check trading volume and spreads before buying a thinly traded asset.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Avoid treating every daily move as a verdict on a long-term plan.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Before trading, separate the investment decision from the execution decision. The investment decision asks whether the security fits your goal, risk, costs, and portfolio. Execution asks how to enter or leave without accepting an unnecessary price. Check the bid, ask, recent trading volume, and whether markets are moving unusually quickly. A familiar ticker can still trade poorly when activity is thin or news has disrupted normal liquidity.</p><p>Use an order type deliberately. A market order prioritizes completion but leaves the final price uncertain. A limit order controls the worst acceptable price but may remain unfilled. For a recurring purchase of a liquid broad-market fund, the difference may be small; for a thin security or a large order, it can be meaningful. Record commissions, spreads, currency conversion, and taxes so the true cost of turnover is visible.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A company reports higher profit, but its stock falls. That can happen when investors expected an even stronger result. The news was positive in isolation, but disappointing relative to the price already implied by expectations.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Why did my trade fill above the price I saw?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Why did my trade fill above the price I saw?</summary>
           <p>The displayed quote may have been the last completed trade, while the next available seller was asking more. Quotes can also change between the moment you submit and the moment the order reaches the market. The difference is more noticeable in fast or lightly traded markets.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Does zero commission mean a trade is free?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Does zero commission mean a trade is free?</summary>
           <p>No. The bid-ask spread, foreign-exchange conversion, fund expenses, account fees, and tax consequences can all create costs. Frequent trading also creates an opportunity cost when attention and cash are repeatedly moved around without improving the underlying portfolio.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Should a beginner always use limit orders?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Should a beginner always use limit orders?</summary>
           <p>Not as an absolute rule. A limit order is useful when price control matters, but it can fail to execute and leave the plan incomplete. Understand the liquidity of the security, avoid treating the current quote as a promise, and choose the order type that matches your actual priority.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Fast markets can produce prices far from a recent quote. Complex order types and short-term trading add execution risk that beginners may not need.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Markets are auctions for expectations. Prices move when the balance between buyers and sellers changes, not because a single authority resets them.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Investing Basics</a></li></ul>
     </section>
   </article>
@@ -624,12 +598,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="stocks-explained.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>What Is a Stock, Really?</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="investing-vs-speculating.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>The Actual Difference Between Investing and Speculating</h3>
-        <div class="meta">8 min read &middot; Beginner</div>
+        <div class="meta">7 min read &middot; Beginner</div>
       </a>
     <a href="investor-behaviour.html" class="related-card reveal">
         <div class="cat">Market Behaviour</div>
@@ -703,8 +677,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

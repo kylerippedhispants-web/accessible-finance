@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/expense-ratios-mers.html",
       "inLanguage": "en-CA",
       "articleSection": "Asset Classes",
-      "wordCount": 1104,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 939,
+      "timeRequired": "PT6M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>Expense ratios, MERs, and what fund fees <em>actually cost</em></h1>
     <p class="deck">A fund expense ratio is deducted inside the fund. Translate the percentage into dollars and long-term opportunity cost before comparing products.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">6 min read</span>
       <span class="meta-item">Intermediate</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Percentages become real dollars.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Translate every percentage into a dollar decision</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">A 1.5-point MER gap over twenty-five years</a></li>
-      <li><a href="#decision-map">A percentage needs a dollar translation</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">A 1.5-point MER gap over twenty-five years</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Multiply the percentage by the invested balance for a rough first-year dollar estimate. A 0.25% MER is about $25 per $10,000; a 2% MER is about $200 per $10,000, before changes in value.</p><p>Also inspect trading expenses, advice charges, account fees, sales charges, spreads, and foreign-exchange costs. The MER is important but may not be the complete cost.</p><h3>The essentials</h3><ul><li>Fund returns are generally reported after internal expenses.</li><li>Dollar cost grows as the portfolio grows.</li><li>Compare products with similar exposure and service.</li><li>Ask whether advice fees are included or separate.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Translate every percentage into a dollar decision</span></h2>
-      <p>An MER is charged as a percentage of fund assets, so the dollar cost grows as the account grows. Comparing only today's balance understates the future expense. The higher-cost fund must deliver a valuable service or enough additional after-fee return to justify that widening hurdle.</p><p>Fund Facts documents make MERs visible, but investors should also look for trading expenses, sales charges, advice fees, account administration, spreads, and currency conversion.</p><p>Compare costs at the household level. A low-cost fund inside an account with a separate one-percent advice charge does not create a low-cost portfolio, and a quoted fee before tax may cost more than the same number suggests.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>Two balanced funds hold similar assets, but one costs 0.30% and the other 1.80%. On $50,000, the rough first-year difference is $750, which also loses future growth.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>A 1.5-point MER gap over twenty-five years</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>A 1.5-point MER gap over twenty-five years</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Fund-cost illustration</div>
       <p>Two funds each begin with $50,000 and earn a hypothetical 6% before fees. One costs 0.30%, leaving 5.70%; the other costs 1.80%, leaving 4.20%. After 25 years, the illustrated balances are about $199,915 and $139,850.</p><p>The gap is roughly $60,065. The higher-cost fund may include advice or a different strategy, so the comparison is not automatically decisive. It makes the price of that difference concrete.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Low-cost ending value</dt><dd>$199,915</dd></div><div class="case-fact"><dt>High-cost ending value</dt><dd>$139,850</dd></div><div class="case-fact"><dt>Illustrated gap</dt><dd>$60,065</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>A percentage needs a dollar translation</span></h2>
-      <p>Recurring fees scale automatically as the portfolio grows. A cost that feels negligible on a first $5,000 can become a major annual expense after decades of contributions, even when the percentage never changes. Show the cost at today's balance, a mid-plan balance, and the target balance. Then model the growth that leaves the portfolio along with the fee itself.</p><p>Fee comparisons should preserve exposure and service. A balanced advice fund cannot be compared fairly with an equity-only ETF without accounting for risk and planning support. Break the decision into three layers: what the investments cost, what the account or platform costs, and what advice or service costs. That structure reveals whether a higher fee is paying for something the investor actually uses.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Find the MER in the fund facts.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Convert it to annual dollars at your balance.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Add account, advice, trading, and FX costs.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Document what the higher-cost option provides.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Switching can trigger tax, redemption, or transfer costs. Compare the ongoing benefit with the one-time consequences before acting.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Translate every percentage into a dollar decision</summary><p>An MER is charged as a percentage of fund assets, so the dollar cost grows as the account grows. Comparing only today's balance understates the future expense. The higher-cost fund must deliver a valuable service or enough additional after-fee return to justify that widening hurdle.</p><p>Fund Facts documents make MERs visible, but investors should also look for trading expenses, sales charges, advice fees, account administration, spreads, and currency conversion.</p><p>Compare costs at the household level. A low-cost fund inside an account with a separate one-percent advice charge does not create a low-cost portfolio, and a quoted fee before tax may cost more than the same number suggests.</p></details><details class="guide-detail" id="decision-map"><summary>A percentage needs a dollar translation</summary><p>Recurring fees scale automatically as the portfolio grows. A cost that feels negligible on a first $5,000 can become a major annual expense after decades of contributions, even when the percentage never changes. Show the cost at today's balance, a mid-plan balance, and the target balance. Then model the growth that leaves the portfolio along with the fee itself.</p><p>Fee comparisons should preserve exposure and service. A balanced advice fund cannot be compared fairly with an equity-only ETF without accounting for risk and planning support. Break the decision into three layers: what the investments cost, what the account or platform costs, and what advice or service costs. That structure reveals whether a higher fee is paying for something the investor actually uses.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">A small portfolio with a flat account fee</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">The fixed charge can be a large percentage of the current balance.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Exposure, tax, spread, and transfer cost may differ.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Calculate break-even time and confirm the replacement serves the same role.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Translate every recurring percentage into current and future dollars. Multiply the rate by the balance for a rough annual figure, then model the cost over the holding period because fees also remove money that could have compounded. Compare products on the same asset exposure and service level. A 1% difference on a growing portfolio is not a one-time 1% charge; it repeats on each year's balance.</p><p>Go beyond the MER. Add trading expenses inside the fund, adviser or platform charges, account administration, commissions, bid-ask spreads, and foreign-exchange costs. Ask whether quoted performance is already net of the internal fund expense and which external charges remain. If a higher-cost option provides planning or specialized management, describe that value in concrete services and review it annually rather than assuming price alone proves quality.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Find the MER in the fund facts.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Convert it to annual dollars at your balance.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Add account, advice, trading, and FX costs.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Document what the higher-cost option provides.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Translate every recurring percentage into current and future dollars. Multiply the rate by the balance for a rough annual figure, then model the cost over the holding period because fees also remove money that could have compounded. Compare products on the same asset exposure and service level. A 1% difference on a growing portfolio is not a one-time 1% charge; it repeats on each year's balance.</p><p>Go beyond the MER. Add trading expenses inside the fund, adviser or platform charges, account administration, commissions, bid-ask spreads, and foreign-exchange costs. Ask whether quoted performance is already net of the internal fund expense and which external charges remain. If a higher-cost option provides planning or specialized management, describe that value in concrete services and review it annually rather than assuming price alone proves quality.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>Two balanced funds hold similar assets, but one costs 0.30% and the other 1.80%. On $50,000, the rough first-year difference is $750, which also loses future growth.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>How is an MER actually charged?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>How is an MER actually charged?</summary>
           <p>It is generally deducted within the fund rather than appearing as a separate monthly bill, so published fund returns normally reflect it. The fund&#039;s value grows by less than it otherwise would. External account or advice fees may appear separately.</p>
-        </div>
-        <div class="faq-item">
-          <h3>What is the difference between MER and management fee?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>What is the difference between MER and management fee?</summary>
           <p>The management fee pays the manager and related services, while the MER is a broader measure that generally includes the management fee plus certain operating expenses and taxes. Trading expenses can be reported separately. Check the fund documents for exact composition.</p>
-        </div>
-        <div class="faq-item">
-          <h3>When does switching to a cheaper fund make sense?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>When does switching to a cheaper fund make sense?</summary>
           <p>Compare the ongoing saving with taxes, redemption charges, transfer fees, spreads, time out of market, and differences in exposure or service. A clearly lower recurring cost can be valuable, but the replacement must still implement the same plan.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Switching can trigger tax, redemption, or transfer costs. Compare the ongoing benefit with the one-time consequences before acting.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Percentages become real dollars. Understand the complete cost, then decide whether the investment and service earn their place.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing/getting-started/understanding-fees" target="_blank" rel="noopener noreferrer">Investor.gov: Understanding Fees</a></li></ul>
     </section>
   </article>
@@ -631,17 +604,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="investment-fees.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Fees: Compound Interest in Reverse</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
     <a href="mutual-funds-vs-etfs.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>Mutual Funds vs. ETFs: What Is the Actual Difference?</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
     <a href="index-vs-active-funds.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>Index Funds vs. Actively Managed Funds: The Real Difference</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

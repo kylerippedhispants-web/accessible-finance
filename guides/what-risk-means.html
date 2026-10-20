@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/what-risk-means.html",
       "inLanguage": "en-CA",
       "articleSection": "Fundamentals",
-      "wordCount": 1165,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 995,
+      "timeRequired": "PT6M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>What <em>risk</em> really means in investing</h1>
     <p class="deck">Risk is not one number. It includes permanent loss, temporary volatility, inflation, poor timing, and the chance that your plan cannot meet its goal.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">6 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>The right risk is not the highest risk you can endure.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Risk belongs to the goal, not just the asset</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">When income and investments fail together</a></li>
-      <li><a href="#decision-map">Risk changes with the household</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">When income and investments fail together</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Market risk is the chance that broad prices decline. Concentration risk comes from depending on too few holdings. Inflation risk erodes purchasing power. Liquidity risk appears when an asset cannot be sold quickly at a fair price. Behaviour risk is the chance that panic or overconfidence breaks a sound plan.</p><p>Capacity and tolerance are different. Capacity is the financial ability to absorb a loss; tolerance is the emotional ability to stay invested. A good plan must respect both.</p><h3>The essentials</h3><ul><li>Volatility is movement; permanent loss is damage that may not recover.</li><li>A safe-looking asset can still lose purchasing power to inflation.</li><li>Short time horizons reduce the ability to wait through a decline.</li><li>Diversification can reduce specific risks, but cannot eliminate all losses.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Risk belongs to the goal, not just the asset</span></h2>
-      <p>The same investment can be reasonable for one goal and reckless for another. A broad stock fund can fit retirement three decades away while being unsuitable for next year's tuition. The fund did not change; the cost of a badly timed decline did.</p><p>Risk also exists outside the brokerage account. A worker in a cyclical industry already depends on that industry for income. Owning a large amount of employer stock adds portfolio exposure precisely when a downturn could threaten both employment and savings.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A down payment needed next year faces serious timing risk in stocks, even if the owner is emotionally comfortable with volatility. Retirement money needed in 30 years faces more inflation risk if it stays entirely in cash.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>When income and investments fail together</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>When income and investments fail together</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Household risk example</div>
       <p>A technology employee earns $110,000 and has accumulated $80,000 of employer shares through compensation. If the company encounters trouble, the share price may fall at the same time bonuses are cut or jobs disappear.</p><p>Selling part of the position and diversifying can feel disloyal, but the decision reduces one shared failure point. The goal is not to predict the employer's future. It is to prevent one company from controlling income, benefits, and long-term savings at once.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Annual income</dt><dd>$110K</dd></div><div class="case-fact"><dt>Employer shares</dt><dd>$80K</dd></div><div class="case-fact"><dt>Shared risk</dt><dd>One company</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Risk changes with the household</span></h2>
-      <p>A portfolio questionnaire sees only part of the balance sheet. Employment, housing, debt, insurance, pension income, and family obligations can amplify or absorb investment losses. A commission-based worker in a cyclical industry may need a larger cash reserve than a dual-income household with stable pensions, even when both answer the emotional questions identically.</p><p>The need to take risk deserves its own test. If conservative assumptions already fund the goal, adding more volatility may create no meaningful benefit. If the plan fails unless returns are heroic, taking more risk may hide an unrealistic contribution or spending target. A good risk decision balances willingness, capacity, and necessity, then uses diversification and liquidity to prevent one bad outcome from becoming permanent.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Name the goal and withdrawal date.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>List the risks most likely to prevent that goal.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Hold near-term needs in suitably stable and liquid assets.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Choose a portfolio you can realistically keep during a bad year.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Risk questionnaires are a starting point, not a complete plan. Your debts, job stability, dependants, and emergency savings also affect risk capacity.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Risk belongs to the goal, not just the asset</summary><p>The same investment can be reasonable for one goal and reckless for another. A broad stock fund can fit retirement three decades away while being unsuitable for next year's tuition. The fund did not change; the cost of a badly timed decline did.</p><p>Risk also exists outside the brokerage account. A worker in a cyclical industry already depends on that industry for income. Owning a large amount of employer stock adds portfolio exposure precisely when a downturn could threaten both employment and savings.</p></details><details class="guide-detail" id="decision-map"><summary>Risk changes with the household</summary><p>A portfolio questionnaire sees only part of the balance sheet. Employment, housing, debt, insurance, pension income, and family obligations can amplify or absorb investment losses. A commission-based worker in a cyclical industry may need a larger cash reserve than a dual-income household with stable pensions, even when both answer the emotional questions identically.</p><p>The need to take risk deserves its own test. If conservative assumptions already fund the goal, adding more volatility may create no meaningful benefit. If the plan fails unless returns are heroic, taking more risk may hide an unrealistic contribution or spending target. A good risk decision balances willingness, capacity, and necessity, then uses diversification and liquidity to prevent one bad outcome from becoming permanent.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">A home purchase in two years</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">The date is close and a market loss could cancel the purchase.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Income and investments depend on the same organization.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Set a concentration limit and diversify on a written schedule.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Build a risk inventory around the household rather than looking only at a questionnaire score. List when each goal must be funded, how flexible that date is, what income sources could weaken at the same time, and which expenses cannot be reduced. Then map the portfolio to those obligations. A volatile asset may be acceptable for a flexible goal decades away and unsuitable for a fixed payment next year.</p><p>Keep three ideas separate: willingness to take risk, financial capacity to absorb loss, and the amount of risk required to reach the goal. Someone may feel comfortable with large swings but lack capacity because the money is needed soon. Another person may have decades of capacity but little emotional tolerance. A durable allocation respects the tightest constraint and does not require heroic behaviour during a crisis.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Name the goal and withdrawal date.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>List the risks most likely to prevent that goal.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Hold near-term needs in suitably stable and liquid assets.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Choose a portfolio you can realistically keep during a bad year.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Build a risk inventory around the household rather than looking only at a questionnaire score. List when each goal must be funded, how flexible that date is, what income sources could weaken at the same time, and which expenses cannot be reduced. Then map the portfolio to those obligations. A volatile asset may be acceptable for a flexible goal decades away and unsuitable for a fixed payment next year.</p><p>Keep three ideas separate: willingness to take risk, financial capacity to absorb loss, and the amount of risk required to reach the goal. Someone may feel comfortable with large swings but lack capacity because the money is needed soon. Another person may have decades of capacity but little emotional tolerance. A durable allocation respects the tightest constraint and does not require heroic behaviour during a crisis.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A down payment needed next year faces serious timing risk in stocks, even if the owner is emotionally comfortable with volatility. Retirement money needed in 30 years faces more inflation risk if it stays entirely in cash.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Is volatility the same as risk?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Is volatility the same as risk?</summary>
           <p>Volatility measures how widely prices move, but personal risk is broader. It includes permanent loss, inflation, insufficient growth, concentration, leverage, fraud, poor liquidity, and being forced to sell at the wrong time. The relevant definition depends on what the money must accomplish.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can a conservative investment still be risky?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Can a conservative investment still be risky?</summary>
           <p>Yes. Cash can be very safe for next month while being risky for a retirement goal if inflation steadily reduces what it can buy. A long bond can fluctuate when interest rates change. Conservative should describe how an asset serves a specific goal, not merely how calm its price looked recently.</p>
-        </div>
-        <div class="faq-item">
-          <h3>How can I test my real tolerance for loss?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>How can I test my real tolerance for loss?</summary>
           <p>Translate percentages into dollars and decisions. Ask how you would respond if a $100,000 portfolio temporarily showed $75,000, your job felt less secure, and negative headlines continued for months. If the planned response is unclear, reduce risk or write explicit rebalancing and withdrawal rules before the stress arrives.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Risk questionnaires are a starting point, not a complete plan. Your debts, job stability, dependants, and emergency savings also affect risk capacity.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>The right risk is not the highest risk you can endure. It is the mix of uncertainty your goal requires and your finances can support.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Introduction to Investing</a></li></ul>
     </section>
   </article>
@@ -631,17 +604,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="risk-and-return.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>Risk and Return: The Relationship Nobody Explains Properly</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
     <a href="diversification.html" class="related-card reveal">
         <div class="cat">Portfolio Thinking</div>
         <h3>Understanding Diversification</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
     <a href="asset-allocation.html" class="related-card reveal">
         <div class="cat">Portfolio Thinking</div>
         <h3>Asset Allocation Explained: The Decision That Shapes the Portfolio</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

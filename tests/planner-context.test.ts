@@ -189,4 +189,28 @@ describe('PlannerProvider cloud coordination', () => {
     });
     expect(mocks.save).toHaveBeenCalledTimes(1);
   });
+
+  it('blocks a cloud write while a visible numeric draft is invalid', async () => {
+    mocks.load.mockResolvedValue({ snapshot: namedSnapshot('Cloud plan'), revision: 7 });
+    mocks.save.mockResolvedValue({ revision: 8 });
+    await renderProvider();
+    act(() => currentPlanner().updatePlan((plan) => ({ ...plan, name: 'Unsaved edit' })));
+    const field = document.createElement('input');
+    field.dataset.numberField = '';
+    field.value = 'bad';
+    field.setCustomValidity('Enter a valid number.');
+    document.body.append(field);
+    await act(async () => {
+      expect(await currentPlanner().save()).toBe(false);
+    });
+    expect(mocks.save).not.toHaveBeenCalled();
+    expect(currentPlanner().dirty).toBe(true);
+    expect(currentPlanner().saveMessage).toContain('Correct the highlighted number');
+    expect(document.activeElement).toBe(field);
+    field.setCustomValidity('');
+    await act(async () => {
+      expect(await currentPlanner().save()).toBe(true);
+    });
+    expect(mocks.save).toHaveBeenCalledTimes(1);
+  });
 });

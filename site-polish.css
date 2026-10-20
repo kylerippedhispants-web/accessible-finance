@@ -1,4 +1,126 @@
 /* Shared finishing layer loaded by site-shell.js on every regional page. */
+html.site-ca, html.site-us {
+  --ink3: #655e58;
+  --gold: #995b16;
+}
+html.site-ca .solid-sage { background: #50664f; }
+html.site-ca .solid-sage :where(.level, p) { color: #fff; }
+html #fire-results h3 em { color: #cce1ce; }
+html .result-card .label { color: #d4d0c7; }
+html.site-ca :where(.math-rule, .newsletter-band) .label,
+html.site-us .newsletter-band .label { color: #fff1ce; font-size: 13px; }
+html .math-rule p { color: #fff; }
+html :where(.path-section, .decision-section, .roadmap-section) .eyebrow,
+html.site-us .result-kicker { color: #e3bf87; font-size: 13px; }
+html :where(.path-section, .decision-section, .roadmap-section) .section-title em { color: #cce1ce; }
+html .decision-next p { color: #e5e2da; }
+html :where(footer.site-footer, footer) .footer-bottom > :where(p, span) { color: #bdb8af; font-size: 13px; }
+html #resetButton { color: #175d3a; font-size: 13px; }
+html main p a:not([class]) { text-decoration: underline; text-underline-offset: 3px; }
+html footer a { text-decoration: underline; text-underline-offset: 3px; }
+html.site-us :where(.offer-fine, .market-visual-head > span, .market-visual-head > b, .market-foot > span) { color: #c3bfb7; font-size: 12px; }
+html.site-ca :where(.btn-primary, .btn-ghost, .calc-button, .load-btn, .offer-btn, .tool-cta) { font-size: 14px; }
+html.site-us .result-stats span { font-size: 13px; line-height: 1.5; }
+html.site-ca :where(.fire-hero, .planner-shell, .planner-grid) > * { min-width: 0; }
+html.site-ca .fire-actions :where(.btn-primary, .btn-ghost) { white-space: normal; text-align: center; }
+html.site-ca .result-number { overflow-wrap: anywhere; }
+html.site-ca .stats-strip-inner { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+html.site-ca .stat-cell { min-width: 0; }
+html.site-ca .stat-num { font-size: clamp(28px, 5vw, 64px); overflow-wrap: anywhere; }
+html.site-us .offer-fine { color: #c3bfb7 !important; font-size: 12px !important; }
+@media (max-width: 768px) {
+  html.site-ca .stats-strip-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; }
+  html.site-ca .result-number { font-size: clamp(32px, 12vw, 54px); }
+}
+
+html :where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid #1d6b45;
+  outline-offset: 4px;
+}
+
+html :where(main, section, h1, h2, h3, [id]) { scroll-margin-top: 90px; }
+
+.nav-links { align-items: center; }
+.nav-group { position: relative; }
+.nav-group > summary {
+  list-style: none;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--ink2, #4d4945);
+  font: 600 14px/1.3 var(--sans, sans-serif);
+}
+.nav-group > summary::-webkit-details-marker { display: none; }
+.nav-group > summary::after { content: '⌄'; font-size: 16px; }
+.nav-group[open] > summary::after { content: '⌃'; }
+.nav-links .nav-group-links {
+  position: absolute;
+  top: 100%;
+  left: -16px;
+  min-width: 245px;
+  padding: 8px;
+  background: var(--bg, #f7f5f0);
+  border: 1px solid var(--border-strong, #b6b0a6);
+  border-radius: 8px;
+  box-shadow: 0 10px 28px #1a18161a;
+  z-index: 100;
+}
+html :where(.nav-links, .mobile-menu) .nav-group-links a {
+  display: block;
+  padding: 12px;
+  font: 500 14px/1.4 var(--sans, sans-serif);
+  text-transform: none;
+  color: var(--ink, #1a1816);
+  white-space: normal;
+}
+html .nav-group-links a:hover, html .nav-group-links a[aria-current="page"] {
+  background: #e6eddf;
+  color: #174d32;
+}
+html .nav-links > a { font-size: 14px; text-transform: none; padding-block: 14px; }
+.mobile-menu .nav-group { width: 100%; border-bottom: 1px solid #1a18161a; }
+.mobile-menu .nav-group > summary { padding-block: 13px; }
+.mobile-menu .nav-group-links { padding: 0 0 12px 8px; }
+html :where(.eyebrow, .card-tag, .article-tag, .article-category, .source-note, .hero-card-label, .hero-chart-axis, .hero-stat-label, .chart-label, .field-hint, .updated, .table-scroll-hint) {
+  font-size: max(12px, 0.75rem);
+}
+.table-scroll-hint {
+  color: var(--ink2, #4d4945);
+  font: 400 13px/1.5 var(--sans, sans-serif);
+  margin: 12px 0 8px;
+}
+html :where(.table-scroll, .breakdown, #fire-projection):focus-visible {
+  outline: 3px solid #1d6b45;
+  outline-offset: 3px;
+}
+html .nl-overlay { padding: 16px; overflow-y: auto; }
+html .nl-modal {
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  padding: 52px 28px 24px;
+}
+html .nl-close { width: 44px; height: 44px; top: 8px; right: 8px; }
+html .nl-modal iframe { height: 320px; width: 100%; }
+.newsletter-direct {
+  display: block;
+  padding: 14px 18px;
+  border-radius: 6px;
+  background: #1d6b45;
+  color: #fff !important;
+  font: 600 14px/1.5 var(--sans, sans-serif);
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.newsletter-loading { font: 400 13px/1.5 var(--sans, sans-serif); color: var(--ink2, #4d4945); }
+@media (max-width: 480px) {
+  html .nl-modal { padding: 52px 16px 24px; }
+  html .nl-modal :where(iframe, .newsletter-loading) { display: none; }
+  html .nl-modal .nl-title { font-size: 28px; }
+  html .nl-modal .nl-sub { font-size: 15px; }
+}
 html.site-ca,
 html.site-us {
   scroll-padding-top: 84px;

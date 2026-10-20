@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/budgeting-without-rigidity.html",
       "inLanguage": "en-CA",
       "articleSection": "Money Systems",
-      "wordCount": 1071,
+      "wordCount": 915,
       "timeRequired": "PT6M",
-      "dateModified": "2026-07-27",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -447,9 +453,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>A budget should reduce decisions, not create more of them.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Use ranges when income or expenses move</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">A freelancer&#039;s baseline budget</a></li>
-      <li><a href="#decision-map">Use the budget to negotiate trade-offs</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">A freelancer&#039;s baseline budget</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Begin with take-home income, fixed essentials, minimum debt payments, and irregular costs converted to monthly amounts. Then automate savings or investing. The remainder becomes a flexible spending pool.</p><p>For variable income, build the plan around a conservative baseline and assign percentages to income above it.</p><h3>The essentials</h3><ul><li>Separate fixed commitments from flexible spending.</li><li>Create sinking funds for predictable irregular bills.</li><li>Automate priorities before discretionary spending.</li><li>Review actual totals without moral labels.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Use ranges when income or expenses move</span></h2>
-      <p>A variable-income budget should not pretend every month is average. Build fixed commitments around a conservative baseline, keep a buffer between invoices, and use percentages for income above the baseline. This prevents a strong month from permanently increasing recurring expenses.</p><p>Sinking funds handle costs that are irregular but predictable, such as annual insurance, winter tires, professional dues, or gifts. Emergency savings are reserved for expenses that are both important and genuinely unexpected.</p><p>The review should compare planned totals with actual totals, not judge individual purchases in isolation. If flexible spending repeatedly exceeds the pool, adjust the categories, baseline, or goals so the plan reflects real life instead of generating guilt.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>Instead of forecasting restaurants, clothing, and entertainment separately, a household gives itself one flexible weekly amount after bills, taxes, and savings are covered.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>A freelancer&#039;s baseline budget</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>A freelancer&#039;s baseline budget</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Variable-income example</div>
       <p>A freelancer earns between $3,000 and $7,000 a month after tax. The budget uses $3,500 as its baseline: $2,600 for essentials, $300 for annual-cost sinking funds, $300 for long-term goals, and $300 of breathing room.</p><p>Income above $3,500 is split 50% to future low-income months, 30% to goals, and 20% to flexible spending. The percentages let a $7,000 month help the future without making the plan feel punitive.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Income range</dt><dd>$3K-$7K</dd></div><div class="case-fact"><dt>Baseline</dt><dd>$3,500</dd></div><div class="case-fact"><dt>Above-baseline split</dt><dd>50 / 30 / 20</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Use the budget to negotiate trade-offs</span></h2>
-      <p>A flexible budget still needs boundaries. Decide which commitments are protected, which goals have minimum contributions, and which spending can move without creating debt. The flexible pool then becomes a genuine choice instead of an excuse to ignore totals. When the pool is gone, the decision is whether to borrow from another goal openly, not whether to pretend the purchase did not count.</p><p>Review should focus on recurring patterns rather than isolated mistakes. One expensive week may be unusual; three months of the same overage means the plan or expectation is wrong. Adjust the category, reduce another commitment, or change the goal date. A budget becomes sustainable when it reflects actual behaviour and priorities, not when every month is forced to resemble an optimistic first draft.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Calculate a conservative monthly income baseline.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>List fixed and annual obligations.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Choose one or two automatic goals.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Use a weekly flexible-spending number.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>A simple budget still needs periodic review. Subscription creep, debt interest, and annual expenses can hide when only the chequing balance is monitored.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Use ranges when income or expenses move</summary><p>A variable-income budget should not pretend every month is average. Build fixed commitments around a conservative baseline, keep a buffer between invoices, and use percentages for income above the baseline. This prevents a strong month from permanently increasing recurring expenses.</p><p>Sinking funds handle costs that are irregular but predictable, such as annual insurance, winter tires, professional dues, or gifts. Emergency savings are reserved for expenses that are both important and genuinely unexpected.</p><p>The review should compare planned totals with actual totals, not judge individual purchases in isolation. If flexible spending repeatedly exceeds the pool, adjust the categories, baseline, or goals so the plan reflects real life instead of generating guilt.</p></details><details class="guide-detail" id="decision-map"><summary>Use the budget to negotiate trade-offs</summary><p>A flexible budget still needs boundaries. Decide which commitments are protected, which goals have minimum contributions, and which spending can move without creating debt. The flexible pool then becomes a genuine choice instead of an excuse to ignore totals. When the pool is gone, the decision is whether to borrow from another goal openly, not whether to pretend the purchase did not count.</p><p>Review should focus on recurring patterns rather than isolated mistakes. One expensive week may be unusual; three months of the same overage means the plan or expectation is wrong. Adjust the category, reduce another commitment, or change the goal date. A budget becomes sustainable when it reflects actual behaviour and priorities, not when every month is forced to resemble an optimistic first draft.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">Income and bills are predictable</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">A fixed automatic structure can cover commitments and goals.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">The estimate, priority, or surrounding habit may be unrealistic.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Change the structure deliberately instead of repeating guilt and reset.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Use four broad lanes instead of dozens of fragile categories: fixed commitments, true expenses, future goals, and flexible spending. True expenses are predictable but irregular costs such as repairs, insurance, gifts, and annual fees; divide them into monthly sinking-fund amounts. Automate bills and goals after each paycheque, then treat the remaining weekly amount as genuinely available rather than requiring a moral judgment for every purchase.</p><p>Review the system with curiosity, not punishment. Compare actual totals with the plan once a week or month and adjust the structure when the same mismatch repeats. Variable earners can build fixed commitments around a conservative income baseline, save a percentage of higher months, and maintain a larger buffer. A budget is successful when it makes trade-offs visible and prevents emergencies, even if individual categories move around.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Calculate a conservative monthly income baseline.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>List fixed and annual obligations.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Choose one or two automatic goals.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Use a weekly flexible-spending number.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Use four broad lanes instead of dozens of fragile categories: fixed commitments, true expenses, future goals, and flexible spending. True expenses are predictable but irregular costs such as repairs, insurance, gifts, and annual fees; divide them into monthly sinking-fund amounts. Automate bills and goals after each paycheque, then treat the remaining weekly amount as genuinely available rather than requiring a moral judgment for every purchase.</p><p>Review the system with curiosity, not punishment. Compare actual totals with the plan once a week or month and adjust the structure when the same mismatch repeats. Variable earners can build fixed commitments around a conservative income baseline, save a percentage of higher months, and maintain a larger buffer. A budget is successful when it makes trade-offs visible and prevents emergencies, even if individual categories move around.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>Instead of forecasting restaurants, clothing, and entertainment separately, a household gives itself one flexible weekly amount after bills, taxes, and savings are covered.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>What if I hate tracking every transaction?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>What if I hate tracking every transaction?</summary>
           <p>Track account-level totals and automate the important lanes. One flexible spending account or weekly transfer can limit discretionary spending without categorizing each coffee. Periodically scan statements for errors, subscriptions, and unusual changes.</p>
-        </div>
-        <div class="faq-item">
-          <h3>How do I budget for irregular expenses?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>How do I budget for irregular expenses?</summary>
           <p>List annual and seasonal costs, estimate the yearly total, and divide it into a monthly sinking-fund contribution. Keep the money separate enough that it is not mistaken for everyday spending. Update estimates after the real bill arrives.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Where should investing appear in a budget?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Where should investing appear in a budget?</summary>
           <p>Treat goal contributions as a planned transfer after essential stability and minimum obligations, not as whatever remains accidentally. The amount should be sustainable and can increase over time. Keep emergency savings and long-term investing separate because they solve different problems.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>A simple budget still needs periodic review. Subscription creep, debt interest, and annual expenses can hide when only the chequing balance is monitored.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>A budget should reduce decisions, not create more of them. Protect commitments, automate priorities, and let the remaining money be genuinely flexible.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.canada.ca/en/financial-consumer-agency/services/make-budget.html" target="_blank" rel="noopener noreferrer">Financial Consumer Agency of Canada: Making a Budget</a></li><li><a href="https://www.canada.ca/en/financial-consumer-agency/services/savings-investments/setting-up-emergency-funds.html" target="_blank" rel="noopener noreferrer">Financial Consumer Agency of Canada: Setting Up an Emergency Fund</a></li></ul>
     </section>
   </article>
@@ -636,12 +609,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="automatic-contributions.html" class="related-card reveal">
         <div class="cat">Getting Started</div>
         <h3>Setting Up Automatic Contributions</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
     <a href="starting-early.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Why Starting Early Matters More Than Starting Big</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>
