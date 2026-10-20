@@ -453,6 +453,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   footer.site-footer { padding: 64px 24px 36px; }
   .nl-modal { padding: 48px 28px 32px; }
 }
+
+.provenance-note { padding: 14px 16px; border-left: 3px solid var(--green); background: var(--green-light); font: 14px/1.65 var(--sans); color: var(--ink2); margin: 16px 0; }
+.provenance-note a { color: var(--green); text-decoration: underline; }
+.wealth-disclosure { margin-top: 32px; border-block: 1px solid var(--border); }
+.wealth-disclosure > summary { padding: 22px 4px; cursor: pointer; color: var(--green); font: 600 18px/1.5 var(--sans); }
+.wealth-disclosure > summary:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+.wealth-disclosure .wealth-charts, .wealth-disclosure .wealth-projection { margin-top: 16px; padding-bottom: 24px; }
+.rank-callout strong { font-size: clamp(28px, 4vw, 48px); overflow-wrap: anywhere; }
 </style>
 <link rel="stylesheet" href="site-language.css?v=20260801">
 <link rel="stylesheet" href="site-region.css?v=20260801">
@@ -547,10 +555,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <section class="wealth-hero" aria-labelledby="wealth-page-title">
     <div class="reveal">
       <span class="eyebrow">Canadian wealth benchmark</span>
-      <h1 id="wealth-page-title">See where your income and net worth <em>stand</em>.</h1>
+      <h1 id="wealth-page-title">Put your income and net worth <em>in context</em>.</h1>
       <p class="wealth-lead">Build your household net worth, add the main earner's employment income, compare both with public Canadian benchmarks, then explore how age, province, and steady saving change the picture.</p>
       <div class="hero-actions">
-        <a class="btn-primary" href="#calculator">Calculate your rank <span aria-hidden="true">&#8595;</span></a>
+        <a class="btn-primary" href="#calculator">Compare the benchmarks <span aria-hidden="true">&#8595;</span></a>
         <span class="privacy-note">
           <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 10V7a5 5 0 0 1 10 0v3"></path><rect x="4" y="10" width="16" height="11" rx="2"></rect></svg>
           No signup. Inputs stay in your browser.
@@ -570,11 +578,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <strong>$15K</strong>
         </div>
       </div>
-      <p class="snapshot-text">Include cash, investments, home equity, pensions, vehicles, and business equity. Subtract every outstanding debt.</p>
+      <p class="snapshot-text">Include cash, investments, pensions and other assets. Use home equity after its mortgage, then subtract debts that have not already been deducted.</p>
       <div class="snapshot-proof" aria-label="Canadian benchmark snapshot">
-        <div><strong>$519.7K</strong><span>Canada median</span></div>
-        <div><strong>$1.3M</strong><span>Top 20% estimate</span></div>
-        <div><strong>2023</strong><span>Latest SFS release</span></div>
+        <div><strong>$519.7K</strong><span>2023 Canada median</span></div>
+        <div><strong>$1.3M</strong><span>PBO Q4 2024 top 20%</span></div>
+        <div><strong>2023</strong><span>SFS survey year</span></div>
       </div>
     </div>
   </section>
@@ -586,7 +594,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <span class="eyebrow">Wealth dashboard</span>
           <h2 class="section-title">One profile. <em>A fuller financial picture.</em></h2>
         </div>
-        <p class="wealth-rank-note">Official Canadian medians anchor the wealth and wage comparisons. Single-age curves and local percentile ranges are estimated because complete tables are not published at that detail. Treat every result as context, not a score.</p>
+        <p class="wealth-rank-note">Start with the published medians. Percentile bands, single-age curves and composition charts are AF illustrations, not survey measurements. Sources cover 2023 and Q4 2024; amounts are not updated for inflation to today.</p>
       </div>
 
       <div class="wealth-shell">
@@ -668,20 +676,20 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
               <p>Use what your household owns today, less what it owes today.</p>
               <ul>
                 <li>Include registered and non-registered investments, cash, property equity, pensions, vehicles, and business equity.</li>
-                <li>Subtract mortgages, loans, credit cards, and lines of credit.</li>
+                <li>Home equity already subtracts the mortgage. Enter other loans, credit cards, and lines of credit under other debts; do not subtract that mortgage again.</li>
                 <li>Do not include annual income in these net worth fields or use the full value of a home without also subtracting its mortgage.</li>
               </ul>
             </div>
           </details>
 
           <div class="form-actions">
-            <button class="btn-primary" type="submit">Update ranking</button>
+            <button class="btn-primary" type="submit">Update comparison</button>
             <button class="btn-secondary" type="reset">Reset</button>
           </div>
           <p class="local-note">All values are CAD. Nothing is uploaded, stored, or tied to an account.</p>
         </form>
 
-        <section class="planner-panel wealth-results" id="wealth-results" tabindex="-1" aria-live="polite" aria-label="Estimated wealth rank results">
+        <section class="planner-panel wealth-results" id="wealth-results" tabindex="-1" aria-live="polite" aria-label="Illustrative wealth comparison results">
           <div class="result-topline">
             <span class="result-kicker">Your result</span>
             <span class="result-status">Estimate ready</span>
@@ -698,9 +706,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
             </div>
           </div>
 
+          <p class="provenance-note"><strong>Illustration, not a measured rank.</strong> This model mixes Statistics Canada’s 2023 medians with PBO’s Q4 2024 wealth thresholds and AF assumptions. It does not adjust different years to a common date. Bands are rounded to five percentile points and are not confidence intervals. <a href="#wealth-method">See the data and assumptions</a>.</p>
           <div class="metric-strip">
             <div class="metric-item">
-              <span>National rank</span>
+              <span>Illustrative national band</span>
               <strong id="nationalPercentile">44th</strong>
             </div>
             <div class="metric-item">
@@ -726,7 +735,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
             </div>
           </div>
 
-          <div class="rank-visual" id="rankMeter" role="meter" aria-label="Estimated percentile" aria-valuemin="0" aria-valuemax="100" aria-valuenow="44">
+          <div class="rank-visual" id="rankMeter" role="meter" aria-label="Illustrative percentile band" aria-valuemin="0" aria-valuemax="100" aria-valuenow="44">
             <div class="rank-marker" id="wealthRankMarker"><span id="rankMarkerLabel">44th</span></div>
             <div class="rank-track"></div>
             <div class="rank-axis" aria-hidden="true">
@@ -745,7 +754,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         </section>
       </div>
 
-      <section class="wealth-projection" id="projection" aria-labelledby="projectionTitle">
+      <details class="wealth-disclosure" id="projection"><summary>Explore a future net-worth scenario</summary>
+      <section class="wealth-projection" aria-labelledby="projectionTitle">
         <div class="projection-heading">
           <div>
             <span class="result-kicker">Planning scenario</span>
@@ -781,7 +791,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
                 <strong id="projectedNetWorth">$0</strong>
               </div>
               <div class="projection-rank">
-                <span>Estimated target-age rank</span>
+                <span>Illustrative target-age band</span>
                 <strong id="projectedPercentile">0th</strong>
               </div>
             </div>
@@ -798,13 +808,15 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         </div>
       </section>
 
+      </details>
+      <details class="wealth-disclosure" id="advanced-comparisons"><summary>Explore advanced charts and illustrations</summary>
       <section class="wealth-charts" aria-labelledby="dataExplorerTitle">
         <div class="data-explorer-head">
           <div>
             <span class="eyebrow">Explore the benchmarks</span>
             <h3 id="dataExplorerTitle">See the data from <em>more than one angle</em>.</h3>
           </div>
-          <p>Ten benchmark views connect income, net worth, age, province, and financial composition. They respond to the profile above without sending your information anywhere.</p>
+          <p>Optional charts show how different assumptions change a comparison. Published medians are distinguished from AF’s illustrative curves and distributions. These charts do not measure your financial wellbeing.</p>
         </div>
 
         <div class="explorer-toolbar">
@@ -818,6 +830,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 
         <div class="chart-grid">
           <article class="chart-panel chart-panel-wide" aria-labelledby="incomeAgeChartTitle">
+            <p class="provenance-note">AF illustration: 2023 median wage anchors; other percentiles use assumed ratios.</p>
             <div class="chart-header">
               <div>
                 <h4 id="incomeAgeChartTitle">Estimated employment income by age</h4>
@@ -841,11 +854,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
             </div>
             <details class="chart-method">
               <summary>How the income curves are estimated</summary>
-              <p>Official 2023 wage medians anchor each age band. Lines between ages and the 10th, 25th, 75th, and 90th percentile ranges are interpolated estimates, scaled by the selected province's official median wage.</p>
+              <p>Only the 2023 age-band wage medians are published values. AF multiplies those medians by assumed ratios to draw the other percentile lines, then scales them by provincial median wages. Those lines are illustrations, not measured income percentiles.</p>
             </details>
           </article>
 
           <article class="chart-panel chart-panel-wide" aria-labelledby="ageChartTitle">
+            <p class="provenance-note">AF illustration: 2023 age medians scaled against a mixed 2023 / Q4 2024 curve.</p>
             <div class="chart-header">
               <div>
                 <h4 id="ageChartTitle">Estimated net worth by age</h4>
@@ -874,9 +888,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           </article>
 
           <article class="chart-panel" aria-labelledby="incomeCompositionTitle">
+            <p class="provenance-note">Fictional teaching example: component totals and shares are AF assumptions.</p>
             <div class="chart-header">
               <div>
-                <h4 id="incomeCompositionTitle">Median income composition by age</h4>
+                <h4 id="incomeCompositionTitle">Illustrative income mix by age</h4>
                 <p>Employment, investments, pensions, and transfers</p>
               </div>
             </div>
@@ -894,14 +909,15 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
             </div>
             <details class="chart-method">
               <summary>About this composition</summary>
-              <p>The changing mix is an educational estimate informed by Canadian Income Survey and benefit patterns. It is not a published single-age breakdown.</p>
+              <p>AF chose these component shares and totals as a fictional teaching illustration. They are not measured median income components or a published single-age breakdown.</p>
             </details>
           </article>
 
           <article class="chart-panel" aria-labelledby="wealthCompositionAgeTitle">
+            <p class="provenance-note">AF illustration: 2023 net-worth medians with assumed asset shares and debt.</p>
             <div class="chart-header">
               <div>
-                <h4 id="wealthCompositionAgeTitle">Median wealth composition by age</h4>
+                <h4 id="wealthCompositionAgeTitle">Illustrative wealth mix by age</h4>
                 <p>Real estate, financial assets, pensions, debt, and net worth</p>
               </div>
             </div>
@@ -921,11 +937,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
             </div>
             <details class="chart-method">
               <summary>About this composition</summary>
-              <p>Age-group net worth is official. Component shares and debt paths are smoothed educational estimates informed by the Survey of Financial Security asset and debt categories.</p>
+              <p>Age-group net-worth medians come from the 2023 SFS. AF chose the component shares and debt amounts as teaching assumptions; the resulting composition is not a published household profile.</p>
             </details>
           </article>
 
           <article class="chart-panel" aria-labelledby="incomeDistributionTitle">
+            <p class="provenance-note">AF illustration: assumed distribution shape and percentile ratios, not tax records.</p>
             <div class="chart-header">
               <div>
                 <h4 id="incomeDistributionTitle">Employment income distribution</h4>
@@ -945,6 +962,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           </article>
 
           <article class="chart-panel" aria-labelledby="wealthDistributionTitle">
+            <p class="provenance-note">AF illustration: synthesized distribution, including assumed low-end anchors.</p>
             <div class="chart-header">
               <div>
                 <h4 id="wealthDistributionTitle">Net worth distribution</h4>
@@ -959,11 +977,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
             </div>
             <details class="chart-method">
               <summary>How the distribution is estimated</summary>
-              <p>The bars are synthesized from the page's published national percentile anchors, then scaled for age and province. They are not survey microdata.</p>
+              <p>AF constructs these bars from the mixed-source wealth curve, including two assumed low-end anchors, then scales it by age and province medians. They are not counts of observed families.</p>
             </details>
           </article>
 
           <article class="chart-panel" aria-labelledby="incomeProvinceTitle">
+            <p class="provenance-note">Published: 2023 median wage dots. Illustrative: all percentile whiskers.</p>
             <div class="chart-header">
               <div>
                 <h4 id="incomeProvinceTitle">Median income by province</h4>
@@ -983,6 +1002,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           </article>
 
           <article class="chart-panel" aria-labelledby="futureProvinceTitle">
+            <p class="provenance-note">AF illustration: scaled 2023 medians and assumed ranges; not a forecast.</p>
             <div class="chart-header">
               <div>
                 <h4 id="futureProvinceTitle">Target-age net worth by province</h4>
@@ -1002,6 +1022,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           </article>
 
           <article class="chart-panel chart-panel-wide" aria-labelledby="genderIncomeTitle">
+            <p class="provenance-note">Published: 2023 age-band medians. Illustrative: lines between ages and percentile bands.</p>
             <div class="chart-header">
               <div>
                 <h4 id="genderIncomeTitle">Employment income by sex and age</h4>
@@ -1026,6 +1047,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           </article>
 
           <article class="chart-panel chart-panel-wide" aria-labelledby="incomeWealthTitle">
+            <p class="provenance-note">AF illustration pairing separate 2023 wage and wealth medians; not the same households.</p>
             <div class="chart-header">
               <div>
                 <h4 id="incomeWealthTitle">Median income versus net worth by age</h4>
@@ -1049,9 +1071,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           </article>
 
           <article class="chart-panel" aria-labelledby="provinceChartTitle">
+            <p class="provenance-note">Published: Statistics Canada’s 2023 family net-worth medians, in 2023 dollars.</p>
             <div class="chart-header">
               <div>
-                <h4 id="provinceChartTitle">Current median wealth by province</h4>
+                <h4 id="provinceChartTitle">2023 median wealth by province</h4>
                 <p>2023 family net worth - select a row to compare</p>
               </div>
             </div>
@@ -1066,6 +1089,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           </article>
 
           <article class="chart-panel" aria-labelledby="compositionChartTitle">
+            <p class="provenance-note">Your entered values: these shares describe your example, not Canadian averages.</p>
             <div class="chart-header">
               <div>
                 <h4 id="compositionChartTitle">Your wealth composition</h4>
@@ -1094,6 +1118,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         </div>
       </section>
 
+      </details>
       <section class="wealth-guidance" aria-labelledby="guidanceTitle">
         <div class="guidance-head">
           <span class="eyebrow">Use the number well</span>
@@ -1105,15 +1130,16 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <article class="insight"><span class="insight-number">03</span><h4>Focus on controllables</h4><p>Debt reduction, an emergency reserve, regular investing, and avoiding concentrated bets matter more than chasing somebody else's rank.</p></article>
         </div>
 
-        <details class="method-panel">
+        <details class="method-panel" id="wealth-method">
           <summary>Data, method, and important limitations</summary>
           <div class="method-content">
             <div>
-              <p>The national wealth curve interpolates between published family net worth benchmarks. Age and province estimates scale that curve using corresponding official medians. Income views use official 2023 wage medians by age, sex, and province.</p>
-              <p>Single-age lines, percentile ranges, compositions, and histograms are transparent estimates between published anchors. Statistics Canada reports wealth for family units and wages for individual tax filers, so the page keeps those units labelled separately.</p>
+              <p>Published inputs: Statistics Canada’s 2023 Survey of Financial Security medians (released October 29, 2024), its 2023 wage medians (released April 1, 2025), and PBO’s Q4 2024 wealth thresholds in Table 4 of its September 11, 2025 report. The $519,700 national net-worth median is in 2023 dollars. PBO’s $1.3M, $2.1M and $7.5M top-20%, top-10% and top-1% thresholds describe Q4 2024. These different dates are not inflation-normalized here.</p>
+              <p>AF assumptions: −$100,000 at the 5th percentile and $0 at the 15th are illustrative low-end anchors, not published survey points. Income percentile factors (0.35, 0.59, 0.78, 1, 1.42, 2 and 3.4 times the median), composition shares, debt paths and distribution shapes are chosen examples. Interpolating medians or scaling a national curve by a provincial median does not establish a real local distribution. Wealth refers to family units; wages refer to individual tax filers.</p>
             </div>
             <ul>
-              <li>Results are estimates rounded for readability.</li>
+              <li>Model bands are rounded to five percentile points; this is display rounding, not statistical precision or an uncertainty interval.</li>
+              <li>Sources and model labels checked October 20, 2026. No 2026 survey rank is claimed.</li>
               <li>Negative net worth is supported.</li>
               <li>Territories are excluded because the cited SFS provincial table covers the 10 provinces.</li>
               <li>The future scenario uses today's dollars and does not model tax, fees, or volatility.</li>
@@ -1186,8 +1212,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-    <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-    <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+    <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
   </div>
 </div>
 
@@ -1201,6 +1227,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     const form = document.getElementById('wealthRankForm');
     if (!form) return;
     const projectionForm = document.getElementById('projectionForm');
+    document.querySelectorAll('.wealth-disclosure').forEach((panel) => panel.addEventListener('toggle', () => {
+      if (panel.open) window.dispatchEvent(new Event('resize'));
+    }));
     const detailedInputs = document.getElementById('detailedInputs');
     const totalInput = document.getElementById('totalInput');
     const modeButtons = Array.from(document.querySelectorAll('[data-mode]'));
@@ -1458,18 +1487,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     }
 
     function ordinal(number) {
-      if (number > 99 && number < 100) {
-        const precision = number >= 99.9 ? 2 : 1;
-        return `${number.toFixed(precision).replace(/0+$/, '').replace(/\.$/, '')}th`;
-      }
-      const rounded = Math.round(clamp(number, 0, 100));
-      const mod100 = rounded % 100;
-      if (mod100 >= 11 && mod100 <= 13) return `${rounded}th`;
-      const mod10 = rounded % 10;
-      if (mod10 === 1) return `${rounded}st`;
-      if (mod10 === 2) return `${rounded}nd`;
-      if (mod10 === 3) return `${rounded}rd`;
-      return `${rounded}th`;
+      const lower = Math.min(95, Math.floor(clamp(number, 0, 100) / 5) * 5);
+      return `${lower}–${lower + 5}th`;
     }
 
     function formatMoney(number) {
@@ -2350,10 +2369,6 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       };
     }
 
-    function topShareText(percentile) {
-      const share = Math.max(0.01, 100 - percentile);
-      return share < 1 ? `top ${share.toFixed(1)}%` : `top ${Math.round(share)}%`;
-    }
 
     function setContext(context) {
       activeContext = ['national', 'province', 'age'].includes(context) ? context : 'national';
@@ -2372,12 +2387,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       const markerPosition = clamp(percentile, 2, 98);
 
       output.percentile.textContent = ordinal(percentile);
-      output.percentileLabel.textContent = `${context.label} percentile`;
+      output.percentileLabel.textContent = `${context.label} illustrative band`;
       output.rankMarker.style.left = `${markerPosition}%`;
       output.rankMarkerLabel.textContent = ordinal(percentile);
       output.rankMeter.setAttribute('aria-valuenow', percentile.toFixed(1));
       output.rankMeter.setAttribute('aria-valuetext', `${ordinal(percentile)} percentile compared with ${context.longLabel}`);
-      output.contextSummary.textContent = `${formatMoney(latestResult.netWorth)} is ${formatMoney(Math.abs(difference))} ${comparison} the ${context.label} median of ${formatMoney(context.median)}. That places the estimate around the ${ordinal(percentile)} percentile${percentile >= 50 ? `, or roughly the ${topShareText(percentile)}` : ''}.`;
+      output.contextSummary.textContent = `${formatMoney(latestResult.netWorth)} is ${formatMoney(Math.abs(difference))} ${comparison} the ${context.label} median of ${formatMoney(context.median)}. The AF model places it in the ${ordinal(percentile)} percentile band; this is not a measured rank.`;
       output.benchmark25.textContent = formatCompact(estimateThreshold(25) * context.scale);
       output.benchmarkMedian.textContent = formatCompact(estimateThreshold(50) * context.scale);
       output.benchmarkTop20.textContent = formatCompact(estimateThreshold(80) * context.scale);
@@ -2424,11 +2439,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       output.incomePercentile.textContent = ordinal(incomePercentile);
       output.provinceMetricLabel.textContent = selectedProvince.short === 'Canada' ? 'Canada comparison' : `${selectedProvince.short} estimate`;
       output.ageMetricLabel.textContent = `Age ${age.label} peers`;
-      output.incomeMetricLabel.textContent = `Age ${ageValue} income rank`;
+      output.incomeMetricLabel.textContent = `Illustrative age ${ageValue} income band`;
       output.ageGroupHint.textContent = `Compared with households led by someone age ${age.label}.`;
       output.caption.textContent = nationalPercentile >= 50
-        ? `This estimate is around the ${ordinal(nationalPercentile)} percentile nationally, or roughly the ${topShareText(nationalPercentile)}.`
-        : `This estimate is around the ${ordinal(nationalPercentile)} percentile nationally. A percentile is context, not a measure of financial wellbeing.`;
+        ? `The AF model places this example in the ${ordinal(nationalPercentile)} national percentile band. Sources are from 2023 and Q4 2024.`
+        : `The AF model places this example in the ${ordinal(nationalPercentile)} national percentile band. Low-end anchors are illustrative, not observed data.`;
 
       if (inputMode === 'details') {
         document.getElementById('wealthDirectTotal').value = Math.round(netWorth);

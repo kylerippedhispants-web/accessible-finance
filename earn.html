@@ -247,6 +247,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   .footer-top { grid-template-columns: 1fr; gap: 40px; padding-bottom: 48px; }
   footer.site-footer { padding: 64px 24px 36px; }
 }
+.offer-terms { margin-top: 20px; max-width: 65ch; font-size: 14px; line-height: 1.65; }
+.offer-terms a, .rakuten-fine a { text-decoration: underline; text-underline-offset: 3px; }
 </style>
 <link rel="stylesheet" href="site-language.css?v=20260801">
 <link rel="stylesheet" href="site-region.css?v=20260801">
@@ -345,22 +347,23 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <section class="offer">
   <div class="offer-card reveal">
     <div>
-      <span class="offer-badge"><span class="dot"></span>Active Offer</span>
-      <h2>Get <em>$25 free</em> when you<br>open a Wealthsimple account</h2>
-      <p class="body">Sign up using our referral link, deposit at least $100, and Wealthsimple will deposit $25 directly into your portfolio. It takes about five minutes to get started.</p>
+      <span class="offer-badge"><span class="dot"></span>Referral offer · Conditions apply</span>
+      <h2>A <em>$25 referral bonus</em><br>for eligible new clients</h2>
+      <p class="body">Eligible new Wealthsimple clients can receive a $25 base bonus after using a referral code and meeting the funding requirements. Check the product’s fees and features before choosing it.</p>
       <ol class="offer-steps">
-        <li>Click the link below and create your free account</li>
-        <li>Deposit at least $100 into your account</li>
-        <li>Wealthsimple deposits $25 into your account automatically</li>
+        <li>Use the referral link and confirm the code is applied.</li>
+        <li>Fund an eligible account with at least $100 from outside Wealthsimple within 30 days of entering the code.</li>
+        <li>Have an open Wealthsimple chequing account to receive the bonus. Both participants need one; the bonus goes there, not into an investment portfolio.</li>
       </ol>
-      <a href="https://www.wealthsimple.com/invite/BZJM-A" class="offer-cta" target="_blank" rel="sponsored nofollow noopener noreferrer">Claim Your $25
+      <a href="https://www.wealthsimple.com/invite/BZJM-A" class="offer-cta" target="_blank" rel="sponsored nofollow noopener noreferrer">View the Wealthsimple offer
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
+      <p class="offer-terms">Checked October 20, 2026. Eligibility, qualifying transfers, and timing apply. <a href="https://help.wealthsimple.com/hc/en-ca/articles/19646567019035-Wealthsimple-Referral-Bonus-Promotion-2026" target="_blank" rel="noopener noreferrer">Read Wealthsimple’s current referral terms (new tab)</a>. We may also receive a referral reward.</p>
     </div>
     <div class="coin-wrap">
       <div class="coin">
         <div class="big">$25</div>
-        <div class="label">Free</div>
+        <div class="label">Base bonus</div>
       </div>
     </div>
   </div>
@@ -372,18 +375,18 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <div>
         <span class="partner-badge">Rakuten Canada</span>
         <h2>Get <em>cash back</em> on<br>everyday purchases.</h2>
-        <p class="body">Rakuten gives you a percentage of your money back every time you shop at hundreds of Canadian and international retailers — including groceries, travel, fashion, and more. It's free to join and the cash back adds up fast.</p>
+        <p class="body">Rakuten shares part of its retailer commission on qualifying purchases started through its service. Rates, exclusions, and tracking requirements vary by store. Only buy what you already need; a reward does not make an unnecessary purchase a saving.</p>
         <ul class="features">
-          <li>Cash back at 750+ stores including Amazon, Indigo, and Expedia</li>
-          <li>Paid out quarterly by cheque or PayPal — no minimums</li>
-          <li>Completely free — Rakuten earns commission from retailers, not from you</li>
+          <li>Check each store’s current rate, eligible categories, and exclusions before shopping.</li>
+          <li>Quarterly payments require at least $5.01 in qualifying cash back. Smaller balances carry forward; sign-up and referral bonuses do not count toward the minimum.</li>
+          <li>Free to join. Payment choices include cheque, PayPal, and Interac e-Transfer, subject to the account requirements.</li>
         </ul>
         <a href="https://www.rakuten.ca/referrer?referrerid=JdBJgx4OV54%3D&src=Link" class="rakuten-cta" target="_blank" rel="sponsored nofollow noopener noreferrer">Join Rakuten Canada
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <p class="rakuten-fine">Referral link — we may earn a small commission at no cost to you. We only recommend services we believe in.</p>
+        <p class="rakuten-fine">Referral link — we may receive a reward. Checked October 20, 2026. <a href="https://www.rakuten.ca/help/most-shoppers-want-to-know" target="_blank" rel="noopener noreferrer">Read Rakuten’s payment and eligibility details (new tab)</a>.</p>
       </div>
-      <div class="bag" aria-label="Rakuten Canada">
+      <div class="bag" aria-hidden="true">
         <div class="rakuten-logo" aria-hidden="true">
           <span class="word">Rakuten</span>
           <span class="label">Canada</span>
@@ -482,8 +485,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <h4>Guides</h4>
         <ul>
           <li><a href="articles.html">All Guides</a></li>
-          <li><a href="articles.html">Beginner</a></li>
-          <li><a href="articles.html">Intermediate</a></li>
+          <li><a href="articles.html?cat=beginner">Beginner</a></li>
+          <li><a href="articles.html?cat=intermediate">Intermediate</a></li>
           <li><a href="articles.html">Guide Library</a></li>
           <li><a href="tax-calculator.html">Tax Calculator</a></li>
           <li><a href="cash-flow.html?edition=ca">Cash Flow</a></li>
@@ -517,8 +520,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-    <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-    <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+    <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
   </div>
 </div>
 

@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/bonds-in-portfolio.html",
       "inLanguage": "en-CA",
       "articleSection": "Asset Classes",
-      "wordCount": 1081,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 913,
+      "timeRequired": "PT6M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>What bonds actually do in a <em>portfolio</em></h1>
     <p class="deck">Bonds can add income, liquidity, and stability to a portfolio, but their usefulness depends on credit quality, maturity, and the goal they support.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">6 min read</span>
       <span class="meta-item">Intermediate</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Use bonds because they perform a defined portfolio job, not because of an age-based slogan.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Match bond structure to the liability</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">A three-year withdrawal ladder</a></li>
-      <li><a href="#decision-map">Match the bond risk to its assignment</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">A three-year withdrawal ladder</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Shorter, high-quality bonds generally offer more stability, while longer maturities react more strongly to changing interest rates. Lower-quality borrowers may offer more yield but can behave more like equities during stress.</p><p>The useful bond allocation follows from the job: a near withdrawal, a volatility buffer, an income need, or diversification from stock risk.</p><h3>The essentials</h3><ul><li>Quality determines how much credit risk enters the portfolio.</li><li>Duration shapes sensitivity to rate changes.</li><li>Yield alone does not describe the role or risk.</li><li>Bond funds and individual bonds solve cash-flow needs differently.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Match bond structure to the liability</span></h2>
-      <p>A bond allocation is more useful when it is connected to a future payment. Short, high-quality bonds can support spending over the next several years. Longer bonds may hedge some long-term risks but move more when rates change. High-yield bonds add credit risk and may fall alongside stocks.</p><p>This liability-matching view is more precise than holding bonds merely because of age. Two retirees of the same age can need different bond structures if one has a large indexed pension and the other relies heavily on portfolio withdrawals.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A retiree holding upcoming withdrawals in short, high-quality bonds may avoid selling stocks after a market decline. A long-duration or high-yield fund would not provide the same kind of stability.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>A three-year withdrawal ladder</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>A three-year withdrawal ladder</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Retirement cash-flow example</div>
       <p>A retiree expects to withdraw $30,000 from the portfolio in each of the next three years. The plan holds roughly $30,000 maturing in each year through cash, GICs, or suitable high-quality short bonds, while longer-term assets remain invested.</p><p>If stocks decline, the retiree can fund scheduled spending without immediately selling them. The ladder does not eliminate inflation or reinvestment risk, and the right amount depends on pension income and flexibility.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Annual withdrawal</dt><dd>$30,000</dd></div><div class="case-fact"><dt>Years matched</dt><dd>3</dd></div><div class="case-fact"><dt>Near-term allocation</dt><dd>About $90,000</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Match the bond risk to its assignment</span></h2>
-      <p>A bond allocation can be asked to do several jobs, but one holding may not do all of them well. Long government bonds can provide duration exposure and may rally in some recessions, yet they can fall sharply when rates rise. Corporate bonds offer more yield but can weaken with stocks during credit stress. Short bonds are steadier but provide less yield and less sensitivity when rates fall.</p><p>Start with the portfolio problem. If bonds must fund the next three years of withdrawals, maturity and credit quality deserve priority. If they are mainly a long-term diversifier, a broader maturity mix may be reasonable. If the goal is income, avoid treating the highest yield as the best solution; the extra payment can reflect default risk that appears exactly when the rest of the household is under pressure.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Name the job assigned to bonds.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Match duration to the time horizon.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Review credit quality and concentration.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Rebalance using a written portfolio rule.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Bonds are not immune to losses. Reaching for yield can replace the stability you wanted with credit, currency, or duration risk.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Match bond structure to the liability</summary><p>A bond allocation is more useful when it is connected to a future payment. Short, high-quality bonds can support spending over the next several years. Longer bonds may hedge some long-term risks but move more when rates change. High-yield bonds add credit risk and may fall alongside stocks.</p><p>This liability-matching view is more precise than holding bonds merely because of age. Two retirees of the same age can need different bond structures if one has a large indexed pension and the other relies heavily on portfolio withdrawals.</p></details><details class="guide-detail" id="decision-map"><summary>Match the bond risk to its assignment</summary><p>A bond allocation can be asked to do several jobs, but one holding may not do all of them well. Long government bonds can provide duration exposure and may rally in some recessions, yet they can fall sharply when rates rise. Corporate bonds offer more yield but can weaken with stocks during credit stress. Short bonds are steadier but provide less yield and less sensitivity when rates fall.</p><p>Start with the portfolio problem. If bonds must fund the next three years of withdrawals, maturity and credit quality deserve priority. If they are mainly a long-term diversifier, a broader maturity mix may be reasonable. If the goal is income, avoid treating the highest yield as the best solution; the extra payment can reflect default risk that appears exactly when the rest of the household is under pressure.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">Near-term retirement withdrawals</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">Known cash needs call for high quality and controlled maturity risk.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Credit risk may make the holding behave more like equities.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Compare yield after default, fees, and economic sensitivity.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Define what the bond allocation must do. It may fund near-term withdrawals, reduce total volatility, produce income, diversify stock risk, or provide assets to rebalance after an equity decline. Different bonds serve those purposes differently. Short government debt emphasizes stability; long bonds carry more interest-rate sensitivity; lower-quality credit may behave more like stocks during stress.</p><p>Review duration, credit quality, currency, yield, fees, and the maturity profile rather than purchasing on yield alone. Decide whether known individual maturities or an ongoing diversified fund better match the goal. A bond allocation can decline and may not offset stocks in every period, but that does not make it useless. Judge it by its assigned role across the full plan, not by whether it won the latest calendar year.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Name the job assigned to bonds.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Match duration to the time horizon.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Review credit quality and concentration.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Rebalance using a written portfolio rule.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Define what the bond allocation must do. It may fund near-term withdrawals, reduce total volatility, produce income, diversify stock risk, or provide assets to rebalance after an equity decline. Different bonds serve those purposes differently. Short government debt emphasizes stability; long bonds carry more interest-rate sensitivity; lower-quality credit may behave more like stocks during stress.</p><p>Review duration, credit quality, currency, yield, fees, and the maturity profile rather than purchasing on yield alone. Decide whether known individual maturities or an ongoing diversified fund better match the goal. A bond allocation can decline and may not offset stocks in every period, but that does not make it useless. Judge it by its assigned role across the full plan, not by whether it won the latest calendar year.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A retiree holding upcoming withdrawals in short, high-quality bonds may avoid selling stocks after a market decline. A long-duration or high-yield fund would not provide the same kind of stability.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Why own bonds when stocks have higher expected returns?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Why own bonds when stocks have higher expected returns?</summary>
           <p>A portfolio must be survivable, not merely maximize an average forecast. Bonds can reduce the amount that must be sold from stocks during a decline, support rebalancing, and better match nearer obligations. The trade-off is lower expected long-term return.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can bonds and stocks fall together?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Can bonds and stocks fall together?</summary>
           <p>Yes. Inflation shocks, rapid interest-rate changes, or credit stress can pressure both. Diversification does not require perfect opposite movement every month. The degree of decline, income, maturity, and recovery path can still differ meaningfully.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Is a high-yield bond a stock substitute?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Is a high-yield bond a stock substitute?</summary>
           <p>Lower-quality bonds offer contractual payments but carry greater default and economic risk, and they can decline with equities during stress. Treat the extra yield as compensation for credit risk and avoid placing them in the safest portfolio bucket without examining that behaviour.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Bonds are not immune to losses. Reaching for yield can replace the stability you wanted with credit, currency, or duration risk.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Use bonds because they perform a defined portfolio job, not because of an age-based slogan. Quality and maturity should follow that job.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Introduction to Investing</a></li></ul>
     </section>
   </article>
@@ -631,17 +604,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="bonds-explained.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>What Is a Bond? (And Why Should I Care?)</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="asset-allocation.html" class="related-card reveal">
         <div class="cat">Portfolio Thinking</div>
         <h3>Asset Allocation Explained: The Decision That Shapes the Portfolio</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
     <a href="rebalancing.html" class="related-card reveal">
         <div class="cat">Portfolio Thinking</div>
         <h3>Rebalancing: Why Your Portfolio Needs a Tune-Up</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

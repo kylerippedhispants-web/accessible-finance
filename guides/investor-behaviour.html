@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/investor-behaviour.html",
       "inLanguage": "en-CA",
       "articleSection": "Market Behaviour",
-      "wordCount": 1075,
+      "wordCount": 926,
       "timeRequired": "PT6M",
-      "dateModified": "2026-07-27",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -447,9 +453,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Better behaviour comes from better defaults.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Good systems reduce the number of emotional decisions</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">Why social proof felt like research in 2021</a></li>
-      <li><a href="#decision-map">Design the environment before testing willpower</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">Why social proof felt like research in 2021</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Recency bias projects the latest trend forward. Loss aversion makes a decline feel more powerful than an equal gain. Confirmation bias collects evidence for an existing position. Overconfidence narrows the range of outcomes a person considers possible.</p><p>A written investment policy, automatic contributions, diversification, and scheduled review periods reduce the number of decisions made under pressure.</p><h3>The essentials</h3><ul><li>A convincing story is not the same as base-rate evidence.</li><li>Frequent checking increases exposure to emotional noise.</li><li>Selling can relieve anxiety while damaging the plan.</li><li>Rules decided in calm periods are easier to trust in volatile ones.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Good systems reduce the number of emotional decisions</span></h2>
-      <p>Biases often work together. A rising price creates recency bias, social proof supplies confirmation, and early gains produce overconfidence. Once the position falls, loss aversion encourages holding without revisiting the original thesis.</p><p>A decision journal interrupts that chain. Recording the reason, valuation, position limit, expected horizon, and disconfirming evidence before buying makes it harder to rewrite the story after the outcome is known.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>After a sector rises for two years, an investor increases its weight because it now feels safe. The decision is based on recent comfort even though valuation and concentration risk have increased.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>Why social proof felt like research in 2021</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>Why social proof felt like research in 2021</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Meme-stock behaviour example</div>
       <p>During the January 2021 meme-stock episode, rapidly rising prices and constant social-media attention reinforced each other. The SEC staff report documented the dramatic trading activity and the market-structure questions that followed.</p><p>An investor seeing thousands of confident posts could mistake repetition for independent evidence. A preset speculative limit and written exit thesis would not predict the price, but it could prevent crowd intensity from deciding the size of the bet.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Feedback loop</dt><dd>Price + attention</dd></div><div class="case-fact"><dt>Common bias</dt><dd>Social proof</dd></div><div class="case-fact"><dt>Useful guardrail</dt><dd>Position limit</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Design the environment before testing willpower</span></h2>
-      <p>Behavioural mistakes become more likely when decisions are frequent, feedback is noisy, and action is easy. A brokerage app with constant alerts can turn a twenty-year plan into hundreds of emotional moments. Remove nonessential notifications, separate speculative money, and require a written note before any unscheduled trade. The goal is not perfect discipline; it is fewer opportunities for discipline to fail.</p><p>Social comparison creates a second source of risk. Other people report visible wins and hide position size, losses, debt, and timing. Their result may have no relationship to your goal or capacity. Measure progress against funded goals, contribution rate, cost, and policy adherence. A personal benchmark does not eliminate envy, but it gives the emotion somewhere useful to return.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Write the reason and expected holding period before buying.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Use a 24-hour pause for unplanned trades.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Review on a calendar.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Ask what evidence would change your mind.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>A rule should not become stubbornness. New facts about fraud, personal needs, or a misunderstood product can justify a change; ordinary volatility usually is not new information about your goal.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Good systems reduce the number of emotional decisions</summary><p>Biases often work together. A rising price creates recency bias, social proof supplies confirmation, and early gains produce overconfidence. Once the position falls, loss aversion encourages holding without revisiting the original thesis.</p><p>A decision journal interrupts that chain. Recording the reason, valuation, position limit, expected horizon, and disconfirming evidence before buying makes it harder to rewrite the story after the outcome is known.</p></details><details class="guide-detail" id="decision-map"><summary>Design the environment before testing willpower</summary><p>Behavioural mistakes become more likely when decisions are frequent, feedback is noisy, and action is easy. A brokerage app with constant alerts can turn a twenty-year plan into hundreds of emotional moments. Remove nonessential notifications, separate speculative money, and require a written note before any unscheduled trade. The goal is not perfect discipline; it is fewer opportunities for discipline to fail.</p><p>Social comparison creates a second source of risk. Other people report visible wins and hide position size, losses, debt, and timing. Their result may have no relationship to your goal or capacity. Measure progress against funded goals, contribution rate, cost, and policy adherence. A personal benchmark does not eliminate envy, but it gives the emotion somewhere useful to return.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">Markets are rising quickly</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">FOMO makes recent return feel like evidence about future return.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">The missing context includes losses, leverage, and goal differences.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Return to the household benchmark and avoid copying an unknown risk budget.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Improve behaviour by changing the decision environment. Reduce price alerts and financial-news checks, automate ordinary contributions, and keep the long-term allocation where it is easy to see. Require a written reason and a cooling-off period for any unplanned trade. Friction is helpful when it stands between an emotion and an irreversible action, while automation is helpful for decisions already made in calm conditions.</p><p>Keep a decision journal with the date, available evidence, alternatives, expected outcome, confidence range, and conditions that would change the plan. Review it later without judging only the profit or loss. Outcome bias can praise a reckless win and condemn a thoughtful decision that met an unlucky result. The goal is not emotionless investing; it is a process that still functions when fear, excitement, and social proof are strongest.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Write the reason and expected holding period before buying.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Use a 24-hour pause for unplanned trades.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Review on a calendar.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Ask what evidence would change your mind.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Improve behaviour by changing the decision environment. Reduce price alerts and financial-news checks, automate ordinary contributions, and keep the long-term allocation where it is easy to see. Require a written reason and a cooling-off period for any unplanned trade. Friction is helpful when it stands between an emotion and an irreversible action, while automation is helpful for decisions already made in calm conditions.</p><p>Keep a decision journal with the date, available evidence, alternatives, expected outcome, confidence range, and conditions that would change the plan. Review it later without judging only the profit or loss. Outcome bias can praise a reckless win and condemn a thoughtful decision that met an unlucky result. The goal is not emotionless investing; it is a process that still functions when fear, excitement, and social proof are strongest.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>After a sector rises for two years, an investor increases its weight because it now feels safe. The decision is based on recent comfort even though valuation and concentration risk have increased.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>What is loss aversion?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>What is loss aversion?</summary>
           <p>People often feel the pain of a loss more strongly than the pleasure of an equal gain. That can lead to selling after declines, avoiding appropriate risk, or holding a losing position merely to avoid admitting the loss. Written rules reduce the need to improvise.</p>
-        </div>
-        <div class="faq-item">
-          <h3>How can I avoid chasing performance?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>How can I avoid chasing performance?</summary>
           <p>Compare any proposed purchase with the existing goal and allocation, then ask what price and evidence would have supported it before the recent rise. Use a waiting period and review longer histories, costs, valuation, and overlap. Recent return alone is not an investment thesis.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Does checking my portfolio often cause harm?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Does checking my portfolio often cause harm?</summary>
           <p>Checking is not automatically harmful, but frequent observation exposes you to more negative intervals and more temptation to act. Match monitoring to the decisions required. A diversified long-term portfolio may need occasional review, while account security alerts should remain immediate.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>A rule should not become stubbornness. New facts about fraud, personal needs, or a misunderstood product can justify a change; ordinary volatility usually is not new information about your goal.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Better behaviour comes from better defaults. Build a system that makes the planned action easier than the emotional one.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Introduction to Investing</a></li><li><a href="https://www.sec.gov/file/staff-report-equity-options-market-struction-conditions-early-2021pdf" target="_blank" rel="noopener noreferrer">U.S. SEC: Staff Report on Equity and Options Market Structure Conditions in Early 2021</a></li></ul>
     </section>
   </article>
@@ -636,12 +609,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="time-in-market.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>Time in the Market vs. Timing the Market</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="beginner-investing-mistakes.html" class="related-card reveal">
         <div class="cat">Getting Started</div>
         <h3>Common Beginner Investing Mistakes - and How to Avoid Them</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

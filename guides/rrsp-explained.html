@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/rrsp-explained.html",
       "inLanguage": "en-CA",
       "articleSection": "Canadian Money",
-      "wordCount": 1135,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 969,
+      "timeRequired": "PT6M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>RRSP explained: deductions now, taxable withdrawals <em>later</em></h1>
     <p class="deck">Eligible RRSP contributions can reduce taxable income. Investments generally grow tax-deferred, while withdrawals are usually taxable.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">6 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>An RRSP can be a powerful retirement tool when the deduction, employer benefits, investment plan, and future withdrawal tax are considered together.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">The deduction and the withdrawal belong in one calculation</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">What happens to a $10,000 contribution</a></li>
-      <li><a href="#decision-map">The deduction and withdrawal belong together</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">What happens to a $10,000 contribution</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>RRSP room is based on prior earned income and adjustments, subject to the rules. Unused room can carry forward. Growth inside the plan is generally not taxed annually.</p><p>A withdrawal usually creates taxable income and normally does not restore contribution room. Specific programs, such as current home or education withdrawal provisions, have separate conditions.</p><h3>The essentials</h3><ul><li>A contribution and a deduction can sometimes occur in different years.</li><li>Withdrawals are generally taxable income.</li><li>Withholding at withdrawal may not equal the final tax owed.</li><li>Employer matching can make an RRSP contribution especially valuable.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>The deduction and the withdrawal belong in one calculation</span></h2>
-      <p>An RRSP contribution can reduce taxable income today, but the plan generally creates taxable income later. The meaningful comparison includes the current marginal deduction rate, the future withdrawal rate, years of tax-deferred growth, and what happens to the refund.</p><p>Contribution room is valuable and normally does not return after an ordinary withdrawal. That makes an RRSP less flexible than a TFSA for money that may be needed before retirement, even when the initial deduction looks attractive.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A worker contributes through payroll and receives an employer match. The combined contribution grows inside the RRSP; future withdrawals are included in income under the rules then in force.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>What happens to a $10,000 contribution</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>What happens to a $10,000 contribution</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Tax-timing illustration</div>
       <p>Assume a $10,000 RRSP deduction applies at a 35% marginal tax rate. The immediate tax reduction is approximately $3,500. If that refund is spent, only the original $10,000 remains invested; reinvesting the refund gives the strategy a larger base.</p><p>A later $10,000 withdrawal taxed at an illustrative 25% leaves $7,500 after tax. Actual rates, investment growth, withholding, benefits, and timing will change the result. The example shows why the refund and future tax cannot be ignored.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Contribution</dt><dd>$10,000</dd></div><div class="case-fact"><dt>35% tax reduction</dt><dd>$3,500</dd></div><div class="case-fact"><dt>$10K at 25% later</dt><dd>$7,500 net</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>The deduction and withdrawal belong together</span></h2>
-      <p>An RRSP decision spans two tax periods. The contribution may reduce taxable income today, while a future withdrawal generally adds taxable income later. Looking only at the refund ignores half of the arrangement. Compare the current marginal benefit with a range of retirement tax rates, then include the years of sheltered growth and whether the refund will be saved, invested, used for debt, or spent.</p><p>Withdrawal sequencing can be as important as contribution choice. Large RRSP or RRIF balances, pensions, CPP, OAS, and taxable income may converge later in life. A retirement projection can test whether planned withdrawals should begin before other income, be spread more evenly, or remain deferred. The result depends on current rules, longevity, estate goals, and benefit interactions, so use the model to frame questions rather than to manufacture one perfect age.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Verify deduction limit on the latest Notice of Assessment.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Understand employer matching before contributing elsewhere.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Plan both contributions and eventual withdrawals.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Name and review beneficiaries where applicable.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Treating the initial tax refund as free money can overstate the benefit. The RRSP is generally tax-deferred, not permanently tax-free.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>The deduction and the withdrawal belong in one calculation</summary><p>An RRSP contribution can reduce taxable income today, but the plan generally creates taxable income later. The meaningful comparison includes the current marginal deduction rate, the future withdrawal rate, years of tax-deferred growth, and what happens to the refund.</p><p>Contribution room is valuable and normally does not return after an ordinary withdrawal. That makes an RRSP less flexible than a TFSA for money that may be needed before retirement, even when the initial deduction looks attractive.</p></details><details class="guide-detail" id="decision-map"><summary>The deduction and withdrawal belong together</summary><p>An RRSP decision spans two tax periods. The contribution may reduce taxable income today, while a future withdrawal generally adds taxable income later. Looking only at the refund ignores half of the arrangement. Compare the current marginal benefit with a range of retirement tax rates, then include the years of sheltered growth and whether the refund will be saved, invested, used for debt, or spent.</p><p>Withdrawal sequencing can be as important as contribution choice. Large RRSP or RRIF balances, pensions, CPP, OAS, and taxable income may converge later in life. A retirement projection can test whether planned withdrawals should begin before other income, be spread more evenly, or remain deferred. The result depends on current rules, longevity, estate goals, and benefit interactions, so use the model to frame questions rather than to manufacture one perfect age.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">A high-income contribution year</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">The current deduction may be valuable, but future withdrawal tax still matters.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Lower-income years may create a withdrawal-planning opportunity.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Model staged withdrawals with tax and benefit effects before acting.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Think of an RRSP as a tax-timing tool for retirement, not simply a place to collect a refund. Contributions may create a deduction, growth is tax-deferred while it remains in the plan, and withdrawals are generally taxable income. The potential advantage depends on the tax rate when the deduction is claimed, the tax rate when money is withdrawn, the years of sheltered compounding, and what happens to the tax saving.</p><p>Build an RRSP plan alongside the eventual withdrawal plan. Track contribution room, employer or pension adjustments, beneficiary details, and any programs that allow specific withdrawals under current rules. Model retirement income from all sources so RRSP or RRIF withdrawals do not arrive as a surprise. When income is temporarily low, claiming a deduction later may be worth investigating, but verify the current rules and your personal tax situation before acting.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Verify deduction limit on the latest Notice of Assessment.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Understand employer matching before contributing elsewhere.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Plan both contributions and eventual withdrawals.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Name and review beneficiaries where applicable.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Think of an RRSP as a tax-timing tool for retirement, not simply a place to collect a refund. Contributions may create a deduction, growth is tax-deferred while it remains in the plan, and withdrawals are generally taxable income. The potential advantage depends on the tax rate when the deduction is claimed, the tax rate when money is withdrawn, the years of sheltered compounding, and what happens to the tax saving.</p><p>Build an RRSP plan alongside the eventual withdrawal plan. Track contribution room, employer or pension adjustments, beneficiary details, and any programs that allow specific withdrawals under current rules. Model retirement income from all sources so RRSP or RRIF withdrawals do not arrive as a surprise. When income is temporarily low, claiming a deduction later may be worth investigating, but verify the current rules and your personal tax situation before acting.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A worker contributes through payroll and receives an employer match. The combined contribution grows inside the RRSP; future withdrawals are included in income under the rules then in force.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Should I spend or invest my RRSP tax refund?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Should I spend or invest my RRSP tax refund?</summary>
           <p>If the contribution was sized assuming the refund would be invested or used for debt, spending it reduces the strategy&#039;s benefit. Decide before filing. Reinvesting the refund can increase total retirement savings, while paying expensive debt can improve cash flow and reduce guaranteed interest cost.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Is an RRSP withdrawal penalized?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Is an RRSP withdrawal penalized?</summary>
           <p>Ordinary withdrawals are generally included in taxable income, and the institution normally withholds part for tax. The withholding is not necessarily the final tax bill. Unlike a TFSA withdrawal, withdrawn RRSP room is generally not restored, subject to specific program rules.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Is an RRSP only useful in a high tax bracket?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Is an RRSP only useful in a high tax bracket?</summary>
           <p>A higher current deduction rate can increase its value, but time, employer matching, future income, benefits, and retirement tax rates also matter. Lower-income savers may still benefit, while sometimes preferring TFSA flexibility. Compare the full household timeline rather than one year alone.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Treating the initial tax refund as free money can overstate the benefit. The RRSP is generally tax-deferred, not permanently tax-free.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>An RRSP can be a powerful retirement tool when the deduction, employer benefits, investment plan, and future withdrawal tax are considered together.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/registered-retirement-savings-plan-rrsp.html" target="_blank" rel="noopener noreferrer">CRA: Registered Retirement Savings Plan</a></li></ul>
     </section>
   </article>
@@ -631,17 +604,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="tfsa-explained.html" class="related-card reveal">
         <div class="cat">Canadian Money</div>
         <h3>TFSA Explained: How It Works and When to Use It</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="tfsa-vs-rrsp.html" class="related-card reveal">
         <div class="cat">Canadian Money</div>
         <h3>TFSA vs. RRSP: Which Should You Use First?</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">5 min read &middot; Intermediate</div>
       </a>
     <a href="taxes-and-compounding.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Taxes and Compounding: What Tax-Advantaged Really Means</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

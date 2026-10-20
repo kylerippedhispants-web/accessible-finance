@@ -210,8 +210,11 @@
   function syncUniversalToolLinks() {
     if (!document.body?.hasAttribute('data-region-universal')) return;
     const region = getCurrentRegion();
-    document.querySelectorAll('a[href^="cash-flow.html?edition="]').forEach((link) => {
-      link.setAttribute('href', `cash-flow.html?edition=${region}`);
+    document.querySelectorAll('a[href]').forEach((link) => {
+      const destination = new URL(link.href, location.href);
+      if (destination.origin !== location.origin || !/\/cash-flow(?:\.html)?\/?$/.test(destination.pathname)) return;
+      destination.searchParams.set('edition', region);
+      link.href = destination.href;
     });
     document.querySelectorAll('[data-region-rewards]').forEach((link) => {
       link.setAttribute('href', region === 'us' ? 'us/rewards.html' : 'earn.html');

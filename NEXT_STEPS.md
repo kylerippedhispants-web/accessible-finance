@@ -1,17 +1,98 @@
 # Website and planner next steps
 
-Updated October 11, 2026 (America/Toronto). This checklist covers the selected FIRE
+Updated October 20, 2026 (America/Toronto). This checklist covers the selected FIRE
 website and planner. Local Demo Mode checks do not validate cloud services or
 public launch.
 
 **The website and cloud planner are published at https://accessible-finance.com.**
 The owner explicitly requested merge and production deployment without waiting
-for the remaining recovery and privacy checks. Production public delivery and
-an existing confirmed account's sign-in/saved-plan load pass; recovery completion
-and explicit storage/log inspection remain pending follow-ups. Earlier preview-15
+for the remaining recovery and privacy checks. The October 1 verification recorded
+production public delivery and an existing confirmed account's sign-in/saved-plan
+load passing; those authenticated checks were not repeated for this UI release.
+Recovery completion and explicit storage/log inspection remain pending follow-ups. Earlier preview-15
 onboarding, save/reload, account separation, and JSON export/import proofs are
 recorded below. Two fictional browser-created plans remain after the earlier
 authenticated harness cleanup.
+
+## October 20 review recommendations implemented
+
+The review was implemented in the selected website/planner copy. Its release
+build preserves the unrelated Tidepost files added to master by PR #17.
+The following numbers map to the 22 review findings:
+
+- [x] **1 — Numeric entry:** malformed required or optional numbers invalidate
+  the visible draft; collection submissions, preview, save, and export cannot
+  silently reuse a previous value.
+- [x] **2 — U.S. state tax:** fix Ohio's statutory base and Rhode Island's
+  uniform schedule. Remove blanket filing-status scaling. Show verified
+  schedules only; unsupported estimates say "Not estimated" and make the
+  federal-only limitation explicit.
+- [x] **3 — Keyboard and motion:** skip/contents links focus their destination,
+  respect reduced motion, and preserve desktop contents navigation. Scenario
+  editors and actions restore focus.
+- [x] **4 — Contrast:** replace low-contrast text colours on light and dark
+  surfaces, including calculator results, captions, and regional footers.
+- [x] **5 — Long names:** wrap scenario cards, feedback, chart legends,
+  inspectors, summaries, and table headers at narrow widths.
+- [x] **6 — Newsletter:** use a readable direct Substack action on phones,
+  load desktop modal embeds on demand, provide a fallback, and restore focus
+  when closing. Explain that Substack manages subscription email.
+- [x] **7 — Accessible data:** provide complete cash-flow values, preserve SVG
+  names after redraw, stack the Canadian tax breakdown on phones, and make
+  remaining scrolling tables keyboard focusable with instructions.
+- [x] **8 — Cash-flow categories:** explicitly classify saving, spending, and
+  debt rows; migrate prior saved categories once and retain types after rename.
+- [x] **9 — Referral conditions:** correct payout/eligibility wording and link
+  current official terms beside the relevant actions.
+- [x] **10 — Deployed URLs:** support both pretty and .html URLs for planner
+  bridges, preserve cash-flow edition links, and fix footer topic filters.
+- [x] **11 — Onboarding failures:** retain entered information and announce
+  failed saves with retry guidance.
+- [x] **12 — Navigation:** group Learn and Tools, retain Planner and About,
+  distinguish quick FIRE calculations from the detailed Canadian planner, and
+  replace the journal placeholder with a clear newsletter destination.
+- [x] **13 — Homepage:** explain AF's purpose before advanced tools, make the
+  beginner route primary, and reduce repeated planner promotion.
+- [x] **14 — Assumptions:** label pre-credit/payroll tax results, nominal
+  returns, and benefit amounts expressed in dollars at their chosen start age.
+- [x] **15 — Wealth context:** distinguish published benchmarks from fictional
+  interpolation/composition assumptions, display source years, avoid false
+  percentile precision, and collapse secondary views.
+- [x] **16 — Reading length:** remove repetitive guide worksheet prose,
+  preserve examples/checklists/cautions/sources, and make advanced material
+  optional across all 42 guides and the planner guide.
+- [x] **17 — Contact:** provide the existing publicly published AF email
+  address for questions, corrections, accessibility and privacy requests.
+  No response-time promise or new mailbox is implied.
+- [x] **18 — Visual states:** show selected authentication controls correctly
+  and enlarge small functional text.
+- [x] **19 — Financial copy:** clarify RRSP withdrawals and FHSA limits; remove
+  unsupported superlatives, generalizations, and unverified About history.
+- [x] **20 — Planner language:** replace implementation jargon in everyday
+  flows while retaining clear draft/save and privacy explanations.
+- [x] **21 — Beginner paths:** add four short routes for spending, unexpected
+  costs, investing basics, and retirement accounts, with concrete finish points.
+- [x] **22 — Fictional examples:** add Starting out, Variable income, and
+  Approaching retirement alongside Alex. No example transfers to a cloud plan.
+
+The test suite includes financial threshold/filing-status cases, invalid-entry
+and failed-save cases, fictional-plan ownership and projection checks, keyboard
+journeys, and public-page accessibility/reflow at 320, 768, and 1440 pixels.
+Run `npm run validate`, then `npx playwright test` against a Demo Mode build.
+Production must also pass `PLANNER_REQUIRE_CLOUD=true npm run build` with the
+existing public Supabase configuration. Release CI and Netlify status must be
+checked against the actual PR/merge commit.
+
+### Follow-ups that require separate evidence
+
+- Complete the existing owner-operated password-recovery check and explicit
+  cloud storage/log inspection below; this UI release does not claim them.
+- Confirm the published contact mailbox is monitored and exercise receipt of a
+  real enquiry only with the owner's authorization.
+- Conduct hands-on screen-reader and physical-device testing. Automated axe
+  checks and browser viewport tests are useful checks, not certification.
+- Expand U.S. state coverage only with official schedules, filing-status rules,
+  clear assumptions, and threshold regression tests.
 
 ## October 11 site polish and local checks
 
@@ -188,9 +269,9 @@ does not change their status to PASS.
 - [ ] Cover large and invalid JSON files in the deployed browser. Normal cloud
   download/import/explicit save passes; local transfer and large repository
   pagination tests are separate evidence.
-- [ ] Check Canadian/US navigation, keyboard access, and a real narrow-screen
-  device beyond the 40 automated Edge cases. Keep deployment results distinct
-  from the local baseline.
+- [ ] Complete hands-on screen-reader and real narrow-screen device checks.
+  Canadian/US navigation and keyboard journeys now have automated browser coverage;
+  keep physical-device and deployment evidence distinct from the local baseline.
 - [ ] Define and verify account/data deletion and backup/recovery procedures.
   Review privacy, storage, and educational modelling disclosures against the
   configured service; no deletion/recovery procedure is claimed verified here.

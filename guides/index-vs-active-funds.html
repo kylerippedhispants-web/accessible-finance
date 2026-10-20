@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/index-vs-active-funds.html",
       "inLanguage": "en-CA",
       "articleSection": "Fundamentals",
-      "wordCount": 1089,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 929,
+      "timeRequired": "PT6M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>Index funds vs. actively managed funds: the <em>real difference</em></h1>
     <p class="deck">Index funds seek to track a benchmark. Active funds pay a manager to depart from one. The decision rests on exposure, cost, evidence, and fit.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">6 min read</span>
       <span class="meta-item">Intermediate</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>A broad low-cost index is a strong default.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">The fund you can choose in advance is the real test</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">The Canadian ten-year hurdle</a></li>
-      <li><a href="#decision-map">Make the comparison investable</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">The Canadian ten-year hurdle</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>A proper comparison starts with funds in the same category and uses the active fund's stated benchmark. Results should be reviewed after fees and across more than one market environment.</p><p>Indexing also contains choices: the index provider sets inclusion rules, weighting, and reconstitution. Passive does not mean decision-free.</p><h3>The essentials</h3><ul><li>Compare like-for-like market exposure.</li><li>Use returns after all recurring costs.</li><li>Check whether the benchmark matches the fund holdings.</li><li>Do not infer repeatable skill from one strong period.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>The fund you can choose in advance is the real test</span></h2>
-      <p>It is easy to identify an outperforming active fund after the fact. The investor's challenge is selecting it before the outperformance, holding it through inevitable weak periods, and distinguishing skill from a favourable style cycle.</p><p>Index funds replace manager selection with benchmark selection. That still requires care, but the rules and costs are usually easier to observe. The evidence should be used to set a default, not to claim that no active fund can ever outperform.</p><p>A fair decision also includes behaviour. An inexpensive index fund that an investor can hold may produce a better personal outcome than an active fund repeatedly bought after strong performance and sold after a weak period.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A global active fund should not be compared with a Canadian large-company index. First align geography and risk, then evaluate whether its after-fee result justifies the strategy.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>The Canadian ten-year hurdle</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>The Canadian ten-year hurdle</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">SPIVA Canada example</div>
       <p>For the ten years ending in 2025, SPIVA Canada reported that 98.8% of Canadian Equity funds underperformed their benchmark. In the same category, 47.1% of funds merged or liquidated over the decade.</p><p>An investor screening only the funds that survived to 2025 would miss much of that failure. A fair active-passive comparison includes closed funds, fees, and the benchmark the manager was actually trying to beat.</p>
       <dl class="case-facts"><div class="case-fact"><dt>10-year underperformed</dt><dd>98.8%</dd></div><div class="case-fact"><dt>Merged / liquidated</dt><dd>47.1%</dd></div><div class="case-fact"><dt>Period ended</dt><dd>Dec. 2025</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Make the comparison investable</span></h2>
-      <p>A benchmark return is not always available to an investor at zero cost or tax. Use the return of a low-cost investable index fund as a practical alternative when comparing an active fund. Then include advice fees, loads, trading, tax distributions, and any currency differences. This shows the real choice the investor can make rather than a theoretical index line.</p><p>Portfolio overlap can erase the intended distinction. An active fund may hold many of the same large companies as its benchmark while charging more and making only small weight changes. Measure active share or inspect the major differences, then ask whether those differences are large enough to justify the cost and risk. A concentrated active fund is more distinct, but it also creates a wider range of outcomes that position size should reflect.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Read the mandate and benchmark.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Compare fees in dollars and percent.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Review long-period risk-adjusted results.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Decide what evidence would justify a future change.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Switching to whichever style just outperformed can turn a reasonable comparison into performance chasing.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>The fund you can choose in advance is the real test</summary><p>It is easy to identify an outperforming active fund after the fact. The investor's challenge is selecting it before the outperformance, holding it through inevitable weak periods, and distinguishing skill from a favourable style cycle.</p><p>Index funds replace manager selection with benchmark selection. That still requires care, but the rules and costs are usually easier to observe. The evidence should be used to set a default, not to claim that no active fund can ever outperform.</p><p>A fair decision also includes behaviour. An inexpensive index fund that an investor can hold may produce a better personal outcome than an active fund repeatedly bought after strong performance and sold after a weak period.</p></details><details class="guide-detail" id="decision-map"><summary>Make the comparison investable</summary><p>A benchmark return is not always available to an investor at zero cost or tax. Use the return of a low-cost investable index fund as a practical alternative when comparing an active fund. Then include advice fees, loads, trading, tax distributions, and any currency differences. This shows the real choice the investor can make rather than a theoretical index line.</p><p>Portfolio overlap can erase the intended distinction. An active fund may hold many of the same large companies as its benchmark while charging more and making only small weight changes. Measure active share or inspect the major differences, then ask whether those differences are large enough to justify the cost and risk. A concentrated active fund is more distinct, but it also creates a wider range of outcomes that position size should reflect.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">An active fund closely resembles its index</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">Small holding differences may not overcome the recurring cost gap.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Low advertised cost may hide implementation or tax drag.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Review actual tracking difference, spread, structure, and fund operations.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Build a like-for-like comparison sheet. Record each fund's mandate, benchmark, geography, asset class, company-size exposure, concentration, cash position, expense ratio, advice charge, and ten-year survival where available. Then compare rolling and long-period returns after fees, not only the best calendar year shown in marketing. A fair benchmark should resemble what the manager was actually allowed to own.</p><p>Define the decision rule before selecting an active fund. State what evidence supports manager skill, how much underperformance you will tolerate, and which changes in people, process, fees, or portfolio would trigger review. Without that policy, investors often buy after outperformance and sell after underperformance. An index fund also needs review for tracking and fit, but it avoids the ongoing task of deciding whether a manager's disappointing period is patience-worthy skill or ordinary failure.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Read the mandate and benchmark.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Compare fees in dollars and percent.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Review long-period risk-adjusted results.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Decide what evidence would justify a future change.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Build a like-for-like comparison sheet. Record each fund's mandate, benchmark, geography, asset class, company-size exposure, concentration, cash position, expense ratio, advice charge, and ten-year survival where available. Then compare rolling and long-period returns after fees, not only the best calendar year shown in marketing. A fair benchmark should resemble what the manager was actually allowed to own.</p><p>Define the decision rule before selecting an active fund. State what evidence supports manager skill, how much underperformance you will tolerate, and which changes in people, process, fees, or portfolio would trigger review. Without that policy, investors often buy after outperformance and sell after underperformance. An index fund also needs review for tracking and fit, but it avoids the ongoing task of deciding whether a manager's disappointing period is patience-worthy skill or ordinary failure.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A global active fund should not be compared with a Canadian large-company index. First align geography and risk, then evaluate whether its after-fee result justifies the strategy.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>How long should I give an active manager?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>How long should I give an active manager?</summary>
           <p>There is no universally correct period because strategies differ, but one or two years can be dominated by style cycles and luck. Review whether the stated process, team, holdings, risk, and cost remain intact, while evaluating results over multiple relevant market conditions.</p>
-        </div>
-        <div class="faq-item">
-          <h3>What does survivorship bias mean for fund comparisons?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>What does survivorship bias mean for fund comparisons?</summary>
           <p>Poor funds may merge or close and disappear from a current list, making the surviving group look stronger than the original choices investors faced. Research that includes liquidated and merged funds provides a fairer picture of manager-selection difficulty.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can an index fund underperform its benchmark?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Can an index fund underperform its benchmark?</summary>
           <p>Yes, usually by costs and implementation differences. Taxes, sampling, trading, cash, and securities lending can affect tracking. Compare the actual tracking difference over time, not only the advertised management fee.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Switching to whichever style just outperformed can turn a reasonable comparison into performance chasing.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>A broad low-cost index is a strong default. Choose active management only when its specific role and evidence justify the extra cost and monitoring.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing/getting-started/understanding-fees" target="_blank" rel="noopener noreferrer">Investor.gov: Understanding Fees</a></li><li><a href="https://www.spglobal.com/spdji/en/spiva/article/spiva-canada/" target="_blank" rel="noopener noreferrer">S&amp;P Dow Jones Indices: SPIVA Canada Year-End 2025</a></li></ul>
     </section>
   </article>
@@ -631,7 +604,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="active-vs-passive.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>Active vs. Passive Investing: What the Evidence Means</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
     <a href="index-funds.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
@@ -641,7 +614,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="investment-fees.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Fees: Compound Interest in Reverse</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

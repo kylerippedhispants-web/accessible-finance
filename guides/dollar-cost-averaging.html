@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/dollar-cost-averaging.html",
       "inLanguage": "en-CA",
       "articleSection": "Compounding",
-      "wordCount": 1070,
-      "timeRequired": "PT6M",
-      "dateModified": "2026-07-27",
+      "wordCount": 900,
+      "timeRequired": "PT5M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>Dollar-cost averaging: a strategy that works by <em>default</em></h1>
     <p class="deck">Investing equal amounts on a schedule buys more units when prices are lower and fewer when prices are higher.</p>
     <div class="article-meta">
-      <span class="meta-item">6 min read</span>
+      <span class="meta-item">5 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Dollar-cost averaging is valuable because it is repeatable.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">A contribution rule, not a return guarantee</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">Six equal purchases through uneven prices</a></li>
-      <li><a href="#decision-map">Automation and delay are different choices</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">Six equal purchases through uneven prices</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>A fixed dollar contribution purchases a varying number of units. When the price is lower, the contribution buys more; when it is higher, it buys fewer. Over time this spreads purchases across many market conditions.</p><p>For a lump sum already available, deliberately stretching purchases out can reduce immediate regret but may also leave money uninvested. That is a separate decision from investing each paycheque as it arrives.</p><h3>The essentials</h3><ul><li>The schedule removes some emotion from entry decisions.</li><li>It does not prevent losses in a declining market.</li><li>Automation supports consistency.</li><li>The underlying investment still needs to be diversified and suitable.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>A contribution rule, not a return guarantee</span></h2>
-      <p>Dollar-cost averaging manages the decision process. It does not change the value of the asset or ensure that the average purchase price will be below the final price. If the investment steadily falls because its underlying value deteriorates, repeated buying can deepen the loss.</p><p>The method is strongest when paired with a diversified investment and a long horizon. It is also different from holding an existing lump sum in cash: once money is already available, delaying investment is an additional market-timing choice.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A $300 monthly contribution buys 30 units at $10, 25 units at $12, and 37.5 units at $8. The purchase count adjusts without requiring a market forecast.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>Six equal purchases through uneven prices</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>Six equal purchases through uneven prices</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Unit-cost illustration</div>
       <p>An investor contributes $300 at unit prices of $10, $8, $6, $9, $12, and $15. The $1,800 buys about 195.83 units because lower-price months purchase more units.</p><p>The average cost is approximately $9.19 per unit, even though the simple average of the six quoted prices is $10. The result is useful only if the asset remains suitable; averaging is not a repair strategy for a broken investment.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Total invested</dt><dd>$1,800</dd></div><div class="case-fact"><dt>Units purchased</dt><dd>195.83</dd></div><div class="case-fact"><dt>Average unit cost</dt><dd>$9.19</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Automation and delay are different choices</span></h2>
-      <p>Regular investing from income is often called dollar-cost averaging, but the money is invested as soon as it becomes available. Spreading an existing lump sum is different because part of the money deliberately remains in cash. The first choice builds a routine; the second exchanges some expected market exposure for emotional comfort and lower immediate regret.</p><p>Transaction costs and product mechanics can change the best frequency. Tiny weekly ETF orders may create avoidable spreads or leave fractional cash, while a no-fee automated fund can handle exact amounts. Focus on total invested each year and whether the schedule actually runs. A theoretically elegant frequency is not useful if overdrafts, manual steps, or headline-driven pauses repeatedly interrupt it.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Align the transfer with payday.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Use an amount that leaves room for normal expenses.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Choose the investment before automating.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Review the amount periodically, not after every market move.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Averaging into a poor or highly concentrated investment does not repair its fundamentals. The method manages purchase timing, not asset quality.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>A contribution rule, not a return guarantee</summary><p>Dollar-cost averaging manages the decision process. It does not change the value of the asset or ensure that the average purchase price will be below the final price. If the investment steadily falls because its underlying value deteriorates, repeated buying can deepen the loss.</p><p>The method is strongest when paired with a diversified investment and a long horizon. It is also different from holding an existing lump sum in cash: once money is already available, delaying investment is an additional market-timing choice.</p></details><details class="guide-detail" id="decision-map"><summary>Automation and delay are different choices</summary><p>Regular investing from income is often called dollar-cost averaging, but the money is invested as soon as it becomes available. Spreading an existing lump sum is different because part of the money deliberately remains in cash. The first choice builds a routine; the second exchanges some expected market exposure for emotional comfort and lower immediate regret.</p><p>Transaction costs and product mechanics can change the best frequency. Tiny weekly ETF orders may create avoidable spreads or leave fractional cash, while a no-fee automated fund can handle exact amounts. Focus on total invested each year and whether the schedule actually runs. A theoretically elegant frequency is not useful if overdrafts, manual steps, or headline-driven pauses repeatedly interrupt it.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">Money arrives with each paycheque</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">There is no earlier lump sum waiting to be invested.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Changing the schedule would turn the method into market timing.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Continue unless the goal, cash need, or investment suitability changed.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Separate automatic investing from the decision about an existing lump sum. Investing part of every paycheque is naturally spread through time because the money arrives gradually. Holding a large amount of available cash and moving it in slowly is a different choice: it reduces immediate exposure and regret, but may sacrifice returns if markets rise during the schedule.</p><p>If a staged approach helps you act, define it in advance. Set the amount, dates, eligible investment, and final date. Continue through both rising and falling markets. The plan fails when each instalment becomes a new prediction contest, because fear can suspend purchases after a decline and excitement can accelerate them after prices have already risen.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Align the transfer with payday.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Use an amount that leaves room for normal expenses.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Choose the investment before automating.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Review the amount periodically, not after every market move.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Separate automatic investing from the decision about an existing lump sum. Investing part of every paycheque is naturally spread through time because the money arrives gradually. Holding a large amount of available cash and moving it in slowly is a different choice: it reduces immediate exposure and regret, but may sacrifice returns if markets rise during the schedule.</p><p>If a staged approach helps you act, define it in advance. Set the amount, dates, eligible investment, and final date. Continue through both rising and falling markets. The plan fails when each instalment becomes a new prediction contest, because fear can suspend purchases after a decline and excitement can accelerate them after prices have already risen.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A $300 monthly contribution buys 30 units at $10, 25 units at $12, and 37.5 units at $8. The purchase count adjusts without requiring a market forecast.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Does dollar-cost averaging prevent losses?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Does dollar-cost averaging prevent losses?</summary>
           <p>No. It changes the purchase prices paid over time but does not guarantee a profit or protect the final balance. If the investment falls and never recovers, recurring purchases can also lose money. The underlying asset still needs to fit the goal.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Should I stop automatic purchases during a downturn?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Should I stop automatic purchases during a downturn?</summary>
           <p>A downturn is when the same contribution buys more units. Stopping solely because prices fell reverses the method. Pause only when cash flow, emergency needs, debt, the goal, or the suitability of the investment has changed, not because the regular schedule feels uncomfortable.</p>
-        </div>
-        <div class="faq-item">
-          <h3>What contribution frequency is best?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>What contribution frequency is best?</summary>
           <p>Match the schedule to cash flow and keep trading costs in mind. Investing soon after each paycheque is simple and limits idle cash. Weekly versus monthly frequency is usually less important than the contribution amount, low costs, and ability to continue.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Averaging into a poor or highly concentrated investment does not repair its fundamentals. The method manages purchase timing, not asset quality.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Dollar-cost averaging is valuable because it is repeatable. It replaces the hunt for a perfect entry with a schedule you can maintain.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing/investing-basics/glossary/dollar-cost-averaging" target="_blank" rel="noopener noreferrer">Investor.gov: Dollar-Cost Averaging</a></li></ul>
     </section>
   </article>
@@ -631,17 +604,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="automatic-contributions.html" class="related-card reveal">
         <div class="cat">Getting Started</div>
         <h3>Setting Up Automatic Contributions</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
     <a href="time-in-market.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>Time in the Market vs. Timing the Market</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="compound-interest.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Compound Interest: The Most Powerful Force in Investing</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

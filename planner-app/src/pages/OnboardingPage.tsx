@@ -2,7 +2,7 @@ import { type FormEvent, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CANADIAN_PROVINCES_AND_TERRITORIES, type ProvinceOrTerritory } from '../domain';
 import { createStarterPlan } from '../data/demoPlan';
-import { MoneyField, NumberField, SelectField, TextField } from '../components/FormFields';
+import { MoneyField, NumberField, SelectField, TextField, validateNumberFields } from '../components/FormFields';
 import { usePlanner } from '../state/PlannerContext';
 import { financialPlanSchema, formatValidationError } from '../validation/planSchemas';
 
@@ -40,6 +40,7 @@ export function OnboardingPage() {
     && dateOfBirth >= '1900-01-01'
     && dateOfBirth <= todayIsoDate;
   const currentAge = birthDateIsValid ? projectionBaseYear - Number(dateOfBirth.slice(0, 4)) : undefined;
+  const minimumEndAge = Math.max(19, currentAge ?? 18, (Number.isFinite(retirementAge) ? retirementAge! : 18) + 1);
 
   const provinceOptions = useMemo(() => CANADIAN_PROVINCES_AND_TERRITORIES.map((code) => ({
     value: code,
@@ -49,6 +50,10 @@ export function OnboardingPage() {
   const submit = async (event: FormEvent) => {
     event.preventDefault();
     setError(undefined);
+    if (!validateNumberFields(event.currentTarget as HTMLFormElement)) {
+      setError('Check the highlighted number fields, then try again.');
+      return;
+    }
     const nextErrors: typeof fieldErrors = {};
     if (!firstName.trim()) {
       nextErrors.firstName = 'Enter your first name.';
@@ -60,7 +65,6 @@ export function OnboardingPage() {
     if (retirementAge === undefined || !Number.isInteger(retirementAge) || retirementAge < minimumRetirementAge || retirementAge > 100) {
       nextErrors.retirementAge = `Enter a whole-number age from ${minimumRetirementAge} through 100. Use your current age if you are already retired.`;
     }
-    const minimumEndAge = Math.max(19, currentAge ?? 18, (retirementAge ?? 18) + 1);
     if (endAge === undefined || !Number.isInteger(endAge) || endAge < minimumEndAge || endAge > 120) {
       nextErrors.endAge = `Enter a whole-number age from ${minimumEndAge} through 120.`;
     }
@@ -94,9 +98,15 @@ export function OnboardingPage() {
       setError(formatValidationError(validated.error));
       return;
     }
-    const saved = await planner.completeOnboarding(validated.data);
-    setBusy(false);
-    if (saved) navigate('/dashboard', { replace: true });
+    try {
+      const saved = await planner.completeOnboarding(validated.data);
+      if (saved) navigate('/dashboard', { replace: true });
+      else setError(planner.saveMessage ?? 'Your plan could not be saved. Your entries are still here. Check your connection, then try again.');
+    } catch {
+      setError('Your plan could not be saved. Your entries are still here. Check your connection, then try again.');
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -134,7 +144,7 @@ export function OnboardingPage() {
             <legend><span>02</span> Planning timeline</legend>
             <div className="form-grid two">
               <NumberField id="onboarding-retirementAge" label="Planned retirement age" min={Math.max(18, currentAge ?? 18)} max={100} step={1} value={retirementAge} required error={fieldErrors.retirementAge} onChange={(value) => { setRetirementAge(value); setFieldErrors((current) => ({ ...current, retirementAge: undefined })); }} hint={currentAge === undefined ? 'Enter your date of birth to confirm the minimum.' : `This is the age you want to test. The FIRE estimate may differ; you are age ${currentAge} in ${projectionBaseYear}.`} />
-              <NumberField id="onboarding-endAge" label="Plan through age" min={Math.max(19, currentAge ?? 18, (retirementAge ?? 18) + 1)} max={120} step={1} value={endAge} required error={fieldErrors.endAge} onChange={(value) => { setEndAge(value); setFieldErrors((current) => ({ ...current, endAge: undefined })); }} hint="The end of the model, not a life-expectancy estimate." />
+              <NumberField id="onboarding-endAge" label="Plan through age" min={minimumEndAge} max={120} step={1} value={endAge} required error={fieldErrors.endAge} onChange={(value) => { setEndAge(value); setFieldErrors((current) => ({ ...current, endAge: undefined })); }} hint="The end of the model, not a life-expectancy estimate." />
             </div>
           </fieldset>
 

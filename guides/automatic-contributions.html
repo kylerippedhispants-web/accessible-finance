@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/automatic-contributions.html",
       "inLanguage": "en-CA",
       "articleSection": "Getting Started",
-      "wordCount": 1034,
-      "timeRequired": "PT6M",
-      "dateModified": "2026-07-27",
+      "wordCount": 866,
+      "timeRequired": "PT5M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>Automatic contributions that run <em>without willpower</em></h1>
     <p class="deck">A reliable transfer schedule turns investing from a monthly decision into part of the household system.</p>
     <div class="article-meta">
-      <span class="meta-item">6 min read</span>
+      <span class="meta-item">5 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Automate a deliberate plan, verify that it works, and review it periodically.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Automation needs controls around it</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">A contribution that grows with income</a></li>
-      <li><a href="#decision-map">Automation needs an escape hatch</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">A contribution that grows with income</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Automation can happen in two stages: a bank transfer into the account and an automatic purchase of the chosen investment. Confirm both stages, because some platforms transfer cash without investing it.</p><p>Irregular earners can use a smaller baseline transfer plus a percentage of larger payments.</p><h3>The essentials</h3><ul><li>Confirm whether transferred cash is actually invested.</li><li>Leave enough account balance to avoid failed transfers.</li><li>Use a schedule aligned with income.</li><li>Increase the amount intentionally when capacity grows.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Automation needs controls around it</span></h2>
-      <p>A transfer schedule should include an overdraft buffer, a contribution-room check, and a yearly review. Without those controls, a useful habit can create fees, leave cash uninvested, or overcontribute to a registered account.</p><p>The strongest automation follows income. Paycheque-aligned transfers work for salaried employees; variable earners may combine a small fixed baseline with a percentage of every invoice or bonus.</p><p>Automation should also specify the destination investment. A recurring bank transfer that leaves money in brokerage cash creates the appearance of progress without the planned market exposure. Verify the first few cycles from deposit through purchase.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A biweekly $100 transfer begins the day after payday and purchases a diversified fund automatically. A yearly reminder increases it by $10 when the budget allows.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>A contribution that grows with income</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>A contribution that grows with income</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Paycheque automation example</div>
       <p>A worker automates $100 every two weeks, contributing $2,600 over 26 pay periods. Each January, the amount rises by $10 per paycheque if the emergency fund and debt plan remain on track.</p><p>After five increases, the transfer reaches $150 and the annual pace becomes $3,900. The system grows without requiring a new decision every payday, while the yearly review prevents autopilot from ignoring changed circumstances.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Starting transfer</dt><dd>$100 biweekly</dd></div><div class="case-fact"><dt>First-year total</dt><dd>$2,600</dd></div><div class="case-fact"><dt>Year-six pace</dt><dd>$3,900</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Automation needs an escape hatch</span></h2>
-      <p>A useful automation rule is specific enough to run without attention and flexible enough to survive a real emergency. Pair each transfer with a minimum chequing balance, failed-payment alert, and pause condition. Otherwise a system intended to prevent decisions can create overdraft fees or force credit-card borrowing when income timing changes.</p><p>Automation should include the investment purchase, not only the account deposit. Many people discover cash sitting uninvested months after setting up a transfer. Confirm the full path from paycheque to holding, including fractional units, settlement, and what happens when markets are closed. Review quarterly for failures and annually for amount, account, allocation, and fees.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Choose an account and suitable investment first.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Start below the maximum you think you can afford.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Run one cycle and verify the purchase.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Create a yearly contribution review.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Automation can quietly create an overcontribution if registered-account room is not tracked. It can also keep buying an outdated allocation if the plan is never reviewed.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Automation needs controls around it</summary><p>A transfer schedule should include an overdraft buffer, a contribution-room check, and a yearly review. Without those controls, a useful habit can create fees, leave cash uninvested, or overcontribute to a registered account.</p><p>The strongest automation follows income. Paycheque-aligned transfers work for salaried employees; variable earners may combine a small fixed baseline with a percentage of every invoice or bonus.</p><p>Automation should also specify the destination investment. A recurring bank transfer that leaves money in brokerage cash creates the appearance of progress without the planned market exposure. Verify the first few cycles from deposit through purchase.</p></details><details class="guide-detail" id="decision-map"><summary>Automation needs an escape hatch</summary><p>A useful automation rule is specific enough to run without attention and flexible enough to survive a real emergency. Pair each transfer with a minimum chequing balance, failed-payment alert, and pause condition. Otherwise a system intended to prevent decisions can create overdraft fees or force credit-card borrowing when income timing changes.</p><p>Automation should include the investment purchase, not only the account deposit. Many people discover cash sitting uninvested months after setting up a transfer. Confirm the full path from paycheque to holding, including fractional units, settlement, and what happens when markets are closed. Review quarterly for failures and annually for amount, account, allocation, and fees.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">Stable salary and regular bills</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">Predictable timing supports a fixed transfer after payday.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Liquidity now matters more than maintaining the old schedule.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Pause intentionally, document the restart trigger, and protect required expenses.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Design automation around the real pay cycle. Schedule the transfer shortly after income arrives, leave enough buffer to avoid overdraft, and send money directly to the account attached to the goal. Confirm whether the provider invests the cash automatically or merely deposits it. Uninvested balances can accumulate quietly even while the savings habit appears to be working.</p><p>Add guardrails so automation remains helpful. Set alerts for failed transfers, review the amount after income changes, and keep a clear pause rule for job loss or a genuine cash emergency. Add a small annual increase or direct part of each raise to the schedule. The purpose is to reduce routine decisions, not to make the system invisible; a brief quarterly check catches errors without inviting constant tinkering.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Choose an account and suitable investment first.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Start below the maximum you think you can afford.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Run one cycle and verify the purchase.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Create a yearly contribution review.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Design automation around the real pay cycle. Schedule the transfer shortly after income arrives, leave enough buffer to avoid overdraft, and send money directly to the account attached to the goal. Confirm whether the provider invests the cash automatically or merely deposits it. Uninvested balances can accumulate quietly even while the savings habit appears to be working.</p><p>Add guardrails so automation remains helpful. Set alerts for failed transfers, review the amount after income changes, and keep a clear pause rule for job loss or a genuine cash emergency. Add a small annual increase or direct part of each raise to the schedule. The purpose is to reduce routine decisions, not to make the system invisible; a brief quarterly check catches errors without inviting constant tinkering.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A biweekly $100 transfer begins the day after payday and purchases a diversified fund automatically. A yearly reminder increases it by $10 when the budget allows.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>What if the market is down on my contribution date?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>What if the market is down on my contribution date?</summary>
           <p>The schedule is meant to continue through different market conditions. A lower price buys more units. Change the contribution because your cash flow or goal changed, not because one scheduled date happens to coincide with frightening headlines.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Should transfers happen weekly or monthly?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Should transfers happen weekly or monthly?</summary>
           <p>Match them to when income arrives and minimize fees or operational friction. The difference between sensible frequencies is usually much smaller than the effect of the amount, costs, investment choice, and ability to continue for years.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can I automate too much?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Can I automate too much?</summary>
           <p>Yes. A transfer that repeatedly causes overdraft, credit-card borrowing, or emergency withdrawals is too aggressive. Keep a chequing buffer and review irregular bills. Automation should stabilize the plan rather than make each month fragile.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Automation can quietly create an overcontribution if registered-account room is not tracked. It can also keep buying an outdated allocation if the plan is never reviewed.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Automate a deliberate plan, verify that it works, and review it periodically. Consistency should reduce effort, not awareness.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing/investing-basics/glossary/dollar-cost-averaging" target="_blank" rel="noopener noreferrer">Investor.gov: Dollar-Cost Averaging</a></li></ul>
     </section>
   </article>
@@ -631,12 +604,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="dollar-cost-averaging.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Dollar-Cost Averaging: The Strategy That Works by Default</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
     <a href="starting-early.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Why Starting Early Matters More Than Starting Big</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="how-much-to-invest.html" class="related-card reveal">
         <div class="cat">Getting Started</div>
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/index-funds.html",
       "inLanguage": "en-CA",
       "articleSection": "Asset Classes",
-      "wordCount": 1077,
+      "wordCount": 905,
       "timeRequired": "PT6M",
-      "dateModified": "2026-07-27",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -447,9 +453,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Index funds make diversified market exposure accessible.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">The index rule determines the exposure</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">How diversification contains one company&#039;s damage</a></li>
-      <li><a href="#decision-map">Every index has an opinion</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">How diversification contains one company&#039;s damage</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Different indexes cover different markets: a country, sector, company size, or bond category. A fund may hold every index constituent or use a representative sample.</p><p>Tracking is affected by fees, trading, taxes, and fund design. Two products using similar labels may follow different indexes and produce different exposure.</p><h3>The essentials</h3><ul><li>Indexing is a method, not a guarantee of diversification.</li><li>Broad indexes can reduce single-company dependence.</li><li>Costs and tracking difference matter.</li><li>The chosen index determines what you own and what you omit.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>The index rule determines the exposure</span></h2>
-      <p>A market-cap-weighted index gives larger companies larger positions. That approach is cheap and self-adjusting, but it can create concentration when a few companies become very valuable. Equal-weight, factor, and thematic indexes make different trade-offs.</p><p>The practical review is the same as for any fund: inspect top holdings, sector and country weights, turnover, fees, and the index methodology. The word index describes the selection process, not the amount of risk.</p><p>Tracking difference is the result investors actually receive. It includes the stated fee plus trading, withholding tax, sampling, and cash held inside the fund. Two funds following the same benchmark can therefore deliver slightly different returns.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A broad global stock index fund can hold companies across countries and sectors. A technology index fund is still an index fund, but its concentration gives it a very different role and risk profile.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>How diversification contains one company&#039;s damage</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>How diversification contains one company&#039;s damage</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Portfolio-weight example</div>
       <p>Suppose a company represents 2% of a broad fund and its share price falls 50% while every other holding is unchanged. Its direct effect on the fund is approximately a 1% decline.</p><p>Owning the company alone would produce the full 50% loss. The fund can still fall for broader reasons, but no single 2% holding determines the entire result.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Company weight</dt><dd>2%</dd></div><div class="case-fact"><dt>Company decline</dt><dd>-50%</dd></div><div class="case-fact"><dt>Direct fund effect</dt><dd>About -1%</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Every index has an opinion</span></h2>
-      <p>Index rules decide which securities count, how large each position becomes, and when changes occur. Market-cap weighting gives the largest value to the companies investors already price most highly. Equal weighting, factor weighting, and thematic rules make different bets and usually require more turnover. The word passive describes how the rules are followed, not the absence of design choices.</p><p>Concentration can grow quietly inside a broad label. A country index may become dominated by a handful of companies or sectors after a strong run. That may accurately represent the market, but it may not represent the investor's desired diversification. Review the top holdings and regional weights at the total-portfolio level, then decide whether other funds are completing a deliberate global allocation or merely adding overlap.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Read the index description.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Inspect country, sector, and top-holding weights.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Compare fees and tracking history.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Place the fund inside a suitable overall asset allocation.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Market-cap indexes can become concentrated in the largest companies, and narrow thematic indexes may behave like sector bets.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>The index rule determines the exposure</summary><p>A market-cap-weighted index gives larger companies larger positions. That approach is cheap and self-adjusting, but it can create concentration when a few companies become very valuable. Equal-weight, factor, and thematic indexes make different trade-offs.</p><p>The practical review is the same as for any fund: inspect top holdings, sector and country weights, turnover, fees, and the index methodology. The word index describes the selection process, not the amount of risk.</p><p>Tracking difference is the result investors actually receive. It includes the stated fee plus trading, withholding tax, sampling, and cash held inside the fund. Two funds following the same benchmark can therefore deliver slightly different returns.</p></details><details class="guide-detail" id="decision-map"><summary>Every index has an opinion</summary><p>Index rules decide which securities count, how large each position becomes, and when changes occur. Market-cap weighting gives the largest value to the companies investors already price most highly. Equal weighting, factor weighting, and thematic rules make different bets and usually require more turnover. The word passive describes how the rules are followed, not the absence of design choices.</p><p>Concentration can grow quietly inside a broad label. A country index may become dominated by a handful of companies or sectors after a strong run. That may accurately represent the market, but it may not represent the investor's desired diversification. Review the top holdings and regional weights at the total-portfolio level, then decide whether other funds are completing a deliberate global allocation or merely adding overlap.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">A broad market-cap index</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">Low turnover and wide coverage, with larger companies receiving larger weights.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Expense, tracking difference, spread, tax, currency, and securities lending.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Compare implementation because the market exposure is largely shared.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Start with the index methodology, not the word index. Learn which market the index covers, how securities enter and leave, how holdings are weighted, how often it rebalances, and whether one country or sector can dominate. Two funds labelled broad market can have very different exposures. The fund should fill a defined portfolio role rather than merely track a recognizable name.</p><p>Then evaluate implementation. Compare the expense ratio, tracking difference, trading spread, fund size, securities-lending policy, currency treatment, and tax considerations. Small deviations from the index are normal because the fund has costs and operational constraints. What matters is whether it delivers the promised exposure reliably and cheaply enough for the account in which you hold it.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Read the index description.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Inspect country, sector, and top-holding weights.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Compare fees and tracking history.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Place the fund inside a suitable overall asset allocation.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Start with the index methodology, not the word index. Learn which market the index covers, how securities enter and leave, how holdings are weighted, how often it rebalances, and whether one country or sector can dominate. Two funds labelled broad market can have very different exposures. The fund should fill a defined portfolio role rather than merely track a recognizable name.</p><p>Then evaluate implementation. Compare the expense ratio, tracking difference, trading spread, fund size, securities-lending policy, currency treatment, and tax considerations. Small deviations from the index are normal because the fund has costs and operational constraints. What matters is whether it delivers the promised exposure reliably and cheaply enough for the account in which you hold it.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A broad global stock index fund can hold companies across countries and sectors. A technology index fund is still an index fund, but its concentration gives it a very different role and risk profile.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Does an index fund own every company?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Does an index fund own every company?</summary>
           <p>Only the securities included under its index rules. Some cover one country, sector, company size, factor, or asset class. Even a total-market index has eligibility and weighting rules. Read the holdings and methodology before assuming it represents the whole world.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Is index investing completely passive?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Is index investing completely passive?</summary>
           <p>The investor still chooses the index, asset allocation, contribution rate, rebalancing rule, and account. The index provider also makes rule-based decisions. Passive usually means the fund follows a published benchmark instead of asking a manager to select holdings case by case.</p>
-        </div>
-        <div class="faq-item">
-          <h3>What is tracking difference?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>What is tracking difference?</summary>
           <p>It is the gap between a fund&#039;s return and the return of its benchmark over a period. Fees, taxes, sampling, cash balances, and trading can create the difference. A consistently small gap can be more informative than the headline fee alone.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Market-cap indexes can become concentrated in the largest companies, and narrow thematic indexes may behave like sector bets.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Index funds make diversified market exposure accessible. The important choice is not simply index versus non-index; it is which market exposure fits the plan.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Introduction to Investing</a></li></ul>
     </section>
   </article>
@@ -631,17 +604,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="diversification.html" class="related-card reveal">
         <div class="cat">Portfolio Thinking</div>
         <h3>Understanding Diversification</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
     <a href="active-vs-passive.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>Active vs. Passive Investing: What the Evidence Means</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
     <a href="mutual-funds-vs-etfs.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>Mutual Funds vs. ETFs: What Is the Actual Difference?</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

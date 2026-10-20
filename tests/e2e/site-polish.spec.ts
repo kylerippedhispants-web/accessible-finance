@@ -101,6 +101,7 @@ test('the tablet menu can scroll to its last action without scrolling the page',
   await page.getByRole('button', { name: 'Open menu', exact: true }).click();
   const menu = page.getByRole('navigation', { name: 'Mobile navigation', exact: true });
   await expect(menu).toBeVisible();
+  await menu.getByText('Tools', { exact: true }).click();
   expect(await menu.evaluate((element) => getComputedStyle(element).overflowY)).toBe('auto');
   expect(await menu.evaluate((element) => element.scrollHeight > element.clientHeight)).toBe(true);
   const lastAction = menu.getByRole('link', { name: 'Subscribe', exact: true });

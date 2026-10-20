@@ -32,68 +32,236 @@
     },
   };
 
-  // Lower-bound rate schedules from the 2026 state individual income-tax table.
-  // State taxable income, deductions, credits, and filing-status rules vary; the
-  // calculator explains the simplified treatment alongside every estimate.
+  // Verified rate coverage, checked 2026-10-20. No guessed filing-status multipliers.
+  // Missing schedules are deliberately unavailable, not zero-tax estimates.
   const stateTaxData = {
-    AL: { label: 'Alabama', brackets: [[0, 0.02], [500, 0.04], [3000, 0.05]] },
-    AK: { label: 'Alaska', noTax: true },
-    AZ: { label: 'Arizona', brackets: [[0, 0.025]] },
-    AR: { label: 'Arkansas', brackets: [[0, 0.02], [4600, 0.039]], note: 'Arkansas uses separate tables for some taxpayers with income of $92,300 or less; those tables are not modeled.' },
-    CA: { label: 'California', brackets: [[0, 0.01], [11079, 0.02], [26264, 0.04], [41452, 0.06], [57542, 0.08], [72724, 0.093], [371479, 0.103], [445771, 0.113], [742953, 0.123], [1000000, 0.133]], note: 'The published California thresholds use the latest inflation-adjusted brackets available in the 2026 source table.' },
-    CO: { label: 'Colorado', brackets: [[0, 0.044]] },
-    CT: { label: 'Connecticut', brackets: [[0, 0.02], [10000, 0.045], [50000, 0.055], [100000, 0.06], [200000, 0.065], [250000, 0.069], [500000, 0.0699]], note: 'Connecticut tax-benefit recapture is not modeled.' },
-    DE: { label: 'Delaware', brackets: [[0, 0], [2000, 0.022], [5000, 0.039], [10000, 0.048], [20000, 0.052], [25000, 0.0555], [60000, 0.066]] },
-    DC: { label: 'District of Columbia', brackets: [[0, 0.04], [10000, 0.06], [40000, 0.065], [60000, 0.085], [250000, 0.0925], [500000, 0.0975], [1000000, 0.1075]] },
-    FL: { label: 'Florida', noTax: true },
-    GA: { label: 'Georgia', brackets: [[0, 0.0519]] },
-    HI: { label: 'Hawaii', brackets: [[0, 0.014], [9600, 0.032], [14400, 0.055], [19200, 0.064], [24000, 0.068], [36000, 0.072], [48000, 0.076], [125000, 0.079], [175000, 0.0825], [225000, 0.09], [275000, 0.10], [325000, 0.11]] },
-    ID: { label: 'Idaho', brackets: [[0, 0], [4811, 0.053]] },
-    IL: { label: 'Illinois', brackets: [[0, 0.0495]] },
-    IN: { label: 'Indiana', brackets: [[0, 0.0295]] },
-    IA: { label: 'Iowa', brackets: [[0, 0.038]] },
-    KS: { label: 'Kansas', brackets: [[0, 0.052], [23000, 0.0558]] },
-    KY: { label: 'Kentucky', brackets: [[0, 0.035]] },
-    LA: { label: 'Louisiana', brackets: [[0, 0.03]] },
-    ME: { label: 'Maine', brackets: [[0, 0.058], [27399, 0.0675], [64849, 0.0715], [1000000, 0.0915]] },
-    MD: { label: 'Maryland', brackets: [[0, 0.02], [1000, 0.03], [2000, 0.04], [3000, 0.0475], [100000, 0.05], [125000, 0.0525], [150000, 0.055], [250000, 0.0575], [500000, 0.0625], [1000000, 0.065]], note: 'Maryland county income taxes are not included.' },
-    MA: { label: 'Massachusetts', brackets: [[0, 0.05], [1083150, 0.09]] },
-    MI: { label: 'Michigan', brackets: [[0, 0.0425]] },
-    MN: { label: 'Minnesota', brackets: [[0, 0.0535], [33310, 0.068], [109430, 0.0785], [203150, 0.0985]] },
-    MS: { label: 'Mississippi', brackets: [[0, 0], [10000, 0.04]] },
-    MO: { label: 'Missouri', brackets: [[0, 0], [1348, 0.02], [2696, 0.025], [4044, 0.03], [5392, 0.035], [6740, 0.04], [8088, 0.045], [9436, 0.047]] },
-    MT: { label: 'Montana', brackets: [[0, 0.047], [47500, 0.0565]] },
-    NE: { label: 'Nebraska', brackets: [[0, 0.0246], [4130, 0.0351], [24760, 0.0455]] },
-    NV: { label: 'Nevada', noTax: true },
-    NH: { label: 'New Hampshire', noTax: true },
-    NJ: { label: 'New Jersey', brackets: [[0, 0.014], [20000, 0.0175], [35000, 0.035], [40000, 0.05525], [75000, 0.0637], [500000, 0.0897], [1000000, 0.1075]] },
-    NM: { label: 'New Mexico', brackets: [[0, 0.015], [5500, 0.032], [16500, 0.043], [33500, 0.047], [66500, 0.049], [210000, 0.059]] },
-    NY: { label: 'New York', brackets: [[0, 0.039], [8500, 0.044], [11700, 0.0515], [13900, 0.054], [80650, 0.059], [215400, 0.0685], [1077550, 0.0965], [5000000, 0.103], [25000000, 0.109]], note: 'New York tax-benefit recapture and New York City and Yonkers income taxes are not modeled.' },
-    NC: { label: 'North Carolina', brackets: [[0, 0.0399]] },
-    ND: { label: 'North Dakota', brackets: [[0, 0], [48475, 0.0195], [244825, 0.025]] },
-    OH: { label: 'Ohio', brackets: [[0, 0], [26050, 0.0275]], note: 'Ohio municipal income taxes are not included.' },
-    OK: { label: 'Oklahoma', brackets: [[0, 0], [3750, 0.025], [4900, 0.035], [7200, 0.045]] },
-    OR: { label: 'Oregon', brackets: [[0, 0.0475], [4550, 0.0675], [11400, 0.0875], [125000, 0.099]], note: 'Oregon local and regional payroll or income taxes are not included.' },
-    PA: { label: 'Pennsylvania', brackets: [[0, 0.0307]], note: 'Pennsylvania local earned-income taxes are not included.' },
-    RI: { label: 'Rhode Island', brackets: [[0, 0.0375], [82050, 0.0475], [186450, 0.0599]] },
-    SC: { label: 'South Carolina', brackets: [[0, 0.0199], [29999, 0.0521]] },
-    SD: { label: 'South Dakota', noTax: true },
-    TN: { label: 'Tennessee', noTax: true },
-    TX: { label: 'Texas', noTax: true },
-    UT: { label: 'Utah', brackets: [[0, 0.0445]] },
-    VT: { label: 'Vermont', brackets: [[0, 0.0335], [49400, 0.066], [119700, 0.076], [249700, 0.0875]] },
-    VA: { label: 'Virginia', brackets: [[0, 0.02], [3000, 0.03], [5000, 0.05], [17000, 0.0575]] },
-    WA: { label: 'Washington', noTax: true, note: 'Washington taxes certain capital gains, but it does not levy a broad individual income tax on ordinary wage income. Capital gains are not modeled.' },
-    WV: { label: 'West Virginia', brackets: [[0, 0.0211], [10000, 0.0281], [25000, 0.0316], [40000, 0.0422], [60000, 0.0458]] },
-    WI: { label: 'Wisconsin', brackets: [[0, 0.035], [15110, 0.044], [51950, 0.053], [332720, 0.0765]] },
-    WY: { label: 'Wyoming', noTax: true },
-  };
-
-  const stateBracketScale = {
-    single: 1,
-    marriedJoint: 2,
-    headOfHousehold: 1.5,
-    marriedSeparate: 1,
+    "AL": {
+      "label": "Alabama"
+    },
+    "AK": {
+      "label": "Alaska",
+      "noTax": true,
+      "source": "https://treasury.dor.alaska.gov/docs/treasurydivisionlibraries/debt-management/meetings-minutes/packets/2023_06_01_sbc_packet.pdf"
+    },
+    "AZ": {
+      "label": "Arizona"
+    },
+    "AR": {
+      "label": "Arkansas"
+    },
+    "CA": {
+      "label": "California"
+    },
+    "CO": {
+      "label": "Colorado"
+    },
+    "CT": {
+      "label": "Connecticut"
+    },
+    "DE": {
+      "label": "Delaware"
+    },
+    "DC": {
+      "label": "District of Columbia"
+    },
+    "FL": {
+      "label": "Florida",
+      "noTax": true,
+      "source": "https://floridarevenue.com/faq/Pages/FAQDetails.aspx?FAQID=1466"
+    },
+    "GA": {
+      "label": "Georgia"
+    },
+    "HI": {
+      "label": "Hawaii"
+    },
+    "ID": {
+      "label": "Idaho"
+    },
+    "IL": {
+      "label": "Illinois",
+      "brackets": [
+        [
+          0,
+          0.0495
+        ]
+      ],
+      "source": "https://tax.illinois.gov/research/taxrates/income.html",
+      "note": "Illinois exemptions and additions or subtractions must be entered by you; they are not calculated automatically."
+    },
+    "IN": {
+      "label": "Indiana"
+    },
+    "IA": {
+      "label": "Iowa"
+    },
+    "KS": {
+      "label": "Kansas"
+    },
+    "KY": {
+      "label": "Kentucky"
+    },
+    "LA": {
+      "label": "Louisiana"
+    },
+    "ME": {
+      "label": "Maine"
+    },
+    "MD": {
+      "label": "Maryland"
+    },
+    "MA": {
+      "label": "Massachusetts"
+    },
+    "MI": {
+      "label": "Michigan",
+      "brackets": [
+        [
+          0,
+          0.0425
+        ]
+      ],
+      "source": "https://www.michigan.gov/treasury/reference/taxpayer-notices/2026/04/15/425-income-tax-rate-for-individuals-and-fiduciaries-in-2026-tax-year",
+      "note": "Michigan exemptions and additions or subtractions must be entered by you. City taxes are excluded."
+    },
+    "MN": {
+      "label": "Minnesota"
+    },
+    "MS": {
+      "label": "Mississippi"
+    },
+    "MO": {
+      "label": "Missouri"
+    },
+    "MT": {
+      "label": "Montana"
+    },
+    "NE": {
+      "label": "Nebraska"
+    },
+    "NV": {
+      "label": "Nevada",
+      "noTax": true,
+      "source": "https://tax.nv.gov/wp-content/uploads/2025/01/20250122-CLGF-Packet.pdf"
+    },
+    "NH": {
+      "label": "New Hampshire",
+      "noTax": true,
+      "source": "https://www.revenue.nh.gov/news-and-media/repeal-nh-interest-and-dividends-tax-now-effect"
+    },
+    "NJ": {
+      "label": "New Jersey"
+    },
+    "NM": {
+      "label": "New Mexico"
+    },
+    "NY": {
+      "label": "New York"
+    },
+    "NC": {
+      "label": "North Carolina",
+      "brackets": [
+        [
+          0,
+          0.0399
+        ]
+      ],
+      "source": "https://www.ncdor.gov/taxes-forms/individual-income-tax/tax-rate-schedules",
+      "note": "North Carolina deductions and additions or subtractions must be entered by you; they are not calculated automatically."
+    },
+    "ND": {
+      "label": "North Dakota"
+    },
+    "OH": {
+      "label": "Ohio",
+      "brackets": [
+        [
+          0,
+          0
+        ],
+        [
+          26050,
+          0.0275
+        ]
+      ],
+      "threshold": 26050,
+      "baseAboveThreshold": 332,
+      "source": "https://codes.ohio.gov/ohio-revised-code/section-5747.02",
+      "note": "Ohio nonbusiness income only. Above $26,050 the 2026 statute adds $332 before applying 2.75% to the excess. Business income, municipal and school district tax, exemptions, and credits need separate treatment."
+    },
+    "OK": {
+      "label": "Oklahoma"
+    },
+    "OR": {
+      "label": "Oregon"
+    },
+    "PA": {
+      "label": "Pennsylvania"
+    },
+    "RI": {
+      "label": "Rhode Island",
+      "brackets": [
+        [
+          0,
+          0.0375
+        ],
+        [
+          82050,
+          0.0475
+        ],
+        [
+          186450,
+          0.0599
+        ]
+      ],
+      "source": "https://tax.ri.gov/sites/g/files/xkgbur541/files/2025-11/ADV_2025_22_Inflation_Adjustments.pdf",
+      "note": "Rhode Island uses the same rate schedule for all filing statuses. Its deduction and exemption amounts and their phase-outs are not calculated automatically."
+    },
+    "SC": {
+      "label": "South Carolina"
+    },
+    "SD": {
+      "label": "South Dakota",
+      "noTax": true,
+      "source": "https://dor.sd.gov/media/kavh1fzg/2026-1_sales-use-tax-guide.pdf"
+    },
+    "TN": {
+      "label": "Tennessee",
+      "noTax": true,
+      "source": "https://www.tn.gov/revenue/taxes/hall-income-tax.html"
+    },
+    "TX": {
+      "label": "Texas",
+      "noTax": true,
+      "source": "https://comptroller.texas.gov/taxes/property-tax/docs/96-298-25.pdf"
+    },
+    "UT": {
+      "label": "Utah"
+    },
+    "VT": {
+      "label": "Vermont"
+    },
+    "VA": {
+      "label": "Virginia"
+    },
+    "WA": {
+      "label": "Washington",
+      "noTax": true,
+      "specialGains": true,
+      "source": "https://dor.wa.gov/taxes-rates/other-taxes/capital-gains-tax",
+      "note": "Washington has a separate tax on certain long-term gains. When gains are entered, this calculator withholds a state total because it does not model that tax."
+    },
+    "WV": {
+      "label": "West Virginia"
+    },
+    "WI": {
+      "label": "Wisconsin"
+    },
+    "WY": {
+      "label": "Wyoming",
+      "noTax": true,
+      "source": "https://www.wyoleg.gov/InterimCommittee/2021/03-20210510Policy-Brief-Wyoming-Tax-Capacity-LCCC-WCBEA-1.pdf"
+    }
   };
 
   const form = document.getElementById('taxForm');
@@ -209,9 +377,13 @@
     return { total, rows };
   }
 
-  function scaledStateBrackets(brackets, statusKey) {
-    const scale = stateBracketScale[statusKey] || 1;
-    return brackets.map(([lower, rate]) => [lower * scale, rate]);
+  function calculateStateTax(taxableIncome, state) {
+    const calculation = calculateThresholdTax(taxableIncome, state.brackets);
+    if (state.baseAboveThreshold && taxableIncome > state.threshold) {
+      calculation.total += state.baseAboveThreshold;
+      calculation.rows.unshift({ rate: null, amount: null, tax: state.baseAboveThreshold });
+    }
+    return calculation;
   }
 
   function marginalRate(taxableIncome, brackets) {
@@ -239,10 +411,14 @@
     const status = taxData[statusKey];
     const stateKey = document.getElementById('state').value;
     const selectedState = stateTaxData[stateKey] || null;
-    const hasStateIncomeTax = Boolean(selectedState && !selectedState.noTax);
+    const hasStateIncomeTax = Boolean(selectedState?.brackets);
     const gross = value('grossIncome');
     const shortTermGains = value('shortTermGains');
     const longTermGains = value('longTermGains');
+    const stateUnavailable = Boolean(selectedState && (
+      (!selectedState.noTax && !selectedState.brackets)
+      || (selectedState.specialGains && longTermGains > 0)
+    ));
     const workplace = value('workplaceContributions');
     const hsa = value('hsaContributions');
     const other = value('otherAdjustments');
@@ -276,12 +452,16 @@
     const federalMarginal = marginalRate(taxableOrdinaryIncome, status.brackets);
 
     const stateDeductions = Math.min(agi, enteredStateDeductions);
-    const stateTaxable = hasStateIncomeTax ? Math.max(0, agi - stateDeductions) : 0;
+    const stateOverride = document.getElementById('stateTaxableOverride');
+    const hasStateOverride = hasStateIncomeTax && stateOverride.value.trim() !== '';
+    const stateTaxable = hasStateIncomeTax
+      ? (hasStateOverride ? value('stateTaxableOverride') : Math.max(0, agi - stateDeductions))
+      : 0;
     const stateBrackets = hasStateIncomeTax
-      ? scaledStateBrackets(selectedState.brackets, statusKey)
+      ? selectedState.brackets
       : [];
     const stateCalculation = hasStateIncomeTax
-      ? calculateThresholdTax(stateTaxable, stateBrackets)
+      ? calculateStateTax(stateTaxable, selectedState)
       : { total: 0, rows: [] };
     const stateMarginal = hasStateIncomeTax
       ? thresholdMarginalRate(stateTaxable, stateBrackets)
@@ -308,7 +488,7 @@
       )
       : 0;
     const noGainStateTax = hasStateIncomeTax
-      ? calculateThresholdTax(noGainStateTaxable, stateBrackets).total
+      ? calculateStateTax(noGainStateTaxable, selectedState).total
       : 0;
     const capitalGainsTax = Math.max(
       0,
@@ -336,7 +516,7 @@
       )
       : 0;
     const contributionBaselineStateTax = hasStateIncomeTax
-      ? calculateThresholdTax(contributionBaselineStateTaxable, stateBrackets).total
+      ? calculateStateTax(contributionBaselineStateTaxable, selectedState).total
       : 0;
     const contributionSavings = Math.max(
       0,
@@ -344,30 +524,46 @@
     );
 
     const stateDeductionInput = document.getElementById('stateDeductions');
-    stateDeductionInput.disabled = !hasStateIncomeTax;
-    document.getElementById('stateHelp').textContent = selectedState
-      ? (selectedState.noTax
-        ? `${selectedState.label} has no broad individual income tax on ordinary wage income.`
-        : `Add a simplified ${selectedState.label} estimate using its published 2026 rate schedule.`)
-      : 'Choose a state to add its simplified 2026 income-tax estimate.';
-    document.getElementById('stateDeductionHelp').textContent = hasStateIncomeTax
-      ? `Optional. Enter ${selectedState.label} deductions and exemptions to subtract from adjusted gross income.`
-      : 'Available after selecting a state that levies a broad individual income tax.';
+    stateDeductionInput.disabled = !hasStateIncomeTax || hasStateOverride;
+    stateOverride.disabled = !hasStateIncomeTax;
+    document.getElementById('stateHelp').textContent = stateUnavailable
+      ? `${selectedState.label}: state estimate unavailable. The result below includes federal tax only, not a zero state-tax bill.`
+      : selectedState
+        ? (selectedState.noTax
+          ? `${selectedState.label} has no broad individual income tax on ordinary wage income.`
+          : `${selectedState.label}: verified 2026 rate schedule, before credits. Enter state deductions or your known state taxable income.`)
+        : 'State estimates cover Illinois, Michigan, North Carolina, Ohio and Rhode Island, plus states without a broad individual income tax. Other states show federal tax only.';
+    document.getElementById('stateDeductionHelp').textContent = hasStateOverride
+      ? 'Not used while you enter state taxable income directly.'
+      : hasStateIncomeTax
+        ? `Enter eligible ${selectedState.label} deductions and exemptions. They are not automatically included. Use the direct taxable-income field if state additions or other adjustments apply.`
+        : 'Available for a supported state rate schedule.';
+    const sourceLink = document.getElementById('stateSource');
+    sourceLink.hidden = !selectedState?.source;
+    if (selectedState?.source) {
+      sourceLink.href = selectedState.source;
+      sourceLink.textContent = `${selectedState.label}: official source (checked October 20, 2026)`;
+    }
 
-    const resultLabel = selectedState ? selectedState.label : 'Federal only';
-    document.getElementById('resultStatus').textContent = `${status.label} - ${resultLabel}`;
+    const resultLabel = stateUnavailable ? `Federal only — ${selectedState.label} excluded` : selectedState ? selectedState.label : 'Federal only';
+    document.getElementById('resultStatus').textContent = `${status.label} — ${resultLabel}`;
+    document.getElementById('afterIncomeTaxLabel').textContent = stateUnavailable || !selectedState
+      ? 'Income after entered contributions and federal tax only — state and payroll taxes excluded'
+      : 'Income after entered contributions and modeled income tax — payroll and local taxes excluded';
+    document.getElementById('effectiveRateLabel').textContent = stateUnavailable || !selectedState
+      ? 'Federal effective rate' : 'Modeled effective rate';
     document.getElementById('totalTax').textContent = formatMoney(totalTax);
     document.getElementById('federalTax').textContent = formatMoney(federalTax);
-    document.getElementById('stateTax').textContent = selectedState
-      ? formatMoney(stateCalculation.total)
-      : 'N/A';
-    document.getElementById('capitalGainsTax').textContent = formatMoney(capitalGainsTax);
+    document.getElementById('stateTax').textContent = stateUnavailable ? 'Not estimated' : selectedState ? formatMoney(stateCalculation.total) : 'Not selected';
+    document.getElementById('capitalGainsTax').textContent = hasStateOverride ? 'Not compared*' : formatMoney(capitalGainsTax);
     document.getElementById('niitTax').textContent = formatMoney(niit);
-    if (selectedState) {
+    if (stateUnavailable) {
+      document.getElementById('taxSummary').textContent = `Federal estimate only. ${selectedState.label} tax is not included. A missing estimate does not mean no state tax is due.`;
+    } else if (selectedState) {
       const modeledTaxSummary = selectedState.noTax
         ? `${formatMoney(federalTax)} federal tax. ${selectedState.label} has no broad individual income tax in this model.`
         : `${formatMoney(federalTax)} federal + ${formatMoney(stateCalculation.total)} estimated ${selectedState.label} income tax.`;
-      document.getElementById('taxSummary').textContent = netInvestmentIncome > 0
+      document.getElementById('taxSummary').textContent = netInvestmentIncome > 0 && !hasStateOverride
         ? `${modeledTaxSummary} Entered gains add approximately ${formatMoney(capitalGainsTax)} across the modeled taxes.`
         : modeledTaxSummary;
     } else {
@@ -386,7 +582,7 @@
       ? percent.format(stateMarginal)
       : 'N/A';
     document.getElementById('effectiveRate').textContent = percent.format(effective);
-    document.getElementById('contributionSavings').textContent = formatMoney(contributionSavings);
+    document.getElementById('contributionSavings').textContent = hasStateOverride ? 'Not compared*' : formatMoney(contributionSavings);
     document.getElementById('afterIncomeTax').textContent = formatMoney(afterIncomeTax);
     document.getElementById('taxShareBar').style.width = `${Math.min(100, effective * 100)}%`;
 
@@ -424,6 +620,11 @@
       stateBreakdownLabel.textContent = 'Select a state to calculate';
       stateBracketRows.innerHTML = '<tr><td><strong>N/A</strong></td><td>Select a state</td><td>$0</td></tr>';
       stateMethodNote.textContent = 'Choose a state above to add a simplified state income-tax estimate.';
+    } else if (stateUnavailable) {
+      stateBreakdownTitle.textContent = `${selectedState.label} state tax not estimated`;
+      stateBreakdownLabel.textContent = 'Federal-only result';
+      stateBracketRows.innerHTML = '<tr><td colspan="3">State estimate unavailable — not $0.</td></tr>';
+      stateMethodNote.textContent = selectedState.note || 'A verified 2026 schedule for this state is not included. Use its revenue department guidance to calculate state tax separately.';
     } else if (selectedState.noTax) {
       stateBreakdownTitle.textContent = `${selectedState.label} income tax`;
       stateBreakdownLabel.textContent = 'No broad tax on ordinary income';
@@ -431,18 +632,13 @@
       stateMethodNote.textContent = selectedState.note || `${selectedState.label} does not levy a broad individual income tax. Payroll, sales, property, local, and special capital-gains taxes are not modeled.`;
     } else {
       stateBreakdownTitle.textContent = `${selectedState.label} bracket breakdown`;
-      stateBreakdownLabel.textContent = statusKey === 'single' || statusKey === 'marriedSeparate'
-        ? 'Published single-filer schedule'
-        : `Approximate ${status.label.toLowerCase()} schedule`;
+      stateBreakdownLabel.textContent = 'Verified 2026 schedule — all filing statuses';
       stateBracketRows.innerHTML = stateCalculation.rows.length
-        ? stateCalculation.rows.map((row) => `<tr><td><strong>${percent.format(row.rate)}</strong></td><td>${formatMoney(row.amount)}</td><td>${formatMoney(row.tax)}</td></tr>`).join('')
+        ? stateCalculation.rows.map((row) => `<tr><td><strong>${row.rate === null ? 'Statutory base' : percent.format(row.rate)}</strong></td><td>${row.amount === null ? 'Above $26,050 threshold' : formatMoney(row.amount)}</td><td>${formatMoney(row.tax)}</td></tr>`).join('')
         : '<tr><td><strong>0%</strong></td><td>$0</td><td>$0</td></tr>';
+      const basis = hasStateOverride ? 'the state taxable income you entered' : 'the federal adjusted-income estimate less your entered state deductions';
+      stateMethodNote.textContent = `This bracket calculation applies ${selectedState.label}'s verified 2026 rates to ${basis}. Credits and local taxes are excluded. ${selectedState.note || ''}${hasStateOverride ? ' *Gains and contribution savings are not compared because the direct state taxable amount does not describe those alternative scenarios.' : ''}`;
 
-      const filingNote = statusKey === 'single' || statusKey === 'marriedSeparate'
-        ? ''
-        : ` Bracket widths are scaled as an approximation for ${status.label.toLowerCase()}.`;
-      const stateNote = selectedState.note ? ` ${selectedState.note}` : '';
-      stateMethodNote.textContent = `This simplified ${selectedState.label} estimate applies its published 2026 ordinary-income rates to federal adjusted gross income, including entered gains, less the state deductions entered above.${filingNote} Credits, local taxes, preferential gain rates, exclusions, and special state adjustments are excluded.${stateNote}`;
     }
   }
 

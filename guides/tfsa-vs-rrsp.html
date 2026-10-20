@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/tfsa-vs-rrsp.html",
       "inLanguage": "en-CA",
       "articleSection": "Canadian Money",
-      "wordCount": 1088,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 632,
+      "timeRequired": "PT5M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>TFSA vs. RRSP: which should you use <em>first</em>?</h1>
     <p class="deck">The choice depends on tax rates, employer matching, access needs, benefits, and the purpose of the money. It is often a sequence, not a winner.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">5 min read</span>
       <span class="meta-item">Intermediate</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>The TFSA and RRSP solve different tax-timing problems.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Compare the next dollar, not the account names</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">The same contribution in two career stages</a></li>
-      <li><a href="#decision-map">Compare the same before-tax dollar</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">The same contribution in two career stages</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>An employer RRSP match often deserves early priority because it adds compensation. Beyond that, a TFSA may suit flexibility or a lower current tax rate, while an RRSP may become more attractive at a higher current marginal rate and for retirement savings.</p><p>Income-tested benefits and credits can also matter because RRSP withdrawals generally add taxable income while TFSA withdrawals generally do not.</p><h3>The essentials</h3><ul><li>Capture employer matching before comparing unaided contributions.</li><li>Compare current and plausible future marginal tax rates.</li><li>Consider whether withdrawals may happen before retirement.</li><li>Evaluate effects on income-tested benefits.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Compare the next dollar, not the account names</span></h2>
-      <p>The TFSA-versus-RRSP choice changes over a career. A lower-income year can make a TFSA contribution or a carried-forward RRSP deduction attractive. A high-income year can make an RRSP deduction more valuable. Employer matching can override both because it adds compensation immediately.</p><p>Withdrawals also interact differently with taxable income. RRSP withdrawals can affect income-tested credits and benefits, while TFSA withdrawals generally do not. That distinction can matter as much as the tax rate itself.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>An early-career worker in a lower bracket may value TFSA flexibility, then shift more savings toward an RRSP as income rises. A high-income worker with matching may reasonably prioritize the RRSP now.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>The same contribution in two career stages</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>The same contribution in two career stages</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Canadian tax-rate example</div>
       <p>A worker earning $55,000 has an illustrative marginal rate of 25% and expects income to rise. A $5,000 RRSP deduction would reduce tax by roughly $1,250. The worker may prefer TFSA flexibility and reserve RRSP room for a later higher-rate year.</p><p>At $120,000 of income and an illustrative 43% marginal rate, the same deduction would reduce current tax by about $2,150. Province, deductions, pensions, benefits, and future withdrawal rates must be checked before applying this framework.</p>
       <dl class="case-facts"><div class="case-fact"><dt>$5K at 25%</dt><dd>$1,250</dd></div><div class="case-fact"><dt>$5K at 43%</dt><dd>$2,150</dd></div><div class="case-fact"><dt>Difference</dt><dd>$900</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Compare the same before-tax dollar</span></h2>
-      <p>A fair comparison must account for the RRSP deduction. Putting $1,000 into each account does not use the same amount of before-tax income if the RRSP contribution generates a tax saving. The comparison should either gross up the RRSP contribution or invest the refund. Otherwise the TFSA appears stronger partly because more after-tax cash was committed to it.</p><p>Tax rates are not the only difference. TFSA withdrawals generally preserve flexibility and do not add taxable income, while RRSP withdrawals generally do. The RRSP can be particularly compelling with employer matching; the TFSA can be valuable for uncertain spending or future years when taxable income should remain controlled. Use both accounts as complementary retirement-income tools rather than treating the choice as a permanent identity.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Write down the goal and expected withdrawal window.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Confirm room in both accounts.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Estimate the current marginal deduction value.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Revisit the sequence after major income changes.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Rules of thumb such as always use one account first ignore matching, debt, benefits, pensions, and future income. Personal tax advice may be worthwhile for complex cases.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="decision-map"><summary>Compare the same before-tax dollar</summary><p>A fair comparison must account for the RRSP deduction. Putting $1,000 into each account does not use the same amount of before-tax income if the RRSP contribution generates a tax saving. The comparison should either gross up the RRSP contribution or invest the refund. Otherwise the TFSA appears stronger partly because more after-tax cash was committed to it.</p><p>With equal tax rates at contribution and withdrawal, equal investment returns, and the RRSP tax saving also invested, the simplified after-tax outcomes can be similar. Real plans differ because of tax rates, benefits, timing, fees, and whether the tax saving is actually invested.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">Income is low today and likely higher later</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">The current RRSP deduction may be modest while TFSA flexibility is valuable.</div>
@@ -543,77 +568,21 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Taxable income and income-tested benefits can vary by year.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Build both taxable and tax-free sources rather than relying on one account.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Compare the accounts using the same dollar of before-tax income. An RRSP contribution can create a deduction but future withdrawals are generally taxable. A TFSA contribution uses after-tax money and qualified withdrawals are generally tax-free. If the tax rate is the same at contribution and withdrawal and the RRSP tax saving is also invested, the mathematical outcomes can be similar. Differences in rates, flexibility, benefits, and behaviour create the practical result.</p><p>Assign each account to a job. TFSA flexibility can suit uncertain goals, emergency overflow, or retirement spending that should not add taxable income. RRSP room can be especially valuable with employer matching or when deductions are claimed at a meaningfully higher rate than expected withdrawals. Many households should use both over time. Revisit the split after income, province, benefits, home plans, or retirement projections change.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Write down the goal and expected withdrawal window.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Confirm room in both accounts.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Estimate the current marginal deduction value.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Revisit the sequence after major income changes.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Another way to think about it</summary><p>An early-career worker in a lower bracket may value TFSA flexibility, then shift more savings toward an RRSP as income rises. A high-income worker with matching may reasonably prioritize the RRSP now.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Which account should a beginner open first?</h3>
-          <p>Start with employer matching if available, then consider income, deduction value, contribution room, withdrawal flexibility, and the goal. A lower-income person expecting higher future earnings may value TFSA flexibility, while a strong current deduction can favour the RRSP.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can I hold the same investments in both?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Can I hold the same investments in both?</summary>
           <p>Often yes, if the investments are qualified and offered by the provider. The asset mix should follow the goal and total household portfolio. Account tax rules can influence location, but they do not make an unsuitable investment suitable.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Do TFSA and RRSP limits reset every year?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Do TFSA and RRSP limits reset every year?</summary>
           <p>New room may arise under their respective rules, but unused room, withdrawals, pension adjustments, and prior contributions affect the amount differently. Check current official records and keep a personal ledger rather than treating each January as a clean slate.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Rules of thumb such as always use one account first ignore matching, debt, benefits, pensions, and future income. Personal tax advice may be worthwhile for complex cases.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>The TFSA and RRSP solve different tax-timing problems. Use the account whose rules best match the next dollar and the goal it serves.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/what.html" target="_blank" rel="noopener noreferrer">CRA: Tax-Free Savings Account</a></li><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/registered-retirement-savings-plan-rrsp.html" target="_blank" rel="noopener noreferrer">CRA: Registered Retirement Savings Plan</a></li></ul>
     </section>
   </article>
@@ -631,12 +600,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="tfsa-explained.html" class="related-card reveal">
         <div class="cat">Canadian Money</div>
         <h3>TFSA Explained: How It Works and When to Use It</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="rrsp-explained.html" class="related-card reveal">
         <div class="cat">Canadian Money</div>
         <h3>RRSP Explained: Deferrals, Deductions, and Withdrawals</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="registered-accounts.html" class="related-card reveal">
         <div class="cat">Canadian Money</div>
@@ -710,8 +679,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

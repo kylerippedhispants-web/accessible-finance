@@ -60,7 +60,7 @@ function buildPage(config) {
       name: 'Accessible Finance',
       url: 'https://accessible-finance.com/',
     },
-    dateModified: '2026-07-27',
+    dateModified: config.file === 'contact.html' ? '2026-10-20' : '2026-07-27',
   };
   html = html.replace(
     '</head>',
@@ -173,7 +173,8 @@ buildPage({
 <main class="legal-body">
   <section>
     <h2>Contact the <em>publication</em></h2>
-    <p>The public contact channel for Accessible Finance is <a href="https://www.instagram.com/accessible.finance?igsh=MXVobG52emdvMTBudw==" target="_blank" rel="noopener noreferrer">Instagram @accessible.finance</a>. You can send a direct message there. Newsletter subscribers may also reply to a Dispatch email.</p>
+    <p>Email <a href="mailto:accessiblefinanceca@gmail.com">accessiblefinanceca@gmail.com</a> for questions, corrections, accessibility feedback, or Planner privacy and account-deletion requests. You do not need a social media account or newsletter subscription to contact AF.</p>
+    <p>Include the page URL and a short description. For a Planner account request, write from the email associated with that account; never include its password. Newsletter subscribers may also reply to a Dispatch email.</p>
     <p>Do not send account numbers, tax documents, passwords, government identification, or other sensitive financial information. Accessible Finance cannot provide personal investment, legal, accounting, or tax advice.</p>
   </section>
 
@@ -197,7 +198,7 @@ buildPage({
 
   <section>
     <h2>Privacy</h2>
-    <p>Messages sent through Instagram or a newsletter reply are handled by those services under their own privacy terms. Read the <a href="privacy.html">Accessible Finance privacy policy</a> for details about the website itself.</p>
+    <p>If you email us, we receive your email address and the information you include so we can respond to your request. Email and newsletter replies are handled by their respective providers. Read the <a href="privacy.html">Accessible Finance privacy policy</a> for details about the website itself.</p>
   </section>
 
   <div class="legal-divider"></div>

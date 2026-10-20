@@ -6,7 +6,7 @@ const vm = require('vm');
 
 const root = path.resolve(__dirname, '..');
 const guideDirectory = path.join(root, 'guides');
-const reviewedDate = '2026-07-27';
+const reviewedDate = '2026-10-20';
 const adsenseLoader = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4537695061199720"
      crossorigin="anonymous"></script>`;
 
@@ -350,6 +350,7 @@ function xmlUrl(location, priority, changeFrequency) {
 function updateSitemap(build) {
   const corePages = [
     ['https://accessible-finance.com/', '1.0', 'weekly'],
+    ['https://accessible-finance.com/start-here.html', '0.9', 'monthly'],
     ['https://accessible-finance.com/articles.html', '0.9', 'weekly'],
     ['https://accessible-finance.com/topic.html', '0.9', 'monthly'],
     ['https://accessible-finance.com/fire.html', '0.8', 'monthly'],

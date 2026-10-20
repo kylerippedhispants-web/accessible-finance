@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/why-investing-exists.html",
       "inLanguage": "en-CA",
       "articleSection": "Fundamentals",
-      "wordCount": 1182,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 1035,
+      "timeRequired": "PT6M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>Why investing exists - and what it <em>actually does</em></h1>
     <p class="deck">Investing connects people who have savings with businesses and governments that can put capital to productive use.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">6 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Investing moves capital toward productive uses.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Primary markets and secondary markets</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">One expansion, two financing choices</a></li>
-      <li><a href="#decision-map">Follow the financial claim</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">One expansion, two financing choices</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,50 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>When a company issues shares, investors provide equity capital and receive ownership. When a government or company issues bonds, investors lend money under agreed terms. After issuance, markets let those securities change hands, which gives investors liquidity and helps establish prices.</p><p>Returns are not created by a ticker symbol alone. Over long periods they are connected to business earnings, interest payments, economic growth, and the price originally paid.</p><h3>The essentials</h3><ul><li>Capital can fund expansion and public projects.</li><li>Investors accept delayed access and uncertainty in exchange for potential return.</li><li>Shares represent ownership; bonds represent lending.</li><li>Markets make ownership transferable, but they do not remove risk.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Primary markets and secondary markets</span></h2>
-      <p>When a company first sells shares or bonds, the primary market moves capital to the issuer. A later trade between two investors happens in the secondary market; the company does not receive that sale price directly. Secondary markets still matter because the ability to resell an investment makes people more willing to provide capital in the first place.</p><p>The return available to each investor depends on the claim being purchased. Lenders receive contractual payments before shareholders receive residual value. Shareholders have more upside if the business prospers, but they also stand behind lenders if the company fails.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A growing manufacturer wants a second facility. It can borrow by issuing bonds or sell part ownership through shares. Bondholders expect scheduled interest and repayment; shareholders participate in future gains or losses.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>One expansion, two financing choices</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>One expansion, two financing choices</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Business financing example</div>
       <p>Imagine a profitable food producer needs $10 million for a new facility. It could issue bonds and commit to interest plus repayment, or sell new shares and give investors part ownership. Debt preserves the current owners' upside but adds mandatory payments. Equity avoids a maturity date but permanently shares future profits.</p><p>An investor comparing the two is not simply choosing a higher or lower return. The investor is choosing where to sit in the capital structure, which cash flows are promised, and which risks appear if sales disappoint.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Capital needed</dt><dd>$10M</dd></div><div class="case-fact"><dt>Bond investor</dt><dd>Lender</dd></div><div class="case-fact"><dt>Share investor</dt><dd>Owner</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Follow the financial claim</span></h2>
-      <p>The same organization can issue several claims with very different outcomes. A company may have secured debt, ordinary bonds, preferred shares, and common shares. Each sits at a different place in the payment order and responds differently when business results improve or deteriorate. Looking only at the issuer name misses the legal and economic claim actually owned.</p><p>Secondary-market prices also influence the real economy without sending every trade dollar to the issuer. A liquid market can lower the return investors demand when a company next raises capital, and a falling price can make new financing more expensive. For an individual investor, however, social usefulness and investment merit remain separate. A useful project can issue an overpriced security, and an unfashionable borrower can offer a reasonable contract at the right terms.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Ask what economic activity sits behind an investment.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Identify whether you are an owner, a lender, or both through a fund.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Match the investment horizon to when you need the money.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Useful economic activity does not guarantee a good investment. An excellent company can still be overpriced, and a borrower can fail to repay.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Primary markets and secondary markets</summary><p>When a company first sells shares or bonds, the primary market moves capital to the issuer. A later trade between two investors happens in the secondary market; the company does not receive that sale price directly. Secondary markets still matter because the ability to resell an investment makes people more willing to provide capital in the first place.</p><p>The return available to each investor depends on the claim being purchased. Lenders receive contractual payments before shareholders receive residual value. Shareholders have more upside if the business prospers, but they also stand behind lenders if the company fails.</p></details><details class="guide-detail" id="decision-map"><summary>Follow the financial claim</summary><p>The same organization can issue several claims with very different outcomes. A company may have secured debt, ordinary bonds, preferred shares, and common shares. Each sits at a different place in the payment order and responds differently when business results improve or deteriorate. Looking only at the issuer name misses the legal and economic claim actually owned.</p><p>Secondary-market prices also influence the real economy without sending every trade dollar to the issuer. A liquid market can lower the return investors demand when a company next raises capital, and a falling price can make new financing more expensive. For an individual investor, however, social usefulness and investment merit remain separate. A useful project can issue an overpriced security, and an unfashionable borrower can offer a reasonable contract at the right terms.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">A company sells newly issued shares</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">New capital reaches the company and existing owners are diluted.</div>
@@ -543,70 +562,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">The investor is lending under stated payment and maturity terms.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Match credit, currency, and maturity risk to the goal that the bond must fund.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>A practical investor looks through the account label to the financial claim underneath it. A stock fund owns slices of businesses; a bond fund owns promises from borrowers; a savings product is a claim on a financial institution. Each claim has a different place in line for cash flows and a different response to growth, inflation, interest rates, and failure. That is more useful than sorting products into a vague list of things that have recently gone up.</p><p>Also separate the primary market from the secondary market. A company receives capital when it first issues shares or debt. Most everyday trades happen later between investors. Those secondary markets still matter because liquidity and observable prices make people more willing to supply capital in the first place. For your own plan, the central questions are what you own, what could generate the return, what risks can interrupt it, and whether the price is reasonable.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Ask what economic activity sits behind an investment.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Identify whether you are an owner, a lender, or both through a fund.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Match the investment horizon to when you need the money.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>A practical investor looks through the account label to the financial claim underneath it. A stock fund owns slices of businesses; a bond fund owns promises from borrowers; a savings product is a claim on a financial institution. Each claim has a different place in line for cash flows and a different response to growth, inflation, interest rates, and failure. That is more useful than sorting products into a vague list of things that have recently gone up.</p><p>Also separate the primary market from the secondary market. A company receives capital when it first issues shares or debt. Most everyday trades happen later between investors. Those secondary markets still matter because liquidity and observable prices make people more willing to supply capital in the first place. For your own plan, the central questions are what you own, what could generate the return, what risks can interrupt it, and whether the price is reasonable.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A growing manufacturer wants a second facility. It can borrow by issuing bonds or sell part ownership through shares. Bondholders expect scheduled interest and repayment; shareholders participate in future gains or losses.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Does buying an ETF directly fund the companies inside it?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Does buying an ETF directly fund the companies inside it?</summary>
           <p>Usually your trade is with another market participant, not a direct payment to each company. Even so, well-functioning secondary markets support the wider capital system by making ownership transferable and helping establish prices. Your personal return still comes from the securities the fund owns, after costs.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Where do long-term investment returns come from?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Where do long-term investment returns come from?</summary>
           <p>They can come from interest paid by borrowers, dividends and retained profits from businesses, growth in those businesses, or a change in the price investors are willing to pay. A sound plan does not assume price increases appear from nowhere; it connects expectations to economic cash flows and risk.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Why can a useful company still be a poor investment?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Why can a useful company still be a poor investment?</summary>
           <p>Price matters. An excellent business purchased at a price that assumes flawless future growth can disappoint even while the business remains successful. Investing requires two judgments: the quality and durability of the underlying activity, and the amount paid for the claim on that activity.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Useful economic activity does not guarantee a good investment. An excellent company can still be overpriced, and a borrower can fail to repay.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Investing moves capital toward productive uses. Your potential return is compensation for time, uncertainty, and the risk that reality differs from the plan.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Introduction to Investing</a></li></ul>
     </section>
   </article>
@@ -624,17 +598,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="stocks-explained.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>What Is a Stock, Really?</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="bonds-explained.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>What Is a Bond? (And Why Should I Care?)</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="how-markets-work.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>How Markets Actually Work: A Plain-English Guide</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -703,8 +677,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

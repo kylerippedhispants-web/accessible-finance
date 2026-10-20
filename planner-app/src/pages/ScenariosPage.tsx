@@ -1,5 +1,5 @@
-import { useDeferredValue, useEffect, useMemo, useState, type FormEvent } from 'react';
-import { MoneyField, NumberField, PercentField, TextField } from '../components/FormFields';
+import { useDeferredValue, useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
+import { MoneyField, NumberField, PercentField, TextField, validateNumberFields } from '../components/FormFields';
 import { ProjectionChart, type DollarView } from '../components/ProjectionChart';
 import { applyScenarioOverrides, assetCategory, estimateFireTarget, projectFinances, type FireEstimate } from '../finance-engine';
 import type { FinancialPlan, PlanScenario, ScenarioOverrides } from '../domain';
@@ -23,6 +23,10 @@ export interface ScenarioDraft {
 interface Notice {
   message: string;
   error?: boolean;
+}
+
+function focusAfterRender(id: string) {
+  requestAnimationFrame(() => document.getElementById(id)?.focus());
 }
 
 function createScenario(
@@ -201,6 +205,24 @@ export function ScenariosPage() {
   const [notice, setNotice] = useState<Notice>();
   const [renamingId, setRenamingId] = useState<string>();
   const [renameValue, setRenameValue] = useState('');
+  const editorTrigger = useRef<HTMLElement | null>(null);
+  const editorId = draft?.id;
+  const rememberEditorTrigger = () => {
+    editorTrigger.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  };
+  const closeEditor = () => {
+    setDraft(undefined);
+    setPreview(undefined);
+    setNotice(undefined);
+    requestAnimationFrame(() => {
+      if (editorTrigger.current?.isConnected) editorTrigger.current.focus();
+      else document.getElementById('create-scenario-button')?.focus();
+    });
+  };
+
+  useEffect(() => {
+    if (editorId) document.getElementById('custom-title')?.focus();
+  }, [editorId]);
 
   useEffect(() => {
     if (selectedId && !snapshot.scenarios.some((scenario) => scenario.id === selectedId)) {
@@ -269,6 +291,7 @@ export function ScenariosPage() {
   };
 
   const beginPreset = (preset: 'early' | 'savings' | 'returns' | 'debt') => {
+    rememberEditorTrigger();
     let scenario: PlanScenario;
     if (preset === 'early') {
       const age = Math.min(maximumRetirementAge, Math.max(minimumRetirementAge, 55));
@@ -311,6 +334,7 @@ export function ScenariosPage() {
   };
 
   const beginCreate = () => {
+    rememberEditorTrigger();
     setSelectedId('');
     setPreview(undefined);
     setDraft(makeDraft(plan));
@@ -318,6 +342,7 @@ export function ScenariosPage() {
   };
 
   const beginEdit = (scenario: PlanScenario) => {
+    rememberEditorTrigger();
     setSelectedId(scenario.id);
     setPreview(undefined);
     setDraft(makeDraft(plan, scenario));
@@ -342,6 +367,10 @@ export function ScenariosPage() {
 
   const previewDraft = () => {
     if (!draft) return;
+    if (!validateNumberFields(document.querySelector('.scenario-editor') ?? document)) {
+      setNotice({ message: 'Correct the highlighted number before previewing.', error: true });
+      return;
+    }
     const name = draft.name.trim();
     if (!name) {
       setNotice({ message: 'Enter a scenario name before previewing.', error: true });
@@ -372,9 +401,11 @@ export function ScenariosPage() {
       draft.id,
     );
     showPreview(scenario, { ...draft, name, description: scenario.description ?? '' });
+    focusAfterRender('comparison-title');
   };
 
   const savePreview = () => {
+    if (!validateNumberFields(document.querySelector('.scenario-editor') ?? document)) return;
     if (!preview || !draft || preview.id !== draft.id) {
       setNotice({ message: 'Preview the latest changes before saving this scenario.', error: true });
       return;
@@ -389,6 +420,7 @@ export function ScenariosPage() {
     setDraft(undefined);
     setPreview(undefined);
     setNotice({ message: `“${preview.name}” is in the plan. ${saveReminder}` });
+    focusAfterRender(`scenario-select-${preview.id}`);
   };
 
   const returnToBaseline = () => {
@@ -414,6 +446,7 @@ export function ScenariosPage() {
     setPreview(undefined);
     setDraft(undefined);
     setNotice({ message: `“${duplicate.name}” was duplicated. ${saveReminder}` });
+    focusAfterRender(`scenario-select-${duplicate.id}`);
   };
 
   const deleteScenario = (scenario: PlanScenario) => {
@@ -421,6 +454,7 @@ export function ScenariosPage() {
     planner.setScenarios(snapshot.scenarios.filter((item) => item.id !== scenario.id));
     if (selectedId === scenario.id) returnToBaseline();
     setNotice({ message: `“${scenario.name}” was removed. ${saveReminder}` });
+    focusAfterRender('scenario-baseline-button');
   };
 
   const renameScenario = (event: FormEvent, scenario: PlanScenario) => {
@@ -440,6 +474,7 @@ export function ScenariosPage() {
     setRenamingId(undefined);
     setRenameValue('');
     setNotice({ message: `Scenario renamed to “${name}”. ${saveReminder}` });
+    focusAfterRender(`scenario-rename-${scenario.id}`);
   };
 
   return (
@@ -465,7 +500,7 @@ export function ScenariosPage() {
           <div className="panel-heading"><div><span className="eyebrow">Baseline and saved differences</span><h2 id="saved-scenarios-title">Your scenarios</h2></div><span className="count-badge">{snapshot.scenarios.length}</span></div>
           <div className="scenario-items">
             <article className={!selectedId && !preview ? 'selected scenario-baseline-item' : 'scenario-baseline-item'}>
-              <button type="button" className="scenario-select" onClick={returnToBaseline} aria-pressed={!selectedId && !preview}>
+              <button id="scenario-baseline-button" type="button" className="scenario-select" onClick={returnToBaseline} aria-pressed={!selectedId && !preview}>
                 <strong>Baseline plan</strong><span>Your core plan with no scenario differences.</span>
               </button>
             </article>
@@ -476,17 +511,17 @@ export function ScenariosPage() {
                     <TextField id="scenario-rename-input" label={`Rename ${scenario.name}`} value={renameValue} maxLength={100} required onChange={setRenameValue} />
                     <div className="item-actions">
                       <button type="submit">Save name</button>
-                      <button type="button" onClick={() => setRenamingId(undefined)}>Cancel</button>
+                      <button type="button" onClick={() => { setRenamingId(undefined); focusAfterRender(`scenario-rename-${scenario.id}`); }}>Cancel</button>
                     </div>
                   </form>
                 ) : (
                   <>
-                    <button type="button" className="scenario-select" onClick={() => { setSelectedId(scenario.id); setPreview(undefined); setDraft(undefined); setNotice(undefined); }} aria-pressed={scenario.id === selectedId && !preview}>
+                    <button id={`scenario-select-${scenario.id}`} type="button" className="scenario-select" onClick={() => { setSelectedId(scenario.id); setPreview(undefined); setDraft(undefined); setNotice(undefined); }} aria-pressed={scenario.id === selectedId && !preview}>
                       <strong>{scenario.name}</strong><span>{scenario.description || 'Custom scenario'}</span>
                     </button>
                     <div className="item-actions">
                       <button type="button" onClick={() => beginEdit(scenario)}>Edit</button>
-                      <button type="button" onClick={() => { setRenamingId(scenario.id); setRenameValue(scenario.name); }}>Rename</button>
+                      <button id={`scenario-rename-${scenario.id}`} type="button" onClick={() => { setRenamingId(scenario.id); setRenameValue(scenario.name); }}>Rename</button>
                       <button type="button" onClick={() => duplicateScenario(scenario)}>Duplicate</button>
                       <button type="button" className="danger" onClick={() => deleteScenario(scenario)}>Delete</button>
                     </div>
@@ -498,12 +533,12 @@ export function ScenariosPage() {
           {!snapshot.scenarios.length && (
             <div className="empty-state"><strong>No saved scenarios yet.</strong><p>Preview a quick start or create your own; nothing is added until you choose Save scenario.</p></div>
           )}
-          <button className="button button-secondary button-wide" type="button" onClick={beginCreate} disabled={snapshot.scenarios.length >= 50}>Create custom scenario</button>
+          <button id="create-scenario-button" className="button button-secondary button-wide" type="button" onClick={beginCreate} disabled={snapshot.scenarios.length >= 50}>Create custom scenario</button>
         </aside>
 
         <section className="panel scenario-comparison" aria-labelledby="comparison-title">
           <div className="panel-heading">
-            <div><span className="eyebrow">Baseline comparison</span><h2 id="comparison-title">{comparedScenario ? `Baseline vs ${comparedScenario.name}` : 'Baseline plan'}</h2></div>
+            <div><span className="eyebrow">Baseline comparison</span><h2 id="comparison-title" tabIndex={-1}>{comparedScenario ? `Baseline vs ${comparedScenario.name}` : 'Baseline plan'}</h2></div>
             <div className="segmented-control" aria-label="Dollar display">
               <button type="button" aria-pressed={dollarView === 'nominal'} onClick={() => setDollarView('nominal')}>Nominal</button>
               <button type="button" aria-pressed={dollarView === 'real'} onClick={() => setDollarView('real')}>Today’s dollars</button>
@@ -547,19 +582,19 @@ export function ScenariosPage() {
 
       {draft && (
         <section className="panel custom-scenario scenario-editor" aria-labelledby="custom-title">
-          <div className="panel-heading"><div><span className="eyebrow">{draft.mode === 'edit' ? 'Edit saved differences' : 'Build your own'}</span><h2 id="custom-title">{draft.mode === 'edit' ? `Edit ${draft.name}` : 'Custom scenario'}</h2><p>Change supported assumptions, preview the result, then explicitly save or update the scenario.</p></div></div>
+          <div className="panel-heading"><div><span className="eyebrow">{draft.mode === 'edit' ? 'Edit saved differences' : 'Build your own'}</span><h2 id="custom-title" tabIndex={-1}>{draft.mode === 'edit' ? `Edit ${draft.name}` : 'Custom scenario'}</h2><p>Change assumptions, preview the result, then add the changes to your plan.</p></div></div>
           <div className="form-grid two">
             <TextField label="Scenario name" value={draft.name} maxLength={100} placeholder="e.g. Take a sabbatical" required onChange={(name) => updateDraft({ name })} />
             <TextField label="Description (optional)" value={draft.description} maxLength={500} placeholder="What decision does this test?" onChange={(description) => updateDraft({ description })} />
             <NumberField label="Retirement age" required min={minimumRetirementAge} max={maximumRetirementAge} step={1} value={draft.retirementAge} onChange={(retirementAge) => updateControlled('retirementAge', retirementAge)} hint={`Current projection age is ${baseAge}.`} />
-            <PercentField label="Investment return" required min={-100} max={100} step={0.1} value={draft.returnRate} onChange={(returnRate) => updateControlled('returnRate', returnRate)} hint="Percentage points; enter 5 for 5%." />
+            <PercentField label="Investment return" required min={-100} max={100} step={0.1} value={draft.returnRate} onChange={(returnRate) => updateControlled('returnRate', returnRate)} hint="Annual nominal return before inflation; enter 5 for 5%." />
             <PercentField label="General inflation" required min={-99.9} max={100} step={0.1} value={draft.inflation} onChange={(inflation) => updateControlled('inflation', inflation)} hint="Must be greater than -100%." />
             <MoneyField label="Annual retirement spending" required min={0} max={1_000_000_000_000} step={1000} value={draft.spending} onChange={(spending) => updateControlled('spending', spending)} hint="Base-year dollars; exclude payments modeled under Debts." />
           </div>
           <div className="form-actions scenario-editor-actions">
             <button className="button button-secondary" type="button" onClick={previewDraft}>Preview changes</button>
             <button className="button button-primary" type="button" onClick={savePreview} disabled={!preview || preview.id !== draft.id}>{draft.mode === 'edit' ? 'Update scenario' : 'Save scenario'}</button>
-            <button className="button button-quiet" type="button" onClick={() => { setDraft(undefined); setPreview(undefined); setNotice(undefined); }}>Cancel</button>
+            <button className="button button-quiet" type="button" onClick={closeEditor}>Cancel</button>
           </div>
           <p className="form-footnote">Preview is temporary. Save scenario updates the open plan. {saveReminder}</p>
         </section>

@@ -215,7 +215,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Back home
   </a>
-  <div class="updated">Last updated · August 24, 2026</div>
+  <div class="updated">Last updated · October 20, 2026</div>
   <h1>Privacy <em>Policy</em></h1>
   <p class="lead">Accessible Finance is an independent educational publication and provides an optional financial-planning tool. We respect your privacy, do not sell personal information, and explain here what the public site and Planner process.</p>
 </header>
@@ -229,6 +229,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <li><strong>Planner calculations</strong> — projection outputs are calculated in your browser and are not intentionally stored in the database, analytics, or application logs. Export files are created locally and saved only where you choose.</li>
       <li><strong>Demo Mode data</strong> — the Planner starts with fictional values and stores Demo Mode edits in this origin's browser <code>sessionStorage</code>. Demo data is not sent to Supabase. Use fictional values only because storage is shared with other pages on this website origin.</li>
       <li><strong>Email address</strong> — only if you voluntarily subscribe to our newsletter via Substack.</li>
+      <li><strong>Contact messages</strong> — if you email Accessible Finance, we receive your address and the information you include to respond to questions, corrections, accessibility feedback, and privacy requests. Do not include passwords or sensitive financial documents.</li>
       <li><strong>Edition preference</strong> — your Canada or United States selection is stored locally in your browser so the site can remember your choice. It is not sent to us.</li>
       <li><strong>Advertising data</strong> — when Google AdSense is active on an eligible content page, Google may use cookies or similar technologies and process device, approximate location, and interaction data to serve, limit, and measure ads, subject to your consent choices and Google's policies.</li>
       <li><strong>Basic server records</strong> — the company that hosts the website may temporarily process standard request information such as an IP address, browser type, requested page, and timestamp for security, reliability, and abuse prevention. Accessible Finance does not use these records to build reader profiles.</li>
@@ -302,8 +303,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <h4>Guides</h4>
         <ul>
           <li><a href="articles.html">All Guides</a></li>
-          <li><a href="articles.html">Beginner</a></li>
-          <li><a href="articles.html">Intermediate</a></li>
+          <li><a href="articles.html?cat=beginner">Beginner</a></li>
+          <li><a href="articles.html?cat=intermediate">Intermediate</a></li>
           <li><a href="articles.html">Guide Library</a></li>
           <li><a href="tax-calculator.html">Tax Calculator</a></li>
           <li><a href="cash-flow.html?edition=ca">Cash Flow</a></li>
@@ -336,8 +337,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-    <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-    <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+    <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
   </div>
 </div>
 

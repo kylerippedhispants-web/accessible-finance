@@ -167,6 +167,7 @@
             </div>
             <div class="entry-columns" aria-hidden="true"><span>Category</span><span>Amount</span><span></span></div>
             <div class="flow-rows" id="expenseRows"></div>
+            <p class="flow-kind-help">Choose each outflow’s type. Only “Saving / investing” counts toward the savings rate; changing its name does not change the type. For an older saved plan, review the types assigned from your previous labels.</p>
             <button class="add-row" type="button" id="addExpense"><span aria-hidden="true">+</span> Add expense</button>
           </section>
 
@@ -184,10 +185,21 @@
 
           <div class="summary-grid" aria-live="polite">
             <div><span>Total income</span><strong id="summaryIncome">$0</strong></div>
-            <div><span>Total expenses</span><strong id="summaryExpenses">$0</strong></div>
+            <div><span>Total money out</span><strong id="summaryExpenses">$0</strong></div>
             <div><span id="balanceLabel">Surplus</span><strong id="summaryBalance">$0</strong></div>
           </div>
 
+          <details class="cash-data" id="cashFlowValues" open>
+            <summary>Your cash flow, in numbers</summary>
+            <table class="cash-flow-table">
+              <caption class="sr-only">Entered cash flow amounts and types</caption>
+              <thead><tr><th scope="col">Category and type</th><th scope="col">Amount</th></tr></thead>
+              <tbody id="cashFlowDataRows"></tbody>
+            </table>
+          </details>
+
+          <details class="flow-map" id="cashFlowMap" open>
+            <summary>Visual money map</summary>
           <div class="sankey-frame" id="sankeyFrame">
             <svg id="sankeyChart" role="img" aria-labelledby="sankeyTitle sankeyDescription">
               <title id="sankeyTitle">Income and expense Sankey diagram</title>
@@ -202,15 +214,16 @@
             <span><i class="legend-expense"></i> Expenses</span>
             <span><i class="legend-balance"></i> Surplus</span>
           </div>
+          </details>
 
           <div class="flow-insights" aria-live="polite">
-            <article><span>Planned savings rate</span><strong id="savingsRate">0%</strong><p id="savingsNote">Based on categories named saving or investing.</p></article>
-            <article><span>Largest expense</span><strong id="largestExpense">None</strong><p id="largestExpenseNote">Add expenses to compare categories.</p></article>
+            <article><span>Planned savings rate</span><strong id="savingsRate">0%</strong><p id="savingsNote">Based on categories set to Saving / investing.</p></article>
+            <article><span>Largest outflow</span><strong id="largestExpense">None</strong><p id="largestExpenseNote">Add outflows to compare categories.</p></article>
             <article><span>Cash position</span><strong id="cashPosition">Balanced</strong><p id="cashPositionNote">Income and expenses are equal.</p></article>
           </div>
 
           <div class="breakdown" aria-labelledby="breakdown-title">
-            <div class="breakdown-heading"><h3 id="breakdown-title">Expense breakdown</h3><span id="breakdownBasis">Share of expenses</span></div>
+            <div class="breakdown-heading"><h3 id="breakdown-title">Money-out breakdown</h3><span id="breakdownBasis">Share of outflows</span></div>
             <div id="expenseBreakdown"></div>
           </div>
         </section>
@@ -291,7 +304,7 @@
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One money idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-    <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+    <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
     <p class="nl-fine">Unsubscribe anytime.</p>
   </div>
 </div>

@@ -236,6 +236,62 @@
   align-items: center;
 }
 
+.flow-kind-label {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink2);
+  margin-bottom: 8px;
+}
+.flow-kind {
+  min-width: 0;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  color: var(--ink);
+  background: var(--bg);
+  font: inherit;
+}
+.flow-kind-help {
+  color: var(--ink2);
+  font-size: 14px;
+  line-height: 1.65;
+  margin: 12px 0;
+}
+.cash-flow-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: var(--sans);
+  font-size: 14px;
+}
+.cash-data { margin-top: 24px; }
+.cash-data > summary { cursor: pointer; color: var(--green); font-family: var(--sans); font-size: 16px; font-weight: 700; padding: 12px 0; }
+.cash-data > summary:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+.cash-flow-table caption {
+  font-size: 19px;
+  font-weight: 600;
+  text-align: left;
+  margin: 24px 0 12px;
+}
+.cash-flow-table th, .cash-flow-table td {
+  text-align: left;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  overflow-wrap: anywhere;
+}
+.cash-flow-table th:first-child { width: 65%; padding-right: 12px; }
+.cash-flow-table th:last-child, .cash-flow-table td { text-align: right; }
+.cash-flow-table th span { display: block; font-size: 12px; font-weight: 400; color: var(--ink2); margin-top: 4px; }
+.flow-map { margin-top: 24px; border-block: 1px solid var(--border); padding: 14px 0; }
+.flow-map summary { cursor: pointer; color: var(--green); font-family: var(--sans); font-size: 15px; font-weight: 700; min-height: 32px; }
+.flow-map summary:focus-visible, .flow-kind:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+
 .flow-row input {
   width: 100%;
   min-width: 0;

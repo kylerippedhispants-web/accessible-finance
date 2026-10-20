@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/rebalancing.html",
       "inLanguage": "en-CA",
       "articleSection": "Portfolio Thinking",
-      "wordCount": 1049,
-      "timeRequired": "PT6M",
-      "dateModified": "2026-07-27",
+      "wordCount": 881,
+      "timeRequired": "PT5M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>Rebalancing: returning the portfolio to its <em>plan</em></h1>
     <p class="deck">As assets grow at different rates, the portfolio drifts. Rebalancing restores the intended risk mix rather than chasing the recent winner.</p>
     <div class="article-meta">
-      <span class="meta-item">6 min read</span>
+      <span class="meta-item">5 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Rebalancing is disciplined maintenance: trim what has grown beyond plan and refill what has fallen below it, using a rule rather than a forecast.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Rebalancing turns a target into a rule</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">Restoring a 60/40 portfolio after a rally</a></li>
-      <li><a href="#decision-map">Choose the cheapest path back to target</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">Restoring a 60/40 portfolio after a rally</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Common methods are calendar-based reviews or tolerance bands, such as acting when an asset class moves a set distance from target. The best method is one that is clear, tax-aware, and not triggered by every small move.</p><p>New contributions and withdrawals can often rebalance with less selling.</p><h3>The essentials</h3><ul><li>Rebalancing manages risk; it does not guarantee higher return.</li><li>Set the rule before drift occurs.</li><li>Use cash flows where possible.</li><li>Consider tax and transaction costs in taxable accounts.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Rebalancing turns a target into a rule</span></h2>
-      <p>Without a rule, rebalancing can become disguised market timing. Investors may rebalance after every small move when nervous, then avoid it after a large rally because the winning asset feels safest. Calendar reviews or tolerance bands create consistency.</p><p>Taxes and transaction costs matter. New contributions, dividends, and withdrawals can often move the portfolio toward target without selling appreciated assets in a taxable account.</p><p>A household with several accounts should rebalance at the combined level. One account can hold more bonds while another holds more stocks, provided the overall risk target and account-specific tax considerations remain intentional.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A 60/40 portfolio becomes 68/32 after a stock rally. New contributions can be directed to bonds until the mix returns to its allowed range, avoiding an immediate taxable sale.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>Restoring a 60/40 portfolio after a rally</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>Restoring a 60/40 portfolio after a rally</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Rebalancing illustration</div>
       <p>A $100,000 portfolio starts with $60,000 in stocks and $40,000 in bonds. Stocks rise 20% while bonds are unchanged, producing $72,000 of stocks and a $112,000 total. Stocks now represent about 64.3%.</p><p>Returning to 60/40 requires moving roughly $4,800 from stocks to bonds, or using future cash flows to close the gap. The trade is driven by the target, not a claim that stocks are about to fall.</p>
       <dl class="case-facts"><div class="case-fact"><dt>New total</dt><dd>$112,000</dd></div><div class="case-fact"><dt>Stock weight</dt><dd>64.3%</dd></div><div class="case-fact"><dt>Amount to redirect</dt><dd>About $4,800</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Choose the cheapest path back to target</span></h2>
-      <p>Rebalancing does not have to begin with a sale. New contributions, distributions, interest, and planned withdrawals can all move the portfolio toward target weights. This cash-flow approach can reduce tax and trading costs, though it may be too slow after a large drift. Rank the available methods before placing trades.</p><p>Bands should be wide enough to ignore noise and narrow enough to prevent a meaningful change in risk. A five-percentage-point move has a different importance when the target is 50% than when the target is 5%, so some policies use relative thresholds or both absolute and relative tests. The exact rule is less important than writing it down, applying it across accounts, and checking tax consequences before execution.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Write target weights and tolerance ranges.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Review on a modest schedule.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Look across all accounts as one portfolio.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Record why each rebalance occurred.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Constant rebalancing can create unnecessary taxes, costs, and attention. A small drift is not automatically a problem.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Rebalancing turns a target into a rule</summary><p>Without a rule, rebalancing can become disguised market timing. Investors may rebalance after every small move when nervous, then avoid it after a large rally because the winning asset feels safest. Calendar reviews or tolerance bands create consistency.</p><p>Taxes and transaction costs matter. New contributions, dividends, and withdrawals can often move the portfolio toward target without selling appreciated assets in a taxable account.</p><p>A household with several accounts should rebalance at the combined level. One account can hold more bonds while another holds more stocks, provided the overall risk target and account-specific tax considerations remain intentional.</p></details><details class="guide-detail" id="decision-map"><summary>Choose the cheapest path back to target</summary><p>Rebalancing does not have to begin with a sale. New contributions, distributions, interest, and planned withdrawals can all move the portfolio toward target weights. This cash-flow approach can reduce tax and trading costs, though it may be too slow after a large drift. Rank the available methods before placing trades.</p><p>Bands should be wide enough to ignore noise and narrow enough to prevent a meaningful change in risk. A five-percentage-point move has a different importance when the target is 50% than when the target is 5%, so some policies use relative thresholds or both absolute and relative tests. The exact rule is less important than writing it down, applying it across accounts, and checking tax consequences before execution.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">A small drift while contributions continue</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">New money may restore the mix without a taxable sale.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">The tax cost may outweigh the benefit of exact precision.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Use cash flows, rebalance elsewhere, or return gradually with tax advice.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Choose one rebalancing method in advance. A calendar rule checks the portfolio on set dates; a threshold rule acts when an asset moves outside a stated band; a hybrid checks periodically and trades only when a band is breached. The method matters less than applying it consistently. Very narrow bands can create unnecessary trading, while no rule allows yesterday's winner to determine tomorrow's risk.</p><p>Use the least disruptive tool first. Direct new contributions, dividends, or withdrawals toward underweight or overweight assets before selling. In taxable accounts, consider realized gains, losses, superficial-loss rules, and transaction costs. Rebalance the household portfolio as a whole when practical, including workplace plans. The aim is to restore the planned risk, not to predict which asset will lead next.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Write target weights and tolerance ranges.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Review on a modest schedule.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Look across all accounts as one portfolio.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Record why each rebalance occurred.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Choose one rebalancing method in advance. A calendar rule checks the portfolio on set dates; a threshold rule acts when an asset moves outside a stated band; a hybrid checks periodically and trades only when a band is breached. The method matters less than applying it consistently. Very narrow bands can create unnecessary trading, while no rule allows yesterday's winner to determine tomorrow's risk.</p><p>Use the least disruptive tool first. Direct new contributions, dividends, or withdrawals toward underweight or overweight assets before selling. In taxable accounts, consider realized gains, losses, superficial-loss rules, and transaction costs. Rebalance the household portfolio as a whole when practical, including workplace plans. The aim is to restore the planned risk, not to predict which asset will lead next.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A 60/40 portfolio becomes 68/32 after a stock rally. New contributions can be directed to bonds until the mix returns to its allowed range, avoiding an immediate taxable sale.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Does rebalancing increase returns?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Does rebalancing increase returns?</summary>
           <p>It is primarily a risk-control process. It may add or subtract return depending on market patterns. Its dependable function is preventing allocation drift and requiring a disciplined sell-high, buy-low action relative to the chosen target.</p>
-        </div>
-        <div class="faq-item">
-          <h3>How often should I rebalance?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>How often should I rebalance?</summary>
           <p>Many plans use an annual or semi-annual review, threshold bands, or both. The best interval balances meaningful risk drift against taxes, costs, and effort. Daily monitoring usually adds noise without improving a long-term policy.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Should I rebalance during a market crash?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Should I rebalance during a market crash?</summary>
           <p>Follow the preset rule after confirming cash needs and that the target allocation remains suitable. Rebalancing can involve buying the asset that fell, which may feel uncomfortable. Do not add leverage or use emergency money simply to force the percentages back into place.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Constant rebalancing can create unnecessary taxes, costs, and attention. A small drift is not automatically a problem.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Rebalancing is disciplined maintenance: trim what has grown beyond plan and refill what has fallen below it, using a rule rather than a forecast.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing/getting-started/asset-allocation" target="_blank" rel="noopener noreferrer">Investor.gov: Asset Allocation, Diversification, and Rebalancing</a></li></ul>
     </section>
   </article>
@@ -631,12 +604,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="asset-allocation.html" class="related-card reveal">
         <div class="cat">Portfolio Thinking</div>
         <h3>Asset Allocation Explained: The Decision That Shapes the Portfolio</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
     <a href="diversification.html" class="related-card reveal">
         <div class="cat">Portfolio Thinking</div>
         <h3>Understanding Diversification</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
     <a href="bear-markets.html" class="related-card reveal">
         <div class="cat">Market Behaviour</div>
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

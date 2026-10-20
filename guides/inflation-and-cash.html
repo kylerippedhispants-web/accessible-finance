@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/inflation-and-cash.html",
       "inLanguage": "en-CA",
       "articleSection": "Fundamentals",
-      "wordCount": 1103,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 948,
+      "timeRequired": "PT6M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>Inflation and the <em>cost of cash</em></h1>
     <p class="deck">Cash can protect a near-term dollar amount while still losing purchasing power. The right question is what the money must do and when.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">6 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Cash buys certainty and access; inflation is part of its cost.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Measure money in what it can buy</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">What Canada&#039;s 2022 inflation meant for cash</a></li>
-      <li><a href="#decision-map">One balance can have three jobs</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">What Canada&#039;s 2022 inflation meant for cash</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Real return is the return left after inflation. If an account earns 2% while prices rise 3%, purchasing power falls by roughly 1% before considering tax. The exact relationship compounds over time.</p><p>This does not make cash bad. It makes cash a tool for liquidity and stability, while growth assets may be needed for longer horizons.</p><h3>The essentials</h3><ul><li>Nominal return is the number on the statement.</li><li>Real return adjusts for changing purchasing power.</li><li>Emergency funds value access and stability more than maximum return.</li><li>Long-term goals may need assets with better growth potential.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Measure money in what it can buy</span></h2>
-      <p>Nominal stability can hide a real loss. If prices rise 4% and a savings account earns 2%, the balance grows while purchasing power declines. Tax on the interest can widen the gap in a non-registered account.</p><p>The correct response depends on timing. Emergency money values immediate access. A home deposit due next year values principal stability. Retirement money several decades away may need a diversified growth allocation because its largest threat is failing to keep pace with future costs.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A $10,000 emergency fund should remain accessible even if its real return is modest. A separate retirement contribution with a 30-year horizon can accept more fluctuation in pursuit of long-term growth.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>What Canada&#039;s 2022 inflation meant for cash</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>What Canada&#039;s 2022 inflation meant for cash</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Canadian historical example</div>
       <p>Statistics Canada reported that the Consumer Price Index rose 6.8% on an annual-average basis in 2022. If $20,000 earned no interest while prices rose at that rate, its year-end purchasing power was roughly equivalent to $18,727 at the start of the year.</p><p>That does not mean the full balance should have been invested. A household that needed the money for an imminent expense still benefited from stability. The example shows why long-term plans should use real, inflation-aware targets.</p>
       <dl class="case-facts"><div class="case-fact"><dt>2022 average CPI</dt><dd>+6.8%</dd></div><div class="case-fact"><dt>Starting cash</dt><dd>$20K</dd></div><div class="case-fact"><dt>Real-value decline</dt><dd>About $1,273</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>One balance can have three jobs</span></h2>
-      <p>Cash should be divided by purpose before its return is judged. Transaction cash must be available for current bills. Emergency cash protects against an event whose date is unknown. Goal cash covers a known purchase. Combining all three into one large balance makes it difficult to see what is truly excess and what must remain stable.</p><p>Personal inflation can also differ from the published average. A renter, a homeowner renewing a mortgage, and a retiree paying more for health services experience different baskets. Build projections from the expenses that dominate the actual goal, then use an official index as a common reference. The solution is rarely to abandon cash. It is to limit long-term idle cash while making the required cash work efficiently through appropriate savings or short-term products.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Assign every cash balance a purpose.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Compare savings rates after fees and tax.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Keep short-term goals liquid.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Review whether long-term cash is waiting for a decision or serving a real need.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Do not chase a higher return with emergency money if access, principal stability, or deposit protection becomes unclear.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Measure money in what it can buy</summary><p>Nominal stability can hide a real loss. If prices rise 4% and a savings account earns 2%, the balance grows while purchasing power declines. Tax on the interest can widen the gap in a non-registered account.</p><p>The correct response depends on timing. Emergency money values immediate access. A home deposit due next year values principal stability. Retirement money several decades away may need a diversified growth allocation because its largest threat is failing to keep pace with future costs.</p></details><details class="guide-detail" id="decision-map"><summary>One balance can have three jobs</summary><p>Cash should be divided by purpose before its return is judged. Transaction cash must be available for current bills. Emergency cash protects against an event whose date is unknown. Goal cash covers a known purchase. Combining all three into one large balance makes it difficult to see what is truly excess and what must remain stable.</p><p>Personal inflation can also differ from the published average. A renter, a homeowner renewing a mortgage, and a retiree paying more for health services experience different baskets. Build projections from the expenses that dominate the actual goal, then use an official index as a common reference. The solution is rarely to abandon cash. It is to limit long-term idle cash while making the required cash work efficiently through appropriate savings or short-term products.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">Next month&#039;s expenses</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">Immediate access and no market loss at the payment date.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Purchasing power is the larger threat than short-term price movement.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Use a diversified growth plan while keeping separate near-term reserves.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Give cash more than one label. An operating balance covers current bills, an emergency reserve absorbs surprises, and short-term goal money protects a known purchase. Those jobs favour stability and access. Cash held for a distant goal has a different job and should be tested against inflation, taxes on interest, and the return available from assets that can tolerate more movement.</p><p>Track goals in future purchasing power, not just future dollars. Estimate what the desired lifestyle, education cost, or home project might cost at the goal date, then test more than one inflation rate. This does not mean investing every dollar. It means accepting that price stability today and purchasing-power stability over decades are different forms of safety that belong in different buckets.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Assign every cash balance a purpose.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Compare savings rates after fees and tax.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Keep short-term goals liquid.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Review whether long-term cash is waiting for a decision or serving a real need.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Give cash more than one label. An operating balance covers current bills, an emergency reserve absorbs surprises, and short-term goal money protects a known purchase. Those jobs favour stability and access. Cash held for a distant goal has a different job and should be tested against inflation, taxes on interest, and the return available from assets that can tolerate more movement.</p><p>Track goals in future purchasing power, not just future dollars. Estimate what the desired lifestyle, education cost, or home project might cost at the goal date, then test more than one inflation rate. This does not mean investing every dollar. It means accepting that price stability today and purchasing-power stability over decades are different forms of safety that belong in different buckets.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A $10,000 emergency fund should remain accessible even if its real return is modest. A separate retirement contribution with a 30-year horizon can accept more fluctuation in pursuit of long-term growth.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>How much cash should I keep?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>How much cash should I keep?</summary>
           <p>The answer depends on essential monthly expenses, job stability, insurance, household income sources, and upcoming goals. A common emergency-fund starting point is several months of regular expenses, but the amount should grow when income is volatile or a major obligation cannot be delayed.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Should emergency savings be invested to beat inflation?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Should emergency savings be invested to beat inflation?</summary>
           <p>Usually the first priority is reliable access without a forced sale. A high-interest savings account or suitable short-term deposit may not beat inflation every year, but it protects the fund&#039;s emergency function. Invest only the portion whose timing is flexible enough to withstand a decline.</p>
-        </div>
-        <div class="faq-item">
-          <h3>What is a real return?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>What is a real return?</summary>
           <p>Real return is the gain after accounting for inflation. If money earns 4% while prices rise 3%, purchasing power grows by roughly 1% before tax, using a simple approximation. Real returns make goals across long periods easier to compare.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Do not chase a higher return with emergency money if access, principal stability, or deposit protection becomes unclear.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Cash buys certainty and access; inflation is part of its cost. Hold enough for near-term resilience, then invest long-term money according to its horizon.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Introduction to Investing</a></li><li><a href="https://www150.statcan.gc.ca/n1/daily-quotidien/230117/dq230117b-eng.htm" target="_blank" rel="noopener noreferrer">Statistics Canada: Consumer Price Index Annual Review, 2022</a></li><li><a href="https://www.bankofcanada.ca/rates/related/inflation-calculator/" target="_blank" rel="noopener noreferrer">Bank of Canada: Inflation Calculator</a></li></ul>
     </section>
   </article>
@@ -636,12 +609,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="what-risk-means.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>What Risk Really Means in Investing</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="compound-interest.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Compound Interest: The Most Powerful Force in Investing</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

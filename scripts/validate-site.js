@@ -118,13 +118,13 @@ guideFiles.forEach((file) => {
   });
 
   const articleText = html.match(/<article class="article-body">([\s\S]*?)<\/article>/i)?.[1] || '';
-  const words = articleText
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&[a-z0-9#]+;/gi, ' ')
-    .match(/[A-Za-z0-9]+(?:['-][A-Za-z0-9]+)*/g) || [];
-  assert(words.length >= 800, `${file}: only ${words.length} visible article words`);
+  ['why-it-matters', 'how-it-works', 'practical-example', 'build-your-plan', 'what-to-watch-for', 'sources'].forEach((id) => {
+    assert(articleText.includes(`id="${id}"`), `${file}: missing essential guide section ${id}`);
+  });
+  assert(/<ol class="decision-steps">[\s\S]*?<li/.test(articleText), `${file}: missing actionable checklist`);
+  assert(/<ul class="source-list">[\s\S]*?<a href="https:\/\//.test(articleText), `${file}: missing linked source`);
+  assert(!articleText.includes('Your four-part worksheet'), `${file}: contains repetitive worksheet boilerplate`);
+  assert(!/<details class="guide-detail"[^>]*\sopen(?:\s|>)/.test(articleText), `${file}: extra guide detail should start collapsed`);
 });
 
 const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
@@ -136,7 +136,7 @@ if (fs.existsSync(optimizedLogo)) {
 assert((sitemap.match(/\/guides\/[^<]+\.html/g) || []).length === 42, 'sitemap does not contain 42 guide URLs');
 assert(!/article\.html\?id=/i.test(sitemap), 'sitemap contains legacy query article URLs');
 assert(!/(?:earn|rewards)\.html/i.test(sitemap), 'sitemap contains referral-only pages');
-assert(!/journal\.html/i.test(sitemap), 'sitemap contains the unfinished Articles placeholder');
+assert(!/journal\.html/i.test(sitemap), 'sitemap contains the Substack outbound landing page');
 assert(sitemap.includes('/cash-flow.html'), 'sitemap is missing the cash-flow planner');
 assert(sitemap.includes('/planner/'), 'sitemap is missing Accessible Finance Planner');
 assert(sitemap.includes('/editorial-policy.html'), 'sitemap is missing the editorial policy');
@@ -178,8 +178,14 @@ assert(/new URL\('planner\//i.test(shellScript), 'site-shell.js: Planner link is
 
 const journal = fs.readFileSync(path.join(root, 'journal.html'), 'utf8');
 assert(/<meta name="robots" content="noindex,follow">/i.test(journal), 'journal.html: missing noindex,follow');
-assert(/<h1[^>]*>[\s\S]*Articles/i.test(journal), 'journal.html: missing Articles heading');
-assert(/Work in progress/i.test(journal), 'journal.html: missing work-in-progress state');
+assert(/<h1[^>]*>The Dispatch\./i.test(journal), 'journal.html: missing Dispatch heading');
+assert(!/coming soon|work in progress|archive is being prepared/i.test(journal), 'journal.html: obsolete placeholder copy remains');
+assert(/href="https:\/\/accessiblefinance\.substack\.com\/"[^>]*target="_blank"/i.test(journal), 'journal.html: missing direct Dispatch link');
+const startHere = fs.readFileSync(path.join(root, 'start-here.html'), 'utf8');
+assert(!/name="robots" content="noindex/i.test(startHere), 'start-here.html: beginner paths should be indexable');
+['spending', 'unexpected-costs', 'investing', 'retirement-accounts'].forEach((id) => {
+  assert(startHere.includes(`id="${id}"`), `start-here.html: missing learning path ${id}`);
+});
 
 const cashFlow = fs.readFileSync(path.join(root, 'cash-flow.html'), 'utf8');
 assert(/<h1[^>]*>[\s\S]*money/i.test(cashFlow), 'cash-flow.html: missing cash-flow heading');

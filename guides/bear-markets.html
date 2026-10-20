@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/bear-markets.html",
       "inLanguage": "en-CA",
       "articleSection": "Market Behaviour",
-      "wordCount": 1074,
+      "wordCount": 918,
       "timeRequired": "PT6M",
-      "dateModified": "2026-07-27",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -447,9 +453,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <span class="meta-item">Intermediate</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>A bear market tests the design of the plan.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">A bear market is an event, not a strategy</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">Why the emergency fund changes the experience</a></li>
-      <li><a href="#decision-map">Liquidity decides whether patience is possible</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">Why the emergency fund changes the experience</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Bear markets can begin before a recession, during one, or without one. Markets price expectations, so they may recover while economic news remains poor.</p><p>A diversified portfolio can still decline. Bonds or cash may reduce the fall and provide funds for withdrawals or rebalancing, depending on the type of crisis.</p><h3>The essentials</h3><ul><li>Market declines are measured from a prior high.</li><li>Recovery dates cannot be known in advance.</li><li>Losses hurt more when withdrawals are required.</li><li>A preset rebalance rule can turn volatility into a planned action.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>A bear market is an event, not a strategy</span></h2>
-      <p>The label describes a large decline from a prior high but says nothing certain about duration, cause, or recovery. A fast shock and a long valuation unwind can both meet the definition while requiring the same basic household preparation: liquidity, diversification, and a tolerable allocation.</p><p>Economic data often remain weak after markets begin to recover because prices react to changes in expectations. Waiting for unemployment, profits, and headlines all to improve can mean waiting until the market has already moved.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>An investor with three years of planned withdrawals in stable assets does not need to sell stocks immediately after a decline. Another investor with no reserve may face that forced choice.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>Why the emergency fund changes the experience</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>Why the emergency fund changes the experience</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Two-household comparison</div>
       <p>Two investors each hold $100,000 in the same portfolio during a severe decline. One also has six months of expenses in savings. The other invested every available dollar and now needs $8,000 for a roof repair.</p><p>The first investor can follow the rebalancing plan. The second may have to sell while prices are down. Their market return was identical, but their financial resilience created different real outcomes.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Portfolio each</dt><dd>$100K</dd></div><div class="case-fact"><dt>Unexpected bill</dt><dd>$8,000</dd></div><div class="case-fact"><dt>Key difference</dt><dd>Cash reserve</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Liquidity decides whether patience is possible</span></h2>
-      <p>A long horizon helps only when the investor is not forced to sell. Job loss, debt payments, tuition, home repairs, or retirement withdrawals can turn a temporary market decline into a permanent loss. The bear-market plan therefore begins outside the portfolio with emergency cash, insurance, manageable debt, and a schedule for near-term spending.</p><p>Market narratives become unusually persuasive during deep declines because the price movement appears to confirm every negative explanation. Replace story comparison with balance-sheet checks: what is needed soon, which holdings are concentrated, how far weights moved, and whether the goal changed. A broad decline does not guarantee recovery for every company, so diversification remains essential even when the overall plan calls for patience.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Check whether the goal or only the price has changed.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Use the written rebalancing rule.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Direct new contributions toward underweight assets.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Reduce news and account-checking if it prompts impulsive trades.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Holding through every decline is appropriate only when the portfolio was suitable beforehand. Fraud, a failed individual company, or a changed personal goal requires separate analysis.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>A bear market is an event, not a strategy</summary><p>The label describes a large decline from a prior high but says nothing certain about duration, cause, or recovery. A fast shock and a long valuation unwind can both meet the definition while requiring the same basic household preparation: liquidity, diversification, and a tolerable allocation.</p><p>Economic data often remain weak after markets begin to recover because prices react to changes in expectations. Waiting for unemployment, profits, and headlines all to improve can mean waiting until the market has already moved.</p></details><details class="guide-detail" id="decision-map"><summary>Liquidity decides whether patience is possible</summary><p>A long horizon helps only when the investor is not forced to sell. Job loss, debt payments, tuition, home repairs, or retirement withdrawals can turn a temporary market decline into a permanent loss. The bear-market plan therefore begins outside the portfolio with emergency cash, insurance, manageable debt, and a schedule for near-term spending.</p><p>Market narratives become unusually persuasive during deep declines because the price movement appears to confirm every negative explanation. Replace story comparison with balance-sheet checks: what is needed soon, which holdings are concentrated, how far weights moved, and whether the goal changed. A broad decline does not guarantee recovery for every company, so diversification remains essential even when the overall plan calls for patience.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">A long-term saver with stable income</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">The goal and contribution capacity remain intact despite lower prices.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Company-specific failure can hide inside a broad downturn.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Reassess the business thesis rather than assuming every loss is temporary.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Prepare for a bear market while prices are calm. Decide how much spending belongs in cash or short-term high-quality assets, set target allocation ranges, and write the contribution and rebalancing rules. Translate a possible decline into dollars so the chosen risk is concrete. If a routine market loss would force a home sale, tuition delay, or expensive debt, the portfolio and goal are mismatched before the decline begins.</p><p>During a downturn, separate market facts from household facts. Check employment, emergency savings, upcoming withdrawals, debt, and concentration. Then compare current weights with the plan. Continuing contributions or rebalancing may be appropriate when the goal is unchanged, but a real loss of income or newly fixed deadline can justify reducing risk. Avoid making a macroeconomic forecast do the job of a cash-flow review.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Check whether the goal or only the price has changed.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Use the written rebalancing rule.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Direct new contributions toward underweight assets.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Reduce news and account-checking if it prompts impulsive trades.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Prepare for a bear market while prices are calm. Decide how much spending belongs in cash or short-term high-quality assets, set target allocation ranges, and write the contribution and rebalancing rules. Translate a possible decline into dollars so the chosen risk is concrete. If a routine market loss would force a home sale, tuition delay, or expensive debt, the portfolio and goal are mismatched before the decline begins.</p><p>During a downturn, separate market facts from household facts. Check employment, emergency savings, upcoming withdrawals, debt, and concentration. Then compare current weights with the plan. Continuing contributions or rebalancing may be appropriate when the goal is unchanged, but a real loss of income or newly fixed deadline can justify reducing risk. Avoid making a macroeconomic forecast do the job of a cash-flow review.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>An investor with three years of planned withdrawals in stable assets does not need to sell stocks immediately after a decline. Another investor with no reserve may face that forced choice.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>How long does a bear market last?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>How long does a bear market last?</summary>
           <p>There is no dependable schedule. Declines and recoveries vary widely, and the economy can feel weak even after markets begin recovering. Build the plan so an exact recovery date is not required for near-term spending.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Should I buy more after a large decline?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Should I buy more after a large decline?</summary>
           <p>Only within the planned allocation and after protecting cash needs. Rebalancing or continuing scheduled contributions can add exposure at lower prices. Borrowing, concentrating, or emptying emergency savings because the market looks cheap creates a different and potentially dangerous bet.</p>
-        </div>
-        <div class="faq-item">
-          <h3>What if this downturn really is different?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>What if this downturn really is different?</summary>
           <p>Every downturn has distinct causes, but uncertainty and loss are already part of owning risky assets. Ask whether the long-term goal, diversification, liquidity, or financial system assumptions have changed in a way your policy addresses. Do not let the uniqueness of the story erase basic risk controls.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Holding through every decline is appropriate only when the portfolio was suitable beforehand. Fraud, a failed individual company, or a changed personal goal requires separate analysis.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>A bear market tests the design of the plan. Liquidity, diversification, and realistic risk make patience possible when patience is hardest.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Introduction to Investing</a></li><li><a href="https://www.canada.ca/en/financial-consumer-agency/services/savings-investments/setting-up-emergency-funds.html" target="_blank" rel="noopener noreferrer">Financial Consumer Agency of Canada: Setting Up an Emergency Fund</a></li></ul>
     </section>
   </article>
@@ -631,12 +604,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="time-in-market.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>Time in the Market vs. Timing the Market</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="rebalancing.html" class="related-card reveal">
         <div class="cat">Portfolio Thinking</div>
         <h3>Rebalancing: Why Your Portfolio Needs a Tune-Up</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
     <a href="investor-behaviour.html" class="related-card reveal">
         <div class="cat">Market Behaviour</div>
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

@@ -226,7 +226,7 @@ export const ProjectionChart = memo(function ProjectionChart({
       <div className="chart-toolbar">
         <ul className="chart-legend" aria-label="Projection series">
           <li><span className="chart-key baseline" aria-hidden="true" />Baseline</li>
-          {comparison && <li><span className="chart-key comparison" aria-hidden="true" />{comparisonLabel}</li>}
+          {comparison && <li><span className="chart-key comparison" aria-hidden="true" /><span className="chart-series-label">{comparisonLabel}</span></li>}
           {milestones.some((milestone) => milestone.kind === 'fire') && <li><span className="chart-key milestone fire" aria-hidden="true" />Estimated FIRE</li>}
           {milestones.some((milestone) => milestone.kind === 'planned') && <li><span className="chart-key milestone planned" aria-hidden="true" />Planned retirement</li>}
         </ul>
@@ -351,7 +351,7 @@ export const ProjectionChart = memo(function ProjectionChart({
             <thead>
               <tr>
                 <th scope="col">Year</th><th scope="col">Age</th>{milestones.length > 0 && <th scope="col">Milestone</th>}<th scope="col">Income</th><th scope="col">Taxes</th><th scope="col">Spending</th><th scope="col">Assets</th><th scope="col">Liabilities</th><th scope="col">Baseline net worth</th>
-                {comparison && <><th scope="col">{comparisonLabel} net worth</th><th scope="col">Difference</th></>}
+                {comparison && <><th scope="col"><span className="comparison-column-label">{comparisonLabel} net worth</span></th><th scope="col">Difference</th></>}
               </tr>
             </thead>
             <tbody>

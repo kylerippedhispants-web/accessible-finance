@@ -104,7 +104,7 @@ export function AppShell() {
     if (planner.dirty && !window.confirm('Leave without saving your planner changes?')) return;
     const result = await auth.signOut();
     if (result.error) {
-      window.alert(`This browser attempted to sign out, but Supabase could not confirm global session revocation: ${result.error}`);
+      window.alert(`Sign-out could not be confirmed on other devices: ${result.error}`);
     }
   };
 
@@ -215,7 +215,7 @@ export function AppShell() {
           {planner.mode === 'demo' && (
             <div className="demo-banner" role="status">
               <strong>Demo Mode</strong>
-              <span>Starts with fictional values. Use fictional data only; nothing uploads to Supabase.</span>
+              <span>Fictional example. Your changes stay in this tab; use made-up information only.</span>
             </div>
           )}
           {!saveConflict && <div className={`save-announcement ${planner.saveState}`} role={planner.saveState === 'error' ? 'alert' : 'status'} aria-live="polite" aria-atomic="true">

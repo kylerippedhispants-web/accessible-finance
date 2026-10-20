@@ -9,6 +9,7 @@ test.beforeEach(async ({ context, baseURL }) => {
     return route.abort();
   });
   await context.addInitScript(() => {
+    if (window !== window.top) return;
     window.localStorage.setItem('accessibleFinanceRegion', window.location.pathname.startsWith('/us/') ? 'us' : 'ca');
   });
 });
@@ -47,7 +48,7 @@ test('website visitors can try a plan and read guides without losing an unsaved 
   await page.goto('/');
   await expect(page.locator('[aria-labelledby="planning-journey-title"]')).toBeVisible();
   await page.locator('.planning-journey').screenshot({ path: testInfo.outputPath('learning-and-planner.png') });
-  await page.getByRole('link', { name: 'Open the FIRE planner', exact: true }).click();
+  await page.getByRole('link', { name: 'Explore planner demos', exact: true }).click();
   await expect(page).toHaveURL(new URL('/planner/', baseURL!).href);
   await page.getByRole('button', { name: 'Try the fictional demo', exact: true }).click();
   await expect(page).toHaveURL(/\/planner\/dashboard$/);
@@ -125,7 +126,7 @@ test('the mobile website menu opens the planner and both entry pages fit 320 pix
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
 
   await page.getByRole('button', { name: 'Open menu', exact: true }).click();
-  await page.locator('#mobile-menu').getByRole('link', { name: 'FIRE Planner', exact: true }).click();
+  await page.locator('#mobile-menu').getByRole('link', { name: 'Planner', exact: true }).click();
   await expect(page).toHaveURL(/\/planner\/$/);
   await expect(page.getByRole('button', { name: 'Try the fictional demo', exact: true })).toBeVisible();
   await expect(page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Planner', exact: true })).toHaveAttribute('aria-current', 'page');

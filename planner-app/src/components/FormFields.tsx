@@ -1,5 +1,10 @@
 import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
   useId,
+  useRef,
   useState,
   type ChangeEvent,
   type InputHTMLAttributes,
@@ -8,6 +13,32 @@ import {
   type SelectHTMLAttributes,
 } from 'react';
 import { formatCadInput, formatPercent } from '../lib/formatters';
+
+const FieldValidityContext = createContext<((id: string, invalid: boolean) => void) | null>(null);
+
+/** Keeps live results visibly unavailable while an input contains an unapplied edit. */
+export function FieldValidationScope({ children, onValidityChange }: {
+  children?: ReactNode;
+  onValidityChange: (valid: boolean) => void;
+}) {
+  const invalidFields = useRef(new Set<string>());
+  const report = useCallback((id: string, invalid: boolean) => {
+    if (invalid) invalidFields.current.add(id);
+    else invalidFields.current.delete(id);
+    onValidityChange(invalidFields.current.size === 0);
+  }, [onValidityChange]);
+  return <FieldValidityContext.Provider value={report}>{children}</FieldValidityContext.Provider>;
+}
+
+/** Number fields are text inputs so currency formatting works; validate their draft before any action. */
+export function validateNumberFields(container?: ParentNode): boolean {
+  if (!container && typeof document === 'undefined') return true;
+  const invalid = (container ?? document).querySelector<HTMLInputElement>('input[data-number-field]:invalid');
+  if (!invalid) return true;
+  invalid.focus();
+  invalid.reportValidity();
+  return false;
+}
 
 interface FieldShellProps {
   inputId: string;
@@ -158,24 +189,43 @@ export function NumberField({
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(() => value === undefined || value === null ? '' : String(value));
   const [entryError, setEntryError] = useState<string>();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const reportValidity = useContext(FieldValidityContext);
   const effectiveError = error ?? entryError;
   const ids = useFieldIds(id, hint, effectiveError, props['aria-describedby']);
   const displayedValue = editing || entryError
     ? draft
     : formatForDisplay(value, display, fractionDigits);
 
+  const draftError = (raw: string) => {
+    const parsed = parseNumberEntry(raw);
+    if (!raw.trim()) return required ? 'Enter a value.' : undefined;
+    if (parsed === undefined) return 'Enter a valid number.';
+    if (min !== undefined && parsed < Number(min)) return `Enter ${Number(min).toLocaleString('en-CA')} or more.`;
+    if (max !== undefined && parsed > Number(max)) return `Enter ${Number(max).toLocaleString('en-CA')} or less.`;
+    return undefined;
+  };
+  const validationMessage = props.disabled ? undefined : error ?? draftError(displayedValue);
+  useEffect(() => {
+    inputRef.current?.setCustomValidity(validationMessage ?? '');
+    reportValidity?.(ids.inputId, Boolean(validationMessage));
+    return () => reportValidity?.(ids.inputId, false);
+  }, [ids.inputId, reportValidity, validationMessage]);
+
   const updateDraft = (event: ChangeEvent<HTMLInputElement>) => {
     const nextText = event.target.value;
     setDraft(nextText);
-    setEntryError(undefined);
+    const nextError = draftError(nextText);
+    setEntryError(nextError);
+    event.currentTarget.setCustomValidity(nextError ?? '');
     if (!nextText.trim()) {
       onChange(undefined);
       return;
     }
     const parsed = parseNumberEntry(nextText);
-    if (parsed !== undefined) {
-      onChange(parsed);
-    }
+    // NaN distinguishes a malformed optional field from a deliberately empty one.
+    // Domain validation rejects it instead of silently reusing an earlier value.
+    onChange(parsed ?? Number.NaN);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -185,19 +235,22 @@ export function NumberField({
       const direction = event.key === 'ArrowUp' ? 1 : -1;
       const minimum = min === undefined ? -Infinity : Number(min);
       const maximum = max === undefined ? Infinity : Number(max);
-      const current = parseNumberEntry(draft) ?? value ?? 0;
+      const current = parseNumberEntry(draft) ?? (Number.isFinite(value) ? value! : 0);
       const next = Math.min(maximum, Math.max(minimum, current + (Number.isFinite(increment) ? increment : 1) * direction));
       setDraft(String(next));
+      setEntryError(undefined);
       onChange(next);
     }
     onKeyDown?.(event);
   };
 
-  const numericValue = parseNumberEntry(displayedValue) ?? value ?? undefined;
+  const numericValue = parseNumberEntry(displayedValue);
   const affixed = Boolean(prefix || suffix);
   const input = (
     <input
       {...props}
+      ref={inputRef}
+      data-number-field=""
       id={ids.inputId}
       type="text"
       role="spinbutton"
@@ -230,6 +283,7 @@ export function NumberField({
           onChange(undefined);
           setEntryError(required ? 'Enter a value.' : undefined);
         } else if (parsed === undefined) {
+          onChange(Number.NaN);
           setEntryError('Enter a valid number.');
         } else if (minimum !== undefined && parsed < minimum) {
           setEntryError(`Enter ${minimum.toLocaleString('en-CA')} or more.`);

@@ -120,7 +120,8 @@ test('guide topics reach Canadian resources and offer a return to the topics lis
   const topics = page.getByRole('navigation', { name: 'Choose a topic.' });
   await topics.getByRole('link', { name: 'Canadian resources', exact: true }).click();
   await expect(page).toHaveURL(/#canadian-resources$/);
-  const resources = page.getByRole('region', { name: 'Continue with trusted Canadian resources' });
+  const resources = page.locator('#canadian-resources');
+  await expect(resources).toHaveAttribute('open', '');
   await expect(resources.getByRole('link', { name: /Making a budget/ })).toBeInViewport();
   await resources.getByRole('link', { name: 'Back to topics', exact: true }).click();
   await expect(page).toHaveURL(/#guide-topics$/);

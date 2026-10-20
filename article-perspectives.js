@@ -267,7 +267,7 @@
 
     'tfsa-vs-rrsp': perspective('Compare the same before-tax dollar', [
       'A fair comparison must account for the RRSP deduction. Putting $1,000 into each account does not use the same amount of before-tax income if the RRSP contribution generates a tax saving. The comparison should either gross up the RRSP contribution or invest the refund. Otherwise the TFSA appears stronger partly because more after-tax cash was committed to it.',
-      'Tax rates are not the only difference. TFSA withdrawals generally preserve flexibility and do not add taxable income, while RRSP withdrawals generally do. The RRSP can be particularly compelling with employer matching; the TFSA can be valuable for uncertain spending or future years when taxable income should remain controlled. Use both accounts as complementary retirement-income tools rather than treating the choice as a permanent identity.'
+      'With equal tax rates at contribution and withdrawal, equal investment returns, and the RRSP tax saving also invested, the simplified after-tax outcomes can be similar. Real plans differ because of tax rates, benefits, timing, fees, and whether the tax saving is actually invested.'
     ], [
       ['Income is low today and likely higher later', 'The current RRSP deduction may be modest while TFSA flexibility is valuable.', 'Consider TFSA first while preserving RRSP room for a higher-income period.'],
       ['An employer matches plan contributions', 'The match can outweigh ordinary account-order preferences.', 'Capture the full useful match before comparing unmatched savings options.'],

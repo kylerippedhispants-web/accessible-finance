@@ -626,11 +626,6 @@
     },
 
     'tfsa-vs-rrsp': {
-      deepDiveTitle: 'Compare the next dollar, not the account names',
-      deepDive: [
-        'The TFSA-versus-RRSP choice changes over a career. A lower-income year can make a TFSA contribution or a carried-forward RRSP deduction attractive. A high-income year can make an RRSP deduction more valuable. Employer matching can override both because it adds compensation immediately.',
-        'Withdrawals also interact differently with taxable income. RRSP withdrawals can affect income-tested credits and benefits, while TFSA withdrawals generally do not. That distinction can matter as much as the tax rate itself.'
-      ],
       caseStudy: {
         title: 'The same contribution in two career stages',
         label: 'Canadian tax-rate example',

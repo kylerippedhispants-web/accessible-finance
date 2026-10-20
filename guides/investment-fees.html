@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/investment-fees.html",
       "inLanguage": "en-CA",
       "articleSection": "Compounding",
-      "wordCount": 1097,
-      "timeRequired": "PT7M",
-      "dateModified": "2026-07-27",
+      "wordCount": 925,
+      "timeRequired": "PT6M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>Fees: compound interest in <em>reverse</em></h1>
     <p class="deck">A recurring fee reduces this year&#039;s return and the capital available to earn future returns. Small percentages can create large long-term differences.</p>
     <div class="article-meta">
-      <span class="meta-item">7 min read</span>
+      <span class="meta-item">6 min read</span>
       <span class="meta-item">Intermediate</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>You cannot control the market, but you can understand what you pay.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">A fee removes more than its invoice</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">One percentage point over twenty-five years</a></li>
-      <li><a href="#decision-map">Price the service and the product separately</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">One percentage point over twenty-five years</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>Funds may charge a management expense ratio. Accounts may also have trading commissions, advice fees, currency conversion costs, administration charges, or embedded sales costs. Some are visible on a statement; others are deducted inside the investment return.</p><p>A higher-cost option can be worthwhile if it provides a service you value and use. The decision becomes clearer when the service and total cost are stated separately.</p><h3>The essentials</h3><ul><li>Ask for the total annual cost in dollars and percent.</li><li>Compare similar products on an after-fee basis.</li><li>Check trading and currency costs as well as fund expenses.</li><li>Understand what advice or service the fee purchases.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>A fee removes more than its invoice</span></h2>
-      <p>The direct fee is only the first cost. Money paid away this year cannot earn returns next year, so the gap compounds. A one-percentage-point annual difference can become a large portion of the ending balance over a multi-decade horizon.</p><p>Cost still needs context. A planning service that improves taxes, behaviour, or estate decisions may be valuable. The investor should be able to name the service, calculate its total cost, and compare it with a realistic alternative.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>On a $100,000 balance, a 1% annual fee starts near $1,000 per year before considering changes in value. That amount also loses its opportunity to compound in future years.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>One percentage point over twenty-five years</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>One percentage point over twenty-five years</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Fee-drag illustration</div>
       <p>A $100,000 balance growing at a hypothetical 6% nominal annual return, compounded monthly for 25 years, reaches about $446,497. If recurring costs reduce that nominal return to 5%, the illustration ends near $348,129.</p><p>The difference is about $98,368, even though the first year's one-percentage-point cost looked like only $1,000. Taxes and actual returns will change the result, but the example shows why recurring costs deserve more attention than trading commissions alone.</p>
       <dl class="case-facts"><div class="case-fact"><dt>6% ending value</dt><dd>$446,497</dd></div><div class="case-fact"><dt>5% ending value</dt><dd>$348,129</dd></div><div class="case-fact"><dt>Illustrated gap</dt><dd>$98,368</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Price the service and the product separately</span></h2>
-      <p>An all-in percentage can combine several things: investment management, financial planning, tax coordination, trading, custody, and access to an adviser. Compare the investment exposure with a similar lower-cost option, then evaluate the remaining service on its own. This avoids assuming every expensive portfolio includes comprehensive advice or that every low-cost portfolio solves planning needs.</p><p>Switching deserves its own calculation. A cheaper fund can save money for decades, but realizing a large taxable gain, paying a deferred sales charge, or sitting out of the market during a transfer can create immediate costs. List one-time consequences beside the annual saving and estimate the break-even period. The decision is strongest when the replacement preserves the intended exposure and the ongoing saving clearly outweighs the transition.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Read the fund facts or prospectus.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>List every account, product, trading, and advice fee.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Calculate the cost at your current and expected future balance.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Avoid frequent trading that adds friction without a clear purpose.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Cheapest does not automatically mean suitable. Compare diversification, tracking, service, tax consequences, and switching costs before changing an existing holding.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>A fee removes more than its invoice</summary><p>The direct fee is only the first cost. Money paid away this year cannot earn returns next year, so the gap compounds. A one-percentage-point annual difference can become a large portion of the ending balance over a multi-decade horizon.</p><p>Cost still needs context. A planning service that improves taxes, behaviour, or estate decisions may be valuable. The investor should be able to name the service, calculate its total cost, and compare it with a realistic alternative.</p></details><details class="guide-detail" id="decision-map"><summary>Price the service and the product separately</summary><p>An all-in percentage can combine several things: investment management, financial planning, tax coordination, trading, custody, and access to an adviser. Compare the investment exposure with a similar lower-cost option, then evaluate the remaining service on its own. This avoids assuming every expensive portfolio includes comprehensive advice or that every low-cost portfolio solves planning needs.</p><p>Switching deserves its own calculation. A cheaper fund can save money for decades, but realizing a large taxable gain, paying a deferred sales charge, or sitting out of the market during a transfer can create immediate costs. List one-time consequences beside the annual saving and estimate the break-even period. The decision is strongest when the replacement preserves the intended exposure and the ongoing saving clearly outweighs the transition.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">Two funds with similar holdings</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">Recurring expense, tracking, spread, and service differences.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Tax, exit charges, transfer time, and feature differences.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Calculate the one-time cost and the years required to recover it.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Create a complete fee inventory in both percentages and dollars. Include fund expenses, advice charges, account administration, trading commissions, bid-ask spreads, currency conversion, transfer fees, and any sales charges. Apply recurring percentages to the current balance and to a plausible future balance. A fee that looks minor on $10,000 can become a major annual expense after decades of contributions.</p><p>Cost is not the same as value. Advice may include planning, tax coordination, behaviour coaching, or specialized portfolio work. Write down what service is being purchased, how often it is delivered, and how success will be evaluated. Compare alternatives with similar holdings and service levels. Before switching, include one-time tax, redemption, and transfer consequences so saving an annual fee does not create a larger immediate cost.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Read the fund facts or prospectus.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>List every account, product, trading, and advice fee.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Calculate the cost at your current and expected future balance.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Avoid frequent trading that adds friction without a clear purpose.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Create a complete fee inventory in both percentages and dollars. Include fund expenses, advice charges, account administration, trading commissions, bid-ask spreads, currency conversion, transfer fees, and any sales charges. Apply recurring percentages to the current balance and to a plausible future balance. A fee that looks minor on $10,000 can become a major annual expense after decades of contributions.</p><p>Cost is not the same as value. Advice may include planning, tax coordination, behaviour coaching, or specialized portfolio work. Write down what service is being purchased, how often it is delivered, and how success will be evaluated. Compare alternatives with similar holdings and service levels. Before switching, include one-time tax, redemption, and transfer consequences so saving an annual fee does not create a larger immediate cost.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>On a $100,000 balance, a 1% annual fee starts near $1,000 per year before considering changes in value. That amount also loses its opportunity to compound in future years.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Where do I find a fund&#039;s fees?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Where do I find a fund&#039;s fees?</summary>
           <p>Start with the fund facts or prospectus and look for the management expense ratio and trading expense ratio. Then check the brokerage and adviser disclosures for charges outside the fund. Account statements may show some costs, but not every cost appears as a separate withdrawal.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Is the lowest-fee fund always best?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Is the lowest-fee fund always best?</summary>
           <p>No. The investment must still provide the right exposure, diversification, liquidity, tracking, and service. Among genuinely comparable products, lower recurring cost is a strong advantage because the saving is certain while future outperformance is not.</p>
-        </div>
-        <div class="faq-item">
-          <h3>How often should I review fees?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>How often should I review fees?</summary>
           <p>Review them at least annually and whenever the balance, adviser arrangement, fund class, or account provider changes. Express the result in dollars as well as percentages, and ask whether each recurring cost still provides a service or exposure the plan needs.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Cheapest does not automatically mean suitable. Compare diversification, tracking, service, tax consequences, and switching costs before changing an existing holding.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>You cannot control the market, but you can understand what you pay. Keep costs intentional and make sure each fee buys something the plan actually needs.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing/getting-started/understanding-fees" target="_blank" rel="noopener noreferrer">Investor.gov: Understanding Fees</a></li></ul>
     </section>
   </article>
@@ -631,17 +604,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="active-vs-passive.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>Active vs. Passive Investing: What the Evidence Means</h3>
-        <div class="meta">7 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
     <a href="mutual-funds-vs-etfs.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>Mutual Funds vs. ETFs: What Is the Actual Difference?</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
     <a href="compound-interest.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Compound Interest: The Most Powerful Force in Investing</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

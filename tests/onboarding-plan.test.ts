@@ -11,6 +11,7 @@ const mocks = vi.hoisted(() => ({
   planner: {
     snapshot: null as PlannerSnapshot | null,
     completeOnboarding: vi.fn<(plan: FinancialPlan) => Promise<boolean>>(),
+    saveMessage: undefined as string | undefined,
   },
   navigate: vi.fn<(path: string, options?: { replace?: boolean }) => void>(),
 }));
@@ -125,7 +126,8 @@ describe('onboarding form submission', () => {
 
     expect(mocks.planner.completeOnboarding).toHaveBeenCalledTimes(1);
     expect(mocks.navigate).not.toHaveBeenCalled();
-    expect(document.querySelector('[role="alert"]')).toBeNull();
+    expect(document.querySelector('[role="alert"]')?.textContent).toContain('Your plan could not be saved');
+    expect((document.getElementById('onboarding-income') as HTMLInputElement).value).toBe('$60,000');
 
     await submitForm();
     expect(mocks.planner.completeOnboarding).toHaveBeenCalledTimes(2);
@@ -150,5 +152,35 @@ describe('onboarding form submission', () => {
     expect(plan.expenses).toEqual([]);
     expect(financialPlanSchema.safeParse(plan).success).toBe(true);
     expect(mocks.navigate).toHaveBeenCalledWith('/dashboard', { replace: true });
+  });
+
+  it('does not submit the prior amount after valid input is replaced with malformed text', async () => {
+    await act(async () => root.render(createElement(OnboardingPage)));
+    await fillAmount('onboarding-income', '60000');
+    await fillAmount('onboarding-income', 'abc');
+    await submitForm();
+    expect(mocks.planner.completeOnboarding).not.toHaveBeenCalled();
+    expect(document.querySelector('[role="alert"]')?.textContent).toContain('valid number');
+    expect(document.activeElement?.id).toBe('onboarding-income');
+  });
+
+  it('keeps entries and reports unexpected save failures', async () => {
+    mocks.planner.completeOnboarding.mockRejectedValue(new Error('Service unavailable'));
+    await act(async () => root.render(createElement(OnboardingPage)));
+    await fillAmount('onboarding-income', '60000');
+    await submitForm();
+    expect(document.querySelector('[role="alert"]')?.textContent).toContain('Your entries are still here');
+    expect(mocks.navigate).not.toHaveBeenCalled();
+    expect(document.querySelector('button[type="submit"]')?.hasAttribute('disabled')).toBe(false);
+  });
+
+  it('keeps dependent age constraints finite when the retirement age draft is malformed', async () => {
+    await act(async () => root.render(createElement(OnboardingPage)));
+    await fillAmount('onboarding-retirementAge', 'bad');
+    const endAge = document.getElementById('onboarding-endAge');
+    expect(Number.isFinite(Number(endAge?.getAttribute('aria-valuemin')))).toBe(true);
+    expect(endAge?.getAttribute('aria-valuemin')).not.toBe('NaN');
+    await submitForm();
+    expect(mocks.planner.completeOnboarding).not.toHaveBeenCalled();
   });
 });

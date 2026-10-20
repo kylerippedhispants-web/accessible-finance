@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/registered-accounts.html",
       "inLanguage": "en-CA",
       "articleSection": "Canadian Money",
-      "wordCount": 1054,
+      "wordCount": 901,
       "timeRequired": "PT6M",
-      "dateModified": "2026-07-27",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -447,9 +453,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <span class="meta-item">Intermediate</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Choose the account by purpose, then choose suitable investments inside it.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">Prioritize benefits, then flexibility and tax timing</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">One year, three account decisions</a></li>
-      <li><a href="#decision-map">Room is valuable but not interchangeable</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">One year, three account decisions</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>TFSAs use after-tax contributions and generally allow tax-free withdrawals. RRSP contributions may be deductible and withdrawals are generally taxable. FHSAs offer deductible contributions and tax-free qualifying first-home withdrawals. RESPs can attract education grants and have their own payment rules.</p><p>Account choice should consider the goal, expected tax rates, access needs, contribution room, grants, and employer programs.</p><h3>The essentials</h3><ul><li>Account type determines tax rules; holdings determine investment risk.</li><li>Contribution room is personal and must be verified.</li><li>Withdrawals can affect future room or tax differently by account.</li><li>Government grants or employer matching can change priority.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>Prioritize benefits, then flexibility and tax timing</span></h2>
-      <p>Account priority is often decided at the margin. An employer match may make the next RRSP dollar unusually valuable. An FHSA may fit an eligible first-home goal. A TFSA can preserve withdrawal flexibility. An RESP may attract grants for education.</p><p>Room should not be filled merely because it exists. High-interest debt, emergency savings, expected withdrawals, and benefit interactions can matter more than maximizing every registered account in one year.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A first-home saver may use an FHSA for the home goal while keeping emergency money in a TFSA. Retirement contributions can continue separately in an RRSP. One person can use several accounts for different jobs.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>One year, three account decisions</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>One year, three account decisions</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Canadian planning example</div>
       <p>An eligible first-home buyer has $18,000 to allocate in 2026. The person contributes $8,000 to an FHSA, uses $3,000 to capture a full employer RRSP match, and places the remaining $7,000 in a TFSA if enough personal room is available.</p><p>The sequence uses the FHSA's home-focused treatment, captures employer compensation, and retains flexibility. It is an illustration, not a universal order; debt, tax rates, room, and the home timeline can change it.</p>
       <dl class="case-facts"><div class="case-fact"><dt>FHSA contribution</dt><dd>$8,000</dd></div><div class="case-fact"><dt>RRSP for match</dt><dd>$3,000</dd></div><div class="case-fact"><dt>TFSA contribution</dt><dd>$7,000</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>Room is valuable but not interchangeable</span></h2>
-      <p>Registered accounts shelter or defer tax in different ways and attach different conditions to contributions and withdrawals. Contribution room can be more valuable for a high-growth asset held for decades than for cash needed next month, but the account must still suit the goal. Using every available dollar of room is not automatically wise if doing so creates an inaccessible or tax-inefficient withdrawal later.</p><p>Account coordination becomes more important as the household grows. Spouses may have different incomes, pensions, room, beneficiaries, and expected retirement withdrawals. Employer plans can consume or create related room through pension rules. Keep one household map showing balances, tax treatment, contribution records, and intended withdrawal jobs, then verify current rules before moving or contributing large amounts.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Define the goal for each account.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Verify current room and eligibility.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Capture grants or matching you qualify for.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Keep records of contributions, withdrawals, and transfers.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Overcontributions and non-qualifying withdrawals can create tax consequences. Verify current CRA and program rules rather than relying on old contribution figures.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Prioritize benefits, then flexibility and tax timing</summary><p>Account priority is often decided at the margin. An employer match may make the next RRSP dollar unusually valuable. An FHSA may fit an eligible first-home goal. A TFSA can preserve withdrawal flexibility. An RESP may attract grants for education.</p><p>Room should not be filled merely because it exists. High-interest debt, emergency savings, expected withdrawals, and benefit interactions can matter more than maximizing every registered account in one year.</p></details><details class="guide-detail" id="decision-map"><summary>Room is valuable but not interchangeable</summary><p>Registered accounts shelter or defer tax in different ways and attach different conditions to contributions and withdrawals. Contribution room can be more valuable for a high-growth asset held for decades than for cash needed next month, but the account must still suit the goal. Using every available dollar of room is not automatically wise if doing so creates an inaccessible or tax-inefficient withdrawal later.</p><p>Account coordination becomes more important as the household grows. Spouses may have different incomes, pensions, room, beneficiaries, and expected retirement withdrawals. Employer plans can consume or create related room through pension rules. Keep one household map showing balances, tax treatment, contribution records, and intended withdrawal jobs, then verify current rules before moving or contributing large amounts.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">Saving for an uncertain medium-term goal</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">Withdrawal flexibility may matter more than a current deduction.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">An ordinary withdrawal can have very different consequences from a direct transfer.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Use the prescribed institution-to-institution process and retain confirmations.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Treat an account as a tax container and the investments as its contents. A TFSA, RRSP, FHSA, RDSP, pension, and non-registered account can each hold different eligible assets while applying different contribution, deduction, growth, and withdrawal rules. Choosing an account does not choose the portfolio. First understand the goal and tax treatment; then select suitable investments inside it.</p><p>Maintain an account map using current official records. Track available room, contributions, withdrawals, carry-forward rules, beneficiary details, employer matching, and any deadlines relevant to the goal. Do not rely solely on a financial institution display because it may not include activity elsewhere or recent transactions. When moving a registered account, use the proper direct-transfer process so the movement is not accidentally treated as a withdrawal.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Define the goal for each account.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Verify current room and eligibility.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Capture grants or matching you qualify for.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Keep records of contributions, withdrawals, and transfers.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Treat an account as a tax container and the investments as its contents. A TFSA, RRSP, FHSA, RDSP, pension, and non-registered account can each hold different eligible assets while applying different contribution, deduction, growth, and withdrawal rules. Choosing an account does not choose the portfolio. First understand the goal and tax treatment; then select suitable investments inside it.</p><p>Maintain an account map using current official records. Track available room, contributions, withdrawals, carry-forward rules, beneficiary details, employer matching, and any deadlines relevant to the goal. Do not rely solely on a financial institution display because it may not include activity elsewhere or recent transactions. When moving a registered account, use the proper direct-transfer process so the movement is not accidentally treated as a withdrawal.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A first-home saver may use an FHSA for the home goal while keeping emergency money in a TFSA. Retirement contributions can continue separately in an RRSP. One person can use several accounts for different jobs.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Which registered account should I fill first?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Which registered account should I fill first?</summary>
           <p>It depends on income, employer matching, home-buying plans, disability eligibility, retirement needs, benefits, and expected future tax rates. Capture employer matching first when appropriate, then compare each account against the next specific goal rather than following one universal sequence.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can registered accounts hold cash and investments?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Can registered accounts hold cash and investments?</summary>
           <p>Many can hold savings products, guaranteed investments, bonds, funds, and other qualified investments, depending on the provider. The account label describes tax rules; the chosen holding determines market risk, return, liquidity, and fees.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Why should I verify contribution room myself?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Why should I verify contribution room myself?</summary>
           <p>Overcontributions can create tax and administrative problems. Room can be affected by activity at multiple institutions and may not update instantly in government records. Keep your own ledger and confirm current rules with the responsible agency before a large contribution.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Overcontributions and non-qualifying withdrawals can create tax consequences. Verify current CRA and program rules rather than relying on old contribution figures.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Choose the account by purpose, then choose suitable investments inside it. The account and the asset allocation are two separate layers of the plan.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/what.html" target="_blank" rel="noopener noreferrer">CRA: Tax-Free Savings Account</a></li><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/registered-retirement-savings-plan-rrsp.html" target="_blank" rel="noopener noreferrer">CRA: Registered Retirement Savings Plan</a></li><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account.html" target="_blank" rel="noopener noreferrer">CRA: First Home Savings Account</a></li><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html" target="_blank" rel="noopener noreferrer">Canada Revenue Agency: Registered Plan and TFSA Limits</a></li></ul>
     </section>
   </article>
@@ -631,17 +604,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="tfsa-explained.html" class="related-card reveal">
         <div class="cat">Canadian Money</div>
         <h3>TFSA Explained: How It Works and When to Use It</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="rrsp-explained.html" class="related-card reveal">
         <div class="cat">Canadian Money</div>
         <h3>RRSP Explained: Deferrals, Deductions, and Withdrawals</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="fhsa-explained.html" class="related-card reveal">
         <div class="cat">Canadian Money</div>
         <h3>The FHSA: Canada&#039;s First Home Savings Account Explained</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>

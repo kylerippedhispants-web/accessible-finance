@@ -166,6 +166,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .faq-item { padding: 25px 0 27px; border-top: 1px solid var(--border); }
 .article-body .faq-item h3 { font-family: var(--body); font-style: normal; font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0; color: var(--ink); }
 .article-body .faq-item p { font-size: 16.5px; line-height: 1.75; margin-top: 9px; }
+.article-body .guide-detail { padding: 18px 0; border-top: 1px solid var(--border); }
+.article-body .guide-detail > summary { min-height: 44px; display: list-item; padding: 10px 6px; cursor: pointer; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--green); }
+.article-body .guide-detail[open] > summary { margin-bottom: 12px; }
+.article-body .guide-extra-intro { font-size: 16px; margin-bottom: 20px; }
+.article-body .guide-detail p { font-size: 17px; }
+.article-body .guide-detail.faq-item { padding: 12px 0; }
 .article-body .source-list { counter-reset: source; gap: 0; border-top: 1px solid var(--border); }
 .article-body .source-list li { counter-increment: source; padding: 16px 0 16px 38px; border-bottom: 1px solid var(--border); }
 .article-body .source-list li::before { content: counter(source, decimal-leading-zero); top: 19px; width: auto; height: auto; background: transparent; font-family: var(--body); font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--gold); }
@@ -319,9 +325,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/investing-vs-speculating.html",
       "inLanguage": "en-CA",
       "articleSection": "Fundamentals",
-      "wordCount": 1322,
-      "timeRequired": "PT8M",
-      "dateModified": "2026-07-27",
+      "wordCount": 1166,
+      "timeRequired": "PT7M",
+      "dateModified": "2026-10-20",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -443,13 +449,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>The actual difference between investing and <em>speculating</em></h1>
     <p class="deck">Both involve risk, but they rely on different reasons for expecting a return. Knowing which one you are doing leads to clearer decisions.</p>
     <div class="article-meta">
-      <span class="meta-item">8 min read</span>
+      <span class="meta-item">7 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
-
+    
     <div class="article-brief" aria-label="Guide at a glance">
-      <div class="brief-item">
+      <div class="brief-item" id="key-takeaway">
         <span class="brief-label">Core idea</span>
         <p>Investing owns productive assets with a long-term plan.</p>
       </div>
@@ -473,19 +479,14 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">11 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#deeper-look">The thesis matters more than the label</a></li>
-      <li><a href="#practical-example">A practical example</a></li>
-      <li><a href="#real-world-case">The 2021 meme-stock episode</a></li>
-      <li><a href="#decision-map">When the line gets blurry</a></li>
-      <li><a href="#build-your-plan">Build it into your plan</a></li>
-      <li><a href="#common-questions">Questions people ask</a></li>
-      <li><a href="#what-to-watch-for">What to watch for</a></li>
-      <li><a href="#key-takeaway">Key takeaway</a></li>
+      <li><a href="#practical-example">The 2021 meme-stock episode</a></li>
+      <li><a href="#build-your-plan">Your next-step checklist</a></li>
+      <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
     </ul>
   </details>
@@ -502,32 +503,56 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <p>A diversified fund owns businesses that sell products, employ people, and may earn profits. A bond represents a promise to repay borrowed money with interest. Those assets have economic activity behind them. A short-term trade based only on a chart or online excitement relies much more heavily on price movement.</p><p>The distinction is a spectrum, not a courtroom verdict. A researched individual stock can contain elements of both. The useful question is whether your expected return comes from durable cash flows and time, or from being right about a near-term price change.</p><h3>The essentials</h3><ul><li><strong>Investing:</strong> usually diversified, long term, and tied to productive assets.</li><li><strong>Speculating:</strong> usually concentrated, price-driven, and dependent on timing.</li><li><strong>Honesty matters:</strong> calling a trade an investment does not change its risk.</li><li><strong>Position size matters:</strong> money needed for core goals should not depend on a single bet.</li></ul>
     </section>
     <section>
-      <h2 id="deeper-look"><span class="section-index" aria-hidden="true">03</span><span>The thesis matters more than the label</span></h2>
-      <p>A useful way to separate the two activities is to write down the source of the expected return. For a bond, it may be scheduled interest and repayment. For a diversified equity fund, it is a share of the earnings produced by many businesses. For a speculative trade, the return often depends mainly on a future buyer accepting a higher price.</p><p>That does not mean every long-term investment succeeds or every speculation fails. It means the risk controls should be different. A retirement portfolio can rely on broad ownership, time, and recurring contributions. A concentrated price bet needs a strict loss budget because its outcome may depend on one narrative, one security, and one exit window.</p>
-    </section>
-    <section>
-      <h2 id="practical-example"><span class="section-index" aria-hidden="true">04</span><span>A practical example</span></h2>
-      <p>A monthly contribution to a broad-market index fund for a 25-year retirement goal is investing. Buying a stock after a viral post, with no valuation work and a plan to sell after a quick jump, is speculation. The same person can do both, but should not fund both from the same goal.</p>
-    </section>
-    <section>
-      <h2 id="real-world-case"><span class="section-index" aria-hidden="true">05</span><span>The 2021 meme-stock episode</span></h2>
-
+      <h2 id="practical-example"><span class="section-index" aria-hidden="true">03</span><span>The 2021 meme-stock episode</span></h2>
+      <div id="real-world-case">
     <div class="case-study">
       <div class="case-study-label">Historical market example</div>
       <p>In January 2021, GameStop and several other stocks rose dramatically as individual-investor interest spread through social media. The SEC later examined the episode, including short selling, options, order handling, and temporary trading restrictions.</p><p>Some buyers had a detailed view of the business, but many trades were explicitly about crowd behaviour and the next price move. The lesson is not that buying one named stock is always speculation. It is that a thesis based on who may buy next requires a very different position size from money assigned to rent, tuition, or retirement.</p>
       <dl class="case-facts"><div class="case-fact"><dt>Episode</dt><dd>Jan. 2021</dd></div><div class="case-fact"><dt>Main catalyst</dt><dd>Social attention</dd></div><div class="case-fact"><dt>Planning lesson</dt><dd>Limit the stake</dd></div></dl>
-    </div>
+    </div></div>
     </section>
     <section>
-      <h2 id="decision-map"><span class="section-index" aria-hidden="true">06</span><span>When the line gets blurry</span></h2>
-      <p>Productive assets can still be speculative at the wrong price or in the wrong position size. A profitable company purchased after an extreme run-up may require years of unusually strong growth merely to justify the price. Conversely, an unusual asset is not automatically irrational if the buyer understands that its return depends on scarcity, demand, and resale rather than cash flow. The honest description of the return source matters more than the category name.</p><p>The distinction also changes over the life of a position. A carefully researched stock can become speculation when new evidence breaks the thesis but the owner keeps it only because selling would confirm a loss. A short-term trade does not become a retirement investment because its price fell. Review the original reason, current evidence, and portfolio role separately from the purchase price. That keeps identity and regret from rewriting the plan.</p><h3>Use the idea in context</h3>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      
+    <ol class="decision-steps">
+      
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">1</span>
+          <div class="decision-step-copy">
+            <strong>Write down why the asset should produce a return.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">2</span>
+          <div class="decision-step-copy">
+            <strong>Name the intended holding period before buying.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">3</span>
+          <div class="decision-step-copy">
+            <strong>Decide what evidence would prove the original thesis wrong.</strong>
+          </div>
+        </li>
+        <li class="decision-step">
+          <span class="decision-step-number" aria-hidden="true">4</span>
+          <div class="decision-step-copy">
+            <strong>Keep speculative positions separate from goal-based savings.</strong>
+          </div>
+        </li>
+    </ol>
+        <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Excitement is not evidence, and a long holding period does not automatically turn a weak thesis into an investment. If a total loss would derail an important goal, the position is too large for that goal.</p></div>
+    </section>
+    <section>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>The thesis matters more than the label</summary><p>A useful way to separate the two activities is to write down the source of the expected return. For a bond, it may be scheduled interest and repayment. For a diversified equity fund, it is a share of the earnings produced by many businesses. For a speculative trade, the return often depends mainly on a future buyer accepting a higher price.</p><p>That does not mean every long-term investment succeeds or every speculation fails. It means the risk controls should be different. A retirement portfolio can rely on broad ownership, time, and recurring contributions. A concentrated price bet needs a strict loss budget because its outcome may depend on one narrative, one security, and one exit window.</p></details><details class="guide-detail" id="decision-map"><summary>When the line gets blurry</summary><p>Productive assets can still be speculative at the wrong price or in the wrong position size. A profitable company purchased after an extreme run-up may require years of unusually strong growth merely to justify the price. Conversely, an unusual asset is not automatically irrational if the buyer understands that its return depends on scarcity, demand, and resale rather than cash flow. The honest description of the return source matters more than the category name.</p><p>The distinction also changes over the life of a position. A carefully researched stock can become speculation when new evidence breaks the thesis but the owner keeps it only because selling would confirm a loss. A short-term trade does not become a retirement investment because its price fell. Review the original reason, current evidence, and portfolio role separately from the purchase price. That keeps identity and regret from rewriting the plan.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
         <span role="columnheader">Situation</span>
         <span role="columnheader">What matters</span>
         <span role="columnheader">Practical move</span>
       </div>
-
+      
         <div class="decision-map-row" role="row">
           <div class="decision-map-cell situation" role="cell" data-label="Situation">A diversified retirement contribution</div>
           <div class="decision-map-cell" role="cell" data-label="What matters">Broad ownership, recurring deposits, and a multi-decade goal.</div>
@@ -543,77 +568,25 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
           <div class="decision-map-cell" role="cell" data-label="What matters">Crowd behaviour, entry price, exit liquidity, and the possibility of a total loss.</div>
           <div class="decision-map-cell" role="cell" data-label="Practical move">Use only a separate loss budget that cannot affect essential goals.</div>
         </div>
-    </div>
-    </section>
-    <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">07</span><span>Build it into your plan</span></h2>
-
-    <p>Put the distinction to work by giving every dollar a job before choosing an asset. Money for retirement, education, a home, or another important goal belongs in a goal-based portfolio with a time horizon, a target mix, and a contribution plan. Money reserved for a concentrated idea belongs in a separate speculation allowance. Keeping the two pools apart prevents a temporary trade from quietly becoming the plan for something you cannot afford to postpone.</p><p>For any concentrated purchase, write a short thesis before placing the order. Name the source of the expected return, the evidence supporting it, the conditions that would prove it wrong, and the maximum amount you can lose. Review the quality of that reasoning after the outcome. A lucky gain built on a weak process is not evidence of skill, while a well-reasoned investment can still have a disappointing result.</p>
-    <h3>Your four-part worksheet</h3>
-    <ol class="decision-steps">
-
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">1</span>
-          <div class="decision-step-copy">
-            <strong>Write down why the asset should produce a return.</strong>
-            <p>Add the amount, deadline, and evidence behind this step. A dated note makes the decision reviewable instead of relying on memory after the outcome is known.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">2</span>
-          <div class="decision-step-copy">
-            <strong>Name the intended holding period before buying.</strong>
-            <p>Turn the idea into a measurable rule. State what you will do, how often you will do it, and which result would require a deliberate review.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">3</span>
-          <div class="decision-step-copy">
-            <strong>Decide what evidence would prove the original thesis wrong.</strong>
-            <p>Check how this step interacts with cash reserves, debt, taxes, fees, and the rest of the portfolio. A choice can look sensible alone and still weaken the wider plan.</p>
-          </div>
-        </li>
-        <li class="decision-step">
-          <span class="decision-step-number" aria-hidden="true">4</span>
-          <div class="decision-step-copy">
-            <strong>Keep speculative positions separate from goal-based savings.</strong>
-            <p>Set a review trigger before acting. Use a meaningful change in the goal, household, or evidence rather than a price headline as the reason to revisit it.</p>
-          </div>
-        </li>
-    </ol>
-    <div class="planning-close">
-      <p><strong>Keep the finished worksheet short.</strong> One page is enough. Review it annually and after a material change to income, family needs, tax circumstances, or the goal date. That rhythm keeps the plan current without turning every market move into a new decision.</p><p>Before acting, test a lower-return or early-loss scenario and record the source and date for any rate, limit, or rule. Store the page where you can find it during a stressful week. At the next review, compare actual contributions, costs, and behaviour with the assumptions before changing the strategy. Complexity should earn its place by solving a named problem.</p>
-    </div>
-    </section>
-    <section>
-      <h2 id="common-questions"><span class="section-index" aria-hidden="true">08</span><span>Questions people ask</span></h2>
-
+    </div></details><details class="guide-detail"><summary>Put the idea into a wider plan</summary><p>Put the distinction to work by giving every dollar a job before choosing an asset. Money for retirement, education, a home, or another important goal belongs in a goal-based portfolio with a time horizon, a target mix, and a contribution plan. Money reserved for a concentrated idea belongs in a separate speculation allowance. Keeping the two pools apart prevents a temporary trade from quietly becoming the plan for something you cannot afford to postpone.</p><p>For any concentrated purchase, write a short thesis before placing the order. Name the source of the expected return, the evidence supporting it, the conditions that would prove it wrong, and the maximum amount you can lose. Review the quality of that reasoning after the outcome. A lucky gain built on a weak process is not evidence of skill, while a well-reasoned investment can still have a disappointing result.</p></details><details class="guide-detail"><summary>Another way to think about it</summary><p>A monthly contribution to a broad-market index fund for a 25-year retirement goal is investing. Buying a stock after a viral post, with no valuation work and a plan to sell after a quick jump, is speculation. The same person can do both, but should not fund both from the same goal.</p></details><div id="common-questions">
     <div class="faq-list">
-
-        <div class="faq-item">
-          <h3>Does holding something for years make it an investment?</h3>
+      
+        <details class="guide-detail faq-item">
+          <summary>Does holding something for years make it an investment?</summary>
           <p>No. Time alone does not create productive value or repair a thesis that never had evidence behind it. A long holding period is useful when it allows earnings, interest, or broad economic growth to accumulate. Holding a price-driven bet indefinitely can simply turn a short-term speculation into a long-term loss.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Is buying an individual stock always speculation?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>Is buying an individual stock always speculation?</summary>
           <p>Not automatically. A buyer may study the business, valuation, finances, and competitive position carefully. The position is still concentrated, however, so company-specific risk remains much higher than in a broad fund. Research can improve a thesis, but it cannot provide the diversification of owning many businesses.</p>
-        </div>
-        <div class="faq-item">
-          <h3>How much is reasonable to speculate with?</h3>
+        </details>
+        <details class="guide-detail faq-item">
+          <summary>How much is reasonable to speculate with?</summary>
           <p>There is no universal percentage. Start only after near-term bills, emergency savings, expensive debt, and important long-term contributions are addressed. The right amount is one that could fall to zero without changing your housing, retirement date, education plan, or ability to sleep and continue the core strategy.</p>
-        </div>
-    </div>
+        </details>
+    </div></div>
     </section>
     <section>
-      <h2 id="what-to-watch-for"><span class="section-index" aria-hidden="true">09</span><span>What to watch for</span></h2>
-      <div class="callout"><div class="callout-label">Important</div><p>Excitement is not evidence, and a long holding period does not automatically turn a weak thesis into an investment. If a total loss would derail an important goal, the position is too large for that goal.</p></div>
-    </section>
-    <section>
-      <h2 id="key-takeaway"><span class="section-index" aria-hidden="true">10</span><span>Key takeaway</span></h2>
-      <div class="callout bottom"><div class="callout-label">Bottom line</div><p>Investing owns productive assets with a long-term plan. Speculating makes a narrower bet on price. Know which activity you are funding before you click buy.</p></div>
-    </section>
-    <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">11</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Introduction to Investing</a></li><li><a href="https://www.sec.gov/file/staff-report-equity-options-market-struction-conditions-early-2021pdf" target="_blank" rel="noopener noreferrer">U.S. SEC: Staff Report on Equity and Options Market Structure Conditions in Early 2021</a></li></ul>
     </section>
   </article>
@@ -631,12 +604,12 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="what-risk-means.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>What Risk Really Means in Investing</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="diversification.html" class="related-card reveal">
         <div class="cat">Portfolio Thinking</div>
         <h3>Understanding Diversification</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">5 min read &middot; Beginner</div>
       </a>
     <a href="first-investment-framework.html" class="related-card reveal">
         <div class="cat">Getting Started</div>
@@ -710,8 +683,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <div class="nl-label">The Dispatch</div>
     <div class="nl-title" id="nlTitle">One investing idea,<br><em>explained clearly.</em></div>
     <p class="nl-sub">New guides and practical notes, sent occasionally. No spam or sales pitch.</p>
-  <iframe src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
-  <p class="fine">No spam. Unsubscribe anytime. We never share your email.</p>
+  <iframe data-src="https://accessiblefinance.substack.com/embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" title="Accessible Finance newsletter signup"></iframe>
+  <p class="fine">Email is managed by Substack. Unsubscribe anytime.</p>
 </div>
 </div>
 <script>
