@@ -14,6 +14,20 @@ onboarding, save/reload, account separation, and JSON export/import proofs are
 recorded below. Two fictional browser-created plans remain after the earlier
 authenticated harness cleanup.
 
+## October 23 usability and visual polish
+
+- [x] Match mobile navigation typography and identify the current Learn/Tools
+  section. Keep native disclosure controls inside keyboard focus containment.
+- [x] Move guide pagination focus to the first new card, clear of the sticky
+  navigation. Add a direct reset action when search and topic return no guides.
+- [x] Preserve keyboard position when removing cash-flow categories, including
+  the last remaining category, and announce the removed item.
+- [x] Keep excluded planner entries readable with a soft background, dashed
+  border and status badge. Enlarge collection labels and preserve editor-heading
+  clearance below the mobile header.
+- [x] Size the planner drawer to the visible viewport and allow bottom safe-area
+  space. Keep the existing financial calculations, data storage and accounts.
+
 ## October 23 mobile performance improvements
 
 - [x] Show the homepage hero immediately and remove reveal delays on narrow
