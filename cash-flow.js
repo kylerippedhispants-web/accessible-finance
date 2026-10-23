@@ -33,6 +33,7 @@
     addIncome: document.getElementById('addIncome'),
     addExpense: document.getElementById('addExpense'),
     reset: document.getElementById('resetPlan'),
+    notice: document.getElementById('cashFlowNotice'),
     chart: document.getElementById('sankeyChart'),
     chartFrame: document.getElementById('sankeyFrame'),
     chartEmpty: document.getElementById('chartEmpty'),
@@ -307,8 +308,14 @@
     if (!button) return;
     const type = button.dataset.remove;
     const key = type === 'income' ? 'income' : 'expenses';
+    const removedIndex = state[key].findIndex((row) => row.id === button.dataset.id);
+    if (removedIndex < 0) return;
+    const removedName = state[key][removedIndex].name.trim() || (key === 'income' ? 'Income category' : 'Expense category');
     state[key] = state[key].filter((row) => row.id !== button.dataset.id);
-    renderRows(type);
+    const nextRow = state[key][Math.min(removedIndex, state[key].length - 1)];
+    renderRows(type, nextRow?.id);
+    if (!nextRow) (key === 'income' ? elements.addIncome : elements.addExpense).focus();
+    if (elements.notice) elements.notice.textContent = `${removedName} removed.`;
     updateOutputs();
   }
 

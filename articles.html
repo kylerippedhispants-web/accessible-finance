@@ -117,9 +117,12 @@ nav.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,
 .card .read { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink3); margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
 .card .read .arrow { color: var(--ink); transition: transform 0.3s; }
 .card:hover .read .arrow { transform: translateX(4px); color: var(--green); }
+#articlesGrid .card { scroll-margin-top: 100px; }
 
 .empty-state { text-align: center; padding: 80px 24px; font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ink3); display: none; }
 .empty-state.show { display: block; }
+.empty-state p { margin-top: 12px; font: 400 16px/1.6 var(--body); }
+.empty-state .load-btn { margin-top: 24px; min-height: 44px; padding: 13px 22px; white-space: normal; }
 
 .load-wrap { text-align: center; margin-top: 56px; }
 .load-btn { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; background: var(--ink); color: var(--bg); border: 0; padding: 18px 40px; border-radius: 100px; cursor: pointer; transition: background 0.3s, transform 0.3s; }
@@ -896,7 +899,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <!-- GUIDE_GRID_END -->
   </div>
 
-  <div class="empty-state" id="emptyState"><strong>No guides match your search and topic.</strong><br>Try another search or choose All Topics.</div>
+  <div class="empty-state" id="emptyState">
+    <strong>No guides match your search and topic.</strong>
+    <p>Try another search or clear both filters to explore the library.</p>
+    <button class="load-btn" id="clearGuideFilters" type="button">Clear search and topic</button>
+  </div>
 
   <div class="load-wrap">
     <button class="load-btn" id="loadMore" type="button">Load More Guides</button>
@@ -1013,6 +1020,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     const filterBtns = document.querySelectorAll('.filter-btn');
     const loadBtn = document.getElementById('loadMore');
     const emptyState = document.getElementById('emptyState');
+    const clearFilters = document.getElementById('clearGuideFilters');
     const searchInput = document.getElementById('guideSearch');
     const resultCount = document.getElementById('guideResults');
     const searchableText = new Map([...cards, ...(featured ? [featured] : [])].map(card => [
@@ -1073,8 +1081,20 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     });
 
     loadBtn.addEventListener('click', () => {
+      const firstNewGuide = cards.filter(card => matches(card, currentFilter))[visibleCount];
       visibleCount += PAGE_SIZE;
       applyView();
+      if (firstNewGuide) {
+        firstNewGuide.focus({ preventScroll: true });
+        firstNewGuide.scrollIntoView({ block: 'start', behavior: 'instant' });
+      }
+    });
+
+    clearFilters.addEventListener('click', () => {
+      searchInput.value = '';
+      searchWords = [];
+      Array.from(filterBtns).find(button => button.dataset.filter === 'all').click();
+      searchInput.focus();
     });
 
     // URL ?cat=... pre-filter

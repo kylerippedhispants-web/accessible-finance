@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Locator, type Page } from '@playwright/test';
 
 async function openDemo(page: Page) {
@@ -113,6 +114,40 @@ test('permitted long names remain contained in cards, draft feedback, and editor
   await expectNoOverflow(page);
   await page.getByRole('button', { name: `Edit income source ${name}`, exact: true }).click();
   await expect(page.getByRole('heading', { name: `Edit ${name}`, exact: true })).toBeVisible();
+  await expectNoOverflow(page);
+});
+
+test('excluded items remain readable and their editor clears the mobile header', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 640 });
+  await openDemo(page);
+  await navigate(page, 'Income');
+  const name = 'Fictional paused income';
+  await page.getByRole('button', { name: 'Add income', exact: true }).click();
+  await page.getByLabel('Income name').fill(name);
+  await page.getByLabel('Amount').fill('100');
+  const included = page.getByRole('checkbox', { name: 'Include in projections' });
+  await included.focus();
+  await page.keyboard.press('Space');
+  await expect(included).not.toBeChecked();
+  await page.getByRole('button', { name: 'Add to plan', exact: true }).click();
+
+  const card = page.locator('.entity-card').filter({ has: page.getByRole('heading', { name, exact: true }) });
+  await card.scrollIntoViewIfNeeded();
+  await expect(card.getByText('Excluded', { exact: true })).toBeVisible();
+  const edit = card.getByRole('button', { name: `Edit income source ${name}`, exact: true });
+  await expect(edit).toBeEnabled();
+  await expect(card.getByRole('button', { name: `Delete income source ${name}`, exact: true })).toBeEnabled();
+  const contrast = await new AxeBuilder({ page }).include('.entity-disabled').withRules(['color-contrast']).analyze();
+  expect(contrast.violations).toEqual([]);
+  await expectNoOverflow(page);
+
+  await activateByKeyboard(page, edit);
+  await expect(page.locator('#entity-editor-title')).toBeFocused();
+  await expect.poll(() => page.evaluate(() => {
+    const heading = document.getElementById('entity-editor-title')!.getBoundingClientRect();
+    const header = document.querySelector('.app-header')!.getBoundingClientRect();
+    return heading.top >= header.bottom && heading.bottom <= window.innerHeight;
+  })).toBe(true);
   await expectNoOverflow(page);
 });
 
