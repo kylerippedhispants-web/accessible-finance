@@ -19,13 +19,15 @@ authenticated harness cleanup.
 - [x] Show the homepage hero immediately and remove reveal delays on narrow
   screens. Keep all reading content usable before JavaScript initializes.
 - [x] Serve the existing typography from the site, with hashed WOFF2 assets,
-  Latin/Latin-ext subsets, two critical preloads, and upstream OFL licenses.
+  Latin/Latin-ext subsets, targeted preloads, and upstream OFL licenses.
   Fonts share URLs across the public site and planner for browser cache reuse.
 - [x] Keep the mobile cash-flow map closed in the initial HTML. Load its pinned
   diagram libraries only when requested/visible, skip hidden redraws, and retain
   editable totals plus accessible loading, error, timeout and retry states.
 - [x] Build the planner's projection table only when opened and reuse its
   unchanged rows during chart inspection.
+- [x] Include the public planner landing page in its initial code bundle to
+  avoid a second loading roundtrip; keep the other planner pages lazy-loaded.
 - [x] Supply appropriately sized homepage photographs and remove unused content
   downloads from the old article redirect.
 - [x] Pass 199 unit tests, 63 browser cases, lint, type checks, static validation,
