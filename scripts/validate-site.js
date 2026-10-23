@@ -191,7 +191,9 @@ const cashFlow = fs.readFileSync(path.join(root, 'cash-flow.html'), 'utf8');
 assert(/<h1[^>]*>[\s\S]*money/i.test(cashFlow), 'cash-flow.html: missing cash-flow heading');
 assert(/id="sankeyChart"/i.test(cashFlow), 'cash-flow.html: missing Sankey chart');
 assert(/data-region-universal/i.test(cashFlow), 'cash-flow.html: missing universal-edition marker');
-assert(/d3-sankey@0\.12\.3/i.test(cashFlow), 'cash-flow.html: missing pinned Sankey library');
+const cashFlowScript = fs.readFileSync(path.join(root, 'cash-flow.js'), 'utf8');
+assert(/d3-sankey@0\.12\.3/i.test(cashFlowScript), 'cash-flow.js: missing pinned Sankey library');
+assert(!/<script[^>]+src="https:\/\/cdn\.jsdelivr\.net\/npm\/d3/i.test(cashFlow), 'cash-flow.html: chart libraries must load on demand');
 assert(/cash-flow\.html\?edition=ca/i.test(cashFlow), 'cash-flow.html: missing Cash Flow navigation link');
 assert(!/id="currencySelect"/i.test(cashFlow), 'cash-flow.html: obsolete currency selector is present');
 

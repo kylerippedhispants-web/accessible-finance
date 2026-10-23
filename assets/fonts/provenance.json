@@ -1,0 +1,128 @@
+{
+  "downloadedAt": "2026-10-23T11:59:37.479Z",
+  "originalCssUrl": "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap",
+  "variableCssUrl": "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400..800&family=Literata:ital,wght@0,300..500;1,300..400&display=swap",
+  "fonts": [
+    {
+      "subset": "latin-ext",
+      "family": "Instrument Serif",
+      "style": "italic",
+      "weight": "400",
+      "url": "https://fonts.gstatic.com/s/instrumentserif/v5/jizHRFtNs2ka5fXjeivQ4LroWlx-6zAjgn7MsNo.woff2",
+      "filename": "instrument-serif-italic-latin-ext.d0014821252a.woff2",
+      "bytes": 12384,
+      "sha256": "d0014821252a8a770bf7551641572f239a8ede83d75652d84fef0c3627751baf"
+    },
+    {
+      "subset": "latin",
+      "family": "Instrument Serif",
+      "style": "italic",
+      "weight": "400",
+      "url": "https://fonts.gstatic.com/s/instrumentserif/v5/jizHRFtNs2ka5fXjeivQ4LroWlx-6zAjjH7M.woff2",
+      "filename": "instrument-serif-italic-latin.5a51946dfffa.woff2",
+      "bytes": 22128,
+      "sha256": "5a51946dfffa82972bc98745359c46761515641fda557c25116459a9f83da4a7"
+    },
+    {
+      "subset": "latin-ext",
+      "family": "Instrument Serif",
+      "style": "normal",
+      "weight": "400",
+      "url": "https://fonts.gstatic.com/s/instrumentserif/v5/jizBRFtNs2ka5fXjeivQ4LroWlx-6zsTjmbI.woff2",
+      "filename": "instrument-serif-normal-latin-ext.290e6267dd83.woff2",
+      "bytes": 11604,
+      "sha256": "290e6267dd833bf5f899eba4c29ad0a9b09dbe53f6075b18af38057159e1ff20"
+    },
+    {
+      "subset": "latin",
+      "family": "Instrument Serif",
+      "style": "normal",
+      "weight": "400",
+      "url": "https://fonts.gstatic.com/s/instrumentserif/v5/jizBRFtNs2ka5fXjeivQ4LroWlx-6zUTjg.woff2",
+      "filename": "instrument-serif-normal-latin.5eb09b5ac0e2.woff2",
+      "bytes": 21032,
+      "sha256": "5eb09b5ac0e28b67c2f041c8ba6d244604ca0c0980d65912ab2d47fed84ddc31"
+    },
+    {
+      "subset": "latin-ext",
+      "family": "Inter",
+      "style": "normal",
+      "weight": "400 800",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7SUc.woff2",
+      "filename": "inter-normal-latin-ext.34b9c504cab7.woff2",
+      "bytes": 85068,
+      "sha256": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956"
+    },
+    {
+      "subset": "latin",
+      "family": "Inter",
+      "style": "normal",
+      "weight": "400 800",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "filename": "inter-normal-latin.3100e775e861.woff2",
+      "bytes": 48256,
+      "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
+    },
+    {
+      "subset": "latin-ext",
+      "family": "Literata",
+      "style": "italic",
+      "weight": "300 400",
+      "url": "https://fonts.gstatic.com/s/literata/v40/or3YQ6P12-iJxAIgLYT1PLs1Zd0nfUwAbeGVKoRYzNiCp1OUedn8f7W0QmBjb1Q2pR1hviIKy7sNNK25.woff2",
+      "filename": "literata-italic-latin-ext.6508fa6a9bc0.woff2",
+      "bytes": 29080,
+      "sha256": "6508fa6a9bc04316a5532db3c23ab51fedf7fd297bc6997ed73646eea8776f06"
+    },
+    {
+      "subset": "latin",
+      "family": "Literata",
+      "style": "italic",
+      "weight": "300 400",
+      "url": "https://fonts.gstatic.com/s/literata/v40/or3YQ6P12-iJxAIgLYT1PLs1Zd0nfUwAbeGVKoRYzNiCp1OUedn8f7W0QmBjb1Q2pR1hviIKy7UNNA.woff2",
+      "filename": "literata-italic-latin.9c695c7491d7.woff2",
+      "bytes": 37164,
+      "sha256": "9c695c7491d7f2053cdb16bd71d54ab213bf72c3ab496aad7cb83712c6b7576a"
+    },
+    {
+      "subset": "latin-ext",
+      "family": "Literata",
+      "style": "normal",
+      "weight": "300 500",
+      "url": "https://fonts.gstatic.com/s/literata/v40/or38Q6P12-iJxAIgLa78DkrbXsDgk0oVDaDlYp5W_C0.woff2",
+      "filename": "literata-normal-latin-ext.46792f7cd10b.woff2",
+      "bytes": 42656,
+      "sha256": "46792f7cd10b28fb512161caeaaa11b049feb2221ccaa72bb4d4ccc286199155"
+    },
+    {
+      "subset": "latin",
+      "family": "Literata",
+      "style": "normal",
+      "weight": "300 500",
+      "url": "https://fonts.gstatic.com/s/literata/v40/or38Q6P12-iJxAIgLa78DkrbXsDgk0oVDaDlbJ5W.woff2",
+      "filename": "literata-normal-latin.9adbeac5b167.woff2",
+      "bytes": 52496,
+      "sha256": "9adbeac5b167fe5ad6c49d9e29aa0c76e2f1bb3b46bf4ebf12a9eca7d3525384"
+    }
+  ],
+  "licenses": [
+    {
+      "filename": "Instrument-Serif-OFL.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/instrumentserif/OFL.txt",
+      "sha256": "129ed7618959716959f2941fdd5b49e0ad6e6c1d78726761786a00253d865521"
+    },
+    {
+      "filename": "Inter-OFL.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/inter/OFL.txt",
+      "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57"
+    },
+    {
+      "filename": "Literata-OFL.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/literata/OFL.txt",
+      "sha256": "8742963604cd89dc81437811a850018fc03b2bfad686d7422c8235967c87614e"
+    }
+  ],
+  "stylesheet": {
+    "filename": "fonts-00b70c3ea8c7.css",
+    "sha256": "00b70c3ea8c7b255363431c62f4bb90df1a18162ef19fbc3a7ea58aef102d9ea"
+  }
+}
