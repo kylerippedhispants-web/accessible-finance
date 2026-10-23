@@ -19,6 +19,7 @@ function loadPage(htmlPath: string, scriptPath: string) {
       clearTimeout,
       addEventListener: () => {},
       matchMedia: () => ({ matches: false }),
+      IntersectionObserver: class { observe() {} },
       requestAnimationFrame: (callback: () => void) => callback(),
     },
     URLSearchParams,

@@ -562,6 +562,7 @@
 }
 
 .chart-empty,
+.chart-loading,
 .chart-error {
   position: absolute;
   inset: 0;
@@ -575,7 +576,21 @@
   text-align: center;
 }
 
+.chart-error { flex-direction: column; gap: 16px; }
+.chart-retry {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--green);
+  border-radius: 6px;
+  background: var(--green);
+  color: #fff;
+  font: 600 14px var(--sans);
+  cursor: pointer;
+}
+.chart-retry:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
 .chart-empty[hidden],
+.chart-loading[hidden],
 .chart-error[hidden] {
   display: none;
 }

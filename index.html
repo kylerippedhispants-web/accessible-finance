@@ -48,9 +48,11 @@
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+
+
+<link rel="preload" href="/assets/fonts/instrument-serif-normal-latin.5eb09b5ac0e2.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/literata-normal-latin.9adbeac5b167.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/fonts-00b70c3ea8c7.css">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -200,6 +202,10 @@ nav.site-nav {
 .reveal.d2 { transition-delay: 0.08s; }
 .reveal.d3 { transition-delay: 0.16s; }
 .reveal.d4 { transition-delay: 0.24s; }
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero .hero-chart .bar { animation: none; transform: scaleY(1); }
+}
 
 /* ═══════════ HERO ═══════════ */
 .hero {
@@ -1079,7 +1085,7 @@ footer.site-footer {
 <main id="main-content" tabindex="-1">
 <!-- ═══════════════ HERO ═══════════════ -->
 <section class="hero">
-  <div class="reveal">
+  <div>
     <span class="eyebrow">Free financial education · Start where you are</span>
     <h1>Understand your money,<br><em>one clear step</em><br>at a time.</h1>
     <p class="hero-sub">Free guides and practical tools for budgeting, investing, and planning ahead. Start with everyday money questions, then explore the choices that matter to you.</p>
@@ -1098,7 +1104,7 @@ footer.site-footer {
     </div>
   </div>
 
-  <div class="hero-card-wrap reveal d2">
+  <div class="hero-card-wrap">
     <div class="hero-card" role="img" aria-label="Hypothetical chart: a $10,000 starting balance with no added deposits, compounding at 5% annually, reaches about $14,775 after eight years, an increase of $4,775. Actual investment returns are not guaranteed.">
       <div class="hero-card-eyebrow">Hypothetical Growth · 5% a Year</div>
       <div class="hero-chart" aria-hidden="true">
@@ -1207,7 +1213,7 @@ footer.site-footer {
   </div>
   <div class="topics-grid">
     <a href="topic.html" class="topic wide reveal">
-      <img class="topic-photo" src="https://images.unsplash.com/photo-1542621334-a254cf47733d?auto=format&fit=crop&w=1200&q=80" alt="" width="1200" height="800" loading="lazy" decoding="async">
+      <img class="topic-photo" src="https://images.unsplash.com/photo-1542621334-a254cf47733d?auto=format&fit=crop&w=768&q=70" srcset="https://images.unsplash.com/photo-1542621334-a254cf47733d?auto=format&fit=crop&w=480&q=70 480w, https://images.unsplash.com/photo-1542621334-a254cf47733d?auto=format&fit=crop&w=768&q=70 768w, https://images.unsplash.com/photo-1542621334-a254cf47733d?auto=format&fit=crop&w=1200&q=80 1200w" sizes="(max-width: 768px) calc(100vw - 48px), (max-width: 1024px) calc((100vw - 104px) / 2), 350px" alt="" width="1200" height="800" loading="lazy" decoding="async">
       <div class="topic-scrim"></div>
       <div class="level">Level I</div>
       <h3>Investing fundamentals</h3>
@@ -1226,7 +1232,7 @@ footer.site-footer {
       <p>Asset allocation, rebalancing, and building for different goals.</p>
     </a>
     <a href="articles.html?cat=behavior" class="topic wide reveal d4">
-      <img class="topic-photo" src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80" alt="" width="1200" height="800" loading="lazy" decoding="async">
+      <img class="topic-photo" src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=768&q=70" srcset="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=480&q=70 480w, https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=768&q=70 768w, https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80 1200w" sizes="(max-width: 768px) calc(100vw - 48px), (max-width: 1024px) calc((100vw - 104px) / 2), 350px" alt="" width="1200" height="800" loading="lazy" decoding="async">
       <div class="topic-scrim"></div>
       <div class="level">Specialization</div>
       <h3>Market behavior</h3>
@@ -1249,7 +1255,7 @@ footer.site-footer {
   <div class="articles-grid">
     <a href="guides/investing-vs-speculating.html" class="featured reveal">
       <div class="featured-photo-wrap">
-        <img class="featured-photo" src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1400&q=80" alt="" width="1400" height="900" loading="lazy" decoding="async">
+        <img class="featured-photo" src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=768&q=70" srcset="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=480&q=70 480w, https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=768&q=70 768w, https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1400&q=80 1400w" sizes="(max-width: 768px) calc(100vw - 48px), (max-width: 1024px) calc(100vw - 80px), (max-width: 1200px) calc((100vw - 144px) * 7 / 12), 616px" alt="" width="1400" height="900" loading="lazy" decoding="async">
         <span class="tag">Fundamentals</span>
       </div>
       <span class="featured-tagline">Featured Guide</span>
@@ -1528,10 +1534,15 @@ footer.site-footer {
 
 <script>
   // Reveal on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const revealElements = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !matchMedia('(max-width: 768px), (prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    revealElements.forEach(el => observer.observe(el));
+  } else {
+    revealElements.forEach(el => el.classList.add('visible'));
+  }
 
   // Mobile hamburger
   (function(){

@@ -7,6 +7,8 @@ async function openDemo(page: Page) {
 }
 
 async function navigate(page: Page, section: string) {
+  // Route changes can precede the shell commit; isVisible() does not wait.
+  await expect(page.locator('#planner-menu-button')).toBeAttached();
   const menu = page.getByRole('button', { name: 'Open planner menu' });
   if (await menu.isVisible()) await menu.click();
   await page.locator('#planner-sidebar').getByRole('link', { name: section, exact: true }).click();

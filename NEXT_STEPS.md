@@ -1,6 +1,6 @@
 # Website and planner next steps
 
-Updated October 20, 2026 (America/Toronto). This checklist covers the selected FIRE
+Updated October 23, 2026 (America/Toronto). This checklist covers the selected FIRE
 website and planner. Local Demo Mode checks do not validate cloud services or
 public launch.
 
@@ -13,6 +13,32 @@ Recovery completion and explicit storage/log inspection remain pending follow-up
 onboarding, save/reload, account separation, and JSON export/import proofs are
 recorded below. Two fictional browser-created plans remain after the earlier
 authenticated harness cleanup.
+
+## October 23 mobile performance improvements
+
+- [x] Show the homepage hero immediately and remove reveal delays on narrow
+  screens. Keep all reading content usable before JavaScript initializes.
+- [x] Serve the existing typography from the site, with hashed WOFF2 assets,
+  Latin/Latin-ext subsets, targeted preloads, and upstream OFL licenses.
+  Fonts share URLs across the public site and planner for browser cache reuse.
+- [x] Keep the mobile cash-flow map closed in the initial HTML. Load its pinned
+  diagram libraries only when requested/visible, skip hidden redraws, and retain
+  editable totals plus accessible loading, error, timeout and retry states.
+- [x] Build the planner's projection table only when opened and reuse its
+  unchanged rows during chart inspection.
+- [x] Include the public planner landing page in its initial code bundle to
+  avoid a second loading roundtrip; keep the other planner pages lazy-loaded.
+- [x] Supply appropriately sized homepage photographs and remove unused content
+  downloads from the old article redirect.
+- [x] Pass 199 unit tests, 63 browser cases, lint, type checks, static validation,
+  and both Demo and cloud-required production builds.
+
+Mobile comparisons use three cold visits at 390 × 844 pixels, 4× CPU slowdown,
+1.6 Mbps download, and 150 ms added latency, allowing normal cache reuse within
+each visit. They are lab observations, not real-user Core Web Vitals or Lighthouse
+scores. Do not compare results from different cache policies or unthrottled runs.
+Preserve the font filenames' hashes when updating assets and recheck the actual
+Netlify cache/security headers after deployment.
 
 ## October 20 review recommendations implemented
 

@@ -2,11 +2,11 @@ import { lazy, Suspense, useEffect } from 'react';
 import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import { useAuth } from './auth/AuthContext';
 import { AppShell, PlannerLoading, PlannerRouteLoading } from './components/AppShell';
+import { LandingPage } from './pages/LandingPage';
 import { usePlanner } from './state/PlannerContext';
 
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then((module) => ({ default: module.DashboardPage })));
 const GuidePage = lazy(() => import('./pages/GuidePage').then((module) => ({ default: module.GuidePage })));
-const LandingPage = lazy(() => import('./pages/LandingPage').then((module) => ({ default: module.LandingPage })));
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage').then((module) => ({ default: module.OnboardingPage })));
 const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage').then((module) => ({ default: module.ResetPasswordPage })));
 const RetirementPage = lazy(() => import('./pages/RetirementPage').then((module) => ({ default: module.RetirementPage })));

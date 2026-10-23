@@ -8,6 +8,9 @@ async function openDemo(page: Page, preset = 'alex') {
 }
 
 async function navigate(page: Page, section: string) {
+  // The route URL can update before the shell mounts. Wait before deciding
+  // whether its responsive menu needs opening; isVisible() does not retry.
+  await expect(page.locator('#planner-menu-button')).toBeAttached();
   const menu = page.getByRole('button', { name: 'Open planner menu' });
   if (await menu.isVisible()) await menu.click();
   await page.locator('#planner-sidebar').getByRole('link', { name: section, exact: true }).click();

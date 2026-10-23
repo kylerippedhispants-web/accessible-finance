@@ -19,7 +19,7 @@
 [[headers]]
   for = "/planner"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; frame-src 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://*.supabase.co; frame-src 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests"
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Resource-Policy = "same-origin"
     X-Content-Type-Options = "nosniff"
@@ -30,7 +30,7 @@
 [[headers]]
   for = "/planner/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; frame-src 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://*.supabase.co; frame-src 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests"
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Resource-Policy = "same-origin"
     X-Content-Type-Options = "nosniff"
@@ -40,5 +40,16 @@
 
 [[headers]]
   for = "/planner/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Font and stylesheet names include content hashes; updates get fresh URLs.
+[[headers]]
+  for = "/assets/fonts/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/fonts/*.css"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"

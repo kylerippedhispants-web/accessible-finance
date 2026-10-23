@@ -554,6 +554,17 @@ html.site-ca .planning-journey a:focus-visible { outline-color: #e3d19d; }
   .journey-steps li { gap: 14px; }
 }
 
+/* Reading on a phone should not wait for scroll observers and reveal fades. */
+@media (max-width: 768px) {
+  html.site-ca .reveal,
+  html.site-us .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html.site-ca *,
   html.site-ca *::before,

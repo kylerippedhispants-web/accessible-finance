@@ -37,6 +37,7 @@ const COMPACT_CHART = {
   margin: { top: 22, right: 12, bottom: 54, left: 68 },
 } as const;
 const COMPACT_QUERY = '(max-width: 600px)';
+const EMPTY_MILESTONES: ProjectionMilestone[] = [];
 
 function compactChartSnapshot(): boolean {
   return window.matchMedia(COMPACT_QUERY).matches;
@@ -100,12 +101,78 @@ function deltaDescription(value: number): string {
   return `${formatCad(Math.abs(value))} ${value > 0 ? 'above' : 'below'} baseline`;
 }
 
+interface ProjectionTableProps {
+  baseline: ProjectionYear[];
+  comparisonByYear: Map<number, ProjectionYear>;
+  hasComparison: boolean;
+  comparisonLabel: string;
+  dollarView: DollarView;
+  milestones: ProjectionMilestone[];
+}
+
+// Inspecting a chart year does not change any table values. Keep the disclosure
+// separate so its rows are built only when requested and do not rerender as the
+// pointer or year slider moves. Once opened, retain the table when collapsed.
+const ProjectionTable = memo(function ProjectionTable({
+  baseline,
+  comparisonByYear,
+  hasComparison,
+  comparisonLabel,
+  dollarView,
+  milestones,
+}: ProjectionTableProps) {
+  const [hasOpened, setHasOpened] = useState(false);
+  const viewLabel = dollarView === 'real' ? 'Today’s dollars' : 'Nominal dollars';
+
+  return (
+    <details className="chart-data-table" onToggle={(event) => {
+      if (event.currentTarget.open) setHasOpened(true);
+    }}>
+      <summary>View projection as a data table</summary>
+      {hasOpened && (
+        <div className="table-scroll" tabIndex={0} aria-label="Scrollable projection table">
+          <table>
+            <caption className="sr-only">Projection in {viewLabel.toLocaleLowerCase('en-CA')}. Dollar amounts are Canadian dollars.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Year</th><th scope="col">Age</th>{milestones.length > 0 && <th scope="col">Milestone</th>}<th scope="col">Income</th><th scope="col">Taxes</th><th scope="col">Spending</th><th scope="col">Assets</th><th scope="col">Liabilities</th><th scope="col">Baseline net worth</th>
+                {hasComparison && <><th scope="col"><span className="comparison-column-label">{comparisonLabel} net worth</span></th><th scope="col">Difference</th></>}
+              </tr>
+            </thead>
+            <tbody>
+              {baseline.map((row) => {
+                const comparedRow = comparisonByYear.get(row.year);
+                const baselineValue = netWorth(row, dollarView);
+                const comparedValue = comparedRow ? netWorth(comparedRow, dollarView) : undefined;
+                return (
+                  <tr key={row.year}>
+                    <th scope="row">{row.year}</th>
+                    <td>{row.age}</td>
+                    {milestones.length > 0 && <td>{milestones.filter((milestone) => milestone.year === row.year).map((milestone) => milestone.label).join('; ') || '—'}</td>}
+                    <td>{formatCad(field(row, dollarView, 'grossIncome', 'realGrossIncome'))}</td>
+                    <td>{formatCad(field(row, dollarView, 'taxes', 'realTaxes'))}</td>
+                    <td>{formatCad(field(row, dollarView, 'expenses', 'realExpenses'))}</td>
+                    <td>{formatCad(field(row, dollarView, 'totalAssets', 'realTotalAssets'))}</td>
+                    <td>{formatCad(field(row, dollarView, 'totalLiabilities', 'realTotalLiabilities'))}</td>
+                    <td>{formatCad(baselineValue)}</td>
+                    {hasComparison && <><td>{comparedValue === undefined ? '—' : formatCad(comparedValue)}</td><td>{comparedValue === undefined ? '—' : formatCadDelta(comparedValue - baselineValue)}</td></>}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </details>
+  );
+});
+
 export const ProjectionChart = memo(function ProjectionChart({
   baseline,
   comparison,
   comparisonLabel = 'What-if',
   dollarView,
-  milestones = [],
+  milestones = EMPTY_MILESTONES,
 }: ProjectionChartProps) {
   const titleId = useId();
   const descriptionId = useId();
@@ -343,41 +410,14 @@ export const ProjectionChart = memo(function ProjectionChart({
         {finalComparisonPoint && finalDelta !== undefined && <> {comparisonLabel} ends <strong>{deltaDescription(finalDelta)}</strong>.</>}
       </p>
 
-      <details className="chart-data-table">
-        <summary>View projection as a data table</summary>
-        <div className="table-scroll" tabIndex={0} aria-label="Scrollable projection table">
-          <table>
-            <caption className="sr-only">Projection in {viewLabel.toLocaleLowerCase('en-CA')}. Dollar amounts are Canadian dollars.</caption>
-            <thead>
-              <tr>
-                <th scope="col">Year</th><th scope="col">Age</th>{milestones.length > 0 && <th scope="col">Milestone</th>}<th scope="col">Income</th><th scope="col">Taxes</th><th scope="col">Spending</th><th scope="col">Assets</th><th scope="col">Liabilities</th><th scope="col">Baseline net worth</th>
-                {comparison && <><th scope="col"><span className="comparison-column-label">{comparisonLabel} net worth</span></th><th scope="col">Difference</th></>}
-              </tr>
-            </thead>
-            <tbody>
-              {baseline.map((row) => {
-                const comparedRow = comparisonByYear.get(row.year);
-                const baselineValue = netWorth(row, dollarView);
-                const comparedValue = comparedRow ? netWorth(comparedRow, dollarView) : undefined;
-                return (
-                  <tr key={row.year}>
-                    <th scope="row">{row.year}</th>
-                    <td>{row.age}</td>
-                    {milestones.length > 0 && <td>{milestones.filter((milestone) => milestone.year === row.year).map((milestone) => milestone.label).join('; ') || '—'}</td>}
-                    <td>{formatCad(field(row, dollarView, 'grossIncome', 'realGrossIncome'))}</td>
-                    <td>{formatCad(field(row, dollarView, 'taxes', 'realTaxes'))}</td>
-                    <td>{formatCad(field(row, dollarView, 'expenses', 'realExpenses'))}</td>
-                    <td>{formatCad(field(row, dollarView, 'totalAssets', 'realTotalAssets'))}</td>
-                    <td>{formatCad(field(row, dollarView, 'totalLiabilities', 'realTotalLiabilities'))}</td>
-                    <td>{formatCad(baselineValue)}</td>
-                    {comparison && <><td>{comparedValue === undefined ? '—' : formatCad(comparedValue)}</td><td>{comparedValue === undefined ? '—' : formatCadDelta(comparedValue - baselineValue)}</td></>}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </details>
+      <ProjectionTable
+        baseline={baseline}
+        comparisonByYear={comparisonByYear}
+        hasComparison={Boolean(comparison)}
+        comparisonLabel={comparisonLabel}
+        dollarView={dollarView}
+        milestones={milestones}
+      />
     </div>
   );
 });

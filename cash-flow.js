@@ -37,6 +37,8 @@
     chartFrame: document.getElementById('sankeyFrame'),
     chartEmpty: document.getElementById('chartEmpty'),
     chartError: document.getElementById('chartError'),
+    chartLoading: document.getElementById('chartLoading'),
+    chartRetry: document.getElementById('retryChart'),
     chartDescription: document.getElementById('sankeyDescription'),
     dataRows: document.getElementById('cashFlowDataRows'),
     chartPeriod: document.getElementById('chartPeriod'),
@@ -67,7 +69,7 @@
     try {
       const stored = window.localStorage.getItem('accessibleFinanceRegion');
       return stored === 'us' ? 'us' : 'ca';
-    } catch (_) {
+    } catch {
       return 'ca';
     }
   }
@@ -99,7 +101,7 @@
         income: saved.income.slice(0, maximumRows).map((row, index) => validRow(row, 'income', index)),
         expenses: saved.expenses.slice(0, maximumRows).map((row, index) => validRow(row, 'expense', index)),
       };
-    } catch (_) {
+    } catch {
       return fallback;
     }
   }
@@ -107,11 +109,73 @@
   let state = loadState();
   let redrawTimer = null;
   let lastChartWidth = 0;
+  const mapDetails = document.getElementById('cashFlowMap');
+  let chartInView = !('IntersectionObserver' in window);
+  let chartLoadState = 'idle';
+  let latestChartData = null;
+
+  function loadChartScript(source, isReady) {
+    if (isReady()) return Promise.resolve();
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = source;
+      script.async = true;
+      script.dataset.cashFlowLibrary = '';
+      let settled = false;
+      const finish = (error) => {
+        if (settled) return;
+        settled = true;
+        window.clearTimeout(timeout);
+        script.removeEventListener('load', onLoad);
+        script.removeEventListener('error', onError);
+        if (error) {
+          script.remove();
+          reject(error);
+        } else resolve();
+      };
+      const onLoad = () => finish(isReady() ? null : new Error('The chart library is unavailable.'));
+      const onError = () => finish(new Error('The chart library could not load.'));
+      const timeout = window.setTimeout(() => finish(new Error('The chart library request timed out.')), 15000);
+      script.addEventListener('load', onLoad);
+      script.addEventListener('error', onError);
+      document.head.appendChild(script);
+    });
+  }
+
+  function loadChartLibraries() {
+    if (chartLoadState === 'loading' || chartLoadState === 'ready') return;
+    chartLoadState = 'loading';
+    elements.chartLoading.hidden = false;
+    elements.chartError.hidden = true;
+    elements.chartFrame.setAttribute('aria-busy', 'true');
+    // The form and its complete values table work without either library. On
+    // phones the map is collapsed, so these downloads wait until it is opened.
+    loadChartScript('https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js', () => typeof window.d3?.select === 'function')
+      .then(() => loadChartScript('https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js', () => typeof window.d3?.sankey === 'function'))
+      .then(() => {
+        chartLoadState = 'ready';
+        elements.chartLoading.hidden = true;
+        elements.chartFrame.setAttribute('aria-busy', 'false');
+        renderChartIfVisible();
+      })
+      .catch(() => {
+        chartLoadState = 'error';
+        elements.chartLoading.hidden = true;
+        elements.chartError.hidden = false;
+        elements.chartFrame.setAttribute('aria-busy', 'false');
+      });
+  }
+
+  function renderChartIfVisible() {
+    if (!mapDetails?.open || !chartInView || !latestChartData) return;
+    if (chartLoadState === 'ready') drawChart(...latestChartData);
+    else if (chartLoadState === 'idle') loadChartLibraries();
+  }
 
   function saveState() {
     try {
       window.localStorage.setItem(storageKey, JSON.stringify(state));
-    } catch (_) {
+    } catch {
       // The planner remains fully usable when storage is blocked.
     }
   }
@@ -301,9 +365,6 @@
 
   function drawChart(activeIncome, activeExpenses, incomeTotal, expenseTotal) {
     const balance = incomeTotal - expenseTotal;
-    const incomingNames = activeIncome.map((row) => row.name || 'Income').join(', ') || 'no entered income';
-    const outgoingNames = activeExpenses.map((row) => row.name || 'Expense').join(', ') || 'no entered expenses';
-    elements.chartDescription.textContent = `${formatMoney(incomeTotal)} enters from ${incomingNames}. ${formatMoney(expenseTotal)} flows to ${outgoingNames}. ${balance >= 0 ? formatMoney(balance) + ' is shown as surplus.' : formatMoney(Math.abs(balance)) + ' is shown as a funding shortfall.'} Full values are in the cash-flow table.`;
     const chart = window.d3?.select ? window.d3.select(elements.chart) : null;
     if (!chart || typeof window.d3.sankey !== 'function') {
       elements.chartError.hidden = false;
@@ -501,7 +562,11 @@
 
     updateBreakdown(activeExpenses, expenseTotal);
     updateInsights(activeExpenses, incomeTotal, expenseTotal, balance);
-    drawChart(activeIncome, activeExpenses, incomeTotal, expenseTotal);
+    const incomingNames = activeIncome.map((row) => row.name).join(', ') || 'no entered income';
+    const outgoingNames = activeExpenses.map((row) => row.name).join(', ') || 'no entered expenses';
+    elements.chartDescription.textContent = `${formatMoney(incomeTotal)} enters from ${incomingNames}. ${formatMoney(expenseTotal)} flows to ${outgoingNames}. ${balance >= 0 ? formatMoney(balance) + ' is shown as surplus.' : formatMoney(Math.abs(balance)) + ' is shown as a funding shortfall.'} Full values are in the cash-flow table.`;
+    latestChartData = [activeIncome, activeExpenses, incomeTotal, expenseTotal];
+    renderChartIfVisible();
     saveState();
   }
 
@@ -526,28 +591,47 @@
 
   if ('ResizeObserver' in window) {
     const observer = new ResizeObserver(() => {
+      if (!mapDetails?.open || !chartInView || chartLoadState !== 'ready') return;
       const width = Math.round(elements.chartFrame.clientWidth || 0);
       if (!width || Math.abs(width - lastChartWidth) < 2) return;
       window.clearTimeout(redrawTimer);
-      redrawTimer = window.setTimeout(updateOutputs, 80);
+      redrawTimer = window.setTimeout(renderChartIfVisible, 80);
     });
     observer.observe(elements.chartFrame);
   } else {
     window.addEventListener('resize', () => {
+      if (!mapDetails?.open || !chartInView || chartLoadState !== 'ready') return;
       window.clearTimeout(redrawTimer);
-      redrawTimer = window.setTimeout(updateOutputs, 120);
+      redrawTimer = window.setTimeout(renderChartIfVisible, 120);
     });
   }
 
   document.querySelector(`input[name="period"][value="${state.period}"]`).checked = true;
-  const mapDetails = document.getElementById('cashFlowMap');
   const narrowScreen = window.matchMedia('(max-width: 600px)').matches;
-  if (mapDetails && narrowScreen) mapDetails.open = false;
+  // Start closed in HTML so phones never paint a tall map and then collapse it.
+  if (mapDetails && !narrowScreen) mapDetails.open = true;
+  let previousMapOpen = Boolean(mapDetails?.open);
   const valuesDetails = document.getElementById('cashFlowValues');
   if (valuesDetails && !narrowScreen) valuesDetails.open = false;
   mapDetails?.addEventListener('toggle', () => {
-    if (mapDetails.open) updateOutputs();
+    const userOpenedMap = mapDetails.open && !previousMapOpen;
+    previousMapOpen = mapDetails.open;
+    if (mapDetails.open) {
+      if (userOpenedMap && chartLoadState === 'idle') loadChartLibraries();
+      renderChartIfVisible();
+    }
   });
+  elements.chartRetry?.addEventListener('click', () => {
+    mapDetails?.querySelector('summary')?.focus({ preventScroll: true });
+    loadChartLibraries();
+  });
+  if ('IntersectionObserver' in window && mapDetails) {
+    const observer = new window.IntersectionObserver((entries) => {
+      chartInView = entries.some((entry) => entry.isIntersecting);
+      renderChartIfVisible();
+    }, { rootMargin: '120px' });
+    observer.observe(mapDetails);
+  }
   renderAllRows();
   updateOutputs();
 })();
