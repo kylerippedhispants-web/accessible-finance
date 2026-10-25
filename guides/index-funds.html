@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Look inside a weighted index</h3>
       <p>A tiny fictional index has only three companies, with weights of 50%, 30%, and 20%. A fund that exactly tracks it receives a $1,000 investment.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/index-funds.svg" width="640" height="432" loading="lazy" decoding="async" alt="Where the $1,000 is exposed. The fictional index places $500 in Company A, $300 in Company B, and $200 in Company C. Company A accounts for half the investment.">
         <figcaption><strong>Where the $1,000 is exposed</strong><span>The fictional index places $500 in Company A, $300 in Company B, and $200 in Company C. Company A accounts for half the investment.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/index-funds-mobile.svg" width="360" height="522">
+          <img src="/assets/guide-visuals/index-funds.svg" width="640" height="444" loading="lazy" decoding="async" alt="Where the $1,000 is exposed. The fictional index places $500 in Company A, $300 in Company B, and $200 in Company C. Company A accounts for half the investment.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Company A</dt><dd><strong>$500</strong><span>50% of the index.</span></dd></div><div><dt>Company B</dt><dd><strong>$300</strong><span>30% of the index.</span></dd></div><div><dt>Company C</dt><dd><strong>$200</strong><span>20% of the index.</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Translate weights into dollars</strong><p>The exposure is $500 to Company A, $300 to Company B, and $200 to Company C. Each dollar follows the index weights.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Test one company&#039;s decline</strong><p>If Company A falls 20% while the others stay unchanged, its $500 portion loses $100. The whole investment falls from $1,000 to $900, or 10%.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Read the concentration</strong><p>There are three company names, but half the money depends on one. A larger index can also place substantial weight in its biggest constituents.</p></li></ol>

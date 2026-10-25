@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="580" viewBox="0 0 360 580" data-layout="compare" role="img" aria-labelledby="title description">
+  <title id="title">Same savings, different timelines</title>
+  <desc id="description">Of $6,000, $3,000 is an accessible emergency reserve, $2,000 is for tuition in one year, and $1,000 is for a long-term goal. Emergency reserve: $3,000. Available when needed Tuition: $2,000. Needed in 12 months Long-term goal: $1,000. A separate investment decision</desc>
+  <rect width="360" height="580" fill="#f8f3e7"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-row="0">
+        <rect x="24" y="24" width="312" height="152" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M46 38h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="67" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">Emergency reserve</tspan></text>
+        <text x="46" y="113" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">$3,000</tspan></text>
+        <text x="46" y="160" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">Available when needed</tspan></text>
+      </g>
+<g data-row="1">
+        <rect x="24" y="192" width="312" height="152" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M46 206h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="235" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">Tuition</tspan></text>
+        <text x="46" y="281" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">$2,000</tspan></text>
+        <text x="46" y="328" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">Needed in 12 months</tspan></text>
+      </g>
+<g data-row="2">
+        <rect x="24" y="360" width="312" height="180" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M46 374h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="403" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">Long-term goal</tspan></text>
+        <text x="46" y="449" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">$1,000</tspan></text>
+        <text x="46" y="496" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">A separate investment</tspan><tspan x="46" dy="28">decision</tspan></text>
+      </g></g>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="636" viewBox="0 0 360 636" data-layout="compare" role="img" aria-labelledby="title description">
+  <title id="title">Rebalancing with new money</title>
+  <desc id="description">Before the contribution, stocks are $7,200 and bonds $3,800. Adding $1,000 to bonds makes the portfolio $7,200 stocks and $4,800 bonds, restoring a 60/40 mix. Before contributing: 65.5% / 34.5%. $7,200 stocks + $3,800 bonds New money to bonds: $1,000. No sale is needed in this example After contributing: 60% / 40%. $7,200 stocks + $4,800 bonds</desc>
+  <rect width="360" height="636" fill="#f8f3e7"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-row="0">
+        <rect x="24" y="24" width="312" height="180" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M46 38h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="67" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">Before contributing</tspan></text>
+        <text x="46" y="113" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">65.5% / 34.5%</tspan></text>
+        <text x="46" y="160" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">$7,200 stocks + $3,800</tspan><tspan x="46" dy="28">bonds</tspan></text>
+      </g>
+<g data-row="1">
+        <rect x="24" y="220" width="312" height="180" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M46 234h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="263" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">New money to bonds</tspan></text>
+        <text x="46" y="309" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">$1,000</tspan></text>
+        <text x="46" y="356" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">No sale is needed in this</tspan><tspan x="46" dy="28">example</tspan></text>
+      </g>
+<g data-row="2">
+        <rect x="24" y="416" width="312" height="180" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M46 430h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="459" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">After contributing</tspan></text>
+        <text x="46" y="505" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">60% / 40%</tspan></text>
+        <text x="46" y="552" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">$7,200 stocks + $4,800</tspan><tspan x="46" dy="28">bonds</tspan></text>
+      </g></g>
+</svg>

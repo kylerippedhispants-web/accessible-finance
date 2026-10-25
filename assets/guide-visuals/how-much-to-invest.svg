@@ -1,17 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="304" viewBox="0 0 640 304" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="320" viewBox="0 0 640 320" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">What happens to the $500 remainder?</title>
   <desc id="description">The $500 monthly remainder is divided into a $300 investment contribution and a $200 buffer. Investing: $300. Initial monthly contribution Buffer: $200. Room for variable spending</desc>
-  <rect width="640" height="304" fill="#fff"/>
-  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="300">
-        <text x="32" y="56" font-size="34" font-weight="600">Investing</text>
-        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$300</text>
-        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
-        <rect x="32" y="114" width="576.000" height="20" rx="4" fill="#1d6b45"/>
+  <rect width="640" height="320" fill="#f8f3e7"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-value="300" data-row="0">
+        <text x="36" y="58" font-size="21" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="36" dy="0">Investing</tspan></text>
+        <text x="604" y="60" font-size="32" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="604" dy="0">$300</tspan></text>
+        <path d="M36 79v32 M604 79v32" stroke="#d8dfd2"/>
+        <rect x="36" y="84" width="568" height="22" rx="3" fill="#e6eadc"/>
+        <rect data-bar="true" x="36" y="84" width="568.000" height="22" rx="3" fill="#24664e"/>
+        <text x="36" y="135" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="36" dy="0">Initial monthly contribution</tspan></text>
       </g>
-<g data-value="200">
-        <text x="32" y="184" font-size="34" font-weight="600">Buffer</text>
-        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$200</text>
-        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
-        <rect x="32" y="242" width="384.000" height="20" rx="4" fill="#8b642b"/>
+<g data-value="200" data-row="1">
+        <text x="36" y="182" font-size="21" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="36" dy="0">Buffer</tspan></text>
+        <text x="604" y="184" font-size="32" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="604" dy="0">$200</tspan></text>
+        <path d="M36 203v32 M604 203v32" stroke="#d8dfd2"/>
+        <rect x="36" y="208" width="568" height="22" rx="3" fill="#e6eadc"/>
+        <rect data-bar="true" x="36" y="208" width="378.667" height="22" rx="3" fill="#24664e"/>
+        <text x="36" y="259" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="36" dy="0">Room for variable spending</tspan></text>
       </g></g>
 </svg>

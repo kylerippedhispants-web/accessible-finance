@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Update the cost of a goal as well as the savings</h3>
       <p>A purchase costs $8,000 today and is planned for three years from now. Suppose its price rises 3% a year while the savings earn 2% a year after tax and fees.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/inflation-erodes-savings.svg" width="640" height="304" loading="lazy" decoding="async" alt="After three hypothetical years. An $8,000 purchase growing at 3% annually costs about $8,742 after three years. Savings growing at 2% reach about $8,490, leaving a roughly $252 gap.">
         <figcaption><strong>After three hypothetical years</strong><span>An $8,000 purchase growing at 3% annually costs about $8,742 after three years. Savings growing at 2% reach about $8,490, leaving a roughly $252 gap.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/inflation-erodes-savings-mobile.svg" width="360" height="392">
+          <img src="/assets/guide-visuals/inflation-erodes-savings.svg" width="640" height="320" loading="lazy" decoding="async" alt="After three hypothetical years. An $8,000 purchase growing at 3% annually costs about $8,742 after three years. Savings growing at 2% reach about $8,490, leaving a roughly $252 gap.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Savings balance</dt><dd><strong>$8,490</strong><span>2% annual growth after tax and fees</span></dd></div><div><dt>Purchase price</dt><dd><strong>$8,742</strong><span>3% annual price increase</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Project the purchase price</strong><p>$8,000 × 1.03 × 1.03 × 1.03 ≈ $8,742. That is the future goal cost under this price assumption.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Project the savings</strong><p>$8,000 × 1.02 × 1.02 × 1.02 ≈ $8,490. The account balance grows, but more slowly than the price of the purchase.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Find the gap</strong><p>The difference is about $252 after three years. Revising the contribution plan or purchase budget addresses that gap without pretending the original $8,000 target is still enough.</p></li></ol>

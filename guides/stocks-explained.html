@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Add the price change and the cash dividend</h3>
       <p>An investor buys 100 shares of a fictional company for $20 each. A year later the shares trade at $22, and the investor has received $50 in dividends.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/stocks-explained.svg" width="640" height="432" loading="lazy" decoding="async" alt="Build the total-return calculation. A $2,000 purchase ends with $2,200 in shares plus $50 cash, for $2,250 total value and a 12.5% gain before fees and tax.">
         <figcaption><strong>Build the total-return calculation</strong><span>A $2,000 purchase ends with $2,200 in shares plus $50 cash, for $2,250 total value and a 12.5% gain before fees and tax.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/stocks-explained-mobile.svg" width="360" height="552">
+          <img src="/assets/guide-visuals/stocks-explained.svg" width="640" height="555" loading="lazy" decoding="async" alt="Build the total-return calculation. A $2,000 purchase ends with $2,200 in shares plus $50 cash, for $2,250 total value and a 12.5% gain before fees and tax.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Original purchase</dt><dd><strong>$2,000</strong><span>100 shares at $20.</span></dd></div><div><dt>Ending total value</dt><dd><strong>$2,250</strong><span>$2,200 shares + $50 cash.</span></dd></div><div><dt>Total return</dt><dd><strong>12.5%</strong><span>$250 gain ÷ $2,000 cost.</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Record the original cost</strong><p>100 × $20 = $2,000 invested.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Add both sources of return</strong><p>The shares are worth 100 × $22 = $2,200. Add the $50 cash dividend for total value of $2,250, assuming it was kept in cash.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Calculate the percentage</strong><p>The $250 gain divided by the $2,000 cost is 12.5%. Looking only at the price change would report 10% and miss the cash payment.</p></li></ol>

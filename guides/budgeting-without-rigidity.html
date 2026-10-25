@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Build one flexible spending number</h3>
       <p>Lee takes home $4,200 a month and wants a simple spending plan that remembers annual bills without tracking every coffee.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/budgeting-without-rigidity.svg" width="640" height="560" loading="lazy" decoding="async" alt="A simple plan for $4,200 a month. The monthly budget assigns $2,500 to essentials, $300 to irregular bills, $500 to goals, and $900 to flexible spending.">
         <figcaption><strong>A simple plan for $4,200 a month</strong><span>The monthly budget assigns $2,500 to essentials, $300 to irregular bills, $500 to goals, and $900 to flexible spending.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/budgeting-without-rigidity-mobile.svg" width="360" height="764">
+          <img src="/assets/guide-visuals/budgeting-without-rigidity.svg" width="640" height="568" loading="lazy" decoding="async" alt="A simple plan for $4,200 a month. The monthly budget assigns $2,500 to essentials, $300 to irregular bills, $500 to goals, and $900 to flexible spending.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Essentials</dt><dd><strong>$2,500</strong><span>Includes minimum debt payments</span></dd></div><div><dt>Irregular bills</dt><dd><strong>$300</strong><span>$3,600 annual total divided by 12</span></dd></div><div><dt>Savings goals</dt><dd><strong>$500</strong><span>Chosen priorities</span></dd></div><div><dt>Flexible spending</dt><dd><strong>$900</strong><span>About $208 a week, averaged over a year</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Fund the commitments</strong><p>Essentials and minimum debt payments total $2,500 a month. A $3,600 annual total for predictable irregular bills needs $3,600 ÷ 12 = $300 a month.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Fund the goals</strong><p>Lee sets aside $500 a month for chosen savings goals. The remainder is $4,200 − $2,500 − $300 − $500 = $900 for flexible spending.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Translate carefully into weeks</strong><p>$900 × 12 ÷ 52 ≈ $208 a week on average. Dividing by four would give $225 and overlook that a year has more than 48 weeks.</p></li></ol>

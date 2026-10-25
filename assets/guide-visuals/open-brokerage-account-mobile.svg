@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="636" viewBox="0 0 360 636" data-layout="flow" role="img" aria-labelledby="title description">
+  <title id="title">Follow the first $250</title>
+  <desc id="description">The original $250 deposit loses $3.75 to conversion and $5 to the purchase fee, leaving $241.25 to invest. Starting deposit: $250. The planned first contribution. Initial costs: $8.75. $3.75 conversion + $5 purchase fee. Left to invest: $241.25. 96.5% of the original deposit.</desc>
+  <rect width="360" height="636" fill="#f8f3e7"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-row="0">
+        <path d="M39 66V213" stroke="#b7cbbd" stroke-width="1.5"/>
+        <path d="m35 208 4 5 4-5" fill="none" stroke="#24664e" stroke-width="1.5"/>
+        <circle cx="39" cy="39" r="15" fill="#fffdf6" stroke="#24664e"/>
+        <text x="39" y="44" font-size="14" font-weight="600" fill="#24664e" text-anchor="middle"><tspan x="39" dy="0">1</tspan></text>
+        <text x="78" y="45" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="78" dy="0">Starting deposit</tspan></text>
+        <text x="78" y="88" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="78" dy="0">$250</tspan></text>
+        <text x="78" y="130" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="78" dy="0">The planned first</tspan><tspan x="78" dy="28">contribution.</tspan></text>
+        <path d="M78 200H336" stroke="#d8dfd2"/>
+      </g>
+<g data-row="1">
+        <path d="M39 262V409" stroke="#b7cbbd" stroke-width="1.5"/>
+        <path d="m35 404 4 5 4-5" fill="none" stroke="#24664e" stroke-width="1.5"/>
+        <circle cx="39" cy="235" r="15" fill="#fffdf6" stroke="#24664e"/>
+        <text x="39" y="240" font-size="14" font-weight="600" fill="#24664e" text-anchor="middle"><tspan x="39" dy="0">2</tspan></text>
+        <text x="78" y="241" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="78" dy="0">Initial costs</tspan></text>
+        <text x="78" y="284" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="78" dy="0">$8.75</tspan></text>
+        <text x="78" y="326" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="78" dy="0">$3.75 conversion + $5</tspan><tspan x="78" dy="28">purchase fee.</tspan></text>
+        <path d="M78 396H336" stroke="#d8dfd2"/>
+      </g>
+<g data-row="2">
+        
+        <circle cx="39" cy="431" r="15" fill="#24664e" stroke="#24664e"/>
+        <text x="39" y="436" font-size="14" font-weight="600" fill="#fff" text-anchor="middle"><tspan x="39" dy="0">3</tspan></text>
+        <text x="78" y="437" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="78" dy="0">Left to invest</tspan></text>
+        <text x="78" y="480" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="78" dy="0">$241.25</tspan></text>
+        <text x="78" y="522" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="78" dy="0">96.5% of the original</tspan><tspan x="78" dy="28">deposit.</tspan></text>
+        
+      </g></g>
+</svg>

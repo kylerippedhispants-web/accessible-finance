@@ -1,17 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="304" viewBox="0 0 640 304" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="320" viewBox="0 0 640 320" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">A withdrawal has two parts</title>
   <desc id="description">In this hypothetical RDSP withdrawal, $600 is paid out and $1,800 of grants or bonds is repaid, reducing the plan by $2,400 in total. Payment out: $600. Before any tax on the payment Grant/bond repayment: $1,800. $3 repaid for each $1 withdrawn</desc>
-  <rect width="640" height="304" fill="#fff"/>
-  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="600">
-        <text x="32" y="56" font-size="34" font-weight="600">Payment out</text>
-        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$600</text>
-        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
-        <rect x="32" y="114" width="192.000" height="20" rx="4" fill="#1d6b45"/>
+  <rect width="640" height="320" fill="#f8f3e7"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-value="600" data-row="0">
+        <text x="36" y="58" font-size="21" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="36" dy="0">Payment out</tspan></text>
+        <text x="604" y="60" font-size="32" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="604" dy="0">$600</tspan></text>
+        <path d="M36 79v32 M604 79v32" stroke="#d8dfd2"/>
+        <rect x="36" y="84" width="568" height="22" rx="3" fill="#e6eadc"/>
+        <rect data-bar="true" x="36" y="84" width="189.333" height="22" rx="3" fill="#24664e"/>
+        <text x="36" y="135" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="36" dy="0">Before any tax on the payment</tspan></text>
       </g>
-<g data-value="1800">
-        <text x="32" y="184" font-size="34" font-weight="600">Grant/bond repayment</text>
-        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$1,800</text>
-        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
-        <rect x="32" y="242" width="576.000" height="20" rx="4" fill="#8b642b"/>
+<g data-value="1800" data-row="1">
+        <text x="36" y="182" font-size="21" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="36" dy="0">Grant/bond repayment</tspan></text>
+        <text x="604" y="184" font-size="32" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="604" dy="0">$1,800</tspan></text>
+        <path d="M36 203v32 M604 203v32" stroke="#d8dfd2"/>
+        <rect x="36" y="208" width="568" height="22" rx="3" fill="#e6eadc"/>
+        <rect data-bar="true" x="36" y="208" width="568.000" height="22" rx="3" fill="#24664e"/>
+        <text x="36" y="259" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="36" dy="0">$3 repaid for each $1 withdrawn</tspan></text>
       </g></g>
 </svg>

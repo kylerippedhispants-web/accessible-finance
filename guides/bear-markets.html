@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Why a 30% decline needs more than a 30% recovery</h3>
       <p>A hypothetical $10,000 portfolio loses 30%. The recovery percentage is measured from the smaller balance left afterward.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/bear-markets.svg" width="640" height="432" loading="lazy" decoding="async" alt="The same percentage, a different base. The portfolio begins at $10,000, falls 30% to $7,000, then gains 30% to $9,100, still below its starting value.">
         <figcaption><strong>The same percentage, a different base</strong><span>The portfolio begins at $10,000, falls 30% to $7,000, then gains 30% to $9,100, still below its starting value.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/bear-markets-mobile.svg" width="360" height="522">
+          <img src="/assets/guide-visuals/bear-markets.svg" width="640" height="444" loading="lazy" decoding="async" alt="The same percentage, a different base. The portfolio begins at $10,000, falls 30% to $7,000, then gains 30% to $9,100, still below its starting value.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Before the decline</dt><dd><strong>$10,000</strong><span>Starting balance</span></dd></div><div><dt>After a 30% loss</dt><dd><strong>$7,000</strong><span>$3,000 below the start</span></dd></div><div><dt>Then a 30% gain</dt><dd><strong>$9,100</strong><span>Still $900 below the start</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Calculate the loss</strong><p>$10,000 × 30% = $3,000 lost, leaving $7,000. This is a change in portfolio value, before any contributions or withdrawals.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Try a 30% gain</strong><p>A 30% gain on $7,000 adds $2,100. The balance reaches $9,100, which is still $900 below the starting value.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Find the required gain</strong><p>To return from $7,000 to $10,000 requires $3,000 ÷ $7,000 ≈ 42.9%. A recovery is possible, but neither its size nor its timing is guaranteed.</p></li></ol>

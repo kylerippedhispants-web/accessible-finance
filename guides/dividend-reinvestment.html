@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Reinvesting a $40 cash dividend</h3>
       <p>An investor owns 100 shares and receives a fictional $0.40 dividend per share. On the reinvestment date, shares trade at $20.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/dividend-reinvestment.svg" width="640" height="432" loading="lazy" decoding="async" alt="From cash payment to extra shares. A $0.40 payment on 100 shares provides $40. Reinvesting at $20 buys two shares, increasing the holding to 102 shares.">
         <figcaption><strong>From cash payment to extra shares</strong><span>A $0.40 payment on 100 shares provides $40. Reinvesting at $20 buys two shares, increasing the holding to 102 shares.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/dividend-reinvestment-mobile.svg" width="360" height="580">
+          <img src="/assets/guide-visuals/dividend-reinvestment.svg" width="640" height="555" loading="lazy" decoding="async" alt="From cash payment to extra shares. A $0.40 payment on 100 shares provides $40. Reinvesting at $20 buys two shares, increasing the holding to 102 shares.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Receive the dividend</dt><dd><strong>$40 cash</strong><span>100 shares × $0.40.</span></dd></div><div><dt>Reinvest at $20</dt><dd><strong>2 more shares</strong><span>$40 ÷ $20.</span></dd></div><div><dt>New holding</dt><dd><strong>102 shares</strong><span>Future payments and prices can change.</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Calculate the payment</strong><p>100 shares × $0.40 per share = $40 in cash.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Use the payment to buy shares</strong><p>At $20 each, $40 buys 2 more shares. The investor now owns 102 shares and has used all of the dividend cash.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Check a later payment</strong><p>If a later dividend were also $0.40 per share, 102 shares would produce $40.80 instead of $40. The extra $0.80 comes from the two additional shares.</p></li></ol>

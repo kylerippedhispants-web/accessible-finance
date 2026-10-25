@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Watch $1,000 compound, one year at a time</h3>
       <p>Start with $1,000 and use a hypothetical 5% annual return. Leave each year&#039;s return in the account, without adding more money.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/compound-interest.svg" width="640" height="432" loading="lazy" decoding="async" alt="The balance that earns the next return. With $1,000 initially and a constant 5% annual return, the year-end balances are $1,050, $1,102.50, and $1,157.63.">
         <figcaption><strong>The balance that earns the next return</strong><span>With $1,000 initially and a constant 5% annual return, the year-end balances are $1,050, $1,102.50, and $1,157.63.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/compound-interest-mobile.svg" width="360" height="550">
+          <img src="/assets/guide-visuals/compound-interest.svg" width="640" height="444" loading="lazy" decoding="async" alt="The balance that earns the next return. With $1,000 initially and a constant 5% annual return, the year-end balances are $1,050, $1,102.50, and $1,157.63.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>End of year 1</dt><dd><strong>$1,050</strong><span>$50 earned during year 1.</span></dd></div><div><dt>End of year 2</dt><dd><strong>$1,102.50</strong><span>$52.50 earned during year 2.</span></dd></div><div><dt>End of year 3</dt><dd><strong>$1,157.63</strong><span>About $55.13 earned during year 3.</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Year one: earn on the deposit</strong><p>$1,000 × 5% = $50. The balance becomes $1,050.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Year two: earn on the larger balance</strong><p>$1,050 × 5% = $52.50. The balance becomes $1,102.50. That extra $2.50 comes from growth on the first year&#039;s return.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Year three: repeat the process</strong><p>$1,102.50 × 5% = $55.125. The balance becomes $1,157.625, or $1,157.63 rounded at the end.</p></li></ol>

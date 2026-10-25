@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Track room separately from the account balance</h3>
       <p>Sam has $5,000 of verified unused TFSA room. A contribution and a later withdrawal affect that room on different schedules.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/tfsa-explained.svg" width="640" height="432" loading="lazy" decoding="async" alt="A withdrawal does not refill room immediately. Available room begins at $5,000, falls to $2,000 after a $3,000 contribution, and remains $2,000 after a $1,000 same-year withdrawal.">
         <figcaption><strong>A withdrawal does not refill room immediately</strong><span>Available room begins at $5,000, falls to $2,000 after a $3,000 contribution, and remains $2,000 after a $1,000 same-year withdrawal.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/tfsa-explained-mobile.svg" width="360" height="608">
+          <img src="/assets/guide-visuals/tfsa-explained.svg" width="640" height="555" loading="lazy" decoding="async" alt="A withdrawal does not refill room immediately. Available room begins at $5,000, falls to $2,000 after a $3,000 contribution, and remains $2,000 after a $1,000 same-year withdrawal.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Before contributing</dt><dd><strong>$5,000 room</strong><span>Verified unused room</span></dd></div><div><dt>After contributing</dt><dd><strong>$2,000 room</strong><span>$3,000 contribution used room</span></dd></div><div><dt>After withdrawing</dt><dd><strong>$2,000 room</strong><span>$1,000 is added back next calendar year</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Record the contribution</strong><p>Sam contributes $3,000. Remaining room is $5,000 − $3,000 = $2,000, regardless of what the investments later earn or lose.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Record the withdrawal</strong><p>Sam withdraws $1,000 later in the same year. The available room stays at $2,000: this withdrawal does not immediately create new room.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Carry the records forward</strong><p>With no other transactions, the next January starts with $2,000 unused room plus the $1,000 withdrawal, before adding any new annual room Sam is eligible for.</p></li></ol>

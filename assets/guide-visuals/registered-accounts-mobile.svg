@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="636" viewBox="0 0 360 636" data-layout="compare" role="img" aria-labelledby="title description">
+  <title id="title">One account type, three holdings</title>
+  <desc id="description">Each TFSA holds $1,000, but accessible savings, a locked-in GIC, and a stock fund have different access and risk characteristics. Savings in a TFSA: $1,000. Check access and deposit protection GIC in a TFSA: $1,000. Check maturity and withdrawal restrictions Stock fund in a TFSA: $1,000. Market value can rise or fall</desc>
+  <rect width="360" height="636" fill="#f8f3e7"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-row="0">
+        <rect x="24" y="24" width="312" height="180" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M46 38h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="67" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">Savings in a TFSA</tspan></text>
+        <text x="46" y="113" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">$1,000</tspan></text>
+        <text x="46" y="160" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">Check access and deposit</tspan><tspan x="46" dy="28">protection</tspan></text>
+      </g>
+<g data-row="1">
+        <rect x="24" y="220" width="312" height="180" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M46 234h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="263" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">GIC in a TFSA</tspan></text>
+        <text x="46" y="309" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">$1,000</tspan></text>
+        <text x="46" y="356" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">Check maturity and</tspan><tspan x="46" dy="28">withdrawal restrictions</tspan></text>
+      </g>
+<g data-row="2">
+        <rect x="24" y="416" width="312" height="180" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M46 430h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="459" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">Stock fund in a TFSA</tspan></text>
+        <text x="46" y="505" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">$1,000</tspan></text>
+        <text x="46" y="552" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">Market value can rise or</tspan><tspan x="46" dy="28">fall</tspan></text>
+      </g></g>
+</svg>

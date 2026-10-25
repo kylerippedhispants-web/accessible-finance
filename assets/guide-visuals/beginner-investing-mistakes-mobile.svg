@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="680" viewBox="0 0 360 680" data-layout="bars" role="img" aria-labelledby="title description">
+  <title id="title">Exposure to the same company</title>
+  <desc id="description">The four funds hold $200, $150, $100, and $50 of the same company, adding to $500 of a $2,000 portfolio. Fund A: $200. 40% of a $500 holding Fund B: $150. 30% of a $500 holding Fund C: $100. 20% of a $500 holding Fund D: $50. 10% of a $500 holding</desc>
+  <rect width="360" height="680" fill="#f8f3e7"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-value="200" data-row="0">
+        <text x="24" y="46" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Fund A</tspan></text>
+        <text x="336" y="89" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$200</tspan></text>
+        <path d="M24 103v32 M336 103v32" stroke="#d8dfd2"/>
+        <rect x="24" y="108" width="312" height="22" rx="3" fill="#e6eadc"/>
+        <rect data-bar="true" x="24" y="108" width="312.000" height="22" rx="3" fill="#24664e"/>
+        <text x="24" y="159" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">40% of a $500 holding</tspan></text>
+      </g>
+<g data-value="150" data-row="1">
+        <text x="24" y="204" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Fund B</tspan></text>
+        <text x="336" y="247" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$150</tspan></text>
+        <path d="M24 261v32 M336 261v32" stroke="#d8dfd2"/>
+        <rect x="24" y="266" width="312" height="22" rx="3" fill="#e6eadc"/>
+        <rect data-bar="true" x="24" y="266" width="234.000" height="22" rx="3" fill="#24664e"/>
+        <text x="24" y="317" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">30% of a $500 holding</tspan></text>
+      </g>
+<g data-value="100" data-row="2">
+        <text x="24" y="362" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Fund C</tspan></text>
+        <text x="336" y="405" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$100</tspan></text>
+        <path d="M24 419v32 M336 419v32" stroke="#d8dfd2"/>
+        <rect x="24" y="424" width="312" height="22" rx="3" fill="#e6eadc"/>
+        <rect data-bar="true" x="24" y="424" width="156.000" height="22" rx="3" fill="#24664e"/>
+        <text x="24" y="475" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">20% of a $500 holding</tspan></text>
+      </g>
+<g data-value="50" data-row="3">
+        <text x="24" y="520" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Fund D</tspan></text>
+        <text x="336" y="563" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$50</tspan></text>
+        <path d="M24 577v32 M336 577v32" stroke="#d8dfd2"/>
+        <rect x="24" y="582" width="312" height="22" rx="3" fill="#e6eadc"/>
+        <rect data-bar="true" x="24" y="582" width="78.000" height="22" rx="3" fill="#24664e"/>
+        <text x="24" y="633" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">10% of a $500 holding</tspan></text>
+      </g></g>
+</svg>

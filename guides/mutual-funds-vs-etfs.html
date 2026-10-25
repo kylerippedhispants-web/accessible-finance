@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>What happens to a $250 purchase?</h3>
       <p>Compare two fictional funds with similar holdings. One accepts mutual-fund dollar orders; the other is an ETF purchased through a broker that allows only whole units.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/mutual-funds-vs-etfs.svg" width="640" height="304" loading="lazy" decoding="async" alt="One $250 budget, two purchase methods. At an assumed $25 mutual-fund price, all $250 buys ten units. At a $24 ETF execution price with whole units only, ten units cost $240 and $10 remains cash.">
         <figcaption><strong>One $250 budget, two purchase methods</strong><span>At an assumed $25 mutual-fund price, all $250 buys ten units. At a $24 ETF execution price with whole units only, ten units cost $240 and $10 remains cash.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/mutual-funds-vs-etfs-mobile.svg" width="360" height="440">
+          <img src="/assets/guide-visuals/mutual-funds-vs-etfs.svg" width="640" height="299" loading="lazy" decoding="async" alt="One $250 budget, two purchase methods. At an assumed $25 mutual-fund price, all $250 buys ten units. At a $24 ETF execution price with whole units only, ten units cost $240 and $10 remains cash.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Mutual-fund order</dt><dd><strong>10 units / $250</strong><span>Calculated at the applicable $25 NAV.</span></dd></div><div><dt>ETF order</dt><dd><strong>10 units / $240</strong><span>$24 execution price; $10 cash remains.</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Place a mutual-fund dollar order</strong><p>A $250 order receives units at the next applicable net asset value. If that price is $25, it buys 10 units; a different price changes the number of units.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Price an ETF order</strong><p>If the ETF executes at $24, 10 whole units cost $240. The remaining $10 stays as cash because this example&#039;s broker does not support fractional units.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Compare the useful features</strong><p>Both purchases can provide diversified exposure. Check the actual holdings, ongoing fees, trading costs, fractional-unit support, and automatic-purchase options before choosing.</p></li></ol>

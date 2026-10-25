@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Find a contribution that leaves room for real life</h3>
       <p>Morgan takes home $3,600 a month. Before choosing an investment amount, Morgan gives the rest of the budget a job.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/how-much-to-invest.svg" width="640" height="304" loading="lazy" decoding="async" alt="What happens to the $500 remainder?. The $500 monthly remainder is divided into a $300 investment contribution and a $200 buffer.">
         <figcaption><strong>What happens to the $500 remainder?</strong><span>The $500 monthly remainder is divided into a $300 investment contribution and a $200 buffer.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/how-much-to-invest-mobile.svg" width="360" height="364">
+          <img src="/assets/guide-visuals/how-much-to-invest.svg" width="640" height="320" loading="lazy" decoding="async" alt="What happens to the $500 remainder?. The $500 monthly remainder is divided into a $300 investment contribution and a $200 buffer.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Investing</dt><dd><strong>$300</strong><span>Initial monthly contribution</span></dd></div><div><dt>Buffer</dt><dd><strong>$200</strong><span>Room for variable spending</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Cover commitments</strong><p>Essentials and minimum debt payments total $2,400. Annual bills need another $300 a month, and short-term savings need $400.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Find the actual remainder</strong><p>$3,600 − $2,400 − $300 − $400 = $500 remains. Treating the full $1,200 after essentials as available would miss two real obligations.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Leave a margin</strong><p>Morgan keeps $200 of the remainder as a monthly buffer and starts a $300 investment contribution. The amount can be reviewed after a few months of actual spending.</p></li></ol>

@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>The same $1,000 with ten more years</h3>
       <p>Compare one $1,000 deposit made at age 30 with the same deposit made at age 40. Both are measured at age 55 using a hypothetical 5% annual return.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/starting-early.svg" width="640" height="304" loading="lazy" decoding="async" alt="Value at age 55. At an assumed 5% annual return, $1,000 deposited at age 30 grows to about $3,386 by age 55; the same deposit at age 40 grows to about $2,079.">
         <figcaption><strong>Value at age 55</strong><span>At an assumed 5% annual return, $1,000 deposited at age 30 grows to about $3,386 by age 55; the same deposit at age 40 grows to about $2,079.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/starting-early-mobile.svg" width="360" height="364">
+          <img src="/assets/guide-visuals/starting-early.svg" width="640" height="320" loading="lazy" decoding="async" alt="Value at age 55. At an assumed 5% annual return, $1,000 deposited at age 30 grows to about $3,386 by age 55; the same deposit at age 40 grows to about $2,079.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Deposit at age 30</dt><dd><strong>$3,386</strong><span>25 years to compound.</span></dd></div><div><dt>Deposit at age 40</dt><dd><strong>$2,079</strong><span>15 years to compound.</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Give the early deposit 25 years</strong><p>$1,000 × 1.05²⁵ is about $3,386 at age 55.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Give the later deposit 15 years</strong><p>$1,000 × 1.05¹⁵ is about $2,079 at the same age.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Identify what changed</strong><p>The starting deposit and assumed rate are identical. Ten extra compounding years create a difference of about $1,307; no extra contribution was required in this comparison.</p></li></ol>

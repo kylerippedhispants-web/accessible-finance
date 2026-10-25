@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Turn an exciting headline into a written decision</h3>
       <p>Casey’s plan calls for a $300 monthly diversified investment. A headline creates an urge to put $900 into one company immediately.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/investor-behaviour.svg" width="640" height="432" loading="lazy" decoding="async" alt="From impulse to an explicit choice. Casey compares a $300 planned contribution with a $900 impulse trade, then pauses to review the extra $600 and the added concentration.">
         <figcaption><strong>From impulse to an explicit choice</strong><span>Casey compares a $300 planned contribution with a $900 impulse trade, then pauses to review the extra $600 and the added concentration.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/investor-behaviour-mobile.svg" width="360" height="636">
+          <img src="/assets/guide-visuals/investor-behaviour.svg" width="640" height="555" loading="lazy" decoding="async" alt="From impulse to an explicit choice. Casey compares a $300 planned contribution with a $900 impulse trade, then pauses to review the extra $600 and the added concentration.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Written plan</dt><dd><strong>$300</strong><span>Scheduled diversified contribution</span></dd></div><div><dt>Headline impulse</dt><dd><strong>$900</strong><span>$600 extra and one-company risk</span></dd></div><div><dt>Decision check</dt><dd><strong>Pause and review</strong><span>Name the evidence and the goal paying for it</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Make the change visible</strong><p>The proposed trade is three times the planned monthly amount. It needs $600 beyond the $300 already budgeted and replaces diversification with one-company exposure.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Pause and name the reason</strong><p>Casey follows a personal 24-hour pause rule and writes down the expected source of return, holding period, possible loss, and which goal would fund the extra $600.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Compare with the plan</strong><p>Nothing about Casey’s income, goal, or evidence has changed; only the headline feels urgent. Casey keeps the scheduled contribution and records why the unplanned trade was declined.</p></li></ol>

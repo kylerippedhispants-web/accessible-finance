@@ -1029,7 +1029,7 @@
   const renderWorkedExample = (item) => {
     const example = item.workedExample;
     const visual = example.visual;
-    const height = 48 + visual.items.length * 128;
+    const dimensions = visual.dimensions;
     const formatValue = (value) => typeof value === 'number'
       ? `${visual.unit === '$' ? '$' : ''}${value.toLocaleString('en-CA', { minimumFractionDigits: visual.unit === '$' && !Number.isInteger(value) ? 2 : 0, maximumFractionDigits: 2 })}${visual.unit === '%' ? '%' : visual.unit && visual.unit !== '$' ? ' ' + visual.unit : ''}`
       : value;
@@ -1038,8 +1038,11 @@
       <h3>${escapeHtml(example.title)}</h3>
       <p>${escapeHtml(example.introduction)}</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/${escapeHtml(item.guideId)}.svg" width="640" height="${height}" loading="lazy" decoding="async" alt="${escapeHtml(visual.title + '. ' + visual.description)}">
         <figcaption><strong>${escapeHtml(visual.title)}</strong><span>${escapeHtml(visual.description)}</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/${escapeHtml(item.guideId)}-mobile.svg" width="360"${dimensions ? ` height="${dimensions.mobile.height}"` : ''}>
+          <img src="/assets/guide-visuals/${escapeHtml(item.guideId)}.svg" width="640"${dimensions ? ` height="${dimensions.desktop.height}"` : ''} loading="lazy" decoding="async" alt="${escapeHtml(visual.title + '. ' + visual.description)}">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl>${visual.items.map((entry) => `<div><dt>${escapeHtml(entry.label)}</dt><dd><strong>${escapeHtml(formatValue(entry.value))}</strong>${entry.detail ? `<span>${escapeHtml(entry.detail)}</span>` : ''}</dd></div>`).join('')}</dl></details>
       <ol class="example-steps">${example.steps.map((step, index) => `<li><span class="example-step-number" aria-hidden="true">${index + 1}</span><strong>${escapeHtml(step.label)}</strong><p>${escapeHtml(step.body)}</p></li>`).join('')}</ol>

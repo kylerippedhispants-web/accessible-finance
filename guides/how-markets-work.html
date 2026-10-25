@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Why 50 units can cost more than the quote</h3>
       <p>You want to buy 50 units of a fictional fund. The order book has 30 units for sale at $20 and another 20 at $20.10.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/how-markets-work.svg" width="640" height="304" loading="lazy" decoding="async" alt="Same order size, different control. The market purchase fills 50 units for $1,002. A $20 limit fills only 30 units for $600 while the other 20 remain unfilled under the stated offers.">
         <figcaption><strong>Same order size, different control</strong><span>The market purchase fills 50 units for $1,002. A $20 limit fills only 30 units for $600 while the other 20 remain unfilled under the stated offers.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/how-markets-work-mobile.svg" width="360" height="440">
+          <img src="/assets/guide-visuals/how-markets-work.svg" width="640" height="299" loading="lazy" decoding="async" alt="Same order size, different control. The market purchase fills 50 units for $1,002. A $20 limit fills only 30 units for $600 while the other 20 remain unfilled under the stated offers.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Market purchase</dt><dd><strong>50 units / $1,002</strong><span>Some units fill above the lowest ask.</span></dd></div><div><dt>$20 buy limit</dt><dd><strong>30 units / $600</strong><span>20 units remain unfilled at these prices.</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Read the available prices</strong><p>The lowest ask is $20, but only 30 units are available at that price. The displayed quote does not cover the entire order.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Calculate a market purchase</strong><p>If those offers remain available, 30 × $20 plus 20 × $20.10 costs $1,002. The average price is $1,002 ÷ 50 = $20.04 per unit.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Compare a $20 limit</strong><p>A buy limit of $20 can fill the first 30 units for $600 in this example. The remaining 20 wait for a seller at $20 or less, or expire or are cancelled.</p></li></ol>

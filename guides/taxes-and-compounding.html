@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>How yearly tax changes the compounding base</h3>
       <p>Imagine $10,000 earning 4% annual interest for ten years. Compare a taxable account with a TFSA, assuming the saver is eligible and has enough verified contribution room.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/taxes-and-compounding.svg" width="640" height="304" loading="lazy" decoding="async" alt="The same interest rate, different tax treatment. After ten years, the assumed taxable account holds about $13,180 at 2.8% after annual tax; the TFSA holds about $14,802 at 4%.">
         <figcaption><strong>The same interest rate, different tax treatment</strong><span>After ten years, the assumed taxable account holds about $13,180 at 2.8% after annual tax; the TFSA holds about $14,802 at 4%.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/taxes-and-compounding-mobile.svg" width="360" height="420">
+          <img src="/assets/guide-visuals/taxes-and-compounding.svg" width="640" height="320" loading="lazy" decoding="async" alt="The same interest rate, different tax treatment. After ten years, the assumed taxable account holds about $13,180 at 2.8% after annual tax; the TFSA holds about $14,802 at 4%.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Taxable interest</dt><dd><strong>$13,180</strong><span>2.8% after assumed annual tax.</span></dd></div><div><dt>TFSA interest</dt><dd><strong>$14,802</strong><span>4% retained under the stated assumptions.</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Model the taxable interest</strong><p>At an assumed 30% tax rate on interest, the first year&#039;s $400 interest creates $120 of tax. Paying that tax from the account leaves $280 to reinvest, a net rate of 2.8%.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Model tax-free interest</strong><p>For ordinary eligible interest earned inside the TFSA, the full $400 remains to compound. The model keeps the 4% rate.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Compare after ten years</strong><p>$10,000 × 1.028¹⁰ is about $13,180 in the taxable account. $10,000 × 1.04¹⁰ is about $14,802 in the TFSA, a difference of about $1,622.</p></li></ol>

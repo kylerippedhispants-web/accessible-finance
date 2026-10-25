@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Four funds can still share the same big bet</h3>
       <p>Riley puts $500 into each of four funds and assumes that four names mean broad diversification. A look at their holdings tells a different story.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/beginner-investing-mistakes.svg" width="640" height="560" loading="lazy" decoding="async" alt="Exposure to the same company. The four funds hold $200, $150, $100, and $50 of the same company, adding to $500 of a $2,000 portfolio.">
         <figcaption><strong>Exposure to the same company</strong><span>The four funds hold $200, $150, $100, and $50 of the same company, adding to $500 of a $2,000 portfolio.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/beginner-investing-mistakes-mobile.svg" width="360" height="680">
+          <img src="/assets/guide-visuals/beginner-investing-mistakes.svg" width="640" height="568" loading="lazy" decoding="async" alt="Exposure to the same company. The four funds hold $200, $150, $100, and $50 of the same company, adding to $500 of a $2,000 portfolio.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Fund A</dt><dd><strong>$200</strong><span>40% of a $500 holding</span></dd></div><div><dt>Fund B</dt><dd><strong>$150</strong><span>30% of a $500 holding</span></dd></div><div><dt>Fund C</dt><dd><strong>$100</strong><span>20% of a $500 holding</span></dd></div><div><dt>Fund D</dt><dd><strong>$50</strong><span>10% of a $500 holding</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Look through the labels</strong><p>The same company represents 40%, 30%, 20%, and 10% of the four funds. Each $500 purchase therefore includes $200, $150, $100, and $50 of that company.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Add the overlap</strong><p>$200 + $150 + $100 + $50 = $500 exposed to one company. Across the $2,000 portfolio, that is $500 ÷ $2,000 = 25%.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Compare with the intended risk</strong><p>Riley reviews the underlying holdings and sectors before adding another fund. More fund names do not necessarily reduce the concentration.</p></li></ol>

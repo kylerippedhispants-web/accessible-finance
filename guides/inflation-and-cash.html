@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Read one savings balance in two ways</h3>
       <p>A $5,000 cash balance earns a hypothetical 2% each year for five years, while the prices of the things it buys rise by 3% a year.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/inflation-and-cash.svg" width="640" height="432" loading="lazy" decoding="async" alt="Purchasing power after five years. Starting purchasing power is $5,000. After five years of 3% inflation, cash earning 2% has about $4,762 of purchasing power; cash earning nothing has about $4,313.">
         <figcaption><strong>Purchasing power after five years</strong><span>Starting purchasing power is $5,000. After five years of 3% inflation, cash earning 2% has about $4,762 of purchasing power; cash earning nothing has about $4,313.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/inflation-and-cash-mobile.svg" width="360" height="578">
+          <img src="/assets/guide-visuals/inflation-and-cash.svg" width="640" height="444" loading="lazy" decoding="async" alt="Purchasing power after five years. Starting purchasing power is $5,000. After five years of 3% inflation, cash earning 2% has about $4,762 of purchasing power; cash earning nothing has about $4,313.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Starting value</dt><dd><strong>$5,000</strong><span>Today&#039;s purchasing power.</span></dd></div><div><dt>Cash earning 2%</dt><dd><strong>$4,762</strong><span>After five years at 3% inflation.</span></dd></div><div><dt>Cash earning 0%</dt><dd><strong>$4,313</strong><span>After five years at 3% inflation.</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Calculate the account balance</strong><p>With annual compounding, $5,000 × 1.02⁵ is about $5,520. The statement shows a gain of about $520.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Adjust for higher prices</strong><p>Over the same five years, the price level multiplies by 1.03⁵. Dividing $5,520.40 by that factor gives about $4,762 in today&#039;s purchasing power.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Compare with idle cash</strong><p>At 0% interest, the balance would still show $5,000, but its purchasing power would be about $4,313. Earning interest narrows the gap without fully closing it in this scenario.</p></li></ol>

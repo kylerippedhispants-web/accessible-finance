@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Why an RDSP withdrawal needs a repayment check</h3>
       <p>Consider an eligible, DTC-approved 40-year-old whose RDSP issuer confirms that $5,000 of recent grants and bonds is subject to repayment. They are considering a $600 withdrawal.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/disability-investing-canada.svg" width="640" height="304" loading="lazy" decoding="async" alt="A withdrawal has two parts. In this hypothetical RDSP withdrawal, $600 is paid out and $1,800 of grants or bonds is repaid, reducing the plan by $2,400 in total.">
         <figcaption><strong>A withdrawal has two parts</strong><span>In this hypothetical RDSP withdrawal, $600 is paid out and $1,800 of grants or bonds is repaid, reducing the plan by $2,400 in total.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/disability-investing-canada-mobile.svg" width="360" height="392">
+          <img src="/assets/guide-visuals/disability-investing-canada.svg" width="640" height="320" loading="lazy" decoding="async" alt="A withdrawal has two parts. In this hypothetical RDSP withdrawal, $600 is paid out and $1,800 of grants or bonds is repaid, reducing the plan by $2,400 in total.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Payment out</dt><dd><strong>$600</strong><span>Before any tax on the payment</span></dd></div><div><dt>Grant/bond repayment</dt><dd><strong>$1,800</strong><span>$3 repaid for each $1 withdrawn</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Check which rule applies</strong><p>Assume the ordinary proportional repayment rule applies and no exception is available. The plan must repay $3 of affected grants or bonds for each $1 withdrawn, up to the applicable amount.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Calculate the repayment</strong><p>$600 × 3 = $1,800. That is below the $5,000 repayment amount confirmed by the issuer, so the full $1,800 is repaid in this example.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Measure the total effect</strong><p>The plan loses $600 paid out plus $1,800 repaid to government: $2,400 in total. Tax on the payment and any provincial benefit effect must be checked separately.</p></li></ol>

@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,8 +530,11 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Bonds can help even when they also lose value</h3>
       <p>Compare two hypothetical $50,000 portfolios during a period when stocks lose 20% and bonds lose 5%. One owns only stocks; the other starts with $30,000 in stocks and $20,000 in bonds.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/bonds-in-portfolio.svg" width="640" height="432" loading="lazy" decoding="async" alt="Same starting balance, different losses. Both portfolios start at $50,000. With stocks down 20% and bonds down 5%, the 60/40 portfolio ends at $43,000 and the all-stock portfolio at $40,000.">
         <figcaption><strong>Same starting balance, different losses</strong><span>Both portfolios start at $50,000. With stocks down 20% and bonds down 5%, the 60/40 portfolio ends at $43,000 and the all-stock portfolio at $40,000.</span></figcaption>
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/bonds-in-portfolio-mobile.svg" width="360" height="522">
+          <img src="/assets/guide-visuals/bonds-in-portfolio.svg" width="640" height="444" loading="lazy" decoding="async" alt="Same starting balance, different losses. Both portfolios start at $50,000. With stocks down 20% and bonds down 5%, the 60/40 portfolio ends at $43,000 and the all-stock portfolio at $40,000.">
+        </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Starting balance</dt><dd><strong>$50,000</strong><span>The same for both portfolios</span></dd></div><div><dt>60/40 portfolio</dt><dd><strong>$43,000</strong><span>14% loss in this scenario</span></dd></div><div><dt>All-stock portfolio</dt><dd><strong>$40,000</strong><span>20% loss in this scenario</span></dd></div></dl></details>
       <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Calculate the all-stock result</strong><p>$50,000 × 80% = $40,000. The all-stock portfolio loses $10,000 in this scenario.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Calculate the mixed result</strong><p>Stocks in the mixed portfolio become $24,000, while bonds become $19,000. Together they total $43,000.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Compare the losses</strong><p>The mixed portfolio loses $7,000, or 14%, versus 20% for the all-stock portfolio. Bonds did not rise; they simply fell less in this particular scenario.</p></li></ol>

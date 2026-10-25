@@ -1,29 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="432" viewBox="0 0 640 432" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="555" viewBox="0 0 640 555" data-layout="compare" role="img" aria-labelledby="title description">
   <title id="title">One account type, three holdings</title>
   <desc id="description">Each TFSA holds $1,000, but accessible savings, a locked-in GIC, and a stock fund have different access and risk characteristics. Savings in a TFSA: $1,000. Check access and deposit protection GIC in a TFSA: $1,000. Check maturity and withdrawal restrictions Stock fund in a TFSA: $1,000. Market value can rise or fall</desc>
-  <rect width="640" height="432" fill="#fff"/>
-  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g>
-      <rect x="24" y="24" width="592" height="108" rx="10" fill="#eef5f0"/>
-      
-      <circle cx="58" cy="60" r="18" fill="#1d6b45"/>
-      <text x="58" y="67" font-size="20" text-anchor="middle" fill="#fff">1</text>
-      <text x="92" y="60" font-size="32" font-weight="600">Savings in a TFSA</text>
-      <text x="92" y="103" font-size="36" fill="#1d6b45">$1,000</text>
-    </g>
-<g>
-      <rect x="24" y="152" width="592" height="108" rx="10" fill="#f4f0e7"/>
-      
-      <circle cx="58" cy="188" r="18" fill="#8b642b"/>
-      <text x="58" y="195" font-size="20" text-anchor="middle" fill="#fff">2</text>
-      <text x="92" y="188" font-size="32" font-weight="600">GIC in a TFSA</text>
-      <text x="92" y="231" font-size="36" fill="#8b642b">$1,000</text>
-    </g>
-<g>
-      <rect x="24" y="280" width="592" height="108" rx="10" fill="#eef5f0"/>
-      
-      <circle cx="58" cy="316" r="18" fill="#1d6b45"/>
-      <text x="58" y="323" font-size="20" text-anchor="middle" fill="#fff">3</text>
-      <text x="92" y="316" font-size="32" font-weight="600">Stock fund in a TFSA</text>
-      <text x="92" y="359" font-size="36" fill="#1d6b45">$1,000</text>
-    </g></g>
+  <rect width="640" height="555" fill="#f8f3e7"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-row="0">
+        <rect x="36" y="36" width="568" height="145" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M58 50h28" stroke="#24664e" stroke-width="2"/>
+        <text x="58" y="79" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="58" dy="0">Savings in a TFSA</tspan></text>
+        <text x="58" y="122" font-size="32" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="58" dy="0">$1,000</tspan></text>
+        <text x="58" y="169" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="58" dy="0">Check access and deposit protection</tspan></text>
+      </g>
+<g data-row="1">
+        <rect x="36" y="197" width="568" height="145" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M58 211h28" stroke="#24664e" stroke-width="2"/>
+        <text x="58" y="240" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="58" dy="0">GIC in a TFSA</tspan></text>
+        <text x="58" y="283" font-size="32" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="58" dy="0">$1,000</tspan></text>
+        <text x="58" y="330" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="58" dy="0">Check maturity and withdrawal restrictions</tspan></text>
+      </g>
+<g data-row="2">
+        <rect x="36" y="358" width="568" height="145" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M58 372h28" stroke="#24664e" stroke-width="2"/>
+        <text x="58" y="401" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="58" dy="0">Stock fund in a TFSA</tspan></text>
+        <text x="58" y="444" font-size="32" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="58" dy="0">$1,000</tspan></text>
+        <text x="58" y="491" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="58" dy="0">Market value can rise or fall</tspan></text>
+      </g></g>
 </svg>

@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
-const { createGuideVisual } = require('./guide-visuals.cjs');
+const { createGuideVisual, getGuideVisualDimensions } = require('./guide-visuals.cjs');
 
 const root = path.resolve(__dirname, '..');
 const guideDirectory = path.join(root, 'guides');
@@ -397,7 +397,12 @@ function main() {
 
   Object.entries(build.guides).forEach(([id, item]) => {
     if (!item.workedExample) throw new Error(`Missing worked example: ${id}`);
+    item.workedExample.visual.dimensions = {
+      desktop: getGuideVisualDimensions(item.workedExample.visual),
+      mobile: getGuideVisualDimensions(item.workedExample.visual, true),
+    };
     write(`assets/guide-visuals/${id}.svg`, createGuideVisual(id, item.workedExample.visual));
+    write(`assets/guide-visuals/${id}-mobile.svg`, createGuideVisual(id, item.workedExample.visual, true));
     write(path.join('guides', `${id}.html`), buildGuidePage(template, id, item, build));
   });
 
