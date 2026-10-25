@@ -671,19 +671,45 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   updateProgress();
 
   /* TOC active state */
-  const headings = document.querySelectorAll('.article-body h2');
+  const headings = Array.from(document.querySelectorAll('.article-body h2'));
   const tocLinks = document.querySelectorAll('.toc-list a');
-  const tocObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        tocLinks.forEach(l => l.classList.remove('active'));
-        const id = entry.target.getAttribute('id');
-        const link = document.querySelector('.toc-list a[href="#' + id + '"]');
-        if (link) link.classList.add('active');
-      }
+  let tocFrame = 0;
+  let activeHeadingId = '';
+  function updateActiveSection() {
+    tocFrame = 0;
+    if (!headings.length) return;
+    // Use the reading position, so an anchor jump cannot skip a narrow
+    // observer band and leave an earlier section highlighted.
+    // Native anchors combine root scroll padding with the heading's margin.
+    // Read the current styles so responsive changes use the same landing line.
+    const scrollPadding = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+    const headingMargin = parseFloat(getComputedStyle(headings[0]).scrollMarginTop) || 0;
+    const navBottom = document.querySelector('.site-nav')?.getBoundingClientRect().bottom || 0;
+    const readingLine = Math.max(96, navBottom + 16, scrollPadding + headingMargin) + 4;
+    let current = headings[0];
+    for (const heading of headings) {
+      if (heading.getBoundingClientRect().top > readingLine) break;
+      current = heading;
+    }
+    if (current.id === activeHeadingId) return;
+    activeHeadingId = current.id;
+    tocLinks.forEach(link => {
+      const active = link.getAttribute('href') === `#${activeHeadingId}`;
+      link.classList.toggle('active', active);
+      if (active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
     });
-  }, { rootMargin: '-90px 0px -60% 0px', threshold: 0 });
-  headings.forEach(h => tocObs.observe(h));
+  }
+  function scheduleTocUpdate() {
+    if (!tocFrame) tocFrame = requestAnimationFrame(updateActiveSection);
+  }
+  window.addEventListener('scroll', scheduleTocUpdate, { passive: true });
+  window.addEventListener('resize', scheduleTocUpdate);
+  window.addEventListener('load', scheduleTocUpdate);
+  window.addEventListener('hashchange', scheduleTocUpdate);
+  document.querySelector('.article-body')?.addEventListener('toggle', scheduleTocUpdate, true);
+  document.fonts?.ready.then(scheduleTocUpdate);
+  scheduleTocUpdate();
 
   (function () {
     const overlay = document.getElementById('nlOverlay');

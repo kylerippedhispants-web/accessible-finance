@@ -39,6 +39,96 @@ for (const width of [320, 768, 1440]) {
   }
 }
 
+test('the main reading path uses one example and keeps supporting examples optional', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 950 });
+  await page.goto('/guides/tfsa-explained');
+  await expect(page.locator('h2#worked-example')).toContainText('Track room separately from the account balance');
+  await expect(page.locator('.worked-example > h3, .example-kicker')).toHaveCount(0);
+  expect(await page.locator('#worked-example').evaluate((heading) => {
+    return heading.closest('section')?.nextElementSibling?.querySelector('h2')?.id;
+  })).toBe('build-your-plan');
+
+  const supportingExample = page.locator('details#practical-example');
+  await expect(supportingExample).not.toHaveAttribute('open', '');
+  const summary = supportingExample.locator(':scope > summary');
+  await expect(summary).toContainText('Another example:');
+  await summary.focus();
+  await summary.press('Enter');
+  await expect(supportingExample).toHaveAttribute('open', '');
+  await expect(supportingExample.locator('.case-study')).toBeVisible();
+  await summary.press('Space');
+  await expect(supportingExample).not.toHaveAttribute('open', '');
+});
+
+test('existing example fragments reveal the supporting example on arrival and hash changes', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 950 });
+  await page.goto('/guides/tfsa-explained#practical-example');
+  const supportingExample = page.locator('details#practical-example');
+  const summary = supportingExample.locator(':scope > summary');
+  await expect(supportingExample).toHaveAttribute('open', '');
+  await expect(summary).toBeInViewport();
+
+  await summary.click();
+  await expect(supportingExample).not.toHaveAttribute('open', '');
+  await page.getByRole('link', { name: 'See a worked example', exact: true }).click();
+  await page.evaluate(() => { location.hash = 'practical-example'; });
+  await expect(supportingExample).toHaveAttribute('open', '');
+  await expect(summary).toBeInViewport();
+});
+
+test('guide contents follows direct links, fast jumps, and the section being read', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 950 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/guides/tfsa-explained#worked-example');
+  const activeLink = page.locator('.toc-list a.active');
+  const expectActiveSection = async (id: string) => {
+    await expect(activeLink).toHaveCount(1);
+    await expect(activeLink).toHaveAttribute('href', `#${id}`);
+    await expect(activeLink).toHaveAttribute('aria-current', 'location');
+    await expect(page.locator('.toc-list a[aria-current]')).toHaveCount(1);
+  };
+  await expectActiveSection('worked-example');
+
+  // Instant navigation can skip every heading between the old and new sections.
+  await page.locator('.toc-list a[href="#sources"]').click();
+  await expectActiveSection('sources');
+  await page.locator('.toc-list a[href="#why-it-matters"]').click();
+  await expectActiveSection('why-it-matters');
+
+  // Reading farther into a long section should retain that section even after
+  // its heading has left the viewport, and should work when scrolling upward.
+  await page.locator('.example-steps').evaluate((element) => {
+    window.scrollTo({ top: window.scrollY + element.getBoundingClientRect().top - 140, behavior: 'instant' });
+  });
+  await expectActiveSection('worked-example');
+  await page.locator('#how-it-works').evaluate((element) => {
+    window.scrollTo({ top: window.scrollY + element.getBoundingClientRect().top - 96, behavior: 'instant' });
+  });
+  await expectActiveSection('how-it-works');
+});
+
+test('all guide update dates agree with their article metadata', async ({ request }) => {
+  test.setTimeout(90_000);
+  const guideFiles = readdirSync(resolve('guides')).filter((file) => file.endsWith('.html'));
+  expect(guideFiles).toHaveLength(42);
+  for (const file of guideFiles) {
+    const response = await request.get(`/guides/${file.replace(/\.html$/, '')}`);
+    expect(response.status(), file).toBe(200);
+    const html = await response.text();
+    const meta = html.match(/<div class="article-meta">([\s\S]*?)<\/div>/)?.[1] || '';
+    const time = meta.match(/<time\b[^>]*datetime="([^"]+)"[^>]*>([^<]+)<\/time>/);
+    expect(meta, file).toContain('Updated');
+    expect(meta, file).not.toContain('Reviewed July 2026');
+    expect(time?.[1], file).toBe('2026-10-25');
+    expect(time?.[2], file).toBe('October 25, 2026');
+    const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+      .map((match) => JSON.parse(match[1]));
+    const article = schemas.flatMap((schema) => schema['@graph'] || [schema])
+      .find((schema) => schema['@type'] === 'Article');
+    expect(article?.dateModified, file).toBe(time?.[1]);
+  }
+});
+
 test('the worked example remains usable with JavaScript disabled and images unavailable', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 320, height: 900 } });
   const origin = new URL(baseURL!).origin;
@@ -67,6 +157,11 @@ test('the worked example remains usable with JavaScript disabled and images unav
     await expect(page.locator('.visual-values dd')).toContainText(['$1,050', '$1,102.50', '$1,157.63']);
     await expect(page.locator('.visual-values dd').nth(1)).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    const supportingExample = page.locator('details#practical-example');
+    await supportingExample.locator(':scope > summary').focus();
+    await supportingExample.locator(':scope > summary').press('Enter');
+    await expect(supportingExample).toHaveAttribute('open', '');
+    await expect(supportingExample.locator('.case-study')).toBeVisible();
   } finally {
     await context.close();
   }

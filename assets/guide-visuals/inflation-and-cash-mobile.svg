@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="578" viewBox="0 0 360 578" data-layout="bars" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="562" viewBox="0 0 360 562" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">Purchasing power after five years</title>
   <desc id="description">Starting purchasing power is $5,000. After five years of 3% inflation, cash earning 2% has about $4,762 of purchasing power; cash earning nothing has about $4,313. Starting value: $5,000. Today&apos;s purchasing power. Cash earning 2%: $4,762. After five years at 3% inflation. Cash earning 0%: $4,313. After five years at 3% inflation.</desc>
-  <rect width="360" height="578" fill="#f8f3e7"/>
+  <rect width="360" height="562" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-value="5000" data-row="0">
         <text x="24" y="46" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Starting value</tspan></text>
         <text x="336" y="89" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$5,000</tspan></text>

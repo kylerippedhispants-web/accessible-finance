@@ -218,6 +218,26 @@
   }
 
   function initializeAnchorNavigation() {
+    function revealDetails(target) {
+      let changed = false;
+      for (let element = target; element; element = element.parentElement) {
+        if (element.tagName === 'DETAILS' && !element.open) {
+          element.open = true;
+          changed = true;
+        }
+      }
+      return changed;
+    }
+    function revealLinkedGuideDetail() {
+      let target;
+      try { target = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (_) { return; }
+      if (!target || !target.closest('.article-body')) return;
+      if (revealDetails(target)) requestAnimationFrame(() => target.scrollIntoView({ behavior: 'instant', block: 'start' }));
+    }
+    // Keep saved links to examples valid after moving supporting material into
+    // optional disclosures. Hash navigation should expose the linked content.
+    revealLinkedGuideDetail();
+    window.addEventListener('hashchange', revealLinkedGuideDetail);
     // Capture before legacy per-page smooth-scroll handlers. Moving focus is
     // essential: scrolling alone leaves keyboard users in the navigation.
     document.addEventListener('click', (event) => {
@@ -233,9 +253,7 @@
       if (!target) return;
       event.preventDefault();
       event.stopImmediatePropagation();
-      for (let ancestor = target.parentElement; ancestor; ancestor = ancestor.parentElement) {
-        if (ancestor.tagName === 'DETAILS') ancestor.open = true;
-      }
+      revealDetails(target);
       const menu = document.getElementById('mobile-menu');
       if (menu?.contains(link)) {
         menu.classList.remove('open');

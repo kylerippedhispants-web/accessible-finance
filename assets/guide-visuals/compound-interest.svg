@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="444" viewBox="0 0 640 444" data-layout="bars" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="425" viewBox="0 0 640 425" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">The balance that earns the next return</title>
   <desc id="description">With $1,000 initially and a constant 5% annual return, the year-end balances are $1,050, $1,102.50, and $1,157.63. End of year 1: $1,050. $50 earned during year 1. End of year 2: $1,102.50. $52.50 earned during year 2. End of year 3: $1,157.63. About $55.13 earned during year 3.</desc>
-  <rect width="640" height="444" fill="#f8f3e7"/>
+  <rect width="640" height="425" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-value="1050" data-row="0">
         <text x="36" y="58" font-size="21" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="36" dy="0">End of year 1</tspan></text>
         <text x="604" y="60" font-size="32" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="604" dy="0">$1,050</tspan></text>

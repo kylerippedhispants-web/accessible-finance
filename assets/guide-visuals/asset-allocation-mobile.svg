@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="364" viewBox="0 0 360 364" data-layout="bars" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="348" viewBox="0 0 360 348" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">The portfolio before and after the scenario</title>
   <desc id="description">A $10,000 portfolio split 60/40 ends at $8,280 when stocks lose 30% and bonds gain 2%, a 17.2% total decline. Starting portfolio: $10,000. $6,000 stocks + $4,000 bonds After the scenario: $8,280. $4,200 stocks + $4,080 bonds</desc>
-  <rect width="360" height="364" fill="#f8f3e7"/>
+  <rect width="360" height="348" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-value="10000" data-row="0">
         <text x="24" y="46" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Starting portfolio</tspan></text>
         <text x="336" y="89" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$10,000</tspan></text>

@@ -1,16 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="299" viewBox="0 0 640 299" data-layout="compare" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="301" viewBox="0 0 640 301" data-layout="compare" role="img" aria-labelledby="title description">
   <title id="title">Same order size, different control</title>
   <desc id="description">The market purchase fills 50 units for $1,002. A $20 limit fills only 30 units for $600 while the other 20 remain unfilled under the stated offers. Market purchase: 50 units / $1,002. Some units fill above the lowest ask. $20 buy limit: 30 units / $600. 20 units remain unfilled at these prices.</desc>
-  <rect width="640" height="299" fill="#f8f3e7"/>
+  <rect width="640" height="301" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-row="0">
-        <rect x="36" y="36" width="274" height="227" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <rect x="36" y="36" width="274" height="229" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
         <path d="M56 50h28" stroke="#24664e" stroke-width="2"/>
         <text x="56" y="79" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="56" dy="0">Market purchase</tspan></text>
         <text x="56" y="122" font-size="32" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="56" dy="0">50 units /</tspan><tspan x="56" dy="42">$1,002</tspan></text>
         <text x="56" y="211" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="56" dy="0">Some units fill above the</tspan><tspan x="56" dy="24">lowest ask.</tspan></text>
       </g>
 <g data-row="1">
-        <rect x="330" y="36" width="274" height="227" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <rect x="330" y="36" width="274" height="229" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
         <path d="M350 50h28" stroke="#24664e" stroke-width="2"/>
         <text x="350" y="79" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="350" dy="0">$20 buy limit</tspan></text>
         <text x="350" y="122" font-size="32" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="350" dy="0">30 units /</tspan><tspan x="350" dy="42">$600</tspan></text>
