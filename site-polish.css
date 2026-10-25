@@ -18,6 +18,92 @@ html :where(footer.site-footer, footer) .footer-bottom > :where(p, span) { color
 html #resetButton { color: #175d3a; font-size: 13px; }
 html main p a:not([class]) { text-decoration: underline; text-underline-offset: 3px; }
 html footer a { text-decoration: underline; text-underline-offset: 3px; }
+html footer.shared-footer {
+  display: block;
+  margin: 0;
+  padding: 64px 24px 32px;
+  border-top: 0;
+  background: #1a1816;
+  color: #f7f5f0;
+}
+html footer.shared-footer > :is(.footer-inner, .shell) {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+html footer.shared-footer .footer-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  padding: 0;
+  border: 0;
+}
+html footer.shared-footer .footer-top > * { min-width: 0; }
+html footer.shared-footer .footer-wordmark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: inherit;
+  text-decoration: none;
+}
+html footer.shared-footer .footer-wordmark img { width: 36px; height: 36px; border-radius: 8px; }
+html footer.shared-footer .footer-wordmark span {
+  font: 600 13px/1.5 var(--sans, sans-serif);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+html footer.shared-footer .footer-brand p { color: #c9c3b8; }
+html footer.shared-footer .footer-col h2 {
+  margin: 0 0 12px;
+  color: #f7f5f0;
+  font: 600 14px/1.4 var(--sans, sans-serif);
+  letter-spacing: 0;
+  text-transform: none;
+}
+html footer.shared-footer .footer-col ul {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+html footer.shared-footer .footer-col li { min-width: 0; margin: 0; }
+html footer.shared-footer .footer-col a {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 44px;
+  color: #d8d3ca;
+  font: 400 14px/1.5 var(--sans, sans-serif);
+  overflow-wrap: anywhere;
+}
+html footer.shared-footer .footer-col a:is(:hover, [aria-current="page"]) { color: #fff; }
+html footer.shared-footer a:focus-visible { outline-color: #cce1ce; }
+html footer.shared-footer .footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #f7f5f02e;
+  font: 400 13px/1.6 var(--sans, sans-serif);
+}
+html footer.shared-footer .footer-bottom > * { min-width: 0; margin: 0; }
+html footer.shared-footer .footer-bottom a { color: #d8d3ca; }
+html footer.shared-footer .footer-copy { white-space: normal; }
+@media (max-width: 1000px) {
+  html footer.shared-footer .footer-top { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+  html footer.shared-footer .footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  html footer.shared-footer { padding: 48px 24px 28px; }
+  html footer.shared-footer .footer-top { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  html footer.shared-footer .footer-col ul { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
+  html footer.shared-footer .footer-bottom { flex-direction: column; gap: 16px; }
+}
 html.site-us :where(.offer-fine, .market-visual-head > span, .market-visual-head > b, .market-foot > span) { color: #c3bfb7; font-size: 12px; }
 html.site-ca :where(.btn-primary, .btn-ghost, .calc-button, .load-btn, .offer-btn, .tool-cta) { font-size: 14px; }
 html.site-us .result-stats span { font-size: 13px; line-height: 1.5; }

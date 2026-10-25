@@ -1,6 +1,6 @@
 # Website and planner next steps
 
-Updated October 24, 2026 (America/Toronto). This checklist covers the selected FIRE
+Updated October 25, 2026 (America/Toronto). This checklist covers the selected FIRE
 website and planner. Local Demo Mode checks do not validate cloud services or
 public launch.
 
@@ -13,6 +13,15 @@ Recovery completion and explicit storage/log inspection remain pending follow-up
 onboarding, save/reload, account separation, and JSON export/import proofs are
 recorded below. Two fictional browser-created plans remain after the earlier
 authenticated harness cleanup.
+
+## October 25 footer navigation consistency
+
+- [x] Build footer Learn and Tools links from the same edition-aware choices as
+  the header. Keep the planner label and cash-flow edition consistent.
+- [x] Remove the duplicate guide-library destination and keep support, policy,
+  subscription, social and rewards links available in clear groups.
+- [x] Use one responsive footer layout across public pages, including the
+  starting-points and newsletter pages, with readable labels and touch targets.
 
 ## October 23 usability and visual polish
 

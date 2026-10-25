@@ -119,6 +119,93 @@
     }
     fill(document.querySelector('.nav-links'), false);
     fill(document.getElementById('mobile-menu'), true);
+
+    // Use the header's edition-aware destinations in the footer too. The HTML
+    // footer remains a usable fallback when JavaScript is unavailable.
+    document.querySelectorAll('body > footer').forEach((footer) => {
+      let top = footer.querySelector('.footer-top');
+      if (!top) {
+        const bottom = document.createElement('div');
+        bottom.className = 'footer-bottom';
+        bottom.append(...footer.childNodes);
+        const inner = document.createElement('div');
+        inner.className = 'footer-inner';
+        top = document.createElement('div');
+        top.className = 'footer-top';
+        const brand = document.createElement('div');
+        brand.className = 'footer-brand';
+        const home = makeLink('', us ? 'us/index.html' : 'index.html');
+        home.className = 'footer-wordmark';
+        const logo = document.createElement('img');
+        logo.src = root('Logo-256.png');
+        logo.alt = '';
+        logo.width = 36;
+        logo.height = 36;
+        logo.decoding = 'async';
+        const name = document.createElement('span');
+        name.textContent = 'Accessible Finance';
+        home.append(logo, name);
+        brand.append(home);
+        top.append(brand);
+        inner.append(top, bottom);
+        footer.append(inner);
+      }
+      footer.classList.add('site-footer', 'shared-footer');
+      top.querySelectorAll('.footer-col').forEach((column) => column.remove());
+
+      function addColumn(label, links) {
+        const column = document.createElement('nav');
+        column.className = 'footer-col';
+        column.setAttribute('aria-label', `${label} footer links`);
+        const heading = document.createElement('h2');
+        heading.textContent = label;
+        const list = document.createElement('ul');
+        links.forEach((link) => {
+          const item = document.createElement('li');
+          item.append(link);
+          list.append(item);
+        });
+        column.append(heading, list);
+        top.append(column);
+      }
+
+      groups.forEach(([label, links]) => {
+        const items = links.map(([text, path]) => makeLink(text, path));
+        if (label === 'Learn' && !us) {
+          ['Beginner', 'Intermediate'].forEach((level) => {
+            const link = makeLink(level, `articles.html?cat=${level.toLowerCase()}`);
+            link.removeAttribute('aria-current');
+            items.push(link);
+          });
+        }
+        if (label === 'Tools') {
+          const planner = makeLink(us ? 'Canadian Planner' : 'Planner', 'planner/');
+          planner.dataset.plannerLink = '';
+          const rewards = makeLink('Rewards', us ? 'us/rewards.html' : 'earn.html');
+          rewards.dataset.regionRewards = '';
+          items.push(planner, rewards);
+        }
+        addColumn(label, items);
+      });
+
+      const subscribe = document.createElement('a');
+      subscribe.href = '#newsletter';
+      subscribe.textContent = 'Subscribe';
+      subscribe.dataset.openNewsletter = '';
+      const instagram = makeLink('Instagram', 'https://www.instagram.com/accessible.finance?igsh=MXVobG52emdvMTBudw==');
+      instagram.target = '_blank';
+      instagram.rel = 'noopener noreferrer';
+      addColumn('About', [
+        makeLink('About', 'about.html'),
+        makeLink('Editorial standards', 'editorial-policy.html'),
+        makeLink('Contact & corrections', 'contact.html'),
+        subscribe,
+        instagram,
+        makeLink('Privacy', 'privacy.html'),
+        makeLink('Disclaimer', 'disclaimer.html'),
+      ]);
+    });
+
     document.addEventListener('click', (event) => {
       document.querySelectorAll('.nav-links .nav-group[open]').forEach((group) => {
         if (!group.contains(event.target)) group.open = false;
@@ -377,8 +464,12 @@
       }
 
       triggers.forEach((trigger) => {
-        trigger.addEventListener('click', () => {
+        trigger.addEventListener('click', (event) => {
+          event.preventDefault();
           opener = trigger;
+          // Footer links are rebuilt after legacy page handlers are attached.
+          // Opening here also works alongside those existing, idempotent handlers.
+          overlay.classList.add('open');
         });
       });
 
