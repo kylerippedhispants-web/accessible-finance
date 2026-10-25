@@ -642,6 +642,10 @@ html.site-ca .planning-journey a:focus-visible { outline-color: #e3d19d; }
 }
 
 /* Shared motion: quick feedback, short entrances, and a stable reading surface. */
+@media (scripting: none) {
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
 html:is(.site-ca, .site-us) {
   --motion-fast: 160ms;
   --motion-standard: 240ms;

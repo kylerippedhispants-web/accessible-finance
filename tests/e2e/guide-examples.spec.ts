@@ -41,6 +41,9 @@ test('the worked example remains usable with JavaScript disabled and images unav
   });
   const page = await context.newPage();
   await page.goto(`${baseURL}/guides/compound-interest`);
+  for (const selector of ['.article-head', '.toc', '.related-head']) {
+    await expect(page.locator(selector)).toHaveCSS('opacity', '1');
+  }
   await expect(page.locator('.example-steps > li')).toHaveCount(3);
   await expect(page.locator('.example-result')).toBeVisible();
   await expect(page.locator('.guide-visual figcaption')).not.toBeEmpty();
