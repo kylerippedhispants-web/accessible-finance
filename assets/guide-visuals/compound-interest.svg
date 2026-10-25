@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="432" viewBox="0 0 640 432" role="img" aria-labelledby="title description">
+  <title id="title">The balance that earns the next return</title>
+  <desc id="description">With $1,000 initially and a constant 5% annual return, the year-end balances are $1,050, $1,102.50, and $1,157.63. End of year 1: $1,050. $50 earned during year 1. End of year 2: $1,102.50. $52.50 earned during year 2. End of year 3: $1,157.63. About $55.13 earned during year 3.</desc>
+  <rect width="640" height="432" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="1050">
+        <text x="32" y="56" font-size="34" font-weight="600">End of year 1</text>
+        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$1,050</text>
+        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="114" width="522.447" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="1102.5">
+        <text x="32" y="184" font-size="34" font-weight="600">End of year 2</text>
+        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$1,102.50</text>
+        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="242" width="548.569" height="20" rx="4" fill="#8b642b"/>
+      </g>
+<g data-value="1157.63">
+        <text x="32" y="312" font-size="34" font-weight="600">End of year 3</text>
+        <text x="608" y="352" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$1,157.63</text>
+        <rect x="32" y="370" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="370" width="576.000" height="20" rx="4" fill="#1d6b45"/>
+      </g></g>
+</svg>

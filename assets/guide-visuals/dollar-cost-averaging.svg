@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="432" viewBox="0 0 640 432" role="img" aria-labelledby="title description">
+  <title id="title">Units bought with each $200 deposit</title>
+  <desc id="description">The same $200 buys 10 units at $20, 20 units at $10, and 8 units at $25, for 38 units in total. Month 1: $20 each: 10 units. $200 ÷ $20. Month 2: $10 each: 20 units. $200 ÷ $10. Month 3: $25 each: 8 units. $200 ÷ $25.</desc>
+  <rect width="640" height="432" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="10">
+        <text x="32" y="56" font-size="34" font-weight="600">Month 1: $20 each</text>
+        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">10 units</text>
+        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="114" width="288.000" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="20">
+        <text x="32" y="184" font-size="34" font-weight="600">Month 2: $10 each</text>
+        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">20 units</text>
+        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="242" width="576.000" height="20" rx="4" fill="#8b642b"/>
+      </g>
+<g data-value="8">
+        <text x="32" y="312" font-size="34" font-weight="600">Month 3: $25 each</text>
+        <text x="608" y="352" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">8 units</text>
+        <rect x="32" y="370" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="370" width="230.400" height="20" rx="4" fill="#1d6b45"/>
+      </g></g>
+</svg>

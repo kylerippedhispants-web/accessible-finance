@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="304" viewBox="0 0 640 304" role="img" aria-labelledby="title description">
+  <title id="title">What must go right?</title>
+  <desc id="description">The investment case relies on many businesses over 20 years. The speculative case relies on a price jump in one stock next week. Diversified fund: 20-year goal. Return depends on many businesses over time. Single-stock trade: Next week. Return depends on a near-term price jump.</desc>
+  <rect width="640" height="304" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g>
+      <rect x="24" y="24" width="592" height="108" rx="10" fill="#eef5f0"/>
+      
+      <circle cx="58" cy="60" r="18" fill="#1d6b45"/>
+      <text x="58" y="67" font-size="20" text-anchor="middle" fill="#fff">1</text>
+      <text x="92" y="60" font-size="32" font-weight="600">Diversified fund</text>
+      <text x="92" y="103" font-size="36" fill="#1d6b45">20-year goal</text>
+    </g>
+<g>
+      <rect x="24" y="152" width="592" height="108" rx="10" fill="#f4f0e7"/>
+      
+      <circle cx="58" cy="188" r="18" fill="#8b642b"/>
+      <text x="58" y="195" font-size="20" text-anchor="middle" fill="#fff">2</text>
+      <text x="92" y="188" font-size="32" font-weight="600">Single-stock trade</text>
+      <text x="92" y="231" font-size="36" fill="#8b642b">Next week</text>
+    </g></g>
+</svg>

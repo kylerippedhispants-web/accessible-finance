@@ -3,10 +3,12 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const { createGuideVisual } = require('./guide-visuals.cjs');
 
 const root = path.resolve(__dirname, '..');
 const guideDirectory = path.join(root, 'guides');
 const reviewedDate = '2026-10-20';
+const exampleDate = '2026-10-25';
 const adsenseLoader = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4537695061199720"
      crossorigin="anonymous"></script>`;
 
@@ -36,6 +38,8 @@ function loadGuideBuild() {
     'article-expansions.js',
     'article-depth.js',
     'article-perspectives.js',
+    'guide-examples-a.js',
+    'guide-examples-b.js',
     'article-library.js',
   ].forEach((file) => {
     vm.runInContext(read(file), context, { filename: file });
@@ -106,7 +110,7 @@ function buildStructuredData(id, item, wordCount, readingMinutes) {
         articleSection: item.category,
         wordCount,
         timeRequired: `PT${readingMinutes}M`,
-        dateModified: reviewedDate,
+        dateModified: item.workedExample ? exampleDate : reviewedDate,
         isAccessibleForFree: true,
         author: {
           '@type': 'Organization',
@@ -219,6 +223,7 @@ function buildGuidePage(template, id, item, build) {
       <span class="meta-item">Reviewed ${escapeHtml(item.updated)}</span>
     </div>
     ${build.renderArticleBrief(item)}
+    <nav class="article-example-links" aria-label="Guide shortcuts"><a href="#worked-example">See a worked example</a><a href="#build-your-plan">Go to the next-step checklist</a></nav>
     <div class="publisher-note">
       <span><strong>By Accessible Finance</strong> &middot; Educational information, not personal advice</span>
       <a href="../editorial-policy.html">How we research and review</a>
@@ -338,10 +343,10 @@ function updateStaticGuideLinks() {
   });
 }
 
-function xmlUrl(location, priority, changeFrequency) {
+function xmlUrl(location, priority, changeFrequency, modifiedDate = reviewedDate) {
   return `  <url>
     <loc>${location}</loc>
-    <lastmod>${reviewedDate}</lastmod>
+    <lastmod>${modifiedDate}</lastmod>
     <changefreq>${changeFrequency}</changefreq>
     <priority>${priority}</priority>
   </url>`;
@@ -371,7 +376,7 @@ function updateSitemap(build) {
 
   const pageEntries = corePages.map((entry) => xmlUrl(...entry));
   const guideEntries = Object.keys(build.guides).map((id) =>
-    xmlUrl(`https://accessible-finance.com/guides/${id}.html`, '0.7', 'monthly')
+    xmlUrl(`https://accessible-finance.com/guides/${id}.html`, '0.7', 'monthly', exampleDate)
   );
 
   write(
@@ -388,8 +393,11 @@ function main() {
   const build = loadGuideBuild();
   const template = read('article.html');
   fs.mkdirSync(guideDirectory, { recursive: true });
+  fs.mkdirSync(path.join(root, 'assets/guide-visuals'), { recursive: true });
 
   Object.entries(build.guides).forEach(([id, item]) => {
+    if (!item.workedExample) throw new Error(`Missing worked example: ${id}`);
+    write(`assets/guide-visuals/${id}.svg`, createGuideVisual(id, item.workedExample.visual));
     write(path.join('guides', `${id}.html`), buildGuidePage(template, id, item, build));
   });
 

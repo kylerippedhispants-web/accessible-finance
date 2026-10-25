@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="560" viewBox="0 0 640 560" role="img" aria-labelledby="title description">
+  <title id="title">Exposure to the same company</title>
+  <desc id="description">The four funds hold $200, $150, $100, and $50 of the same company, adding to $500 of a $2,000 portfolio. Fund A: $200. 40% of a $500 holding Fund B: $150. 30% of a $500 holding Fund C: $100. 20% of a $500 holding Fund D: $50. 10% of a $500 holding</desc>
+  <rect width="640" height="560" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="200">
+        <text x="32" y="56" font-size="34" font-weight="600">Fund A</text>
+        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$200</text>
+        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="114" width="576.000" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="150">
+        <text x="32" y="184" font-size="34" font-weight="600">Fund B</text>
+        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$150</text>
+        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="242" width="432.000" height="20" rx="4" fill="#8b642b"/>
+      </g>
+<g data-value="100">
+        <text x="32" y="312" font-size="34" font-weight="600">Fund C</text>
+        <text x="608" y="352" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$100</text>
+        <rect x="32" y="370" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="370" width="288.000" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="50">
+        <text x="32" y="440" font-size="34" font-weight="600">Fund D</text>
+        <text x="608" y="480" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$50</text>
+        <rect x="32" y="498" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="498" width="144.000" height="20" rx="4" fill="#8b642b"/>
+      </g></g>
+</svg>

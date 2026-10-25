@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="432" viewBox="0 0 640 432" role="img" aria-labelledby="title description">
+  <title id="title">From cash payment to extra shares</title>
+  <desc id="description">A $0.40 payment on 100 shares provides $40. Reinvesting at $20 buys two shares, increasing the holding to 102 shares. Receive the dividend: $40 cash. 100 shares × $0.40. Reinvest at $20: 2 more shares. $40 ÷ $20. New holding: 102 shares. Future payments and prices can change.</desc>
+  <rect width="640" height="432" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g>
+      <rect x="24" y="24" width="592" height="108" rx="10" fill="#eef5f0"/>
+      <path d="M58 132v18m-5-5 5 5 5-5" fill="none" stroke="#8b642b" stroke-width="2"/>
+      <circle cx="58" cy="60" r="18" fill="#1d6b45"/>
+      <text x="58" y="67" font-size="20" text-anchor="middle" fill="#fff">1</text>
+      <text x="92" y="60" font-size="32" font-weight="600">Receive the dividend</text>
+      <text x="92" y="103" font-size="36" fill="#1d6b45">$40 cash</text>
+    </g>
+<g>
+      <rect x="24" y="152" width="592" height="108" rx="10" fill="#f4f0e7"/>
+      <path d="M58 260v18m-5-5 5 5 5-5" fill="none" stroke="#8b642b" stroke-width="2"/>
+      <circle cx="58" cy="188" r="18" fill="#8b642b"/>
+      <text x="58" y="195" font-size="20" text-anchor="middle" fill="#fff">2</text>
+      <text x="92" y="188" font-size="32" font-weight="600">Reinvest at $20</text>
+      <text x="92" y="231" font-size="36" fill="#8b642b">2 more shares</text>
+    </g>
+<g>
+      <rect x="24" y="280" width="592" height="108" rx="10" fill="#eef5f0"/>
+      
+      <circle cx="58" cy="316" r="18" fill="#1d6b45"/>
+      <text x="58" y="323" font-size="20" text-anchor="middle" fill="#fff">3</text>
+      <text x="92" y="316" font-size="32" font-weight="600">New holding</text>
+      <text x="92" y="359" font-size="36" fill="#1d6b45">102 shares</text>
+    </g></g>
+</svg>

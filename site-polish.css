@@ -342,16 +342,11 @@ html.site-ca :where(
 }
 
 html.site-ca :where(.card, .value, .how-card, .idea-card, .other-card, .related-card):hover {
-  transform: translateY(-2px);
   box-shadow: 0 24px 54px -38px rgba(26, 24, 22, 0.38) !important;
 }
 
 html.site-ca :where(.calc-button, .load-btn, .offer-btn, .btn-primary, .btn-ghost) {
   border-radius: 6px !important;
-}
-
-html.site-ca :where(.calc-button, .load-btn, .offer-btn, .btn-primary, .btn-ghost):active {
-  transform: translateY(1px);
 }
 
 html.site-ca :where(.breakdown, .table-scroll) {
@@ -646,6 +641,79 @@ html.site-ca .planning-journey a:focus-visible { outline-color: #e3d19d; }
   .journey-steps li { gap: 14px; }
 }
 
+/* Shared motion: quick feedback, short entrances, and a stable reading surface. */
+html:is(.site-ca, .site-us) {
+  --motion-fast: 160ms;
+  --motion-standard: 240ms;
+  --motion-ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+html:is(.site-ca, .site-us) :where(
+  a, button, summary, input, select, textarea,
+  .value, .how-card, .idea-card, .card, .related-card, .account-card,
+  .tool-card, .canada-card, .topic, .featured, .side-article, .term-item
+) {
+  transition-property: color, background-color, border-color, box-shadow, opacity;
+  transition-duration: var(--motion-fast);
+  transition-timing-function: var(--motion-ease);
+  transition-delay: 0s;
+}
+
+html:is(.site-ca, .site-us) .nav-links a::after,
+html:is(.site-ca, .site-us) .tool-card .tool-link svg,
+html:is(.site-ca, .site-us) .card .read .arrow,
+html:is(.site-ca, .site-us) :where(
+  .hamburger span, .skip-link,
+  .btn-ghost svg, .tool-link svg, .read .arrow
+) {
+  transition-property: transform, opacity;
+  transition-duration: var(--motion-fast);
+  transition-timing-function: var(--motion-ease);
+  transition-delay: 0s;
+}
+
+/* Cards stay in place; their colour/border feedback does not shift nearby text. */
+html:is(.site-ca, .site-us) :where(
+  .value, .how-card, .idea-card, .other-card, .card, .related-card,
+  .account-card, .tool-card, .canada-card, .topic, .featured,
+  .btn-primary, .btn-ghost, .calc-button, .load-btn, .offer-btn, .nav-social
+):is(:hover, :active),
+html:is(.site-ca, .site-us) .topic:hover .topic-photo,
+html:is(.site-ca, .site-us) .featured:hover .featured-photo {
+  transform: none;
+}
+html:is(.site-ca, .site-us) .topic .topic-photo,
+html:is(.site-ca, .site-us) .featured .featured-photo { transition: none; }
+html.site-ca .side-article:hover { padding-left: 32px; }
+html.site-ca .side-article:hover h4 { font-style: normal; }
+html.site-ca .term-item:hover { padding-left: 28px; }
+
+html:is(.site-ca, .site-us) .reveal {
+  transform: none;
+  transition-property: opacity, color, background-color, border-color, box-shadow;
+  transition-duration: var(--motion-standard), var(--motion-fast), var(--motion-fast), var(--motion-fast), var(--motion-fast);
+  transition-timing-function: var(--motion-ease);
+  transition-delay: 0s;
+}
+html:is(.site-ca, .site-us) .reveal:focus-within {
+  opacity: 1;
+  transition: none;
+}
+
+@keyframes af-fade-in { from { opacity: 0; } to { opacity: 1; } }
+html:is(.site-ca, .site-us) :where(.mobile-menu.open, .nl-overlay.open, .nav-group[open] > .nav-group-links) {
+  animation: af-fade-in var(--motion-standard) var(--motion-ease) both;
+}
+
+/* A chart should show its data immediately instead of growing from zero. */
+html:is(.site-ca, .site-us) .hero-chart .bar {
+  animation: none;
+  transform: scaleY(1);
+}
+html:is(.site-ca, .site-us) :where(.progress-fill, .market-progress-fill) {
+  transition: width var(--motion-fast) var(--motion-ease);
+}
+
 /* Reading on a phone should not wait for scroll observers and reveal fades. */
 @media (max-width: 768px) {
   html.site-ca .reveal,
@@ -658,6 +726,7 @@ html.site-ca .planning-journey a:focus-visible { outline-color: #e3d19d; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html:is(.site-ca, .site-us) { scroll-behavior: auto !important; }
   html.site-ca *,
   html.site-ca *::before,
   html.site-ca *::after,
@@ -665,9 +734,8 @@ html.site-ca .planning-journey a:focus-visible { outline-color: #e3d19d; }
   html.site-us *::before,
   html.site-us *::after {
     scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
   }
 
   html.site-ca .reveal,

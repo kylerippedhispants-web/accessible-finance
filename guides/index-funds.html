@@ -311,6 +311,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-language.css?v=20260801">
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
+<link rel="stylesheet" href="../guide-examples.css?v=20261025">
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -327,9 +328,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/index-funds.html",
       "inLanguage": "en-CA",
       "articleSection": "Asset Classes",
-      "wordCount": 905,
-      "timeRequired": "PT6M",
-      "dateModified": "2026-10-20",
+      "wordCount": 1136,
+      "timeRequired": "PT7M",
+      "dateModified": "2026-10-25",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -451,7 +452,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>Index funds: broad ownership made <em>simple</em></h1>
     <p class="deck">An index fund follows a defined market benchmark instead of asking a manager to select each winner in advance.</p>
     <div class="article-meta">
-      <span class="meta-item">6 min read</span>
+      <span class="meta-item">7 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
@@ -470,6 +471,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <p>Market-cap indexes can become concentrated in the largest companies, and narrow thematic indexes may behave like sector bets.</p>
       </div>
     </div>
+    <nav class="article-example-links" aria-label="Guide shortcuts"><a href="#worked-example">See a worked example</a><a href="#build-your-plan">Go to the next-step checklist</a></nav>
     <div class="publisher-note">
       <span><strong>By Accessible Finance</strong> &middot; Educational information, not personal advice</span>
       <a href="../editorial-policy.html">How we research and review</a>
@@ -481,12 +483,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">7 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
       <li><a href="#practical-example">How diversification contains one company&#039;s damage</a></li>
+      <li><a href="#worked-example">Try it step by step</a></li>
       <li><a href="#build-your-plan">Your next-step checklist</a></li>
       <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
@@ -514,7 +517,23 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      <h2 id="worked-example"><span class="section-index" aria-hidden="true">04</span><span>Try it step by step</span></h2>
+      <div class="worked-example">
+      <p class="example-kicker">Follow the numbers</p>
+      <h3>Look inside a weighted index</h3>
+      <p>A tiny fictional index has only three companies, with weights of 50%, 30%, and 20%. A fund that exactly tracks it receives a $1,000 investment.</p>
+      <figure class="guide-visual">
+        <img src="/assets/guide-visuals/index-funds.svg" width="640" height="432" loading="lazy" decoding="async" alt="Where the $1,000 is exposed. The fictional index places $500 in Company A, $300 in Company B, and $200 in Company C. Company A accounts for half the investment.">
+        <figcaption><strong>Where the $1,000 is exposed</strong><span>The fictional index places $500 in Company A, $300 in Company B, and $200 in Company C. Company A accounts for half the investment.</span></figcaption>
+      </figure>
+      <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Company A</dt><dd><strong>$500</strong><span>50% of the index.</span></dd></div><div><dt>Company B</dt><dd><strong>$300</strong><span>30% of the index.</span></dd></div><div><dt>Company C</dt><dd><strong>$200</strong><span>20% of the index.</span></dd></div></dl></details>
+      <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Translate weights into dollars</strong><p>The exposure is $500 to Company A, $300 to Company B, and $200 to Company C. Each dollar follows the index weights.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Test one company&#039;s decline</strong><p>If Company A falls 20% while the others stay unchanged, its $500 portion loses $100. The whole investment falls from $1,000 to $900, or 10%.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Read the concentration</strong><p>There are three company names, but half the money depends on one. A larger index can also place substantial weight in its biggest constituents.</p></li></ol>
+      <div class="example-result"><span>What this shows</span><p>The index label describes a set of rules. Check the weights to understand how much each company, country, or sector matters.</p></div>
+      <p class="example-assumptions"><strong>Example assumptions:</strong> Toy index, exact tracking, unchanged share counts, no distributions, fees, tax, or rebalancing during the decline. Real broad indexes typically contain far more holdings.</p>
+    </div>
+    </section>
+    <section>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">05</span><span>Your next-step checklist</span></h2>
       
     <ol class="decision-steps">
       
@@ -546,7 +565,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Market-cap indexes can become concentrated in the largest companies, and narrow thematic indexes may behave like sector bets.</p></div>
     </section>
     <section>
-      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">06</span><span>Explore further, if useful</span></h2>
       <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>The index rule determines the exposure</summary><p>A market-cap-weighted index gives larger companies larger positions. That approach is cheap and self-adjusting, but it can create concentration when a few companies become very valuable. Equal-weight, factor, and thematic indexes make different trade-offs.</p><p>The practical review is the same as for any fund: inspect top holdings, sector and country weights, turnover, fees, and the index methodology. The word index describes the selection process, not the amount of risk.</p><p>Tracking difference is the result investors actually receive. It includes the stated fee plus trading, withholding tax, sampling, and cash held inside the fund. Two funds following the same benchmark can therefore deliver slightly different returns.</p></details><details class="guide-detail" id="decision-map"><summary>Every index has an opinion</summary><p>Index rules decide which securities count, how large each position becomes, and when changes occur. Market-cap weighting gives the largest value to the companies investors already price most highly. Equal weighting, factor weighting, and thematic rules make different bets and usually require more turnover. The word passive describes how the rules are followed, not the absence of design choices.</p><p>Concentration can grow quietly inside a broad label. A country index may become dominated by a handful of companies or sectors after a strong run. That may accurately represent the market, but it may not represent the investor's desired diversification. Review the top holdings and regional weights at the total-portfolio level, then decide whether other funds are completing a deliberate global allocation or merely adding overlap.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
@@ -588,8 +607,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
-      <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Introduction to Investing</a></li></ul>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">07</span><span>Sources and further reading</span></h2>
+      <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Introduction to Investing</a></li><li><a href="https://www.investor.gov/introduction-investing/investing-basics/investment-products/mutual-funds-and-exchange-traded-4" target="_blank" rel="noopener noreferrer">Investor.gov: Index Funds</a></li></ul>
     </section>
   </article>
   <!-- ARTICLE_BODY_END -->
@@ -606,17 +625,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="diversification.html" class="related-card reveal">
         <div class="cat">Portfolio Thinking</div>
         <h3>Understanding Diversification</h3>
-        <div class="meta">5 min read &middot; Beginner</div>
+        <div class="meta">7 min read &middot; Beginner</div>
       </a>
     <a href="active-vs-passive.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>Active vs. Passive Investing: What the Evidence Means</h3>
-        <div class="meta">6 min read &middot; Intermediate</div>
+        <div class="meta">8 min read &middot; Intermediate</div>
       </a>
     <a href="mutual-funds-vs-etfs.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>Mutual Funds vs. ETFs: What Is the Actual Difference?</h3>
-        <div class="meta">5 min read &middot; Beginner</div>
+        <div class="meta">7 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="432" viewBox="0 0 640 432" role="img" aria-labelledby="title description">
+  <title id="title">Where the $1,000 is exposed</title>
+  <desc id="description">The fictional index places $500 in Company A, $300 in Company B, and $200 in Company C. Company A accounts for half the investment. Company A: $500. 50% of the index. Company B: $300. 30% of the index. Company C: $200. 20% of the index.</desc>
+  <rect width="640" height="432" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="500">
+        <text x="32" y="56" font-size="34" font-weight="600">Company A</text>
+        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$500</text>
+        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="114" width="576.000" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="300">
+        <text x="32" y="184" font-size="34" font-weight="600">Company B</text>
+        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$300</text>
+        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="242" width="345.600" height="20" rx="4" fill="#8b642b"/>
+      </g>
+<g data-value="200">
+        <text x="32" y="312" font-size="34" font-weight="600">Company C</text>
+        <text x="608" y="352" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$200</text>
+        <rect x="32" y="370" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="370" width="230.400" height="20" rx="4" fill="#1d6b45"/>
+      </g></g>
+</svg>

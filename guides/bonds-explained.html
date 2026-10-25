@@ -311,6 +311,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-language.css?v=20260801">
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
+<link rel="stylesheet" href="../guide-examples.css?v=20261025">
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -327,9 +328,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/bonds-explained.html",
       "inLanguage": "en-CA",
       "articleSection": "Asset Classes",
-      "wordCount": 931,
-      "timeRequired": "PT6M",
-      "dateModified": "2026-10-20",
+      "wordCount": 1169,
+      "timeRequired": "PT7M",
+      "dateModified": "2026-10-25",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -451,7 +452,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>What is a <em>bond</em>, and why should you care?</h1>
     <p class="deck">A bond is a loan to a government or company. Investors receive promised payments while accepting interest-rate, inflation, and credit risk.</p>
     <div class="article-meta">
-      <span class="meta-item">6 min read</span>
+      <span class="meta-item">7 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
@@ -470,6 +471,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <p>A high yield usually reflects higher risk.</p>
       </div>
     </div>
+    <nav class="article-example-links" aria-label="Guide shortcuts"><a href="#worked-example">See a worked example</a><a href="#build-your-plan">Go to the next-step checklist</a></nav>
     <div class="publisher-note">
       <span><strong>By Accessible Finance</strong> &middot; Educational information, not personal advice</span>
       <a href="../editorial-policy.html">How we research and review</a>
@@ -481,12 +483,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">7 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
       <li><a href="#practical-example">Repricing a five-year bond</a></li>
+      <li><a href="#worked-example">Try it step by step</a></li>
       <li><a href="#build-your-plan">Your next-step checklist</a></li>
       <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
@@ -514,7 +517,23 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      <h2 id="worked-example"><span class="section-index" aria-hidden="true">04</span><span>Try it step by step</span></h2>
+      <div class="worked-example">
+      <p class="example-kicker">Follow the numbers</p>
+      <h3>Separate bond interest from principal repayment</h3>
+      <p>A fictional three-year bond is bought for its $1,000 face value. It pays a 4% coupon once a year and returns principal at maturity.</p>
+      <figure class="guide-visual">
+        <img src="/assets/guide-visuals/bonds-explained.svg" width="640" height="432" loading="lazy" decoding="async" alt="A three-year bond payment schedule. The promised payments are $40 at year one, $40 at year two, and $1,040 at year three. The final payment includes $1,000 of original principal.">
+        <figcaption><strong>A three-year bond payment schedule</strong><span>The promised payments are $40 at year one, $40 at year two, and $1,040 at year three. The final payment includes $1,000 of original principal.</span></figcaption>
+      </figure>
+      <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>End of year 1</dt><dd><strong>$40</strong><span>Interest payment.</span></dd></div><div><dt>End of year 2</dt><dd><strong>$40</strong><span>Interest payment.</span></dd></div><div><dt>End of year 3</dt><dd><strong>$1,040</strong><span>$40 interest + $1,000 principal.</span></dd></div></dl></details>
+      <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Calculate the annual coupon</strong><p>$1,000 × 4% = $40 in interest each year, if the issuer makes the promised payments.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>List the payment dates</strong><p>The investor receives $40 at the end of year one, $40 at the end of year two, and $1,040 at the end of year three.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Separate return from repayment</strong><p>Total cash received is $1,120, but $1,000 is simply the original principal coming back. The interest earned is $120 before fees and tax.</p></li></ol>
+      <div class="example-result"><span>What this shows</span><p>A large maturity payment is mostly repayment, not profit. Selling before maturity introduces a market price that may differ from $1,000.</p></div>
+      <p class="example-assumptions"><strong>Example assumptions:</strong> Bond bought at face value, annual fixed coupon, held to maturity, issuer pays in full, no reinvestment of coupons, fees, tax, or inflation. This is not a forecast of bond-fund returns.</p>
+    </div>
+    </section>
+    <section>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">05</span><span>Your next-step checklist</span></h2>
       
     <ol class="decision-steps">
       
@@ -546,7 +565,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>A high yield usually reflects higher risk. Bonds can lose money, and inflation can reduce the purchasing power of fixed payments.</p></div>
     </section>
     <section>
-      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">06</span><span>Explore further, if useful</span></h2>
       <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Why existing bond prices move when rates change</summary><p>A fixed bond payment becomes less attractive when newly issued bonds offer more interest. Its market price falls until the remaining cash flows offer a competitive yield. The reverse generally happens when new rates decline.</p><p>Maturity magnifies this effect because a long bond locks in its payment for more years. Credit quality adds a separate risk: even an attractive yield is only useful if the borrower can make the promised payments.</p></details><details class="guide-detail" id="decision-map"><summary>Coupon, yield, and risk tell different stories</summary><p>The coupon describes contractual interest based on face value, while current yield and yield to maturity incorporate the market price. A low-coupon bond bought at a discount can offer a different return from its coupon, and a high-coupon bond bought at a premium can offer less. Comparisons should use a consistent yield measure and account for call features, default risk, fees, and tax.</p><p>Duration gives a practical sense of interest-rate sensitivity, but it is an estimate rather than a guarantee. Credit spreads can widen at the same time rates move, especially for lower-quality issuers. A bond selected for stability should not quietly take stock-like credit risk to raise income. Match the issuer quality and maturity profile to the purpose of the money, then judge the return offered for accepting those risks.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
@@ -588,8 +607,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
-      <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Introduction to Investing</a></li></ul>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">07</span><span>Sources and further reading</span></h2>
+      <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Introduction to Investing</a></li><li><a href="https://www.investor.gov/introduction-investing/investing-basics/investment-products/bonds-or-fixed-income-products/bonds" target="_blank" rel="noopener noreferrer">Investor.gov: Bonds</a></li></ul>
     </section>
   </article>
   <!-- ARTICLE_BODY_END -->
@@ -606,17 +625,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="asset-allocation.html" class="related-card reveal">
         <div class="cat">Portfolio Thinking</div>
         <h3>Asset Allocation Explained: The Decision That Shapes the Portfolio</h3>
-        <div class="meta">6 min read &middot; Intermediate</div>
+        <div class="meta">7 min read &middot; Intermediate</div>
       </a>
     <a href="stocks-explained.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>What Is a Stock, Really?</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">7 min read &middot; Beginner</div>
       </a>
     <a href="what-risk-means.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>What Risk Really Means in Investing</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">7 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->
