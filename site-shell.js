@@ -17,6 +17,7 @@
     'input:not([disabled])',
     'select:not([disabled])',
     'textarea:not([disabled])',
+    'summary',
     'iframe',
     '[tabindex]:not([tabindex="-1"])',
   ].join(',');
@@ -90,6 +91,7 @@
         const list = document.createElement('div');
         list.className = 'nav-group-links';
         links.forEach(([text, path]) => list.appendChild(makeLink(text, path)));
+        details.classList.toggle('has-current-page', Boolean(list.querySelector('[aria-current="page"]')));
         details.append(summary, list);
         details.addEventListener('toggle', () => {
           if (details.open) container.querySelectorAll('.nav-group[open]').forEach((other) => {

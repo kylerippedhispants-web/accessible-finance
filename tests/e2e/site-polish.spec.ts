@@ -65,7 +65,13 @@ test('guide search combines with the selected topic and recovers from an empty r
   await expect(visibleCards).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Load More Guides', exact: true })).toBeHidden();
 
-  await search.fill('');
+  await page.getByRole('button', { name: 'Clear search and topic', exact: true }).click();
+  await expect(search).toHaveValue('');
+  await expect(search).toBeFocused();
+  await expect(results).toHaveText('Showing 10 of 42 guides.');
+  await expect(page.getByRole('button', { name: 'All Topics', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#emptyState')).toBeHidden();
+  await page.getByRole('button', { name: 'Money Systems', exact: true }).click();
   await expect(results).toHaveText('Showing 1 of 1 guide.');
   await expect(page.locator('#emptyState')).toBeHidden();
   await expect(visibleCards).toHaveCount(1);
@@ -78,7 +84,7 @@ test('guide search combines with the selected topic and recovers from an empty r
   await expect(visibleCards.nth(1)).toContainText('Fees: Compound Interest in Reverse');
 });
 
-test('guide counts include the featured guide and update as more results are loaded', async ({ page }) => {
+test('loading more guides preserves keyboard reading order through the final page', async ({ page }) => {
   await page.goto('/articles.html?cat=unknown-topic');
   const results = page.getByRole('status');
   const visibleCards = page.locator('#articlesGrid .card:visible');
@@ -88,11 +94,50 @@ test('guide counts include the featured guide and update as more results are loa
   await page.getByRole('button', { name: 'Load More Guides', exact: true }).click();
   await expect(results).toHaveText('Showing 19 of 42 guides.');
   await expect(visibleCards).toHaveCount(18);
+  await expect(visibleCards.nth(9)).toBeFocused();
+  await expect(visibleCards.nth(9)).toBeInViewport();
+  const loadMore = page.getByRole('button', { name: 'Load More Guides', exact: true });
+  for (const firstNewIndex of [18, 27, 36]) {
+    await loadMore.focus();
+    await page.keyboard.press('Enter');
+    await expect(visibleCards.nth(firstNewIndex)).toBeFocused();
+    await expect(visibleCards.nth(firstNewIndex)).toBeInViewport();
+    expect(await visibleCards.nth(firstNewIndex).evaluate((card) =>
+      card.getBoundingClientRect().top >= document.querySelector('.site-nav')!.getBoundingClientRect().bottom,
+    )).toBe(true);
+  }
+  await expect(results).toHaveText('Showing 42 of 42 guides.');
+  await expect(loadMore).toBeHidden();
   await page.getByRole('searchbox', { name: 'Search guides', exact: true }).fill('speculating');
   await expect(results).toHaveText('Showing 1 of 1 guide.');
   await expect(visibleCards).toHaveCount(0);
   await expect(page.locator('.featured-wrap')).toBeVisible();
   await expect(page.locator('#emptyState')).toBeHidden();
+});
+
+test('mobile navigation keeps focus on its first disclosure and preserves nested Escape behavior', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 640 });
+  await page.goto('/articles.html');
+  const menuButton = page.getByRole('button', { name: 'Open menu', exact: true });
+  await menuButton.click();
+  const menu = page.getByRole('navigation', { name: 'Mobile navigation', exact: true });
+  const learn = menu.locator('summary').filter({ hasText: /^Learn$/ });
+  // A focus move outside the open menu should return to its first real control.
+  await page.locator('main').focus();
+  await expect(learn).toBeFocused();
+  await page.keyboard.press('Enter');
+  await page.keyboard.press('Tab');
+  await expect(menu.getByRole('link', { name: 'Start with the basics', exact: true })).toBeFocused();
+  await expect(menu.getByRole('link', { name: 'All guides', exact: true })).toHaveAttribute('aria-current', 'page');
+  await page.keyboard.press('Escape');
+  await expect(learn).toBeFocused();
+  await expect(menu.getByRole('link', { name: 'Start with the basics', exact: true })).toBeHidden();
+  await expect(menu).toBeVisible();
+  await page.keyboard.press('Tab');
+  await expect(menu.locator('summary').filter({ hasText: /^Tools$/ })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(menu).toBeHidden();
+  await expect(menuButton).toBeFocused();
 });
 
 test('the tablet menu can scroll to its last action without scrolling the page', async ({ page }) => {

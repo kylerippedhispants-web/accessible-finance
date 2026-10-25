@@ -1,5 +1,35 @@
 import { expect, test } from '@playwright/test';
 
+for (const [type, containerId, addId] of [
+  ['income', 'incomeRows', 'addIncome'],
+  ['expenses', 'expenseRows', 'addExpense'],
+]) {
+  test(`cash-flow ${type} removal keeps keyboard focus in the edited list`, async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 844 });
+    await page.goto('/cash-flow?edition=ca');
+    const rows = page.locator(`#${containerId} .flow-row`);
+    await expect(rows.first()).toBeVisible();
+    // Exercise middle, last, first, and finally the only remaining row.
+    const initialCount = await rows.count();
+    for (const index of [1, initialCount - 2, ...Array(initialCount - 2).fill(0)]) {
+      const count = await rows.count();
+      const removedName = await rows.nth(index).locator('[data-field="name"]').inputValue();
+      await rows.nth(index).getByRole('button', { name: /^Remove / }).focus();
+      await page.keyboard.press('Enter');
+      await expect(rows).toHaveCount(count - 1);
+      await expect(page.locator('#cashFlowNotice')).toHaveText(`${removedName} removed.`);
+      if (count > 1) {
+        await expect(rows.nth(Math.min(index, count - 2)).locator('[data-field="name"]')).toBeFocused();
+      } else {
+        await expect(page.locator(`#${addId}`)).toBeFocused();
+      }
+    }
+    await page.keyboard.press('Enter');
+    await expect(rows).toHaveCount(1);
+    await expect(rows.first().locator('[data-field="name"]')).toBeFocused();
+  });
+}
+
 test('public pages and planner load their real fonts without a third-party font connection', async ({ page, context, baseURL }) => {
   const externalFonts: string[] = [];
   await context.route('**/*', (route) => {

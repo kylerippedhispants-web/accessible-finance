@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { ZodError } from 'zod';
 import {
   assetFromRow,
   assetToRow,
@@ -128,6 +129,37 @@ describe('portable plan transfer', () => {
     expect(() => parsePlanImport(' '.repeat(MAX_PLAN_TRANSFER_BYTES + 1)))
       .toThrow('Planner backups must be 16 MB or smaller.');
   });
+
+  it.each(['incomeSources', 'expenses', 'assets', 'debts'] as const)(
+    'rejects oversized %s before validating its individual entries',
+    (collection) => {
+      const exported = createPlanExport(createDemoSnapshot());
+      const oversized = {
+        ...exported,
+        data: {
+          ...exported.data,
+          plan: { ...exported.data.plan, [collection]: Array(251).fill(null) },
+          scenarios: [],
+        },
+      };
+
+      let caught: unknown;
+      try {
+        parsePlanImport(JSON.stringify(oversized));
+      } catch (error) {
+        caught = error;
+      }
+
+      expect(caught).toBeInstanceOf(ZodError);
+      const issues = (caught as ZodError).issues;
+      expect(issues).toHaveLength(1);
+      expect(issues[0]).toMatchObject({
+        code: 'too_big',
+        path: ['data', 'plan', collection],
+        maximum: 250,
+      });
+    },
+  );
 
   it('creates a validated versioned export with no user or auth metadata', () => {
     const exported = createPlanExport(createDemoSnapshot());

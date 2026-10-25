@@ -1,4 +1,4 @@
-import { type KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { type KeyboardEvent, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { usePlanner } from '../state/PlannerContext';
@@ -38,12 +38,17 @@ export function AppShell() {
     }
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (previousPath.current === location.pathname) return;
+    // Remove the mobile drawer's inert state before moving focus. Finish both
+    // commits before paint so a later frame cannot steal a user's new focus.
+    if (menuOpen) {
+      setMenuOpen(false);
+      return;
+    }
     previousPath.current = location.pathname;
-    setMenuOpen(false);
-    window.requestAnimationFrame(() => document.getElementById('planner-main')?.focus());
-  }, [location.pathname]);
+    document.getElementById('planner-main')?.focus();
+  }, [location.pathname, menuOpen]);
 
   useEffect(() => {
     if (menuOpen && compactNavigation) firstLink.current?.focus();

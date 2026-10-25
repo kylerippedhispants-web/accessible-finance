@@ -1,6 +1,6 @@
 # Website and planner next steps
 
-Updated October 23, 2026 (America/Toronto). This checklist covers the selected FIRE
+Updated October 24, 2026 (America/Toronto). This checklist covers the selected FIRE
 website and planner. Local Demo Mode checks do not validate cloud services or
 public launch.
 
@@ -13,6 +13,24 @@ Recovery completion and explicit storage/log inspection remain pending follow-up
 onboarding, save/reload, account separation, and JSON export/import proofs are
 recorded below. Two fictional browser-created plans remain after the earlier
 authenticated harness cleanup.
+
+## October 23 usability and visual polish
+
+- [x] Match mobile navigation typography and identify the current Learn/Tools
+  section. Keep native disclosure controls inside keyboard focus containment.
+- [x] Move guide pagination focus to the first new card, clear of the sticky
+  navigation. Add a direct reset action when search and topic return no guides.
+- [x] Preserve keyboard position when removing cash-flow categories, including
+  the last remaining category, and announce the removed item.
+- [x] Keep excluded planner entries readable with a soft background, dashed
+  border and status badge. Enlarge collection labels and preserve editor-heading
+  clearance below the mobile header.
+- [x] Size the planner drawer to the visible viewport and allow bottom safe-area
+  space. Keep the existing financial calculations, data storage and accounts.
+- [x] Update the pinned Zod validator to 4.6.7 to address
+  GHSA-mrhx-c7xc-m3w5. Verify import compatibility and a clean production audit.
+- [x] Complete mobile route focus before the next interaction so navigation
+  cannot steal focus from a newly selected control. Cover the race with tests.
 
 ## October 23 mobile performance improvements
 
