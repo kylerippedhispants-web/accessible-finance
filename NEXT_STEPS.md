@@ -1,6 +1,6 @@
 # Website and planner next steps
 
-Updated October 23, 2026 (America/Toronto). This checklist covers the selected FIRE
+Updated October 24, 2026 (America/Toronto). This checklist covers the selected FIRE
 website and planner. Local Demo Mode checks do not validate cloud services or
 public launch.
 
@@ -27,6 +27,10 @@ authenticated harness cleanup.
   clearance below the mobile header.
 - [x] Size the planner drawer to the visible viewport and allow bottom safe-area
   space. Keep the existing financial calculations, data storage and accounts.
+- [x] Update the pinned Zod validator to 4.6.7 to address
+  GHSA-mrhx-c7xc-m3w5. Verify import compatibility and a clean production audit.
+- [x] Complete mobile route focus before the next interaction so navigation
+  cannot steal focus from a newly selected control. Cover the race with tests.
 
 ## October 23 mobile performance improvements
 
