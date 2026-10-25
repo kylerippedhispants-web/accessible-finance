@@ -16,6 +16,8 @@ authenticated harness cleanup.
 
 ## October 25 guide examples and consistent motion
 
+- [x] Match image labels and values to the site's Inter and Instrument Serif
+  fonts, using embedded glyph subsets so standalone SVG images render consistently.
 - [x] Refine the complete guide reading path: use one primary example, keep
   supporting examples in named disclosures, and preserve existing example links.
 - [x] Clarify guide titles and beginner terminology; align visible update dates

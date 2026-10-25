@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
-const { createGuideVisual, getGuideVisualDimensions } = require('./guide-visuals.cjs');
+const { createGuideVisual, formatValue, getGuideVisualDimensions } = require('./guide-visuals.cjs');
 
 const root = path.resolve(__dirname, '..');
 const guideDirectory = path.join(root, 'guides');
@@ -410,4 +410,16 @@ function main() {
   process.stdout.write(`Generated ${Object.keys(build.guides).length} static guide pages.\n`);
 }
 
-main();
+if (process.argv.includes('--font-text')) {
+  const build = loadGuideBuild();
+  const text = Object.fromEntries(Object.entries(build.guides).map(([id, item]) => {
+    const visual = item.workedExample.visual;
+    return [id, {
+      sans: visual.items.map((entry) => `${entry.label} ${entry.detail || ''}`).join(' '),
+      serif: visual.items.map((entry) => formatValue(entry.value, visual.unit)).join(' '),
+    }];
+  }));
+  process.stdout.write(JSON.stringify(text));
+} else {
+  main();
+}

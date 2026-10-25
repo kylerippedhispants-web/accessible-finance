@@ -43,3 +43,30 @@ The corresponding copyright notices and complete licenses are included:
 requests, exact upstream URLs, byte counts and full SHA-256 hashes for each
 font, plus the license sources and hashes. No outlines or metadata were
 modified, and the fonts' internal names are unchanged.
+
+## Fonts embedded in guide illustrations
+
+Guide SVGs use small, per-guide WOFF2 subsets of the existing Instrument Serif
+normal 400 and Inter normal 400–500 fonts. Embedding them makes an illustration
+use the same typography when displayed as an image or opened on its own; an SVG
+loaded through `<img>` cannot inherit the page's web fonts. These derived subsets
+are stored in [`scripts/guide-fonts.json`](../../scripts/guide-fonts.json), with
+source hashes, license references, and generator versions. The original files
+above and their licenses remain unchanged. Copyright and license font records
+are retained, and every character used by each guide is checked for coverage.
+
+The committed subsets are ordinary build inputs. Site builds and deployments
+need Node.js only; Python is a developer tool for regenerating font subsets
+after illustration text or source fonts change. In a local Python environment,
+install `fonttools==4.67.0` and `brotli==1.2.1`, then run from the source folder:
+
+```text
+python scripts/subset-guide-fonts.py --node /path/to/node
+node scripts/generate-guides.js
+```
+
+Omit `--node` when Node.js is on `PATH`. Keep the Python environment out of
+source control. The subset command reads the guide generator's `--font-text`
+output and local font provenance, writes deterministic subsets, and reports
+their byte sizes. Review the regenerated SVGs and run the guide browser checks
+because a font or text change can affect wrapping and label spacing.
