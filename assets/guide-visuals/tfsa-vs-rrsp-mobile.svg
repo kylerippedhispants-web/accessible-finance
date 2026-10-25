@@ -1,36 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="360" height="708" viewBox="0 0 360 708" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">Spendable money after the same growth</title>
   <desc id="description">The TFSA leaves $1,400. The RRSP leaves $1,600 at 20% withdrawal tax, $1,400 at 30%, or $1,200 at 40%. All start from the same $1,000 of pre-tax income. TFSA: $1,400. $700 doubles; withdrawal is tax-free RRSP at 20% tax: $1,600. $2,000 less $400 tax RRSP at 30% tax: $1,400. $2,000 less $600 tax RRSP at 40% tax: $1,200. $2,000 less $800 tax</desc>
-  <rect width="360" height="708" fill="#fff"/>
+  <rect width="360" height="708" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-value="1400" data-row="0">
         <text x="24" y="46" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">TFSA</tspan></text>
         <text x="336" y="89" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$1,400</tspan></text>
-        <path d="M24 103v32 M336 103v32" stroke="#dce4dc"/>
-        <rect x="24" y="108" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <path d="M24 103v32 M336 103v32" stroke="#d8dfd2"/>
+        <rect x="24" y="108" width="312" height="22" rx="3" fill="#e6eadc"/>
         <rect data-bar="true" x="24" y="108" width="273.000" height="22" rx="3" fill="#24664e"/>
         <text x="24" y="159" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">$700 doubles; withdrawal is</tspan><tspan x="24" dy="28">tax-free</tspan></text>
       </g>
 <g data-value="1600" data-row="1">
         <text x="24" y="232" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">RRSP at 20% tax</tspan></text>
         <text x="336" y="275" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$1,600</tspan></text>
-        <path d="M24 289v32 M336 289v32" stroke="#dce4dc"/>
-        <rect x="24" y="294" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <path d="M24 289v32 M336 289v32" stroke="#d8dfd2"/>
+        <rect x="24" y="294" width="312" height="22" rx="3" fill="#e6eadc"/>
         <rect data-bar="true" x="24" y="294" width="312.000" height="22" rx="3" fill="#24664e"/>
         <text x="24" y="345" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">$2,000 less $400 tax</tspan></text>
       </g>
 <g data-value="1400" data-row="2">
         <text x="24" y="390" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">RRSP at 30% tax</tspan></text>
         <text x="336" y="433" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$1,400</tspan></text>
-        <path d="M24 447v32 M336 447v32" stroke="#dce4dc"/>
-        <rect x="24" y="452" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <path d="M24 447v32 M336 447v32" stroke="#d8dfd2"/>
+        <rect x="24" y="452" width="312" height="22" rx="3" fill="#e6eadc"/>
         <rect data-bar="true" x="24" y="452" width="273.000" height="22" rx="3" fill="#24664e"/>
         <text x="24" y="503" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">$2,000 less $600 tax</tspan></text>
       </g>
 <g data-value="1200" data-row="3">
         <text x="24" y="548" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">RRSP at 40% tax</tspan></text>
         <text x="336" y="591" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$1,200</tspan></text>
-        <path d="M24 605v32 M336 605v32" stroke="#dce4dc"/>
-        <rect x="24" y="610" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <path d="M24 605v32 M336 605v32" stroke="#d8dfd2"/>
+        <rect x="24" y="610" width="312" height="22" rx="3" fill="#e6eadc"/>
         <rect data-bar="true" x="24" y="610" width="234.000" height="22" rx="3" fill="#24664e"/>
         <text x="24" y="661" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">$2,000 less $800 tax</tspan></text>
       </g></g>

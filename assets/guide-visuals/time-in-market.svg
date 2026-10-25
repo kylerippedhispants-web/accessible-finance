@@ -1,26 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="640" height="555" viewBox="0 0 640 555" data-layout="flow" role="img" aria-labelledby="title description">
   <title id="title">How the unit count shrinks</title>
   <desc id="description">Ten units at $100 fall to $80 and are sold for $800. After the price recovers to $100, that $800 buys only eight units. Before the decline: 10 units. 10 × $100 = $1,000. Sell at $80: $800 cash. 10 × $80 = $800. Buy back at $100: 8 units. $800 ÷ $100 = 8.</desc>
-  <rect width="640" height="555" fill="#fff"/>
+  <rect width="640" height="555" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-row="0">
         <path d="M51 78V190" stroke="#b7cbbd" stroke-width="1.5"/>
         <path d="m47 185 4 5 4-5" fill="none" stroke="#24664e" stroke-width="1.5"/>
-        <circle cx="51" cy="51" r="15" fill="#fcfcf7" stroke="#24664e"/>
+        <circle cx="51" cy="51" r="15" fill="#fffdf6" stroke="#24664e"/>
         <text x="51" y="56" font-size="14" font-weight="600" fill="#24664e" text-anchor="middle"><tspan x="51" dy="0">1</tspan></text>
         <text x="90" y="57" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="90" dy="0">Before the decline</tspan></text>
         <text x="90" y="97" font-size="36" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="90" dy="0">10 units</tspan></text>
         <text x="90" y="139" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="90" dy="0">10 × $100 = $1,000.</tspan></text>
-        <path d="M90 177H604" stroke="#dce4dc"/>
+        <path d="M90 177H604" stroke="#d8dfd2"/>
       </g>
 <g data-row="1">
         <path d="M51 239V351" stroke="#b7cbbd" stroke-width="1.5"/>
         <path d="m47 346 4 5 4-5" fill="none" stroke="#24664e" stroke-width="1.5"/>
-        <circle cx="51" cy="212" r="15" fill="#fcfcf7" stroke="#24664e"/>
+        <circle cx="51" cy="212" r="15" fill="#fffdf6" stroke="#24664e"/>
         <text x="51" y="217" font-size="14" font-weight="600" fill="#24664e" text-anchor="middle"><tspan x="51" dy="0">2</tspan></text>
         <text x="90" y="218" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="90" dy="0">Sell at $80</tspan></text>
         <text x="90" y="258" font-size="36" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="90" dy="0">$800 cash</tspan></text>
         <text x="90" y="300" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="90" dy="0">10 × $80 = $800.</tspan></text>
-        <path d="M90 338H604" stroke="#dce4dc"/>
+        <path d="M90 338H604" stroke="#d8dfd2"/>
       </g>
 <g data-row="2">
         

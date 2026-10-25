@@ -1,36 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="360" height="764" viewBox="0 0 360 764" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">A simple plan for $4,200 a month</title>
   <desc id="description">The monthly budget assigns $2,500 to essentials, $300 to irregular bills, $500 to goals, and $900 to flexible spending. Essentials: $2,500. Includes minimum debt payments Irregular bills: $300. $3,600 annual total divided by 12 Savings goals: $500. Chosen priorities Flexible spending: $900. About $208 a week, averaged over a year</desc>
-  <rect width="360" height="764" fill="#fff"/>
+  <rect width="360" height="764" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-value="2500" data-row="0">
         <text x="24" y="46" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Essentials</tspan></text>
         <text x="336" y="89" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$2,500</tspan></text>
-        <path d="M24 103v32 M336 103v32" stroke="#dce4dc"/>
-        <rect x="24" y="108" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <path d="M24 103v32 M336 103v32" stroke="#d8dfd2"/>
+        <rect x="24" y="108" width="312" height="22" rx="3" fill="#e6eadc"/>
         <rect data-bar="true" x="24" y="108" width="312.000" height="22" rx="3" fill="#24664e"/>
         <text x="24" y="159" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">Includes minimum debt</tspan><tspan x="24" dy="28">payments</tspan></text>
       </g>
 <g data-value="300" data-row="1">
         <text x="24" y="232" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Irregular bills</tspan></text>
         <text x="336" y="275" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$300</tspan></text>
-        <path d="M24 289v32 M336 289v32" stroke="#dce4dc"/>
-        <rect x="24" y="294" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <path d="M24 289v32 M336 289v32" stroke="#d8dfd2"/>
+        <rect x="24" y="294" width="312" height="22" rx="3" fill="#e6eadc"/>
         <rect data-bar="true" x="24" y="294" width="37.440" height="22" rx="3" fill="#24664e"/>
         <text x="24" y="345" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">$3,600 annual total divided</tspan><tspan x="24" dy="28">by 12</tspan></text>
       </g>
 <g data-value="500" data-row="2">
         <text x="24" y="418" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Savings goals</tspan></text>
         <text x="336" y="461" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$500</tspan></text>
-        <path d="M24 475v32 M336 475v32" stroke="#dce4dc"/>
-        <rect x="24" y="480" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <path d="M24 475v32 M336 475v32" stroke="#d8dfd2"/>
+        <rect x="24" y="480" width="312" height="22" rx="3" fill="#e6eadc"/>
         <rect data-bar="true" x="24" y="480" width="62.400" height="22" rx="3" fill="#24664e"/>
         <text x="24" y="531" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">Chosen priorities</tspan></text>
       </g>
 <g data-value="900" data-row="3">
         <text x="24" y="576" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Flexible spending</tspan></text>
         <text x="336" y="619" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$900</tspan></text>
-        <path d="M24 633v32 M336 633v32" stroke="#dce4dc"/>
-        <rect x="24" y="638" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <path d="M24 633v32 M336 633v32" stroke="#d8dfd2"/>
+        <rect x="24" y="638" width="312" height="22" rx="3" fill="#e6eadc"/>
         <rect data-bar="true" x="24" y="638" width="112.320" height="22" rx="3" fill="#24664e"/>
         <text x="24" y="689" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">About $208 a week, averaged</tspan><tspan x="24" dy="28">over a year</tspan></text>
       </g></g>

@@ -5,7 +5,7 @@
 const escapeXml = (value) => String(value).replace(/[&<>"']/g, (character) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;'
 })[character]);
-const palette = { ink: '#203c32', muted: '#52645b', line: '#dce4dc', paper: '#fcfcf7', green: '#24664e', tint: '#eef3ec' };
+const palette = { ink: '#203c32', muted: '#52645b', line: '#d8dfd2', paper: '#fffdf6', canvas: '#f8f3e7', green: '#24664e', tint: '#e6eadc' };
 
 function formatValue(value, unit = '') {
   if (typeof value !== 'number') return String(value);
@@ -122,7 +122,7 @@ function createGuideVisual(id, visual, mobile = false) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" data-layout="${visual.type}" role="img" aria-labelledby="title description">
   <title id="title">${escapeXml(visual.title)}</title>
   <desc id="description">${escapeXml(visual.description)} ${visual.items.map((item) => escapeXml(`${item.label}: ${formatValue(item.value, visual.unit)}. ${item.detail || ''}`)).join(' ')}</desc>
-  <rect width="${width}" height="${height}" fill="#fff"/>
+  <rect width="${width}" height="${height}" fill="${palette.canvas}"/>
   <g font-family="Arial, Helvetica, sans-serif">${drawings}</g>
 </svg>\n`;
 }

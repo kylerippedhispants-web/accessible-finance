@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="360" height="392" viewBox="0 0 360 392" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">After three hypothetical years</title>
   <desc id="description">An $8,000 purchase growing at 3% annually costs about $8,742 after three years. Savings growing at 2% reach about $8,490, leaving a roughly $252 gap. Savings balance: $8,490. 2% annual growth after tax and fees Purchase price: $8,742. 3% annual price increase</desc>
-  <rect width="360" height="392" fill="#fff"/>
+  <rect width="360" height="392" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-value="8490" data-row="0">
         <text x="24" y="46" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Savings balance</tspan></text>
         <text x="336" y="89" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$8,490</tspan></text>
-        <path d="M24 103v32 M336 103v32" stroke="#dce4dc"/>
-        <rect x="24" y="108" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <path d="M24 103v32 M336 103v32" stroke="#d8dfd2"/>
+        <rect x="24" y="108" width="312" height="22" rx="3" fill="#e6eadc"/>
         <rect data-bar="true" x="24" y="108" width="303.006" height="22" rx="3" fill="#24664e"/>
         <text x="24" y="159" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">2% annual growth after tax</tspan><tspan x="24" dy="28">and fees</tspan></text>
       </g>
 <g data-value="8742" data-row="1">
         <text x="24" y="232" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Purchase price</tspan></text>
         <text x="336" y="275" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$8,742</tspan></text>
-        <path d="M24 289v32 M336 289v32" stroke="#dce4dc"/>
-        <rect x="24" y="294" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <path d="M24 289v32 M336 289v32" stroke="#d8dfd2"/>
+        <rect x="24" y="294" width="312" height="22" rx="3" fill="#e6eadc"/>
         <rect data-bar="true" x="24" y="294" width="312.000" height="22" rx="3" fill="#24664e"/>
         <text x="24" y="345" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">3% annual price increase</tspan></text>
       </g></g>

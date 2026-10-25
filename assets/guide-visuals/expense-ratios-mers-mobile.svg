@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="360" height="364" viewBox="0 0 360 364" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">Approximate annual MER cost</title>
   <desc id="description">On a constant $60,000 balance, a 0.25% MER costs about $150 annually and a 1.75% MER costs about $1,050, a $900 difference. 0.25% MER: $150. $60,000 × 0.0025 1.75% MER: $1,050. $60,000 × 0.0175</desc>
-  <rect width="360" height="364" fill="#fff"/>
+  <rect width="360" height="364" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-value="150" data-row="0">
         <text x="24" y="46" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">0.25% MER</tspan></text>
         <text x="336" y="89" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$150</tspan></text>
-        <path d="M24 103v32 M336 103v32" stroke="#dce4dc"/>
-        <rect x="24" y="108" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <path d="M24 103v32 M336 103v32" stroke="#d8dfd2"/>
+        <rect x="24" y="108" width="312" height="22" rx="3" fill="#e6eadc"/>
         <rect data-bar="true" x="24" y="108" width="44.571" height="22" rx="3" fill="#24664e"/>
         <text x="24" y="159" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">$60,000 × 0.0025</tspan></text>
       </g>
 <g data-value="1050" data-row="1">
         <text x="24" y="204" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">1.75% MER</tspan></text>
         <text x="336" y="247" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$1,050</tspan></text>
-        <path d="M24 261v32 M336 261v32" stroke="#dce4dc"/>
-        <rect x="24" y="266" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <path d="M24 261v32 M336 261v32" stroke="#d8dfd2"/>
+        <rect x="24" y="266" width="312" height="22" rx="3" fill="#e6eadc"/>
         <rect data-bar="true" x="24" y="266" width="312.000" height="22" rx="3" fill="#24664e"/>
         <text x="24" y="317" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">$60,000 × 0.0175</tspan></text>
       </g></g>

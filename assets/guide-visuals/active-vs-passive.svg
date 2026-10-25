@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="640" height="233" viewBox="0 0 640 233" data-layout="compare" role="img" aria-labelledby="title description">
   <title id="title">Gross performance is only the start</title>
   <desc id="description">The passive fund earns 6% before a 0.2% cost, leaving about 5.8%. The active fund earns 7.2% before a 1.5% cost, leaving about 5.7%. Passive example: 5.8% net. 6.0% gross − 0.2% cost. Active example: 5.7% net. 7.2% gross − 1.5% cost.</desc>
-  <rect width="640" height="233" fill="#fff"/>
+  <rect width="640" height="233" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-row="0">
-        <rect x="36" y="36" width="274" height="161" rx="8" fill="#fcfcf7" stroke="#dce4dc"/>
+        <rect x="36" y="36" width="274" height="161" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
         <path d="M56 50h28" stroke="#24664e" stroke-width="2"/>
         <text x="56" y="79" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="56" dy="0">Passive example</tspan></text>
         <text x="56" y="122" font-size="32" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="56" dy="0">5.8% net</tspan></text>
         <text x="56" y="169" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="56" dy="0">6.0% gross − 0.2% cost.</tspan></text>
       </g>
 <g data-row="1">
-        <rect x="330" y="36" width="274" height="161" rx="8" fill="#fcfcf7" stroke="#dce4dc"/>
+        <rect x="330" y="36" width="274" height="161" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
         <path d="M350 50h28" stroke="#24664e" stroke-width="2"/>
         <text x="350" y="79" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="350" dy="0">Active example</tspan></text>
         <text x="350" y="122" font-size="32" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="350" dy="0">5.7% net</tspan></text>
