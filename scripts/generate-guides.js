@@ -8,7 +8,6 @@ const { createGuideVisual, getGuideVisualDimensions } = require('./guide-visuals
 const root = path.resolve(__dirname, '..');
 const guideDirectory = path.join(root, 'guides');
 const reviewedDate = '2026-10-20';
-const exampleDate = '2026-10-25';
 const adsenseLoader = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4537695061199720"
      crossorigin="anonymous"></script>`;
 
@@ -110,7 +109,7 @@ function buildStructuredData(id, item, wordCount, readingMinutes) {
         articleSection: item.category,
         wordCount,
         timeRequired: `PT${readingMinutes}M`,
-        dateModified: item.workedExample ? exampleDate : reviewedDate,
+        dateModified: item.updatedISO,
         isAccessibleForFree: true,
         author: {
           '@type': 'Organization',
@@ -214,13 +213,12 @@ function buildGuidePage(template, id, item, build) {
 
   const header = `  <div class="article-head-inner">
     <div class="crumb"><a href="../articles.html">Guides</a><span class="sep">&rsaquo;</span>${escapeHtml(item.category)}</div>
-    <span class="cat-tag">${escapeHtml(item.category)}</span>
     <h1>${item.titleHtml}</h1>
     <p class="deck">${escapeHtml(item.deck)}</p>
     <div class="article-meta">
       <span class="meta-item">${readingMinutes} min read</span>
       <span class="meta-item">${escapeHtml(item.level)}</span>
-      <span class="meta-item">Reviewed ${escapeHtml(item.updated)}</span>
+      <span class="meta-item"><span>Updated <time datetime="${escapeHtml(item.updatedISO)}">${escapeHtml(item.updated)}</time></span></span>
     </div>
     ${build.renderArticleBrief(item)}
     <nav class="article-example-links" aria-label="Guide shortcuts"><a href="#worked-example">See a worked example</a><a href="#build-your-plan">Go to the next-step checklist</a></nav>
@@ -234,7 +232,7 @@ function buildGuidePage(template, id, item, build) {
     <summary><span>On this page</span><span class="toc-count">${sections.length} sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
-      ${sections.map((section) => `<li><a href="#${section.id}">${escapeHtml(section.title)}</a></li>`).join('\n      ')}
+      ${sections.map((section) => `<li><a href="#${section.id}">${escapeHtml(section.tocTitle || section.title)}</a></li>`).join('\n      ')}
     </ul>
   </details>`;
 
@@ -376,7 +374,7 @@ function updateSitemap(build) {
 
   const pageEntries = corePages.map((entry) => xmlUrl(...entry));
   const guideEntries = Object.keys(build.guides).map((id) =>
-    xmlUrl(`https://accessible-finance.com/guides/${id}.html`, '0.7', 'monthly', exampleDate)
+    xmlUrl(`https://accessible-finance.com/guides/${id}.html`, '0.7', 'monthly', build.guides[id].updatedISO)
   );
 
   write(

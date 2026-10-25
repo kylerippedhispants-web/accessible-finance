@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="444" viewBox="0 0 640 444" data-layout="bars" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="425" viewBox="0 0 640 425" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">Illustrative monthly CPP by start age</title>
   <desc id="description">Holding the underlying age-65 estimate at $1,000 and varying only the start-age factor gives $640 at 60, $1,000 at 65, and $1,420 at 70. Start at 60: $640. 36% reduction from the age-65 base Start at 65: $1,000. Hypothetical personal base amount Start at 70: $1,420. 42% increase; five years of payments forgone</desc>
-  <rect width="640" height="444" fill="#f8f3e7"/>
+  <rect width="640" height="425" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-value="640" data-row="0">
         <text x="36" y="58" font-size="21" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="36" dy="0">Start at 60</tspan></text>
         <text x="604" y="60" font-size="32" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="604" dy="0">$640</tspan></text>

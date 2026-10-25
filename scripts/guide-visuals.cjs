@@ -34,6 +34,11 @@ function layout(visual, mobile) {
   const width = mobile ? 360 : 640;
   const inset = mobile ? 24 : 36;
   const columns = visual.type === 'compare' && visual.items.length === 2 && !mobile;
+  const detailLeading = mobile ? 28 : 24;
+  const detailSize = mobile ? 21 : 18;
+  // Reserve the font's descenders, then apply the same bottom inset as the top.
+  // A final row does not need the inter-row space used by its predecessors.
+  const descender = Math.ceil(detailSize * 0.3);
   const rows = visual.items.map((item) => {
     const label = wrap(item.label, mobile ? 24 : columns ? 23 : 42);
     const formatted = formatValue(item.value, visual.unit);
@@ -41,16 +46,41 @@ function layout(visual, mobile) {
       ? formatted.split(' / ').map((part, index) => index ? part : `${part} /`)
       : wrap(formatted, columns ? 16 : mobile ? 18 : 32);
     const detail = wrap(item.detail, mobile ? (visual.type === 'bars' ? 29 : 25) : columns ? 26 : visual.type === 'flow' ? 48 : 58);
-    const height = visual.type === 'bars'
-      ? (mobile ? 130 : 100) + detail.length * (mobile ? 28 : 24)
-      : 70 + label.length * (mobile ? 28 : 25) + value.length * 42 + detail.length * (mobile ? 28 : 24);
-    return { item, label, value, detail, height };
+    return { item, label, value, detail };
   });
   const labelLines = Math.max(...rows.map((row) => row.label.length));
   const valueLines = Math.max(...rows.map((row) => row.value.length));
   const detailLines = Math.max(...rows.map((row) => row.detail.length));
-  const height = inset * 2 + (columns ? 70 + labelLines * 25 + valueLines * 42 + detailLines * 24 : rows.reduce((sum, row) => sum + row.height, 0));
-  return { width, height, inset, columns, rows, labelLines, valueLines };
+  let top = inset;
+  for (const row of rows) {
+    row.top = columns ? inset : top;
+    if (visual.type === 'bars') {
+      row.labelY = 22;
+      row.valueY = mobile ? 65 : 24;
+      row.barY = mobile ? 84 : 48;
+      row.detailY = row.barY + 51;
+      row.height = (mobile ? 130 : 100) + row.detail.length * detailLeading;
+    } else if (visual.type === 'flow') {
+      row.labelY = 21;
+      row.valueY = row.labelY + row.label.length * (mobile ? 28 : 25) + 15;
+      row.detailY = row.valueY + row.value.length * 42;
+      row.height = 70 + row.label.length * (mobile ? 28 : 25) + row.value.length * 42 + row.detail.length * detailLeading;
+    } else {
+      row.labelY = 43;
+      row.valueY = row.labelY + (columns ? labelLines : row.label.length) * (mobile ? 28 : 25) + 18;
+      row.detailY = row.valueY + (columns ? valueLines : row.value.length) * 42 + 5;
+      const finalLine = row.detailY + ((columns ? detailLines : row.detail.length) - 1) * detailLeading;
+      row.cardHeight = finalLine + descender + 24;
+      row.height = row.cardHeight + 16;
+    }
+    row.contentBottom = row.detailY + (row.detail.length - 1) * detailLeading + descender;
+    top += row.height;
+  }
+  const last = rows[rows.length - 1];
+  const height = columns
+    ? inset * 2 + rows[0].cardHeight
+    : last.top + (visual.type === 'compare' ? last.cardHeight : last.contentBottom) + inset;
+  return { width, height, inset, columns, rows };
 }
 
 function getGuideVisualDimensions(visual, mobile = false) {
@@ -65,58 +95,49 @@ function createGuideVisual(id, visual, mobile = false) {
   if (isChart && visual.items.some((item) => typeof item.value !== 'number' || !Number.isFinite(item.value) || item.value < 0)) {
     throw new Error(`${id}: bars require finite nonnegative numeric values`);
   }
-  const { width, height, inset, columns, rows, labelLines, valueLines } = layout(visual, mobile);
+  const { width, height, inset, columns, rows } = layout(visual, mobile);
   const maximum = isChart ? Math.max(...visual.items.map((item) => item.value), 1) : 1;
   const contentWidth = width - inset * 2;
-  let top = inset;
   const drawings = rows.map((row, index) => {
-    const { item, label, value, detail } = row;
+    const { item, label, value, detail, top } = row;
     const last = index === rows.length - 1;
     let drawing;
     if (isChart) {
-      const barY = top + (mobile ? 84 : 48);
+      const barY = top + row.barY;
       const barWidth = item.value / maximum * contentWidth;
       drawing = `<g data-value="${item.value}" data-row="${index}">
-        ${text(label, inset, top + 22, mobile ? 22 : 21, { weight: 500, leading: 28 })}
-        ${text(value, width - inset, top + (mobile ? 65 : 24), mobile ? 34 : 32, { serif: true, colour: palette.green, anchor: 'end' })}
+        ${text(label, inset, top + row.labelY, mobile ? 22 : 21, { weight: 500, leading: 28 })}
+        ${text(value, width - inset, top + row.valueY, mobile ? 34 : 32, { serif: true, colour: palette.green, anchor: 'end' })}
         <path d="M${inset} ${barY - 5}v32 M${width - inset} ${barY - 5}v32" stroke="${palette.line}"/>
         <rect x="${inset}" y="${barY}" width="${contentWidth}" height="22" rx="3" fill="${palette.tint}"/>
         <rect data-bar="true" x="${inset}" y="${barY}" width="${barWidth.toFixed(3)}" height="22" rx="3" fill="${palette.green}"/>
-        ${text(detail, inset, barY + 51, mobile ? 21 : 18, { colour: palette.muted, leading: mobile ? 28 : 24 })}
+        ${text(detail, inset, top + row.detailY, mobile ? 21 : 18, { colour: palette.muted, leading: mobile ? 28 : 24 })}
       </g>`;
     } else if (visual.type === 'flow') {
       const railX = inset + 15;
       const x = inset + 54;
-      const labelY = top + 21;
-      const valueY = labelY + label.length * (mobile ? 28 : 25) + 15;
-      const detailY = valueY + value.length * 42;
       drawing = `<g data-row="${index}">
-        ${!last ? `<path d="M${railX} ${top + 42}V${top + row.height - 7}" stroke="#b7cbbd" stroke-width="1.5"/>
-        <path d="m${railX - 4} ${top + row.height - 12} 4 5 4-5" fill="none" stroke="${palette.green}" stroke-width="1.5"/>` : ''}
-        <circle cx="${railX}" cy="${top + 15}" r="15" fill="${last ? palette.green : palette.paper}" stroke="${palette.green}"/>
-        ${text([String(index + 1)], railX, top + 20, 14, { anchor: 'middle', colour: last ? '#fff' : palette.green, weight: 600 })}
-        ${text(label, x, labelY, mobile ? 22 : 20, { weight: 500, leading: 28 })}
-        ${text(value, x, valueY, mobile ? 34 : 36, { serif: true, colour: palette.green, leading: 42 })}
-        ${text(detail, x, detailY, mobile ? 21 : 18, { colour: palette.muted, leading: mobile ? 28 : 24 })}
+        ${!last ? `<path d="M${railX} ${top + 29}V${top + row.height + 1}" stroke="#b7cbbd" stroke-width="1.5"/>
+        <path d="m${railX - 4} ${top + row.height - 4} 4 5 4-5" fill="none" stroke="${palette.green}" stroke-width="1.5"/>` : ''}
+        <circle cx="${railX}" cy="${top + 15}" r="7" fill="${last ? palette.green : palette.paper}" stroke="${palette.green}" stroke-width="1.5"/>
+        ${text(label, x, top + row.labelY, mobile ? 22 : 20, { weight: 500, leading: 28 })}
+        ${text(value, x, top + row.valueY, mobile ? 34 : 36, { serif: true, colour: palette.green, leading: 42 })}
+        ${text(detail, x, top + row.detailY, mobile ? 21 : 18, { colour: palette.muted, leading: mobile ? 28 : 24 })}
         ${!last ? `<path d="M${x} ${top + row.height - 20}H${width - inset}" stroke="${palette.line}"/>` : ''}
       </g>`;
     } else {
       const cardX = columns ? inset + index * (contentWidth + 20) / 2 : inset;
       const cardWidth = columns ? (contentWidth - 20) / 2 : contentWidth;
-      const y = columns ? inset : top;
+      const y = top;
       const padding = columns ? 20 : 22;
-      const labelY = y + 35;
-      const valueY = labelY + (columns ? labelLines : label.length) * (mobile ? 28 : 25) + 18;
-      const detailY = valueY + (columns ? valueLines : value.length) * 42 + 5;
       drawing = `<g data-row="${index}">
-        <rect x="${cardX}" y="${y}" width="${cardWidth}" height="${columns ? height - inset * 2 : row.height - 16}" rx="8" fill="${palette.paper}" stroke="${palette.line}"/>
+        <rect x="${cardX}" y="${y}" width="${cardWidth}" height="${row.cardHeight}" rx="8" fill="${palette.paper}" stroke="${palette.line}"/>
         <path d="M${cardX + padding} ${y + 14}h28" stroke="${palette.green}" stroke-width="2"/>
-        ${text(label, cardX + padding, labelY + 8, mobile ? 22 : 20, { weight: 500, leading: 28 })}
-        ${text(value, cardX + padding, valueY + 8, mobile ? 34 : 32, { serif: true, colour: palette.green, leading: 42 })}
-        ${text(detail, cardX + padding, detailY + 8, mobile ? 21 : 18, { colour: palette.muted, leading: mobile ? 28 : 24 })}
+        ${text(label, cardX + padding, y + row.labelY, mobile ? 22 : 20, { weight: 500, leading: 28 })}
+        ${text(value, cardX + padding, y + row.valueY, mobile ? 34 : 32, { serif: true, colour: palette.green, leading: 42 })}
+        ${text(detail, cardX + padding, y + row.detailY, mobile ? 21 : 18, { colour: palette.muted, leading: mobile ? 28 : 24 })}
       </g>`;
     }
-    top += row.height;
     return drawing;
   }).join('\n');
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" data-layout="${visual.type}" role="img" aria-labelledby="title description">

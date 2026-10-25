@@ -21,14 +21,15 @@
   const FCAC_GOAL_GUIDE = 'https://www.canada.ca/en/financial-consumer-agency/services/savings-investments/savings-investment-goals.html';
   const BANK_OF_CANADA_INFLATION = 'https://www.bankofcanada.ca/rates/related/inflation-calculator/';
   const STATCAN_CPI_2022 = 'https://www150.statcan.gc.ca/n1/daily-quotidien/230117/dq230117b-eng.htm';
-  const SPIVA_CANADA_2025 = 'https://www.spglobal.com/spdji/en/spiva/article/spiva-canada/';
+  const SPIVA_CANADA_2025 = 'https://www.spglobal.com/spdji/en/spiva/article/spiva-canada-year-end-2025/';
   const CRA_REGISTERED_LIMITS = 'https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html';
   const CPP_WHEN_TO_START = 'https://www.canada.ca/en/services/benefits/publicpensions/cpp/when-start.html';
 
   const source = (label, url) => ({ label, url });
   const guide = (config) => Object.assign({
     level: 'Beginner',
-    updated: 'July 2026',
+    updated: 'October 25, 2026',
+    updatedISO: '2026-10-25',
     explanationTitle: 'How it works',
     exampleTitle: 'A practical example',
     pointsTitle: 'The essentials',
@@ -37,17 +38,17 @@
 
   const guides = {
     'investing-vs-speculating': guide({
-      title: 'The Actual Difference Between Investing and Speculating',
-      titleHtml: 'The actual difference between investing and <em>speculating</em>',
+      title: 'Investing vs. Speculating: What Is the Difference?',
+      titleHtml: 'Investing vs. speculating: what is the <em>difference</em>?',
       deck: 'Both involve risk, but they rely on different reasons for expecting a return. Knowing which one you are doing leads to clearer decisions.',
       category: 'Fundamentals', minutes: 8,
       intro: [
         'Investing and speculating can look identical on a brokerage statement: money goes in, an asset is purchased, and the price moves. The meaningful difference is the logic underneath the purchase.',
-        'An investment thesis connects a return to the productive value of an asset over time. A speculative thesis depends mainly on predicting what another buyer will pay next. Neither label guarantees an outcome, but each calls for a different time horizon and risk limit.'
+        'The reason for an investment is usually tied to what an asset can earn or produce over time. The reason for a speculative purchase depends mainly on predicting what another buyer will pay next. Neither approach guarantees an outcome, and each needs a clear time horizon and limit on potential losses.'
       ],
       explanation: [
         'A diversified fund owns businesses that sell products, employ people, and may earn profits. A bond represents a promise to repay borrowed money with interest. Those assets have economic activity behind them. A short-term trade based only on a chart or online excitement relies much more heavily on price movement.',
-        'The distinction is a spectrum, not a courtroom verdict. A researched individual stock can contain elements of both. The useful question is whether your expected return comes from durable cash flows and time, or from being right about a near-term price change.'
+        'These are not strict categories. A researched individual stock can contain elements of both. The useful question is whether your expected return comes from the asset earning money over time, or from correctly predicting a near-term price change.'
       ],
       points: [
         '<strong>Investing:</strong> usually diversified, long term, and tied to productive assets.',
@@ -56,16 +57,16 @@
         '<strong>Position size matters:</strong> money needed for core goals should not depend on a single bet.'
       ],
       example: ['A monthly contribution to a broad-market index fund for a 25-year retirement goal is investing. Buying a stock after a viral post, with no valuation work and a plan to sell after a quick jump, is speculation. The same person can do both, but should not fund both from the same goal.'],
-      actions: ['Write down why the asset should produce a return.', 'Name the intended holding period before buying.', 'Decide what evidence would prove the original thesis wrong.', 'Keep speculative positions separate from goal-based savings.'],
-      caution: 'Excitement is not evidence, and a long holding period does not automatically turn a weak thesis into an investment. If a total loss would derail an important goal, the position is too large for that goal.',
+      actions: ['Write down why the asset should produce a return.', 'Name the intended holding period before buying.', 'Decide what evidence would change your reason for owning it.', 'Keep speculative positions separate from goal-based savings.'],
+      caution: 'Excitement is not evidence, and holding something longer does not fix a weak reason for buying it. If a total loss would derail an important goal, the position is too large for that goal.',
       takeaway: 'Investing owns productive assets with a long-term plan. Speculating makes a narrower bet on price. Know which activity you are funding before you click buy.',
       related: ['what-risk-means', 'diversification', 'first-investment-framework'],
       sources: [source('Investor.gov: Introduction to Investing', INVESTOR_GOV)]
     }),
 
     'why-investing-exists': guide({
-      title: 'Why Investing Exists - And What It Actually Does',
-      titleHtml: 'Why investing exists - and what it <em>actually does</em>',
+      title: 'Why Investing Exists: Where the Money Goes',
+      titleHtml: 'Why investing exists: where the <em>money goes</em>',
       deck: 'Investing connects people who have savings with businesses and governments that can put capital to productive use.',
       category: 'Fundamentals', minutes: 6,
       intro: [
@@ -86,13 +87,13 @@
     }),
 
     'how-markets-work': guide({
-      title: 'How Markets Actually Work: A Plain-English Guide',
-      titleHtml: 'How markets actually work, in <em>plain English</em>',
+      title: 'How Stock Markets Work: Prices, Orders, and Trades',
+      titleHtml: 'How stock markets work: prices, orders, and <em>trades</em>',
       deck: 'A market is a continuous negotiation between buyers and sellers. Prices move when their willingness to trade changes.',
       category: 'Fundamentals', minutes: 9,
       intro: [
         'A stock price is not an official declaration of what a company is worth. It is the latest price at which a willing buyer and seller completed a trade.',
-        'Millions of participants continuously update their views using company results, interest rates, economic news, liquidity needs, and emotion. The displayed price is where those competing views briefly meet.'
+        'Participants update their views using company results, interest rates, economic news, their need for cash, and emotion. The displayed price is where buyers and sellers most recently agreed to trade.'
       ],
       explanation: [
         'Buy orders state a price someone will pay; sell orders state a price someone will accept. The highest bid and lowest ask form the spread. A market order prioritizes execution, while a limit order sets a maximum purchase price or minimum sale price.',
@@ -108,8 +109,8 @@
     }),
 
     'what-risk-means': guide({
-      title: 'What Risk Really Means in Investing',
-      titleHtml: 'What <em>risk</em> really means in investing',
+      title: 'Investment Risk: Losses, Timing, and Your Goals',
+      titleHtml: 'Investment risk: losses, timing, and <em>your goals</em>',
       deck: 'Risk is not one number. It includes permanent loss, temporary volatility, inflation, poor timing, and the chance that your plan cannot meet its goal.',
       category: 'Fundamentals', minutes: 7,
       intro: [
@@ -130,8 +131,8 @@
     }),
 
     'risk-and-return': guide({
-      title: 'Risk and Return: The Relationship Nobody Explains Properly',
-      titleHtml: 'Risk and return, <em>properly explained</em>',
+      title: 'Risk and Return: Why More Risk Does Not Guarantee More Money',
+      titleHtml: 'Risk and return: why more risk does not guarantee <em>more money</em>',
       deck: 'Higher expected return is compensation for bearing uncertainty. It is not a reward automatically delivered to anyone who takes a bigger gamble.',
       category: 'Fundamentals', level: 'Intermediate', minutes: 9,
       intro: [
@@ -142,7 +143,7 @@
         'Investors often demand more potential return for accepting uncertain cash flows, long lockups, weak credit, or volatile prices. That demand can push risky asset prices lower today, increasing their prospective return if the underlying investment succeeds.',
         'Not every risk is compensated. Concentrating in one company adds avoidable risk, while owning a diversified equity market exposes an investor to broader economic risk that cannot be diversified away as easily.'
       ],
-      points: ['Expected return is an average of possible outcomes, not a forecast.', 'Uncompensated concentration can add danger without improving the odds.', 'Time horizon changes how much short-term volatility a plan can absorb.', 'Fees and taxes reduce the return an investor actually keeps.'],
+      points: ['Expected return averages possible outcomes, weighted by how likely each is. It is not a promised result.', 'Depending heavily on one company can add risk without improving the expected return.', 'Time horizon changes how much short-term volatility a plan can absorb.', 'Fees and taxes reduce the return an investor actually keeps.'],
       example: ['Two portfolios may both average 6% in a simplified projection, but one can swing far more widely. If a withdrawal occurs during a deep decline, the path of returns matters, not just the average.'],
       actions: ['Separate expected return from guaranteed return.', 'Compare downside scenarios before comparing best cases.', 'Diversify risks that do not support a deliberate objective.', 'Evaluate results after fees, taxes, and inflation.'],
       caution: 'Recent strong performance can make risk look smaller than it is. A calm market does not prove an asset is safe.',
@@ -174,8 +175,8 @@
     }),
 
     'inflation-and-cash': guide({
-      title: 'The Cost of Doing Nothing: Inflation and Your Cash',
-      titleHtml: 'Inflation and the <em>cost of cash</em>',
+      title: 'Inflation and Cash: What Your Savings Can Buy',
+      titleHtml: 'Inflation and cash: what your savings <em>can buy</em>',
       deck: 'Cash can protect a near-term dollar amount while still losing purchasing power. The right question is what the money must do and when.',
       category: 'Fundamentals', minutes: 6,
       intro: [
@@ -218,8 +219,8 @@
     }),
 
     'starting-early': guide({
-      title: 'Why Starting Early Matters More Than Starting Big',
-      titleHtml: 'Why starting <em>early</em> matters more than starting big',
+      title: 'Starting Early: How Time Affects Investment Growth',
+      titleHtml: 'Starting early: how time affects <em>investment growth</em>',
       deck: 'An early contribution has more opportunities to compound. A modest habit today can be more valuable than waiting for a perfect future budget.',
       category: 'Compounding', minutes: 6,
       intro: [
@@ -262,8 +263,8 @@
     }),
 
     'dividend-reinvestment': guide({
-      title: 'Dividends and Reinvestment: The Quiet Growth Engine',
-      titleHtml: 'Dividends and the quiet engine of <em>reinvestment</em>',
+      title: 'Dividends and Reinvestment: How They Affect Growth',
+      titleHtml: 'Dividends and reinvestment: how they affect <em>growth</em>',
       deck: 'A dividend is cash distributed by a company or fund. Reinvesting it purchases more units, which can generate future distributions and growth.',
       category: 'Compounding', level: 'Intermediate', minutes: 8,
       intro: [
@@ -306,8 +307,8 @@
     }),
 
     'investment-fees': guide({
-      title: 'Fees: Compound Interest in Reverse',
-      titleHtml: 'Fees: compound interest in <em>reverse</em>',
+      title: 'Investment Fees: Their Long-Term Cost',
+      titleHtml: 'Investment fees: their <em>long-term cost</em>',
       deck: 'A recurring fee reduces this year\'s return and the capital available to earn future returns. Small percentages can create large long-term differences.',
       category: 'Compounding', level: 'Intermediate', minutes: 8,
       intro: [
@@ -350,8 +351,8 @@
     }),
 
     'stocks-explained': guide({
-      title: 'What Is a Stock, Really?',
-      titleHtml: 'What is a <em>stock</em>, really?',
+      title: 'Stocks Explained: Ownership, Returns, and Risk',
+      titleHtml: 'Stocks explained: ownership, returns, and <em>risk</em>',
       deck: 'A share represents ownership in a company. Its return depends on the business, the price paid, and what future investors expect.',
       category: 'Asset Classes', minutes: 7,
       intro: [
@@ -372,8 +373,8 @@
     }),
 
     'bonds-explained': guide({
-      title: 'What Is a Bond? (And Why Should I Care?)',
-      titleHtml: 'What is a <em>bond</em>, and why should you care?',
+      title: 'Bonds Explained: Interest, Repayment, and Risk',
+      titleHtml: 'Bonds explained: interest, repayment, and <em>risk</em>',
       deck: 'A bond is a loan to a government or company. Investors receive promised payments while accepting interest-rate, inflation, and credit risk.',
       category: 'Asset Classes', minutes: 7,
       intro: [
@@ -394,8 +395,8 @@
     }),
 
     'mutual-funds-vs-etfs': guide({
-      title: 'Mutual Funds vs. ETFs: What Is the Actual Difference?',
-      titleHtml: 'Mutual funds vs. ETFs: the <em>actual difference</em>',
+      title: 'Mutual Funds vs. ETFs: How They Differ',
+      titleHtml: 'Mutual funds vs. ETFs: how they <em>differ</em>',
       deck: 'Both can pool many investments into one product. The main differences involve how they trade, how they are priced, costs, and account features.',
       category: 'Asset Classes', minutes: 8,
       intro: [
@@ -416,8 +417,8 @@
     }),
 
     'index-funds': guide({
-      title: 'Index Funds: A Powerful Tool for Regular Investors',
-      titleHtml: 'Index funds: broad ownership made <em>simple</em>',
+      title: 'Index Funds: What They Track and What They Cost',
+      titleHtml: 'Index funds: what they track and what they <em>cost</em>',
       deck: 'An index fund follows a defined market benchmark instead of asking a manager to select each winner in advance.',
       category: 'Asset Classes', minutes: 8,
       intro: [
@@ -431,7 +432,7 @@
       points: ['Indexing is a method, not a guarantee of diversification.', 'Broad indexes can reduce single-company dependence.', 'Costs and tracking difference matter.', 'The chosen index determines what you own and what you omit.'],
       example: ['A broad global stock index fund can hold companies across countries and sectors. A technology index fund is still an index fund, but its concentration gives it a very different role and risk profile.'],
       actions: ['Read the index description.', 'Inspect country, sector, and top-holding weights.', 'Compare fees and tracking history.', 'Place the fund inside a suitable overall asset allocation.'],
-      caution: 'Market-cap indexes can become concentrated in the largest companies, and narrow thematic indexes may behave like sector bets.',
+      caution: 'Indexes weighted by company market value can become concentrated in the largest companies. An index focused on one theme or industry can still carry substantial concentration risk.',
       takeaway: 'Index funds make diversified market exposure accessible. The important choice is not simply index versus non-index; it is which market exposure fits the plan.',
       related: ['diversification', 'active-vs-passive', 'mutual-funds-vs-etfs'],
       sources: [source('Investor.gov: Introduction to Investing', INVESTOR_GOV)]
@@ -482,9 +483,9 @@
     }),
 
     'open-brokerage-account': guide({
-      title: 'How to Open a Brokerage Account: Step by Step',
-      titleHtml: 'How to open a brokerage account, <em>step by step</em>',
-      deck: 'Choose the account type, compare the complete cost and service, verify your identity, fund it, and make an intentional first purchase.',
+      title: 'Opening a Brokerage Account: Costs, Checks, and First Steps',
+      titleHtml: 'Opening a brokerage account: costs, checks, and <em>first steps</em>',
+      deck: 'Know which account you need, what it will cost, and what to check before funding it. Choosing an investment is a separate decision.',
       category: 'Getting Started', minutes: 8,
       intro: [
         'Opening an account is administrative; choosing what belongs in it is the investing decision. Keeping those steps separate prevents a rushed purchase at the end of a signup flow.',
@@ -494,7 +495,7 @@
         'A brokerage will request identity, tax residency, contact, employment, and financial information. It may ask about investing knowledge and objectives to meet regulatory obligations.',
         'After approval, money can usually arrive by linked bank transfer or bill payment. Settlement times, transfer holds, and currency conversion policies differ by provider.'
       ],
-      points: ['Choose the account before the investment.', 'Compare commissions, FX costs, account fees, and available products.', 'Use strong unique credentials and multi-factor authentication.', 'Confirm how cash is held and statements are delivered.'],
+      points: ['Choose the account before the investment.', 'Compare commissions, currency-conversion costs, account fees, and available products.', 'Use a unique password and multi-factor authentication.', 'Confirm how cash is held and statements are delivered.'],
       example: ['A person saving for a first home might compare FHSA availability, automatic purchases, transfer fees, and suitable low-risk products before selecting a platform. A flashy trading interface is not the deciding feature.'],
       actions: ['Define the goal and account type.', 'Compare at least two providers on total cost and support.', 'Gather ID and tax information.', 'Fund with a small test transfer before automating.'],
       caution: 'Do not open a margin account or enable options simply because the setup offers them. Borrowing and derivatives create risks that are separate from ordinary investing.',
@@ -614,8 +615,8 @@
     }),
 
     'bear-markets': guide({
-      title: 'What Actually Happens in a Bear Market',
-      titleHtml: 'What actually happens in a <em>bear market</em>',
+      title: 'Bear Markets: What Happens When Prices Fall',
+      titleHtml: 'Bear markets: what happens when <em>prices fall</em>',
       deck: 'A bear market is a substantial decline, not a complete description of the economy or a reliable signal about what happens next.',
       category: 'Market Behaviour', level: 'Intermediate', minutes: 10,
       intro: [
@@ -724,7 +725,7 @@
     }),
 
     'cpp-explained': guide({
-      title: 'What Is CPP and How Much Will You Actually Get?',
+      title: 'CPP Explained: How to Estimate Your Pension',
       titleHtml: 'CPP: what it is and how to estimate <em>your benefit</em>',
       deck: 'CPP retirement benefits are based on your contribution history and when you start them. The advertised maximum is not a personal estimate.',
       category: 'Canadian Money', level: 'Intermediate', minutes: 7,
@@ -768,8 +769,8 @@
     }),
 
     'investor-behaviour': guide({
-      title: 'Why Smart People Make Bad Investment Decisions',
-      titleHtml: 'Why smart people make <em>bad investment decisions</em>',
+      title: 'Investor Behaviour: Making More Deliberate Decisions',
+      titleHtml: 'Investor behaviour: making more <em>deliberate decisions</em>',
       deck: 'Intelligence does not remove recency bias, loss aversion, overconfidence, or social pressure. A good system anticipates those reactions.',
       category: 'Market Behaviour', minutes: 9,
       intro: [
@@ -834,8 +835,8 @@
     }),
 
     'bonds-in-portfolio': guide({
-      title: 'What Bonds Actually Do in a Portfolio',
-      titleHtml: 'What bonds actually do in a <em>portfolio</em>',
+      title: 'Bonds in a Portfolio: Income, Stability, and Risk',
+      titleHtml: 'Bonds in a portfolio: income, stability, and <em>risk</em>',
       deck: 'Bonds can add income, liquidity, and stability to a portfolio, but their usefulness depends on credit quality, maturity, and the goal they support.',
       category: 'Asset Classes', level: 'Intermediate', minutes: 6,
       intro: [
@@ -900,12 +901,12 @@
     }),
 
     'expense-ratios-mers': guide({
-      title: 'What Expense Ratios, MERs, and Fund Fees Actually Cost You',
-      titleHtml: 'Expense ratios, MERs, and what fund fees <em>actually cost</em>',
+      title: 'Expense Ratios and MERs: Fund Fees in Dollars',
+      titleHtml: 'Expense ratios and MERs: fund fees in <em>dollars</em>',
       deck: 'A fund expense ratio is deducted inside the fund. Translate the percentage into dollars and long-term opportunity cost before comparing products.',
       category: 'Asset Classes', level: 'Intermediate', minutes: 6,
       intro: [
-        'A management expense ratio can be easy to miss because it is not usually billed like a subscription. It is reflected in the fund\'s reported return.',
+        'A management expense ratio (MER) expresses certain fund costs as an annual percentage. It can be easy to miss because those costs are deducted within the fund and reflected in its reported return rather than billed like a subscription.',
         'The cost rises with the balance, and every dollar removed is also unavailable for future compounding.'
       ],
       explanation: [
@@ -914,11 +915,11 @@
       ],
       points: ['Fund returns are generally reported after internal expenses.', 'Dollar cost grows as the portfolio grows.', 'Compare products with similar exposure and service.', 'Ask whether advice fees are included or separate.'],
       example: ['Two balanced funds hold similar assets, but one costs 0.30% and the other 1.80%. On $50,000, the rough first-year difference is $750, which also loses future growth.'],
-      actions: ['Find the MER in the fund facts.', 'Convert it to annual dollars at your balance.', 'Add account, advice, trading, and FX costs.', 'Document what the higher-cost option provides.'],
+      actions: ['Find the MER in the fund facts.', 'Convert it to annual dollars at your balance.', 'Add account, advice, trading, and currency-conversion costs.', 'Document what the higher-cost option provides.'],
       caution: 'Switching can trigger tax, redemption, or transfer costs. Compare the ongoing benefit with the one-time consequences before acting.',
       takeaway: 'Percentages become real dollars. Understand the complete cost, then decide whether the investment and service earn their place.',
       related: ['investment-fees', 'mutual-funds-vs-etfs', 'index-vs-active-funds'],
-      sources: [source('Investor.gov: Understanding Fees', FEE_GUIDE)]
+      sources: [source('Investor.gov: Understanding Fees', FEE_GUIDE), source('Ontario Securities Commission: Mutual Fund Fees', 'https://www.getsmarteraboutmoney.ca/learning-path/mutual-funds-segregated-funds/mutual-fund-fees/')]
     }),
 
     'market-drops-plan': guide({
@@ -1034,20 +1035,18 @@
       ? `${visual.unit === '$' ? '$' : ''}${value.toLocaleString('en-CA', { minimumFractionDigits: visual.unit === '$' && !Number.isInteger(value) ? 2 : 0, maximumFractionDigits: 2 })}${visual.unit === '%' ? '%' : visual.unit && visual.unit !== '$' ? ' ' + visual.unit : ''}`
       : value;
     return `<div class="worked-example">
-      <p class="example-kicker">Follow the numbers</p>
-      <h3>${escapeHtml(example.title)}</h3>
       <p>${escapeHtml(example.introduction)}</p>
       <figure class="guide-visual">
-        <figcaption><strong>${escapeHtml(visual.title)}</strong><span>${escapeHtml(visual.description)}</span></figcaption>
+        <figcaption><strong>${escapeHtml(visual.title)}</strong></figcaption>
         <picture>
           <source media="(max-width: 600px)" srcset="/assets/guide-visuals/${escapeHtml(item.guideId)}-mobile.svg" width="360"${dimensions ? ` height="${dimensions.mobile.height}"` : ''}>
-          <img src="/assets/guide-visuals/${escapeHtml(item.guideId)}.svg" width="640"${dimensions ? ` height="${dimensions.desktop.height}"` : ''} loading="lazy" decoding="async" alt="${escapeHtml(visual.title + '. ' + visual.description)}">
+          <img src="/assets/guide-visuals/${escapeHtml(item.guideId)}.svg" width="640"${dimensions ? ` height="${dimensions.desktop.height}"` : ''} loading="lazy" decoding="async" alt="${escapeHtml(visual.description)}">
         </picture>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl>${visual.items.map((entry) => `<div><dt>${escapeHtml(entry.label)}</dt><dd><strong>${escapeHtml(formatValue(entry.value))}</strong>${entry.detail ? `<span>${escapeHtml(entry.detail)}</span>` : ''}</dd></div>`).join('')}</dl></details>
+      <p class="example-assumptions"><strong>Example assumptions:</strong> ${escapeHtml(example.assumptions)}</p>
       <ol class="example-steps">${example.steps.map((step, index) => `<li><span class="example-step-number" aria-hidden="true">${index + 1}</span><strong>${escapeHtml(step.label)}</strong><p>${escapeHtml(step.body)}</p></li>`).join('')}</ol>
       <div class="example-result"><span>What this shows</span><p>${escapeHtml(example.result)}</p></div>
-      <p class="example-assumptions"><strong>Example assumptions:</strong> ${escapeHtml(example.assumptions)}</p>
     </div>`;
   };
   const renderList = (items) => `<ul>${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
@@ -1093,7 +1092,10 @@
         </details>`).join('')}
     </div>`;
   const countWords = (item) => {
-    const content = buildSections(item).map((section) => section.body).join(' ');
+    // Text equivalents repeat the illustration for accessibility; do not count
+    // those duplicate values a second time in the reading estimate.
+    const content = buildSections(item).map((section) => section.body).join(' ')
+      .replace(/<details class="visual-values">[\s\S]*?<\/details>/g, '');
     const plainText = content.replace(/<[^>]*>/g, ' ').replace(/&[a-z0-9#]+;/gi, ' ');
     return (plainText.match(/[A-Za-z0-9]+(?:['-][A-Za-z0-9]+)*/g) || []).length;
   };
@@ -1127,14 +1129,13 @@
       }
     ];
 
-    sections.push({
-      id: 'practical-example', title: item.caseStudy?.title || item.exampleTitle,
-      body: item.caseStudy
-        ? `<div id="real-world-case">${renderCaseStudy(item.caseStudy)}</div>`
-        : renderParagraphs(item.example)
-    });
+    const supportingExample = item.caseStudy
+      ? `<div id="real-world-case">${renderCaseStudy(item.caseStudy)}</div>`
+      : renderParagraphs(item.example);
     if (item.workedExample) {
-      sections.push({ id: 'worked-example', title: 'Try it step by step', body: renderWorkedExample(item) });
+      sections.push({ id: 'worked-example', title: item.workedExample.title, tocTitle: 'Worked example', body: renderWorkedExample(item) });
+    } else {
+      sections.push({ id: 'practical-example', title: item.caseStudy?.title || item.exampleTitle, body: supportingExample });
     }
     sections.push({
       id: 'build-your-plan', title: 'Your next-step checklist',
@@ -1145,6 +1146,9 @@
     // Extra context remains available without making every beginner read several
     // overlapping explanations before reaching the example and next steps.
     const extraDetails = [];
+    if (item.workedExample) {
+      extraDetails.push(`<details class="guide-detail supporting-example" id="practical-example"><summary>Another example: ${escapeHtml(item.caseStudy?.title || item.exampleTitle)}</summary>${supportingExample}</details>`);
+    }
     if (item.deepDive?.length) {
       extraDetails.push(`<details class="guide-detail" id="deeper-look"><summary>${escapeHtml(item.deepDiveTitle || 'A deeper look')}</summary>${renderParagraphs(item.deepDive)}</details>`);
     }
@@ -1153,9 +1157,6 @@
     }
     if (item.context?.length) {
       extraDetails.push(`<details class="guide-detail"><summary>Put the idea into a wider plan</summary>${renderParagraphs(item.context)}</details>`);
-    }
-    if (item.caseStudy && item.example?.length) {
-      extraDetails.push(`<details class="guide-detail"><summary>Another way to think about it</summary>${renderParagraphs(item.example)}</details>`);
     }
     if (item.questions?.length) {
       extraDetails.push(`<div id="common-questions">${renderQuestions(item.questions)}</div>`);
@@ -1234,20 +1235,19 @@
     const articleHead = document.querySelector('.article-head-inner');
     articleHead.innerHTML = `
       <div class="crumb"><a href="articles.html">Guides</a><span class="sep">&rsaquo;</span>${category}</div>
-      <span class="cat-tag">${category}</span>
       <h1>${item.titleHtml}</h1>
       <p class="deck">${escapeHtml(item.deck)}</p>
       <div class="article-meta">
         <span class="meta-item">${readingMinutes} min read</span>
         <span class="meta-item">${escapeHtml(item.level)}</span>
-        <span class="meta-item">Updated ${escapeHtml(item.updated)}</span>
+        <span class="meta-item"><span>Updated <time datetime="${escapeHtml(item.updatedISO)}">${escapeHtml(item.updated)}</time></span></span>
       </div>
       ${renderArticleBrief(item)}`;
 
     const sections = buildSections(item);
 
     document.querySelector('.toc-list').innerHTML = sections
-      .map((section) => `<li><a href="#${section.id}">${escapeHtml(section.title)}</a></li>`)
+      .map((section) => `<li><a href="#${section.id}">${escapeHtml(section.tocTitle || section.title)}</a></li>`)
       .join('');
     const tocCount = document.querySelector('.toc-count');
     if (tocCount) tocCount.textContent = `${sections.length} sections`;

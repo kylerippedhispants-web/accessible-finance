@@ -78,10 +78,11 @@ test('guide search combines with the selected topic and recovers from an empty r
   await expect(visibleCards.first()).toContainText('Budgeting for People Who Hate Budgeting');
   await page.getByRole('button', { name: 'All Topics', exact: true }).click();
   await search.fill('compound interest');
-  await expect(results).toHaveText('Showing 2 of 2 guides.');
-  await expect(visibleCards).toHaveCount(2);
+  await expect(results).toHaveText('Showing 1 of 1 guide.');
+  await expect(visibleCards).toHaveCount(1);
   await expect(visibleCards.first()).toContainText('Compound Interest');
-  await expect(visibleCards.nth(1)).toContainText('Fees: Compound Interest in Reverse');
+  await search.fill('investment fees');
+  await expect(visibleCards.filter({ hasText: 'Investment Fees: Their Long-Term Cost' })).toHaveCount(1);
 });
 
 test('loading more guides preserves keyboard reading order through the final page', async ({ page }) => {

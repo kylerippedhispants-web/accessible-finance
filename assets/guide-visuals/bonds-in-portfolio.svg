@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="444" viewBox="0 0 640 444" data-layout="bars" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="425" viewBox="0 0 640 425" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">Same starting balance, different losses</title>
   <desc id="description">Both portfolios start at $50,000. With stocks down 20% and bonds down 5%, the 60/40 portfolio ends at $43,000 and the all-stock portfolio at $40,000. Starting balance: $50,000. The same for both portfolios 60/40 portfolio: $43,000. 14% loss in this scenario All-stock portfolio: $40,000. 20% loss in this scenario</desc>
-  <rect width="640" height="444" fill="#f8f3e7"/>
+  <rect width="640" height="425" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-value="50000" data-row="0">
         <text x="36" y="58" font-size="21" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="36" dy="0">Starting balance</tspan></text>
         <text x="604" y="60" font-size="32" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="604" dy="0">$50,000</tspan></text>

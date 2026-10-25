@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="680" viewBox="0 0 360 680" data-layout="bars" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="664" viewBox="0 0 360 664" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">Exposure to the same company</title>
   <desc id="description">The four funds hold $200, $150, $100, and $50 of the same company, adding to $500 of a $2,000 portfolio. Fund A: $200. 40% of a $500 holding Fund B: $150. 30% of a $500 holding Fund C: $100. 20% of a $500 holding Fund D: $50. 10% of a $500 holding</desc>
-  <rect width="360" height="680" fill="#f8f3e7"/>
+  <rect width="360" height="664" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-value="200" data-row="0">
         <text x="24" y="46" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Fund A</tspan></text>
         <text x="336" y="89" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$200</tspan></text>

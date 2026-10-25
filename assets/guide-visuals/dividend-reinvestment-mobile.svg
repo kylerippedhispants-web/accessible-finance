@@ -1,22 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="580" viewBox="0 0 360 580" data-layout="flow" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="525" viewBox="0 0 360 525" data-layout="flow" role="img" aria-labelledby="title description">
   <title id="title">From cash payment to extra shares</title>
   <desc id="description">A $0.40 payment on 100 shares provides $40. Reinvesting at $20 buys two shares, increasing the holding to 102 shares. Receive the dividend: $40 cash. 100 shares × $0.40. Reinvest at $20: 2 more shares. $40 ÷ $20. New holding: 102 shares. Future payments and prices can change.</desc>
-  <rect width="360" height="580" fill="#f8f3e7"/>
+  <rect width="360" height="525" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-row="0">
-        <path d="M39 66V185" stroke="#b7cbbd" stroke-width="1.5"/>
-        <path d="m35 180 4 5 4-5" fill="none" stroke="#24664e" stroke-width="1.5"/>
-        <circle cx="39" cy="39" r="15" fill="#fffdf6" stroke="#24664e"/>
-        <text x="39" y="44" font-size="14" font-weight="600" fill="#24664e" text-anchor="middle"><tspan x="39" dy="0">1</tspan></text>
+        <path d="M39 53V193" stroke="#b7cbbd" stroke-width="1.5"/>
+        <path d="m35 188 4 5 4-5" fill="none" stroke="#24664e" stroke-width="1.5"/>
+        <circle cx="39" cy="39" r="7" fill="#fffdf6" stroke="#24664e" stroke-width="1.5"/>
         <text x="78" y="45" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="78" dy="0">Receive the dividend</tspan></text>
         <text x="78" y="88" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="78" dy="0">$40 cash</tspan></text>
         <text x="78" y="130" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="78" dy="0">100 shares × $0.40.</tspan></text>
         <path d="M78 172H336" stroke="#d8dfd2"/>
       </g>
 <g data-row="1">
-        <path d="M39 234V353" stroke="#b7cbbd" stroke-width="1.5"/>
-        <path d="m35 348 4 5 4-5" fill="none" stroke="#24664e" stroke-width="1.5"/>
-        <circle cx="39" cy="207" r="15" fill="#fffdf6" stroke="#24664e"/>
-        <text x="39" y="212" font-size="14" font-weight="600" fill="#24664e" text-anchor="middle"><tspan x="39" dy="0">2</tspan></text>
+        <path d="M39 221V361" stroke="#b7cbbd" stroke-width="1.5"/>
+        <path d="m35 356 4 5 4-5" fill="none" stroke="#24664e" stroke-width="1.5"/>
+        <circle cx="39" cy="207" r="7" fill="#fffdf6" stroke="#24664e" stroke-width="1.5"/>
         <text x="78" y="213" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="78" dy="0">Reinvest at $20</tspan></text>
         <text x="78" y="256" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="78" dy="0">2 more shares</tspan></text>
         <text x="78" y="298" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="78" dy="0">$40 ÷ $20.</tspan></text>
@@ -24,8 +22,7 @@
       </g>
 <g data-row="2">
         
-        <circle cx="39" cy="375" r="15" fill="#24664e" stroke="#24664e"/>
-        <text x="39" y="380" font-size="14" font-weight="600" fill="#fff" text-anchor="middle"><tspan x="39" dy="0">3</tspan></text>
+        <circle cx="39" cy="375" r="7" fill="#24664e" stroke="#24664e" stroke-width="1.5"/>
         <text x="78" y="381" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="78" dy="0">New holding</tspan></text>
         <text x="78" y="424" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="78" dy="0">102 shares</tspan></text>
         <text x="78" y="466" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="78" dy="0">Future payments and</tspan><tspan x="78" dy="28">prices can change.</tspan></text>

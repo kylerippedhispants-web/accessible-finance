@@ -1,26 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="555" viewBox="0 0 640 555" data-layout="compare" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="593" viewBox="0 0 640 593" data-layout="compare" role="img" aria-labelledby="title description">
   <title id="title">A $4,000 deductible contribution</title>
   <desc id="description">At an assumed 30% marginal rate, a $4,000 deductible contribution reduces tax by $1,200, leaving an after-tax cash cost of $2,800. Into the RRSP: $4,000. Contribution, with sufficient room Tax reduction: $1,200. $4,000 × illustrative 30% rate After-tax cash cost: $2,800. $4,000 minus the tax reduction</desc>
-  <rect width="640" height="555" fill="#f8f3e7"/>
+  <rect width="640" height="593" fill="#f8f3e7"/>
   <g font-family="Arial, Helvetica, sans-serif"><g data-row="0">
-        <rect x="36" y="36" width="568" height="145" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <rect x="36" y="36" width="568" height="163" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
         <path d="M58 50h28" stroke="#24664e" stroke-width="2"/>
         <text x="58" y="79" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="58" dy="0">Into the RRSP</tspan></text>
         <text x="58" y="122" font-size="32" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="58" dy="0">$4,000</tspan></text>
         <text x="58" y="169" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="58" dy="0">Contribution, with sufficient room</tspan></text>
       </g>
 <g data-row="1">
-        <rect x="36" y="197" width="568" height="145" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
-        <path d="M58 211h28" stroke="#24664e" stroke-width="2"/>
-        <text x="58" y="240" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="58" dy="0">Tax reduction</tspan></text>
-        <text x="58" y="283" font-size="32" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="58" dy="0">$1,200</tspan></text>
-        <text x="58" y="330" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="58" dy="0">$4,000 × illustrative 30% rate</tspan></text>
+        <rect x="36" y="215" width="568" height="163" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M58 229h28" stroke="#24664e" stroke-width="2"/>
+        <text x="58" y="258" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="58" dy="0">Tax reduction</tspan></text>
+        <text x="58" y="301" font-size="32" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="58" dy="0">$1,200</tspan></text>
+        <text x="58" y="348" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="58" dy="0">$4,000 × illustrative 30% rate</tspan></text>
       </g>
 <g data-row="2">
-        <rect x="36" y="358" width="568" height="145" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
-        <path d="M58 372h28" stroke="#24664e" stroke-width="2"/>
-        <text x="58" y="401" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="58" dy="0">After-tax cash cost</tspan></text>
-        <text x="58" y="444" font-size="32" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="58" dy="0">$2,800</tspan></text>
-        <text x="58" y="491" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="58" dy="0">$4,000 minus the tax reduction</tspan></text>
+        <rect x="36" y="394" width="568" height="163" rx="8" fill="#fffdf6" stroke="#d8dfd2"/>
+        <path d="M58 408h28" stroke="#24664e" stroke-width="2"/>
+        <text x="58" y="437" font-size="20" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="58" dy="0">After-tax cash cost</tspan></text>
+        <text x="58" y="480" font-size="32" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="58" dy="0">$2,800</tspan></text>
+        <text x="58" y="527" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="58" dy="0">$4,000 minus the tax reduction</tspan></text>
       </g></g>
 </svg>

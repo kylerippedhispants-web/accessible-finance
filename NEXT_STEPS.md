@@ -16,6 +16,15 @@ authenticated harness cleanup.
 
 ## October 25 guide examples and consistent motion
 
+- [x] Refine the complete guide reading path: use one primary example, keep
+  supporting examples in named disclosures, and preserve existing example links.
+- [x] Clarify guide titles and beginner terminology; align visible update dates
+  with article metadata and pin the SPIVA citation to the report actually used.
+- [x] Refine desktop and phone diagrams with consistent card padding, less unused
+  space, and timeline markers distinct from the numbered written instructions.
+- [x] Keep the contents menu aligned with the section being read after direct
+  links, quick jumps, and scrolling; expose the current section to assistive tools.
+
 - [x] Add one original, three-step worked example to every guide, with explicit
   assumptions, checked arithmetic, and relevant official references.
 - [x] Add 42 small local SVG charts and diagrams, with captions, text equivalents,
