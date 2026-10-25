@@ -782,9 +782,15 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     if (!headings.length) return;
     // Use the reading position, so an anchor jump cannot skip a narrow
     // observer band and leave an earlier section highlighted.
+    // Native anchors combine root scroll padding with the heading's margin.
+    // Read the current styles so responsive changes use the same landing line.
+    const scrollPadding = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+    const headingMargin = parseFloat(getComputedStyle(headings[0]).scrollMarginTop) || 0;
+    const navBottom = document.querySelector('.site-nav')?.getBoundingClientRect().bottom || 0;
+    const readingLine = Math.max(96, navBottom + 16, scrollPadding + headingMargin) + 4;
     let current = headings[0];
     for (const heading of headings) {
-      if (heading.getBoundingClientRect().top > 120) break;
+      if (heading.getBoundingClientRect().top > readingLine) break;
       current = heading;
     }
     if (current.id === activeHeadingId) return;
