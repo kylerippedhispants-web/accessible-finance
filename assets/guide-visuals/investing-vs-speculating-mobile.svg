@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="440" viewBox="0 0 360 440" data-layout="compare" role="img" aria-labelledby="title description">
+  <title id="title">What must go right?</title>
+  <desc id="description">The investment case relies on many businesses over 20 years. The speculative case relies on a price jump in one stock next week. Diversified fund: 20-year goal. Return depends on many businesses over time. Single-stock trade: Next week. Return depends on a near-term price jump.</desc>
+  <rect width="360" height="440" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-row="0">
+        <rect x="24" y="24" width="312" height="180" rx="8" fill="#fcfcf7" stroke="#dce4dc"/>
+        <path d="M46 38h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="67" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">Diversified fund</tspan></text>
+        <text x="46" y="113" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">20-year goal</tspan></text>
+        <text x="46" y="160" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">Return depends on many</tspan><tspan x="46" dy="28">businesses over time.</tspan></text>
+      </g>
+<g data-row="1">
+        <rect x="24" y="220" width="312" height="180" rx="8" fill="#fcfcf7" stroke="#dce4dc"/>
+        <path d="M46 234h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="263" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">Single-stock trade</tspan></text>
+        <text x="46" y="309" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">Next week</tspan></text>
+        <text x="46" y="356" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">Return depends on a</tspan><tspan x="46" dy="28">near-term price jump.</tspan></text>
+      </g></g>
+</svg>

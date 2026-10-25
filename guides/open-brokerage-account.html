@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,7 +530,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Price the first transfer before repeating it</h3>
       <p>A beginner plans to invest $250. A fictional platform charges $5 for the purchase and 1.5% to convert the original deposit into another currency.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/open-brokerage-account.svg" width="640" height="432" loading="lazy" decoding="async" alt="Follow the first $250. The original $250 deposit loses $3.75 to conversion and $5 to the purchase fee, leaving $241.25 to invest.">
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/open-brokerage-account-mobile.svg" width="360" height="636">
+          <img src="/assets/guide-visuals/open-brokerage-account.svg" width="640" height="555" loading="lazy" decoding="async" alt="Follow the first $250. The original $250 deposit loses $3.75 to conversion and $5 to the purchase fee, leaving $241.25 to invest.">
+        </picture>
         <figcaption><strong>Follow the first $250</strong><span>The original $250 deposit loses $3.75 to conversion and $5 to the purchase fee, leaving $241.25 to invest.</span></figcaption>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Starting deposit</dt><dd><strong>$250</strong><span>The planned first contribution.</span></dd></div><div><dt>Initial costs</dt><dd><strong>$8.75</strong><span>$3.75 conversion + $5 purchase fee.</span></dd></div><div><dt>Left to invest</dt><dd><strong>$241.25</strong><span>96.5% of the original deposit.</span></dd></div></dl></details>

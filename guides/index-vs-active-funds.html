@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,7 +530,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Start a fund comparison with the same gross return</h3>
       <p>Two imaginary funds provide similar market exposure. Each starts with $20,000 and earns 7% before costs in a simplified one-year comparison.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/index-vs-active-funds.svg" width="640" height="304" loading="lazy" decoding="async" alt="Illustrative balance after one year. At the same 7% gross return, a $20,000 investment ends at approximately $21,360 after a 0.2% cost or $21,160 after a 1.2% cost.">
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/index-vs-active-funds-mobile.svg" width="360" height="364">
+          <img src="/assets/guide-visuals/index-vs-active-funds.svg" width="640" height="320" loading="lazy" decoding="async" alt="Illustrative balance after one year. At the same 7% gross return, a $20,000 investment ends at approximately $21,360 after a 0.2% cost or $21,160 after a 1.2% cost.">
+        </picture>
         <figcaption><strong>Illustrative balance after one year</strong><span>At the same 7% gross return, a $20,000 investment ends at approximately $21,360 after a 0.2% cost or $21,160 after a 1.2% cost.</span></figcaption>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Index example</dt><dd><strong>$21,360</strong><span>7% gross minus 0.2% costs</span></dd></div><div><dt>Active example</dt><dd><strong>$21,160</strong><span>7% gross minus 1.2% costs</span></dd></div></dl></details>

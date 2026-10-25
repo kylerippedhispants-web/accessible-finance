@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="392" viewBox="0 0 360 392" data-layout="bars" role="img" aria-labelledby="title description">
+  <title id="title">A withdrawal has two parts</title>
+  <desc id="description">In this hypothetical RDSP withdrawal, $600 is paid out and $1,800 of grants or bonds is repaid, reducing the plan by $2,400 in total. Payment out: $600. Before any tax on the payment Grant/bond repayment: $1,800. $3 repaid for each $1 withdrawn</desc>
+  <rect width="360" height="392" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-value="600" data-row="0">
+        <text x="24" y="46" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Payment out</tspan></text>
+        <text x="336" y="89" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$600</tspan></text>
+        <path d="M24 103v32 M336 103v32" stroke="#dce4dc"/>
+        <rect x="24" y="108" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <rect data-bar="true" x="24" y="108" width="104.000" height="22" rx="3" fill="#24664e"/>
+        <text x="24" y="159" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">Before any tax on the payment</tspan></text>
+      </g>
+<g data-value="1800" data-row="1">
+        <text x="24" y="204" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Grant/bond repayment</tspan></text>
+        <text x="336" y="247" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$1,800</tspan></text>
+        <path d="M24 261v32 M336 261v32" stroke="#dce4dc"/>
+        <rect x="24" y="266" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <rect data-bar="true" x="24" y="266" width="312.000" height="22" rx="3" fill="#24664e"/>
+        <text x="24" y="317" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">$3 repaid for each $1</tspan><tspan x="24" dy="28">withdrawn</tspan></text>
+      </g></g>
+</svg>

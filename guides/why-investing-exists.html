@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,7 +530,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Follow the money from issue to resale</h3>
       <p>A fictional company sells a new bond for $1,000 to help buy equipment. A year later, its investor sells that bond to someone else for $980.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/why-investing-exists.svg" width="640" height="432" loading="lazy" decoding="async" alt="Where the purchase money goes. At issue, $1,000 moves from the first investor to the company. At resale, $980 moves from the second investor to the first investor; the company receives no new money.">
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/why-investing-exists-mobile.svg" width="360" height="636">
+          <img src="/assets/guide-visuals/why-investing-exists.svg" width="640" height="555" loading="lazy" decoding="async" alt="Where the purchase money goes. At issue, $1,000 moves from the first investor to the company. At resale, $980 moves from the second investor to the first investor; the company receives no new money.">
+        </picture>
         <figcaption><strong>Where the purchase money goes</strong><span>At issue, $1,000 moves from the first investor to the company. At resale, $980 moves from the second investor to the first investor; the company receives no new money.</span></figcaption>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Original issue</dt><dd><strong>$1,000</strong><span>First investor pays the company.</span></dd></div><div><dt>Later resale</dt><dd><strong>$980</strong><span>Second investor pays the first investor.</span></dd></div><div><dt>Company at resale</dt><dd><strong>$0 new funding</strong><span>The existing bond changes owners.</span></dd></div></dl></details>

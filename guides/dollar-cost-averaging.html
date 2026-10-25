@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,7 +530,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Three $200 deposits buy different amounts</h3>
       <p>A fictional fund costs $20, then $10, then $25 on three monthly purchase dates. An investor contributes $200 on each date.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/dollar-cost-averaging.svg" width="640" height="432" loading="lazy" decoding="async" alt="Units bought with each $200 deposit. The same $200 buys 10 units at $20, 20 units at $10, and 8 units at $25, for 38 units in total.">
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/dollar-cost-averaging-mobile.svg" width="360" height="522">
+          <img src="/assets/guide-visuals/dollar-cost-averaging.svg" width="640" height="444" loading="lazy" decoding="async" alt="Units bought with each $200 deposit. The same $200 buys 10 units at $20, 20 units at $10, and 8 units at $25, for 38 units in total.">
+        </picture>
         <figcaption><strong>Units bought with each $200 deposit</strong><span>The same $200 buys 10 units at $20, 20 units at $10, and 8 units at $25, for 38 units in total.</span></figcaption>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Month 1: $20 each</dt><dd><strong>10 units</strong><span>$200 ÷ $20.</span></dd></div><div><dt>Month 2: $10 each</dt><dd><strong>20 units</strong><span>$200 ÷ $10.</span></dd></div><div><dt>Month 3: $25 each</dt><dd><strong>8 units</strong><span>$200 ÷ $25.</span></dd></div></dl></details>

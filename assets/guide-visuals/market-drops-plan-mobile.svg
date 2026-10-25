@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="636" viewBox="0 0 360 636" data-layout="compare" role="img" aria-labelledby="title description">
+  <title id="title">Review the allocation, not the headline</title>
+  <desc id="description">The portfolio starts at 60% stocks and 40% bonds. After a stock decline it is 52.9% stocks and 47.1% bonds. A hypothetical $600 transfer restores 60/40. Before the drop: 60% / 40%. $6,000 stocks + $4,000 bonds After the drop: 52.9% / 47.1%. $4,500 stocks + $4,000 bonds After a $600 transfer: 60% / 40%. $5,100 stocks + $3,400 bonds</desc>
+  <rect width="360" height="636" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-row="0">
+        <rect x="24" y="24" width="312" height="180" rx="8" fill="#fcfcf7" stroke="#dce4dc"/>
+        <path d="M46 38h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="67" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">Before the drop</tspan></text>
+        <text x="46" y="113" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">60% / 40%</tspan></text>
+        <text x="46" y="160" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">$6,000 stocks + $4,000</tspan><tspan x="46" dy="28">bonds</tspan></text>
+      </g>
+<g data-row="1">
+        <rect x="24" y="220" width="312" height="180" rx="8" fill="#fcfcf7" stroke="#dce4dc"/>
+        <path d="M46 234h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="263" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">After the drop</tspan></text>
+        <text x="46" y="309" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">52.9% / 47.1%</tspan></text>
+        <text x="46" y="356" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">$4,500 stocks + $4,000</tspan><tspan x="46" dy="28">bonds</tspan></text>
+      </g>
+<g data-row="2">
+        <rect x="24" y="416" width="312" height="180" rx="8" fill="#fcfcf7" stroke="#dce4dc"/>
+        <path d="M46 430h28" stroke="#24664e" stroke-width="2"/>
+        <text x="46" y="459" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="46" dy="0">After a $600 transfer</tspan></text>
+        <text x="46" y="505" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="46" dy="0">60% / 40%</tspan></text>
+        <text x="46" y="552" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="46" dy="0">$5,100 stocks + $3,400</tspan><tspan x="46" dy="28">bonds</tspan></text>
+      </g></g>
+</svg>

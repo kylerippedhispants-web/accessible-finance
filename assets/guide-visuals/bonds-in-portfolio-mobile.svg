@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="522" viewBox="0 0 360 522" data-layout="bars" role="img" aria-labelledby="title description">
+  <title id="title">Same starting balance, different losses</title>
+  <desc id="description">Both portfolios start at $50,000. With stocks down 20% and bonds down 5%, the 60/40 portfolio ends at $43,000 and the all-stock portfolio at $40,000. Starting balance: $50,000. The same for both portfolios 60/40 portfolio: $43,000. 14% loss in this scenario All-stock portfolio: $40,000. 20% loss in this scenario</desc>
+  <rect width="360" height="522" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-value="50000" data-row="0">
+        <text x="24" y="46" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">Starting balance</tspan></text>
+        <text x="336" y="89" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$50,000</tspan></text>
+        <path d="M24 103v32 M336 103v32" stroke="#dce4dc"/>
+        <rect x="24" y="108" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <rect data-bar="true" x="24" y="108" width="312.000" height="22" rx="3" fill="#24664e"/>
+        <text x="24" y="159" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">The same for both portfolios</tspan></text>
+      </g>
+<g data-value="43000" data-row="1">
+        <text x="24" y="204" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">60/40 portfolio</tspan></text>
+        <text x="336" y="247" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$43,000</tspan></text>
+        <path d="M24 261v32 M336 261v32" stroke="#dce4dc"/>
+        <rect x="24" y="266" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <rect data-bar="true" x="24" y="266" width="268.320" height="22" rx="3" fill="#24664e"/>
+        <text x="24" y="317" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">14% loss in this scenario</tspan></text>
+      </g>
+<g data-value="40000" data-row="2">
+        <text x="24" y="362" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="24" dy="0">All-stock portfolio</tspan></text>
+        <text x="336" y="405" font-size="34" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="336" dy="0">$40,000</tspan></text>
+        <path d="M24 419v32 M336 419v32" stroke="#dce4dc"/>
+        <rect x="24" y="424" width="312" height="22" rx="3" fill="#eef3ec"/>
+        <rect data-bar="true" x="24" y="424" width="249.600" height="22" rx="3" fill="#24664e"/>
+        <text x="24" y="475" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="24" dy="0">20% loss in this scenario</tspan></text>
+      </g></g>
+</svg>

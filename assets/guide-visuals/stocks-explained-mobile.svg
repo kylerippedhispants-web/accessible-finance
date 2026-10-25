@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="552" viewBox="0 0 360 552" data-layout="flow" role="img" aria-labelledby="title description">
+  <title id="title">Build the total-return calculation</title>
+  <desc id="description">A $2,000 purchase ends with $2,200 in shares plus $50 cash, for $2,250 total value and a 12.5% gain before fees and tax. Original purchase: $2,000. 100 shares at $20. Ending total value: $2,250. $2,200 shares + $50 cash. Total return: 12.5%. $250 gain ÷ $2,000 cost.</desc>
+  <rect width="360" height="552" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-row="0">
+        <path d="M39 66V185" stroke="#b7cbbd" stroke-width="1.5"/>
+        <path d="m35 180 4 5 4-5" fill="none" stroke="#24664e" stroke-width="1.5"/>
+        <circle cx="39" cy="39" r="15" fill="#fcfcf7" stroke="#24664e"/>
+        <text x="39" y="44" font-size="14" font-weight="600" fill="#24664e" text-anchor="middle"><tspan x="39" dy="0">1</tspan></text>
+        <text x="78" y="45" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="78" dy="0">Original purchase</tspan></text>
+        <text x="78" y="88" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="78" dy="0">$2,000</tspan></text>
+        <text x="78" y="130" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="78" dy="0">100 shares at $20.</tspan></text>
+        <path d="M78 172H336" stroke="#dce4dc"/>
+      </g>
+<g data-row="1">
+        <path d="M39 234V353" stroke="#b7cbbd" stroke-width="1.5"/>
+        <path d="m35 348 4 5 4-5" fill="none" stroke="#24664e" stroke-width="1.5"/>
+        <circle cx="39" cy="207" r="15" fill="#fcfcf7" stroke="#24664e"/>
+        <text x="39" y="212" font-size="14" font-weight="600" fill="#24664e" text-anchor="middle"><tspan x="39" dy="0">2</tspan></text>
+        <text x="78" y="213" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="78" dy="0">Ending total value</tspan></text>
+        <text x="78" y="256" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="78" dy="0">$2,250</tspan></text>
+        <text x="78" y="298" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="78" dy="0">$2,200 shares + $50 cash.</tspan></text>
+        <path d="M78 340H336" stroke="#dce4dc"/>
+      </g>
+<g data-row="2">
+        
+        <circle cx="39" cy="375" r="15" fill="#24664e" stroke="#24664e"/>
+        <text x="39" y="380" font-size="14" font-weight="600" fill="#fff" text-anchor="middle"><tspan x="39" dy="0">3</tspan></text>
+        <text x="78" y="381" font-size="22" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="78" dy="0">Total return</tspan></text>
+        <text x="78" y="424" font-size="34" font-weight="400" fill="#24664e" text-anchor="start" font-family="Georgia, Times New Roman, serif"><tspan x="78" dy="0">12.5%</tspan></text>
+        <text x="78" y="466" font-size="21" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="78" dy="0">$250 gain ÷ $2,000 cost.</tspan></text>
+        
+      </g></g>
+</svg>

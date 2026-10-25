@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,7 +530,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Compare returns after the cost hurdle</h3>
       <p>Two fictional funds cover the same market and take comparable risk. The index earns 6% before costs; an active fund earns 7.2% before costs.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/active-vs-passive.svg" width="640" height="304" loading="lazy" decoding="async" alt="Gross performance is only the start. The passive fund earns 6% before a 0.2% cost, leaving about 5.8%. The active fund earns 7.2% before a 1.5% cost, leaving about 5.7%.">
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/active-vs-passive-mobile.svg" width="360" height="384">
+          <img src="/assets/guide-visuals/active-vs-passive.svg" width="640" height="233" loading="lazy" decoding="async" alt="Gross performance is only the start. The passive fund earns 6% before a 0.2% cost, leaving about 5.8%. The active fund earns 7.2% before a 1.5% cost, leaving about 5.7%.">
+        </picture>
         <figcaption><strong>Gross performance is only the start</strong><span>The passive fund earns 6% before a 0.2% cost, leaving about 5.8%. The active fund earns 7.2% before a 1.5% cost, leaving about 5.7%.</span></figcaption>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Passive example</dt><dd><strong>5.8% net</strong><span>6.0% gross − 0.2% cost.</span></dd></div><div><dt>Active example</dt><dd><strong>5.7% net</strong><span>7.2% gross − 1.5% cost.</span></dd></div></dl></details>

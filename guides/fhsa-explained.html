@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,7 +530,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Follow a contribution through to a qualifying purchase</h3>
       <p>Avery is eligible for an FHSA, has $3,000 of available participation room, and contributes $3,000 in cash for a first-home goal.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/fhsa-explained.svg" width="640" height="432" loading="lazy" decoding="async" alt="Contribution to qualifying withdrawal. Avery contributes $3,000, receives an illustrative $900 tax reduction, and later withdraws a $3,150 balance tax-free if all qualifying conditions are met.">
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/fhsa-explained-mobile.svg" width="360" height="636">
+          <img src="/assets/guide-visuals/fhsa-explained.svg" width="640" height="555" loading="lazy" decoding="async" alt="Contribution to qualifying withdrawal. Avery contributes $3,000, receives an illustrative $900 tax reduction, and later withdraws a $3,150 balance tax-free if all qualifying conditions are met.">
+        </picture>
         <figcaption><strong>Contribution to qualifying withdrawal</strong><span>Avery contributes $3,000, receives an illustrative $900 tax reduction, and later withdraws a $3,150 balance tax-free if all qualifying conditions are met.</span></figcaption>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Cash contribution</dt><dd><strong>$3,000</strong><span>Eligibility and room checked first</span></dd></div><div><dt>Illustrative tax effect</dt><dd><strong>$900 less tax</strong><span>Full deduction at an assumed 30% rate</span></dd></div><div><dt>Qualifying withdrawal</dt><dd><strong>$3,150</strong><span>Tax-free only when all conditions are met</span></dd></div></dl></details>

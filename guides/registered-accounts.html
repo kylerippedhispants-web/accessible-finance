@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,7 +530,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>A TFSA label does not tell you what is inside</h3>
       <p>Three people each put $1,000 into a TFSA, but choose different eligible holdings. Their tax account has the same name; their investment risks do not.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/registered-accounts.svg" width="640" height="432" loading="lazy" decoding="async" alt="One account type, three holdings. Each TFSA holds $1,000, but accessible savings, a locked-in GIC, and a stock fund have different access and risk characteristics.">
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/registered-accounts-mobile.svg" width="360" height="636">
+          <img src="/assets/guide-visuals/registered-accounts.svg" width="640" height="555" loading="lazy" decoding="async" alt="One account type, three holdings. Each TFSA holds $1,000, but accessible savings, a locked-in GIC, and a stock fund have different access and risk characteristics.">
+        </picture>
         <figcaption><strong>One account type, three holdings</strong><span>Each TFSA holds $1,000, but accessible savings, a locked-in GIC, and a stock fund have different access and risk characteristics.</span></figcaption>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Savings in a TFSA</dt><dd><strong>$1,000</strong><span>Check access and deposit protection</span></dd></div><div><dt>GIC in a TFSA</dt><dd><strong>$1,000</strong><span>Check maturity and withdrawal restrictions</span></dd></div><div><dt>Stock fund in a TFSA</dt><dd><strong>$1,000</strong><span>Market value can rise or fall</span></dd></div></dl></details>

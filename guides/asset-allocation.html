@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,7 +530,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Turn a 60/40 label into a dollar stress test</h3>
       <p>A fictional $10,000 portfolio holds 60% in stocks and 40% in bonds. A stress test shows what that mix could mean in dollars.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/asset-allocation.svg" width="640" height="304" loading="lazy" decoding="async" alt="The portfolio before and after the scenario. A $10,000 portfolio split 60/40 ends at $8,280 when stocks lose 30% and bonds gain 2%, a 17.2% total decline.">
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/asset-allocation-mobile.svg" width="360" height="364">
+          <img src="/assets/guide-visuals/asset-allocation.svg" width="640" height="320" loading="lazy" decoding="async" alt="The portfolio before and after the scenario. A $10,000 portfolio split 60/40 ends at $8,280 when stocks lose 30% and bonds gain 2%, a 17.2% total decline.">
+        </picture>
         <figcaption><strong>The portfolio before and after the scenario</strong><span>A $10,000 portfolio split 60/40 ends at $8,280 when stocks lose 30% and bonds gain 2%, a 17.2% total decline.</span></figcaption>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Starting portfolio</dt><dd><strong>$10,000</strong><span>$6,000 stocks + $4,000 bonds</span></dd></div><div><dt>After the scenario</dt><dd><strong>$8,280</strong><span>$4,200 stocks + $4,080 bonds</span></dd></div></dl></details>

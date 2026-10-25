@@ -1,23 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="432" viewBox="0 0 640 432" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="444" viewBox="0 0 640 444" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">Illustrative monthly CPP by start age</title>
   <desc id="description">Holding the underlying age-65 estimate at $1,000 and varying only the start-age factor gives $640 at 60, $1,000 at 65, and $1,420 at 70. Start at 60: $640. 36% reduction from the age-65 base Start at 65: $1,000. Hypothetical personal base amount Start at 70: $1,420. 42% increase; five years of payments forgone</desc>
-  <rect width="640" height="432" fill="#fff"/>
-  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="640">
-        <text x="32" y="56" font-size="34" font-weight="600">Start at 60</text>
-        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$640</text>
-        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
-        <rect x="32" y="114" width="259.606" height="20" rx="4" fill="#1d6b45"/>
+  <rect width="640" height="444" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-value="640" data-row="0">
+        <text x="36" y="58" font-size="21" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="36" dy="0">Start at 60</tspan></text>
+        <text x="604" y="60" font-size="32" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="604" dy="0">$640</tspan></text>
+        <path d="M36 79v32 M604 79v32" stroke="#dce4dc"/>
+        <rect x="36" y="84" width="568" height="22" rx="3" fill="#eef3ec"/>
+        <rect data-bar="true" x="36" y="84" width="256.000" height="22" rx="3" fill="#24664e"/>
+        <text x="36" y="135" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="36" dy="0">36% reduction from the age-65 base</tspan></text>
       </g>
-<g data-value="1000">
-        <text x="32" y="184" font-size="34" font-weight="600">Start at 65</text>
-        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$1,000</text>
-        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
-        <rect x="32" y="242" width="405.634" height="20" rx="4" fill="#8b642b"/>
+<g data-value="1000" data-row="1">
+        <text x="36" y="182" font-size="21" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="36" dy="0">Start at 65</tspan></text>
+        <text x="604" y="184" font-size="32" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="604" dy="0">$1,000</tspan></text>
+        <path d="M36 203v32 M604 203v32" stroke="#dce4dc"/>
+        <rect x="36" y="208" width="568" height="22" rx="3" fill="#eef3ec"/>
+        <rect data-bar="true" x="36" y="208" width="400.000" height="22" rx="3" fill="#24664e"/>
+        <text x="36" y="259" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="36" dy="0">Hypothetical personal base amount</tspan></text>
       </g>
-<g data-value="1420">
-        <text x="32" y="312" font-size="34" font-weight="600">Start at 70</text>
-        <text x="608" y="352" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$1,420</text>
-        <rect x="32" y="370" width="576" height="20" rx="4" fill="#efede6"/>
-        <rect x="32" y="370" width="576.000" height="20" rx="4" fill="#1d6b45"/>
+<g data-value="1420" data-row="2">
+        <text x="36" y="306" font-size="21" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="36" dy="0">Start at 70</tspan></text>
+        <text x="604" y="308" font-size="32" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="604" dy="0">$1,420</tspan></text>
+        <path d="M36 327v32 M604 327v32" stroke="#dce4dc"/>
+        <rect x="36" y="332" width="568" height="22" rx="3" fill="#eef3ec"/>
+        <rect data-bar="true" x="36" y="332" width="568.000" height="22" rx="3" fill="#24664e"/>
+        <text x="36" y="383" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="36" dy="0">42% increase; five years of payments forgone</tspan></text>
       </g></g>
 </svg>

@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,7 +530,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Compare CPP start ages using a personal estimate</h3>
       <p>Use a hypothetical age-65 CPP estimate of $1,000 a month to isolate the start-age adjustment. This is not the maximum or average pension.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/cpp-explained.svg" width="640" height="432" loading="lazy" decoding="async" alt="Illustrative monthly CPP by start age. Holding the underlying age-65 estimate at $1,000 and varying only the start-age factor gives $640 at 60, $1,000 at 65, and $1,420 at 70.">
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/cpp-explained-mobile.svg" width="360" height="606">
+          <img src="/assets/guide-visuals/cpp-explained.svg" width="640" height="444" loading="lazy" decoding="async" alt="Illustrative monthly CPP by start age. Holding the underlying age-65 estimate at $1,000 and varying only the start-age factor gives $640 at 60, $1,000 at 65, and $1,420 at 70.">
+        </picture>
         <figcaption><strong>Illustrative monthly CPP by start age</strong><span>Holding the underlying age-65 estimate at $1,000 and varying only the start-age factor gives $640 at 60, $1,000 at 65, and $1,420 at 70.</span></figcaption>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Start at 60</dt><dd><strong>$640</strong><span>36% reduction from the age-65 base</span></dd></div><div><dt>Start at 65</dt><dd><strong>$1,000</strong><span>Hypothetical personal base amount</span></dd></div><div><dt>Start at 70</dt><dd><strong>$1,420</strong><span>42% increase; five years of payments forgone</span></dd></div></dl></details>

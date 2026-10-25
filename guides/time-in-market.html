@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,7 +530,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>Selling the decline and missing the rebound</h3>
       <p>An investor owns 10 fund units bought at $100 each. In a fictional price sequence, the fund falls to $80 and later returns to $100.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/time-in-market.svg" width="640" height="432" loading="lazy" decoding="async" alt="How the unit count shrinks. Ten units at $100 fall to $80 and are sold for $800. After the price recovers to $100, that $800 buys only eight units.">
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/time-in-market-mobile.svg" width="360" height="552">
+          <img src="/assets/guide-visuals/time-in-market.svg" width="640" height="555" loading="lazy" decoding="async" alt="How the unit count shrinks. Ten units at $100 fall to $80 and are sold for $800. After the price recovers to $100, that $800 buys only eight units.">
+        </picture>
         <figcaption><strong>How the unit count shrinks</strong><span>Ten units at $100 fall to $80 and are sold for $800. After the price recovers to $100, that $800 buys only eight units.</span></figcaption>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Before the decline</dt><dd><strong>10 units</strong><span>10 × $100 = $1,000.</span></dd></div><div><dt>Sell at $80</dt><dd><strong>$800 cash</strong><span>10 × $80 = $800.</span></dd></div><div><dt>Buy back at $100</dt><dd><strong>8 units</strong><span>$800 ÷ $100 = 8.</span></dd></div></dl></details>

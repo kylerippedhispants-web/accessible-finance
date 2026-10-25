@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,7 +530,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>An expected return is not an available balance</h3>
       <p>Imagine a $10,000 investment with only two possible one-year outcomes: a 20% gain or a 10% loss, each assigned a 50% chance.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/risk-and-return.svg" width="640" height="432" loading="lazy" decoding="async" alt="Possible outcomes versus the average. The two possible balances are $12,000 and $9,000. Their equally weighted average is $10,500, which is not itself an outcome in this model.">
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/risk-and-return-mobile.svg" width="360" height="550">
+          <img src="/assets/guide-visuals/risk-and-return.svg" width="640" height="444" loading="lazy" decoding="async" alt="Possible outcomes versus the average. The two possible balances are $12,000 and $9,000. Their equally weighted average is $10,500, which is not itself an outcome in this model.">
+        </picture>
         <figcaption><strong>Possible outcomes versus the average</strong><span>The two possible balances are $12,000 and $9,000. Their equally weighted average is $10,500, which is not itself an outcome in this model.</span></figcaption>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Gain outcome</dt><dd><strong>$12,000</strong><span>50% assumed chance; +20%.</span></dd></div><div><dt>Loss outcome</dt><dd><strong>$9,000</strong><span>50% assumed chance; −10%.</span></dd></div><div><dt>Weighted average</dt><dd><strong>$10,500</strong><span>A calculation, not a guaranteed balance.</span></dd></div></dl></details>

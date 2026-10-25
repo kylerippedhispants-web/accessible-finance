@@ -2,9 +2,10 @@
 .article-body .worked-example { min-width: 0; }
 .article-body .example-kicker { color: #1d6b45; font: 600 12px/1.5 var(--sans); letter-spacing: .12em; text-transform: uppercase; margin: 0 0 10px; }
 .article-body .worked-example > h3 { margin: 0; font-style: normal; font-size: clamp(26px, 3vw, 34px); line-height: 1.2; }
-.guide-visual { margin: 28px 0 32px; overflow: hidden; border: 1px solid var(--border); border-radius: 12px; background: #fff; }
+.guide-visual { margin: 28px 0 32px; overflow: hidden; border: 1px solid #dce4dc; border-radius: 12px; background: #fff; }
+.guide-visual picture { display: block; }
 .guide-visual img { display: block; width: 100%; height: auto; max-width: 640px; margin-inline: auto; }
-.guide-visual figcaption { padding: 20px 24px; border-top: 1px solid var(--border); font: 400 15px/1.65 var(--sans); color: #4a4640; }
+.guide-visual figcaption { padding: 22px 28px; border-top: 1px solid #dce4dc; background: #f5f7f1; font: 400 15px/1.65 var(--sans); color: #52645b; }
 .guide-visual figcaption strong { display: block; color: #1a1816; margin-bottom: 4px; }
 .guide-visual figcaption span { display: block; }
 .visual-values { margin: -20px 0 24px; font: 400 16px/1.6 var(--sans); color: #4a4640; }
@@ -26,6 +27,7 @@
 .article-example-links a { display: inline-flex; align-items: center; min-height: 44px; color: #1d6b45; text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 600px) {
   .guide-visual { margin-block: 24px; border-radius: 8px; }
+  .guide-visual img { max-width: 440px; }
   .guide-visual figcaption { padding: 16px; font-size: 14px; }
   .article-body .example-steps > li { padding-left: 42px; }
   .example-result { padding: 18px; }

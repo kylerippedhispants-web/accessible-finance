@@ -312,7 +312,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
 <link rel="stylesheet" href="../guide-examples.css?v=20261025">
-<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<noscript><style>
+  .reveal { opacity: 1 !important; transform: none !important; }
+  @media (max-width: 600px) {
+    .nav-logo { min-width: 0; gap: 8px; }
+    .nav-logo .wordmark { white-space: normal; font-size: 11px; letter-spacing: 0; }
+  }
+</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -524,7 +530,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       <h3>A market loss becomes a goal shortfall</h3>
       <p>Noah needs $12,000 for tuition in one year and puts the whole amount into stocks. Consider what a 25% decline would mean for that deadline.</p>
       <figure class="guide-visual">
-        <img src="/assets/guide-visuals/what-risk-means.svg" width="640" height="304" loading="lazy" decoding="async" alt="The tuition deadline stays the same. The tuition goal is $12,000; after the hypothetical 25% loss, only $9,000 remains, leaving a $3,000 shortfall.">
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/what-risk-means-mobile.svg" width="360" height="364">
+          <img src="/assets/guide-visuals/what-risk-means.svg" width="640" height="320" loading="lazy" decoding="async" alt="The tuition deadline stays the same. The tuition goal is $12,000; after the hypothetical 25% loss, only $9,000 remains, leaving a $3,000 shortfall.">
+        </picture>
         <figcaption><strong>The tuition deadline stays the same</strong><span>The tuition goal is $12,000; after the hypothetical 25% loss, only $9,000 remains, leaving a $3,000 shortfall.</span></figcaption>
       </figure>
       <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Tuition goal</dt><dd><strong>$12,000</strong><span>Amount due in one year.</span></dd></div><div><dt>After a 25% loss</dt><dd><strong>$9,000</strong><span>$3,000 below the goal.</span></dd></div></dl></details>

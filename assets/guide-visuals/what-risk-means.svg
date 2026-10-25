@@ -1,17 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="304" viewBox="0 0 640 304" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="320" viewBox="0 0 640 320" data-layout="bars" role="img" aria-labelledby="title description">
   <title id="title">The tuition deadline stays the same</title>
   <desc id="description">The tuition goal is $12,000; after the hypothetical 25% loss, only $9,000 remains, leaving a $3,000 shortfall. Tuition goal: $12,000. Amount due in one year. After a 25% loss: $9,000. $3,000 below the goal.</desc>
-  <rect width="640" height="304" fill="#fff"/>
-  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="12000">
-        <text x="32" y="56" font-size="34" font-weight="600">Tuition goal</text>
-        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$12,000</text>
-        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
-        <rect x="32" y="114" width="576.000" height="20" rx="4" fill="#1d6b45"/>
+  <rect width="640" height="320" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif"><g data-value="12000" data-row="0">
+        <text x="36" y="58" font-size="21" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="36" dy="0">Tuition goal</tspan></text>
+        <text x="604" y="60" font-size="32" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="604" dy="0">$12,000</tspan></text>
+        <path d="M36 79v32 M604 79v32" stroke="#dce4dc"/>
+        <rect x="36" y="84" width="568" height="22" rx="3" fill="#eef3ec"/>
+        <rect data-bar="true" x="36" y="84" width="568.000" height="22" rx="3" fill="#24664e"/>
+        <text x="36" y="135" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="36" dy="0">Amount due in one year.</tspan></text>
       </g>
-<g data-value="9000">
-        <text x="32" y="184" font-size="34" font-weight="600">After a 25% loss</text>
-        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$9,000</text>
-        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
-        <rect x="32" y="242" width="432.000" height="20" rx="4" fill="#8b642b"/>
+<g data-value="9000" data-row="1">
+        <text x="36" y="182" font-size="21" font-weight="500" fill="#203c32" text-anchor="start"><tspan x="36" dy="0">After a 25% loss</tspan></text>
+        <text x="604" y="184" font-size="32" font-weight="400" fill="#24664e" text-anchor="end" font-family="Georgia, Times New Roman, serif"><tspan x="604" dy="0">$9,000</tspan></text>
+        <path d="M36 203v32 M604 203v32" stroke="#dce4dc"/>
+        <rect x="36" y="208" width="568" height="22" rx="3" fill="#eef3ec"/>
+        <rect data-bar="true" x="36" y="208" width="426.000" height="22" rx="3" fill="#24664e"/>
+        <text x="36" y="259" font-size="18" font-weight="400" fill="#52645b" text-anchor="start"><tspan x="36" dy="0">$3,000 below the goal.</tspan></text>
       </g></g>
 </svg>
