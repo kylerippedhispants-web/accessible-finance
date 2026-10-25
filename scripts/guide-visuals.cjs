@@ -1,11 +1,35 @@
 'use strict';
 
+const fs = require('node:fs');
+const path = require('node:path');
+
 // Editorial diagrams. Phone artwork reflows the same data instead of shrinking
 // a desktop illustration. Exact values also remain available as HTML text.
 const escapeXml = (value) => String(value).replace(/[&<>"']/g, (character) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;'
 })[character]);
 const palette = { ink: '#203c32', muted: '#52645b', line: '#d8dfd2', paper: '#fffdf6', canvas: '#f8f3e7', green: '#24664e', tint: '#e6eadc' };
+let embeddedFonts;
+
+function fontStyles(id, visual) {
+  embeddedFonts ||= JSON.parse(fs.readFileSync(path.join(__dirname, 'guide-fonts.json'), 'utf8'));
+  const fonts = embeddedFonts.guides[id];
+  const required = {
+    sans: visual.items.map((item) => `${item.label} ${item.detail || ''}`).join(' '),
+    serif: visual.items.map((item) => formatValue(item.value, visual.unit)).join(' '),
+  };
+  for (const [role, value] of Object.entries(required)) {
+    if (!fonts?.[role] || [...value].some((character) => !fonts[role].characters.includes(character))) {
+      throw new Error(`${id}: refresh guide font subsets with scripts/subset-guide-fonts.py before regenerating images`);
+    }
+  }
+  // SVGs loaded through <img> cannot inherit the page's web fonts. Embedding
+  // only the required glyphs keeps each image self-contained and lazy-loadable.
+  return `<style>
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 500; src: url(data:font/woff2;base64,${fonts.sans.woff2}) format('woff2'); }
+    @font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; src: url(data:font/woff2;base64,${fonts.serif.woff2}) format('woff2'); }
+  </style>`;
+}
 
 function formatValue(value, unit = '') {
   if (typeof value !== 'number') return String(value);
@@ -27,7 +51,7 @@ function wrap(value, limit) {
 
 function text(lines, x, y, size, options = {}) {
   const { colour = palette.ink, serif = false, weight = 400, anchor = 'start', leading = size * 1.35 } = options;
-  return `<text x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${colour}" text-anchor="${anchor}"${serif ? ' font-family="Georgia, Times New Roman, serif"' : ''}>${lines.map((line, index) => `<tspan x="${x}" dy="${index ? leading : 0}">${escapeXml(line)}</tspan>`).join('')}</text>`;
+  return `<text x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${colour}" text-anchor="${anchor}"${serif ? ' font-family="Instrument Serif, Georgia, serif"' : ''}>${lines.map((line, index) => `<tspan x="${x}" dy="${index ? leading : 0}">${escapeXml(line)}</tspan>`).join('')}</text>`;
 }
 
 function layout(visual, mobile) {
@@ -143,8 +167,10 @@ function createGuideVisual(id, visual, mobile = false) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" data-layout="${visual.type}" role="img" aria-labelledby="title description">
   <title id="title">${escapeXml(visual.title)}</title>
   <desc id="description">${escapeXml(visual.description)} ${visual.items.map((item) => escapeXml(`${item.label}: ${formatValue(item.value, visual.unit)}. ${item.detail || ''}`)).join(' ')}</desc>
+  <metadata>Embedded subsets of Inter and Instrument Serif, licensed under SIL OFL 1.1. Copyright and license records: https://accessible-finance.com/assets/fonts/Inter-OFL.txt and https://accessible-finance.com/assets/fonts/Instrument-Serif-OFL.txt</metadata>
+  ${fontStyles(id, visual)}
   <rect width="${width}" height="${height}" fill="${palette.canvas}"/>
-  <g font-family="Arial, Helvetica, sans-serif">${drawings}</g>
+  <g font-family="Inter, sans-serif">${drawings}</g>
 </svg>\n`;
 }
 

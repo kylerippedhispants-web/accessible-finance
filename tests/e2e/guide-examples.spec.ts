@@ -167,7 +167,70 @@ test('the worked example remains usable with JavaScript disabled and images unav
   }
 });
 
-test('every guide image loads and its labels fit without overlaps', async ({ page }) => {
+test('guide images render the site fonts instead of silently falling back', async ({ page, request }) => {
+  await page.setViewportSize({ width: 1440, height: 950 });
+  await page.goto('/guides/tfsa-explained');
+  const image = page.locator('.guide-visual img');
+  await image.scrollIntoViewIfNeeded();
+  await expect.poll(() => image.evaluate((element) => new URL((element as HTMLImageElement).currentSrc).pathname)).toBe('/assets/guide-visuals/tfsa-explained.svg');
+  const response = await request.get('/assets/guide-visuals/tfsa-explained.svg');
+  expect(response.status()).toBe(200);
+  const svg = await response.text();
+
+  const result = await image.evaluate(async (element, source) => {
+    await document.fonts.ready;
+    const actualImage = element as HTMLImageElement;
+    await actualImage.decode();
+    // eslint-disable-next-line unicorn/consistent-function-scoping -- This callback is serialized into the browser.
+    const normalizeFamily = (family: string) => family.trim().replace(/^['"]|['"]$/g, '');
+    const pageStyles = getComputedStyle(document.documentElement);
+    const siteFamilies = ['--sans', '--serif'].map((property) => normalizeFamily(pageStyles.getPropertyValue(property).split(',')[0])).sort();
+    const parsed = new DOMParser().parseFromString(source, 'image/svg+xml');
+    const fontStyles = Array.from(parsed.querySelectorAll('style'));
+    const stylesheet = new CSSStyleSheet();
+    stylesheet.replaceSync(fontStyles.map((style) => style.textContent).join('\n'));
+    const embeddedFamilies = Array.from(stylesheet.cssRules)
+      .filter((rule) => rule.type === CSSRule.FONT_FACE_RULE)
+      .map((rule) => normalizeFamily((rule as CSSFontFaceRule).style.getPropertyValue('font-family')))
+      .sort();
+
+    // The fallback image has identical shapes, text and positions, but no
+    // embedded font faces. Comparing actual <img> pixels catches the isolated
+    // SVG-image context, where a font-family name alone cannot load page fonts.
+    fontStyles.forEach((style) => style.remove());
+    const fallbackUrl = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(parsed)], { type: 'image/svg+xml' }));
+    try {
+      const fallbackImage = new Image();
+      fallbackImage.src = fallbackUrl;
+      await fallbackImage.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = actualImage.naturalWidth;
+      canvas.height = actualImage.naturalHeight;
+      const context = canvas.getContext('2d');
+      if (!context) throw new Error('Canvas 2D context is unavailable');
+      context.drawImage(actualImage, 0, 0);
+      const actualPixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(fallbackImage, 0, 0);
+      const fallbackPixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+      let changedPixels = 0;
+      for (let index = 0; index < actualPixels.length; index += 4) {
+        const difference = Math.abs(actualPixels[index] - fallbackPixels[index])
+          + Math.abs(actualPixels[index + 1] - fallbackPixels[index + 1])
+          + Math.abs(actualPixels[index + 2] - fallbackPixels[index + 2]);
+        if (difference > 32) changedPixels += 1;
+      }
+      return { siteFamilies, embeddedFamilies, changedPixels };
+    } finally {
+      URL.revokeObjectURL(fallbackUrl);
+    }
+  }, svg);
+  expect(result.siteFamilies).toEqual(['Instrument Serif', 'Inter']);
+  expect(result.embeddedFamilies).toEqual(result.siteFamilies);
+  expect(result.changedPixels).toBeGreaterThan(500);
+});
+
+test('every guide image loads its real fonts and its labels fit without overlaps', async ({ page }) => {
   test.setTimeout(180_000);
   const files = readdirSync(resolve('assets/guide-visuals')).filter((file) => file.endsWith('.svg'));
   expect(files).toHaveLength(84);
@@ -178,6 +241,18 @@ test('every guide image loads and its labels fit without overlaps', async ({ pag
   for (const file of files) {
     const response = await page.goto(`/assets/guide-visuals/${file}`);
     expect(response?.status(), file).toBe(200);
+    const fonts = await page.evaluate(async () => {
+      await document.fonts.ready;
+      // eslint-disable-next-line unicorn/consistent-function-scoping -- This callback is serialized into the browser.
+      const normalizeFamily = (family: string) => family.trim().replace(/^['"]|['"]$/g, '');
+      return {
+        loadedFamilies: Array.from(document.fonts).filter((font) => font.status === 'loaded').map((font) => normalizeFamily(font.family)).sort(),
+        inter: document.fonts.check('500 20px Inter'),
+        instrumentSerif: document.fonts.check('400 36px "Instrument Serif"'),
+        usedFamilies: [...new Set(Array.from(document.querySelectorAll('svg text')).map((text) => normalizeFamily(getComputedStyle(text).fontFamily.split(',')[0])))].sort(),
+      };
+    });
+    expect(fonts, file).toEqual({ loadedFamilies: ['Instrument Serif', 'Inter'], inter: true, instrumentSerif: true, usedFamilies: ['Instrument Serif', 'Inter'] });
     const geometry = await page.locator('svg').evaluate((svg) => {
       const box = svg.getBoundingClientRect();
       const lines = Array.from(svg.querySelectorAll('text, tspan'))
