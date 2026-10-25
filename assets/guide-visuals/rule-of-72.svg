@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="432" viewBox="0 0 640 432" role="img" aria-labelledby="title description">
+  <title id="title">Rule of 72 versus exact doubling time</title>
+  <desc id="description">At 4%: 18 years by the shortcut, 17.67 exact. At 6%: 12 years versus 11.90. At 8%: 9 years versus 9.01. At 4% a year: 18 years. Exact: about 17.67 years. At 6% a year: 12 years. Exact: about 11.90 years. At 8% a year: 9 years. Exact: about 9.01 years.</desc>
+  <rect width="640" height="432" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g>
+      <rect x="24" y="24" width="592" height="108" rx="10" fill="#eef5f0"/>
+      
+      <circle cx="58" cy="60" r="18" fill="#1d6b45"/>
+      <text x="58" y="67" font-size="20" text-anchor="middle" fill="#fff">1</text>
+      <text x="92" y="60" font-size="32" font-weight="600">At 4% a year</text>
+      <text x="92" y="103" font-size="36" fill="#1d6b45">18 years</text>
+    </g>
+<g>
+      <rect x="24" y="152" width="592" height="108" rx="10" fill="#f4f0e7"/>
+      
+      <circle cx="58" cy="188" r="18" fill="#8b642b"/>
+      <text x="58" y="195" font-size="20" text-anchor="middle" fill="#fff">2</text>
+      <text x="92" y="188" font-size="32" font-weight="600">At 6% a year</text>
+      <text x="92" y="231" font-size="36" fill="#8b642b">12 years</text>
+    </g>
+<g>
+      <rect x="24" y="280" width="592" height="108" rx="10" fill="#eef5f0"/>
+      
+      <circle cx="58" cy="316" r="18" fill="#1d6b45"/>
+      <text x="58" y="323" font-size="20" text-anchor="middle" fill="#fff">3</text>
+      <text x="92" y="316" font-size="32" font-weight="600">At 8% a year</text>
+      <text x="92" y="359" font-size="36" fill="#1d6b45">9 years</text>
+    </g></g>
+</svg>

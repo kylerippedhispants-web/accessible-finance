@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="432" viewBox="0 0 640 432" role="img" aria-labelledby="title description">
+  <title id="title">Illustrative monthly CPP by start age</title>
+  <desc id="description">Holding the underlying age-65 estimate at $1,000 and varying only the start-age factor gives $640 at 60, $1,000 at 65, and $1,420 at 70. Start at 60: $640. 36% reduction from the age-65 base Start at 65: $1,000. Hypothetical personal base amount Start at 70: $1,420. 42% increase; five years of payments forgone</desc>
+  <rect width="640" height="432" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="640">
+        <text x="32" y="56" font-size="34" font-weight="600">Start at 60</text>
+        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$640</text>
+        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="114" width="259.606" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="1000">
+        <text x="32" y="184" font-size="34" font-weight="600">Start at 65</text>
+        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$1,000</text>
+        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="242" width="405.634" height="20" rx="4" fill="#8b642b"/>
+      </g>
+<g data-value="1420">
+        <text x="32" y="312" font-size="34" font-weight="600">Start at 70</text>
+        <text x="608" y="352" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$1,420</text>
+        <rect x="32" y="370" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="370" width="576.000" height="20" rx="4" fill="#1d6b45"/>
+      </g></g>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="560" viewBox="0 0 640 560" role="img" aria-labelledby="title description">
+  <title id="title">A simple plan for $4,200 a month</title>
+  <desc id="description">The monthly budget assigns $2,500 to essentials, $300 to irregular bills, $500 to goals, and $900 to flexible spending. Essentials: $2,500. Includes minimum debt payments Irregular bills: $300. $3,600 annual total divided by 12 Savings goals: $500. Chosen priorities Flexible spending: $900. About $208 a week, averaged over a year</desc>
+  <rect width="640" height="560" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="2500">
+        <text x="32" y="56" font-size="34" font-weight="600">Essentials</text>
+        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$2,500</text>
+        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="114" width="576.000" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="300">
+        <text x="32" y="184" font-size="34" font-weight="600">Irregular bills</text>
+        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$300</text>
+        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="242" width="69.120" height="20" rx="4" fill="#8b642b"/>
+      </g>
+<g data-value="500">
+        <text x="32" y="312" font-size="34" font-weight="600">Savings goals</text>
+        <text x="608" y="352" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$500</text>
+        <rect x="32" y="370" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="370" width="115.200" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="900">
+        <text x="32" y="440" font-size="34" font-weight="600">Flexible spending</text>
+        <text x="608" y="480" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$900</text>
+        <rect x="32" y="498" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="498" width="207.360" height="20" rx="4" fill="#8b642b"/>
+      </g></g>
+</svg>

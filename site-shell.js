@@ -8,7 +8,7 @@
   const shellSource = document.currentScript?.src || window.location.href;
   polishStyles.id = 'site-polish-styles';
   polishStyles.rel = 'stylesheet';
-  polishStyles.href = new URL('site-polish.css?v=20260801', shellSource).href;
+  polishStyles.href = new URL('site-polish.css?v=20261025', shellSource).href;
   if (!document.getElementById(polishStyles.id)) document.head.appendChild(polishStyles);
 
   const focusableSelector = [
@@ -511,9 +511,20 @@
     });
   }
 
-  function initializeRevealFallback() {
-    if ('IntersectionObserver' in window) return;
-    document.querySelectorAll('.reveal').forEach((element) => element.classList.add('visible'));
+  function initializeMotionPreferences() {
+    const immediateContent = matchMedia('(max-width: 768px), (prefers-reduced-motion: reduce)');
+    function revealImmediately() {
+      if ('IntersectionObserver' in window && !immediateContent.matches) return;
+      document.querySelectorAll('.reveal').forEach((element) => element.classList.add('visible'));
+    }
+    revealImmediately();
+    immediateContent.addEventListener('change', revealImmediately);
+    // Keyboard navigation must never land in a transparent reveal container.
+    document.addEventListener('focusin', (event) => {
+      for (let element = event.target; element; element = element.parentElement) {
+        if (element.classList?.contains('reveal')) element.classList.add('visible');
+      }
+    });
   }
 
   function initialize() {
@@ -524,7 +535,7 @@
     initializePlannerBridge();
     initializeMenu();
     initializeNewsletterDialogs();
-    initializeRevealFallback();
+    initializeMotionPreferences();
   }
 
   if (document.readyState === 'loading') {

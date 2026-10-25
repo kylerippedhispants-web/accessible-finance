@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="432" viewBox="0 0 640 432" role="img" aria-labelledby="title description">
+  <title id="title">Same starting balance, different losses</title>
+  <desc id="description">Both portfolios start at $50,000. With stocks down 20% and bonds down 5%, the 60/40 portfolio ends at $43,000 and the all-stock portfolio at $40,000. Starting balance: $50,000. The same for both portfolios 60/40 portfolio: $43,000. 14% loss in this scenario All-stock portfolio: $40,000. 20% loss in this scenario</desc>
+  <rect width="640" height="432" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="50000">
+        <text x="32" y="56" font-size="34" font-weight="600">Starting balance</text>
+        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$50,000</text>
+        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="114" width="576.000" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="43000">
+        <text x="32" y="184" font-size="34" font-weight="600">60/40 portfolio</text>
+        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$43,000</text>
+        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="242" width="495.360" height="20" rx="4" fill="#8b642b"/>
+      </g>
+<g data-value="40000">
+        <text x="32" y="312" font-size="34" font-weight="600">All-stock portfolio</text>
+        <text x="608" y="352" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$40,000</text>
+        <rect x="32" y="370" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="370" width="460.800" height="20" rx="4" fill="#1d6b45"/>
+      </g></g>
+</svg>

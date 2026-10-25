@@ -14,6 +14,16 @@ onboarding, save/reload, account separation, and JSON export/import proofs are
 recorded below. Two fictional browser-created plans remain after the earlier
 authenticated harness cleanup.
 
+## October 25 guide examples and consistent motion
+
+- [x] Add one original, three-step worked example to every guide, with explicit
+  assumptions, checked arithmetic, and relevant official references.
+- [x] Add 42 small local SVG charts and diagrams, with captions, text equivalents,
+  reserved dimensions and lazy loading. Preserve usable examples without JavaScript.
+- [x] Use shared animation timing for navigation, controls and the planner; remove
+  card lifts and text shifts, and honor reduced motion without a page reload.
+- [x] Add direct guide shortcuts to the worked example and next-step checklist.
+
 ## October 25 footer navigation consistency
 
 - [x] Build footer Learn and Tools links from the same edition-aware choices as

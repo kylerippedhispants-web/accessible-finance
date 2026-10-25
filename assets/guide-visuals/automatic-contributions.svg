@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="304" viewBox="0 0 640 304" role="img" aria-labelledby="title description">
+  <title id="title">Annual deposits at $100 each</title>
+  <desc id="description">Twenty-four twice-monthly deposits total $2,400; 26 biweekly deposits total $2,600. Twice a month: $2,400. 24 deposits × $100 Every two weeks: $2,600. 26 deposits × $100</desc>
+  <rect width="640" height="304" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="2400">
+        <text x="32" y="56" font-size="34" font-weight="600">Twice a month</text>
+        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$2,400</text>
+        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="114" width="531.692" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="2600">
+        <text x="32" y="184" font-size="34" font-weight="600">Every two weeks</text>
+        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$2,600</text>
+        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="242" width="576.000" height="20" rx="4" fill="#8b642b"/>
+      </g></g>
+</svg>

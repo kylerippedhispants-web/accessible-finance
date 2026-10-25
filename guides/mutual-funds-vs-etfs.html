@@ -311,6 +311,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-language.css?v=20260801">
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
+<link rel="stylesheet" href="../guide-examples.css?v=20261025">
+<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -327,9 +329,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/mutual-funds-vs-etfs.html",
       "inLanguage": "en-CA",
       "articleSection": "Asset Classes",
-      "wordCount": 890,
-      "timeRequired": "PT5M",
-      "dateModified": "2026-10-20",
+      "wordCount": 1145,
+      "timeRequired": "PT7M",
+      "dateModified": "2026-10-25",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -451,7 +453,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>Mutual funds vs. ETFs: the <em>actual difference</em></h1>
     <p class="deck">Both can pool many investments into one product. The main differences involve how they trade, how they are priced, costs, and account features.</p>
     <div class="article-meta">
-      <span class="meta-item">5 min read</span>
+      <span class="meta-item">7 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
@@ -470,6 +472,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <p>An ETF can be leveraged, concentrated, or complex.</p>
       </div>
     </div>
+    <nav class="article-example-links" aria-label="Guide shortcuts"><a href="#worked-example">See a worked example</a><a href="#build-your-plan">Go to the next-step checklist</a></nav>
     <div class="publisher-note">
       <span><strong>By Accessible Finance</strong> &middot; Educational information, not personal advice</span>
       <a href="../editorial-policy.html">How we research and review</a>
@@ -481,12 +484,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">7 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
       <li><a href="#practical-example">Low MER, expensive currency conversion</a></li>
+      <li><a href="#worked-example">Try it step by step</a></li>
       <li><a href="#build-your-plan">Your next-step checklist</a></li>
       <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
@@ -514,7 +518,23 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      <h2 id="worked-example"><span class="section-index" aria-hidden="true">04</span><span>Try it step by step</span></h2>
+      <div class="worked-example">
+      <p class="example-kicker">Follow the numbers</p>
+      <h3>What happens to a $250 purchase?</h3>
+      <p>Compare two fictional funds with similar holdings. One accepts mutual-fund dollar orders; the other is an ETF purchased through a broker that allows only whole units.</p>
+      <figure class="guide-visual">
+        <img src="/assets/guide-visuals/mutual-funds-vs-etfs.svg" width="640" height="304" loading="lazy" decoding="async" alt="One $250 budget, two purchase methods. At an assumed $25 mutual-fund price, all $250 buys ten units. At a $24 ETF execution price with whole units only, ten units cost $240 and $10 remains cash.">
+        <figcaption><strong>One $250 budget, two purchase methods</strong><span>At an assumed $25 mutual-fund price, all $250 buys ten units. At a $24 ETF execution price with whole units only, ten units cost $240 and $10 remains cash.</span></figcaption>
+      </figure>
+      <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Mutual-fund order</dt><dd><strong>10 units / $250</strong><span>Calculated at the applicable $25 NAV.</span></dd></div><div><dt>ETF order</dt><dd><strong>10 units / $240</strong><span>$24 execution price; $10 cash remains.</span></dd></div></dl></details>
+      <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Place a mutual-fund dollar order</strong><p>A $250 order receives units at the next applicable net asset value. If that price is $25, it buys 10 units; a different price changes the number of units.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Price an ETF order</strong><p>If the ETF executes at $24, 10 whole units cost $240. The remaining $10 stays as cash because this example&#039;s broker does not support fractional units.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Compare the useful features</strong><p>Both purchases can provide diversified exposure. Check the actual holdings, ongoing fees, trading costs, fractional-unit support, and automatic-purchase options before choosing.</p></li></ol>
+      <div class="example-result"><span>What this shows</span><p>The wrapper changes how a purchase happens. The underlying holdings and total costs determine much of what the investment does for the plan.</p></div>
+      <p class="example-assumptions"><strong>Example assumptions:</strong> Fictional funds and execution prices, no sales charges, commissions, spreads, tax, or later price changes. Fractional ETF purchases are available at some brokers; this example assumes they are not.</p>
+    </div>
+    </section>
+    <section>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">05</span><span>Your next-step checklist</span></h2>
       
     <ol class="decision-steps">
       
@@ -546,7 +566,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>An ETF can be leveraged, concentrated, or complex. Exchange trading does not make the underlying assets diversified or low-risk.</p></div>
     </section>
     <section>
-      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">06</span><span>Explore further, if useful</span></h2>
       <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Compare the full ownership experience</summary><p>Product cost includes more than the MER. An ETF buyer may encounter commissions, bid-ask spreads, currency conversion, and the temptation to trade. A mutual fund may include trailing commissions or advice costs but make automated dollar purchases and fractional ownership easier.</p><p>Taxes can also differ because fund structure and trading activity affect distributions. The right comparison uses two products with similar holdings, then adds every cost and service the investor will actually experience.</p></details><details class="guide-detail" id="decision-map"><summary>The wrapper should serve the routine</summary><p>Mutual funds and ETFs can hold nearly identical portfolios, so the wrapper alone does not determine return or risk. The differences appear in how investors transact, how advice may be bundled, how distributions are handled, and what the provider supports. Compare one real fund with another rather than comparing an abstract ETF category with an abstract mutual-fund category.</p><p>Behaviour can outweigh a small fee gap. Exact-dollar automatic mutual-fund purchases may help an investor remain consistent, while an ETF's intraday screen may invite tinkering. Another investor may use a brokerage's recurring ETF feature and gain both low cost and automation. Include every operational step in the comparison: funding, purchase, reinvestment, rebalancing, tax records, and eventual withdrawals.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
@@ -588,8 +608,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
-      <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing/getting-started/understanding-fees" target="_blank" rel="noopener noreferrer">Investor.gov: Understanding Fees</a></li></ul>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">07</span><span>Sources and further reading</span></h2>
+      <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing/getting-started/understanding-fees" target="_blank" rel="noopener noreferrer">Investor.gov: Understanding Fees</a></li><li><a href="https://www.investor.gov/introduction-investing/investing-basics/investment-products/mutual-funds-and-exchange-traded-funds-etfs/mutual-funds" target="_blank" rel="noopener noreferrer">Investor.gov: Mutual Funds</a></li><li><a href="https://www.investor.gov/introduction-investing/investing-basics/investment-products/mutual-funds-and-exchange-traded-2" target="_blank" rel="noopener noreferrer">Investor.gov: Exchange-Traded Funds</a></li></ul>
     </section>
   </article>
   <!-- ARTICLE_BODY_END -->
@@ -606,17 +626,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="index-funds.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>Index Funds: A Powerful Tool for Regular Investors</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">7 min read &middot; Beginner</div>
       </a>
     <a href="active-vs-passive.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>Active vs. Passive Investing: What the Evidence Means</h3>
-        <div class="meta">6 min read &middot; Intermediate</div>
+        <div class="meta">8 min read &middot; Intermediate</div>
       </a>
     <a href="investment-fees.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Fees: Compound Interest in Reverse</h3>
-        <div class="meta">6 min read &middot; Intermediate</div>
+        <div class="meta">7 min read &middot; Intermediate</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->

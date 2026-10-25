@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="304" viewBox="0 0 640 304" role="img" aria-labelledby="title description">
+  <title id="title">Hypothetical balance after 20 years</title>
+  <desc id="description">Under the simplified assumptions, the 0.20% annual-fee investment ends at about $30,883; the 1.50% annual-fee investment ends at about $24,117. 0.20% annual fee: $30,883. 5.80% net rate in this model. 1.50% annual fee: $24,117. 4.50% net rate in this model.</desc>
+  <rect width="640" height="304" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="30883">
+        <text x="32" y="56" font-size="34" font-weight="600">0.20% annual fee</text>
+        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$30,883</text>
+        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="114" width="576.000" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="24117">
+        <text x="32" y="184" font-size="34" font-weight="600">1.50% annual fee</text>
+        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$24,117</text>
+        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="242" width="449.807" height="20" rx="4" fill="#8b642b"/>
+      </g></g>
+</svg>

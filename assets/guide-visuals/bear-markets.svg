@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="432" viewBox="0 0 640 432" role="img" aria-labelledby="title description">
+  <title id="title">The same percentage, a different base</title>
+  <desc id="description">The portfolio begins at $10,000, falls 30% to $7,000, then gains 30% to $9,100, still below its starting value. Before the decline: $10,000. Starting balance After a 30% loss: $7,000. $3,000 below the start Then a 30% gain: $9,100. Still $900 below the start</desc>
+  <rect width="640" height="432" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="10000">
+        <text x="32" y="56" font-size="34" font-weight="600">Before the decline</text>
+        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$10,000</text>
+        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="114" width="576.000" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="7000">
+        <text x="32" y="184" font-size="34" font-weight="600">After a 30% loss</text>
+        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$7,000</text>
+        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="242" width="403.200" height="20" rx="4" fill="#8b642b"/>
+      </g>
+<g data-value="9100">
+        <text x="32" y="312" font-size="34" font-weight="600">Then a 30% gain</text>
+        <text x="608" y="352" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$9,100</text>
+        <rect x="32" y="370" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="370" width="524.160" height="20" rx="4" fill="#1d6b45"/>
+      </g></g>
+</svg>

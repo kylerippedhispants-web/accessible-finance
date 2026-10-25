@@ -311,6 +311,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-language.css?v=20260801">
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
+<link rel="stylesheet" href="../guide-examples.css?v=20261025">
+<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -327,9 +329,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/tfsa-explained.html",
       "inLanguage": "en-CA",
       "articleSection": "Canadian Money",
-      "wordCount": 929,
-      "timeRequired": "PT6M",
-      "dateModified": "2026-10-20",
+      "wordCount": 1168,
+      "timeRequired": "PT7M",
+      "dateModified": "2026-10-25",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -451,7 +453,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>TFSA explained: flexible, tax-free <em>growth</em></h1>
     <p class="deck">A TFSA is a Canadian registered account. Contributions are not deductible, while eligible investment income and withdrawals are generally tax-free.</p>
     <div class="article-meta">
-      <span class="meta-item">6 min read</span>
+      <span class="meta-item">7 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
@@ -470,6 +472,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <p>Overcontributions can be penalized.</p>
       </div>
     </div>
+    <nav class="article-example-links" aria-label="Guide shortcuts"><a href="#worked-example">See a worked example</a><a href="#build-your-plan">Go to the next-step checklist</a></nav>
     <div class="publisher-note">
       <span><strong>By Accessible Finance</strong> &middot; Educational information, not personal advice</span>
       <a href="../editorial-policy.html">How we research and review</a>
@@ -481,12 +484,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">7 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
       <li><a href="#practical-example">The withdrawal-and-replacement trap</a></li>
+      <li><a href="#worked-example">Try it step by step</a></li>
       <li><a href="#build-your-plan">Your next-step checklist</a></li>
       <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
@@ -514,7 +518,23 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      <h2 id="worked-example"><span class="section-index" aria-hidden="true">04</span><span>Try it step by step</span></h2>
+      <div class="worked-example">
+      <p class="example-kicker">Follow the numbers</p>
+      <h3>Track room separately from the account balance</h3>
+      <p>Sam has $5,000 of verified unused TFSA room. A contribution and a later withdrawal affect that room on different schedules.</p>
+      <figure class="guide-visual">
+        <img src="/assets/guide-visuals/tfsa-explained.svg" width="640" height="432" loading="lazy" decoding="async" alt="A withdrawal does not refill room immediately. Available room begins at $5,000, falls to $2,000 after a $3,000 contribution, and remains $2,000 after a $1,000 same-year withdrawal.">
+        <figcaption><strong>A withdrawal does not refill room immediately</strong><span>Available room begins at $5,000, falls to $2,000 after a $3,000 contribution, and remains $2,000 after a $1,000 same-year withdrawal.</span></figcaption>
+      </figure>
+      <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Before contributing</dt><dd><strong>$5,000 room</strong><span>Verified unused room</span></dd></div><div><dt>After contributing</dt><dd><strong>$2,000 room</strong><span>$3,000 contribution used room</span></dd></div><div><dt>After withdrawing</dt><dd><strong>$2,000 room</strong><span>$1,000 is added back next calendar year</span></dd></div></dl></details>
+      <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Record the contribution</strong><p>Sam contributes $3,000. Remaining room is $5,000 − $3,000 = $2,000, regardless of what the investments later earn or lose.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Record the withdrawal</strong><p>Sam withdraws $1,000 later in the same year. The available room stays at $2,000: this withdrawal does not immediately create new room.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Carry the records forward</strong><p>With no other transactions, the next January starts with $2,000 unused room plus the $1,000 withdrawal, before adding any new annual room Sam is eligible for.</p></li></ol>
+      <div class="example-result"><span>What this shows</span><p>Sam can still contribute $2,000 this year, not $3,000. The withdrawn $1,000 is added back the following calendar year.</p></div>
+      <p class="example-assumptions"><strong>Example assumptions:</strong> Hypothetical Canadian resident eligible to contribute throughout, with no excess contributions, transfers, or special distributions. Use records from every TFSA; CRA figures may lag recent activity.</p>
+    </div>
+    </section>
+    <section>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">05</span><span>Your next-step checklist</span></h2>
       
     <ol class="decision-steps">
       
@@ -546,7 +566,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Overcontributions can be penalized. CRA data can lag recent transactions, so maintain your own records and verify current rules.</p></div>
     </section>
     <section>
-      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">06</span><span>Explore further, if useful</span></h2>
       <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Room is a running personal calculation</summary><p>TFSA room is not simply the current annual dollar limit. It combines unused room, the annual amount earned while eligible, prior-year withdrawals, and contributions already made across every provider. CRA information can lag recent transactions, so personal records remain important.</p><p>A withdrawal creates flexibility but the replacement room generally arrives on January 1 of the following calendar year. A direct institution-to-institution transfer avoids treating the move as a withdrawal and recontribution.</p></details><details class="guide-detail" id="decision-map"><summary>Tax-free does not mean consequence-free</summary><p>A TFSA protects qualifying growth from tax, but losses still consume economic capital and do not create a tax deduction. Using scarce room for a highly speculative position can permanently reduce the value available to compound if that position fails. Match risk to the goal and treat tax-free growth as a reason for disciplined investing, not a reason to take more risk.</p><p>Contribution tracking deserves special care because institutions see only their own account activity. Withdrawals generally return as room in a later calendar year, not instantly, and non-resident contributions can create tax. Keep a ledger beside CRA information and confirm transfers are processed directly. When activity resembles a trading business or an investment may be prohibited, seek current professional guidance rather than assuming the account label resolves the issue.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
@@ -588,7 +608,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">07</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/what.html" target="_blank" rel="noopener noreferrer">CRA: What is a TFSA?</a></li><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/withdraw.html" target="_blank" rel="noopener noreferrer">CRA: Making or Replacing TFSA Withdrawals</a></li><li><a href="https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html" target="_blank" rel="noopener noreferrer">Canada Revenue Agency: Registered Plan and TFSA Limits</a></li></ul>
     </section>
   </article>
@@ -606,17 +626,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="rrsp-explained.html" class="related-card reveal">
         <div class="cat">Canadian Money</div>
         <h3>RRSP Explained: Deferrals, Deductions, and Withdrawals</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">7 min read &middot; Beginner</div>
       </a>
     <a href="tfsa-vs-rrsp.html" class="related-card reveal">
         <div class="cat">Canadian Money</div>
         <h3>TFSA vs. RRSP: Which Should You Use First?</h3>
-        <div class="meta">5 min read &middot; Intermediate</div>
+        <div class="meta">6 min read &middot; Intermediate</div>
       </a>
     <a href="registered-accounts.html" class="related-card reveal">
         <div class="cat">Canadian Money</div>
         <h3>Registered Accounts Explained: TFSA, RRSP, FHSA, and RESP</h3>
-        <div class="meta">6 min read &middot; Intermediate</div>
+        <div class="meta">7 min read &middot; Intermediate</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->

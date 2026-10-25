@@ -196,7 +196,7 @@
     }),
 
     'compound-interest': guide({
-      title: 'Compound Interest: The Most Powerful Force in Investing',
+      title: 'Compound Interest: Growth on Growth',
       titleHtml: 'Compound interest: growth on <em>growth</em>',
       deck: 'Compounding happens when returns remain invested and begin producing returns of their own. Time gives the process room to accelerate.',
       category: 'Compounding', minutes: 7,
@@ -240,8 +240,8 @@
     }),
 
     'dollar-cost-averaging': guide({
-      title: 'Dollar-Cost Averaging: The Strategy That Works by Default',
-      titleHtml: 'Dollar-cost averaging: a strategy that works by <em>default</em>',
+      title: 'Dollar-Cost Averaging: Investing a Fixed Amount Regularly',
+      titleHtml: 'Dollar-cost averaging: investing a fixed amount <em>regularly</em>',
       deck: 'Investing equal amounts on a schedule buys more units when prices are lower and fewer when prices are higher.',
       category: 'Compounding', minutes: 7,
       intro: [
@@ -1004,6 +1004,20 @@
     Object.assign(guides[id], perspectiveRecord);
   });
 
+  const workedExamples = {
+    ...window.AccessibleFinanceWorkedExamplesA,
+    ...window.AccessibleFinanceWorkedExamplesB
+  };
+  Object.entries(workedExamples).forEach(([id, example]) => {
+    if (!guides[id]) return;
+    guides[id].workedExample = example;
+    guides[id].guideId = id;
+    const sources = [...guides[id].sources, ...(example.sources || [])];
+    guides[id].sources = sources.filter((entry, index) =>
+      sources.findIndex((candidate) => candidate.url === entry.url) === index
+    );
+  });
+
   const escapeHtml = (value) => String(value)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -1012,6 +1026,27 @@
     .replace(/'/g, '&#039;');
 
   const renderParagraphs = (paragraphs) => paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join('');
+  const renderWorkedExample = (item) => {
+    const example = item.workedExample;
+    const visual = example.visual;
+    const height = 48 + visual.items.length * 128;
+    const formatValue = (value) => typeof value === 'number'
+      ? `${visual.unit === '$' ? '$' : ''}${value.toLocaleString('en-CA', { minimumFractionDigits: visual.unit === '$' && !Number.isInteger(value) ? 2 : 0, maximumFractionDigits: 2 })}${visual.unit === '%' ? '%' : visual.unit && visual.unit !== '$' ? ' ' + visual.unit : ''}`
+      : value;
+    return `<div class="worked-example">
+      <p class="example-kicker">Follow the numbers</p>
+      <h3>${escapeHtml(example.title)}</h3>
+      <p>${escapeHtml(example.introduction)}</p>
+      <figure class="guide-visual">
+        <img src="/assets/guide-visuals/${escapeHtml(item.guideId)}.svg" width="640" height="${height}" loading="lazy" decoding="async" alt="${escapeHtml(visual.title + '. ' + visual.description)}">
+        <figcaption><strong>${escapeHtml(visual.title)}</strong><span>${escapeHtml(visual.description)}</span></figcaption>
+      </figure>
+      <details class="visual-values"><summary>Read the image as text</summary><dl>${visual.items.map((entry) => `<div><dt>${escapeHtml(entry.label)}</dt><dd><strong>${escapeHtml(formatValue(entry.value))}</strong>${entry.detail ? `<span>${escapeHtml(entry.detail)}</span>` : ''}</dd></div>`).join('')}</dl></details>
+      <ol class="example-steps">${example.steps.map((step, index) => `<li><span class="example-step-number" aria-hidden="true">${index + 1}</span><strong>${escapeHtml(step.label)}</strong><p>${escapeHtml(step.body)}</p></li>`).join('')}</ol>
+      <div class="example-result"><span>What this shows</span><p>${escapeHtml(example.result)}</p></div>
+      <p class="example-assumptions"><strong>Example assumptions:</strong> ${escapeHtml(example.assumptions)}</p>
+    </div>`;
+  };
   const renderList = (items) => `<ul>${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
   const renderCaseFacts = (facts) => facts && facts.length
     ? `<dl class="case-facts">${facts.map((fact) => `<div class="case-fact"><dt>${escapeHtml(fact.label)}</dt><dd>${escapeHtml(fact.value)}</dd></div>`).join('')}</dl>`
@@ -1095,6 +1130,9 @@
         ? `<div id="real-world-case">${renderCaseStudy(item.caseStudy)}</div>`
         : renderParagraphs(item.example)
     });
+    if (item.workedExample) {
+      sections.push({ id: 'worked-example', title: 'Try it step by step', body: renderWorkedExample(item) });
+    }
     sections.push({
       id: 'build-your-plan', title: 'Your next-step checklist',
       body: `${renderDecisionPlan(item)}

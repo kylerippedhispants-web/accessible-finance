@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="304" viewBox="0 0 640 304" role="img" aria-labelledby="title description">
+  <title id="title">Value at age 55</title>
+  <desc id="description">At an assumed 5% annual return, $1,000 deposited at age 30 grows to about $3,386 by age 55; the same deposit at age 40 grows to about $2,079. Deposit at age 30: $3,386. 25 years to compound. Deposit at age 40: $2,079. 15 years to compound.</desc>
+  <rect width="640" height="304" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="3386">
+        <text x="32" y="56" font-size="34" font-weight="600">Deposit at age 30</text>
+        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$3,386</text>
+        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="114" width="576.000" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="2079">
+        <text x="32" y="184" font-size="34" font-weight="600">Deposit at age 40</text>
+        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$2,079</text>
+        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="242" width="353.663" height="20" rx="4" fill="#8b642b"/>
+      </g></g>
+</svg>

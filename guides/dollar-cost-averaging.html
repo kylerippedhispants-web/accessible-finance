@@ -8,10 +8,10 @@
 <meta name="author" content="Accessible Finance">
 <link rel="icon" type="image/png" href="../Logo-256.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dollar-Cost Averaging: The Strategy That Works by Default</title>
+<title>Dollar-Cost Averaging: Investing a Fixed Amount Regularly</title>
 <meta name="description" content="Investing equal amounts on a schedule buys more units when prices are lower and fewer when prices are higher.">
 <link rel="canonical" href="https://accessible-finance.com/guides/dollar-cost-averaging.html">
-<meta property="og:title" content="Dollar-Cost Averaging: The Strategy That Works by Default">
+<meta property="og:title" content="Dollar-Cost Averaging: Investing a Fixed Amount Regularly">
 <meta property="og:description" content="Investing equal amounts on a schedule buys more units when prices are lower and fewer when prices are higher.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://accessible-finance.com/guides/dollar-cost-averaging.html">
@@ -311,6 +311,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-language.css?v=20260801">
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
+<link rel="stylesheet" href="../guide-examples.css?v=20261025">
+<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -321,15 +323,15 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     {
       "@type": "Article",
       "@id": "https://accessible-finance.com/guides/dollar-cost-averaging.html#article",
-      "headline": "Dollar-Cost Averaging: The Strategy That Works by Default",
+      "headline": "Dollar-Cost Averaging: Investing a Fixed Amount Regularly",
       "description": "Investing equal amounts on a schedule buys more units when prices are lower and fewer when prices are higher.",
       "url": "https://accessible-finance.com/guides/dollar-cost-averaging.html",
       "mainEntityOfPage": "https://accessible-finance.com/guides/dollar-cost-averaging.html",
       "inLanguage": "en-CA",
       "articleSection": "Compounding",
-      "wordCount": 900,
-      "timeRequired": "PT5M",
-      "dateModified": "2026-10-20",
+      "wordCount": 1114,
+      "timeRequired": "PT7M",
+      "dateModified": "2026-10-25",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -365,7 +367,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Dollar-Cost Averaging: The Strategy That Works by Default",
+          "name": "Dollar-Cost Averaging: Investing a Fixed Amount Regularly",
           "item": "https://accessible-finance.com/guides/dollar-cost-averaging.html"
         }
       ]
@@ -448,10 +450,10 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <div class="article-head-inner">
     <div class="crumb"><a href="../articles.html">Guides</a><span class="sep">&rsaquo;</span>Compounding</div>
     <span class="cat-tag">Compounding</span>
-    <h1>Dollar-cost averaging: a strategy that works by <em>default</em></h1>
+    <h1>Dollar-cost averaging: investing a fixed amount <em>regularly</em></h1>
     <p class="deck">Investing equal amounts on a schedule buys more units when prices are lower and fewer when prices are higher.</p>
     <div class="article-meta">
-      <span class="meta-item">5 min read</span>
+      <span class="meta-item">7 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
@@ -470,6 +472,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <p>Averaging into a poor or highly concentrated investment does not repair its fundamentals.</p>
       </div>
     </div>
+    <nav class="article-example-links" aria-label="Guide shortcuts"><a href="#worked-example">See a worked example</a><a href="#build-your-plan">Go to the next-step checklist</a></nav>
     <div class="publisher-note">
       <span><strong>By Accessible Finance</strong> &middot; Educational information, not personal advice</span>
       <a href="../editorial-policy.html">How we research and review</a>
@@ -481,12 +484,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">7 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
       <li><a href="#practical-example">Six equal purchases through uneven prices</a></li>
+      <li><a href="#worked-example">Try it step by step</a></li>
       <li><a href="#build-your-plan">Your next-step checklist</a></li>
       <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
@@ -514,7 +518,23 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      <h2 id="worked-example"><span class="section-index" aria-hidden="true">04</span><span>Try it step by step</span></h2>
+      <div class="worked-example">
+      <p class="example-kicker">Follow the numbers</p>
+      <h3>Three $200 deposits buy different amounts</h3>
+      <p>A fictional fund costs $20, then $10, then $25 on three monthly purchase dates. An investor contributes $200 on each date.</p>
+      <figure class="guide-visual">
+        <img src="/assets/guide-visuals/dollar-cost-averaging.svg" width="640" height="432" loading="lazy" decoding="async" alt="Units bought with each $200 deposit. The same $200 buys 10 units at $20, 20 units at $10, and 8 units at $25, for 38 units in total.">
+        <figcaption><strong>Units bought with each $200 deposit</strong><span>The same $200 buys 10 units at $20, 20 units at $10, and 8 units at $25, for 38 units in total.</span></figcaption>
+      </figure>
+      <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Month 1: $20 each</dt><dd><strong>10 units</strong><span>$200 ÷ $20.</span></dd></div><div><dt>Month 2: $10 each</dt><dd><strong>20 units</strong><span>$200 ÷ $10.</span></dd></div><div><dt>Month 3: $25 each</dt><dd><strong>8 units</strong><span>$200 ÷ $25.</span></dd></div></dl></details>
+      <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Divide dollars by price</strong><p>The purchases buy $200 ÷ $20 = 10 units, $200 ÷ $10 = 20 units, and $200 ÷ $25 = 8 units.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Add the units</strong><p>The investor has contributed $600 and owns 10 + 20 + 8 = 38 units.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Calculate the average cost</strong><p>$600 ÷ 38 = about $15.79 per unit. This is a cost per unit, not the simple average of the three quoted prices.</p></li></ol>
+      <div class="example-result"><span>What this shows</span><p>A fixed contribution buys more units when prices are lower and fewer when prices are higher. It does not prevent losses or guarantee a better result than investing a lump sum.</p></div>
+      <p class="example-assumptions"><strong>Example assumptions:</strong> Invented prices, three purchases, no fees, distributions, tax, or currency conversion. The price path is an illustration, not a forecast or evidence that one schedule always wins.</p>
+    </div>
+    </section>
+    <section>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">05</span><span>Your next-step checklist</span></h2>
       
     <ol class="decision-steps">
       
@@ -546,7 +566,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Averaging into a poor or highly concentrated investment does not repair its fundamentals. The method manages purchase timing, not asset quality.</p></div>
     </section>
     <section>
-      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">06</span><span>Explore further, if useful</span></h2>
       <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>A contribution rule, not a return guarantee</summary><p>Dollar-cost averaging manages the decision process. It does not change the value of the asset or ensure that the average purchase price will be below the final price. If the investment steadily falls because its underlying value deteriorates, repeated buying can deepen the loss.</p><p>The method is strongest when paired with a diversified investment and a long horizon. It is also different from holding an existing lump sum in cash: once money is already available, delaying investment is an additional market-timing choice.</p></details><details class="guide-detail" id="decision-map"><summary>Automation and delay are different choices</summary><p>Regular investing from income is often called dollar-cost averaging, but the money is invested as soon as it becomes available. Spreading an existing lump sum is different because part of the money deliberately remains in cash. The first choice builds a routine; the second exchanges some expected market exposure for emotional comfort and lower immediate regret.</p><p>Transaction costs and product mechanics can change the best frequency. Tiny weekly ETF orders may create avoidable spreads or leave fractional cash, while a no-fee automated fund can handle exact amounts. Focus on total invested each year and whether the schedule actually runs. A theoretically elegant frequency is not useful if overdrafts, manual steps, or headline-driven pauses repeatedly interrupt it.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
@@ -588,7 +608,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">07</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing/investing-basics/glossary/dollar-cost-averaging" target="_blank" rel="noopener noreferrer">Investor.gov: Dollar-Cost Averaging</a></li></ul>
     </section>
   </article>
@@ -606,17 +626,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="automatic-contributions.html" class="related-card reveal">
         <div class="cat">Getting Started</div>
         <h3>Setting Up Automatic Contributions</h3>
-        <div class="meta">5 min read &middot; Beginner</div>
+        <div class="meta">6 min read &middot; Beginner</div>
       </a>
     <a href="time-in-market.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>Time in the Market vs. Timing the Market</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">7 min read &middot; Beginner</div>
       </a>
     <a href="compound-interest.html" class="related-card reveal">
         <div class="cat">Compounding</div>
-        <h3>Compound Interest: The Most Powerful Force in Investing</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <h3>Compound Interest: Growth on Growth</h3>
+        <div class="meta">7 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->

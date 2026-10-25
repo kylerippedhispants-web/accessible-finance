@@ -311,6 +311,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-language.css?v=20260801">
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
+<link rel="stylesheet" href="../guide-examples.css?v=20261025">
+<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -327,9 +329,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/rule-of-72.html",
       "inLanguage": "en-CA",
       "articleSection": "Compounding",
-      "wordCount": 932,
-      "timeRequired": "PT6M",
-      "dateModified": "2026-10-20",
+      "wordCount": 1177,
+      "timeRequired": "PT7M",
+      "dateModified": "2026-10-25",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -451,7 +453,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>The Rule of 72 and other <em>quick estimates</em></h1>
     <p class="deck">Divide 72 by an annual growth rate to estimate how many years money may take to double. It is a shortcut, not a forecast.</p>
     <div class="article-meta">
-      <span class="meta-item">6 min read</span>
+      <span class="meta-item">7 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
@@ -470,6 +472,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <p>The rule does not account for taxes, contributions, withdrawals, changing returns, or losses.</p>
       </div>
     </div>
+    <nav class="article-example-links" aria-label="Guide shortcuts"><a href="#worked-example">See a worked example</a><a href="#build-your-plan">Go to the next-step checklist</a></nav>
     <div class="publisher-note">
       <span><strong>By Accessible Finance</strong> &middot; Educational information, not personal advice</span>
       <a href="../editorial-policy.html">How we research and review</a>
@@ -481,12 +484,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">7 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
       <li><a href="#practical-example">Three rates, three very different timelines</a></li>
+      <li><a href="#worked-example">Try it step by step</a></li>
       <li><a href="#build-your-plan">Your next-step checklist</a></li>
       <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
@@ -514,7 +518,23 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      <h2 id="worked-example"><span class="section-index" aria-hidden="true">04</span><span>Try it step by step</span></h2>
+      <div class="worked-example">
+      <p class="example-kicker">Follow the numbers</p>
+      <h3>Check the shortcut against the formula</h3>
+      <p>The Rule of 72 estimates how long money takes to double by dividing 72 by an annual growth rate expressed as a percentage.</p>
+      <figure class="guide-visual">
+        <img src="/assets/guide-visuals/rule-of-72.svg" width="640" height="432" loading="lazy" decoding="async" alt="Rule of 72 versus exact doubling time. At 4%: 18 years by the shortcut, 17.67 exact. At 6%: 12 years versus 11.90. At 8%: 9 years versus 9.01.">
+        <figcaption><strong>Rule of 72 versus exact doubling time</strong><span>At 4%: 18 years by the shortcut, 17.67 exact. At 6%: 12 years versus 11.90. At 8%: 9 years versus 9.01.</span></figcaption>
+      </figure>
+      <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>At 4% a year</dt><dd><strong>18 years</strong><span>Exact: about 17.67 years.</span></dd></div><div><dt>At 6% a year</dt><dd><strong>12 years</strong><span>Exact: about 11.90 years.</span></dd></div><div><dt>At 8% a year</dt><dd><strong>9 years</strong><span>Exact: about 9.01 years.</span></dd></div></dl></details>
+      <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Try a 6% rate</strong><p>72 ÷ 6 = 12 years. A $2,000 starting amount would be roughly $4,000 after that time if the rate stayed constant.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Compare the exact result</strong><p>The exact doubling time with annual compounding is log(2) ÷ log(1.06), about 11.90 years. The shortcut is close here, but not exact.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Test another assumption</strong><p>At 4%, the shortcut gives 18 years and the formula about 17.67. At 8%, they give 9 years and about 9.01. A different rate changes the estimate substantially.</p></li></ol>
+      <div class="example-result"><span>What this shows</span><p>Use the rule for a quick sense check, then use a calculator for a plan with contributions, changing returns, fees, or tax.</p></div>
+      <p class="example-assumptions"><strong>Example assumptions:</strong> Constant hypothetical positive annual rates and annual compounding; no deposits, withdrawals, fees, tax, or inflation. The rule estimates time, not the likelihood of earning a rate.</p>
+    </div>
+    </section>
+    <section>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">05</span><span>Your next-step checklist</span></h2>
       
     <ol class="decision-steps">
       
@@ -546,7 +566,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>The rule does not account for taxes, contributions, withdrawals, changing returns, or losses. Precision-looking projections can still be based on unrealistic inputs.</p></div>
     </section>
     <section>
-      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">06</span><span>Explore further, if useful</span></h2>
       <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Use shortcuts to challenge assumptions</summary><p>The Rule of 72 is most helpful as a credibility test. A projection that doubles money every six years assumes roughly 12% compound growth. That may be possible in some periods, but it is aggressive enough to demand a clear discussion of risk, fees, and downside.</p><p>The same rule makes invisible drags more intuitive. Persistent inflation near 3% would halve purchasing power in roughly 24 years. A recurring 2% cost does not literally halve the account by itself, but it creates an equally important long-term compounding gap.</p></details><details class="guide-detail" id="decision-map"><summary>Use the shortcut to ask better questions</summary><p>A doubling estimate is meaningful only after the rate is labelled. A nominal investment return, an after-fee return, and a real return after inflation describe different outcomes. At 6% nominal growth with 2% inflation, the account balance and its purchasing power double on very different schedules. The shortcut makes that distinction visible even before a detailed model is built.</p><p>The rule is also useful outside investing. It can approximate how quickly a price level rises under steady inflation or how rapidly unpaid debt grows at a high rate. It is less useful when returns change sharply, payments are added, or the rate is very high. Treat the answer as a reasonableness check, then use an amortization or compound-growth calculator when a real commitment depends on the result.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
@@ -588,7 +608,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">07</span><span>Sources and further reading</span></h2>
       <ul class="source-list"><li><a href="https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator" target="_blank" rel="noopener noreferrer">Investor.gov: Compound Interest Calculator</a></li></ul>
     </section>
   </article>
@@ -605,18 +625,18 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
   <div class="related-grid">
     <a href="compound-interest.html" class="related-card reveal">
         <div class="cat">Compounding</div>
-        <h3>Compound Interest: The Most Powerful Force in Investing</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <h3>Compound Interest: Growth on Growth</h3>
+        <div class="meta">7 min read &middot; Beginner</div>
       </a>
     <a href="investment-fees.html" class="related-card reveal">
         <div class="cat">Compounding</div>
         <h3>Fees: Compound Interest in Reverse</h3>
-        <div class="meta">6 min read &middot; Intermediate</div>
+        <div class="meta">7 min read &middot; Intermediate</div>
       </a>
     <a href="inflation-and-cash.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>The Cost of Doing Nothing: Inflation and Your Cash</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">7 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->

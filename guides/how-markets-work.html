@@ -311,6 +311,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <link rel="stylesheet" href="../site-language.css?v=20260801">
 <link rel="stylesheet" href="../site-region.css?v=20260801">
 <link id="site-polish-styles" rel="stylesheet" href="../site-polish.css?v=20260801">
+<link rel="stylesheet" href="../guide-examples.css?v=20261025">
+<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
 <script src="../site-language.js?v=20260801" defer></script>
 <script src="../site-region.js?v=20260801" defer></script>
 <script src="../site-shell.js?v=20260801" defer></script>
@@ -327,9 +329,9 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
       "mainEntityOfPage": "https://accessible-finance.com/guides/how-markets-work.html",
       "inLanguage": "en-CA",
       "articleSection": "Fundamentals",
-      "wordCount": 1045,
-      "timeRequired": "PT6M",
-      "dateModified": "2026-10-20",
+      "wordCount": 1297,
+      "timeRequired": "PT8M",
+      "dateModified": "2026-10-25",
       "isAccessibleForFree": true,
       "author": {
         "@type": "Organization",
@@ -451,7 +453,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <h1>How markets actually work, in <em>plain English</em></h1>
     <p class="deck">A market is a continuous negotiation between buyers and sellers. Prices move when their willingness to trade changes.</p>
     <div class="article-meta">
-      <span class="meta-item">6 min read</span>
+      <span class="meta-item">8 min read</span>
       <span class="meta-item">Beginner</span>
       <span class="meta-item">Reviewed July 2026</span>
     </div>
@@ -470,6 +472,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <p>Fast markets can produce prices far from a recent quote.</p>
       </div>
     </div>
+    <nav class="article-example-links" aria-label="Guide shortcuts"><a href="#worked-example">See a worked example</a><a href="#build-your-plan">Go to the next-step checklist</a></nav>
     <div class="publisher-note">
       <span><strong>By Accessible Finance</strong> &middot; Educational information, not personal advice</span>
       <a href="../editorial-policy.html">How we research and review</a>
@@ -481,12 +484,13 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 <div class="article-wrap">
   <!-- ARTICLE_TOC_START -->
   <details class="toc reveal" open>
-    <summary><span>On this page</span><span class="toc-count">6 sections</span></summary>
+    <summary><span>On this page</span><span class="toc-count">7 sections</span></summary>
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><a href="#why-it-matters">Why it matters</a></li>
       <li><a href="#how-it-works">How it works</a></li>
       <li><a href="#practical-example">What a four-cent spread can cost</a></li>
+      <li><a href="#worked-example">Try it step by step</a></li>
       <li><a href="#build-your-plan">Your next-step checklist</a></li>
       <li><a href="#more-detail">Explore further, if useful</a></li>
       <li><a href="#sources">Sources and further reading</a></li>
@@ -514,7 +518,23 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">04</span><span>Your next-step checklist</span></h2>
+      <h2 id="worked-example"><span class="section-index" aria-hidden="true">04</span><span>Try it step by step</span></h2>
+      <div class="worked-example">
+      <p class="example-kicker">Follow the numbers</p>
+      <h3>Why 50 units can cost more than the quote</h3>
+      <p>You want to buy 50 units of a fictional fund. The order book has 30 units for sale at $20 and another 20 at $20.10.</p>
+      <figure class="guide-visual">
+        <img src="/assets/guide-visuals/how-markets-work.svg" width="640" height="304" loading="lazy" decoding="async" alt="Same order size, different control. The market purchase fills 50 units for $1,002. A $20 limit fills only 30 units for $600 while the other 20 remain unfilled under the stated offers.">
+        <figcaption><strong>Same order size, different control</strong><span>The market purchase fills 50 units for $1,002. A $20 limit fills only 30 units for $600 while the other 20 remain unfilled under the stated offers.</span></figcaption>
+      </figure>
+      <details class="visual-values"><summary>Read the image as text</summary><dl><div><dt>Market purchase</dt><dd><strong>50 units / $1,002</strong><span>Some units fill above the lowest ask.</span></dd></div><div><dt>$20 buy limit</dt><dd><strong>30 units / $600</strong><span>20 units remain unfilled at these prices.</span></dd></div></dl></details>
+      <ol class="example-steps"><li><span class="example-step-number" aria-hidden="true">1</span><strong>Read the available prices</strong><p>The lowest ask is $20, but only 30 units are available at that price. The displayed quote does not cover the entire order.</p></li><li><span class="example-step-number" aria-hidden="true">2</span><strong>Calculate a market purchase</strong><p>If those offers remain available, 30 × $20 plus 20 × $20.10 costs $1,002. The average price is $1,002 ÷ 50 = $20.04 per unit.</p></li><li><span class="example-step-number" aria-hidden="true">3</span><strong>Compare a $20 limit</strong><p>A buy limit of $20 can fill the first 30 units for $600 in this example. The remaining 20 wait for a seller at $20 or less, or expire or are cancelled.</p></li></ol>
+      <div class="example-result"><span>What this shows</span><p>A market order prioritizes execution. A limit order controls the maximum purchase price but may leave part or all of the order unfilled.</p></div>
+      <p class="example-assumptions"><strong>Example assumptions:</strong> Illustrative order book held constant during execution, with no competing orders, fees, or tax. Real quotes can change before an order arrives.</p>
+    </div>
+    </section>
+    <section>
+      <h2 id="build-your-plan"><span class="section-index" aria-hidden="true">05</span><span>Your next-step checklist</span></h2>
       
     <ol class="decision-steps">
       
@@ -540,7 +560,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
         <div id="what-to-watch-for" class="callout"><div class="callout-label">Before you act</div><p>Fast markets can produce prices far from a recent quote. Complex order types and short-term trading add execution risk that beginners may not need.</p></div>
     </section>
     <section>
-      <h2 id="more-detail"><span class="section-index" aria-hidden="true">05</span><span>Explore further, if useful</span></h2>
+      <h2 id="more-detail"><span class="section-index" aria-hidden="true">06</span><span>Explore further, if useful</span></h2>
       <p class="guide-extra-intro">The essentials are above. Open a topic below when it helps answer your next question.</p><details class="guide-detail" id="deeper-look"><summary>Price, value, and execution are different</summary><p>A quoted price is information about the latest trade, not a guarantee for the next one. In a liquid security, many orders may sit close together. In a thin market, the next available seller can be far above the last trade or the next buyer far below it. That gap is why order type matters.</p><p>A market order says execution matters more than price. A limit order says the trade should happen only at the stated price or better. A limit can protect the price but may never fill. Neither order type answers the larger question of whether the security is worth owning.</p></details><details class="guide-detail" id="decision-map"><summary>Execution is part of the return</summary><p>A security can be a sensible long-term holding and still be traded poorly. Spreads often widen near market open, around major announcements, or when the underlying market is closed. An ETF that owns overseas securities may trade while some of those holdings are not producing fresh prices, which can make its quoted price less certain. The order screen is therefore not a neutral final step; it is part of implementation.</p><p>Order size matters relative to available liquidity. Buying one hundred units of a heavily traded fund may barely affect the quote, while selling the same dollar amount of a thin small-company stock can move through several price levels. Break a large decision into the investment thesis, the urgency of completion, and the cost of waiting. A limit order controls price, but an unrealistic limit can create a different cost by leaving needed cash or exposure unfinished.</p>
     <div class="decision-map" role="table" aria-label="Practical decision map">
       <div class="decision-map-head" role="row">
@@ -582,8 +602,8 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     </div></div>
     </section>
     <section>
-      <h2 id="sources"><span class="section-index" aria-hidden="true">06</span><span>Sources and further reading</span></h2>
-      <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Investing Basics</a></li></ul>
+      <h2 id="sources"><span class="section-index" aria-hidden="true">07</span><span>Sources and further reading</span></h2>
+      <ul class="source-list"><li><a href="https://www.investor.gov/introduction-investing" target="_blank" rel="noopener noreferrer">Investor.gov: Investing Basics</a></li><li><a href="https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work/types-orders" target="_blank" rel="noopener noreferrer">Investor.gov: Types of Orders</a></li></ul>
     </section>
   </article>
   <!-- ARTICLE_BODY_END -->
@@ -600,17 +620,17 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
     <a href="stocks-explained.html" class="related-card reveal">
         <div class="cat">Asset Classes</div>
         <h3>What Is a Stock, Really?</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">7 min read &middot; Beginner</div>
       </a>
     <a href="investing-vs-speculating.html" class="related-card reveal">
         <div class="cat">Fundamentals</div>
         <h3>The Actual Difference Between Investing and Speculating</h3>
-        <div class="meta">7 min read &middot; Beginner</div>
+        <div class="meta">8 min read &middot; Beginner</div>
       </a>
     <a href="investor-behaviour.html" class="related-card reveal">
         <div class="cat">Market Behaviour</div>
         <h3>Why Smart People Make Bad Investment Decisions</h3>
-        <div class="meta">6 min read &middot; Beginner</div>
+        <div class="meta">7 min read &middot; Beginner</div>
       </a>
   </div>
   <!-- ARTICLE_RELATED_END -->

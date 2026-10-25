@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="304" viewBox="0 0 640 304" role="img" aria-labelledby="title description">
+  <title id="title">Approximate annual MER cost</title>
+  <desc id="description">On a constant $60,000 balance, a 0.25% MER costs about $150 annually and a 1.75% MER costs about $1,050, a $900 difference. 0.25% MER: $150. $60,000 × 0.0025 1.75% MER: $1,050. $60,000 × 0.0175</desc>
+  <rect width="640" height="304" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1a1816"><g data-value="150">
+        <text x="32" y="56" font-size="34" font-weight="600">0.25% MER</text>
+        <text x="608" y="96" text-anchor="end" font-size="34" font-weight="600" fill="#1d6b45">$150</text>
+        <rect x="32" y="114" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="114" width="82.286" height="20" rx="4" fill="#1d6b45"/>
+      </g>
+<g data-value="1050">
+        <text x="32" y="184" font-size="34" font-weight="600">1.75% MER</text>
+        <text x="608" y="224" text-anchor="end" font-size="34" font-weight="600" fill="#8b642b">$1,050</text>
+        <rect x="32" y="242" width="576" height="20" rx="4" fill="#efede6"/>
+        <rect x="32" y="242" width="576.000" height="20" rx="4" fill="#8b642b"/>
+      </g></g>
+</svg>
