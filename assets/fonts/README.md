@@ -1,9 +1,9 @@
 # Accessible Finance font assets
 
 These are unmodified WOFF2 files downloaded from Google Fonts on October 23,
-2026. As of October 25, the public site, planner and guide illustrations use
-two families: Inter for reading text, navigation and labels; Instrument Serif
-for display headings and featured values. Fonts are served and cached from the
+2026. As of October 26, the public site and planner use three families: Literata
+for reading text, Inter for navigation, controls and diagram labels, and
+Instrument Serif for headings and featured values. Fonts are served and cached from the
 site's own origin. No additional package or paid service is required.
 
 ## Included fonts
@@ -22,17 +22,21 @@ and German use these Latin subsets. The original font families do not contain
 Persian glyphs; the Farsi translation continues to use the existing system
 fallback font stack.
 
-Use `fonts-c0171d45b950.css`. This stylesheet defines only Inter and Instrument
-Serif. The previous stylesheet, Literata files and their license are retained
-for cached-page compatibility and provenance; current pages do not load them.
-The body token aliases `--sans`, including in the guide template and planner.
-Decorative body-copy italics are upright; semantic emphasis remains intact.
+Use `fonts-00b70c3ea8c7.css`. This stylesheet defines all three families.
+The previous two-family stylesheet is retained for cached-page compatibility.
+The `--body`, `--sans`, and `--serif` tokens assign each family a consistent role.
+`scripts/type-scale.cjs` generates `type-scale.css` and supplies the SVG generator
+with shared sizes: 14px metadata and controls, 16px compact text, 18px reading
+text, 20px introductions, 28px subheadings, 40px section headings and 64px page
+titles. Reading text, introductions and headings adapt at phone/tablet widths.
+Guide diagrams use 18px labels, 16px details and 32px featured values, with
+mobile images capped at their 320px intrinsic width so labels never enlarge
+beyond that scale. Spacing uses the same 4/8/12/16/20/24/32/48/64/96px steps.
 All font and stylesheet filenames contain a
 12-character SHA-256 prefix, allowing immutable caching. If the bytes change,
 publish a new filename and update references. Do not overwrite an existing
 hashed filename. The complete font collection is 361,868 bytes; that is the
-repository size, not the amount necessarily downloaded on each page. The two
-active families total 200,472 bytes across all styles and language subsets.
+repository size, not the amount necessarily downloaded on each page.
 
 ## Licenses and provenance
 

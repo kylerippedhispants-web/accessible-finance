@@ -2,6 +2,10 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const { type, line: lineHeight, spacing } = require('./type-scale.cjs');
+const labelLeading = Math.ceil(type.body * lineHeight.label / spacing[4]) * spacing[4];
+const detailLeading = type.compact * lineHeight.label;
+const valueLeading = type.value * lineHeight.label;
 
 // Editorial diagrams. Phone artwork reflows the same data instead of shrinking
 // a desktop illustration. Exact values also remain available as HTML text.
@@ -50,16 +54,15 @@ function wrap(value, limit) {
 }
 
 function text(lines, x, y, size, options = {}) {
-  const { colour = palette.ink, serif = false, weight = 400, anchor = 'start', leading = size * 1.35 } = options;
-  return `<text x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${colour}" text-anchor="${anchor}"${serif ? ' font-family="Instrument Serif, Georgia, serif"' : ''}>${lines.map((line, index) => `<tspan x="${x}" dy="${index ? leading : 0}">${escapeXml(line)}</tspan>`).join('')}</text>`;
+  const { colour = palette.ink, serif = false, weight = 400, anchor = 'start', leading = size * 1.5, role = serif ? 'value' : weight === 500 ? 'label' : 'detail' } = options;
+  return `<text data-text-role="${role}" x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${colour}" text-anchor="${anchor}"${serif ? ' font-family="Instrument Serif, Georgia, serif"' : ''}>${lines.map((line, index) => `<tspan x="${x}" dy="${index ? leading : 0}">${escapeXml(line)}</tspan>`).join('')}</text>`;
 }
 
 function layout(visual, mobile) {
-  const width = mobile ? 360 : 640;
-  const inset = mobile ? 24 : 36;
+  const width = mobile ? 320 : 640;
+  const inset = mobile ? spacing[20] : spacing[24];
   const columns = visual.type === 'compare' && visual.items.length === 2 && !mobile;
-  const detailLeading = mobile ? 28 : 24;
-  const detailSize = mobile ? 21 : 18;
+  const detailSize = type.compact;
   // Reserve the font's descenders, then apply the same bottom inset as the top.
   // A final row does not need the inter-row space used by its predecessors.
   const descender = Math.ceil(detailSize * 0.3);
@@ -79,23 +82,23 @@ function layout(visual, mobile) {
   for (const row of rows) {
     row.top = columns ? inset : top;
     if (visual.type === 'bars') {
-      row.labelY = 22;
-      row.valueY = mobile ? 65 : 24;
-      row.barY = mobile ? 84 : 48;
-      row.detailY = row.barY + 51;
-      row.height = (mobile ? 130 : 100) + row.detail.length * detailLeading;
+      row.labelY = 24;
+      row.valueY = mobile ? row.labelY + row.label.length * labelLeading + spacing[12] : 24;
+      row.barY = mobile ? row.valueY + 16 : 48;
+      row.detailY = row.barY + 48;
+      row.height = row.detailY + (row.detail.length - 1) * detailLeading + descender + spacing[32];
     } else if (visual.type === 'flow') {
-      row.labelY = 21;
-      row.valueY = row.labelY + row.label.length * (mobile ? 28 : 25) + 15;
-      row.detailY = row.valueY + row.value.length * 42;
-      row.height = 70 + row.label.length * (mobile ? 28 : 25) + row.value.length * 42 + row.detail.length * detailLeading;
+      row.labelY = 20;
+      row.valueY = row.labelY + row.label.length * labelLeading + spacing[12];
+      row.detailY = row.valueY + row.value.length * valueLeading;
+      row.height = row.detailY + (row.detail.length - 1) * detailLeading + descender + spacing[32];
     } else {
-      row.labelY = 43;
-      row.valueY = row.labelY + (columns ? labelLines : row.label.length) * (mobile ? 28 : 25) + 18;
-      row.detailY = row.valueY + (columns ? valueLines : row.value.length) * 42 + 5;
+      row.labelY = 48;
+      row.valueY = row.labelY + (columns ? labelLines : row.label.length) * labelLeading + spacing[12];
+      row.detailY = row.valueY + (columns ? valueLines : row.value.length) * valueLeading;
       const finalLine = row.detailY + ((columns ? detailLines : row.detail.length) - 1) * detailLeading;
-      row.cardHeight = finalLine + descender + 24;
-      row.height = row.cardHeight + 16;
+      row.cardHeight = finalLine + descender + (mobile ? spacing[20] : spacing[24]);
+      row.height = row.cardHeight + spacing[16];
     }
     row.contentBottom = row.detailY + (row.detail.length - 1) * detailLeading + descender;
     top += row.height;
@@ -130,36 +133,36 @@ function createGuideVisual(id, visual, mobile = false) {
       const barY = top + row.barY;
       const barWidth = item.value / maximum * contentWidth;
       drawing = `<g data-value="${item.value}" data-row="${index}">
-        ${text(label, inset, top + row.labelY, mobile ? 22 : 21, { weight: 500, leading: 28 })}
-        ${text(value, width - inset, top + row.valueY, mobile ? 34 : 32, { serif: true, colour: palette.green, anchor: 'end' })}
+        ${text(label, inset, top + row.labelY, type.body, { weight: 500, leading: labelLeading })}
+        ${text(value, width - inset, top + row.valueY, type.value, { serif: true, colour: palette.green, anchor: 'end' })}
         <path d="M${inset} ${barY - 5}v32 M${width - inset} ${barY - 5}v32" stroke="${palette.line}"/>
         <rect x="${inset}" y="${barY}" width="${contentWidth}" height="22" rx="3" fill="${palette.tint}"/>
         <rect data-bar="true" x="${inset}" y="${barY}" width="${barWidth.toFixed(3)}" height="22" rx="3" fill="${palette.green}"/>
-        ${text(detail, inset, top + row.detailY, mobile ? 21 : 18, { colour: palette.muted, leading: mobile ? 28 : 24 })}
+        ${text(detail, inset, top + row.detailY, type.compact, { colour: palette.muted, leading: detailLeading })}
       </g>`;
     } else if (visual.type === 'flow') {
       const railX = inset + 15;
-      const x = inset + 54;
+      const x = inset + 40;
       drawing = `<g data-row="${index}">
         ${!last ? `<path d="M${railX} ${top + 29}V${top + row.height + 1}" stroke="#b7cbbd" stroke-width="1.5"/>
         <path d="m${railX - 4} ${top + row.height - 4} 4 5 4-5" fill="none" stroke="${palette.green}" stroke-width="1.5"/>` : ''}
         <circle cx="${railX}" cy="${top + 15}" r="7" fill="${last ? palette.green : palette.paper}" stroke="${palette.green}" stroke-width="1.5"/>
-        ${text(label, x, top + row.labelY, mobile ? 22 : 20, { weight: 500, leading: 28 })}
-        ${text(value, x, top + row.valueY, mobile ? 34 : 36, { serif: true, colour: palette.green, leading: 42 })}
-        ${text(detail, x, top + row.detailY, mobile ? 21 : 18, { colour: palette.muted, leading: mobile ? 28 : 24 })}
+        ${text(label, x, top + row.labelY, type.body, { weight: 500, leading: labelLeading })}
+        ${text(value, x, top + row.valueY, type.value, { serif: true, colour: palette.green, leading: valueLeading })}
+        ${text(detail, x, top + row.detailY, type.compact, { colour: palette.muted, leading: detailLeading })}
         ${!last ? `<path d="M${x} ${top + row.height - 20}H${width - inset}" stroke="${palette.line}"/>` : ''}
       </g>`;
     } else {
       const cardX = columns ? inset + index * (contentWidth + 20) / 2 : inset;
       const cardWidth = columns ? (contentWidth - 20) / 2 : contentWidth;
       const y = top;
-      const padding = columns ? 20 : 22;
+      const padding = mobile ? spacing[20] : spacing[24];
       drawing = `<g data-row="${index}">
         <rect x="${cardX}" y="${y}" width="${cardWidth}" height="${row.cardHeight}" rx="8" fill="${palette.paper}" stroke="${palette.line}"/>
-        <path d="M${cardX + padding} ${y + 14}h28" stroke="${palette.green}" stroke-width="2"/>
-        ${text(label, cardX + padding, y + row.labelY, mobile ? 22 : 20, { weight: 500, leading: 28 })}
-        ${text(value, cardX + padding, y + row.valueY, mobile ? 34 : 32, { serif: true, colour: palette.green, leading: 42 })}
-        ${text(detail, cardX + padding, y + row.detailY, mobile ? 21 : 18, { colour: palette.muted, leading: mobile ? 28 : 24 })}
+        <path d="M${cardX + padding} ${y + 20}h24" stroke="${palette.green}" stroke-width="2"/>
+        ${text(label, cardX + padding, y + row.labelY, type.body, { weight: 500, leading: labelLeading })}
+        ${text(value, cardX + padding, y + row.valueY, type.value, { serif: true, colour: palette.green, leading: valueLeading })}
+        ${text(detail, cardX + padding, y + row.detailY, type.compact, { colour: palette.muted, leading: detailLeading })}
       </g>`;
     }
     return drawing;

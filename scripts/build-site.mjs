@@ -1,11 +1,14 @@
-import { copyFile, cp, mkdir, readdir, rm } from 'node:fs/promises';
+import { copyFile, cp, mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import typeScale from './type-scale.cjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const output = join(root, 'dist');
 const publishedDirectories = ['assets', 'guides', 'us'];
 const publishedExtensions = new Set(['.css', '.html', '.js', '.jpg', '.jpeg', '.png', '.svg', '.txt', '.xml']);
+
+await writeFile(join(root, 'type-scale.css'), typeScale.createTypeStylesheet());
 
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });

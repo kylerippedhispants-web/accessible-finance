@@ -19,10 +19,13 @@ for (const width of [320, 768, 1440]) {
       await expect(example.locator('.example-steps > li')).toHaveCount(3);
       const image = example.getByRole('img');
       await image.scrollIntoViewIfNeeded();
-      const imageWidth = width <= 600 ? 360 : 640;
+      const imageWidth = width <= 600 ? 320 : 640;
       const imageName = `${slug}${width <= 600 ? '-mobile' : ''}.svg`;
       await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBe(imageWidth);
       await expect.poll(() => image.evaluate((element) => new URL((element as HTMLImageElement).currentSrc).pathname)).toBe(`/assets/guide-visuals/${imageName}`);
+      const reservedSize = width <= 600 ? example.locator('picture source') : image;
+      await expect(reservedSize).toHaveAttribute('width', String(imageWidth));
+      await expect(reservedSize).toHaveAttribute('height', String(await image.evaluate((element) => (element as HTMLImageElement).naturalHeight)));
       expect(await image.evaluate((element) => {
         const box = element.getBoundingClientRect();
         return box.left >= 0 && box.right <= innerWidth;
@@ -37,6 +40,87 @@ for (const width of [320, 768, 1440]) {
       expect(audit.violations).toEqual([]);
     });
   }
+}
+
+for (const width of [320, 768, 1440]) {
+  test(`guide paragraphs, lists, and headings use the shared reading scale at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 950 });
+    await page.goto('/guides/rebalancing');
+    const bodySize = width <= 600 ? 17 : 18;
+    for (const selector of ['.article-body section > p', '.article-body section > ul:not(.source-list) > li']) {
+      const copy = page.locator(selector).first();
+      await expect(copy).toBeVisible();
+      await expect(copy).toHaveCSS('font-family', /Literata/);
+      await expect(copy).toHaveCSS('font-size', `${bodySize}px`);
+      expect(await copy.evaluate((element) => {
+        const styles = getComputedStyle(element);
+        return Number.parseFloat(styles.lineHeight) / Number.parseFloat(styles.fontSize);
+      })).toBeCloseTo(1.75, 2);
+    }
+    const heading = page.locator('.article-body h2').first();
+    await expect(heading).toHaveCSS('font-family', /Instrument Serif/);
+    await expect(heading).toHaveCSS('font-size', `${width <= 600 ? 32 : width <= 768 ? 36 : 40}px`);
+    expect(await heading.evaluate((element) => {
+      const styles = getComputedStyle(element);
+      return Number.parseFloat(styles.lineHeight) / Number.parseFloat(styles.fontSize);
+    })).toBeCloseTo(1.15, 2);
+  });
+}
+
+test('guide reading text follows a 200% text-size preference and reflows on a narrow screen', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 950 });
+  await page.goto('/guides/compound-interest');
+  // Changing the root size models a browser text-size preference, not page zoom.
+  await page.addStyleTag({ content: 'html { font-size: 200% !important; }' });
+  await expect(page.locator('h1')).toHaveCSS('font-size', '80px');
+  const paragraph = page.locator('.article-body section > p').first();
+  await expect(paragraph).toHaveCSS('font-size', '34px');
+  await paragraph.scrollIntoViewIfNeeded();
+  await expect(paragraph).toBeVisible();
+  expect(await paragraph.evaluate((element) => {
+    const bounds = element.getBoundingClientRect();
+    return bounds.left >= 0 && bounds.right <= innerWidth && element.scrollWidth <= element.clientWidth;
+  })).toBe(true);
+  // Diagrams have a text equivalent that can grow with the reader's preference.
+  const values = page.locator('.visual-values');
+  await values.locator('summary').click();
+  await expect(values).toHaveAttribute('open', '');
+  await expect(values.locator('dd').nth(1)).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+for (const width of [320, 390, 600, 1440]) {
+  test(`guide diagrams preserve readable role sizes without enlargement at ${width}px`, async ({ page, request }) => {
+    await page.setViewportSize({ width, height: 950 });
+    // Cover the bar, flow, and comparison layouts at both source breakpoints.
+    for (const slug of ['compound-interest', 'tfsa-explained', 'rebalancing']) {
+      await page.goto(`/guides/${slug}`);
+      const image = page.locator('.guide-visual img');
+      await image.scrollIntoViewIfNeeded();
+      await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBe(width <= 600 ? 320 : 640);
+      const dimensions = await image.evaluate((element) => {
+        const illustration = element as HTMLImageElement;
+        return { source: illustration.currentSrc, width: illustration.getBoundingClientRect().width, intrinsicWidth: illustration.naturalWidth };
+      });
+      const response = await request.get(dimensions.source);
+      expect(response.ok(), slug).toBe(true);
+      const roles = await page.evaluate((source) => {
+        const svg = new DOMParser().parseFromString(source, 'image/svg+xml');
+        return Array.from(svg.querySelectorAll('text[data-text-role]')).map((text) => ({
+          role: text.getAttribute('data-text-role'),
+          size: Number(text.getAttribute('font-size')),
+        }));
+      }, await response.text());
+      const scale = dimensions.width / dimensions.intrinsicWidth;
+      expect(scale, slug).toBeLessThanOrEqual(1.001);
+      expect(roles.length, slug).toBeGreaterThan(0);
+      for (const { role, size } of roles) {
+        expect(size, `${slug} ${role}`).toBe(role === 'value' ? 32 : role === 'label' ? 18 : 16);
+        // At 320px, page gutters can reduce the intrinsic image by about 15%.
+        expect(size * scale, `${slug} ${role} effective size`).toBeGreaterThanOrEqual(role === 'value' ? 26 : role === 'label' ? 14.5 : 13);
+      }
+    }
+  });
 }
 
 test('the main reading path uses one example and keeps supporting examples optional', async ({ page }) => {
@@ -247,12 +331,23 @@ test('every guide image loads its real fonts and its labels fit without overlaps
       const normalizeFamily = (family: string) => family.trim().replace(/^['"]|['"]$/g, '');
       return {
         loadedFamilies: Array.from(document.fonts).filter((font) => font.status === 'loaded').map((font) => normalizeFamily(font.family)).sort(),
-        inter: document.fonts.check('500 20px Inter'),
-        instrumentSerif: document.fonts.check('400 36px "Instrument Serif"'),
+        inter: document.fonts.check('500 18px Inter'),
+        instrumentSerif: document.fonts.check('400 32px "Instrument Serif"'),
         usedFamilies: [...new Set(Array.from(document.querySelectorAll('svg text')).map((text) => normalizeFamily(getComputedStyle(text).fontFamily.split(',')[0])))].sort(),
       };
     });
     expect(fonts, file).toEqual({ loadedFamilies: ['Instrument Serif', 'Inter'], inter: true, instrumentSerif: true, usedFamilies: ['Instrument Serif', 'Inter'] });
+    const textRoles = await page.locator('svg text').evaluateAll((texts) => texts.map((text) => ({
+      role: text.getAttribute('data-text-role'),
+      size: Number.parseFloat(getComputedStyle(text).fontSize),
+      family: getComputedStyle(text).fontFamily.split(',')[0].replaceAll(/["']/g, '').trim(),
+    })));
+    expect(textRoles.length, file).toBeGreaterThan(0);
+    for (const { role, size, family } of textRoles) {
+      expect(['label', 'detail', 'value'], file).toContain(role);
+      expect(size, `${file} ${role}`).toBe(role === 'value' ? 32 : role === 'label' ? 18 : 16);
+      expect(family, `${file} ${role}`).toBe(role === 'value' ? 'Instrument Serif' : 'Inter');
+    }
     const geometry = await page.locator('svg').evaluate((svg) => {
       const box = svg.getBoundingClientRect();
       const lines = Array.from(svg.querySelectorAll('text, tspan'))

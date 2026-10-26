@@ -122,6 +122,17 @@
     }
   ],
   "stylesheet": {
+    "filename": "fonts-00b70c3ea8c7.css",
+    "sha256": "00b70c3ea8c7b255363431c62f4bb90df1a18162ef19fbc3a7ea58aef102d9ea",
+    "families": [
+      "Instrument Serif",
+      "Inter",
+      "Literata"
+    ],
+    "updatedAt": "2026-10-26",
+    "note": "Restored editorial body typeface; use shared type-scale.css for consistent text roles."
+  },
+  "previousStylesheet": {
     "filename": "fonts-c0171d45b950.css",
     "sha256": "c0171d45b950b9bd14e6b0262c381a9bc712d90f091cea3ba633686312b6b611",
     "families": [
@@ -130,9 +141,5 @@
     ],
     "updatedAt": "2026-10-25",
     "note": "Two-family stylesheet. Original Literata assets and previous stylesheet remain for cached-page compatibility; current pages do not load them."
-  },
-  "previousStylesheet": {
-    "filename": "fonts-00b70c3ea8c7.css",
-    "sha256": "00b70c3ea8c7b255363431c62f4bb90df1a18162ef19fbc3a7ea58aef102d9ea"
   }
 }

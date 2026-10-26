@@ -31,13 +31,11 @@ for (const [type, containerId, addId] of [
 }
 
 for (const width of [320, 768, 1440]) {
-  test(`public pages and planner share two local font families at ${width}px`, async ({ page, context, baseURL }) => {
+  test(`public pages and planner share three local fonts and heading roles at ${width}px`, async ({ page, context, baseURL }) => {
     const externalFonts: string[] = [];
-    const retiredFontRequests: string[] = [];
     await context.route('**/*', (route) => {
       const url = new URL(route.request().url());
       if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') externalFonts.push(url.hostname);
-      if (/literata/i.test(url.pathname)) retiredFontRequests.push(url.pathname);
       return url.origin === new URL(baseURL!).origin ? route.continue() : route.abort();
     });
     await page.setViewportSize({ width, height: 900 });
@@ -46,24 +44,28 @@ for (const width of [320, 768, 1440]) {
       await expect(page.locator('h1')).toBeVisible();
       const typography = await page.evaluate(async () => {
         await document.fonts.ready;
+        const heading = getComputedStyle(document.querySelector('h1')!);
         return {
           loadedFamilies: [...new Set(Array.from(document.fonts)
             .filter((face) => face.status === 'loaded')
             .map((face) => face.family.replaceAll(/["']/g, '')))].sort(),
           body: getComputedStyle(document.body).fontFamily.split(',')[0].replaceAll(/["']/g, '').trim(),
-          heading: getComputedStyle(document.querySelector('h1')!).fontFamily.split(',')[0].replaceAll(/["']/g, '').trim(),
-          fitsViewport: document.documentElement.scrollWidth <= innerWidth,
+          heading: heading.fontFamily.split(',')[0].replaceAll(/["']/g, '').trim(),
+          headingSize: Number.parseFloat(heading.fontSize),
+          headingLineHeight: Number.parseFloat(heading.lineHeight) / Number.parseFloat(heading.fontSize),
+          fitsViewport: document.documentElement.scrollWidth <= document.documentElement.clientWidth,
         };
       });
-      expect(typography, path).toEqual({
-        loadedFamilies: ['Instrument Serif', 'Inter'],
-        body: 'Inter',
+      expect(typography, path).toMatchObject({
+        loadedFamilies: ['Instrument Serif', 'Inter', 'Literata'],
+        body: 'Literata',
         heading: 'Instrument Serif',
+        headingSize: width <= 600 ? 40 : width <= 768 ? 48 : 64,
         fitsViewport: true,
       });
+      expect(typography.headingLineHeight, path).toBeCloseTo(1.08, 2);
     }
     expect(externalFonts).toEqual([]);
-    expect(retiredFontRequests).toEqual([]);
   });
 }
 

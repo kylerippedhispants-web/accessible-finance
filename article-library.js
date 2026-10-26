@@ -1039,7 +1039,7 @@
       <figure class="guide-visual">
         <figcaption><strong>${escapeHtml(visual.title)}</strong></figcaption>
         <picture>
-          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/${escapeHtml(item.guideId)}-mobile.svg" width="360"${dimensions ? ` height="${dimensions.mobile.height}"` : ''}>
+          <source media="(max-width: 600px)" srcset="/assets/guide-visuals/${escapeHtml(item.guideId)}-mobile.svg" width="${dimensions?.mobile.width || 320}"${dimensions ? ` height="${dimensions.mobile.height}"` : ''}>
           <img src="/assets/guide-visuals/${escapeHtml(item.guideId)}.svg" width="640"${dimensions ? ` height="${dimensions.desktop.height}"` : ''} loading="lazy" decoding="async" alt="${escapeHtml(visual.description)}">
         </picture>
       </figure>
