@@ -51,8 +51,8 @@
 
 
 <link rel="preload" href="/assets/fonts/instrument-serif-normal-latin.5eb09b5ac0e2.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/literata-normal-latin.9adbeac5b167.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/fonts/fonts-00b70c3ea8c7.css">
+<link rel="preload" href="/assets/fonts/inter-normal-latin.3100e775e861.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/fonts-c0171d45b950.css">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -77,7 +77,7 @@
   --border-strong: #c9c3b6;
   --serif: 'Instrument Serif', Georgia, serif;
   --sans: 'Inter', sans-serif;
-  --body: 'Literata', Georgia, serif;
+  --body: var(--sans);
 }
 
 html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -190,7 +190,7 @@ nav.site-nav {
 }
 .section-title em { font-style: italic; color: var(--green); font-weight: 400; }
 .section-sub {
-  font-family: var(--body); font-style: italic;
+  font-family: var(--body); font-style: normal;
   font-size: 17px; color: var(--ink2);
   margin-top: 16px; max-width: 540px; line-height: 1.6;
 }
@@ -751,7 +751,7 @@ nav.site-nav {
   gap: 32px; margin-bottom: 64px; flex-wrap: wrap;
 }
 .glossary-head .right {
-  font-family: var(--body); font-style: italic;
+  font-family: var(--body); font-style: normal;
   color: var(--ink2); max-width: 360px; font-size: 17px;
 }
 .glossary-layout {
@@ -761,7 +761,7 @@ nav.site-nav {
 .glossary-search {
   width: 100%; background: transparent;
   border: 0; border-bottom: 1px solid var(--border-strong);
-  padding: 14px 0; font-family: var(--body); font-size: 16px; font-style: italic;
+  padding: 14px 0; font-family: var(--body); font-size: 16px; font-style: normal;
   color: var(--ink);
   transition: border-color 0.3s;
 }
@@ -866,7 +866,7 @@ footer.site-footer {
   letter-spacing: 0.22em; text-transform: uppercase; color: var(--bg);
 }
 .footer-brand p {
-  font-family: var(--body); font-style: italic;
+  font-family: var(--body); font-style: normal;
   font-size: 16px; line-height: 1.65; max-width: 360px;
   color: rgba(247,245,240,0.55);
 }

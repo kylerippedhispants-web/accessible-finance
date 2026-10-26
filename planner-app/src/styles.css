@@ -28,7 +28,7 @@
   --warning-light: #fff5df;
   --serif: 'Instrument Serif', Georgia, serif;
   --sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --body: 'Literata', Georgia, serif;
+  --body: var(--sans);
   --shadow: 0 20px 55px -38px rgba(26, 24, 22, 0.38);
   --shadow-strong: 0 28px 75px -42px rgba(26, 24, 22, 0.48);
 }

@@ -18,8 +18,8 @@
 
 
 <link rel="preload" href="/assets/fonts/instrument-serif-normal-latin.5eb09b5ac0e2.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/literata-normal-latin.9adbeac5b167.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/fonts/fonts-00b70c3ea8c7.css">
+<link rel="preload" href="/assets/fonts/inter-normal-latin.3100e775e861.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/fonts-c0171d45b950.css">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,7 +32,7 @@
   --border: #e4e0d8; --border-strong: #c9c3b6;
   --serif: 'Instrument Serif', Georgia, serif;
   --sans: 'Inter', sans-serif;
-  --body: 'Literata', Georgia, serif;
+  --body: var(--sans);
 }
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
@@ -136,7 +136,7 @@ footer.site-footer { background: var(--ink); color: var(--bg); padding: 100px 40
 .footer-brand .wordmark-row { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
 .footer-brand img { width: 36px; height: 36px; border-radius: 8px; }
 .footer-brand .name { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--bg); }
-.footer-brand p { font-family: var(--body); font-style: italic; font-size: 16px; line-height: 1.65; max-width: 360px; color: rgba(247,245,240,0.55); }
+.footer-brand p { font-family: var(--body); font-style: normal; font-size: 16px; line-height: 1.65; max-width: 360px; color: rgba(247,245,240,0.55); }
 .footer-col h4 { font-family: var(--body); font-size: 13px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 24px; }
 .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
 .footer-col a { font-family: var(--body); font-size: 15px; color: rgba(247,245,240,0.78); transition: color 0.2s; }

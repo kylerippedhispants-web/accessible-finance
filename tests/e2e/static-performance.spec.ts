@@ -30,26 +30,42 @@ for (const [type, containerId, addId] of [
   });
 }
 
-test('public pages and planner load their real fonts without a third-party font connection', async ({ page, context, baseURL }) => {
-  const externalFonts: string[] = [];
-  await context.route('**/*', (route) => {
-    const url = new URL(route.request().url());
-    if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') externalFonts.push(url.hostname);
-    return url.origin === new URL(baseURL!).origin ? route.continue() : route.abort();
-  });
-  await page.setViewportSize({ width: 390, height: 844 });
-  for (const path of ['/', '/guides/compound-interest', '/planner/']) {
-    await page.goto(path);
-    await expect(page.locator('h1')).toBeVisible();
-    const loadedFamilies = await page.evaluate(async () => {
-      await document.fonts.ready;
-      return Array.from(document.fonts).filter((face) => face.status === 'loaded').map((face) => face.family.replaceAll('"', ''));
+for (const width of [320, 768, 1440]) {
+  test(`public pages and planner share two local font families at ${width}px`, async ({ page, context, baseURL }) => {
+    const externalFonts: string[] = [];
+    const retiredFontRequests: string[] = [];
+    await context.route('**/*', (route) => {
+      const url = new URL(route.request().url());
+      if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') externalFonts.push(url.hostname);
+      if (/literata/i.test(url.pathname)) retiredFontRequests.push(url.pathname);
+      return url.origin === new URL(baseURL!).origin ? route.continue() : route.abort();
     });
-    expect(loadedFamilies).toEqual(expect.arrayContaining(['Instrument Serif', 'Literata', 'Inter']));
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-  }
-  expect(externalFonts).toEqual([]);
-});
+    await page.setViewportSize({ width, height: 900 });
+    for (const path of ['/', '/guides/rebalancing', '/about', '/articles', '/cash-flow', '/us/', '/planner/']) {
+      await page.goto(path);
+      await expect(page.locator('h1')).toBeVisible();
+      const typography = await page.evaluate(async () => {
+        await document.fonts.ready;
+        return {
+          loadedFamilies: [...new Set(Array.from(document.fonts)
+            .filter((face) => face.status === 'loaded')
+            .map((face) => face.family.replaceAll(/["']/g, '')))].sort(),
+          body: getComputedStyle(document.body).fontFamily.split(',')[0].replaceAll(/["']/g, '').trim(),
+          heading: getComputedStyle(document.querySelector('h1')!).fontFamily.split(',')[0].replaceAll(/["']/g, '').trim(),
+          fitsViewport: document.documentElement.scrollWidth <= innerWidth,
+        };
+      });
+      expect(typography, path).toEqual({
+        loadedFamilies: ['Instrument Serif', 'Inter'],
+        body: 'Inter',
+        heading: 'Instrument Serif',
+        fitsViewport: true,
+      });
+    }
+    expect(externalFonts).toEqual([]);
+    expect(retiredFontRequests).toEqual([]);
+  });
+}
 
 test('homepage hero and mobile sections are visible even before JavaScript runs', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
