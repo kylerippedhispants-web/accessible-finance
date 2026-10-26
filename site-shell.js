@@ -8,7 +8,7 @@
   const shellSource = document.currentScript?.src || window.location.href;
   polishStyles.id = 'site-polish-styles';
   polishStyles.rel = 'stylesheet';
-  polishStyles.href = new URL('site-polish.css?v=20261025', shellSource).href;
+  polishStyles.href = new URL('site-polish.css?v=20261026', shellSource).href;
   if (!document.getElementById(polishStyles.id)) document.head.appendChild(polishStyles);
 
   const focusableSelector = [
