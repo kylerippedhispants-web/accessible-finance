@@ -16,6 +16,9 @@ authenticated harness cleanup.
 
 ## October 25 guide examples and consistent motion
 
+- [x] Simplify the site and planner to two font families: Inter for reading text
+  and UI, Instrument Serif for display headings and values. Share the same pair
+  with guide images and remove Literata from current stylesheets and preloads.
 - [x] Match image labels and values to the site's Inter and Instrument Serif
   fonts, using embedded glyph subsets so standalone SVG images render consistently.
 - [x] Refine the complete guide reading path: use one primary example, keep

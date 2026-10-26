@@ -19,7 +19,7 @@
   --border-strong: #c9c3b6;
   --serif: 'Instrument Serif', Georgia, serif;
   --sans: 'Inter', Arial, sans-serif;
-  --body: 'Literata', Georgia, serif;
+  --body: var(--sans);
 }
 
 html {

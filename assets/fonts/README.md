@@ -1,9 +1,10 @@
 # Accessible Finance font assets
 
 These are unmodified WOFF2 files downloaded from Google Fonts on October 23,
-2026. They preserve the site's existing Instrument Serif, Inter and Literata
-typography while allowing the site to serve and cache its fonts from its own
-origin. No additional package or paid service is required.
+2026. As of October 25, the public site, planner and guide illustrations use
+two families: Inter for reading text, navigation and labels; Instrument Serif
+for display headings and featured values. Fonts are served and cached from the
+site's own origin. No additional package or paid service is required.
 
 ## Included fonts
 
@@ -21,11 +22,17 @@ and German use these Latin subsets. The original font families do not contain
 Persian glyphs; the Farsi translation continues to use the existing system
 fallback font stack.
 
-Use `fonts-00b70c3ea8c7.css`. All font and stylesheet filenames contain a
+Use `fonts-c0171d45b950.css`. This stylesheet defines only Inter and Instrument
+Serif. The previous stylesheet, Literata files and their license are retained
+for cached-page compatibility and provenance; current pages do not load them.
+The body token aliases `--sans`, including in the guide template and planner.
+Decorative body-copy italics are upright; semantic emphasis remains intact.
+All font and stylesheet filenames contain a
 12-character SHA-256 prefix, allowing immutable caching. If the bytes change,
 publish a new filename and update references. Do not overwrite an existing
 hashed filename. The complete font collection is 361,868 bytes; that is the
-repository size, not the amount necessarily downloaded on each page.
+repository size, not the amount necessarily downloaded on each page. The two
+active families total 200,472 bytes across all styles and language subsets.
 
 ## Licenses and provenance
 
