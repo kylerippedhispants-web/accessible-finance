@@ -19,14 +19,19 @@ const mocks = vi.hoisted(() => ({
     user: {
       id: 'user-a',
       user_metadata: { first_name: 'Alex' },
-    },
+    } as { id: string; user_metadata: { first_name: string } } | null,
   },
   load: vi.fn<() => Promise<unknown>>(),
   save: vi.fn<(snapshot: unknown, revision: number | null) => Promise<{ revision: number }>>(),
+  download: vi.fn<(snapshot: PlannerSnapshot, filename?: string) => void>(),
 }));
 
 vi.mock('../planner-app/src/auth/AuthContext', () => ({
   useAuth: () => mocks.auth,
+}));
+
+vi.mock('../planner-app/src/data/planTransfer', () => ({
+  downloadPlanExport: mocks.download,
 }));
 
 vi.mock('../planner-app/src/data/supabaseRepository', () => ({
@@ -114,6 +119,7 @@ describe('PlannerProvider cloud coordination', () => {
     sessionStorage.clear();
     mocks.load.mockReset();
     mocks.save.mockReset();
+    mocks.download.mockReset();
     mocks.auth.ready = true;
     mocks.auth.user = {
       id: 'user-a',
@@ -188,6 +194,98 @@ describe('PlannerProvider cloud coordination', () => {
       expect(await currentPlanner().save()).toBe(false);
     });
     expect(mocks.save).toHaveBeenCalledTimes(1);
+  });
+
+  it('backs up a just-suspended draft without discarding it or persisting it in browser storage', async () => {
+    const userA = mocks.auth.user;
+    mocks.load.mockResolvedValue({ snapshot: namedSnapshot('Saved A plan'), revision: 7 });
+    await renderProvider();
+    act(() => currentPlanner().updatePlan((plan) => ({ ...plan, name: 'Unsaved A changes' })));
+    mocks.auth.user = null;
+    await renderProvider();
+
+    expect(currentPlanner().mode).toBeNull();
+    expect(currentPlanner().snapshot).toBeNull();
+    expect(currentPlanner().dirty).toBe(false);
+    expect(currentPlanner().hasSuspendedCloudDraft).toBe(true);
+    const beforeBackup = new Event('beforeunload', { cancelable: true });
+    window.dispatchEvent(beforeBackup);
+    expect(beforeBackup.defaultPrevented).toBe(true);
+
+    mocks.download.mockImplementationOnce(() => { throw new Error('Download unavailable'); });
+    expect(currentPlanner().exportSuspendedCloudDraft()).toBe(false);
+    const afterFailure = new Event('beforeunload', { cancelable: true });
+    window.dispatchEvent(afterFailure);
+    expect(afterFailure.defaultPrevented).toBe(true);
+
+    expect(currentPlanner().exportSuspendedCloudDraft()).toBe(true);
+    expect(mocks.download).toHaveBeenLastCalledWith(
+      expect.objectContaining({ plan: expect.objectContaining({ name: 'Unsaved A changes' }) }),
+      'accessible-finance-unsaved-plan.json',
+    );
+    expect(currentPlanner().hasSuspendedCloudDraft).toBe(true);
+    expect(sessionStorage.length).toBe(0);
+    expect(localStorage.length).toBe(0);
+    expect(mocks.save).not.toHaveBeenCalled();
+    const afterBackup = new Event('beforeunload', { cancelable: true });
+    window.dispatchEvent(afterBackup);
+    expect(afterBackup.defaultPrevented).toBe(false);
+
+    mocks.auth.user = userA;
+    await renderProvider();
+    expect(currentPlanner().snapshot?.plan.name).toBe('Unsaved A changes');
+    expect(currentPlanner().dirty).toBe(true);
+    expect(currentPlanner().hasSuspendedCloudDraft).toBe(false);
+    expect(currentPlanner().exportSuspendedCloudDraft()).toBe(false);
+
+    // A later expiry protects the newly suspended draft even if an earlier
+    // version was downloaded before the account was restored.
+    mocks.auth.user = null;
+    await renderProvider();
+    const newSuspension = new Event('beforeunload', { cancelable: true });
+    window.dispatchEvent(newSuspension);
+    expect(newSuspension.defaultPrevented).toBe(true);
+  });
+
+  it('does not expose a retained account A draft after account B signs in and out', async () => {
+    const userA = mocks.auth.user;
+    mocks.load.mockResolvedValue({ snapshot: namedSnapshot('Saved A plan'), revision: 7 });
+    await renderProvider();
+    act(() => currentPlanner().updatePlan((plan) => ({ ...plan, name: 'Private A draft' })));
+    mocks.auth.user = null;
+    await renderProvider();
+    expect(currentPlanner().hasSuspendedCloudDraft).toBe(true);
+
+    mocks.auth.user = { id: 'user-b', user_metadata: { first_name: 'Blair' } };
+    mocks.load.mockResolvedValue({ snapshot: namedSnapshot('Saved B plan'), revision: 9 });
+    await renderProvider();
+    expect(currentPlanner().snapshot?.plan.name).toBe('Saved B plan');
+    expect(currentPlanner().hasSuspendedCloudDraft).toBe(false);
+    expect(currentPlanner().exportSuspendedCloudDraft()).toBe(false);
+
+    mocks.auth.user = null;
+    await renderProvider();
+    expect(currentPlanner().hasSuspendedCloudDraft).toBe(false);
+    expect(currentPlanner().exportSuspendedCloudDraft()).toBe(false);
+    expect(mocks.download).not.toHaveBeenCalled();
+
+    mocks.auth.user = userA;
+    mocks.load.mockResolvedValue({ snapshot: namedSnapshot('Saved A plan'), revision: 7 });
+    await renderProvider();
+    expect(currentPlanner().snapshot?.plan.name).toBe('Private A draft');
+    expect(currentPlanner().dirty).toBe(true);
+  });
+
+  it('does not require a backup when the signed-out account had no unsaved changes', async () => {
+    mocks.load.mockResolvedValue({ snapshot: namedSnapshot('Saved plan'), revision: 7 });
+    await renderProvider();
+    mocks.auth.user = null;
+    await renderProvider();
+    expect(currentPlanner().hasSuspendedCloudDraft).toBe(false);
+    expect(currentPlanner().exportSuspendedCloudDraft()).toBe(false);
+    const leave = new Event('beforeunload', { cancelable: true });
+    window.dispatchEvent(leave);
+    expect(leave.defaultPrevented).toBe(false);
   });
 
   it('blocks a cloud write while a visible numeric draft is invalid', async () => {

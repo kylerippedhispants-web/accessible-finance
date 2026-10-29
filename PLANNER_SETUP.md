@@ -98,6 +98,53 @@ to use the locally installed video-recording helper.
 The `site-planner-integration.spec.ts` suite checks the complete navigation flow,
 an unsaved draft remaining open while reading a guide, and narrow mobile layouts.
 
+## Google sign-in for the existing Supabase accounts
+
+Google is an additional Supabase Auth provider. Keep the existing Supabase
+project and RLS ownership rules; no Firebase migration is required.
+
+1. In Google Auth Platform, use a project owned by Accessible Finance and create
+   a **Web application** OAuth client. Use only the standard `openid`, `email`,
+   and `profile` identity scopes. Do not request offline access or Google API scopes.
+2. Set the JavaScript origin to `https://accessible-finance.com` and the Google
+   redirect URI to the exact callback shown in Supabase's Google provider settings:
+   `https://drjfjdgzqmvjmrqfeluz.supabase.co/auth/v1/callback`.
+3. Put the client ID and client secret in **Supabase Authentication > Sign In /
+   Providers > Google**, then enable that provider. The client secret belongs only
+   in server-side provider settings, never in `VITE_` variables, source, or logs.
+4. Supabase's Site URL remains `https://accessible-finance.com/planner/`. Allow
+   `https://accessible-finance.com/planner/dashboard` as the return URL. Add only
+   exact local/Deploy Preview dashboard URLs needed for acceptance testing.
+5. Use the real homepage and privacy-policy URLs in Google's consent-screen
+   branding. Configure the audience appropriately before public release; a testing
+   audience limits access to named test users. Do not enter billing or upgrade a
+   plan for this login feature.
+
+The browser calls `signInWithOAuth` and retains the existing SDK implicit flow
+with `persistSession: false`. The SDK consumes the successful callback and removes
+its token fragment; the app clears failed-callback details and displays fixed,
+safe messages. Authentication tokens stay in memory. Refreshing still requires
+signing in again. Do not switch on storage persistence just to add Google login.
+
+If a cloud session ends with unsaved edits, email/password reauthentication to
+the same account can restore the in-memory draft. Google sign-in leaves the
+page, so the account panel requires a local backup download and a separate
+Continue action first. The user can import that backup in Settings afterward.
+This path never stores financial drafts or auth tokens in browser storage and
+must not expose a retained draft after a different account signs in.
+
+Before publishing, check a new Google account and an existing confirmed email
+account using the same verified address. Supabase's automatic identity linking
+should preserve the existing user ID and saved plan; verify that result without
+overwriting the plan. Check cancellation, keyboard use, narrow screens, and an
+email/password sign-in regression. Automated browser cases in
+`tests/e2e/google-signin.spec.ts` mock all provider traffic and writes; run those
+against a cloud-configured build as well as the Demo-only CI build.
+
+References: [Supabase Google sign-in](https://supabase.com/docs/guides/auth/social-login/auth-google),
+[identity linking](https://supabase.com/docs/guides/auth/auth-identity-linking), and
+[Google button branding](https://developers.google.com/identity/branding-guidelines).
+
 ## Exact Supabase setup
 
 1. Create one Supabase Free project. Select the desired region and record its

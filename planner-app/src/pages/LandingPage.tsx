@@ -9,9 +9,11 @@ import { formatCadMetric } from '../lib/formatters';
 
 interface LandingPageProps {
   onTryDemo: (preset?: DemoPresetId) => void;
+  hasSuspendedCloudDraft?: boolean;
+  onExportSuspendedCloudDraft?: () => boolean;
 }
 
-export function LandingPage({ onTryDemo }: LandingPageProps) {
+export function LandingPage({ onTryDemo, hasSuspendedCloudDraft = false, onExportSuspendedCloudDraft }: LandingPageProps) {
   const { configured } = useAuth();
   const [preset, setPreset] = useState<DemoPresetId>('alex');
   const openDemo = () => onTryDemo(preset);
@@ -113,7 +115,7 @@ export function LandingPage({ onTryDemo }: LandingPageProps) {
             </p>
             <button className="button button-secondary" type="button" onClick={openDemo}>Open Demo Mode</button>
           </div>
-          <AuthPanel />
+          <AuthPanel hasSuspendedCloudDraft={hasSuspendedCloudDraft} onExportSuspendedCloudDraft={onExportSuspendedCloudDraft} />
         </section>
 
         <section className="planner-disclaimer" aria-label="Important disclaimer">

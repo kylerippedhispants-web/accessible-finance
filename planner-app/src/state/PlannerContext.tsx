@@ -23,6 +23,7 @@ import {
   savePlannerSnapshot,
 } from '../data/supabaseRepository';
 import { formatValidationError, plannerSnapshotSchema } from '../validation/planSchemas';
+import { downloadPlanExport } from '../data/planTransfer';
 
 export type PlannerMode = 'demo' | 'cloud';
 export type SaveState = 'idle' | 'saving' | 'saved' | 'offline' | 'conflict' | 'error';
@@ -34,6 +35,8 @@ interface PlannerContextValue {
   loadError?: string;
   onboardingRequired: boolean;
   dirty: boolean;
+  hasSuspendedCloudDraft: boolean;
+  exportSuspendedCloudDraft: () => boolean;
   offline: boolean;
   saveState: SaveState;
   saveMessage?: string;
@@ -168,6 +171,7 @@ export function PlannerProvider({ children }: PropsWithChildren) {
   const [loadAttempt, setLoadAttempt] = useState(0);
   const [onboardingRequired, setOnboardingRequired] = useState(false);
   const [dirty, setDirty] = useState(false);
+  const [suspendedDraftAvailable, setSuspendedDraftAvailable] = useState(false);
   const [offline, setOffline] = useState(() => typeof navigator !== 'undefined' && !navigator.onLine);
   const [saveState, setSaveState] = useState<SaveState>('idle');
   const [saveMessage, setSaveMessage] = useState<string>();
@@ -183,11 +187,15 @@ export function PlannerProvider({ children }: PropsWithChildren) {
   const inFlightSaveRef = useRef<Promise<boolean> | null>(null);
   const conflictBlockedRef = useRef(false);
   const suspendedDraftRef = useRef<SuspendedCloudDraft | undefined>(undefined);
+  const suspendedExportEligibleRef = useRef<SuspendedCloudDraft | undefined>(undefined);
+  const backedUpSuspendedDraftRef = useRef<SuspendedCloudDraft | undefined>(undefined);
 
   const userId = auth.user?.id;
   const firstName = userFirstName(auth.user?.user_metadata);
   const mode: PlannerMode | null = userId ? 'cloud' : manualMode;
   const effectiveLoading = loading || Boolean(userId && activeCloudUserId !== userId);
+  const hasSuspendedCloudDraft = !userId
+    && (suspendedDraftAvailable || (!manualMode && dirty && snapshot !== null));
 
   const installSnapshot = useCallback((next: PlannerSnapshot | null) => {
     snapshotRef.current = next;
@@ -245,6 +253,12 @@ export function PlannerProvider({ children }: PropsWithChildren) {
           revision: revisionRef.current,
           onboardingRequired: onboardingRequiredRef.current,
         };
+        suspendedExportEligibleRef.current = suspendedDraftRef.current;
+        backedUpSuspendedDraftRef.current = undefined;
+        setSuspendedDraftAvailable(true);
+      } else if (previousUserId) {
+        suspendedExportEligibleRef.current = undefined;
+        setSuspendedDraftAvailable(false);
       }
       activeCloudUserRef.current = undefined;
       setActiveCloudUserId(undefined);
@@ -263,6 +277,10 @@ export function PlannerProvider({ children }: PropsWithChildren) {
       return undefined;
     }
 
+    // A later account must never be offered another user's retained draft.
+    // Matching-user restoration below remains available while this page lives.
+    suspendedExportEligibleRef.current = undefined;
+    setSuspendedDraftAvailable(false);
     const previousUserId = activeCloudUserRef.current;
     if (previousUserId && previousUserId !== nextUserId && snapshotRef.current && dirtyRef.current) {
       suspendedDraftRef.current = {
@@ -272,6 +290,7 @@ export function PlannerProvider({ children }: PropsWithChildren) {
         revision: revisionRef.current,
         onboardingRequired: onboardingRequiredRef.current,
       };
+      backedUpSuspendedDraftRef.current = undefined;
     }
 
     activeCloudUserRef.current = nextUserId;
@@ -308,6 +327,7 @@ export function PlannerProvider({ children }: PropsWithChildren) {
 
         if (suspended) {
           suspendedDraftRef.current = undefined;
+          backedUpSuspendedDraftRef.current = undefined;
           installSnapshot(suspended.snapshot);
           lastSavedRef.current = validated?.success ? validated.data : suspended.lastSaved;
           revisionRef.current = loadedRevision;
@@ -373,12 +393,30 @@ export function PlannerProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     const warnIfDirty = (event: BeforeUnloadEvent) => {
-      if (!dirtyRef.current) return;
+      const unbackedSuspended = suspendedDraftRef.current
+        && suspendedExportEligibleRef.current === suspendedDraftRef.current
+        && backedUpSuspendedDraftRef.current !== suspendedDraftRef.current;
+      if (!dirtyRef.current && !unbackedSuspended) return;
       event.preventDefault();
     };
     window.addEventListener('beforeunload', warnIfDirty);
     return () => window.removeEventListener('beforeunload', warnIfDirty);
   }, []);
+
+  const exportSuspendedCloudDraft = useCallback((): boolean => {
+    const suspended = suspendedDraftRef.current;
+    if (userId || activeCloudUserRef.current || !suspended
+      || suspendedExportEligibleRef.current !== suspended) return false;
+    try {
+      downloadPlanExport(suspended.snapshot, 'accessible-finance-unsaved-plan.json');
+      // This marks a download request, not a guaranteed file save. The account
+      // panel still asks the reader to confirm the backup before leaving.
+      backedUpSuspendedDraftRef.current = suspended;
+      return true;
+    } catch {
+      return false;
+    }
+  }, [userId]);
 
   const startDemo = useCallback((preset?: DemoPresetId) => {
     const next = preset ? createDemoSnapshot(preset) : readDemoSnapshot() ?? createDemoSnapshot();
@@ -551,6 +589,9 @@ export function PlannerProvider({ children }: PropsWithChildren) {
   const discardAndReloadCloud = useCallback(() => {
     if (!userId) return;
     suspendedDraftRef.current = undefined;
+    suspendedExportEligibleRef.current = undefined;
+    backedUpSuspendedDraftRef.current = undefined;
+    setSuspendedDraftAvailable(false);
     conflictBlockedRef.current = false;
     revisionRef.current = null;
     lastSavedRef.current = null;
@@ -570,6 +611,8 @@ export function PlannerProvider({ children }: PropsWithChildren) {
     loadError,
     onboardingRequired,
     dirty,
+    hasSuspendedCloudDraft,
+    exportSuspendedCloudDraft,
     offline,
     saveState,
     saveMessage,
@@ -588,6 +631,8 @@ export function PlannerProvider({ children }: PropsWithChildren) {
     discardAndReloadCloud,
     exitDemo,
     effectiveLoading,
+    exportSuspendedCloudDraft,
+    hasSuspendedCloudDraft,
     loadError,
     mode,
     offline,
