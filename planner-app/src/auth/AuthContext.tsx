@@ -9,6 +9,7 @@ import {
   useState,
 } from 'react';
 import { getSupabaseClient, isCloudConfigured } from '../lib/supabase';
+import { parseOAuthCallbackError } from './oauth';
 
 interface AuthResult {
   error?: string;
@@ -21,7 +22,10 @@ interface AuthContextValue {
   session: Session | null;
   user: User | null;
   recoveryMode: boolean;
+  authError?: string;
+  clearAuthError: () => void;
   signIn: (email: string, password: string) => Promise<AuthResult>;
+  signInWithGoogle: () => Promise<AuthResult>;
   signUp: (email: string, password: string, firstName: string) => Promise<AuthResult>;
   sendPasswordReset: (email: string) => Promise<AuthResult>;
   updatePassword: (password: string) => Promise<AuthResult>;
@@ -70,22 +74,35 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState<Session | null>(null);
   const [ready, setReady] = useState(!isCloudConfigured);
   const [recoveryMode, setRecoveryMode] = useState(false);
+  const [authError, setAuthError] = useState<string>();
 
   useEffect(() => {
     const supabase = getSupabaseClient();
     if (!supabase) return;
 
     let active = true;
+    const callbackError = parseOAuthCallbackError(window.location.href);
+    if (callbackError) setAuthError(callbackError.message);
     void supabase.auth.getSession()
-      .then(({ data }) => {
+      .then(({ data, error }) => {
         if (!active) return;
         setSession(data.session);
+        if (error) setAuthError(callbackError?.message ?? friendlyAuthError(error));
       })
-      .catch(() => {
-        if (active) setSession(null);
+      .catch((error: unknown) => {
+        if (!active) return;
+        setSession(null);
+        setAuthError(callbackError?.message ?? friendlyAuthError(error));
       })
       .finally(() => {
-        if (active) setReady(true);
+        if (!active) return;
+        // Re-read the current URL after SDK initialization. Never restore a
+        // captured URL that might contain tokens the SDK has already removed.
+        const remainingError = parseOAuthCallbackError(window.location.href);
+        if (remainingError) {
+          window.history.replaceState(window.history.state, '', remainingError.cleanedUrl);
+        }
+        setReady(true);
       });
 
     const { data } = supabase.auth.onAuthStateChange((event, nextSession) => {
@@ -93,6 +110,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       setSession(nextSession);
       if (event === 'PASSWORD_RECOVERY') setRecoveryMode(true);
       if (event === 'SIGNED_OUT' || event === 'SIGNED_IN') setRecoveryMode(false);
+      if (event === 'SIGNED_IN') setAuthError(undefined);
       setReady(true);
     });
 
@@ -100,6 +118,21 @@ export function AuthProvider({ children }: PropsWithChildren) {
       active = false;
       data.subscription.unsubscribe();
     };
+  }, []);
+
+  const signInWithGoogle = useCallback(async (): Promise<AuthResult> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return unavailable();
+    setAuthError(undefined);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: `${window.location.origin}/planner/dashboard` },
+      });
+      return error ? { error: friendlyAuthError(error) } : {};
+    } catch (error) {
+      return { error: friendlyAuthError(error) };
+    }
   }, []);
 
   const signIn = useCallback(async (email: string, password: string): Promise<AuthResult> => {
@@ -182,6 +215,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
   }, []);
 
   const clearRecoveryMode = useCallback(() => setRecoveryMode(false), []);
+  const clearAuthError = useCallback(() => setAuthError(undefined), []);
 
   const value = useMemo<AuthContextValue>(() => ({
     configured: isCloudConfigured,
@@ -189,13 +223,16 @@ export function AuthProvider({ children }: PropsWithChildren) {
     session,
     user: session?.user ?? null,
     recoveryMode,
+    authError,
+    clearAuthError,
     signIn,
+    signInWithGoogle,
     signUp,
     sendPasswordReset,
     updatePassword,
     signOut,
     clearRecoveryMode,
-  }), [clearRecoveryMode, ready, recoveryMode, sendPasswordReset, session, signIn, signOut, signUp, updatePassword]);
+  }), [authError, clearAuthError, clearRecoveryMode, ready, recoveryMode, sendPasswordReset, session, signIn, signInWithGoogle, signOut, signUp, updatePassword]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

@@ -1,9 +1,14 @@
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useEffect, useRef, useState } from 'react';
 import { useAuth } from './AuthContext';
 
 type AuthView = 'sign-in' | 'sign-up' | 'forgot';
 
-export function AuthPanel() {
+interface AuthPanelProps {
+  hasSuspendedCloudDraft?: boolean;
+  onExportSuspendedCloudDraft?: () => boolean;
+}
+
+export function AuthPanel({ hasSuspendedCloudDraft = false, onExportSuspendedCloudDraft }: AuthPanelProps) {
   const auth = useAuth();
   const [view, setView] = useState<AuthView>('sign-in');
   const [email, setEmail] = useState('');
@@ -12,12 +17,31 @@ export function AuthPanel() {
   const [confirmation, setConfirmation] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [googleBusy, setGoogleBusy] = useState(false);
+  const [googleDraftPrompt, setGoogleDraftPrompt] = useState(false);
+  const [googleBackupReady, setGoogleBackupReady] = useState(false);
+  const [googleBackupError, setGoogleBackupError] = useState(false);
   const [message, setMessage] = useState<string>();
   const [isError, setIsError] = useState(false);
   const [invalidField, setInvalidField] = useState<'email' | 'firstName' | 'password' | 'confirmation'>();
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const googleDraftTitleRef = useRef<HTMLHeadingElement>(null);
+  const accountMessage = message || auth.authError;
+  const accountError = message ? isError : Boolean(auth.authError);
+
+  useEffect(() => {
+    // OAuth returns to the landing page when sign-in is cancelled or fails.
+    // Bring the account panel into view and announce its heading to keyboard users.
+    if (auth.authError) titleRef.current?.focus();
+  }, [auth.authError]);
+
+  useEffect(() => {
+    if (googleDraftPrompt) googleDraftTitleRef.current?.focus();
+  }, [googleDraftPrompt]);
 
   const chooseView = (nextView: AuthView) => {
     if (busy) return;
+    auth.clearAuthError();
     setView(nextView);
     setMessage(undefined);
     setIsError(false);
@@ -25,12 +49,14 @@ export function AuthPanel() {
     setPassword('');
     setConfirmation('');
     setShowPassword(false);
+    setGoogleDraftPrompt(false);
   };
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
     if (busy || !auth.configured) return;
     setBusy(true);
+    auth.clearAuthError();
     setMessage(undefined);
     setIsError(false);
     setInvalidField(undefined);
@@ -88,6 +114,51 @@ export function AuthPanel() {
     }
   };
 
+  const signInWithGoogle = async () => {
+    if (busy || !auth.configured) return;
+    if (hasSuspendedCloudDraft && !googleBackupReady) {
+      setGoogleDraftPrompt(true);
+      return;
+    }
+    setBusy(true);
+    setGoogleBusy(true);
+    setMessage(undefined);
+    setIsError(false);
+    setInvalidField(undefined);
+    auth.clearAuthError();
+    try {
+      const result = await auth.signInWithGoogle();
+      if (result.error) {
+        setMessage(result.error);
+        setIsError(true);
+      }
+    } catch {
+      setMessage('We could not open Google sign-in. Check your connection and try again.');
+      setIsError(true);
+    } finally {
+      // The SDK starts navigation before resolving. Clear the busy state so
+      // returning with the browser Back button leaves the form usable.
+      setBusy(false);
+      setGoogleBusy(false);
+    }
+  };
+
+  const requestGoogleSignIn = () => {
+    if (hasSuspendedCloudDraft) setGoogleDraftPrompt(true);
+    else void signInWithGoogle();
+  };
+
+  const downloadUnsavedChanges = () => {
+    try {
+      const downloaded = onExportSuspendedCloudDraft?.() ?? false;
+      setGoogleBackupReady(downloaded);
+      setGoogleBackupError(!downloaded);
+    } catch {
+      setGoogleBackupReady(false);
+      setGoogleBackupError(true);
+    }
+  };
+
   if (!auth.configured) {
     return (
       <section className="auth-panel" aria-labelledby="auth-title">
@@ -125,7 +196,7 @@ export function AuthPanel() {
 
       <div className="auth-panel-body" id="account-access-panel">
         <span className="eyebrow">Cloud saved plan</span>
-        <h2 id="auth-title">
+        <h2 id="auth-title" ref={titleRef} tabIndex={-1}>
           {view === 'sign-in' && 'Welcome back.'}
           {view === 'sign-up' && 'Start a private plan.'}
           {view === 'forgot' && 'Reset your password.'}
@@ -135,6 +206,28 @@ export function AuthPanel() {
             ? 'Enter the email attached to your account and we will send a secure reset link.'
             : 'Your inputs sync through your own account. Projections still run locally in this browser.'}
         </p>
+
+        {view !== 'forgot' && (
+          <div className="auth-google-option">
+            <button className="auth-google" type="button" onClick={requestGoogleSignIn} disabled={busy} aria-busy={googleBusy}>
+              <img src="/assets/auth/google-signin-light.svg" alt="" width="180" height="40" aria-hidden="true" />
+              <span className="sr-only">Sign in with Google</span>
+            </button>
+            {googleBusy && <p className="auth-google-status" role="status">Opening Google…</p>}
+            {googleDraftPrompt && hasSuspendedCloudDraft && (
+              <section className="auth-draft-warning" aria-labelledby="auth-google-draft-title">
+                <h3 id="auth-google-draft-title" ref={googleDraftTitleRef} tabIndex={-1}>Keep a copy of your unsaved changes</h3>
+                <p>Your session ended with unsaved edits. Google sign-in leaves this page, so download a backup first. After signing in, import it from Settings to restore those edits.</p>
+                <p>Signing back into the same account with email and password keeps these edits open here.</p>
+                <button className="button button-secondary button-wide" type="button" onClick={downloadUnsavedChanges} disabled={busy}>Download unsaved changes</button>
+                {googleBackupError && <p className="form-status error" role="alert">The backup could not be downloaded. Try again or sign in with email and password.</p>}
+                {googleBackupReady && <p className="form-status" role="status">Backup download started. Keep that file private and confirm it has saved before continuing.</p>}
+                <button className="button button-primary button-wide" type="button" onClick={() => void signInWithGoogle()} disabled={busy || !googleBackupReady}>Continue to Google</button>
+              </section>
+            )}
+            <p className="auth-divider">or continue with email</p>
+          </div>
+        )}
 
         <form onSubmit={submit} noValidate aria-busy={busy}>
           {view === 'sign-up' && (
@@ -149,7 +242,7 @@ export function AuthPanel() {
                   if (invalidField === 'firstName') setInvalidField(undefined);
                 }}
                 disabled={!auth.configured || busy}
-                aria-describedby={message ? 'auth-form-message' : undefined}
+                aria-describedby={accountMessage ? 'auth-form-message' : undefined}
                 aria-invalid={invalidField === 'firstName' ? true : undefined}
                 required
               />
@@ -167,17 +260,18 @@ export function AuthPanel() {
                 if (invalidField === 'email') setInvalidField(undefined);
               }}
               disabled={!auth.configured || busy}
-              aria-describedby={message ? 'auth-form-message' : undefined}
+              aria-describedby={accountMessage ? 'auth-form-message' : undefined}
               aria-invalid={invalidField === 'email' ? true : undefined}
               required
             />
           </label>
           {view !== 'forgot' && (
             <label>
-              <span>Password</span>
+              <span id="auth-password-label">Password</span>
               <span className="password-input">
                 <input
                   type={showPassword ? 'text' : 'password'}
+                  aria-labelledby="auth-password-label"
                   autoComplete={view === 'sign-up' ? 'new-password' : 'current-password'}
                   value={password}
                   onChange={(event) => {
@@ -186,7 +280,7 @@ export function AuthPanel() {
                   }}
                   disabled={!auth.configured || busy}
                   minLength={8}
-                  aria-describedby={message ? 'auth-form-message' : undefined}
+                  aria-describedby={accountMessage ? 'auth-form-message' : undefined}
                   aria-invalid={invalidField === 'password' ? true : undefined}
                   required
                 />
@@ -216,16 +310,16 @@ export function AuthPanel() {
                 }}
                 disabled={!auth.configured || busy}
                 minLength={8}
-                aria-describedby={message ? 'auth-form-message' : undefined}
+                aria-describedby={accountMessage ? 'auth-form-message' : undefined}
                 aria-invalid={invalidField === 'confirmation' ? true : undefined}
                 required
               />
             </label>
           )}
 
-          {message && (
-            <p className={`form-status${isError ? ' error' : ''}`} role={isError ? 'alert' : 'status'}>
-              <span id="auth-form-message">{message}</span>
+          {accountMessage && (
+            <p className={`form-status${accountError ? ' error' : ''}`} role={accountError ? 'alert' : 'status'}>
+              <span id="auth-form-message">{accountMessage}</span>
             </p>
           )}
 
@@ -235,12 +329,12 @@ export function AuthPanel() {
         </form>
 
         {view === 'sign-in' && (
-          <button className="text-button" type="button" onClick={() => chooseView('forgot')}>
+          <button className="text-button" type="button" onClick={() => chooseView('forgot')} disabled={busy}>
             Forgot your password?
           </button>
         )}
         {view === 'forgot' && (
-          <button className="text-button" type="button" onClick={() => chooseView('sign-in')}>
+          <button className="text-button" type="button" onClick={() => chooseView('sign-in')} disabled={busy}>
             Back to sign in
           </button>
         )}

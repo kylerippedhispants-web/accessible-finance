@@ -46,7 +46,7 @@ function PlannerGate() {
 
 function StartRoute() {
   const planner = usePlanner();
-  if (!planner.mode) return <LandingPage onTryDemo={planner.startDemo} />;
+  if (!planner.mode) return <LandingPage onTryDemo={planner.startDemo} hasSuspendedCloudDraft={planner.hasSuspendedCloudDraft} onExportSuspendedCloudDraft={planner.exportSuspendedCloudDraft} />;
   if (planner.loading) return <PlannerLoading />;
   return <Navigate to={planner.onboardingRequired ? '/onboarding' : '/dashboard'} replace />;
 }
