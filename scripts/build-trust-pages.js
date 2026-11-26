@@ -138,7 +138,7 @@ buildPage({
 
   <section>
     <h2>Ads, referrals, and <em>independence</em></h2>
-    <p>A limited number of display ads may help pay for hosting and upkeep. Separate referral pages may contain tracked links. Advertising and referral relationships do not purchase coverage, determine conclusions, or create paid rankings. Pages that primarily present referral offers do not carry display advertising.</p>
+    <p>A limited number of display ads may help pay for hosting and upkeep. Rewards pages and the labelled Wealthsimple offer on the Canadian homepage may contain tracked referral links. Advertising and referral relationships do not purchase coverage, determine conclusions, or create paid rankings. Pages that primarily present referral offers do not carry display advertising.</p>
     <p>Commercial relationships are disclosed where relevant and in the <a href="disclaimer.html">site disclaimer</a>. We do not ask readers to click ads or describe an advertisement as an endorsement.</p>
   </section>
 
