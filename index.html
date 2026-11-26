@@ -1008,6 +1008,73 @@ footer.site-footer {
   .newsletter-box { padding: 40px 28px; }
   .hero-card-wrap::before { right: 40px; bottom: 40px; }
 }
+.wealthsimple-referral {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-8) var(--space-12);
+  align-items: start;
+  margin: var(--space-16) var(--page-gutter) 0;
+  padding: var(--space-16);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-inline-start: 3px solid var(--green);
+  border-radius: 0.75rem;
+  color: var(--ink);
+  font: var(--type-control)/var(--line-label) var(--sans);
+}
+
+.wealthsimple-referral[hidden] { display: none; }
+.wealthsimple-referral-label { color: var(--green); font-weight: 600; }
+.wealthsimple-referral h2 {
+  margin: var(--space-4) 0 0;
+  font: var(--type-subheading)/var(--line-heading) var(--serif);
+}
+.wealthsimple-referral-disclosure {
+  grid-column: 1 / -1;
+  color: var(--ink2);
+}
+.wealthsimple-referral-dismiss {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  background: var(--bg-warm);
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  color: var(--ink);
+  cursor: pointer;
+  font: 1.5rem/1 var(--sans);
+}
+.wealthsimple-referral-link {
+  grid-column: 1 / -1;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: var(--space-8) var(--space-16);
+  border-radius: 2rem;
+  background: var(--ink);
+  color: var(--surface);
+  font-weight: 600;
+}
+.wealthsimple-referral-link:hover { background: var(--green); }
+.wealthsimple-referral :is(a, button):focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+@media (min-width: 64rem) and (min-height: 40rem) {
+  .wealthsimple-referral {
+    position: fixed;
+    inset-inline-end: var(--space-24);
+    bottom: var(--space-24);
+    z-index: 20;
+    width: 21rem;
+    margin: 0;
+    padding: var(--space-20);
+    box-shadow: 0 0.5rem 2rem rgb(26 24 22 / 12%);
+  }
+}
 </style>
 <link rel="stylesheet" href="site-language.css?v=20260801">
 <link rel="stylesheet" href="site-region.css?v=20260801">
@@ -1084,11 +1151,57 @@ footer.site-footer {
 </div>
 
 <main id="main-content" tabindex="-1">
+<aside class="wealthsimple-referral" id="wealthsimple-referral" aria-labelledby="wealthsimple-referral-title" hidden>
+  <div>
+    <p class="wealthsimple-referral-label">Referral offer</p>
+    <h2 id="wealthsimple-referral-title">New to Wealthsimple?</h2>
+  </div>
+  <button type="button" class="wealthsimple-referral-dismiss" aria-label="Dismiss Wealthsimple referral">×</button>
+  <p class="wealthsimple-referral-disclosure">Accessible Finance may receive a reward if you sign up through this link and meet Wealthsimple’s terms.</p>
+  <a class="wealthsimple-referral-link" href="https://www.wealthsimple.com/invite/BZJM-A" rel="sponsored nofollow noreferrer">Visit Wealthsimple</a>
+</aside>
+<script>
+  (() => {
+    const offer = document.getElementById('wealthsimple-referral');
+    const dismissalKey = 'af-wealthsimple-referral-dismissed';
+    try {
+      if (localStorage.getItem(dismissalKey) === '1') return;
+    } catch {
+      // The offer is optional when the browser cannot remember dismissal.
+      return;
+    }
+
+    function hideOffer() {
+      offer.hidden = true;
+      try { localStorage.setItem(dismissalKey, '1'); } catch { /* Storage can become unavailable. */ }
+    }
+
+    function dismissOffer() {
+      hideOffer();
+      const heading = document.querySelector('.hero h1');
+      const bounds = heading.getBoundingClientRect();
+      const focusTarget = bounds.bottom > 0 && bounds.top < window.innerHeight
+        ? heading
+        : document.querySelector('.nav-logo');
+      focusTarget.focus({ preventScroll: true });
+    }
+
+    offer.querySelector('button').addEventListener('click', dismissOffer);
+    offer.querySelector('a').addEventListener('click', hideOffer);
+    offer.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      event.preventDefault();
+      event.stopPropagation();
+      dismissOffer();
+    });
+    offer.hidden = false;
+  })();
+</script>
 <!-- ═══════════════ HERO ═══════════════ -->
 <section class="hero">
   <div>
     <span class="eyebrow">Free financial education · Start where you are</span>
-    <h1>Understand your money,<br><em>one clear step</em><br>at a time.</h1>
+    <h1 tabindex="-1">Understand your money,<br><em>one clear step</em><br>at a time.</h1>
     <p class="hero-sub">Free guides and practical tools for budgeting, investing, and planning ahead. Start with everyday money questions, then explore the choices that matter to you.</p>
     <div class="hero-actions">
       <a href="start-here.html" class="btn-primary">Start with the basics
