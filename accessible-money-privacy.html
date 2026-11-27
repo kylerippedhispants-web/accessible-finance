@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="How Accessible Money handles on-device financial records, security, backups, sharing, deletion, and privacy questions.">
+  <meta name="description" content="How Accessible Money handles local financial records, optional website planner sign-in, backups, sharing and deletion.">
   <link rel="canonical" href="https://accessible-finance.com/accessible-money-privacy.html">
   <title>Accessible Money Privacy Policy</title>
   <style>
@@ -18,12 +18,19 @@
 <body>
   <main>
     <h1>Accessible Money Privacy Policy</h1>
-    <p><strong>Effective date: October 25, 2026</strong></p>
-    <p>Accessible Money is a personal finance tracking and educational planning app from Accessible Finance. This policy describes the Android app, package <strong>ca.accessiblefinance.mobile</strong>. The Accessible Finance website and its optional cloud Planner are separate services covered by the <a href="https://accessible-finance.com/privacy">website privacy policy</a>.</p>
+    <p><strong>Last updated November 26, 2026</strong></p>
+    <p>Accessible Money is a personal finance tracking and educational planning app from Accessible Finance. This policy describes the Android app, package <strong>ca.accessiblefinance.mobile</strong>. Version 1.2.0 adds an optional viewer for plans saved to the Accessible Finance website. The website also explains its data practices in the <a href="https://accessible-finance.com/privacy">website privacy policy</a>.</p>
 
-    <h2>Your information stays on your device during ordinary use</h2>
-    <p>The app stores the information you enter on your device and uses it to display your records and calculate budgets, reports, net worth, goals, and illustrative FIRE targets. It does not connect to your bank, create an online account, automatically synchronize with the website Planner, or upload your financial records to Accessible Finance.</p>
+    <h2>Records you enter on your phone</h2>
+    <p>The app stores the information you enter on your device and uses it to display your records and calculate budgets, reports, net worth, goals, and illustrative FIRE targets. You can use these tools without a website account. Your accounts, transactions, budgets, goals and FIRE inputs stay on the phone unless you choose to export them.</p>
     <p>Local records can include your optional profile name, currency and region preferences, account names and balances, transactions and notes, categories, budgets, savings goals, categorization rules, net-worth history, and FIRE planning inputs. An older profile or an imported backup may also contain an email address. This is a local profile field, not a requirement to sign up for an online service.</p>
+
+    <h2>Optional website planner in version 1.2.0</h2>
+    <p>Earlier Android versions do not include this connection. In version 1.2.0, choosing <strong>More → Website planner</strong> lets you sign in and view the plan and scenarios you saved on the Accessible Finance website.</p>
+    <p>For email sign-in, the app sends your website email and password over an encrypted connection to Supabase, which hosts the Planner’s authentication and database services. For Google sign-in, the app opens your browser. Google verifies your identity and shares your account identifier, verified email address and basic profile information with Supabase. Google handles sign-in under its <a href="https://policies.google.com/privacy">privacy policy</a>. The app receives a session for your website account. Supabase processes account identifiers, authentication events and related security information to verify access.</p>
+    <p>Once signed in, the app uses that session to request your saved Planner profile, plan assumptions, income, expenses, assets, debts, retirement settings and scenarios from Supabase over an encrypted connection. The app displays the results and calculates projections on your device. Refresh requests the latest saved version. Website planner access is read-only. Your phone’s local ledger is separate. Your financial inputs are not sent to Google for sign-in.</p>
+    <p>The app holds its Planner session in memory and clears the plan from the viewer when you leave the screen, lock the app or put it in the background. The plan can load again if you return while signed in. Disconnect ends the app’s session, and closing the app process clears its in-memory credentials. Encrypted phone backups exclude the website plan and its session.</p>
+    <p>Disconnecting or clearing the app’s storage leaves your website account and cloud plan in place. You can edit your saved inputs on the <a href="https://accessible-finance.com/planner/">website Planner</a>. To request deletion of the Planner account and its associated data, use the <a href="https://accessible-finance.com/contact">contact page</a>. The website privacy policy linked above explains cloud retention, including backups and security records.</p>
 
     <h2>App lock and security</h2>
     <p>The app encrypts its financial database on the device. The database key and local app-lock credentials are stored using the operating system's secure storage. You may choose an app PIN and, on supported devices, biometric unlock. Biometric authentication is handled by the operating system; Accessible Money does not receive or store your fingerprint or facial biometric template.</p>
